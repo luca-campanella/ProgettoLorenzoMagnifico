@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
-public interface RMIClientInterface {
+import java.rmi.Remote;
+
+public interface RMIClientInterface extends Remote {
 
 }
