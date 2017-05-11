@@ -34,7 +34,7 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
 	@Override
 	protected void startServer() throws ServerException
 	{
-		Debug.printDebug("I'm starting the RMI server on port " + port);
+		Debug.printDebug("I'm starting the RMI server on port " + getPort());
         this.createOrLoadRegistry();
         this.publishObj();
         Debug.printDebug("RMI server started");
@@ -47,12 +47,12 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
 	private void createOrLoadRegistry() throws ServerException
     {
         try {
-            registry = LocateRegistry.createRegistry(port);
+            registry = LocateRegistry.createRegistry(getPort());
         } catch(RemoteException e) {
             Debug.printDebug("RMI registry already exists", e);
         }
         try {
-            registry = LocateRegistry.getRegistry(port);
+            registry = LocateRegistry.getRegistry(getPort());
         } catch(RemoteException e) {
             Debug.printDebug("RMI registry not found", e);
             throw new ServerException("Cannot load or create the RMI registry");
@@ -66,7 +66,7 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
     private void publishObj() throws ServerException
     {
         try {
-            UnicastRemoteObject.exportObject(this, port);
+            UnicastRemoteObject.exportObject(this, getPort());
             registry.rebind("RMIServerInterface", this);
         } catch(RemoteException e) {
             Debug.printError("Unable to publish object", e);

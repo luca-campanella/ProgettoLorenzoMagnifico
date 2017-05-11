@@ -26,7 +26,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     public RMIClient(ClientMain controllerMain, String serverAddress, int port) {
         super(controllerMain, serverAddress, port);
     }
-    
+
     /**
      * Performs the RMI operations to get "open" a RMI connection with the server
      * @throws ClientConnectionException if it can't find either the sever either the server class or it can't pulbish itself on the registry

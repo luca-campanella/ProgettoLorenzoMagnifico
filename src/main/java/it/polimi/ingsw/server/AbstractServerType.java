@@ -10,8 +10,8 @@ public abstract class AbstractServerType {
 	/**
 	 * The instance of the main server class in order to be able to call methods on it, like loginPlayer
 	 */
-	protected ServerMain serverMainInst;
-	protected int port;
+	private ServerMain serverMainInst;
+	private int port;
 	
 	/**
 	 * Creates a new server 
@@ -35,4 +35,12 @@ public abstract class AbstractServerType {
 	 * @throws ServerException if a problem is encountered closing the server
 	 */
 	public abstract void closeServer() throws ServerException;
+
+	public ServerMain getServerMainInst() {
+		return serverMainInst;
+	}
+
+	public int getPort() {
+		return port;
+	}
 }
