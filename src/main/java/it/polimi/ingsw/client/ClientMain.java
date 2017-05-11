@@ -38,6 +38,7 @@ public class ClientMain {
                 clientNetwork.connect();
             } catch (ClientConnectionException e) {
                 e.printStackTrace();
+                //TODO: handling no Connection
             }
         }
         else {//Here enters if network type is a socket
