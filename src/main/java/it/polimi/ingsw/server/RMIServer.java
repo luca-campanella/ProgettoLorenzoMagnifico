@@ -73,6 +73,11 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
             throw new ServerException("Cannot publish server object \"RMIServerInterface\"");
         }
     }
+
+    /**
+     * Used to close the server when it's needed no more
+     * @throws ServerException
+     */
     @Override
 	public void closeServer() throws ServerException
 	{

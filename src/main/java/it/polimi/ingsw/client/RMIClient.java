@@ -17,18 +17,25 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     private Registry registry;
     private RMIServerInterface RMIServerInterfaceInst;
 
+    /**
+     * Constructor of RMIClient, it should be called before connect(), sets the parmeters using the super constructor of AbstractClientType
+     * @param controllerMain the istance of ClientMain, to call callback functions
+     * @param serverAddress the address to connect to
+     * @param port the port to connect to
+     */
     public RMIClient(ClientMain controllerMain, String serverAddress, int port) {
         super(controllerMain, serverAddress, port);
-        Debug.printDebug("Creator of RMIClient called");
     }
-
+    
+    /**
+     * Performs the RMI operations to get "open" a RMI connection with the server
+     * @throws ClientConnectionException if it can't find either the sever either the server class or it can't pulbish itself on the registry
+     */
     @Override
     public void connect() throws ClientConnectionException {
         try {
             registry = LocateRegistry.getRegistry(serverAddress, port);
-            Debug.printDebug("Got Registry");
             RMIServerInterfaceInst = (RMIServerInterface) registry.lookup("RMIServerInterface");
-            Debug.printDebug("Got Object");
             UnicastRemoteObject.exportObject(this, 0); //with 0 exports the object on a random port
             Debug.printDebug("RMI Client connected succesfully");
 

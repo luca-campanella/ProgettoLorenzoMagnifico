@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.exceptions.ClientConnectionException;
+import it.polimi.ingsw.utils.Debug;
 
 /**
  * TEST
@@ -17,6 +18,7 @@ public class ClientMain {
         }
     }
     public static void main(String args[]) {
+        Debug.instance(Debug.LEVEL_NORMAL);
         new ClientMain();
     }
 }
