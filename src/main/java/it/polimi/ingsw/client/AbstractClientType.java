@@ -14,17 +14,17 @@ public abstract class AbstractClientType  {
     /**
      * the instance of the controller to call the callback functions and communicate from server to client
      */
-    protected ClientMain controllerMain;
+    private ClientMain controllerMain;
 
     /**
      * The address of the server to connect to
      */
-    protected String serverAddress;
+    private String serverAddress;
 
     /**
      * the port of the server to connect to
      */
-    protected int port;
+    private int port;
 
 
     public abstract void connect() throws ClientConnectionException;
@@ -51,4 +51,16 @@ public abstract class AbstractClientType  {
      * @throws NetworkException if something goes wrong during the connection
      */
     public abstract void registerPlayer(String nickname, String password) throws NetworkException;
+
+    public ClientMain getControllerMain() {
+        return controllerMain;
+    }
+
+    public String getServerAddress() {
+        return serverAddress;
+    }
+
+    public int getPort() {
+        return port;
+    }
 }

@@ -1,9 +1,11 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.exceptions.ClientConnectionException;
+import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.server.RMIServerInterface;
 import it.polimi.ingsw.utils.Debug;
 
+import javax.security.auth.login.LoginException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.*;
@@ -25,6 +27,31 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     public RMIClient(ClientMain controllerMain, String serverAddress, int port) {
         super(controllerMain, serverAddress, port);
+    }
+
+    /**
+     * this method is used when an user already exists and decides to login with his username and password, real implementation of the abstract method
+     *
+     * @param nickname
+     * @param password
+     * @throws NetworkException if something goes wrong during the connection
+     * @throws LoginException   if username doesn't exist or if password is wrong
+     */
+    @Override
+    public void loginPlayer(String nickname, String password) throws NetworkException, LoginException {
+
+    }
+
+    /**
+     * this method is used when the user has never played and wants to create an account, real implementation of the abstract method
+     *
+     * @param nickname to register in the server DB
+     * @param password to register in the server DB
+     * @throws NetworkException if something goes wrong during the connection
+     */
+    @Override
+    public void registerPlayer(String nickname, String password) throws NetworkException {
+
     }
 
     /**

@@ -9,7 +9,7 @@ import it.polimi.ingsw.client.RMIClientInterface;
  */
 public interface RMIServerInterface extends Remote {
 
-	public String loginPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException;
+	public String loginPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, LoginException;
 	public String registerPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException;
 
 }
