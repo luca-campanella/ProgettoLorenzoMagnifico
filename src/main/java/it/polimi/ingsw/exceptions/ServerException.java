@@ -1,0 +1,19 @@
+package it.polimi.ingsw.exceptions;
+
+import java.io.IOException;
+
+/**
+ * This class is used to signal that something went wrong with the sever
+ *
+ */
+public class ServerException extends IOException {
+	
+	/**
+	 * Just class the superclass method 
+	 * @param msg: the desired exception message
+	 */
+	public ServerException(String msg) {
+		super(msg);
+	}
+
+}
