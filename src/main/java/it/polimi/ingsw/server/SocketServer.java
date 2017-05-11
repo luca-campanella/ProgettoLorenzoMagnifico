@@ -1,8 +1,11 @@
-package server
+package it.polimi.ingsw.server;
 
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * SocketServer is the class of Server that manage the login of the client using socket
