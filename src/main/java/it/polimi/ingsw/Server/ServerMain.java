@@ -2,6 +2,7 @@ package it.polimi.ingsw.Server;
 
 import debug.Debug;
 import exceptions.ServerException;
+import javafx.application.Platform;
 
 /**
  * Server is the main class of the server side of the application. On startup the server creates two objects: RMIServer and SocketServer passing them the reference to himself in order to let them call himself.
