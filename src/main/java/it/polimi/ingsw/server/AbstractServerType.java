@@ -36,11 +36,11 @@ public abstract class AbstractServerType {
 	 */
 	public abstract void closeServer() throws ServerException;
 
-	public ServerMain getServerMainInst() {
+	protected ServerMain getServerMainInst() {
 		return serverMainInst;
 	}
 
-	public int getPort() {
+	protected int getPort() {
 		return port;
 	}
 }

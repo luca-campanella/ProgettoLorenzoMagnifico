@@ -1,11 +1,11 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.exceptions.ClientConnectionException;
+import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.server.RMIServerInterface;
 import it.polimi.ingsw.utils.Debug;
 
-import javax.security.auth.login.LoginException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.*;
@@ -39,7 +39,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void loginPlayer(String nickname, String password) throws NetworkException, LoginException {
-
+        //TODO implement real login function
     }
 
     /**
@@ -51,7 +51,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void registerPlayer(String nickname, String password) throws NetworkException {
-
+        //TODO implement real login function
     }
 
     /**
@@ -61,7 +61,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void connect() throws ClientConnectionException {
         try {
-            registry = LocateRegistry.getRegistry(serverAddress, port);
+            registry = LocateRegistry.getRegistry(getServerAddress(), getPort());
             RMIServerInterfaceInst = (RMIServerInterface) registry.lookup("RMIServerInterface");
             UnicastRemoteObject.exportObject(this, 0); //with 0 exports the object on a random port
             Debug.printDebug("RMI Client connected succesfully");

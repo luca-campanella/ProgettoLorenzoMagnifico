@@ -3,6 +3,7 @@ package it.polimi.ingsw.server;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import it.polimi.ingsw.client.RMIClientInterface;
+import it.polimi.ingsw.exceptions.LoginException;
 
 /**
  * This interface lets the client call functions on the server via RMI
