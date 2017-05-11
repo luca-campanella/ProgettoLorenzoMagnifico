@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
-import exceptions.ServerException;
+import it.polimi.ingsw.exceptions.ServerException;
+import it.polimi.ingsw.exceptions.ServerException;
 
 /**
  * This abstract class gives general directions to how RMIServer and SocketServer should be built
@@ -26,7 +27,7 @@ public abstract class AbstractServerType {
 	 * Performs the real connection stuff
 	 * @throws ServerException if a problem is encountered starting the server
 	 */
-	private abstract void startServer() throws ServerException;
+	protected abstract void startServer() throws ServerException, ServerException;
 	
 	/**
 	 * Closes all connections

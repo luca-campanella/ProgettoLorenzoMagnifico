@@ -32,10 +32,10 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
 	 * @throws ServerException if the creation of the server goes wrong
 	 */
 	@Override
-	private void startServer() throws ServerException
+	protected void startServer() throws ServerException
 	{
 		Debug.printDebug("I'm starting the RMI server on port " + port);
-        this.createOrLoadRegistry(port);
+        this.createOrLoadRegistry();
         this.publishObj();
         Debug.printDebug("RMI server started");
 	}
@@ -55,8 +55,8 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
             registry = LocateRegistry.getRegistry(port);
         } catch(RemoteException e) {
             Debug.printDebug("RMI registry not found", e);
+            throw new ServerException("Cannot load or create the RMI registry");
         }
-        throw new ServerException("Cannot load or create the RMI registry");
     }
 
     /**
@@ -66,9 +66,10 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
     private void publishObj() throws ServerException
     {
         try {
+            UnicastRemoteObject.exportObject(this, port);
             registry.rebind("RMIServerInterface", this);
-            UnicastRemoteObjcet.exportObject(this, port);
         } catch(RemoteException e) {
+            Debug.printError("Unable to publish object", e);
             throw new ServerException("Cannot publish server object \"RMIServerInterface\"");
         }
     }
@@ -80,10 +81,10 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
 	}
 
     @Override
-	public String loginPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst)
+	public String loginPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException
 	{
-		//TODO implement 
-		Debug.printDebug("Player logged in");
+		//TODO implement
+        Debug.printDebug("Player logged in");
 		
 		return "test";
 	}
