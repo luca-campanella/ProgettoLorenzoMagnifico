@@ -21,48 +21,50 @@ public class SocketServer extends AbstractServerType {
     ServerSocket socketServer;
 
     /**
-     * method used to menage different connections with the clients
      *
-     * @param port used to connect
+     * @param serverMainInst
+     * @param port
      */
-    public SocketServer(int port) {
-        super(port);
-    }
-    /**
-     * control if the port is available
-     */
-    try
+    public SocketServer(ServerMain serverMainInst, int port) {
 
-    {
-        socketServer = new ServerSocket(getPort());
+        super(serverMainInst, port);
     }
-    /**
-     * manage the unavailability of the port
-     */
-    catch(
-    IOException e)
+    public void startServerSocket(){
 
-    {
-        System.err.println(e.getMessage());
-        return;
-    }
-    System.out.println("The server is ready");
-    /**
-     * connect with a loop all the possible clients
-     */
-    while(true)
+        /**
+        * control if the port is available
+        */
+        try
 
-    {
-        try {
-            Socket socket = socketServer.accept();
-            executor.submit(new SocketPlayer(socket));
+        {
+            socketServer = new ServerSocket(getPort());
         }
         /**
-         * error occured if the server shuts down
-         */ catch (IOException e) {
-            break;
-        }
+        * manage the unavailability of the port
+        */
+        catch(IOException e)
 
-        executor.shutdown();
+        {
+            System.err.println(e.getMessage());
+            return;
+        }
+        /**
+        * connect with a loop all the possible clients
+        */
+        while(true)
+
+        {
+            try {
+                Socket socket = socketServer.accept();
+                generetorOfConnection.submit(new SocketPlayer(socket));
+            }
+            /**
+            * error occured if the server shuts down
+            */ catch (IOException e) {
+                break;
+            }
+
+            generetorOfConnection.shutdown();
+        }
     }
 }

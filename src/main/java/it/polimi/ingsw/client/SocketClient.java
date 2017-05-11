@@ -37,13 +37,12 @@ public class SocketClient extends AbstractClientType {
      */
     public void connect() throws ClientConnectionException {
         try{
-            socketClient = new Socket(serverAddress,port);
+            socketClient = new Socket(getServerAddress(),getPort());
         }
         catch(IOException e){
             Debug.printError("Cannot connect Socket client",e);
             throw new ClientConnectionException(e);
         }
-        System.out.println("Connection established");
 
     }
 
