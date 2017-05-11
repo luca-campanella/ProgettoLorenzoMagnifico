@@ -3,7 +3,7 @@ package it.polimi.ingsw.exceptions;
 import java.io.IOException;
 
 /**
- * Created by campus on 11/05/2017.
+ * Exception to handle problem with the login of a player
  */
 public class LoginException extends IOException {
     public static final int NOT_EXISTING_USERNAME = 1;
@@ -12,5 +12,12 @@ public class LoginException extends IOException {
 
     private int errorCode;
 
-    public LoginExcpetion
+    public LoginException(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public LoginException(int errorCode, String msg) {
+        super(msg);
+        this.errorCode = errorCode;
+    }
 }
