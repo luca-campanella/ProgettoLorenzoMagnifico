@@ -39,7 +39,12 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void loginPlayer(String nickname, String password) throws NetworkException, LoginException {
-        //TODO implement real login function
+        try {
+            RMIServerInterfaceInst.loginPlayer(nickname, password, this);
+        } catch(RemoteException e) {
+            Debug.printError("Cannot ligin player due to a network problem on RMI");
+            throw new NetworkException(e);
+        }
     }
 
     /**
@@ -51,7 +56,12 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void registerPlayer(String nickname, String password) throws NetworkException {
-        //TODO implement real login function
+        try {
+            RMIServerInterfaceInst.registerPlayer(nickname, password, this);
+        } catch(RemoteException e) {
+            Debug.printError("Cannot register player due to a network problem on RMI");
+            throw new NetworkException(e);
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.RMIClientInterface;
+import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.utils.Debug;
 import it.polimi.ingsw.exceptions.ServerException;
 
@@ -85,13 +86,35 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
 		Debug.printDebug("I'm stopping the RMI server");
 	}
 
+    /**
+     * this method is used when the user has never played and wants to create an account
+     * @param nickname to register in the server DB
+     * @param password to register in the server DB
+     * @return
+     * @throws RemoteException if something goes wrong during the connection
+     */
     @Override
 	public String loginPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException
 	{
 		//TODO implement
-        Debug.printDebug("Player logged in");
-		
+        Debug.printDebug("CLient tried to log in, usr: " + nickname + "password: " + password);
 		return "test";
 	}
+
+    /**
+     * this method is used when an user already exists and decides to login with his username and password, real implementation of the abstract method
+     *
+     * @param nickname
+     * @param password
+     * @throws RemoteException
+     * @throws LoginException   if username doesn't exist or if password is wrong
+     */
+    @Override
+    public String registerPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException
+    {
+        //TODO implement
+        Debug.printDebug("CLient tried to register, usr: " + nickname + "password: " + password);
+        return "test";
+    }
 	
 }	

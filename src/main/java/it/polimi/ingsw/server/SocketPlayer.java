@@ -1,8 +1,6 @@
 package it.polimi.ingsw.server;
 
 import java.net.Socket;
-import java.io.*;
-import java.util.*;
 
 public class SocketPlayer implements Runnable {
     Socket socketPlayer;
@@ -10,4 +8,8 @@ public class SocketPlayer implements Runnable {
         socketPlayer=socket;
     }
 
+    @Override
+    public void run() {
+        //TODO implement the method run in socket
+    }
 }

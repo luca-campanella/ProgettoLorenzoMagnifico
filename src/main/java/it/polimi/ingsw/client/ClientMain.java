@@ -1,8 +1,8 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.exceptions.ClientConnectionException;
-import it.polimi.ingsw.utils.Debug;
-import it.polimi.ingsw.exceptions.ClientConnectionException;
+import it.polimi.ingsw.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.utils.Debug;
 
 /**
@@ -48,9 +48,25 @@ public class ClientMain {
     }
     public void callbackLogin(){
         Debug.printDebug("Sono nel ClientMain.callbackLogin.");
+        try {
+            clientNetwork.loginPlayer("TestUsrLogin", "TestPwd");
+        } catch (NetworkException e) {
+            //TODO handle network problems
+            e.printStackTrace();
+        }
+        catch (LoginException e) {
+            //TODO handle login problems (call the UI again)
+            e.printStackTrace();
+        }
     }
     public void callbackCreateAccount(){
         Debug.printDebug("Sono nel ClientMain.callbackCreateAccount");
+        try {
+            clientNetwork.registerPlayer("TestUsrRegister", "TestPwd");
+        } catch (NetworkException e) {
+            //TODO handle network problems
+            e.printStackTrace();
+        }
     }
     public void callbackPlayLeader(){
         Debug.printDebug("Sono nel ClientMain.callbackPlayLeader");

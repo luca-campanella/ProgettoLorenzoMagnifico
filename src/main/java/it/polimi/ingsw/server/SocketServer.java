@@ -1,9 +1,10 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.exceptions.ServerException;
+
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.io.*;
-import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -29,6 +30,28 @@ public class SocketServer extends AbstractServerType {
 
         super(serverMainInst, port);
     }
+
+    /**
+     * Performs the real connection stuff
+     *
+     * @throws ServerException if a problem is encountered starting the server
+     */
+    @Override
+    protected void startServer() throws ServerException, ServerException {
+        //TODO implement the method startServer in socket
+    }
+
+    /**
+     * Closes all connections
+     * This method should be called only when you want to shut down the server completely and terminate the program
+     *
+     * @throws ServerException if a problem is encountered closing the server
+     */
+    @Override
+    public void closeServer() throws ServerException {
+        //TODO implement the method closeServer in socket
+    }
+
     public void startServerSocket(){
 
         /**
