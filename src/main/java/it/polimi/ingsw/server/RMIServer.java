@@ -1,14 +1,17 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.RMIClientInterface;
+import it.polimi.ingsw.exceptions.FullRoomException;
+import it.polimi.ingsw.exceptions.GameAlreadyStartedRoomException;
 import it.polimi.ingsw.exceptions.LoginException;
-import it.polimi.ingsw.utils.Debug;
 import it.polimi.ingsw.exceptions.ServerException;
-
+import it.polimi.ingsw.utils.Debug;
 
 import java.rmi.RemoteException;
-import java.rmi.registry.*;
-import java.rmi.server.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.UUID;
 
 /**
  * RMIServer is the implementation of the server via RMI. It’s interface is used to be published and called by the client side. In fact the RMIServer publishes himself (his stub) on the RMI registry server and waits to be called by the client thru his function loginPlayer.
@@ -98,7 +101,20 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
 	{
 		//TODO implement
         Debug.printDebug("CLient tried to log in, usr: " + nickname + "password: " + password);
-		return "test";
+        //TODO implement controls over the existing players (in another class)
+
+        //TODO implement creation of room (in another class)
+        Room room = new Room(4, 3000);
+        try {
+            room.addNewPlayer(new RMIPlayer(nickname));
+        } catch (FullRoomException e) {
+            //TODO handle exception
+            e.printStackTrace();
+        } catch (GameAlreadyStartedRoomException e) {
+            //TODO handle exception
+            e.printStackTrace();
+        }
+        return "test";
 	}
 
     /**
@@ -116,5 +132,9 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
         Debug.printDebug("CLient tried to register, usr: " + nickname + "password: " + password);
         return "test";
     }
-	
+
+    private void connectClientToPlayer()
+    {
+        String randomRMIName = UUID.randomUUID().toString();
+    }
 }	
