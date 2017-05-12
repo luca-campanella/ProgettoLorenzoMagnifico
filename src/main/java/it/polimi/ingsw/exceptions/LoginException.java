@@ -7,7 +7,11 @@ import java.io.IOException;
  * @extends IOException
  */
 public class LoginException extends IOException {
-    public enum Error { NOT_EXISTING_USERNAME, WRONG_PASSWORD, ALREADY_LOGGED};
+
+    /**
+     * The same player can play multiple games, but not in the same room
+     */
+    public enum Error { NOT_EXISTING_USERNAME, WRONG_PASSWORD, ALREADY_LOGGED_TO_ROOM};
 
     private Error errorType;
 
