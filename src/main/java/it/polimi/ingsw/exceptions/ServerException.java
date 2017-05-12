@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /**
  * This class is used to signal that something went wrong with the sever
- *
+ * @extends IOException
  */
 public class ServerException extends IOException {
 	

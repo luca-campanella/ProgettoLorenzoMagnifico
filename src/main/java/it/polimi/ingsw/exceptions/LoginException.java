@@ -4,20 +4,19 @@ import java.io.IOException;
 
 /**
  * Exception to handle problem with the login of a player
+ * @extends IOException
  */
 public class LoginException extends IOException {
-    public static final int NOT_EXISTING_USERNAME = 1;
-    public static final int WRONG_PASSWORD = 2;
-    public static final int ALREADY_LOGGED = 3;
+    public enum Error { NOT_EXISTING_USERNAME, WRONG_PASSWORD, ALREADY_LOGGED};
 
-    private int errorCode;
+    private Error errorType;
 
-    public LoginException(int errorCode) {
-        this.errorCode = errorCode;
+    public LoginException(Error errorType) {
+        this.errorType = errorType;
     }
 
-    public LoginException(int errorCode, String msg) {
+    public LoginException(Error errorType, String msg) {
         super(msg);
-        this.errorCode = errorCode;
+        this.errorType = errorType;
     }
 }

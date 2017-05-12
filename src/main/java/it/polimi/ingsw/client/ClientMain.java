@@ -22,7 +22,8 @@ public class ClientMain {
 
     }
     public static void main(String args[]) {
-        Debug.instance(Debug.LEVEL_NORMAL);
+        Debug.instance(Debug.LEVEL_VERBOSE);
+
         new ClientMain();
     }
 

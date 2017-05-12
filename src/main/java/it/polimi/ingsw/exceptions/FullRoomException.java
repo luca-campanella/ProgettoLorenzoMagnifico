@@ -4,6 +4,7 @@ import java.io.IOException;
 
 /**
  * Used to signal that the room is full
+ * @extends IOException
  */
 public class FullRoomException extends IOException {
 

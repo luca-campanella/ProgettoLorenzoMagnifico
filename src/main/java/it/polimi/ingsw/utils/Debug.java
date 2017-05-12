@@ -1,8 +1,10 @@
 package it.polimi.ingsw.utils;
 
+import java.io.PrintStream;
+
 /**
  * This class is useful to print debug messages. It is a singleton-like (the method setLevel changes the instance) and should be initialized before being used.
- * It contains three levels of debugging: normal (lv 2), only errors (lv 1), nothing (lv 0). Every message with a level lower is printed.
+ * It contains four levels of debugging: verbose (lv 3), normal (lv 2), only errors (lv 1), nothing (lv 0). Every message with a level lower is printed.
  * This class should not be used to print normal messages to the user, just debug and error messages.
  */
 public class Debug {
@@ -18,9 +20,14 @@ public class Debug {
 	public static final int LEVEL_ERRORS = 1;
 	
 	/**
-	 * Everything is printed (debug messages and errors)
+	 * Debug messages and errors are printed
 	 */
 	public static final int LEVEL_NORMAL = 2;
+
+	/**
+	 * Everything is printed
+	 */
+	public static final int LEVEL_VERBOSE = 3;
 	
 	/**
 	 * Singleton instance
@@ -49,7 +56,7 @@ public class Debug {
 	 */
 	public static Debug instance(int debLevel) throws IllegalArgumentException
 	{
-		if(debLevel < LEVEL_NOTHING || debLevel > LEVEL_NORMAL)
+		if(debLevel < LEVEL_NOTHING || debLevel > LEVEL_VERBOSE)
 		{
 			throw new IllegalArgumentException("Level not recognised");
 		}
@@ -79,21 +86,95 @@ public class Debug {
 	 */
 	public static void setLevel(int debLevel) throws IllegalArgumentException
 	{
-		if(debLevel < LEVEL_NOTHING || debLevel > LEVEL_NORMAL)
+		if(debLevel < LEVEL_NOTHING || debLevel > LEVEL_VERBOSE)
 		{
 			throw new IllegalArgumentException("Level not recognised");
 		}
 		internalInstance = new Debug(debLevel);
 	}
-	
+
+
+	/**
+	 * internal private function to decorate the text of a message and print it or not in relation with the level
+	 * @param text
+	 * @param header
+	 * @param printStream
+	 * @param desiredLv
+	 */
+	private static void printText(String text, String header, PrintStream printStream, int desiredLv)
+	{
+		if(getInstance().level >= desiredLv)
+			printStream.println("---" + header + ": " + text);
+	}
+
+	/**
+	 * * internal private function to decorate the exception and print it or not in relation with the level
+	 * @param e
+	 * @param header
+	 * @param printStream
+	 * @param desiredLv
+	 */
+	private static void printException(Exception e, String header, PrintStream printStream, int desiredLv)
+	{
+		if(getInstance().level >= desiredLv) {
+			printStream.println("---" + header + "exception: ");
+			printStream.println("--- Exception Message: " + e.getMessage());
+			printStream.println("--- Stack Trace: ");
+		}
+	}
+
+	/**
+	 * internal private function to decorate the exception and the relative text and print it or not in relation with the level
+	 * @param e
+	 * @param text
+	 * @param header
+	 * @param printStream
+	 * @param desiredLv
+	 */
+	private static void printException(Exception e, String text, String header, PrintStream printStream, int desiredLv)
+	{
+		if(getInstance().level >= desiredLv) {
+			printStream.println("---" + header + "exception: ");
+			printStream.println("--- Added message: " + text);
+			printStream.println("--- Exception Message: " + e.getMessage());
+			printStream.println("--- Stack Trace: ");
+		}
+	}
+
+	/**
+	 * prints the desired debug message if the level is set to LEVEL_NORMAL
+	 * @param text the message to be printed
+	 */
+	public static void printVerbose(String text)
+	{
+		printText(text, "DEBUG-VERB", System.out, LEVEL_VERBOSE);
+	}
+
+	/**
+	 * prints the message and stack trace of the exception
+	 * @param e the exception that should be visualized
+	 */
+	public static void printVerbose(Exception e)
+	{
+		printException(e, "DEBUG-VERB", System.out, LEVEL_VERBOSE);
+	}
+
+	/**
+	 * prints the message and stack trace of the exception, plus a message chosen by the user of the function
+	 * @param e the exception that should be visualized
+	 */
+	public static void printVerbose(String text, Exception e)
+	{
+		printException(e, text, "DEBUG-VERB", System.out, LEVEL_VERBOSE);
+	}
+
 	/**
 	 * prints the desired debug message if the level is set to LEVEL_NORMAL
 	 * @param text the message to be printed
 	 */
 	public static void printDebug(String text)
 	{
-		if(getInstance().level >= LEVEL_NORMAL)
-			System.out.println("--- DEBUG: " + text);
+		printText(text, "DEBUG", System.out, LEVEL_NORMAL);
 	}
 	
     /**
@@ -102,12 +183,7 @@ public class Debug {
      */
     public static void printDebug(Exception e)
     {
-        if(getInstance().level >= LEVEL_NORMAL) {
-            System.err.println("--- DEBUG-exception: ");
-            System.err.println("--- Exception Message: " + e.getMessage());
-            System.err.println("--- Stack Trace: ");
-            e.printStackTrace();
-        }
+        printException(e, "DEBUG", System.out, LEVEL_NORMAL);
     }
     
     /**
@@ -116,12 +192,7 @@ public class Debug {
      */
     public static void printDebug(String text, Exception e)
     {
-        if(getInstance().level >= LEVEL_NORMAL) {
-            System.err.println("--- DEBUG-exception: " + text);
-            System.err.println("--- Exception Message: " + e.getMessage());
-            System.err.println("--- Stack Trace: ");
-            e.printStackTrace();
-        }
+		printException(e, text, "DEBUG", System.out, LEVEL_NORMAL);
     }
     
 	/**
@@ -130,8 +201,7 @@ public class Debug {
 	 */
 	public static void printError(String text)
 	{
-		if(getInstance().level >= LEVEL_ERRORS)
-			System.err.println("--- ERROR: " + text);
+		printText(text, "ERROR", System.err, LEVEL_ERRORS);
 	}
 	
 	/**
@@ -140,12 +210,7 @@ public class Debug {
 	 */
 	public static void printError(Exception e)
 	{
-		if(getInstance().level >= LEVEL_ERRORS) {
-			System.err.println("--- ERROR-exception: ");
-			System.err.println("--- Message: " + e.getMessage());
-			System.err.println("--- Stack Trace: ");
-			e.printStackTrace();
-		}
+		printException(e, "ERROR", System.err, LEVEL_ERRORS);
 	}
     
     /**
@@ -154,11 +219,6 @@ public class Debug {
      */
     public static void printError(String text, Exception e)
     {
-        if(getInstance().level >= LEVEL_ERRORS) {
-            System.err.println("--- ERROR-exception: " + text);
-            System.err.println("--- Message: " + e.getMessage());
-            System.err.println("--- Stack Trace: ");
-            e.printStackTrace();
-        }
+		printException(e, text, "ERROR", System.err, LEVEL_ERRORS);
     }
 }

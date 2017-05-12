@@ -130,6 +130,18 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
     {
         //TODO implement
         Debug.printDebug("CLient tried to register, usr: " + nickname + "password: " + password);
+
+        //TODO implement creation of room (in another class)
+        Room room = new Room(4, 3000);
+        try {
+            room.addNewPlayer(new RMIPlayer(nickname));
+        } catch (FullRoomException e) {
+            //TODO handle exception
+            e.printStackTrace();
+        } catch (GameAlreadyStartedRoomException e) {
+            //TODO handle exception
+            e.printStackTrace();
+        }
         return "test";
     }
 

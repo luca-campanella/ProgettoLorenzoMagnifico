@@ -37,7 +37,11 @@ public class ServerMain {
 	 */
 	private ServerMain()
 	{
-		Debug.instance(Debug.LEVEL_NORMAL);
+		Debug.instance(Debug.LEVEL_VERBOSE);
+		Debug.printVerbose("test for verbose printing");
+		Debug.printDebug("test for debug printing");
+		Debug.printError("test for error printing");
+
 		try {
 		startServer();
 		} catch(ServerException e) {

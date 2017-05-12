@@ -4,6 +4,7 @@ import java.io.IOException;
 
 /**
  * Exception used when the client can't connect to the server
+ * @extends IOException
  */
 public class ClientConnectionException extends IOException {
 
