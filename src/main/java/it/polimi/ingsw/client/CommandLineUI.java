@@ -108,5 +108,16 @@ public class CommandLineUI extends AbstractUIType{
         System.out.println("Aggiorno la view");
     }
 
+    /**
+     * this method handles the login failure
+     * @param reasonFailure
+     */
+    public void loginFailure(String reasonFailure)
+    {
+
+        System.out.println("Error: " + reasonFailure);
+        //askLoginOrCreate()
+    }
+
 }
 

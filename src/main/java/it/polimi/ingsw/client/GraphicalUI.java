@@ -15,6 +15,13 @@ public class GraphicalUI extends AbstractUIType{
     Scanner inputScanner = new Scanner(System.in);
     ClientMain clientMain;
     // UIControllerUserInterface UIController = new UIControllerUserInterface();
+    public void loginFailure(String reasonFailure)
+    {
+
+        //System.out.println("Error: " + reasonFailure)
+        ;
+        //askLoginOrCreate()
+    }
 
 
     /**

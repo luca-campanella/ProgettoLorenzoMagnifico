@@ -57,7 +57,12 @@ public class ClientMain {
         }
         catch (LoginException e) {
             //TODO handle login problems (call the UI again)
+            //Let's call a method in AbstractUIType that handles LoginFailure
+            //method idea: loginFailure(String)
+            //{
+
             e.printStackTrace();
+
         }
     }
     public void callbackCreateAccount(){

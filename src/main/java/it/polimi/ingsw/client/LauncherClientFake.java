@@ -34,11 +34,9 @@ public class LauncherClientFake {
         while(true){
             System.out.println("Vuoi CLI o GUI?");
             input = inputScanner.nextLine();
-            Debug.printDebug("Sono nel Fake.");
 
             //inputScanner.close();
             if(input.equalsIgnoreCase("cli")){
-                Debug.printDebug("Sono dentro IF"); /*Debug.printDebug(...)*/
                 return new CommandLineUI(this.clientMain);
             }
             if(input.equalsIgnoreCase("gui")){

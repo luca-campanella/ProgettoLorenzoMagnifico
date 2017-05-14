@@ -20,6 +20,8 @@ abstract public class AbstractUIType {
     abstract public void askLogin();
     //aggiorna l'UI
     abstract public void updateView();
+    //Highlights that login has failed and manages that
+    abstract public void loginFailure(String failureReason);
 
 
 }
