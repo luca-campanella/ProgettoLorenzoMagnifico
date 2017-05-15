@@ -7,6 +7,8 @@ import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
@@ -20,11 +22,11 @@ public class SocketClient extends AbstractClientType {
     /**
      * Information getted from the server
      */
-    private Object inputInformation;
+    private ObjectInputStream inputInformation;
     /**
      * Informations delivered to the server
      */
-    private Object outputInformation;
+    private ObjectOutputStream outputInformation;
     /**
      *Initialization of the attributes on the superclass
      */
@@ -70,6 +72,34 @@ public class SocketClient extends AbstractClientType {
             throw new ClientConnectionException(e);
         }
 
+    }
+    /**
+     * this method is used to deliver a move
+     * @param colorFamilyMember color of the family member moved
+     * @param servantUsed number of servant used to increase the value of the family member
+     * @param numberPlace the number of the place where to move the family member
+     */
+    public void doMove(String colorFamilyMember, int servantUsed, int numberPlace){}
+    //TODO;
+
+    /**
+     * this method is used to discard a leader card
+     * @param nameLeader is the name of the card
+     * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
+     */
+    public void discardCard(String nameLeader, String resourceChoose){
+        //TODO
+    };
+
+    /**
+     * this method is used to inform the room that the player had ended his phase
+     */
+    public void endPhase(){
+        //TODO
+    };
+
+    protected ClientMain getControllerMain() {
+        return super.getControllerMain();
     }
 
 

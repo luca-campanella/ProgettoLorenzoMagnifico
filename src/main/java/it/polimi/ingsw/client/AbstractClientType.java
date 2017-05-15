@@ -52,6 +52,26 @@ public abstract class AbstractClientType  {
      */
     public abstract void registerPlayer(String nickname, String password) throws NetworkException;
 
+    /**
+     * this method is used to deliver a move
+     * @param colorFamilyMember color of the family member moved
+     * @param servantUsed number of servant used to increase the value of the family member
+     * @param numberPlace the number of the place where to move the family member
+     */
+    public abstract void doMove(String colorFamilyMember, int servantUsed, int numberPlace);
+
+    /**
+     * this method is used to discard a leader card
+     * @param nameLeader is the name of the card
+     * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
+     */
+    public abstract void discardCard(String nameLeader, String resourceChoose);
+
+    /**
+     * this method is used to inform the room that the player had ended his phase
+     */
+    public abstract void endPhase();
+
     protected ClientMain getControllerMain() {
         return controllerMain;
     }
