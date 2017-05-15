@@ -32,7 +32,7 @@ public class ClientMain {
     }
 
     public void callbackNetworkType(NetworkTypeEnum networkChoice){
-        Debug.printDebug("Sono nel ClientMain.callbackNetworkType");
+        Debug.printDebug("I'm in ClientMain.callbackNetworkType, choice = " + networkChoice);
         if(networkChoice == NetworkTypeEnum.RMI) {
             clientNetwork = new RMIClient(this, "127.0.0.1", 3034);
             try {
@@ -43,7 +43,13 @@ public class ClientMain {
             }
         }
         else {//Here enters if network type is a socket
-            //istanzio socket;
+            clientNetwork = new SocketClient(this, "127.0.0.1", 3035);
+            try {
+                clientNetwork.connect();
+            } catch (ClientConnectionException e) {
+                e.printStackTrace();
+                //TODO: handling no Connection
+            }
         }
         userInterface.askLoginOrCreate();
     }

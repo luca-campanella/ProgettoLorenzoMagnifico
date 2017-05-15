@@ -32,6 +32,7 @@ public class SocketClient extends AbstractClientType {
      */
     public SocketClient(ClientMain controllerMain, String serverAddress, int port){
         super(controllerMain, serverAddress, port);
+        Debug.printVerbose("New SocketClient created");
     }
 
     /**
