@@ -73,14 +73,52 @@ public class CommandLineUI extends AbstractUIType{
     }
 
     /**
+     * this method allows the user to select a familyMember
+     */
+    public void selectFamilyMember()
+    {
+        int i;
+        String familyColorID;
+        System.out.print("Select a family member. You can choose " );
+        /*for(i=0; i< familyMembers.size(); i++)
+            System.out.print(familyMembers.... + " ");
+        */
+        System.out.print("Yellow, Red, Green, Neutral");
+        System.out.println();
+        while(true) {
+            familyColorID = inputScanner.nextLine();
+            if(existingColors(familyColorID))
+            break;
+        }
+        clientMain.callbackFamilyMemberSelected(familyColorID);
+    }
+
+    /**
+     * this method prints all allowed actions for the user.
+     */
+    public void printAllowedActions(){
+        Debug.printDebug("Sono in CLI.printAllowedActions()");
+        System.out.println("Stampo tutte le azioni disponibili dell'utente");
+    }
+    /**
+     * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
+     * this method should also receive the familyMembers list to match the input.
+     * @param familyColorID
+     * @return
+     */
+    private boolean existingColors(String familyColorID){
+        return (familyColorID.equalsIgnoreCase("yellow")||familyColorID.equalsIgnoreCase("red")||familyColorID.equalsIgnoreCase("green")||familyColorID.equalsIgnoreCase("neutral"));
+    }
+
+    /**
      * This method asks to the user if he wants to connect with an existing account or to create one.
      */
     public void askLoginOrCreate()
     {
-        Debug.printDebug("I am in CLI. I ask user if he wants to Login or Create a new account");
+        Debug.printDebug("I am in CLI.askLoginOrCreate");
         while(true)
         {
-            System.out.println("Do you want to Create a new account, or LogIn into an old one? Write Create, or Login");
+            System.out.println("Do you want to Create a new account, or LogIn into an old one? Write Create, or Login If you skip, you will be signed in as a Guest");
             tmpInput = inputScanner.nextLine();
             if(tmpInput.equalsIgnoreCase("Create")){
                 clientMain.callbackCreateAccount();
@@ -89,6 +127,12 @@ public class CommandLineUI extends AbstractUIType{
 
             if(tmpInput.equalsIgnoreCase("LogIn")){
                 clientMain.callbackLogin();
+                break;
+            }
+
+
+            if(tmpInput.equalsIgnoreCase("Skip")){
+                clientMain.callbackLoginAsGuest();
                 break;
             }
         }

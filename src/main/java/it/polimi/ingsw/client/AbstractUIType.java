@@ -22,7 +22,10 @@ abstract public class AbstractUIType {
     abstract public void updateView();
     //Highlights that login has failed and manages that
     abstract public void loginFailure(String failureReason);
-
+    //Selects a family member
+    abstract public void selectFamilyMember();
+    //stampa le azioni disp
+    abstract public void printAllowedActions();
 
 }
 

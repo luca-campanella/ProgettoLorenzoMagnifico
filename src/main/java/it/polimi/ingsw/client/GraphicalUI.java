@@ -10,6 +10,39 @@ import it.polimi.ingsw.utils.Debug;
 
 public class GraphicalUI extends AbstractUIType{
     //TODO GUI -- I copied CLI here because absUIType wouldn't let me run the program and test it
+    public void selectFamilyMember()
+    {
+        int i;
+        String familyColorID;
+        System.out.print("Select a family member. You can choose " );
+        /*for(i=0; i< familyMembers.size(); i++)
+            System.out.print(familyMembers.... + " ");
+        */
+        System.out.print("Yellow, Red, Green, Neutral");
+        while(true) {
+            familyColorID = inputScanner.nextLine();
+            if(existingColors(familyColorID))
+                break;
+        }
+        clientMain.callbackFamilyMemberSelected(familyColorID);
+    }
+    /**
+     * this method prints all allowed actions for the user.
+     */
+    public void printAllowedActions(){
+        Debug.printDebug("Sono in CLI.printAllowedActions()");
+        System.out.println("Stampo tutte le azioni disponibili dell'utente");
+    }
+    /**
+     * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
+     * this method should also receive the familyMembers list to match the input.
+     * @param familyColorID
+     * @return
+     */
+    private boolean existingColors(String familyColorID){
+        return (familyColorID.equalsIgnoreCase("yellow")||familyColorID.equalsIgnoreCase("red")||familyColorID.equalsIgnoreCase("green")||familyColorID.equalsIgnoreCase("neutral"));
+    }
+
 
     String tmpInput;
     Scanner inputScanner = new Scanner(System.in);

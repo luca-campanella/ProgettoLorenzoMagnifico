@@ -59,11 +59,15 @@ public class ClientMain {
             //TODO handle login problems (call the UI again)
             //Let's call a method in AbstractUIType that handles LoginFailure
             //method idea: loginFailure(String)
-            //{
+            //
 
             e.printStackTrace();
 
         }
+    }
+    public void callbackLoginAsGuest(){
+        //devo settare il nome del player come Guest + ID
+        userInterface.readAction();
     }
     public void callbackCreateAccount(){
         Debug.printDebug("Sono nel ClientMain.callbackCreateAccount");
@@ -82,7 +86,18 @@ public class ClientMain {
     }
     public void callbackPerformPlacement(){
         Debug.printDebug("Sono nel ClientMain.callbackPerformPlacement");
+        //get status... ricevo una lista di family member che posso usare
+        userInterface.selectFamilyMember();
     }
+    public void callbackFamilyMemberSelected(String color)
+    {
+        Debug.printDebug("Sono nel ClientMain.callbackFamilyMember");
+        //chiamo il server e gli dico che voglio usare quel family member.
+        //il server mi dice quali azioni posso fare
+        //chiamerò quindi il mio abstract UIType con un qualcosa riguardante...
+        userInterface.printAllowedActions();
+    }
+    //faccio un oggetto di azioni permesse
     public void askAction(){
         userInterface.readAction();
     }
