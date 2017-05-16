@@ -35,7 +35,7 @@ public class ServerMain {
 	/**
 	 * SocketServer instance, used to create the real Socket server that opens a socket and listens for connections
 	 */
-	//SocketServer SocketServerInst;
+	SocketServer SocketServerInst;
 
 	/**
 	 * The list of the created rooms
@@ -77,7 +77,7 @@ public class ServerMain {
 
 		RMIServerInst = new RMIServer(this, RMI_PORT);
 
-		//SocketServerInst = new SocketServer(this, SOCKET_PORT);
+		SocketServerInst = new SocketServer(this, SOCKET_PORT);
 
 	}
 

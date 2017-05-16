@@ -65,6 +65,37 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     }
 
     /**
+     * this method is used to deliver a move
+     *
+     * @param colorFamilyMember color of the family member moved
+     * @param servantUsed       number of servant used to increase the value of the family member
+     * @param numberPlace       the number of the place where to move the family member
+     */
+    @Override
+    public void doMove(String colorFamilyMember, int servantUsed, int numberPlace) {
+        //TODO implement abstract method
+    }
+
+    /**
+     * this method is used to discard a leader card
+     *
+     * @param nameLeader     is the name of the card
+     * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
+     */
+    @Override
+    public void discardCard(String nameLeader, String resourceChoose) {
+        //TODO implement abstract method
+    }
+
+    /**
+     * this method is used to inform the room that the player had ended his phase
+     */
+    @Override
+    public void endPhase() {
+        //TODO implement abstract method
+    }
+
+    /**
      * Performs the RMI operations to get "open" a RMI connection with the server
      * @throws ClientConnectionException if it can't find either the sever either the server class or it can't pulbish itself on the registry
      */

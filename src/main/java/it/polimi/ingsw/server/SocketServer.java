@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.ServerException;
+import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -12,10 +13,7 @@ import java.util.concurrent.Executors;
  * SocketServer is the class of Server that manage the login of the client using socket
  */
 public class SocketServer extends AbstractServerType {
-    /**
-     * this executor creates a thread when the client log in
-     */
-    ExecutorService generetorOfConnection = Executors.newCachedThreadPool();
+
     /**
      * socket on the server that is used by the client to log in
      */
@@ -26,20 +24,13 @@ public class SocketServer extends AbstractServerType {
      * @param serverMainInst
      * @param port
      */
-    public SocketServer(ServerMain serverMainInst, int port) {
+    public SocketServer(ServerMain serverMainInst, int port) throws ServerException {
 
         super(serverMainInst, port);
+        startServer();
+        Debug.printVerbose("Socket serve started succesfully");
     }
 
-    /**
-     * Performs the real connection stuff
-     *
-     * @throws ServerException if a problem is encountered starting the server
-     */
-    @Override
-    protected void startServer() throws ServerException, ServerException {
-        //TODO implement the method startServer in socket
-    }
 
     /**
      * Closes all connections
@@ -52,41 +43,64 @@ public class SocketServer extends AbstractServerType {
         //TODO implement the method closeServer in socket
     }
 
-    public void startServerSocket(){
+    /**
+     * Performs the real connection stuff
+     *
+     * @throws ServerException if a problem is encountered starting the server
+     */
+    @Override
+    protected void startServer() throws ServerException {
 
-        /**
-        * control if the port is available
-        */
-        try
-
-        {
+        /* start the main socket to accept connections. Control if the port is available */
+        try {
             socketServer = new ServerSocket(getPort());
         }
-        /**
-        * manage the unavailability of the port
-        */
-        catch(IOException e)
-
+        catch(IOException e) // manage the unavailability of the port
         {
-            System.err.println(e.getMessage());
-            return;
+            Debug.printError("Cannnot start Socket server, Socket main port already in use?", e);
+            throw new ServerException("Problem starting socket server (probably port alrady in use)", e);
         }
+
+        //start the thread that waits for incoming oscket connections
+        new ConnectionHandler().start();
+    }
+
+    private class ConnectionHandler extends Thread {
+
         /**
-        * connect with a loop all the possible clients
-        */
-        while(true)
+         * this executor creates a thread when the client log in
+         */
+        private ExecutorService generetorOfConnection;
 
-        {
-            try {
-                Socket socket = socketServer.accept();
-                generetorOfConnection.submit(new SocketPlayer(socket));
-            }
-            /**
-            * error occured if the server shuts down
-            */ catch (IOException e) {
-                break;
-            }
+        @Override
+        public void run() {
+            Socket socket;
+            generetorOfConnection = Executors.newCachedThreadPool();
 
+            Debug.printVerbose("Process waiting for Socket clients started");
+            /* infinite loop to wait for all the possible clients */
+            while(true)
+            {
+                try {
+                    socket = socketServer.accept();
+                    Debug.printVerbose("New socket accepted from " + socket.getInetAddress());
+                } catch (IOException e) //error occurred if the server shuts down
+                 {
+                     Debug.printError("Can't accept new connection on socket server, server shuts down", e);
+                    break;
+                }
+                try {
+                    generetorOfConnection.submit(new SocketPlayer(socket));
+                } catch (IOException e) {
+                    Debug.printError("Can't open input and ouput streams on socket, closing socket", e);
+                    try {
+                        socket.close();
+                    } catch (IOException e1) {
+                        Debug.printError("Can't even close the socket, letting the client handle this", e);
+                        //TODO check that the clients handles this case correctly, the server can't open in and output streams
+                    }
+                }
+            }
             generetorOfConnection.shutdown();
         }
     }
