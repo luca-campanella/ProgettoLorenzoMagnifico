@@ -53,10 +53,10 @@ public class ClientMain {
         }
         userInterface.askLoginOrCreate();
     }
-    public void callbackLogin(){
+    public void callbackLogin(String userID, String userPW){
         Debug.printDebug("Sono nel ClientMain.callbackLogin.");
         try {
-            clientNetwork.loginPlayer("TestUsrLogin", "TestPwd");
+            clientNetwork.loginPlayer(userID, userPW);
         } catch (NetworkException e) {
             //TODO handle network problems
             e.printStackTrace();

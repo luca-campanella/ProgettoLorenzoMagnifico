@@ -116,6 +116,8 @@ public class CommandLineUI extends AbstractUIType{
     public void askLoginOrCreate()
     {
         Debug.printDebug("I am in CLI.askLoginOrCreate");
+        String userID = "user";
+        String userPW = "password";
         while(true)
         {
             System.out.println("Do you want to Create a new account, or LogIn into an old one? Write Create, or Login If you skip, you will be signed in as a Guest");
@@ -126,7 +128,11 @@ public class CommandLineUI extends AbstractUIType{
             }
 
             if(tmpInput.equalsIgnoreCase("LogIn")){
-                clientMain.callbackLogin();
+                System.out.println("Insert UserId");
+                userID = inputScanner.nextLine();
+                System.out.println("Insert PassWord");
+                userPW = inputScanner.nextLine();
+                clientMain.callbackLogin(userID, userPW);
                 break;
             }
 
