@@ -56,5 +56,9 @@ public class Room {
         players.add(player);
         currNOfPlayers++;
         Debug.printDebug("*Room*: added player " + player.getNickname());
+        if(currNOfPlayers == maxNOfPlayers) //Game should start
+        {
+
+        }
     }
 }
