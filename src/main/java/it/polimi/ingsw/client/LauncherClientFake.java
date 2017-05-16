@@ -14,7 +14,7 @@ public class LauncherClientFake {
      */
     public AbstractUIType welcome()
     {
-        System.out.println("Ciao! Per il momento questo sara' il launcher!");
+        System.out.println("Hello! WELCOME to Lorenzo il Magnifico's temporary launcher");
         return this.inputCliOrGui();
 
     }
@@ -32,7 +32,7 @@ public class LauncherClientFake {
         String input;
         Scanner inputScanner = new Scanner(System.in);
         while(true){
-            System.out.println("Vuoi CLI o GUI?");
+            System.out.println("Do you want to use CLI or GUI?");
             input = inputScanner.nextLine();
 
             //inputScanner.close();
