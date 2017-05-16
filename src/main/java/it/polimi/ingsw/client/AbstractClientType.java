@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.ClientConnectionException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.LoginException;
+import it.polimi.ingsw.gamelogic.FamilyMemberColor;
 
 import java.rmi.RemoteException;
 
@@ -58,7 +59,7 @@ public abstract class AbstractClientType  {
      * @param servantUsed number of servant used to increase the value of the family member
      * @param numberPlace the number of the place where to move the family member
      */
-    public abstract void doMove(String colorFamilyMember, int servantUsed, int numberPlace);
+    public abstract void doMove(FamilyMemberColor colorFamilyMember, int servantUsed, int numberPlace);
 
     /**
      * this method is used to discard a leader card
