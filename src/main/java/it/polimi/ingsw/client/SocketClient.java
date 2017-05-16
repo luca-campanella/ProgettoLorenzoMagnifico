@@ -65,6 +65,7 @@ public class SocketClient extends AbstractClientType {
      * override of the superMethod
      * @throws ClientConnectionException if the connection had failed
      */
+    @Override
     public void connect() throws ClientConnectionException {
         try{
             socketClient = new Socket(getServerAddress(),getPort());
@@ -81,6 +82,7 @@ public class SocketClient extends AbstractClientType {
      * @param servantUsed number of servant used to increase the value of the family member
      * @param numberPlace the number of the place where to move the family member
      */
+    @Override
     public void doMove(FamilyMemberColor colorFamilyMember, int servantUsed, int numberPlace){}
     //TODO;
 
@@ -89,6 +91,7 @@ public class SocketClient extends AbstractClientType {
      * @param nameLeader is the name of the card
      * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
      */
+    @Override
     public void discardCard(String nameLeader, String resourceChoose){
         //TODO
     };
@@ -96,6 +99,7 @@ public class SocketClient extends AbstractClientType {
     /**
      * this method is used to inform the room that the player had ended his phase
      */
+    @Override
     public void endPhase(){
         //TODO
     };

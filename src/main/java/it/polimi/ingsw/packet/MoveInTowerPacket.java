@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by federico on 16/05/2017.
  */
-public class MovePacket implements Serializable {
+public class MoveInTowerPacket implements Serializable {
     /**
      * color of the family member moved
      */
@@ -17,17 +17,22 @@ public class MovePacket implements Serializable {
      */
     private int servantUsed;
     /**
-     * Action space chose to move the family member
+     * number of tower where the family member is moved
      */
-    private AbstractActionSpaces spaceOfMove;
+    private int numberTower;
+    /**
+     * floor of the tower where the family member is moved
+     */
+    private int floorTower;
 
     /**
      * constructor
      */
-    public void MovePacket (FamilyMemberColor familyMemberColor, int servantUsed, AbstractActionSpaces spaceOfMove){
+    public void MovePacket (FamilyMemberColor familyMemberColor, int servantUsed, int numberTower, int floorTower){
         this.familyMemberColor=familyMemberColor;
         this.servantUsed=servantUsed;
-        this.spaceOfMove=spaceOfMove;
+        this.numberTower=numberTower;
+        this. floorTower=floorTower;
     }
     public FamilyMemberColor getFamilyMember(){
         return familyMemberColor;
@@ -35,7 +40,10 @@ public class MovePacket implements Serializable {
     public int getServantUsed(){
         return servantUsed;
     }
-    public AbstractActionSpaces getSpace(){
-        return spaceOfMove;
+    public int getNumberTower(){
+        return numberTower;
+    }
+    public int getFloorTower(){
+        return floorTower;
     }
 }

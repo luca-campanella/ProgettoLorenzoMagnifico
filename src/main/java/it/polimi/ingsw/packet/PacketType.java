@@ -3,8 +3,8 @@ package it.polimi.ingsw.packet;
 import java.io.Serializable;
 
 /**
- * Created by federico on 12/05/2017.
+ * type of packet that can be send
  */
 public enum  PacketType implements Serializable {
-    LOGIN, REGISTER, PLACE_FAMILY_MEMBER, DISCARD_LEADER, CHAT, END_PHASE
+    LOGIN, REGISTER, MOVE_IN_TOWER, MOVE_IN_MARKET, HARVESTING, BUILDING, DISCARD_LEADER, PLAY_LEADER, CHAT, END_PHASE
 }
