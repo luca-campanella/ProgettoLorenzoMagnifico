@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gamelogic;
+package it.polimi.ingsw.gamelogic.Player;
 
 /**
  * The main player class, no network

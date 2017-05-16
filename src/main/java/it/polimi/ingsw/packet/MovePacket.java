@@ -1,7 +1,6 @@
 package it.polimi.ingsw.packet;
 
-import it.polimi.ingsw.gamelogic.FamilyMember;
-import it.polimi.ingsw.gamelogic.FamilyMemberColor;
+import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
 
 import java.io.Serializable;
 

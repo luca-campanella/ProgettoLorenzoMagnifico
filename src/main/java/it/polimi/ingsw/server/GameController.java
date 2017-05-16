@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.gamelogic.Board;
+import it.polimi.ingsw.gamelogic.Board.Board;
 
 /**
  * This is the controller of one game

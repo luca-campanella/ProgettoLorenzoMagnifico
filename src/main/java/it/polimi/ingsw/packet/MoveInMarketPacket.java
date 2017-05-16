@@ -1,6 +1,6 @@
 package it.polimi.ingsw.packet;
 
-import it.polimi.ingsw.gamelogic.FamilyMemberColor;
+import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
 
 /**
  * this packet is send when the player move his family member in the market

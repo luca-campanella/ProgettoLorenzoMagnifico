@@ -3,9 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.ClientConnectionException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.LoginException;
-import it.polimi.ingsw.gamelogic.FamilyMemberColor;
-
-import java.rmi.RemoteException;
+import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
 
 /**
  * This is the abstract class that represent the network part of the client, can be extended by RMIClient or SocketClient, depending on which connection the user chooses

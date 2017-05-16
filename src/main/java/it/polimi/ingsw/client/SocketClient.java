@@ -4,7 +4,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.ClientConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.gamelogic.FamilyMemberColor;
+import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
