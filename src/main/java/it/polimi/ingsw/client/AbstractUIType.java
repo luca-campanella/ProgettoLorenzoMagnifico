@@ -27,5 +27,10 @@ abstract public class AbstractUIType {
     //stampa le azioni disp
     abstract public void printAllowedActions();
 
+    /**
+     * this method just alerts user that there was an error somewhere. It doesn't handle the error
+     */
+    abstract public void printError(String error);
+
 }
 
