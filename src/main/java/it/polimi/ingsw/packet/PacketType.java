@@ -1,4 +1,4 @@
-package it.polimi.ingsw.protocol;
+package it.polimi.ingsw.packet;
 
 import java.io.Serializable;
 

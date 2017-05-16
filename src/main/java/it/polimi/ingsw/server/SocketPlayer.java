@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.protocol.LoginOrRegisterPacket;
-import it.polimi.ingsw.protocol.PacketType;
+import it.polimi.ingsw.packet.LoginOrRegisterPacket;
+import it.polimi.ingsw.packet.PacketType;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.*;
