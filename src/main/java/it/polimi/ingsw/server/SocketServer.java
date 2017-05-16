@@ -90,7 +90,7 @@ public class SocketServer extends AbstractServerType {
                     break;
                 }
                 try {
-                    generetorOfConnection.submit(new SocketPlayer(socket));
+                    generetorOfConnection.submit(new SocketPlayer(socket, getServerMainInst()));
                 } catch (IOException e) {
                     Debug.printError("Can't open input and ouput streams on socket, closing socket", e);
                     try {
