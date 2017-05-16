@@ -33,6 +33,17 @@ public class GraphicalUI extends AbstractUIType{
         Debug.printDebug("Sono in CLI.printAllowedActions()");
         System.out.println("Stampo tutte le azioni disponibili dell'utente");
     }
+
+    /**
+     * this method just alerts user that there was an error somewhere. It doesn't handle the error
+     *
+     * @param error
+     */
+    @Override
+    public void printError(String error) {
+        //TODO implent
+    }
+
     /**
      * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
      * this method should also receive the familyMembers list to match the input.
@@ -104,21 +115,7 @@ public class GraphicalUI extends AbstractUIType{
      */
     public void askLoginOrCreate()
     {
-        Debug.printError("Sono nella GUI. Voglio chedere all'utente se creare un nuovo account o loggarsi a uno già esistente.");
-        while(true)
-        {
-            System.out.println("Vuoi CREARE un account o fare il LogIn a uno già esistente? Nel primo caso scrivi crea, nel secondo LogIn");
-            tmpInput = inputScanner.nextLine();
-            if(tmpInput.equalsIgnoreCase("Crea")){
-                clientMain.callbackCreateAccount();
-                break;
-            }
-
-            if(tmpInput.equalsIgnoreCase("LogIn")){
-                clientMain.callbackLogin();
-                break;
-            }
-        }
+        //TODO gophical
     }
 
     //permette all'utente di create un nuovo account
