@@ -74,7 +74,7 @@ public class SocketServer extends AbstractServerType {
 
         @Override
         public void run() {
-
+            Socket socket;
             generetorOfConnection = Executors.newCachedThreadPool();
 
             Debug.printVerbose("Process waiting for Socket clients started");
@@ -82,13 +82,23 @@ public class SocketServer extends AbstractServerType {
             while(true)
             {
                 try {
-                    Socket socket = socketServer.accept();
+                    socket = socketServer.accept();
                     Debug.printVerbose("New socket accepted from " + socket.getInetAddress());
-                    generetorOfConnection.submit(new SocketPlayer(socket));
                 } catch (IOException e) //error occurred if the server shuts down
                  {
-                     Debug.printError("Socket server just crashed", e);
+                     Debug.printError("Can't accept new connection on socket server, server shuts down", e);
                     break;
+                }
+                try {
+                    generetorOfConnection.submit(new SocketPlayer(socket));
+                } catch (IOException e) {
+                    Debug.printError("Can't open input and ouput streams on socket, closing socket", e);
+                    try {
+                        socket.close();
+                    } catch (IOException e1) {
+                        Debug.printError("Can't even close the socket, letting the client handle this", e);
+                        //TODO check that the clients handles this case correctly, the server can't open in and output streams
+                    }
                 }
             }
             generetorOfConnection.shutdown();

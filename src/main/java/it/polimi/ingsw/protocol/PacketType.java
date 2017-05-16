@@ -1,4 +1,4 @@
-package it.polimi.ingsw.enumeration;
+package it.polimi.ingsw.protocol;
 
 import java.io.Serializable;
 
@@ -6,5 +6,5 @@ import java.io.Serializable;
  * Created by federico on 12/05/2017.
  */
 public enum  PacketType implements Serializable {
-    LOGIN, REGISTRATION, PLACE_FAMILY_MEMBER, DISCARD_LEADER, CHAT, END_PHASE
+    LOGIN, REGISTER, PLACE_FAMILY_MEMBER, DISCARD_LEADER, CHAT, END_PHASE
 }
