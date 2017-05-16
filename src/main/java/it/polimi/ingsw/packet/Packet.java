@@ -1,7 +1,5 @@
 package it.polimi.ingsw.packet;
 
-import it.polimi.ingsw.protocol.PacketType;
-
 import java.io.Serializable;
 
 /**

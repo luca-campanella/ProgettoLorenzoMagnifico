@@ -1,4 +1,4 @@
-package it.polimi.ingsw.protocol;
+package it.polimi.ingsw.packet;
 
 import java.io.Serializable;
 
@@ -6,8 +6,8 @@ import java.io.Serializable;
  * This is the packet used when the client wants either to login or to register. It should come after a LOGIN or a REgister header packet
  */
 public class LoginOrRegisterPacket implements Serializable {
-    String nickname;
-    String password;
+    private String nickname;
+    private String password;
 
     public LoginOrRegisterPacket(String nickname, String password)
     {
