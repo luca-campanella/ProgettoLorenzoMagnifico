@@ -23,4 +23,8 @@ public class LoginException extends IOException {
         super(msg);
         this.errorType = errorType;
     }
+
+    public Error getErrorType() {
+        return errorType;
+    }
 }

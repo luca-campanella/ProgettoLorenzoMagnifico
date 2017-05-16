@@ -169,5 +169,10 @@ public class CommandLineUI extends AbstractUIType{
         //askLoginOrCreate()
     }
 
+    public void printError(String error)
+    {
+        System.out.println( error );
+    }
+
 }
 

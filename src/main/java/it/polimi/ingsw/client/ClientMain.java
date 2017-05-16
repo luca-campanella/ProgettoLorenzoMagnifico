@@ -63,11 +63,25 @@ public class ClientMain {
         }
         catch (LoginException e) {
             //TODO handle login problems (call the UI again)
-            //Let's call a method in AbstractUIType that handles LoginFailure
-            //method idea: loginFailure(String)
-            //
+            switch(e.getErrorType()) {
+                case ALREADY_LOGGED_TO_ROOM :
+                    userInterface.printError("Already logged to room");
+                    break;
+                case NOT_EXISTING_USERNAME:
+                    userInterface.printError("The username you insert doesn't exists");
+                    userInterface.askLoginOrCreate();
+                break;
+                case WRONG_PASSWORD:
+                    userInterface.printError("The password you insert was wrong");
+                    userInterface.askLoginOrCreate();
+                    break;
+                default:
+                    userInterface.printError("Something went wrong.");
+                    userInterface.askLoginOrCreate();
+                    break;
 
-            e.printStackTrace();
+            }
+         e.printStackTrace();
 
         }
     }
