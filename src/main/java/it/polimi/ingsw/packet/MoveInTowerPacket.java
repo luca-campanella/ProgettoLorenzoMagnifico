@@ -7,15 +7,7 @@ import java.io.Serializable;
 /**
  * Created by federico on 16/05/2017.
  */
-public class MoveInTowerPacket implements Serializable {
-    /**
-     * color of the family member moved
-     */
-    private FamilyMemberColor familyMemberColor;
-    /**
-     * number of servant used to increase the value of the family member
-     */
-    private int servantUsed;
+public class MoveInTowerPacket extends MovePacket {
     /**
      * number of tower where the family member is moved
      */
@@ -28,17 +20,16 @@ public class MoveInTowerPacket implements Serializable {
     /**
      * constructor
      */
-    public void MovePacket (FamilyMemberColor familyMemberColor, int servantUsed, int numberTower, int floorTower){
-        this.familyMemberColor=familyMemberColor;
-        this.servantUsed=servantUsed;
+    public MoveInTowerPacket (FamilyMemberColor familyMemberColor, int servantUsed, int numberTower, int floorTower){
+        super(familyMemberColor, servantUsed);
         this.numberTower=numberTower;
         this. floorTower=floorTower;
     }
-    public FamilyMemberColor getFamilyMember(){
-        return familyMemberColor;
+    public FamilyMemberColor getFamilyMemberColor(){
+        return super.getFamilyMemberColor();
     }
     public int getServantUsed(){
-        return servantUsed;
+        return super.getServantUsed();
     }
     public int getNumberTower(){
         return numberTower;
