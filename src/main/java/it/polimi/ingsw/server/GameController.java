@@ -17,6 +17,7 @@ public class GameController {
     {
         BoardConfigurator boardConfigurator = new BoardConfigurator();
         gameBoard = boardConfigurator.createBoard(numberOfPlayers);
+        return gameBoard;
     }
 }
 
