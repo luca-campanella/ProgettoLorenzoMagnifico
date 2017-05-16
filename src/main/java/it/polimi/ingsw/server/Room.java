@@ -16,7 +16,7 @@ public class Room {
      */
     ArrayList<AbstractConnectionPlayer> players;
 
-    //GameController game;
+    GameController gameController;
 
     /**
      * timeout that starts when the second player joins the room. When time is up game starts. Set by the constructor
@@ -58,7 +58,7 @@ public class Room {
         Debug.printDebug("*Room*: added player " + player.getNickname());
         if(currNOfPlayers == maxNOfPlayers) //GameController should start
         {
-
+            gameController = new GameController(currNOfPlayers, this);
         }
     }
 }

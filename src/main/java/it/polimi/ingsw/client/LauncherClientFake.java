@@ -24,7 +24,7 @@ public class LauncherClientFake {
     }
 
     /**
-     * This method chooses if UI is CL or G.
+     * This method chooses if UI is CL or Graphical.
      * @return the correct object choosen by the player
      */
     private AbstractUIType inputCliOrGui()
