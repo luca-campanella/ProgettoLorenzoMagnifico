@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.utils.Debug;
 
 import java.sql.*;
@@ -68,7 +69,7 @@ public  class DBManager {
 
         instance = null;
 
-        Debug.printVerbose("Db closed succesfully");
+        Debug.printVerbose("Db closed successfully");
     }
 
     /**
@@ -80,13 +81,19 @@ public  class DBManager {
     public static void checkLogin(String username, String password) throws LoginException
     {
         if(!isRegistered(username))
-            throw new LoginException(LoginException.Error.NOT_EXISTING_USERNAME);
+            throw new LoginException(LoginException.LoginErrorType.NOT_EXISTING_USERNAME);
         if(!isPasswordCorrect(username, password))
-            throw new LoginException(LoginException.Error.WRONG_PASSWORD);
-        Debug.printVerbose("Login checked succesfully");
+            throw new LoginException(LoginException.LoginErrorType.WRONG_PASSWORD);
+        Debug.printVerbose("Login of player " + username + " checked successfully");
     }
 
-    public static boolean isPasswordCorrect(String username, String password)
+    /**
+     * Private method to fully check if the player is present in the database with the right password
+     * @param username
+     * @param password
+     * @return true if present with the correct password
+     */
+    private static boolean isPasswordCorrect(String username, String password)
     {
         String query =  "SELECT * FROM users WHERE username = ? AND password = ?";
 
@@ -103,6 +110,11 @@ public  class DBManager {
         return false;
     }
 
+    /**
+     * Private method to check if a username is present in the db
+     * @param username
+     * @return true if present
+     */
     private static boolean isRegistered(String username)
     {
         String query =  "SELECT * FROM users WHERE username = ?";
@@ -119,7 +131,19 @@ public  class DBManager {
         return false;
     }
 
-    public static void register(String username, String password) {
+    /**
+     * method used to register a new username to the db
+     * @param username
+     * @param password
+     * @throws UsernameAlreadyInUseException if the username is already in use
+     */
+    public static void register(String username, String password) throws UsernameAlreadyInUseException {
+
+        if(isRegistered(username)) {
+            Debug.printDebug("Username " + username + "already in use, can't register to the db");
+            throw new UsernameAlreadyInUseException("Username " + username + "already in use, can't register to the db");
+        }
+
         String sql = "INSERT INTO users(username,password) VALUES(?,?)";
 
         try {
@@ -139,6 +163,12 @@ public  class DBManager {
 
         try {
             DBManager.register("prova", "prova");
+        } catch (UsernameAlreadyInUseException e) {
+            Debug.printError(e);
+        }
+
+        try {
+
             DBManager.checkLogin("prova", "prova");
         } catch (LoginException e) {
             e.printStackTrace();
