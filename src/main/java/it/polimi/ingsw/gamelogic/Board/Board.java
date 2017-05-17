@@ -5,6 +5,11 @@ package it.polimi.ingsw.gamelogic.Board;
  */
 public class Board {
     ;
+
+    public void viewBoard()
+    {
+        ;
+    }
 }
 
 
