@@ -30,7 +30,6 @@ public class SocketPlayer implements Runnable {
 
     }
 
-    @Override
     public void run() {
         Debug.printVerbose("New socket player object waiting for login");
         try {

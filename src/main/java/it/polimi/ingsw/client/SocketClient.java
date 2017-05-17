@@ -5,11 +5,12 @@ import it.polimi.ingsw.exceptions.ClientConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
+import it.polimi.ingsw.packet.ErrorType;
+import it.polimi.ingsw.packet.LoginOrRegisterPacket;
+import it.polimi.ingsw.packet.PacketType;
 import it.polimi.ingsw.utils.Debug;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -23,17 +24,21 @@ public class SocketClient extends AbstractClientType {
     /**
      * Information getted from the server
      */
-    private ObjectInputStream inputInformation;
+    private ObjectInputStream inStream;
     /**
      * Informations delivered to the server
      */
-    private ObjectOutputStream outputInformation;
+    private ObjectOutputStream outStream;
+    private ErrorType response;
+
     /**
      *Initialization of the attributes on the superclass
      */
-    public SocketClient(ClientMain controllerMain, String serverAddress, int port){
+    public SocketClient (ClientMain controllerMain, String serverAddress, int port)throws IOException{
         super(controllerMain, serverAddress, port);
         Debug.printVerbose("New SocketClient created");
+        inStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
+        outStream = new ObjectOutputStream(new BufferedOutputStream(socketClient.getOutputStream()));
     }
 
     /**
@@ -46,7 +51,21 @@ public class SocketClient extends AbstractClientType {
      */
     @Override
     public void loginPlayer(String nickname, String password) throws NetworkException, LoginException {
-        //TODO implement the method loginPlayer in socket
+        try {
+            outStream.writeObject(PacketType.LOGIN);
+            outStream.writeObject(new LoginOrRegisterPacket(nickname, password));
+            outStream.flush();
+            response=(ErrorType)inStream.readObject();
+        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("Connection not avaiable",e);
+            throw new NetworkException(e);
+        }
+        if(response==ErrorType.ALREADY_LOGGED_TO_ROOM ||
+                response==ErrorType.NOT_EXISTING_USERNAME ||
+                         response==ErrorType.WRONG_PASSWORD){
+            throw new LoginException(response);
+        }
     }
 
     /**
@@ -58,7 +77,15 @@ public class SocketClient extends AbstractClientType {
      */
     @Override
     public void registerPlayer(String nickname, String password) throws NetworkException {
-        //TODO implement the method loginPlayer in socket
+        try{
+            outStream.writeObject(PacketType.REGISTER);
+            outStream.writeObject(new LoginOrRegisterPacket(nickname,password));
+            outStream.flush();
+        }
+        catch(IOException e){
+            Debug.printError("connessione non disponibile",e);
+            throw new NetworkException(e);
+        }
     }
 
     /**

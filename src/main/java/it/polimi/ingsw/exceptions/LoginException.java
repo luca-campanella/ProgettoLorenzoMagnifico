@@ -1,5 +1,7 @@
 package it.polimi.ingsw.exceptions;
 
+import it.polimi.ingsw.packet.ErrorType;
+
 import java.io.IOException;
 
 /**
@@ -11,20 +13,19 @@ public class LoginException extends IOException {
     /**
      * The same player can play multiple games, but not in the same room
      */
-    public enum Error { NOT_EXISTING_USERNAME, WRONG_PASSWORD, ALREADY_LOGGED_TO_ROOM};
 
-    private Error errorType;
+    private ErrorType errorType;
 
-    public LoginException(Error errorType) {
+    public LoginException(ErrorType errorType) {
         this.errorType = errorType;
     }
 
-    public LoginException(Error errorType, String msg) {
+    public LoginException(ErrorType errorType, String msg) {
         super(msg);
         this.errorType = errorType;
     }
 
-    public Error getErrorType() {
+    public ErrorType getErrorType() {
         return errorType;
     }
 }
