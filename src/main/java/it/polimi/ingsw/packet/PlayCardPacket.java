@@ -15,7 +15,7 @@ public class PlayCardPacket implements Serializable {
      * constructor
      * @param nameLeaderCard
      */
-    public DiscardCardPacket(String nameLeaderCard){
+    public PlayCardPacket(String nameLeaderCard){
         this.nameLeaderCard=nameLeaderCard;
     }
     public String getNameCard(){
