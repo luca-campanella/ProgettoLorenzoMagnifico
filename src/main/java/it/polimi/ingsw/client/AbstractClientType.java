@@ -1,10 +1,9 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.exceptions.ClientConnectionException;
-import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.LoginException;
-import it.polimi.ingsw.exceptions.RegisterException;
-import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
+import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
 
 /**
  * This is the abstract class that represent the network part of the client, can be extended by RMIClient or SocketClient, depending on which connection the user chooses
@@ -50,7 +49,7 @@ public abstract class AbstractClientType  {
      * @param password to register in the server DB
      * @throws NetworkException if something goes wrong during the connection
      */
-    public abstract void registerPlayer(String nickname, String password) throws NetworkException,RegisterException;
+    public abstract void registerPlayer(String nickname, String password) throws NetworkException,UsernameAlreadyInUseException;
 
     /**
      * this method is used to discard a leader card

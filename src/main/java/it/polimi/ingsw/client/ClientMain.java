@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.ClientConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.utils.Debug;
 
 /**
@@ -63,16 +64,17 @@ public class ClientMain {
         }
         catch (LoginException e) {
             //TODO handle login problems (call the UI again)
+            Debug.printDebug("Login exception occurred", e);
             switch(e.getErrorType()) {
                 case ALREADY_LOGGED_TO_ROOM :
                     userInterface.printError("Already logged to room");
                     break;
                 case NOT_EXISTING_USERNAME:
-                    userInterface.printError("The username you insert doesn't exists");
+                    userInterface.printError("The username you inserted doesn't exists");
                     userInterface.askLoginOrCreate();
                 break;
                 case WRONG_PASSWORD:
-                    userInterface.printError("The password you insert was wrong");
+                    userInterface.printError("The password you inserted was wrong");
                     userInterface.askLoginOrCreate();
                     break;
                 default:
@@ -81,7 +83,6 @@ public class ClientMain {
                     break;
 
             }
-         e.printStackTrace();
 
         }
     }
@@ -96,6 +97,12 @@ public class ClientMain {
         } catch (NetworkException e) {
             //TODO handle network problems
             e.printStackTrace();
+        }
+        catch(UsernameAlreadyInUseException e)
+        {
+            Debug.printDebug(e);
+            userInterface.printError("The username you inserted is already in use, please insert a new one");
+            userInterface.askLoginOrCreate();
         }
     }
     public void callbackPlayLeader(){

@@ -30,11 +30,9 @@ public class SocketClient extends AbstractClientType {
     /**
      *Initialization of the attributes on the superclass
      */
-    public SocketClient (ClientMain controllerMain, String serverAddress, int port)throws IOException{
+    public SocketClient (ClientMain controllerMain, String serverAddress, int port) {
         super(controllerMain, serverAddress, port);
         Debug.printVerbose("New SocketClient created");
-        inStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
-        outStream = new ObjectOutputStream(new BufferedOutputStream(socketClient.getOutputStream()));
     }
     /**
      * override of the superMethod
@@ -50,6 +48,14 @@ public class SocketClient extends AbstractClientType {
             throw new ClientConnectionException(e);
         }
 
+        try {
+            inStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
+            outStream = new ObjectOutputStream(new BufferedOutputStream(socketClient.getOutputStream()));
+        } catch (IOException e) {
+            Debug.printError("Cannot open socket streams", e);
+            throw new ClientConnectionException("Cannot open socket streams", e);
+        }
+
     }
     /**
      * this method is used when an user already exists and decides to login with his username and password
@@ -61,20 +67,23 @@ public class SocketClient extends AbstractClientType {
      */
     @Override
     public void loginPlayer(String nickname, String password) throws NetworkException, LoginException {
+
+        LoginErrorEnum loginResponse;
+
         try {
             outStream.writeObject(PacketType.LOGIN);
             outStream.writeObject(new LoginOrRegisterPacket(nickname, password));
             outStream.flush();
-            response=(ErrorType)inStream.readObject();
+            loginResponse = (LoginErrorEnum) inStream.readObject();
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("Connection not avaiable",e);
             throw new NetworkException(e);
         }
-        if(response==ErrorType.ALREADY_LOGGED_TO_ROOM ||
-                response==ErrorType.NOT_EXISTING_USERNAME ||
-                         response==ErrorType.WRONG_PASSWORD){
-            throw new LoginException(response);
+        if(loginResponse==LoginErrorEnum.ALREADY_LOGGED_TO_ROOM ||
+                loginResponse==LoginErrorEnum.NOT_EXISTING_USERNAME ||
+                loginResponse==LoginErrorEnum.WRONG_PASSWORD){
+            throw new LoginException(loginResponse);
         }
     }
 
@@ -86,7 +95,7 @@ public class SocketClient extends AbstractClientType {
      * @throws NetworkException if something goes wrong during the connection
      */
     @Override
-    public void registerPlayer(String nickname, String password) throws NetworkException,RegisterException {
+    public void registerPlayer(String nickname, String password) throws NetworkException,UsernameAlreadyInUseException {
         try{
             outStream.writeObject(PacketType.REGISTER);
             outStream.writeObject(new LoginOrRegisterPacket(nickname,password));
@@ -98,7 +107,7 @@ public class SocketClient extends AbstractClientType {
             throw new NetworkException(e);
         }
         if(response==ErrorType.ALREADY_EXISTING_USERNAME){
-            throw new RegisterException();
+            throw new UsernameAlreadyInUseException("Username already in use");
         }
     }
 
@@ -111,9 +120,13 @@ public class SocketClient extends AbstractClientType {
      */
     @Override
     public void discardCard(String nameLeader, String resourceChoose) throws NetworkException{
-        try{
+
+        try {
             outStream.writeObject(PacketType.DISCARD_LEADER);
-            outStream.writeObject(new DiscardCardPacket(nameLeader));
+            outStream.writeObject(new DiscardCardPacket(nameLeader, resourceChoose));
+        } catch (IOException e) {
+            Debug.printError("Cannot write object to outputo socket stream", e);
+            throw new NetworkException("Cannot write object to outputo socket stream", e);
         }
 
     };
@@ -133,7 +146,7 @@ public class SocketClient extends AbstractClientType {
             outStream.flush();
             response=(ErrorType)inStream.readObject();
         }
-        catch (IOException |ClassNotFoundException e){
+        catch (IOException | ClassNotFoundException e){
             throw new NetworkException(e);
         }
         if(response==ErrorType.LOW_RESOURCES || response== ErrorType.LOW_VALUE_DICE){

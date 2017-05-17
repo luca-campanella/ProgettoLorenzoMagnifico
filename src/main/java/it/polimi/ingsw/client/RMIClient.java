@@ -3,14 +3,14 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.ClientConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.exceptions.RegisterException;
-import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
+import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.server.RMIServerInterface;
 import it.polimi.ingsw.utils.Debug;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
@@ -57,7 +57,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @throws NetworkException if something goes wrong during the connection
      */
     @Override
-    public void registerPlayer(String nickname, String password) throws NetworkException,RegisterException {
+    public void registerPlayer(String nickname, String password) throws NetworkException,UsernameAlreadyInUseException {
         try {
             RMIServerInterfaceInst.registerPlayer(nickname, password, this);
         } catch(RemoteException e) {
@@ -66,17 +66,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         }
     }
 
-    /**
-     * this method is used to deliver a move
-     *
-     * @param colorFamilyMember color of the family member moved
-     * @param servantUsed       number of servant used to increase the value of the family member
-     * @param numberPlace       the number of the place where to move the family member
-     */
-    @Override
-    public void doMove(FamilyMemberColor colorFamilyMember, int servantUsed, int numberPlace) {
-        //TODO implement abstract method
-    }
 
     /**
      * this method is used to discard a leader card

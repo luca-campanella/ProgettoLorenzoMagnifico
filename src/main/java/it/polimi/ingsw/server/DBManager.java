@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.exceptions.LoginErrorEnum;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.utils.Debug;
@@ -20,9 +21,8 @@ public  class DBManager {
     /**
      * Private constructor, basically it creates the database and the table if not already present
      */
-    private DBManager() {
+    private DBManager() throws SQLException {
 
-        try {
             // create a connection to the database
             conn = DriverManager.getConnection(url);
 
@@ -38,17 +38,13 @@ public  class DBManager {
             // create a new table
             stmt.execute(sql);
             stmt.close();
-
-        } catch (SQLException e) {
-            Debug.printError("Cannot open db or create table", e);
-        }
     }
 
     /**
      * It creates the singleton instance only if it doesn't exist already
      * @return DBManager the singleton instance
      */
-    public static DBManager instance() {
+    public static DBManager instance() throws SQLException {
         if (instance == null)
             instance = new DBManager();
         return instance;
@@ -81,9 +77,9 @@ public  class DBManager {
     public static void checkLogin(String username, String password) throws LoginException
     {
         if(!isRegistered(username))
-            throw new LoginException(LoginException.LoginErrorType.NOT_EXISTING_USERNAME);
+            throw new LoginException(LoginErrorEnum.NOT_EXISTING_USERNAME);
         if(!isPasswordCorrect(username, password))
-            throw new LoginException(LoginException.LoginErrorType.WRONG_PASSWORD);
+            throw new LoginException(LoginErrorEnum.WRONG_PASSWORD);
         Debug.printVerbose("Login of player " + username + " checked successfully");
     }
 
@@ -159,7 +155,11 @@ public  class DBManager {
     public static void main(String args[]) {
 
         Debug.instance(Debug.LEVEL_VERBOSE);
-        DBManager.instance();
+        try {
+            DBManager.instance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         try {
             DBManager.register("prova", "prova");

@@ -8,27 +8,18 @@ import java.io.IOException;
  */
 public class LoginException extends IOException {
 
-    /**
-     * The same player can play multiple games, but not in the same room
-     */
+    private LoginErrorEnum errorType;
 
-    /**
-     * The enum to signal what caused the login error
-     */
-    public enum LoginErrorType {NOT_EXISTING_USERNAME, WRONG_PASSWORD, ALREADY_LOGGED_TO_ROOM};
-
-    private LoginErrorType errorType;
-
-    public LoginException(LoginErrorType errorType) {
+    public LoginException(LoginErrorEnum errorType) {
         this.errorType = errorType;
     }
 
-    public LoginException(LoginErrorType errorType, String msg) {
+    public LoginException(LoginErrorEnum errorType, String msg) {
         super(msg);
         this.errorType = errorType;
     }
 
-    public LoginErrorType getErrorType() {
+    public LoginErrorEnum getErrorType() {
         return errorType;
     }
 }

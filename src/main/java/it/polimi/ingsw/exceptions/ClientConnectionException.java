@@ -16,4 +16,14 @@ public class ClientConnectionException extends IOException {
     {
         super(e);
     }
+
+    /**
+     * Constructor, just calls the super constructor of IOException
+     * @param msg
+     * @param e
+     */
+    public ClientConnectionException(String msg, Throwable e)
+    {
+        super(msg, e);
+    }
 }

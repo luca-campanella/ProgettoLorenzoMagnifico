@@ -1,10 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.RMIClientInterface;
-import it.polimi.ingsw.exceptions.FullRoomException;
-import it.polimi.ingsw.exceptions.GameAlreadyStartedRoomException;
-import it.polimi.ingsw.exceptions.LoginException;
-import it.polimi.ingsw.exceptions.ServerException;
+import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.utils.Debug;
 
 import java.rmi.RemoteException;
@@ -117,13 +114,14 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
      * @param nickname
      * @param password
      * @throws RemoteException
-     * @throws LoginException   if username doesn't exist or if password is wrong
+     * @throws UsernameAlreadyInUseException if the username is already in use
      */
     @Override
-    public String registerPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException
+    public String registerPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, UsernameAlreadyInUseException
     {
         //TODO implement
         Debug.printDebug("CLient tried to register, usr: " + nickname + "password: " + password);
+
 
         //TODO implement creation of room (in another class)
         Room room = new Room(4, 3000);

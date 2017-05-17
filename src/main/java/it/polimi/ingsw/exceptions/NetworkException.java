@@ -16,4 +16,7 @@ public class NetworkException extends IOException {
     {
         super(cause);
     }
+    public NetworkException(String msg, Throwable e) {
+        super(msg, e);
+    }
 }

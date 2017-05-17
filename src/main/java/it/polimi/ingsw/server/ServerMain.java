@@ -1,11 +1,9 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.exceptions.FullRoomException;
-import it.polimi.ingsw.exceptions.GameAlreadyStartedRoomException;
-import it.polimi.ingsw.exceptions.LoginException;
-import it.polimi.ingsw.exceptions.ServerException;
+import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.utils.Debug;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -75,6 +73,13 @@ public class ServerMain {
 		rooms = new ArrayList<Room>(1);
 		rooms.add(new Room(4, 3000)); //TODO implement creation of room (in another class)
 
+		try {
+			DBManager.instance();
+		} catch (SQLException e) {
+			Debug.printError("Cannot open db or create table", e);
+			throw new ServerException("Cannot open db or create table", e);
+		}
+
 		RMIServerInst = new RMIServer(this, RMI_PORT);
 
 		SocketServerInst = new SocketServer(this, SOCKET_PORT);
@@ -89,16 +94,15 @@ public class ServerMain {
 	 */
 	public void loginPlayer(String nickname, String password) throws LoginException
 	{
-		//TODO check if the player exists in the db
+		DBManager.checkLogin(nickname, password);
 	}
 
 	/**
 	 * this method is called by the AbstractServerType (either RMI or Socket) to register a player in the DB
 	 * @param nickname to register in the server DB
 	 */
-	public void registerPlayer(String nickname, String password)
-	{
-		//TODO add the new player to the db
+	public void registerPlayer(String nickname, String password) throws UsernameAlreadyInUseException {
+		DBManager.register(nickname, password);
 	}
 
 	/**
