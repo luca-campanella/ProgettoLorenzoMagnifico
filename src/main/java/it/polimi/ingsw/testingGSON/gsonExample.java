@@ -12,9 +12,9 @@ import com.google.gson.GsonBuilder;
 public class public class gsonExample {
 
     public static void main(String[] args) throws IOException {
-        try(Reader reader = new InputStreamReader(JsonToJava.class.getResourceAsStream("/Server1.json"), "UTF-8")){
+        try(Reader reader = new InputStreamReader(gsonExample.class.getResourceAsStream("/Output.json"), "UTF-8")){
             Gson gson = new GsonBuilder().create();
-            Person p = gson.fromJson(reader, Person.class);
+            examplePerson p = gson.fromJson(reader, examplePerson.class);
             System.out.println(p);
         }
     }
