@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.packet.LoginOrRegisterPacket;
 import it.polimi.ingsw.packet.PacketType;
 import it.polimi.ingsw.utils.Debug;
@@ -53,10 +55,19 @@ public class SocketPlayer implements Runnable {
 
         switch(pkgType) {
             case REGISTER:
-                serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
+                try {
+                    serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
+                } catch(UsernameAlreadyInUseException e)
+                {
+                    //TODO send correct response packet
+                }
                 break;
             case LOGIN:
-                serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
+                try {
+                    serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
+                } catch(LoginException e) {
+                    outStream.writeObject(e.getErrorType());
+                }
                 break;
         }
     }

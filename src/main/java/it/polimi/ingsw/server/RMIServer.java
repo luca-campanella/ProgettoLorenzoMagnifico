@@ -119,9 +119,8 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
     @Override
     public String registerPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, UsernameAlreadyInUseException
     {
-        //TODO implement
         Debug.printDebug("CLient tried to register, usr: " + nickname + "password: " + password);
-
+        getServerMainInst().registerPlayer(nickname, password);
 
         //TODO implement creation of room (in another class)
         Room room = new Room(4, 3000);
