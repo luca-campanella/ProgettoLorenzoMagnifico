@@ -23,12 +23,7 @@ public class MoveInTowerPacket extends MovePacket {
         this.numberTower=numberTower;
         this. floorTower=floorTower;
     }
-    public FamilyMemberColor getFamilyMemberColor(){
-        return super.getFamilyMemberColor();
-    }
-    public int getServantUsed(){
-        return super.getServantUsed();
-    }
+
     public int getNumberTower(){
         return numberTower;
     }

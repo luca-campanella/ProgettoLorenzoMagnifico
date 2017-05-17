@@ -21,12 +21,6 @@ public class MoveInMarketPacket extends MovePacket {
         super(familyMemberColor, servantUsed);
         this.placeNumber=placeNumber;
     }
-    public FamilyMemberColor getFamilyMemberColor(){
-        return super.getFamilyMemberColor();
-    }
-    public int getServantUsed(){
-        return super.getServantUsed();
-    }
 
     public int getPlaceNumber() {
         return placeNumber;

@@ -12,13 +12,13 @@ public class IllegalMoveException extends IOException {
     /**
      * the type of error on the move
      */
-    private ErrorType errorType;
+    private MoveErrorEnum moveErrorEnum;
 
-    public IllegalMoveException(ErrorType errorType){
-        this.errorType=errorType;
+    public IllegalMoveException(MoveErrorEnum moveErrorEnum){
+        this.moveErrorEnum=moveErrorEnum;
     }
 
-    public ErrorType getErrorType() {
-        return errorType;
+    public MoveErrorEnum getErrorType() {
+        return moveErrorEnum;
     }
 }

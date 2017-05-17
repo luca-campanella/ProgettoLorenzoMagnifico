@@ -103,11 +103,23 @@ public class SocketClient extends AbstractClientType {
             response=(ErrorType)inStream.readObject();
         }
         catch(IOException | ClassNotFoundException e){
-            Debug.printError("connessione non disponibile",e);
+            Debug.printError("connection not avaiable",e);
             throw new NetworkException(e);
         }
         if(response==ErrorType.ALREADY_EXISTING_USERNAME){
             throw new UsernameAlreadyInUseException("Username already in use");
+        }
+    }
+    public void playCard(String nameLeader) throws NetworkException{
+        try{
+            outStream.writeObject(PacketType.PLAY_LEADER);
+            outStream.writeObject(new PlayCardPacket(nameLeader));
+            outStream.flush();
+        }
+        catch(IOException e){
+            Debug.printError("Network is not avaiable",e);
+            throw new NetworkException(e);
+
         }
     }
 
@@ -124,8 +136,10 @@ public class SocketClient extends AbstractClientType {
         try {
             outStream.writeObject(PacketType.DISCARD_LEADER);
             outStream.writeObject(new DiscardCardPacket(nameLeader, resourceChoose));
-        } catch (IOException e) {
-            Debug.printError("Cannot write object to outputo socket stream", e);
+            outStream.flush();
+        }
+        catch (IOException e) {
+            Debug.printError("Cannot write object to output socket stream", e);
             throw new NetworkException("Cannot write object to outputo socket stream", e);
         }
 
@@ -140,18 +154,41 @@ public class SocketClient extends AbstractClientType {
      */
     public void moveInTower(FamilyMemberColor familyMemberColor, int servantUsed, int numberTower, int floorTower)
             throws NetworkException,IllegalMoveException {
+        MoveErrorEnum moveErrorEnum;
         try{
             outStream.writeObject(PacketType.MOVE_IN_TOWER);
             outStream.writeObject(new MoveInTowerPacket(familyMemberColor,servantUsed,numberTower,floorTower));
             outStream.flush();
-            response=(ErrorType)inStream.readObject();
+            moveErrorEnum=(MoveErrorEnum) inStream.readObject();
         }
         catch (IOException | ClassNotFoundException e){
+            Debug.printError("Connection not avaiable",e);
             throw new NetworkException(e);
         }
-        if(response==ErrorType.LOW_RESOURCES || response== ErrorType.LOW_VALUE_DICE){
-            throw new IllegalMoveException(response);
+        if(moveErrorEnum==MoveErrorEnum.LOW_RESOURCES || moveErrorEnum== MoveErrorEnum.LOW_VALUE_DICE){
+            throw new IllegalMoveException(moveErrorEnum);
         }
+    }
+
+    public void moveInMarket(FamilyMemberColor familyMemberColor, int servantUsed, int placeNumber)
+            throws NetworkException,IllegalMoveException{
+        MoveErrorEnum moveErrorEnum;
+        try{
+            outStream.writeObject(PacketType.MOVE_IN_MARKET);
+            outStream.writeObject(new MoveInMarketPacket(familyMemberColor, servantUsed, placeNumber));
+            outStream.flush();
+            moveErrorEnum=(MoveErrorEnum)inStream.readObject();
+        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("Network is not avaiable",e);
+            throw new NetworkException(e);
+        }
+        if(moveErrorEnum==MoveErrorEnum.LOW_RESOURCES || moveErrorEnum== MoveErrorEnum.LOW_VALUE_DICE){
+            throw new IllegalMoveException(moveErrorEnum);
+        }
+    }
+    public void harvest (FamilyMemberColor familyMemberColor, int servantUsed){
+
     }
 
     /**
