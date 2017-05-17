@@ -1,12 +1,11 @@
 package it.polimi.ingsw.client;
 
 
-import it.polimi.ingsw.exceptions.ClientConnectionException;
-import it.polimi.ingsw.exceptions.LoginException;
-import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
 import it.polimi.ingsw.packet.ErrorType;
 import it.polimi.ingsw.packet.LoginOrRegisterPacket;
+import it.polimi.ingsw.packet.MoveInTowerPacket;
 import it.polimi.ingsw.packet.PacketType;
 import it.polimi.ingsw.utils.Debug;
 
@@ -40,7 +39,21 @@ public class SocketClient extends AbstractClientType {
         inStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
         outStream = new ObjectOutputStream(new BufferedOutputStream(socketClient.getOutputStream()));
     }
+    /**
+     * override of the superMethod
+     * @throws ClientConnectionException if the connection had failed
+     */
+    @Override
+    public void connect() throws ClientConnectionException {
+        try{
+            socketClient = new Socket(getServerAddress(),getPort());
+        }
+        catch(IOException e){
+            Debug.printError("Cannot connect Socket client",e);
+            throw new ClientConnectionException(e);
+        }
 
+    }
     /**
      * this method is used when an user already exists and decides to login with his username and password
      *
@@ -76,42 +89,23 @@ public class SocketClient extends AbstractClientType {
      * @throws NetworkException if something goes wrong during the connection
      */
     @Override
-    public void registerPlayer(String nickname, String password) throws NetworkException {
+    public void registerPlayer(String nickname, String password) throws NetworkException,RegisterException {
         try{
             outStream.writeObject(PacketType.REGISTER);
             outStream.writeObject(new LoginOrRegisterPacket(nickname,password));
             outStream.flush();
+            response=(ErrorType)inStream.readObject();
         }
-        catch(IOException e){
+        catch(IOException | ClassNotFoundException e){
             Debug.printError("connessione non disponibile",e);
             throw new NetworkException(e);
         }
+        if(response==ErrorType.ALREADY_EXISTING_USERNAME){
+            throw new RegisterException();
+        }
     }
 
-    /**
-     * override of the superMethod
-     * @throws ClientConnectionException if the connection had failed
-     */
-    @Override
-    public void connect() throws ClientConnectionException {
-        try{
-            socketClient = new Socket(getServerAddress(),getPort());
-        }
-        catch(IOException e){
-            Debug.printError("Cannot connect Socket client",e);
-            throw new ClientConnectionException(e);
-        }
 
-    }
-    /**
-     * this method is used to deliver a move
-     * @param colorFamilyMember color of the family member moved
-     * @param servantUsed number of servant used to increase the value of the family member
-     * @param numberPlace the number of the place where to move the family member
-     */
-    @Override
-    public void doMove(FamilyMemberColor colorFamilyMember, int servantUsed, int numberPlace){}
-    //TODO;
 
     /**
      * this method is used to discard a leader card
@@ -122,6 +116,29 @@ public class SocketClient extends AbstractClientType {
     public void discardCard(String nameLeader, String resourceChoose){
         //TODO
     };
+
+    /**
+     * this method is used to move the family member on the towers
+     * @param familyMemberColor color of the member
+     * @param servantUsed number servant used on the member
+     * @param numberTower number of the tower
+     * @param floorTower floor of the tower
+     */
+    public void moveInTower(FamilyMemberColor familyMemberColor, int servantUsed, int numberTower, int floorTower)
+            throws NetworkException,IllegalMoveException {
+        try{
+            outStream.writeObject(PacketType.MOVE_IN_TOWER);
+            outStream.writeObject(new MoveInTowerPacket(familyMemberColor,servantUsed,numberTower,floorTower));
+            outStream.flush();
+            response=(ErrorType)inStream.readObject();
+        }
+        catch (IOException |ClassNotFoundException e){
+            throw new NetworkException(e);
+        }
+        if(response==ErrorType.LOW_RESOURCES || response== ErrorType.LOW_VALUE_DICE){
+            throw new IllegalMoveException(response);
+        }
+    }
 
     /**
      * this method is used to inform the room that the player had ended his phase
