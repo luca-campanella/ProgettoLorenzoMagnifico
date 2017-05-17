@@ -7,8 +7,8 @@ import it.polimi.ingsw.gamelogic.Player.FamilyMember;
  * Created by higla on 16/05/2017.
  */
 public abstract class AbstractActionSpace {
-    private int DICEVALUE;
-    private EffectInterface EFFECT;
+    public int DICEVALUE;
+    public EffectInterface EFFECT;
 
     protected AbstractActionSpace() {
     }
@@ -17,4 +17,21 @@ public abstract class AbstractActionSpace {
      * this method lets you perform an action
      */
     abstract public void performAction(FamilyMember familyMember);
+
+
+    public int getDICEVALUE() {
+        return DICEVALUE;
+    }
+
+    public void setDICEVALUE(int DICEVALUE) {
+        this.DICEVALUE = DICEVALUE;
+    }
+
+    public EffectInterface getEFFECT() {
+        return EFFECT;
+    }
+
+    public void setEFFECT(EffectInterface EFFECT) {
+        this.EFFECT = EFFECT;
+    }
 }
