@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.ClientConnectionException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.RegisterException;
 import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
 
 /**
@@ -49,22 +50,14 @@ public abstract class AbstractClientType  {
      * @param password to register in the server DB
      * @throws NetworkException if something goes wrong during the connection
      */
-    public abstract void registerPlayer(String nickname, String password) throws NetworkException;
-
-    /**
-     * this method is used to deliver a move
-     * @param colorFamilyMember color of the family member moved
-     * @param servantUsed number of servant used to increase the value of the family member
-     * @param numberPlace the number of the place where to move the family member
-     */
-    public abstract void doMove(FamilyMemberColor colorFamilyMember, int servantUsed, int numberPlace);
+    public abstract void registerPlayer(String nickname, String password) throws NetworkException,RegisterException;
 
     /**
      * this method is used to discard a leader card
      * @param nameLeader is the name of the card
      * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
      */
-    public abstract void discardCard(String nameLeader, String resourceChoose);
+    public abstract void discardCard(String nameLeader, String resourceChoose) throws NetworkException;
 
     /**
      * this method is used to inform the room that the player had ended his phase

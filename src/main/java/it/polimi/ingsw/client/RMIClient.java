@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.ClientConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.exceptions.RegisterException;
 import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
 import it.polimi.ingsw.server.RMIServerInterface;
 import it.polimi.ingsw.utils.Debug;
@@ -56,7 +57,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @throws NetworkException if something goes wrong during the connection
      */
     @Override
-    public void registerPlayer(String nickname, String password) throws NetworkException {
+    public void registerPlayer(String nickname, String password) throws NetworkException,RegisterException {
         try {
             RMIServerInterfaceInst.registerPlayer(nickname, password, this);
         } catch(RemoteException e) {
