@@ -170,6 +170,9 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    /**
+     * this method is used when the family member in moved on a generic market space
+     */
     public void moveInMarket(FamilyMemberColor familyMemberColor, int servantUsed, int placeNumber)
             throws NetworkException,IllegalMoveException{
         MoveErrorEnum moveErrorEnum;
@@ -187,7 +190,49 @@ public class SocketClient extends AbstractClientType {
             throw new IllegalMoveException(moveErrorEnum);
         }
     }
-    public void harvest (FamilyMemberColor familyMemberColor, int servantUsed){
+
+    /**
+     * this method is called when the family member is moved on the harvest space
+     */
+    public void harvest (FamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
+        try{
+            outStream.writeObject(PacketType.HARVESTING);
+            outStream.writeObject(new BuildOrHarvest(familyMemberColor,servantUsed));
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Network is not avaiable", e);
+            throw new NetworkException(e);
+        }
+
+    }
+    public void build (FamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
+        try{
+            outStream.writeObject(PacketType.BUILDING);
+            outStream.writeObject(new BuildOrHarvest(familyMemberColor,servantUsed));
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Network is not avaiable", e);
+            throw new NetworkException(e);
+        }
+
+    }
+
+    /**
+     * this method is used to write a string on the chat
+     * @param message is the string that the used writes
+     */
+    public void chatMessage(String message) throws NetworkException{
+        try{
+            outStream.writeObject(PacketType.CHAT);
+            outStream.writeObject(message);
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Network is not avaiable", e);
+            throw new NetworkException(e);
+        }
 
     }
 
@@ -196,7 +241,14 @@ public class SocketClient extends AbstractClientType {
      */
     @Override
     public void endPhase(){
-        //TODO
+        try{
+            outStream.writeObject(PacketType.END_PHASE);
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Network is not avaiable", e);
+            throw new NetworkException(e);
+        }
     };
 
     protected ClientMain getControllerMain() {
