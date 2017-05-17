@@ -57,7 +57,7 @@ public abstract class AbstractClientType  {
      * @param nameLeader is the name of the card
      * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
      */
-    public abstract void discardCard(String nameLeader, String resourceChoose);
+    public abstract void discardCard(String nameLeader, String resourceChoose) throws NetworkException;
 
     /**
      * this method is used to inform the room that the player had ended his phase

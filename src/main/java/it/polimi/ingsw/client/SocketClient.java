@@ -3,10 +3,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
-import it.polimi.ingsw.packet.ErrorType;
-import it.polimi.ingsw.packet.LoginOrRegisterPacket;
-import it.polimi.ingsw.packet.MoveInTowerPacket;
-import it.polimi.ingsw.packet.PacketType;
+import it.polimi.ingsw.packet.*;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.*;
@@ -113,8 +110,12 @@ public class SocketClient extends AbstractClientType {
      * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
      */
     @Override
-    public void discardCard(String nameLeader, String resourceChoose){
-        //TODO
+    public void discardCard(String nameLeader, String resourceChoose) throws NetworkException{
+        try{
+            outStream.writeObject(PacketType.DISCARD_LEADER);
+            outStream.writeObject(new DiscardCardPacket(nameLeader));
+        }
+
     };
 
     /**
