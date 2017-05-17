@@ -9,7 +9,7 @@ import java.io.Reader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class public class gsonExample {
+public class gsonExample {
 
     public static void main(String[] args) throws IOException {
         try(Reader reader = new InputStreamReader(gsonExample.class.getResourceAsStream("/Output.json"), "UTF-8")){
