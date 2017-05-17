@@ -22,7 +22,6 @@ public class ExampleMain {
         gsonBuilder.registerTypeAdapter(AbstractActionSpace.class, new ActionSpaceDeserializer());
         //we have to add all Deserializers
         Gson gson = gsonBuilder.create();
-        Debug.printDebug("Non compila");
         // The JSON data
         try(Reader reader = new InputStreamReader(it.polimi.ingsw.testingGSON.GsonExample.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
             // Parse JSON to Java
@@ -33,6 +32,6 @@ public class ExampleMain {
         }
     }
     public static void printActionSpace(AbstractActionSpace actionSpace){
-        System.out.println("DICE: " + actionSpace.getDICEVALUE() + "EFFECT: " + actionSpace.getEFFECT() );
+        System.out.println("DICE: " + actionSpace.getDICEVALUE() + " EFFECT: " + actionSpace.getEFFECT() );
     }
 }

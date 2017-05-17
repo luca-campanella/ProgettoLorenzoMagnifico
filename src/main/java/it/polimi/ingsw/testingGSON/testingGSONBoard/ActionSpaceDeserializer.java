@@ -16,6 +16,7 @@ import com.google.gson.JsonPrimitive;
 import it.polimi.ingsw.gamelogic.Board.AbstractActionSpace;
 import it.polimi.ingsw.gamelogic.Board.TowerFloorAS;
 import it.polimi.ingsw.gamelogic.Effects.EffectInterface;
+import it.polimi.ingsw.gamelogic.Effects.NoEffect;
 
 public class ActionSpaceDeserializer implements JsonDeserializer<AbstractActionSpace> {
     String tempEffect;
@@ -52,7 +53,7 @@ public class ActionSpaceDeserializer implements JsonDeserializer<AbstractActionS
     }
 
     static Object createObject(String className){
-        Object object = null;
+        Object object = new NoEffect();
         try {
             Class classDefinition = Class.forName(className);
             object = classDefinition.newInstance();
