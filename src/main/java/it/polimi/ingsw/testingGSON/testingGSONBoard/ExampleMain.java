@@ -3,7 +3,6 @@ package it.polimi.ingsw.testingGSON.testingGSONBoard;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.gamelogic.Board.AbstractActionSpace;
-import it.polimi.ingsw.gamelogic.Board.Board;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.InputStreamReader;
@@ -17,18 +16,21 @@ public class ExampleMain {
 //qui chiamo il BoardDeserializer
 //stampo anche in console la board per vedere se è passata correttamente
     public static void main(String[] args) throws Exception {
+
+        Debug.instance(Debug.LEVEL_VERBOSE);
+
         // Configure Gson
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(AbstractActionSpace.class, new ActionSpaceDeserializer());
         //we have to add all Deserializers
         Gson gson = gsonBuilder.create();
         // The JSON data
-        try(Reader reader = new InputStreamReader(it.polimi.ingsw.testingGSON.GsonExample.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
+        try(Reader reader = new InputStreamReader(ExampleMain.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
             // Parse JSON to Java
             // Board board = gson.fromJson(reader, Board.class);
             //board.viewBoard();
             AbstractActionSpace actionSpace = gson.fromJson(reader, AbstractActionSpace.class);
-        printActionSpace(actionSpace);
+            printActionSpace(actionSpace);
         }
     }
     public static void printActionSpace(AbstractActionSpace actionSpace){
