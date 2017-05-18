@@ -8,7 +8,6 @@ import it.polimi.ingsw.packet.PacketType;
 import it.polimi.ingsw.packet.RegisterErrorEnum;
 import it.polimi.ingsw.utils.Debug;
 
-import javax.lang.model.type.ErrorType;
 import java.io.*;
 import java.net.Socket;
 
@@ -50,28 +49,26 @@ public class SocketPlayer implements Runnable {
         PacketType pkgType = null;
         LoginOrRegisterPacket packet = null;
         do {
-                pkgType = (PacketType) inStream.readObject();
-                //TODO tell clients the packet needs to be a login or a register one
-        } while(pkgType != PacketType.LOGIN && pkgType != PacketType.REGISTER);
+            pkgType = (PacketType) inStream.readObject();
+            //TODO tell clients the packet needs to be a login or a register one
+        } while (pkgType != PacketType.LOGIN && pkgType != PacketType.REGISTER);
 
         packet = (LoginOrRegisterPacket) inStream.readObject();
 
-        if(pkgType==PacketType.REGISTER) {
-                try {
-                    serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
-                } catch(UsernameAlreadyInUseException e)
-                {
-                    outStream.writeObject(RegisterErrorEnum.ALREADY_EXISTING_USERNAME);
-
-                }
-        }
-        if(pkgType==PacketType.LOGIN)
+        if (pkgType == PacketType.REGISTER) {
             try {
-                    serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
-                } catch(LoginException e) {
-                    outStream.writeObject(LoginErrorEnum.ALREADY_LOGGED_TO_ROOM);
-                    //TODO aggiungere le altre possibilità
-                }
+                serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
+            } catch (UsernameAlreadyInUseException e) {
+                outStream.writeObject(RegisterErrorEnum.ALREADY_EXISTING_USERNAME);
+
+            }
+        }
+        if (pkgType == PacketType.LOGIN) {
+            try {
+                serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
+            } catch (LoginException e) {
+                outStream.writeObject(e.getErrorType());
+            }
         }
     }
 
