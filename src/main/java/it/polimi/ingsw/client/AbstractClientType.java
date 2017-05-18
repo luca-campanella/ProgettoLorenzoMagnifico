@@ -64,7 +64,7 @@ public abstract class AbstractClientType  {
     public abstract void endPhase() throws NetworkException;
 
     /**
-     * This method is used to send chat message to all players in the room
+     * This method is used by the client to send chat message to all other players in the room (Direction: client -> sever)
      * @param msg The message
      * @throws NetworkException
      */

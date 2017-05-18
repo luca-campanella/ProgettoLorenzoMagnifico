@@ -20,12 +20,17 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
      * @throws NetworkException
      */
     @Override
-    public void floodChatMsg(String msg) throws NetworkException {
-
+    public void floodChatMsg(String senderNickname, String msg) throws NetworkException {
+    //TODO implement
     }
 
+    /**
+     * This method is used by the client to send chat message to all other players in the room (Direction: client -> sever)
+     * @param msg The message
+     * @throws NetworkException
+     */
     @Override
     public void sendChatMsg(String msg) throws RemoteException {
-
+        Room.sendChatMsg(this, msg);
     }
 }
