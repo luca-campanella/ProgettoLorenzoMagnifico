@@ -10,6 +10,7 @@ import it.polimi.ingsw.gamelogic.Effects.EffectInterface;
 import it.polimi.ingsw.gamelogic.Effects.NoEffect;
 import it.polimi.ingsw.utils.Debug;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class ActionSpaceDeserializer implements JsonDeserializer<AbstractActionSpace> {
     String tempEffect;
     EffectInterface effect;
+
     private final ThreadLocal<Map<Integer, AbstractActionSpace>> cache = new ThreadLocal<Map<Integer, AbstractActionSpace>>() {
         @Override
         protected Map<Integer, AbstractActionSpace> initialValue() {
@@ -25,17 +27,18 @@ public class ActionSpaceDeserializer implements JsonDeserializer<AbstractActionS
         }
     };
 
+    /**
+     * This method deserialize an AbstractActionSpace from a json file
+     * @param json
+     * @param typeOfT
+     * @param context
+     * @return an AbstractActionSpace, which will be the correct space for the correct location
+     * @throws JsonParseException
+     */
     @Override
     public AbstractActionSpace deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
             throws JsonParseException {
 
-        // Only the ID is available
-        /*if (json.isJsonPrimitive()) {
-            final JsonPrimitive primitive = json.getAsJsonPrimitive();
-            ;
-        }*/
-
-        // The whole object is available
         if (json.isJsonObject()) {
             final JsonObject jsonObject = json.getAsJsonObject();
             tempEffect = jsonObject.get("EFFECT").getAsString();
@@ -59,7 +62,20 @@ public class ActionSpaceDeserializer implements JsonDeserializer<AbstractActionS
 
         try {
             Class classDefinition = Class.forName(className);
-            object = classDefinition.newInstance();
+            //object = classDefinition.newInstance();
+            //object.getDeclaredConstructor(classDefinition).newInstance("Wood", 2);
+            try{
+                Class[] cArg = new Class[2];
+                cArg[0] = String.class;
+                cArg[1] = int.class;
+                object = classDefinition.getDeclaredConstructor(cArg).newInstance("Wood", 2);
+            }
+            catch(NoSuchMethodException e){
+                e.printStackTrace();
+            }
+            catch(InvocationTargetException e){
+                e.printStackTrace();
+            }
         } catch (InstantiationException e) {
             System.out.println(e);
         } catch (IllegalAccessException e) {

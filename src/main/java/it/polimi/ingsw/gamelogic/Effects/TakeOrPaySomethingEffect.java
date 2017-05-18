@@ -2,6 +2,7 @@ package it.polimi.ingsw.gamelogic.Effects;
 
 import it.polimi.ingsw.gamelogic.Player.Player;
 import it.polimi.ingsw.gamelogic.Resource.Resource;
+import it.polimi.ingsw.utils.Debug;
 
 /**
  * Created by higla on 16/05/2017.
@@ -12,7 +13,7 @@ public class TakeOrPaySomethingEffect implements EffectInterface {
 
     TakeOrPaySomethingEffect(String resourceType, int value)
     {
-        //Come inizializzare il tipo di risorsa?
+        Debug.printVerbose("Hello");
     }
     @Override
     public void applyToPlayer(Player player) {

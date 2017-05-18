@@ -7,5 +7,5 @@ import it.polimi.ingsw.server.SocketPlayer;
  */
 public class ReadClientPacketProtocol {
     private SocketPlayer player;
-    private
+    //private
 }

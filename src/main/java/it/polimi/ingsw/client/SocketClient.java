@@ -183,7 +183,7 @@ public class SocketClient extends AbstractClientType {
             moveErrorEnum=(MoveErrorEnum)inStream.readObject();
         }
         catch(IOException | ClassNotFoundException e){
-            Debug.printError("Network is not avaiable",e);
+            Debug.printError("Network is not available",e);
             throw new NetworkException(e);
         }
         if(moveErrorEnum==MoveErrorEnum.LOW_RESOURCES || moveErrorEnum== MoveErrorEnum.LOW_VALUE_DICE){
