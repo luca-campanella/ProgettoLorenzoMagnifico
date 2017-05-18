@@ -3,9 +3,11 @@ package it.polimi.ingsw.client;
 /**
  * Created by higla on 11/05/2017.
  */
+
+import it.polimi.ingsw.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.utils.Debug;
 
-import java.util.*;
+import java.util.Scanner;
 //TODO
 public class CommandLineUI extends AbstractUIType{
 
@@ -118,30 +120,41 @@ public class CommandLineUI extends AbstractUIType{
         Debug.printDebug("I am in CLI.askLoginOrCreate");
         String userID = "user";
         String userPW = "password";
+        UsrPwdContainer usrAndPwd;
         while(true)
         {
             System.out.println("Do you want to Create a new account, or LogIn into an old one? Write Create, or Login If you skip, you will be signed in as a Guest");
             tmpInput = inputScanner.nextLine();
             if(tmpInput.equalsIgnoreCase("Create")){
-                clientMain.callbackCreateAccount();
+                usrAndPwd = readUsrPwd();
+                clientMain.callbackCreateAccount(usrAndPwd.getNickname(), usrAndPwd.getPassword());
                 break;
             }
 
             if(tmpInput.equalsIgnoreCase("LogIn")){
-                System.out.println("Insert UserId");
-                userID = inputScanner.nextLine();
-                System.out.println("Insert PassWord");
-                userPW = inputScanner.nextLine();
-                clientMain.callbackLogin(userID, userPW);
+                usrAndPwd = readUsrPwd();
+                clientMain.callbackLogin(usrAndPwd.getNickname(), usrAndPwd.getPassword());
                 break;
             }
 
-
+            //TODO eliminate skip
             if(tmpInput.equalsIgnoreCase("Skip")){
                 clientMain.callbackLoginAsGuest();
                 break;
             }
         }
+    }
+
+    private UsrPwdContainer readUsrPwd()
+    {
+        String nickname, password;
+
+        System.out.println("Insert UserId");
+        nickname = inputScanner.nextLine();
+        System.out.println("Insert PassWord");
+        password = inputScanner.nextLine();
+
+        return new UsrPwdContainer(nickname, password);
     }
 
     //permette all'utente di create un nuovo account
