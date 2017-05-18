@@ -1,11 +1,14 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.exceptions.LoginErrorEnum;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.packet.LoginOrRegisterPacket;
 import it.polimi.ingsw.packet.PacketType;
+import it.polimi.ingsw.packet.RegisterErrorEnum;
 import it.polimi.ingsw.utils.Debug;
 
+import javax.lang.model.type.ErrorType;
 import java.io.*;
 import java.net.Socket;
 
@@ -53,22 +56,22 @@ public class SocketPlayer implements Runnable {
 
         packet = (LoginOrRegisterPacket) inStream.readObject();
 
-        switch(pkgType) {
-            case REGISTER:
+        if(pkgType==PacketType.REGISTER) {
                 try {
                     serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
                 } catch(UsernameAlreadyInUseException e)
                 {
-                    //TODO send correct response packet
+                    outStream.writeObject(RegisterErrorEnum.ALREADY_EXISTING_USERNAME);
+
                 }
-                break;
-            case LOGIN:
-                try {
+        }
+        if(pkgType==PacketType.LOGIN)
+            try {
                     serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
                 } catch(LoginException e) {
-                    outStream.writeObject(e.getErrorType());
+                    outStream.writeObject(LoginErrorEnum.ALREADY_LOGGED_TO_ROOM);
+                    //TODO aggiungere le altre possibilità
                 }
-                break;
         }
     }
 

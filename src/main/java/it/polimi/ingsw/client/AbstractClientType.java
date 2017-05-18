@@ -61,7 +61,7 @@ public abstract class AbstractClientType  {
     /**
      * this method is used to inform the room that the player had ended his phase
      */
-    public abstract void endPhase();
+    public abstract void endPhase() throws NetworkException;
 
     protected ClientMain getControllerMain() {
         return controllerMain;

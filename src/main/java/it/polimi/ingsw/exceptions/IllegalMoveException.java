@@ -1,7 +1,5 @@
 package it.polimi.ingsw.exceptions;
 
-import it.polimi.ingsw.packet.ErrorType;
-
 import java.io.IOException;
 
 /**

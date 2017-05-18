@@ -25,7 +25,7 @@ public class SocketClient extends AbstractClientType {
      * Informations delivered to the server
      */
     private ObjectOutputStream outStream;
-    private ErrorType response;
+    private RegisterErrorEnum response;
 
     /**
      *Initialization of the attributes on the superclass
@@ -100,13 +100,13 @@ public class SocketClient extends AbstractClientType {
             outStream.writeObject(PacketType.REGISTER);
             outStream.writeObject(new LoginOrRegisterPacket(nickname,password));
             outStream.flush();
-            response=(ErrorType)inStream.readObject();
+            response=(RegisterErrorEnum)inStream.readObject();
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("connection not avaiable",e);
             throw new NetworkException(e);
         }
-        if(response==ErrorType.ALREADY_EXISTING_USERNAME){
+        if(response== RegisterErrorEnum.ALREADY_EXISTING_USERNAME){
             throw new UsernameAlreadyInUseException("Username already in use");
         }
     }
@@ -240,7 +240,7 @@ public class SocketClient extends AbstractClientType {
      * this method is used to inform the room that the player had ended his phase
      */
     @Override
-    public void endPhase(){
+    public void endPhase() throws NetworkException{
         try{
             outStream.writeObject(PacketType.END_PHASE);
             outStream.flush();
