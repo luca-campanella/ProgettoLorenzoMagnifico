@@ -11,7 +11,7 @@ import it.polimi.ingsw.utils.Debug;
 public class TakeOrPaySomethingEffect implements EffectInterface {
     Resource resource;
 
-    TakeOrPaySomethingEffect(String resourceType, int value)
+    public TakeOrPaySomethingEffect(String resourceType, int value)
     {
         Debug.printVerbose("Hello");
     }
