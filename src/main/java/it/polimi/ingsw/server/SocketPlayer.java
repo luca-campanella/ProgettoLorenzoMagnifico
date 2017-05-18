@@ -5,7 +5,9 @@ import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.packet.LoginOrRegisterPacket;
 import it.polimi.ingsw.packet.PacketType;
+import it.polimi.ingsw.packet.PlayCardPacket;
 import it.polimi.ingsw.packet.RegisterErrorEnum;
+import it.polimi.ingsw.protocol.ReadClientPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.*;
@@ -16,9 +18,14 @@ public class SocketPlayer implements Runnable {
     private Socket socket;
 
     private ObjectInputStream inStream;
+
     private ObjectOutputStream outStream;
 
     private ServerMain serverMainInst;
+    /**
+     * the protocol used to read the packet of the client
+     */
+    private ReadClientPacketProtocol readPacket;
 
     /**
      * constructor to open the streams
@@ -31,6 +38,7 @@ public class SocketPlayer implements Runnable {
         this.serverMainInst = serverMainInst;
         inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
         outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        readPacket= new ReadClientPacketProtocol(this);
 
     }
 
@@ -70,6 +78,11 @@ public class SocketPlayer implements Runnable {
                 outStream.writeObject(e.getErrorType());
             }
         }
+    }
+    public void playCard(){
+        try{
+            PlayCardPacket card=(PlayCardPacket)inStream.readObject();
+
     }
 
     private void closeEverything()
