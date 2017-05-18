@@ -90,10 +90,10 @@ public class ClientMain {
         //devo settare il nome del player come Guest + ID
         userInterface.readAction();
     }
-    public void callbackCreateAccount(){
+    public void callbackCreateAccount(String userID, String userPW){
         Debug.printDebug("Sono nel ClientMain.callbackCreateAccount");
         try {
-            clientNetwork.registerPlayer("TestUsrRegister", "TestPwd");
+            clientNetwork.registerPlayer(userID, userPW);
         } catch (NetworkException e) {
             //TODO handle network problems
             e.printStackTrace();
