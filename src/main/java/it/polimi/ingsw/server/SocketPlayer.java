@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.LoginErrorEnum;
 import it.polimi.ingsw.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.packet.LoginOrRegisterPacket;
 import it.polimi.ingsw.packet.PacketType;
@@ -13,7 +14,7 @@ import it.polimi.ingsw.utils.Debug;
 import java.io.*;
 import java.net.Socket;
 
-public class SocketPlayer implements Runnable {
+public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     private Socket socket;
 
@@ -79,6 +80,16 @@ public class SocketPlayer implements Runnable {
                 outStream.writeObject(e.getErrorType());
             }
         }
+    }
+
+    /**
+     * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
+     * @param msg
+     * @throws NetworkException
+     */
+    @Override
+    public void floodChatMsg(String msg) throws NetworkException {
+        //TODO implement
     }
 }
     /*public void playCard(){

@@ -249,7 +249,17 @@ public class SocketClient extends AbstractClientType {
             Debug.printError("Network is not avaiable", e);
             throw new NetworkException(e);
         }
-    };
+    }
+
+    /**
+     * This method is used to send chat message to all players in the room
+     *
+     * @throws NetworkException
+     */
+    @Override
+    public void sendChatMsg(String msg) throws NetworkException {
+        //TODO implement
+    }
 
     protected ClientMain getControllerMain() {
         return super.getControllerMain();

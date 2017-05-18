@@ -1,10 +1,11 @@
 package it.polimi.ingsw.server;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
 import it.polimi.ingsw.client.RMIClientInterface;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * This interface lets the client call functions on the server via RMI
@@ -19,7 +20,7 @@ public interface RMIServerInterface extends Remote {
 	 * @throws RemoteException
 	 * @throws LoginException   if username doesn't exist or if password is wrong
 	 */
-	public String loginPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, LoginException;
+	public RMIPlayerInterface loginPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, LoginException;
 
 	/**
 	 * this method is used when the user has never played and wants to create an account
@@ -28,6 +29,6 @@ public interface RMIServerInterface extends Remote {
 	 * @return
 	 * @throws RemoteException if something goes wrong during the connection
 	 */
-	public String registerPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, UsernameAlreadyInUseException;
+	public RMIPlayerInterface registerPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, UsernameAlreadyInUseException;
 
 }

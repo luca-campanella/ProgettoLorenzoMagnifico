@@ -94,18 +94,19 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
      * @throws RemoteException if something goes wrong during the connection
      */
     @Override
-	public String loginPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, LoginException
+	public RMIPlayerInterface loginPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, LoginException
 	{
-		//TODO implement
+	    RMIPlayer newPlayer = null;
+
         Debug.printVerbose("Client tried to log in, usr: " + nickname + "password: " + password);
-        //TODO implement controls over the existing players (in another class)
 
         getServerMainInst().loginPlayer(nickname, password); //if some problem is encountered LoginException is thrown and passed to the client
 
         //if the exception is not thrown then we can continue creating the player object and making him join a room
-        getServerMainInst().makeJoinRoom(new RMIPlayer(nickname));
+        newPlayer = new RMIPlayer(nickname);
+        getServerMainInst().makeJoinRoom(newPlayer);
 
-        return "test";
+        return newPlayer;
 	}
 
     /**
@@ -117,23 +118,24 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
      * @throws UsernameAlreadyInUseException if the username is already in use
      */
     @Override
-    public String registerPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, UsernameAlreadyInUseException
+    public RMIPlayerInterface registerPlayer(String nickname, String password, RMIClientInterface RMIClientInterfaceInst) throws RemoteException, UsernameAlreadyInUseException
     {
+        RMIPlayer newPlayer = null;
+
         Debug.printDebug("CLient tried to register, usr: " + nickname + "password: " + password);
         getServerMainInst().registerPlayer(nickname, password);
 
-        //TODO implement creation of room (in another class)
-        Room room = new Room(4, 3000);
+        //if no exception is not thrown then we can continue creating the player object and making him join a room
+        newPlayer = new RMIPlayer(nickname);
+
         try {
-            room.addNewPlayer(new RMIPlayer(nickname));
-        } catch (FullRoomException e) {
-            //TODO handle exception
-            e.printStackTrace();
-        } catch (GameAlreadyStartedRoomException e) {
-            //TODO handle exception
-            e.printStackTrace();
+            getServerMainInst().makeJoinRoom(newPlayer);
+        } catch (LoginException e) { //This should never happen, because if the player is registering it can't be already in a room
+            Debug.printError("Registered Twice to the same room, this should not happen");
+            throw new UsernameAlreadyInUseException("Registered Twice to the same room");
         }
-        return "test";
+
+        return newPlayer;
     }
 
     private void connectClientToPlayer()

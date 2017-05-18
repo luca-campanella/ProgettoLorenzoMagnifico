@@ -3,9 +3,14 @@ package it.polimi.ingsw.gamelogic.Player;
 /**
  * The main player class, no network
  */
-public class Player {
+public abstract class Player {
 
     private String nickname;
+
+    public Player()
+    {
+        super();
+    }
 
     public Player(String nickname)
     {
@@ -15,5 +20,9 @@ public class Player {
     public String getNickname()
     {
         return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

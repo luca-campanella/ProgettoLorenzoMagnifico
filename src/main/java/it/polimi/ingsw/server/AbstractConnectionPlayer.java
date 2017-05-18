@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.gamelogic.Player.Player;
 
 /**
@@ -7,8 +8,25 @@ import it.polimi.ingsw.gamelogic.Player.Player;
  */
 public abstract class AbstractConnectionPlayer extends Player {
 
+    /**
+     * this instance is used to call methods of the room the player is in. There is redundancy
+     */
+    Room roomContr;
+
+    public AbstractConnectionPlayer() {
+        super();
+    }
+
     public AbstractConnectionPlayer(String nickname)
     {
         super(nickname);
     }
+
+
+    /**
+     * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
+     * @param msg
+     * @throws NetworkException
+     */
+    public abstract void floodChatMsg(String msg) throws NetworkException;
 }

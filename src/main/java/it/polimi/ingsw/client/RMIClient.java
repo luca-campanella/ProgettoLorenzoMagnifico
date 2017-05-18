@@ -4,6 +4,7 @@ import it.polimi.ingsw.exceptions.ClientConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
+import it.polimi.ingsw.server.RMIPlayerInterface;
 import it.polimi.ingsw.server.RMIServerInterface;
 import it.polimi.ingsw.utils.Debug;
 
@@ -20,6 +21,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     private Registry registry;
     private RMIServerInterface RMIServerInterfaceInst;
+    private RMIPlayerInterface RMIPlayerInterfaceInst;
 
     /**
      * Constructor of RMIClient, it should be called before connect(), sets the parmeters using the super constructor of AbstractClientType
@@ -42,7 +44,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void loginPlayer(String nickname, String password) throws NetworkException, LoginException {
         try {
-            RMIServerInterfaceInst.loginPlayer(nickname, password, this);
+            RMIPlayerInterfaceInst = RMIServerInterfaceInst.loginPlayer(nickname, password, this);
         } catch(RemoteException e) {
             Debug.printError("Cannot ligin player due to a network problem on RMI");
             throw new NetworkException(e);
@@ -59,7 +61,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void registerPlayer(String nickname, String password) throws NetworkException,UsernameAlreadyInUseException {
         try {
-            RMIServerInterfaceInst.registerPlayer(nickname, password, this);
+            RMIPlayerInterfaceInst = RMIServerInterfaceInst.registerPlayer(nickname, password, this);
         } catch(RemoteException e) {
             Debug.printError("Cannot register player due to a network problem on RMI");
             throw new NetworkException(e);
@@ -84,6 +86,21 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void endPhase() {
         //TODO implement abstract method
+    }
+
+    /**
+     * This method is used to send chat message to all players in the room
+     *
+     * @param msg The message
+     * @throws NetworkException
+     */
+    @Override
+    public void sendChatMsg(String msg) throws NetworkException {
+        try {
+            RMIPlayerInterfaceInst.sendChatMsg(msg);
+        } catch (RemoteException e) {
+            throw new NetworkException("RMI problem with chat message", e);
+        }
     }
 
     /**
