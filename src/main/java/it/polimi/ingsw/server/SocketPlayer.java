@@ -70,27 +70,47 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     }}
 
 
-        public void registerPlayer() throws IOException,ClassNotFoundException {
+    public void registerPlayer() {
 
-            try {
-                //the exceptions are caught by the client
-                LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
-                serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
-            } catch (UsernameAlreadyInUseException e) {
+        try {
+            //the exceptions are caught by the client
+            LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
+            serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
+        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("Network is not working",e);
+        }
+        catch (UsernameAlreadyInUseException e) {
+            try{
                 outStream.writeObject(RegisterErrorEnum.ALREADY_EXISTING_USERNAME);
-
+            }
+            catch(IOException c){
+                Debug.printError("Network is not working",c);
             }
         }
+    }
 
-       public void loginPlayer() throws IOException,ClassNotFoundException{
-            try {
-                //the exceptions are caught by the client
-                LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
-                serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
-            } catch (LoginException e) {
-                outStream.writeObject(e.getErrorType());
-            }
+
+    public void loginPlayer() throws IOException,ClassNotFoundException{
+        try {
+            //the exceptions are caught by the client
+            LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
+            serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
+        } catch (LoginException e) {
+            outStream.writeObject(e.getErrorType());
         }
+    }
+    public void playCard() throws NetworkException{
+        try{
+            PlayCardPacket packet=(PlayCardPacket)inStream.readObject();
+            //TODO method
+        }
+        catch(IOException e){
+            throw  new NetworkException(e);
+        }
+
+
+    }
 
 
     /**

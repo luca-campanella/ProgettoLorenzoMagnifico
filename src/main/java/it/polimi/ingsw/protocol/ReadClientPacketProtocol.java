@@ -3,6 +3,7 @@ package it.polimi.ingsw.protocol;
 import it.polimi.ingsw.packet.PacketType;
 import it.polimi.ingsw.server.SocketPlayer;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
