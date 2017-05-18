@@ -10,6 +10,7 @@ import it.polimi.ingsw.gamelogic.Effects.EffectInterface;
 import it.polimi.ingsw.gamelogic.Effects.NoEffect;
 import it.polimi.ingsw.utils.Debug;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
