@@ -29,16 +29,17 @@ public class SocketPlayer implements Runnable {
 
     /**
      * constructor to open the streams
+     *
      * @param socket
      * @param serverMainInst needs this to call login and register functions and to be able to join a room
      * @throws IOException
      */
     public SocketPlayer(Socket socket, ServerMain serverMainInst) throws IOException {
-        this.socket=socket;
+        this.socket = socket;
         this.serverMainInst = serverMainInst;
         inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
         outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        readPacket= new ReadClientPacketProtocol(this);
+        readPacket = new ReadClientPacketProtocol(this);
 
     }
 
@@ -48,7 +49,7 @@ public class SocketPlayer implements Runnable {
             waitLoginRegisterPackets();//before performing any action the player needs to be logged ind
         } catch (IOException | ClassNotFoundException e) {
             Debug.printError("Something went wrong when reading objects from client with address " + socket.getInetAddress(), e);
-            closeEverything(); //At this point the only thing we can do is close the connection and terminate the process
+            //  closeEverything(); //At this point the only thing we can do is close the connection and terminate the process
             //TODO signal room that one player is no longer connected
         }
     }
@@ -79,12 +80,12 @@ public class SocketPlayer implements Runnable {
             }
         }
     }
-    public void playCard(){
-        try{
+}
+    /*public void playCard(){
+       try{
             PlayCardPacket card=(PlayCardPacket)inStream.readObject();
 
     }
-
     private void closeEverything()
     {
         try {
@@ -96,3 +97,4 @@ public class SocketPlayer implements Runnable {
         }
     }
 }
+*/

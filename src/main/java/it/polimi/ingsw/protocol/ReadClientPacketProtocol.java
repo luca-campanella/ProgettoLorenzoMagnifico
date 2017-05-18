@@ -16,13 +16,13 @@ public class ReadClientPacketProtocol {
     private HashMap<PacketType,SocketPlayer> istruction;
     public ReadClientPacketProtocol(SocketPlayer player){
         this.player=player;
-        putIstruction();
+        //putIstruction();
     }
 
     /**
      * this method is used to save all the response based on the packetType
      */
-    private void putIstruction(){
+    /*private void putIstruction(){
         istruction.put(PacketType.LOGIN, );
         istruction.put(PacketType.REGISTER, );
         istruction.put(PacketType.MOVE_IN_TOWER, );
@@ -33,7 +33,7 @@ public class ReadClientPacketProtocol {
         istruction.put(PacketType.PLAY_LEADER, );
         istruction.put(PacketType.CHAT, );
         istruction.put(PacketType.END_PHASE, );
-    }
+    }*/
 
 
 }
