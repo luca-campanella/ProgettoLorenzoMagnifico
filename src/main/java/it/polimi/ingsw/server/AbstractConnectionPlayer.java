@@ -11,7 +11,7 @@ public abstract class AbstractConnectionPlayer extends Player {
     /**
      * this instance is used to call methods of the room the player is in. There is redundancy
      */
-    Room roomContr;
+    private Room roomContr;
 
     public AbstractConnectionPlayer() {
         super();
@@ -26,7 +26,12 @@ public abstract class AbstractConnectionPlayer extends Player {
     /**
      * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
      * @param msg
+     * @param senderNickname the nickname of the sender
      * @throws NetworkException
      */
-    public abstract void floodChatMsg(String msg) throws NetworkException;
+    public abstract void floodChatMsg(String senderNickname, String msg) throws NetworkException;
+
+    protected Room getRoomContr() {
+        return roomContr;
+    }
 }
