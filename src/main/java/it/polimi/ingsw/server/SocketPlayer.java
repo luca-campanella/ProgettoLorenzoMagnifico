@@ -23,6 +23,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     private ObjectOutputStream outStream;
 
     private ServerMain serverMainInst;
+
+    private PacketType packetType;
     /**
      * the protocol used to read the packet of the client
      */
@@ -47,40 +49,49 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void run() {
         Debug.printVerbose("New socket player object waiting for login");
         try {
-            waitLoginRegisterPackets();//before performing any action the player needs to be logged ind
+            do {
+                packetType = (PacketType) inStream.readObject();
+                //TODO tell clients the packet needs to be a login or a register one
+            } while (packetType != PacketType.LOGIN && packetType != PacketType.REGISTER);
+            readPacket.doMethod(packetType);
         } catch (IOException | ClassNotFoundException e) {
             Debug.printError("Something went wrong when reading objects from client with address " + socket.getInetAddress(), e);
             //  closeEverything(); //At this point the only thing we can do is close the connection and terminate the process
             //TODO signal room that one player is no longer connected
         }
-    }
+        while(true){
+            try{
+                packetType= (PacketType)inStream.readObject();
+                readPacket.doMethod(packetType);
+            }
+            catch(IOException | ClassNotFoundException e){
+                Debug.printError("Network is not working",e);
+            }
+    }}
 
-    private void waitLoginRegisterPackets() throws IOException, ClassNotFoundException {
-        PacketType pkgType = null;
-        LoginOrRegisterPacket packet = null;
-        do {
-            pkgType = (PacketType) inStream.readObject();
-            //TODO tell clients the packet needs to be a login or a register one
-        } while (pkgType != PacketType.LOGIN && pkgType != PacketType.REGISTER);
 
-        packet = (LoginOrRegisterPacket) inStream.readObject();
+        public void registerPlayer() throws IOException,ClassNotFoundException {
 
-        if (pkgType == PacketType.REGISTER) {
             try {
+                //the exceptions are caught by the client
+                LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
                 serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
             } catch (UsernameAlreadyInUseException e) {
                 outStream.writeObject(RegisterErrorEnum.ALREADY_EXISTING_USERNAME);
 
             }
         }
-        if (pkgType == PacketType.LOGIN) {
+
+       public void loginPlayer() throws IOException,ClassNotFoundException{
             try {
+                //the exceptions are caught by the client
+                LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
                 serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
             } catch (LoginException e) {
                 outStream.writeObject(e.getErrorType());
             }
         }
-    }
+
 
     /**
      * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
@@ -92,7 +103,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         //TODO implement
     }
 }
-    /*public void playCard(){
+    public void playCard(){
        try{
             PlayCardPacket card=(PlayCardPacket)inStream.readObject();
 
@@ -108,4 +119,4 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 }
-*/
+
