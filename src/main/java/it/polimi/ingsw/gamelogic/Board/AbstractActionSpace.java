@@ -31,7 +31,12 @@ public abstract class AbstractActionSpace {
         return effect;
     }
 
-    public void setEFFECT(EffectInterface effect) {
+    public void setEffect(EffectInterface effect) {
         this.effect = effect;
     }
+
+    public void getEffect(EffectInterface effect) {
+        this.effect = effect;
+    }
+
 }

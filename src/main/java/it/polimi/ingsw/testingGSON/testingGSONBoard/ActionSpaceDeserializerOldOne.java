@@ -49,9 +49,9 @@ public class ActionSpaceDeserializerOldOne implements JsonDeserializer<AbstractA
             tempEffect = "it.polimi.ingsw.gamelogic.Effects." + tempEffect;
 
             effect = (EffectInterface) createObject(tempEffect);
-            AbstractActionSpace actionSpace = new TowerFloorAS(jsonObject.get("DICEVALUE").getAsInt(),effect);
+//            AbstractActionSpace actionSpace = new TowerFloorAS(jsonObject.get("DICEVALUE").getAsInt(),effect);
 
-            return actionSpace;
+  //          return actionSpace;
         }
 
         throw new JsonParseException("Unexpected JSON type: " + json.getClass().getSimpleName());

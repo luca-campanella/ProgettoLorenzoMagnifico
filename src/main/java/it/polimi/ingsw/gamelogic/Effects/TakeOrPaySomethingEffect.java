@@ -25,5 +25,9 @@ public class TakeOrPaySomethingEffect implements EffectInterface {
     private void giveResourcesToPlayer(Player player, Resource resourceToPlayer){
         //do nothing at the moment.
     }
-    
+
+    public String descriptionOfEffect(){
+        return "This method gives to the player" + resource.toString();
+    }
+
 }

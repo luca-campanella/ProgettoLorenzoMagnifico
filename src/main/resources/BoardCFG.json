@@ -1,1 +1,7 @@
-{"diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "wood", "valueTaken" : 2}
+{ "towerId": "green", "floors":
+ [ {"diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "wood", "valueTaken" : 1},
+  {"diceValue": 3, "effect" : "NoEffect", "resourceTaken": "wood", "valueTaken" : 2},
+  {"diceValue": 5, "effect" : "NoEffect", "resourceTaken": "wood", "valueTaken" : 3},
+  {"diceValue": 7, "effect" : "NoEffect", "resourceTaken": "wood", "valueTaken" : 4}]}
+
+

@@ -10,4 +10,8 @@ public class NoEffect implements EffectInterface {
         //This method doesn't do anything
         ;
     }
+    public String descriptionOfEffect()
+    {
+        return "This effect hasn't effect ";
+    }
 }

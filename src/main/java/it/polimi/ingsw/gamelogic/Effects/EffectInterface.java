@@ -11,5 +11,10 @@ public interface EffectInterface {
      */
     abstract public void applyToPlayer(Player player);
 
+    /**
+     * when someone invokes this method, gets a description of what the method does
+     */
+    abstract public String descriptionOfEffect();
+
 }
 
