@@ -1,7 +1,5 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.exceptions.FullRoomException;
-import it.polimi.ingsw.exceptions.GameAlreadyStartedRoomException;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -40,25 +38,36 @@ public class Room {
         players = new ArrayList<AbstractConnectionPlayer>(maxNOfPlayers);
     }
 
+    public boolean isGameStarted() {
+        return isGameStarted;
+    }
+
+    public boolean canJoin(AbstractConnectionPlayer player) {
+        for(AbstractConnectionPlayer i : players) {
+            if(i.getNickname().equals(player.getNickname()))
+                return false;
+        }
+        return true;
+    }
+
+
     /**
      * adds new player to the room
      * @param player the istance of the player to add
-     * @throws FullRoomException if the room is full, but the game is not started yet, this should never happen
-     * @throws GameAlreadyStartedRoomException if the game has already started and thus no player can join
      */
-    public void addNewPlayer(AbstractConnectionPlayer player) throws FullRoomException, GameAlreadyStartedRoomException
+    public void addNewPlayer(AbstractConnectionPlayer player)
     {
-        //TODO are we sure we need the FullRoomException
-        if(isGameStarted)
-            throw new GameAlreadyStartedRoomException("The game on this room is already started, can't add a player");
-        if(currNOfPlayers >= maxNOfPlayers)
-            throw new FullRoomException("Room already full, but not yet started (?)");
         players.add(player);
         currNOfPlayers++;
         Debug.printDebug("*Room*: added player " + player.getNickname());
         if(currNOfPlayers == maxNOfPlayers) //GameController should start
         {
+            isGameStarted = true;
             gameController = new GameController(currNOfPlayers, this);
         }
+    }
+
+    public static void sendChatMsg(RMIPlayer rmiPlayer, String msg) {
+        //TODO implement
     }
 }

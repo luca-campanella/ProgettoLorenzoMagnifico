@@ -104,7 +104,7 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
 
         //if the exception is not thrown then we can continue creating the player object and making him join a room
         newPlayer = new RMIPlayer(nickname);
-        getServerMainInst().makeJoinRoom(newPlayer);
+        getServerMainInst().makeJoinRoomLogin(newPlayer);
 
         return newPlayer;
 	}
@@ -128,12 +128,7 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
         //if no exception is not thrown then we can continue creating the player object and making him join a room
         newPlayer = new RMIPlayer(nickname);
 
-        try {
-            getServerMainInst().makeJoinRoom(newPlayer);
-        } catch (LoginException e) { //This should never happen, because if the player is registering it can't be already in a room
-            Debug.printError("Registered Twice to the same room, this should not happen");
-            throw new UsernameAlreadyInUseException("Registered Twice to the same room");
-        }
+        getServerMainInst().makeJoinRoomRegister(newPlayer);
 
         return newPlayer;
     }
