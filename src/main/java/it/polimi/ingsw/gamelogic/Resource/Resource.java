@@ -7,7 +7,7 @@ public class Resource{
     private ResourceEnum type;
     private int value;
 
-    Resource(ResourceEnum typeOfResource, int valueOfResource){
+    public Resource(ResourceEnum typeOfResource, int valueOfResource){
         this.type = typeOfResource;
         this.value = valueOfResource;
     }

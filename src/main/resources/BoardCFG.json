@@ -1,1 +1,1 @@
-{"DICEVALUE": 1, "EFFECT" : "TakeOrPaySomethingEffect"}
+{"diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "wood", "valueTaken" : 2}

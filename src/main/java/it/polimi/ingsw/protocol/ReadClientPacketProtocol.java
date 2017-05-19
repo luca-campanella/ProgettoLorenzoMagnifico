@@ -31,7 +31,7 @@ public class ReadClientPacketProtocol {
     /**
      * this method is used to save all the response based on the packetType
      */
-    private void putIstruction(){
+  /*  private void putIstruction(){
         instruction.put(PacketType.LOGIN, ()-> player.loginPlayer());
         instruction.put(PacketType.REGISTER, ()-> player.registerPlayer());
         instruction.put(PacketType.MOVE_IN_TOWER, ()-> player.);
@@ -50,6 +50,6 @@ public class ReadClientPacketProtocol {
         response.chooseMethod();
 
     }
-
+*/
 
 }

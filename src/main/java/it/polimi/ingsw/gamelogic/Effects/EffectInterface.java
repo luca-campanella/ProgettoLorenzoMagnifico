@@ -10,5 +10,6 @@ public interface EffectInterface {
      * this method is the method that all effects must implements
      */
     abstract public void applyToPlayer(Player player);
+
 }
 

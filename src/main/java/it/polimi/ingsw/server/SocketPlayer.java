@@ -53,7 +53,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 packetType = (PacketType) inStream.readObject();
                 //TODO tell clients the packet needs to be a login or a register one
             } while (packetType != PacketType.LOGIN && packetType != PacketType.REGISTER);
-            readPacket.doMethod(packetType);
+            //readPacket.doMethod(packetType);
         } catch (IOException | ClassNotFoundException e) {
             Debug.printError("Something went wrong when reading objects from client with address " + socket.getInetAddress(), e);
             //  closeEverything(); //At this point the only thing we can do is close the connection and terminate the process
@@ -62,7 +62,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         while(true){
             try{
                 packetType= (PacketType)inStream.readObject();
-                readPacket.doMethod(packetType);
+                //readPacket.doMethod(packetType);
             }
             catch(IOException | ClassNotFoundException e){
                 Debug.printError("Network is not working",e);
@@ -80,14 +80,14 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         catch(IOException | ClassNotFoundException e){
             Debug.printError("Network is not working",e);
         }
-        catch (UsernameAlreadyInUseException e) {
+       /* catch (UsernameAlreadyInUseException e) {
             try{
                 outStream.writeObject(RegisterErrorEnum.ALREADY_EXISTING_USERNAME);
             }
             catch(IOException c){
                 Debug.printError("Network is not working",c);
             }
-        }
+        }*/
     }
 
 
@@ -108,8 +108,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         catch(IOException e){
             throw  new NetworkException(e);
         }
-
-
+        catch(ClassNotFoundException e) {
+            //TODO handle exception
+            e.printStackTrace();
+        }
     }
 
 
@@ -118,16 +120,16 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
      * @param msg
      * @throws NetworkException
      */
-    @Override
+    //@Override
     public void floodChatMsg(String msg) throws NetworkException {
         //TODO implement
     }
-}
-    public void playCard(){
+
+    /*public void playCard(){
        try{
             PlayCardPacket card=(PlayCardPacket)inStream.readObject();
 
-    }
+    }*/
     private void closeEverything()
     {
         try {
@@ -137,6 +139,12 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         } catch (IOException e) {
             Debug.printError("Can't close the socket connection with client", e);
         }
+    }
+
+    @Override
+    public void floodChatMsg(String senderNickname, String msg) throws NetworkException {
+        //TODO
+        ;
     }
 }
 

@@ -10,14 +10,14 @@ public class TowerFloorAS extends AbstractActionSpace {
 
     public TowerFloorAS(int diceValue, EffectInterface effect)
     {
-    this.DICEVALUE = diceValue;
-    this.EFFECT = effect;
+    this.diceValue = diceValue;
+    this.effect = effect;
     }
     public void performAction(FamilyMember familyMember){
         this.doEffect();
     }
     private void doEffect(){
-        System.out.println("Stampo l'effetto " + getEFFECT());
+        System.out.println("Stampo l'effetto " + getEffect());
     }
 
 }
