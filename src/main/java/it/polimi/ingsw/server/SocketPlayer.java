@@ -76,8 +76,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             //the exceptions are caught by the client
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
+            serverMainInst.makeJoinRoom(this);
         }
-        catch(IOException | ClassNotFoundException e){
+        catch(ClassNotFoundException e){
             Debug.printError("Network is not working",e);
         }
         catch (UsernameAlreadyInUseException e) {
@@ -96,6 +97,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             //the exceptions are caught by the client
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
+            serverMainInst.makeJoinRoom(this);
         } catch (LoginException e) {
             outStream.writeObject(e.getErrorType());
         }
@@ -119,14 +121,14 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
      * @throws NetworkException
      */
     @Override
-    public void floodChatMsg(String msg) throws NetworkException {
-        //TODO implement
+    public void floodChatMsg(String senderNickname, String msg) throws NetworkException {
+
     }
-}
+
     public void playCard(){
        try{
             PlayCardPacket card=(PlayCardPacket)inStream.readObject();
-
+       }
     }
     private void closeEverything()
     {
