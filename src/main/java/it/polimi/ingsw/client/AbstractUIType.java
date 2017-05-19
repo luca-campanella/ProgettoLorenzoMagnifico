@@ -32,5 +32,11 @@ abstract public class AbstractUIType {
      */
     abstract public void printError(String error);
 
+    /**
+     * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
+     * @param senderNick
+     * @param msg
+     */
+    public abstract void displayChatMsg(String senderNick, String msg);
 }
 

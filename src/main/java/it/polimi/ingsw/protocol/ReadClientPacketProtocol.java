@@ -40,7 +40,7 @@ public class ReadClientPacketProtocol {
         instruction.put(PacketType.BUILDING, ()-> player.);
         instruction.put(PacketType.DISCARD_LEADER, ()-> player.);
         instruction.put(PacketType.PLAY_LEADER, ()-> player.);
-        instruction.put(PacketType.CHAT, ()-> player.floodChatMsg());
+        instruction.put(PacketType.CHAT, ()-> player.receiveChatMsg());
         instruction.put(PacketType.END_PHASE, ()-> player.);
     }
     public void doMethod(PacketType packetType){

@@ -103,7 +103,7 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
         getServerMainInst().loginPlayer(nickname, password); //if some problem is encountered LoginException is thrown and passed to the client
 
         //if the exception is not thrown then we can continue creating the player object and making him join a room
-        newPlayer = new RMIPlayer(nickname);
+        newPlayer = new RMIPlayer(nickname, RMIClientInterfaceInst);
         getServerMainInst().makeJoinRoomLogin(newPlayer);
 
         return newPlayer;
@@ -126,7 +126,7 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
         getServerMainInst().registerPlayer(nickname, password);
 
         //if no exception is not thrown then we can continue creating the player object and making him join a room
-        newPlayer = new RMIPlayer(nickname);
+        newPlayer = new RMIPlayer(nickname, RMIClientInterfaceInst);
 
         getServerMainInst().makeJoinRoomRegister(newPlayer);
 

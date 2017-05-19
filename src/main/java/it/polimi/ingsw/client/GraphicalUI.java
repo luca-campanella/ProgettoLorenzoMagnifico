@@ -45,6 +45,17 @@ public class GraphicalUI extends AbstractUIType{
     }
 
     /**
+     * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
+     *
+     * @param senderNick
+     * @param msg
+     */
+    @Override
+    public void displayChatMsg(String senderNick, String msg) {
+
+    }
+
+    /**
      * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
      * this method should also receive the familyMembers list to match the input.
      * @param familyColorID

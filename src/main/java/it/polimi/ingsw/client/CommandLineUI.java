@@ -187,5 +187,17 @@ public class CommandLineUI extends AbstractUIType{
         System.out.println( error );
     }
 
+    /**
+     * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
+     *
+     * @param senderNick
+     * @param msg
+     */
+    @Override
+    public void displayChatMsg(String senderNick, String msg) {
+        //TODO something more visually appealing
+        System.out.println("<" + senderNick + ">: " + msg);
+    }
+
 }
 

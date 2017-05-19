@@ -29,7 +29,7 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @param senderNickname the nickname of the sender
      * @throws NetworkException
      */
-    public abstract void floodChatMsg(String senderNickname, String msg) throws NetworkException;
+    public abstract void receiveChatMsg(String senderNickname, String msg) throws NetworkException;
 
     protected Room getRoomContr() {
         return roomContr;
