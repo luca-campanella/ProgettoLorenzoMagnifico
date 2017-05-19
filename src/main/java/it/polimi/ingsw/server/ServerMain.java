@@ -1,10 +1,12 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.exceptions.*;
+import it.polimi.ingsw.exceptions.LoginErrorEnum;
+import it.polimi.ingsw.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.ServerException;
+import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.utils.Debug;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * server is the main class of the server side of the application. On startup the server creates two objects: RMIServer and SocketServer passing them the reference to himself in order to let them call himself.
@@ -36,9 +38,9 @@ public class ServerMain {
 	SocketServer SocketServerInst;
 
 	/**
-	 * The list of the created rooms
+	 * The room we are filling right now
 	 */
-	ArrayList<Room> rooms;
+	Room room;
 
 	/**
 	 * Private constructor to initialize the class
@@ -69,9 +71,8 @@ public class ServerMain {
 	 */
 	private void startServer() throws ServerException
 	{
-		//creates the first Room so that it doesn't work much when the first player connects and plus we have an object in the array, which comes useful afterwards
-		rooms = new ArrayList<Room>(1);
-		rooms.add(new Room(4, 3000)); //TODO implement creation of room (in another class)
+		//creates the first Room so that it doesn't work much when the first player connects
+		room = new Room(4, 3000); //TODO implement creation of room (in another class)
 
 		try {
 			DBManager.instance();
@@ -110,10 +111,19 @@ public class ServerMain {
 	 * @param player
 	 * @throws LoginException here it throws only ALREADY_LOGGED_TO_ROOM
 	 */
-	public void makeJoinRoom(AbstractConnectionPlayer player) throws LoginException
+	public void makeJoinRoomLogin(AbstractConnectionPlayer player) throws LoginException
 	{
+		if(room.isGameStarted()) {
+			room = new Room(4, 3000);
+			Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
+		}
+		else if(room.canJoin(player)) //it's woth checking if the layer can join only if we haven't just created a new room. If we just created the room there is no way the player is already inside
+			if(!room.canJoin(player))
+				throw new LoginException(LoginErrorEnum.ALREADY_LOGGED_TO_ROOM);
+		room.addNewPlayer(player);
+
 		/*don't know if this is the best way to handle this, I don't like try catch inside try catch*/
-		try {
+		/*try {
 			rooms.get(rooms.size() - 1).addNewPlayer(player);
 		} catch (FullRoomException | GameAlreadyStartedRoomException e) {
 			Debug.printDebug("Room number " + rooms.size() + " is full, create a new one for the player " + player.getNickname());
@@ -124,6 +134,33 @@ public class ServerMain {
 				Debug.printError("Fatal error on the server, exiting", e1);
 				System.exit(-1);
 			}
+		}*/
+	}
+
+	/**
+	 * Makes the player join the first available room, if such a room is not present it creates one
+	 * @param player
+	 */
+	public void makeJoinRoomRegister(AbstractConnectionPlayer player)
+	{
+		if(room.isGameStarted()) {
+			room = new Room(4, 3000);
+			Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
 		}
+		room.addNewPlayer(player);
+
+		/*don't know if this is the best way to handle this, I don't like try catch inside try catch*/
+		/*try {
+			rooms.get(rooms.size() - 1).addNewPlayer(player);
+		} catch (FullRoomException | GameAlreadyStartedRoomException e) {
+			Debug.printDebug("Room number " + rooms.size() + " is full, create a new one for the player " + player.getNickname());
+			rooms.add(new Room(4, 3000)); //TODO implement creation of room (in another class)
+			try {
+				rooms.get(rooms.size() - 1).addNewPlayer(player);
+			} catch (FullRoomException | GameAlreadyStartedRoomException e1) {
+				Debug.printError("Fatal error on the server, exiting", e1);
+				System.exit(-1);
+			}
+		}*/
 	}
 }

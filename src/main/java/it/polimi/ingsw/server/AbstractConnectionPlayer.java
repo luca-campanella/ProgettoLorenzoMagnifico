@@ -34,4 +34,6 @@ public abstract class AbstractConnectionPlayer extends Player {
     protected Room getRoomContr() {
         return roomContr;
     }
+
+
 }

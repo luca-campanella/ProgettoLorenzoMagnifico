@@ -10,7 +10,9 @@ import it.polimi.ingsw.utils.Debug;
  */
 public class TakeOrPaySomethingEffect implements EffectInterface {
     Resource resource;
-
+    public TakeOrPaySomethingEffect(Resource resource){
+        this.resource = resource;
+    }
     public TakeOrPaySomethingEffect(String resourceType, int value)
     {
         Debug.printVerbose("Hello");
@@ -20,8 +22,8 @@ public class TakeOrPaySomethingEffect implements EffectInterface {
         giveResourcesToPlayer(player, resource);
     }
 
-    private void giveResourcesToPlayer(Player player, Resource resources){
+    private void giveResourcesToPlayer(Player player, Resource resourceToPlayer){
         //do nothing at the moment.
     }
-
+    
 }

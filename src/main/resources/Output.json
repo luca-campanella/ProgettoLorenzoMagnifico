@@ -1,6 +1,8 @@
+{"DICEVALUE": 1, "EFFECT" : "TakeOrPaySomethingEffect"}
+
 {
-  'title':    'Java Puzzlers: Traps, Pitfalls, and Corner Cases',
-  'isbn-10':  '032133678X',
-  'isbn-13':  '978-0321336781',
-  'authors':  ['Joshua Bloch', 'Neal Gafter']
+  "title":   "Java Puzzlers: Traps, Pitfalls, and Corner Cases",
+  "isbn-10":  "032133678X",
+  "isbn-13":  "978-0321336781",
+  "authors":  ["Joshua Bloch", "Neal Gafter"]
 }

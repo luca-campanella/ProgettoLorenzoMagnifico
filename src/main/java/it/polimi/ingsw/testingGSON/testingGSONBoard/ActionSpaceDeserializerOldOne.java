@@ -13,11 +13,12 @@ import it.polimi.ingsw.utils.Debug;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class ActionSpaceDeserializer implements JsonDeserializer<AbstractActionSpace> {
+public class ActionSpaceDeserializerOldOne implements JsonDeserializer<AbstractActionSpace> {
     String tempEffect;
     EffectInterface effect;
 
@@ -66,6 +67,10 @@ public class ActionSpaceDeserializer implements JsonDeserializer<AbstractActionS
             //object = classDefinition.newInstance();
             //object.getDeclaredConstructor(classDefinition).newInstance("Wood", 2);
             try{
+                //soluzione 1 non tanto bella:
+                /*ArrayList<Class> cArg = new Class();
+                cArg.add(String.class);
+                cArg.add(int.class);*/
                 Class[] cArg = new Class[2];
                 cArg[0] = String.class;
                 cArg[1] = int.class;

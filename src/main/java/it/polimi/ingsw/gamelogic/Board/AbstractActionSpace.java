@@ -7,8 +7,8 @@ import it.polimi.ingsw.gamelogic.Player.FamilyMember;
  * Created by higla on 16/05/2017.
  */
 public abstract class AbstractActionSpace {
-    public int DICEVALUE;
-    public EffectInterface EFFECT;
+    public int diceValue;
+    public EffectInterface effect;
 
     protected AbstractActionSpace() {
     }
@@ -19,19 +19,19 @@ public abstract class AbstractActionSpace {
     abstract public void performAction(FamilyMember familyMember);
 
 
-    public int getDICEVALUE() {
-        return DICEVALUE;
+    public int getDiceValue() {
+        return diceValue;
     }
 
-    public void setDICEVALUE(int DICEVALUE) {
-        this.DICEVALUE = DICEVALUE;
+    public void setDiceValue(int dicevalue) {
+        this.diceValue = dicevalue;
     }
 
-    public EffectInterface getEFFECT() {
-        return EFFECT;
+    public EffectInterface getEffect() {
+        return effect;
     }
 
-    public void setEFFECT(EffectInterface EFFECT) {
-        this.EFFECT = EFFECT;
+    public void setEFFECT(EffectInterface effect) {
+        this.effect = effect;
     }
 }
