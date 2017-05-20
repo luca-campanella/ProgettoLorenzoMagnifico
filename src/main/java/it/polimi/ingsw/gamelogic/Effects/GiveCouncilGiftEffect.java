@@ -13,5 +13,5 @@ public class GiveCouncilGiftEffect implements EffectInterface{
     public String descriptionOfEffect(){
         return "Gives a Council Gift to a Player.";
     }
-
+    public String descriptionShortOfEffect(){return "Gift";}
 }

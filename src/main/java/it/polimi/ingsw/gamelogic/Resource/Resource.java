@@ -11,7 +11,8 @@ public class Resource{
         this.type = typeOfResource;
         this.value = valueOfResource;
     }
-    public String printResource(){
-        return (type.toString() + value);
+    public String getResourceAbbreviation()
+    {
+        return type.getAbbreviation() + " " + value + " ";
     }
 }

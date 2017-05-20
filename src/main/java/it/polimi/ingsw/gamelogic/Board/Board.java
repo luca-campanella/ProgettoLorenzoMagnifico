@@ -46,6 +46,14 @@ public class Board {
     public TowerFloorAS[] getTowerFloor(Tower tower){
         return tower.getFloors();
     }
+    public TowerFloorAS[] getFloorLevel(int i){
+        int k;
+        final int NUMBER_OF_FLOORS = 4;
+        TowerFloorAS[] iFloor = new TowerFloorAS[NUMBER_OF_FLOORS];
+        for(k=0; k< NUMBER_OF_FLOORS; k++)
+            iFloor[k] = towers[k].getFloor(i);
+        return iFloor;
+    }
     public String getTowerColor(Tower tower){
         return tower.getTowerColor();
     }
@@ -107,6 +115,7 @@ public class Board {
     public void setCouncil(CouncilAS council) {
         this.council = council;
     }
+
 }
 
 

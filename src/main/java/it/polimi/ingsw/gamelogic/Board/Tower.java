@@ -30,7 +30,10 @@ public class Tower {
     public int getNUMBER_OF_FLOORS() {
         return NUMBER_OF_FLOORS;
     }
-
+    public TowerFloorAS getFloor(int index)
+    {
+        return floors[index];
+    }
     public TowerFloorAS[] getFloors() {
         return floors;
     }
