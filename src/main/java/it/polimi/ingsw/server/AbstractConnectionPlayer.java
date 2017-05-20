@@ -36,4 +36,8 @@ public abstract class AbstractConnectionPlayer extends Player {
     }
 
 
+    public void setRoom(Room room)
+    {
+        roomContr = room;
+    }
 }

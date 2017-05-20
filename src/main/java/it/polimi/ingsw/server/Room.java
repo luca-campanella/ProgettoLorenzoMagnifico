@@ -53,12 +53,13 @@ public class Room {
 
 
     /**
-     * adds new player to the room
+     * adds new player to the room, it also binds the player with the instance of the room
      * @param player the istance of the player to add
      */
     public void addNewPlayer(AbstractConnectionPlayer player)
     {
         players.add(player);
+        player.setRoom(this);
         currNOfPlayers++;
         Debug.printDebug("*Room*: added player " + player.getNickname());
         if(currNOfPlayers == maxNOfPlayers) //GameController should start

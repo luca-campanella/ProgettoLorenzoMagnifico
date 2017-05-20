@@ -85,6 +85,7 @@ public class ClientMain {
             }
 
         }
+        userInterface.askChatMsg(); //TODO this is a method just for testing chat
     }
     public void callbackLoginAsGuest(){
         //devo settare il nome del player come Guest + ID
