@@ -194,10 +194,10 @@ public class SocketClient extends AbstractClientType {
     /**
      * this method is called when the family member is moved on the harvest space
      */
-    public void harvest (FamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
+    public void harvesting (FamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
         try{
             outStream.writeObject(PacketType.HARVESTING);
-            outStream.writeObject(new BuildOrHarvest(familyMemberColor,servantUsed));
+            outStream.writeObject(new BuildOrHarvestPacket(familyMemberColor,servantUsed));
             outStream.flush();
         }
         catch (IOException e){
@@ -206,10 +206,10 @@ public class SocketClient extends AbstractClientType {
         }
 
     }
-    public void build (FamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
+    public void building (FamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
         try{
             outStream.writeObject(PacketType.BUILDING);
-            outStream.writeObject(new BuildOrHarvest(familyMemberColor,servantUsed));
+            outStream.writeObject(new BuildOrHarvestPacket(familyMemberColor,servantUsed));
             outStream.flush();
         }
         catch (IOException e){

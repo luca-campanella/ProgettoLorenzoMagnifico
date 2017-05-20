@@ -31,15 +31,15 @@ public class ReadClientPacketProtocol {
     /**
      * this method is used to save all the response based on the packetType
      */
-  /*  private void putIstruction(){
+    private void putIstruction(){
         instruction.put(PacketType.LOGIN, ()-> player.loginPlayer());
         instruction.put(PacketType.REGISTER, ()-> player.registerPlayer());
-        instruction.put(PacketType.MOVE_IN_TOWER, ()-> player.);
-        instruction.put(PacketType.MOVE_IN_MARKET, ()-> player.);
-        instruction.put(PacketType.HARVESTING, ()-> player.);
-        instruction.put(PacketType.BUILDING, ()-> player.);
-        instruction.put(PacketType.DISCARD_LEADER, ()-> player.);
-        instruction.put(PacketType.PLAY_LEADER, ()-> player.);
+        instruction.put(PacketType.MOVE_IN_TOWER, ()-> player.moveInTower());
+        instruction.put(PacketType.MOVE_IN_MARKET, ()-> player.moveInMarket());
+        instruction.put(PacketType.HARVESTING, ()-> player.harvesting());
+        instruction.put(PacketType.BUILDING, ()-> player.building());
+        instruction.put(PacketType.DISCARD_LEADER, ()-> player.discardCard());
+        instruction.put(PacketType.PLAY_LEADER, ()-> player.playCard());
         instruction.put(PacketType.CHAT, ()-> player.receiveChatMsg());
         instruction.put(PacketType.END_PHASE, ()-> player.);
     }
@@ -50,6 +50,6 @@ public class ReadClientPacketProtocol {
         response.chooseMethod();
 
     }
-*/
+
 
 }
