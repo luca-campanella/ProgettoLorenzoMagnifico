@@ -1,1 +1,35 @@
-{"diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "wood", "valueTaken" : 2}
+{"towers":
+[{"towerId": "green", "floors":
+[ {"diceValue": 1, "effect" : "NoEffect"},
+  {"diceValue": 3, "effect" : "NoEffect"},
+  {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "wood", "valueTaken" : 1},
+  {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "wood", "valueTaken" : 2}]},
+  {"towerId": "blue", "floors":
+  [ {"diceValue": 1, "effect" : "NoEffect"},
+    {"diceValue": 3, "effect" : "NoEffect"},
+    {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "stone", "valueTaken" : 1},
+    {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "stone", "valueTaken" : 2}]},
+  {"towerId": "yellow", "floors":
+  [ {"diceValue": 1, "effect" : "NoEffect"},
+    {"diceValue": 3, "effect" : "NoEffect"},
+    {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "military_points", "valueTaken" : 1},
+    {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "military_points", "valueTaken" : 2}]},
+  {"towerId": "violet", "floors":
+  [ {"diceValue": 1, "effect" : "NoEffect"},
+    {"diceValue": 3, "effect" : "NoEffect"},
+    {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "coin", "valueTaken" : 1},
+    {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "coin", "valueTaken" : 2}]}],
+  "market":
+  [ {"marketId": "1", "diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "coin", "valueTaken" : 5},
+    {"marketId": "2", "diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "servants", "valueTaken" : 5},
+    {"marketId": "3", "diceValue": 1, "effect" : "NoEffect"},
+    {"marketId": "4", "diceValue": 1, "effect" : "GiveCouncilGiftEffect", "resourceTaken": "coin", "valueTaken" : 2}],
+  "harvest":
+  { "diceValueStandard": "1", "diceValueMalus": -3},
+  "build":
+  { "diceValueStandard": "1", "diceValueMalus": -3},
+  "council":
+  {"nothing" : "nothing"},
+  "vaticanReport":
+  {"requiredFaithPoints": [3,4,5], "victoryPointsLinked": [0,1,2,3,4,5,7,9,11,13,15,17,19,22,25,30]}
+}

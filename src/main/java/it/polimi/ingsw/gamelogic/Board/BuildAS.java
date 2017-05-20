@@ -6,11 +6,11 @@ import it.polimi.ingsw.gamelogic.Player.FamilyMember;
  * Created by higla on 16/05/2017.
  */
 public class BuildAS extends AbstractActionSpace {
-    int malus;
-    boolean first = true;
-    BuildAS(int malus){
-        this.malus = malus;
-
+    int valueStandard;
+    int valueMalus;
+    private boolean first = true;
+    public BuildAS(){
+        ;
     }
     @Override
     /**
@@ -32,5 +32,20 @@ public class BuildAS extends AbstractActionSpace {
             return true;
         }
         return false;
+    }
+    public int getValueStandard() {
+        return valueStandard;
+    }
+
+    public void setValueStandard(int valueStandard) {
+        this.valueStandard = valueStandard;
+    }
+
+    public int getValueMalus() {
+        return valueMalus;
+    }
+
+    public void setValueMalus(int valueMalus) {
+        this.valueMalus = valueMalus;
     }
 }

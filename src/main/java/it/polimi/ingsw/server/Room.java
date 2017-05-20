@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -67,7 +68,20 @@ public class Room {
         }
     }
 
-    public static void sendChatMsg(RMIPlayer rmiPlayer, String msg) {
-        //TODO implement
+    /**
+     * This method is called by a the (@link AbstractConnectionPlayer) that wants to send a message (Direction: AbstractConnectionPlayer -> Room)
+     * @param player the sender
+     * @param msg
+     */
+    public void floodChatMsg(AbstractConnectionPlayer player, String msg) {
+        for(AbstractConnectionPlayer i : players) {
+            if(player != i) {//the message should not be sent to the sender
+                try {
+                    i.receiveChatMsg(player.getNickname(), msg);
+                } catch (NetworkException e) { //not a big problem if a chat message is not sent
+                    Debug.printError("Unable to sent chat message to " + i.getNickname(), e);
+                }
+            }
+        }
     }
 }

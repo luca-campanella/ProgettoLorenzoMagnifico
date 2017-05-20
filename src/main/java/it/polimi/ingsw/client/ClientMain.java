@@ -129,6 +129,18 @@ public class ClientMain {
         userInterface.readAction();
     }
 
+    /**
+     * This method is called by AbstractClientType to display an incoming chat message (Direction: AbstractClientType -> ClientMain; general direction: Server -> Client)
+     * @param senderNick
+     * @param msg
+     */
+    public void receiveChatMsg(String senderNick, String msg) {
+        userInterface.displayChatMsg(senderNick, msg);
+    }
+
+    public void callbackSendChatMsg(String msg) throws NetworkException {
+        clientNetwork.sendChatMsg(msg);
+    }
 }
 
 

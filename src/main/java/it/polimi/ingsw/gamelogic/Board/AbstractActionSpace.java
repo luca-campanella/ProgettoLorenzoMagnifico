@@ -23,15 +23,24 @@ public abstract class AbstractActionSpace {
         return diceValue;
     }
 
-    public void setDiceValue(int dicevalue) {
-        this.diceValue = dicevalue;
+    public void setDiceValue(int diceValue) {
+        this.diceValue = diceValue;
     }
 
     public EffectInterface getEffect() {
         return effect;
     }
 
-    public void setEFFECT(EffectInterface effect) {
+    public void setEffect(EffectInterface effect) {
         this.effect = effect;
     }
+
+    public String getEffectDescription()
+    {
+        return effect.descriptionOfEffect();
+    }
+    public void getEffect(EffectInterface effect) {
+        this.effect = effect;
+    }
+
 }

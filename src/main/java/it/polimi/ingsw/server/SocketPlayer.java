@@ -151,7 +151,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     }
 
     @Override
-    public void floodChatMsg(String senderNickname, String msg) throws NetworkException {
+    public void receiveChatMsg(String senderNickname, String msg) throws NetworkException {
         //TODO
         ;
     }

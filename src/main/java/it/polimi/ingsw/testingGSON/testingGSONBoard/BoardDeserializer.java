@@ -1,16 +1,7 @@
 package it.polimi.ingsw.testingGSON.testingGSONBoard;
 
 import com.google.gson.*;
-import it.polimi.ingsw.gamelogic.Board.AbstractActionSpace;
-import it.polimi.ingsw.gamelogic.Board.Board;
-import it.polimi.ingsw.gamelogic.Board.Tower;
-import it.polimi.ingsw.gamelogic.Board.TowerFloorAS;
-import it.polimi.ingsw.gamelogic.Effects.EffectInterface;
-import it.polimi.ingsw.gamelogic.Effects.NoEffect;
-import it.polimi.ingsw.gamelogic.Effects.TakeOrPaySomethingEffect;
-import it.polimi.ingsw.gamelogic.Player.Player;
-import it.polimi.ingsw.gamelogic.Resource.Resource;
-import it.polimi.ingsw.gamelogic.Resource.ResourceEnum;
+import it.polimi.ingsw.gamelogic.Board.*;
 import it.polimi.ingsw.utils.Debug;
 
 import java.lang.reflect.Type;
@@ -18,60 +9,27 @@ import java.lang.reflect.Type;
 /**
  * Created by higla on 17/05/2017.
  */
-public class BoardDeserializer implements JsonDeserializer<TowerFloorAS> {
-    //Board board = new Board();
-    //Tower tower;
-    TowerFloorAS towerFloorAS;
-
-    //1) Build towers
-
-    // @Override
-    public TowerFloorAS deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
+public class BoardDeserializer  implements JsonDeserializer<Board>{
+    public Board deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
             throws JsonParseException {
-        EffectInterface effect = new NoEffect();
-        final JsonObject jsonObject = json.getAsJsonObject();
-        final JsonElement jsonDiceValue = jsonObject.get("diceValue");
-        final int diceValue = jsonDiceValue.getAsInt();
-        final String effectName = jsonObject.get("effect").getAsString();
-        Debug.printVerbose("Entro");
+        JsonObject jsonBoard = json.getAsJsonObject();
 
-        /*switch (effectName) {
-            case "TakeOrPaySomethingEffect":
-                final String resourceTaken = jsonObject.get("resourceTaken").getAsString();
-                final int valueTaken = jsonObject.get("valueTaken").getAsInt();
-                final Resource resource = getCorrectResource(resourceTaken, valueTaken);
-                effect = new TakeOrPaySomethingEffect(resource);
-                break;
-            case "NoEffect":
-                effect = new NoEffect();
-                break;
-            default:
-                effect = new NoEffect();
-                break;
-        }*/
+        Board board = new Board();
+      //  Debug.printVerbose("I'm in BoardDeserialize");
+        Tower[] towers = context.deserialize(jsonBoard.get("towers"), Tower[].class);
 
-        TowerFloorAS towerFloorAS = new TowerFloorAS(diceValue, effect);
+        MarketAS[] market = context.deserialize(jsonBoard.get("market"), MarketAS[].class);
 
-        return towerFloorAS;
+        BuildAS build = context.deserialize(jsonBoard.get("build"), BuildAS.class);
+        HarvestAS harvest = context.deserialize(jsonBoard.get("harvest"), HarvestAS.class);
+
+        VaticanReport vaticanReport = context.deserialize(jsonBoard.get("vaticanReport"), VaticanReport.class);
+
+        CouncilAS council = new CouncilAS();
+
+        board.createNewBoard(towers, market, build, harvest, council, vaticanReport);
+        return board;
     }
 
-    private Resource getCorrectResource(String resourceType, int resourceValue) {
-        switch (resourceType) {
-            case "wood":
-                return new Resource(ResourceEnum.WOOD, resourceValue);
-            case "stone":
-                return new Resource(ResourceEnum.STONE, resourceValue);
-            case "coin":
-                return new Resource(ResourceEnum.COIN, resourceValue);
-            case "faith_points":
-                return new Resource(ResourceEnum.FAITH_POINTS, resourceValue);
-            case "military_points":
-                return new Resource(ResourceEnum.MILITARY_POINTS, resourceValue);
-            case "victory_points":
-                return new Resource(ResourceEnum.VICTORY_POINTS, resourceValue);
-            default:
-                return new Resource(ResourceEnum.WOOD, 0);
-        }
-    }
 }
 

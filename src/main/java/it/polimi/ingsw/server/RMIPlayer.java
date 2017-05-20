@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.client.RMIClientInterface;
 import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.utils.Debug;
 
 import java.rmi.RemoteException;
 
@@ -9,9 +11,12 @@ import java.rmi.RemoteException;
  */
 public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInterface {
 
-    public RMIPlayer(String nickname)
+    RMIClientInterface RMIClientInterfaceInst;
+
+    public RMIPlayer(String nickname, RMIClientInterface RMIClientInterfaceInst)
     {
         super(nickname);
+        this.RMIClientInterfaceInst = RMIClientInterfaceInst;
     }
 
     /**
@@ -20,8 +25,15 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
      * @throws NetworkException
      */
     @Override
-    public void floodChatMsg(String senderNickname, String msg) throws NetworkException {
-    //TODO implement
+    public void receiveChatMsg(String senderNickname, String msg) throws NetworkException {
+
+        try {
+            RMIClientInterfaceInst.receiveChatMsg(senderNickname, msg);
+        } catch (RemoteException e) {
+            Debug.printError("RMI: cannot send chat message to" + getNickname(), e);
+            throw new NetworkException("RMI: cannot send chat message to" + getNickname(), e);
+        }
+
     }
 
     /**
@@ -31,6 +43,6 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
      */
     @Override
     public void sendChatMsg(String msg) throws RemoteException {
-        Room.sendChatMsg(this, msg);
+        getRoomContr().floodChatMsg(this, msg);
     }
 }
