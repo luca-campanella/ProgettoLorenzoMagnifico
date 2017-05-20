@@ -73,31 +73,40 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void registerPlayer() {
 
         try {
-            //the exceptions are caught by the client
+
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
         }
-        catch(IOException | ClassNotFoundException e){
-            Debug.printError("Network is not working",e);
+        catch (ClassNotFoundException e) {
+            Debug.printError("Network is not working", e);
         }
-       /* catch (UsernameAlreadyInUseException e) {
-            try{
+        catch (UsernameAlreadyInUseException e) {
+            try {
                 outStream.writeObject(RegisterErrorEnum.ALREADY_EXISTING_USERNAME);
+            } catch (IOException c) {
+                Debug.printError("Network is not working", c);
             }
-            catch(IOException c){
-                Debug.printError("Network is not working",c);
-            }
-        }*/
+        } catch (IOException c) {
+            Debug.printError("Network is not working", c);
+        }
     }
 
 
-    public void loginPlayer() throws IOException,ClassNotFoundException{
+
+    public void loginPlayer(){
         try {
             //the exceptions are caught by the client
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
-        } catch (LoginException e) {
+        }
+        catch(ClassNotFoundException e){
+            Debug.printError("Network is not working",e);}
+        catch (LoginException e) {
+            try{
             outStream.writeObject(e.getErrorType());
+        }
+        catch (IOException e1){
+            Debug.printError("Network is not working",e1);}
         }
     }
     public void playCard() throws NetworkException{
