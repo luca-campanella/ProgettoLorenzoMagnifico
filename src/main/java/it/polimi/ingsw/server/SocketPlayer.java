@@ -1,13 +1,7 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.exceptions.LoginErrorEnum;
-import it.polimi.ingsw.exceptions.LoginException;
-import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
-import it.polimi.ingsw.packet.LoginOrRegisterPacket;
-import it.polimi.ingsw.packet.PacketType;
-import it.polimi.ingsw.packet.PlayCardPacket;
-import it.polimi.ingsw.packet.RegisterErrorEnum;
+import it.polimi.ingsw.exceptions.*;
+import it.polimi.ingsw.packet.*;
 import it.polimi.ingsw.protocol.ReadClientPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
 
@@ -77,16 +71,14 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
         }
-        catch (ClassNotFoundException e) {
-            Debug.printError("Network is not working", e);
-        }
         catch (UsernameAlreadyInUseException e) {
             try {
                 outStream.writeObject(RegisterErrorEnum.ALREADY_EXISTING_USERNAME);
+                outStream.flush();
             } catch (IOException c) {
                 Debug.printError("Network is not working", c);
             }
-        } catch (IOException c) {
+        } catch (IOException | ClassNotFoundException c) {
             Debug.printError("Network is not working", c);
         }
     }
@@ -95,27 +87,104 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     public void loginPlayer(){
         try {
-            //the exceptions are caught by the client
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
         }
-        catch(ClassNotFoundException e){
-            Debug.printError("Network is not working",e);}
+
         catch (LoginException e) {
             try{
             outStream.writeObject(e.getErrorType());
+            outStream.flush();
+            }
+            catch (IOException e1){
+                Debug.printError("Network is not working",e1);
+            }
         }
-        catch (IOException e1){
-            Debug.printError("Network is not working",e1);}
-        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("Network is not working",e);}
     }
-    public void playCard() throws NetworkException{
+
+    public void moveInTower(){
+        try{
+            MoveInTowerPacket packet=(MoveInTowerPacket)inStream.readObject();
+            //TODO method in room
+        }
+        catch (IllegalMoveException e){
+            try{
+                outStream.writeObject(e.getErrorType());
+            }
+            catch (IOException e1){
+                Debug.printError("Network is not working", e1);
+            }
+        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("Network is not working", e);
+        }
+
+    }
+
+    public void moveInMarket(){
+        try{
+            MoveInMarketPacket packet=(MoveInMarketPacket)inStream.readObject();
+            //TODO method in room
+        }
+        catch (IllegalMoveException e){
+            try{
+                outStream.writeObject(e.getErrorType());
+            }
+            catch (IOException e1){
+                Debug.printError("Network is not working", e1);
+            }
+        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("Network is not working", e);
+        }
+
+    }
+
+    public void harvesting(){
+        try{
+            BuildOrHarvestPacket packet=(BuildOrHarvestPacket) inStream.readObject();
+            //TODO method
+        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("Network is not working", e);
+        }
+
+    }
+
+    public void building(){
+        try{
+            BuildOrHarvestPacket packet=(BuildOrHarvestPacket) inStream.readObject();
+            //TODO method
+        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("Network is not working", e);
+        }
+
+    }
+
+    public void playCard(){
         try{
             PlayCardPacket packet=(PlayCardPacket)inStream.readObject();
             //TODO method
         }
         catch(IOException e){
-            throw  new NetworkException(e);
+            Debug.printError("Network is not working", e);
+        }
+        catch(ClassNotFoundException e) {
+            //TODO handle exception
+            e.printStackTrace();
+        }
+    }
+
+    public void discardCard(){
+        try{
+            DiscardCardPacket packet=(DiscardCardPacket)inStream.readObject();
+            //TODO method
+        }
+        catch(IOException e){
+            Debug.printError("Network is not working", e);
         }
         catch(ClassNotFoundException e) {
             //TODO handle exception
@@ -134,11 +203,6 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         //TODO implement
     }
 
-    /*public void playCard(){
-       try{
-            PlayCardPacket card=(PlayCardPacket)inStream.readObject();
-
-    }*/
     private void closeEverything()
     {
         try {
