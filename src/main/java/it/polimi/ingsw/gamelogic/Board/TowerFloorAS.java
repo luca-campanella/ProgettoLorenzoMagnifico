@@ -24,5 +24,8 @@ public class TowerFloorAS extends AbstractActionSpace {
     {
        this.effect = effect;
     }
-
+    public String printFloor()
+    {
+        return effect.descriptionOfEffect();
+    }
 }

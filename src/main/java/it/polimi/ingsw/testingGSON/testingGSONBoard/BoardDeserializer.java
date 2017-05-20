@@ -1,8 +1,7 @@
 package it.polimi.ingsw.testingGSON.testingGSONBoard;
 
 import com.google.gson.*;
-import it.polimi.ingsw.gamelogic.Board.Tower;
-import it.polimi.ingsw.gamelogic.Board.TowerFloorAS;
+import it.polimi.ingsw.gamelogic.Board.*;
 import it.polimi.ingsw.utils.Debug;
 
 import java.lang.reflect.Type;
@@ -10,22 +9,19 @@ import java.lang.reflect.Type;
 /**
  * Created by higla on 17/05/2017.
  */
-public class BoardDeserializer implements JsonDeserializer<Tower> {
-    final int NUMBER_OF_FLOORS = 4;
-    int i = 0;
-
-    @Override
-    public Tower deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
+public class BoardDeserializer  implements JsonDeserializer<Board>{
+    public Board deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
             throws JsonParseException {
-        JsonObject jsonTower = json.getAsJsonObject();
+        JsonObject jsonBoard = json.getAsJsonObject();
 
-        final String towerName = jsonTower.get("towerId").getAsString();
-        Tower tower = new Tower(towerName);
-        Debug.printVerbose("Sono in TowerDeserialize");
-        TowerFloorAS[] floors = context.deserialize(jsonTower.get("floors"), TowerFloorAS[].class);
-        tower.addFloorsToTower(floors);
-
-       return tower;
+       // final String towerName = jsonBoard.get("towerId").getAsString();
+        Board board = new Board();
+        Debug.printVerbose("Sono in BoardDeserialize");
+        Tower[] towers = context.deserialize(jsonBoard.get("towers"), Tower[].class);
+        MarketAS[] market = context.deserialize(jsonBoard.get("market"), MarketAS[].class);
+        board.addTowersToBoard(towers);
+        board.addMarketToBoard(market);
+        return board;
     }
 
 }

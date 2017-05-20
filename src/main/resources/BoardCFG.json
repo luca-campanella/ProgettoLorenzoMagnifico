@@ -1,7 +1,28 @@
-{ "towerId": "green", "floors":
- [ {"diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "wood", "valueTaken" : 1},
-  {"diceValue": 3, "effect" : "NoEffect", "resourceTaken": "wood", "valueTaken" : 2},
-  {"diceValue": 5, "effect" : "NoEffect", "resourceTaken": "wood", "valueTaken" : 3},
-  {"diceValue": 7, "effect" : "NoEffect", "resourceTaken": "wood", "valueTaken" : 4}]}
+{"towers":
+[{"towerId": "green", "floors":
+[ {"diceValue": 1, "effect" : "NoEffect"},
+  {"diceValue": 3, "effect" : "NoEffect"},
+  {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "wood", "valueTaken" : 1},
+  {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "wood", "valueTaken" : 2}]},
+  {"towerId": "blue", "floors":
+  [ {"diceValue": 1, "effect" : "NoEffect"},
+    {"diceValue": 3, "effect" : "NoEffect"},
+    {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "stone", "valueTaken" : 1},
+    {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "stone", "valueTaken" : 2}]},
+  {"towerId": "yellow", "floors":
+  [ {"diceValue": 1, "effect" : "NoEffect"},
+    {"diceValue": 3, "effect" : "NoEffect"},
+    {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "military_points", "valueTaken" : 1},
+    {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "military_points", "valueTaken" : 2}]},
+  {"towerId": "violet", "floors":
+  [ {"diceValue": 1, "effect" : "NoEffect"},
+    {"diceValue": 3, "effect" : "NoEffect"},
+    {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "coin", "valueTaken" : 1},
+    {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "coin", "valueTaken" : 2}]}],
+  "market":
+  [ {"marketId": "1", "diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "coin", "valueTaken" : 5},
+    {"marketId": "2", "diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "servants", "valueTaken" : 5},
+    {"marketId": "3", "diceValue": 1, "effect" : "NoEffect", "resourceTaken": "coin", "valueTaken" : 1},
+    {"marketId": "4", "diceValue": 1, "effect" : "NoEffect", "resourceTaken": "coin", "valueTaken" : 2}]
 
-
+}

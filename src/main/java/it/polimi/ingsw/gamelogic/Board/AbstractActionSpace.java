@@ -23,8 +23,8 @@ public abstract class AbstractActionSpace {
         return diceValue;
     }
 
-    public void setDiceValue(int dicevalue) {
-        this.diceValue = dicevalue;
+    public void setDiceValue(int diceValue) {
+        this.diceValue = diceValue;
     }
 
     public EffectInterface getEffect() {
