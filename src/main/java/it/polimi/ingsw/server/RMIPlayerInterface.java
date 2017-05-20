@@ -13,4 +13,6 @@ public interface RMIPlayerInterface extends Remote {
      * @param msg The message
      **/
     public void sendChatMsg(String msg) throws RemoteException;
+
+    public String getNickname() throws RemoteException;
 }

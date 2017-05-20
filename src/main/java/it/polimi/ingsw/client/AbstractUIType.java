@@ -38,5 +38,8 @@ abstract public class AbstractUIType {
      * @param msg
      */
     public abstract void displayChatMsg(String senderNick, String msg);
+
+    //TODO this is a method just for testing chat
+    public abstract void askChatMsg();
 }
 

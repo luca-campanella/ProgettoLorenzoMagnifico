@@ -104,6 +104,8 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
 
         //if the exception is not thrown then we can continue creating the player object and making him join a room
         newPlayer = new RMIPlayer(nickname, RMIClientInterfaceInst);
+        UnicastRemoteObject.exportObject(newPlayer, getPort());
+
         getServerMainInst().makeJoinRoomLogin(newPlayer);
 
         return newPlayer;
@@ -127,6 +129,7 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
 
         //if no exception is not thrown then we can continue creating the player object and making him join a room
         newPlayer = new RMIPlayer(nickname, RMIClientInterfaceInst);
+        UnicastRemoteObject.exportObject(newPlayer, getPort());
 
         getServerMainInst().makeJoinRoomRegister(newPlayer);
 

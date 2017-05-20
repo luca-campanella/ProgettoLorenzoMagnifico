@@ -46,7 +46,14 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         try {
             RMIPlayerInterfaceInst = RMIServerInterfaceInst.loginPlayer(nickname, password, this);
         } catch(RemoteException e) {
-            Debug.printError("Cannot ligin player due to a network problem on RMI");
+            Debug.printError("Cannot login player due to a network problem on RMI");
+            throw new NetworkException(e);
+        }
+
+        try {
+            Debug.printVerbose("Got the remote object to controll the player " + RMIPlayerInterfaceInst.getNickname());
+        } catch (RemoteException e) {
+            Debug.printError("Cannot use the passed interface");
             throw new NetworkException(e);
         }
     }

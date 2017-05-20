@@ -5,6 +5,7 @@ package it.polimi.ingsw.client;
  */
 
 import it.polimi.ingsw.datastructure.UsrPwdContainer;
+import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.Scanner;
@@ -197,6 +198,18 @@ public class CommandLineUI extends AbstractUIType{
     public void displayChatMsg(String senderNick, String msg) {
         //TODO something more visually appealing
         System.out.println("<" + senderNick + ">: " + msg);
+    }
+
+    //TODO this is a method just for testing chat
+    @Override
+    public void askChatMsg() {
+        System.out.println("Please insert chat msg: ");
+
+        try {
+            clientMain.callbackSendChatMsg(inputScanner.nextLine());
+        } catch (NetworkException e) {
+            Debug.printError("Cannot send chat message", e);
+        }
     }
 
 }

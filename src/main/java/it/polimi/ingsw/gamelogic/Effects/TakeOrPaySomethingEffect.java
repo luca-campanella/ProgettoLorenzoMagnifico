@@ -27,7 +27,9 @@ public class TakeOrPaySomethingEffect implements EffectInterface {
     }
 
     public String descriptionOfEffect(){
-        return "This method gives to the player " + resource.printResource();
+        return "This method gives to the player " + resource.getResourceAbbreviation();
     }
-
+    public String descriptionShortOfEffect(){
+        return resource.getResourceAbbreviation();
+    }
 }

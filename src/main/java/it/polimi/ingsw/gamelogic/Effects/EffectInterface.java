@@ -17,6 +17,8 @@ public interface EffectInterface {
      * when someone invokes this method, gets a description of what the method does
      */
     abstract public String descriptionOfEffect();
+    abstract public String descriptionShortOfEffect();
+
 
 }
 

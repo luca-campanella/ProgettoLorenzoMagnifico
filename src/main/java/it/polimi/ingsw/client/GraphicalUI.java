@@ -55,6 +55,11 @@ public class GraphicalUI extends AbstractUIType{
 
     }
 
+    @Override
+    public void askChatMsg() {
+
+    }
+
     /**
      * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
      * this method should also receive the familyMembers list to match the input.

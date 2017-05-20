@@ -34,7 +34,10 @@ public abstract class AbstractActionSpace {
     public void setEffect(EffectInterface effect) {
         this.effect = effect;
     }
-
+    public String getEffectShortDescription()
+    {
+        return effect.descriptionShortOfEffect();
+    }
     public String getEffectDescription()
     {
         return effect.descriptionOfEffect();
