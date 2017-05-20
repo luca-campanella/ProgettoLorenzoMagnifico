@@ -11,3 +11,7 @@ bin/
 
 .idea/
 *.iml
+
+#ignore javadoc folder
+/Javadoc
+/javadoc

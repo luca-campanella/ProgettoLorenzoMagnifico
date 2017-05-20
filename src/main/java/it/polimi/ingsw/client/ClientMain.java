@@ -139,6 +139,12 @@ public class ClientMain {
         userInterface.displayChatMsg(senderNick, msg);
     }
 
+
+    /**
+     * this is the call back method to send a message to all other players in the room (Direction: {@link AbstractUIType} -> {@link ClientMain}; general direction: Client -> server)
+     * @param msg
+     * @throws NetworkException
+     */
     public void callbackSendChatMsg(String msg) throws NetworkException {
         clientNetwork.sendChatMsg(msg);
     }
