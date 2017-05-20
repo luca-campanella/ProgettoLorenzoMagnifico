@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.exceptions.LoginErrorEnum;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.UsernameAlreadyInUseException;
@@ -93,20 +92,19 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
 
 
-    public void loginPlayer(){
+    public void loginPlayer() {
         try {
             //the exceptions are caught by the client
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
-        }
-        catch(ClassNotFoundException e){
-            Debug.printError("Network is not working",e);}
-        catch (LoginException e) {
-            try{
-            outStream.writeObject(e.getErrorType());
-        }
-        catch (IOException e1){
-            Debug.printError("Network is not working",e1);}
+        } catch (LoginException e) {
+            try {
+                outStream.writeObject(e.getErrorType());
+            } catch (IOException e1) {
+                Debug.printError("Network is not working", e1);
+            }
+        }catch (ClassNotFoundException | IOException e) {
+            Debug.printError("Network is not working", e);
         }
     }
     public void playCard() throws NetworkException{
