@@ -1,7 +1,9 @@
 package it.polimi.ingsw.protocol;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import it.polimi.ingsw.packet.PacketType;
 import it.polimi.ingsw.server.SocketPlayer;
+import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -40,14 +42,18 @@ public class ReadClientPacketProtocol {
         instruction.put(PacketType.BUILDING, ()-> player.building());
         instruction.put(PacketType.DISCARD_LEADER, ()-> player.discardCard());
         instruction.put(PacketType.PLAY_LEADER, ()-> player.playCard());
-        instruction.put(PacketType.CHAT, ()-> player.receiveChatMsg());
-        instruction.put(PacketType.END_PHASE, ()-> player.);
+        instruction.put(PacketType.CHAT, ()-> player.floodChatMsg());
+        instruction.put(PacketType.END_PHASE, ()-> player.endPhase());
     }
     public void doMethod(PacketType packetType){
 
         response=instruction.get(packetType);
-
-        response.chooseMethod();
+        try {
+            response.chooseMethod();
+        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("Network is not working",e);
+        }
 
     }
 

@@ -219,22 +219,6 @@ public class SocketClient extends AbstractClientType {
 
     }
 
-    /**
-     * this method is used to write a string on the chat
-     * @param message is the string that the used writes
-     */
-    public void chatMessage(String message) throws NetworkException{
-        try{
-            outStream.writeObject(PacketType.CHAT);
-            outStream.writeObject(message);
-            outStream.flush();
-        }
-        catch (IOException e){
-            Debug.printError("Network is not avaiable", e);
-            throw new NetworkException(e);
-        }
-
-    }
 
     /**
      * this method is used to inform the room that the player had ended his phase
@@ -258,7 +242,15 @@ public class SocketClient extends AbstractClientType {
      */
     @Override
     public void sendChatMsg(String msg) throws NetworkException {
-        //TODO implement
+        try{
+            outStream.writeObject(PacketType.CHAT);
+            outStream.writeObject(msg);
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Network is not avaiable", e);
+            throw new NetworkException(e);
+        }
     }
 
     protected ClientMain getControllerMain() {

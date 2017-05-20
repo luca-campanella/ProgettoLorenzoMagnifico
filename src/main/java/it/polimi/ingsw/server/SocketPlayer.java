@@ -56,7 +56,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         while(true){
             try{
                 packetType= (PacketType)inStream.readObject();
-                //readPacket.doMethod(packetType);
+                readPacket.doMethod(packetType);
             }
             catch(IOException | ClassNotFoundException e){
                 Debug.printError("Network is not working",e);
@@ -195,12 +195,12 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     /**
      * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
-     * @param msg
      * @throws NetworkException
      */
-    //@Override
-    public void floodChatMsg(String msg) throws NetworkException {
-        //TODO implement
+    public void floodChatMsg() throws NetworkException {
+       /* try{
+            String msg=(String)inStream.readObject();
+        }*/
     }
 
     private void closeEverything()
@@ -218,6 +218,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void receiveChatMsg(String senderNickname, String msg) throws NetworkException {
         //TODO
         ;
+    }
+    public void endPhase(){
+        //TODO call the room' s method to tell the player had ended his phase
     }
 }
 
