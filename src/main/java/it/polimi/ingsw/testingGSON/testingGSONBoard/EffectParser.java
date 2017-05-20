@@ -1,6 +1,7 @@
 package it.polimi.ingsw.testingGSON.testingGSONBoard;
 
 import it.polimi.ingsw.gamelogic.Effects.EffectInterface;
+import it.polimi.ingsw.gamelogic.Effects.GiveCouncilGiftEffect;
 import it.polimi.ingsw.gamelogic.Effects.NoEffect;
 import it.polimi.ingsw.gamelogic.Effects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.gamelogic.Resource.Resource;
@@ -17,16 +18,15 @@ public class EffectParser {
     public EffectInterface parseEffect(String effectName, JsonObject jsonAction){
         switch (effectName) {
             case "TakeOrPaySomethingEffect":
-                Debug.printVerbose("Case take or pay");
                 final String resourceTaken = jsonAction.get("resourceTaken").getAsString();
                 final int valueTaken = jsonAction.get("valueTaken").getAsInt();
                 final Resource resource = getCorrectResource(resourceTaken, valueTaken);
                 return  new TakeOrPaySomethingEffect(resource);
+            case "GiveCouncilGiftEffect":
+                return new GiveCouncilGiftEffect();
             case "NoEffect":
-                Debug.printVerbose("No Effect");
                 return new NoEffect();
             default:
-                Debug.printVerbose("No Effect");
                 return new NoEffect();
         }
     }

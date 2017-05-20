@@ -21,7 +21,7 @@ public class TowerDeserializer implements JsonDeserializer<Tower> {
 
         final String towerName = jsonTower.get("towerId").getAsString();
         Tower tower = new Tower(towerName);
-        Debug.printVerbose("Sono in TowerDeserialize");
+       // Debug.printVerbose("Sono in TowerDeserialize");
         TowerFloorAS[] floors = context.deserialize(jsonTower.get("floors"), TowerFloorAS[].class);
         tower.addFloorsToTower(floors);
 

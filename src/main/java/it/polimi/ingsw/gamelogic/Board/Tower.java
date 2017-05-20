@@ -22,10 +22,16 @@ public class Tower {
     {
         return floors[index];
     }
-    public void printTower(){
-        int i = 0;
-        System.out.println("I'm tower  " + towerColor);
-        for(i=0; i< NUMBER_OF_FLOORS; i++)
-            System.out.println("Floor  " + i + " " + floors[i].printFloor());
+
+    public String getTowerColor() {
+        return towerColor;
+    }
+
+    public int getNUMBER_OF_FLOORS() {
+        return NUMBER_OF_FLOORS;
+    }
+
+    public TowerFloorAS[] getFloors() {
+        return floors;
     }
 }

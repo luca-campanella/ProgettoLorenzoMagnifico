@@ -4,6 +4,7 @@ import com.google.gson.*;
 import it.polimi.ingsw.gamelogic.Board.MarketAS;
 import it.polimi.ingsw.gamelogic.Effects.EffectInterface;
 import it.polimi.ingsw.gamelogic.Effects.NoEffect;
+import it.polimi.ingsw.utils.Debug;
 
 import java.lang.reflect.Type;
 
@@ -21,13 +22,13 @@ public class MarketASDeserializer implements JsonDeserializer<MarketAS> {
         String effectName = jsonMarket.get("effect").getAsString();
 
         EffectParser effectParser = new EffectParser();
-        effectParser.parseEffect(effectName, jsonMarket);
+        effect = effectParser.parseEffect(effectName, jsonMarket);
 
         MarketAS market = new MarketAS();
         market.setMarketASId(idMarketAS);
         market.setDiceValue(valueTaken);
         market.setEffect(effect);
-        // final String towerName = jsonBoard.get("towerId").getAsString();
+
         return market;
         }
 }

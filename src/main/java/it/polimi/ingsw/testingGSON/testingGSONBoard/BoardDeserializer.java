@@ -14,13 +14,20 @@ public class BoardDeserializer  implements JsonDeserializer<Board>{
             throws JsonParseException {
         JsonObject jsonBoard = json.getAsJsonObject();
 
-       // final String towerName = jsonBoard.get("towerId").getAsString();
         Board board = new Board();
-        Debug.printVerbose("Sono in BoardDeserialize");
+      //  Debug.printVerbose("I'm in BoardDeserialize");
         Tower[] towers = context.deserialize(jsonBoard.get("towers"), Tower[].class);
+
         MarketAS[] market = context.deserialize(jsonBoard.get("market"), MarketAS[].class);
-        board.addTowersToBoard(towers);
-        board.addMarketToBoard(market);
+
+        BuildAS build = context.deserialize(jsonBoard.get("build"), BuildAS.class);
+        HarvestAS harvest = context.deserialize(jsonBoard.get("harvest"), HarvestAS.class);
+
+        VaticanReport vaticanReport = context.deserialize(jsonBoard.get("vaticanReport"), VaticanReport.class);
+
+        CouncilAS council = new CouncilAS();
+
+        board.createNewBoard(towers, market, build, harvest, council, vaticanReport);
         return board;
     }
 

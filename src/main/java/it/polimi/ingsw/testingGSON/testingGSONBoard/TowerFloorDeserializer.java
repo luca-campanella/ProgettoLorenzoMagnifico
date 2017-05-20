@@ -19,10 +19,11 @@ public class TowerFloorDeserializer implements JsonDeserializer<TowerFloorAS> {
         diceValue = jsonFloor.get("diceValue").getAsInt();
         String effectName = jsonFloor.get("effect").getAsString();
 
-        Debug.printVerbose("TowerFloorDeserializer");
+
         EffectParser effectParser = new EffectParser();
         effect = effectParser.parseEffect(effectName, jsonFloor);
-        Debug.printVerbose(effect.descriptionOfEffect());
+
+      //  Debug.printVerbose(effect.descriptionOfEffect());
 
         TowerFloorAS towerFloorAS = new TowerFloorAS();
         towerFloorAS.setDiceValue(diceValue);

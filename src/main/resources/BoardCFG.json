@@ -22,7 +22,14 @@
   "market":
   [ {"marketId": "1", "diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "coin", "valueTaken" : 5},
     {"marketId": "2", "diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "resourceTaken": "servants", "valueTaken" : 5},
-    {"marketId": "3", "diceValue": 1, "effect" : "NoEffect", "resourceTaken": "coin", "valueTaken" : 1},
-    {"marketId": "4", "diceValue": 1, "effect" : "NoEffect", "resourceTaken": "coin", "valueTaken" : 2}]
-
+    {"marketId": "3", "diceValue": 1, "effect" : "NoEffect"},
+    {"marketId": "4", "diceValue": 1, "effect" : "GiveCouncilGiftEffect", "resourceTaken": "coin", "valueTaken" : 2}],
+  "harvest":
+  { "diceValueStandard": "1", "diceValueMalus": -3},
+  "build":
+  { "diceValueStandard": "1", "diceValueMalus": -3},
+  "council":
+  {"nothing" : "nothing"},
+  "vaticanReport":
+  {"requiredFaithPoints": [3,4,5], "victoryPointsLinked": [0,1,2,3,4,5,7,9,11,13,15,17,19,22,25,30]}
 }
