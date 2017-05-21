@@ -19,21 +19,13 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     private ServerMain serverMainInst;
 
     /**
-     * the type of packet that can be received, it works like a header for the input object
-     */
-    private PacketType packetType;
-
-    /**
      * the protocol used to read the packet of the client
      */
     private ReadClientPacketProtocol readPacket;
 
     /**
      * constructor to open the streams
-     *
-     * @param socket
      * @param serverMainInst needs this to call login and register functions and to be able to join a room
-     * @throws IOException
      */
     public SocketPlayer(Socket socket, ServerMain serverMainInst) throws IOException {
 
@@ -47,6 +39,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     public void run() {
         Debug.printVerbose("New socket player object waiting for login");
+        /**
+         *the type of packet that can be received, it works like a header for the input object
+         */
+        PacketType packetType;
         try {
             do {
 
@@ -61,7 +57,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         while(true){
             try{
-                packetType= (PacketType)inStream.readObject();
+                packetType = (PacketType)inStream.readObject();
                 readPacket.doMethod(packetType);
             }
             catch(IOException | ClassNotFoundException e){
@@ -203,7 +199,6 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     /**
      * This method is called by the client to send a chat message to the others client. (Direction: client -> server)
-     * @throws NetworkException
      */
     public void floodChatMsg(){
        try {
@@ -226,10 +221,21 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
+    /**
+     * This method is called by the server to send a chat message to the client. (Direction: server -> client)
+     */
     @Override
     public void receiveChatMsg(String senderNickname, String msg) throws NetworkException {
-        //TODO
-        ;
+
+        ReceiveChatPacket chatPacket= new ReceiveChatPacket(senderNickname , msg);
+        try{
+            outStream.writeObject(chatPacket);
+            outStream.flush();
+        }
+        catch(IOException e){
+
+            Debug.printError("ERROR: the player " + senderNickname + " had tried to write a message in the chat", e);
+        }
     }
     public void endPhase(){
         //TODO call the room' s method to tell the player had ended his phase

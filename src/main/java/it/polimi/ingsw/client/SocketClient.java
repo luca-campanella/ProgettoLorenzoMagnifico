@@ -4,6 +4,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
 import it.polimi.ingsw.packet.*;
+import it.polimi.ingsw.protocol.ReadServerPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.*;
@@ -26,6 +27,11 @@ public class SocketClient extends AbstractClientType {
      */
     private ObjectOutputStream outStream;
     private RegisterErrorEnum response;
+
+    /**
+     * the protocol used to read packet sedf by the server
+     */
+    private ReadServerPacketProtocol readPacket;
 
     /**
      *Initialization of the attributes on the superclass
@@ -55,6 +61,7 @@ public class SocketClient extends AbstractClientType {
             Debug.printError("Cannot open socket streams", e);
             throw new ClientConnectionException("Cannot open socket streams", e);
         }
+        readPacket= new ReadServerPacketProtocol(this);
 
     }
     /**
@@ -248,15 +255,25 @@ public class SocketClient extends AbstractClientType {
             outStream.flush();
         }
         catch (IOException e){
-            Debug.printError("Network is not avaiable", e);
+            Debug.printError("Network is not available", e);
             throw new NetworkException(e);
         }
     }
 
-    protected ClientMain getControllerMain() {
-        return super.getControllerMain();
+    public void receiveChatMsg() throws NetworkException{
+        try{
+            ChatReceivedPacket packet = (ChatReceivedPacket)inStream.readObject();
+
+            getControllerMain().receiveChatMsg(packet.getSenderNickname(), packet.getMessage());
+        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("Network is not available",e);
+            throw new NetworkException(e);
+        }
     }
+    public void receiveUpdates(){
+        //TODO
 
-
+    }
 
 }

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.packet;
 
 /**
- * Created by federico on 16/05/2017.
+ * this packet is used to deliver the message to the server
  */
 public class ChatPacket {
     private String message;
