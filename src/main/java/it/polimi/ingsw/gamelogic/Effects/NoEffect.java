@@ -16,6 +16,6 @@ public class NoEffect implements EffectInterface {
         return "This effect hasn't effect ";
     }
     public String descriptionShortOfEffect(){
-        return " No ";
+        return "No  ";
     }
 }

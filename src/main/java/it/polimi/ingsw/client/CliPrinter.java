@@ -34,7 +34,7 @@ public class CliPrinter {
         System.out.println();
         for(i=0; i< board.getTowers().length; i++)
         {
-            temp = board.getFloorLevel(i);
+            temp = board.getFloorLevel(3-i);
            /* for(k=0; k<board.getNUMBER_OF_TOWERS(); k++)
                 System.out.print(" _____ ");*/
 
@@ -93,6 +93,30 @@ public class CliPrinter {
         //printing the market
         printLine(199);
         printMarket(board);
+        //printMarketVerbose(board)
+        printLine(199);
+        //printing build
+        System.out.println("This is buildActionSpace " + board.getBuild().toString() + ". No effect yet available ");
+        printLine(199);
+        //printing harvest
+        System.out.println("This is harvestActionSpace " + board.getHarvest().toString() + ". No effect yet available ");
+        printLine(199);
+        //printing council
+        System.out.println("This is councilActionSpace " + board.getCouncil().toString() + ". Nothing to show yet ");
+        //priting vaticanReport
+        printLine(199);
+        printVaticanReport(board);
+    }
+    public void printBoardDetailed(Board board){
+        System.out.println("");
+        System.out.println("This is a detailed version of the board ");
+
+        //printing the towers
+        printTowersVerbose(board);
+        //printTowersVerbose(board);
+        //printing the market
+        printLine(199);
+        printMarketVerbose(board);
         //printMarketVerbose(board)
         printLine(199);
         //printing build

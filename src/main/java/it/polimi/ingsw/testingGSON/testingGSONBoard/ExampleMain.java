@@ -35,6 +35,7 @@ public class ExampleMain {
             Board board = gson.fromJson(reader, Board.class);
             CliPrinter printer = new CliPrinter();
             printer.printBoard(board);
+            printer.printBoardDetailed(board);
         }
 
     }
