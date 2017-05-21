@@ -194,13 +194,17 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
 
     /**
-     * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
+     * This method is called by the client to send a chat message to the others client. (Direction: client -> server)
      * @throws NetworkException
      */
-    public void floodChatMsg() throws NetworkException {
-       /* try{
-            String msg=(String)inStream.readObject();
-        }*/
+    public void floodChatMsg(){
+       try {
+           String msg = (String) inStream.readObject();
+           getRoomContr().floodChatMsg(this,msg);
+       }
+       catch(IOException | ClassNotFoundException e){
+           Debug.printError("Network is not working",e);
+       }
     }
 
     private void closeEverything()

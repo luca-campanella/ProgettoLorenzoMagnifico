@@ -27,7 +27,7 @@ public class ReadClientPacketProtocol {
 
     public ReadClientPacketProtocol(SocketPlayer player){
         this.player=player;
-        //putIstruction();
+        putIstruction();
     }
 
     /**
@@ -45,15 +45,15 @@ public class ReadClientPacketProtocol {
         instruction.put(PacketType.CHAT, ()-> player.floodChatMsg());
         instruction.put(PacketType.END_PHASE, ()-> player.endPhase());
     }
+
+    /**
+     * this method is used to find the response based on the Packet type
+     * @param packetType is like a header of the true packet, is used to understand how deserialize the follow packet
+     */
     public void doMethod(PacketType packetType){
 
         response=instruction.get(packetType);
-        try {
-            response.chooseMethod();
-        }
-        catch(IOException | ClassNotFoundException e){
-            Debug.printError("Network is not working",e);
-        }
+        response.chooseMethod();
 
     }
 
