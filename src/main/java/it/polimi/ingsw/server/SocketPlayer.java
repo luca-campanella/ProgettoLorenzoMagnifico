@@ -18,7 +18,11 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     private ServerMain serverMainInst;
 
+    /**
+     * the type of packet that can be received, it works like a header for the input object
+     */
     private PacketType packetType;
+
     /**
      * the protocol used to read the packet of the client
      */
@@ -32,6 +36,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
      * @throws IOException
      */
     public SocketPlayer(Socket socket, ServerMain serverMainInst) throws IOException {
+
         this.socket = socket;
         this.serverMainInst = serverMainInst;
         inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
@@ -44,13 +49,14 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         Debug.printVerbose("New socket player object waiting for login");
         try {
             do {
+
                 packetType = (PacketType) inStream.readObject();
-                //TODO tell clients the packet needs to be a login or a register one
+
             } while (packetType != PacketType.LOGIN && packetType != PacketType.REGISTER);
-            //readPacket.doMethod(packetType);
+            readPacket.doMethod(packetType);
         } catch (IOException | ClassNotFoundException e) {
             Debug.printError("Something went wrong when reading objects from client with address " + socket.getInetAddress(), e);
-            //  closeEverything(); //At this point the only thing we can do is close the connection and terminate the process
+            closeEverything(); //At this point the only thing we can do is close the connection and terminate the process
             //TODO signal room that one player is no longer connected
         }
         while(true){
@@ -60,8 +66,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             }
             catch(IOException | ClassNotFoundException e){
                 Debug.printError("Network is not working",e);
+                closeEverything();
             }
-    }}
+        }
+    }
 
 
     public void registerPlayer() {
@@ -194,13 +202,17 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
 
     /**
-     * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
+     * This method is called by the client to send a chat message to the others client. (Direction: client -> server)
      * @throws NetworkException
      */
-    public void floodChatMsg() throws NetworkException {
-       /* try{
-            String msg=(String)inStream.readObject();
-        }*/
+    public void floodChatMsg(){
+       try {
+           String msg = (String) inStream.readObject();
+           getRoomContr().floodChatMsg(this,msg);
+       }
+       catch(IOException | ClassNotFoundException e){
+           Debug.printError("Network is not working",e);
+       }
     }
 
     private void closeEverything()
