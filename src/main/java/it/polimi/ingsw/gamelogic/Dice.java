@@ -38,7 +38,7 @@ public class Dice {
         return value;
     }
 
-    public DiceAndFamilyMemberColor color(){
+    public DiceAndFamilyMemberColor getColor(){
         return color;
     }
 
