@@ -29,4 +29,26 @@ public class FamilyMember {
         color= dice.getColor();
 
     }
+
+    /**
+     * this method is used to know the value of the family member
+     * @return the value of the dice
+     */
+    public int getValue(){
+
+        return dice.getValue();
+
+    }
+
+    public DiceAndFamilyMemberColor getColor(){
+
+        return color;
+
+    }
+
+    public Player getPlayer(){
+
+        return player;
+
+    }
 }
