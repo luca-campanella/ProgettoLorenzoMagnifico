@@ -1,10 +1,10 @@
 package it.polimi.ingsw.gamelogic.Player;
 
 /**
- * Created by higla on 16/05/2017.
+ * the family member owned by a player
  */
 public class FamilyMember {
     private void doNothing(){
-        ;
+
     }
 }

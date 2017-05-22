@@ -2,7 +2,7 @@ package it.polimi.ingsw.client;
 
 
 import it.polimi.ingsw.exceptions.*;
-import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
+import it.polimi.ingsw.gamelogic.Player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.packet.*;
 import it.polimi.ingsw.protocol.ReadServerPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
@@ -159,7 +159,7 @@ public class SocketClient extends AbstractClientType {
      * @param numberTower number of the tower
      * @param floorTower floor of the tower
      */
-    public void moveInTower(FamilyMemberColor familyMemberColor, int servantUsed, int numberTower, int floorTower)
+    public void moveInTower(DiceAndFamilyMemberColor familyMemberColor, int servantUsed, int numberTower, int floorTower)
             throws NetworkException,IllegalMoveException {
         MoveErrorEnum moveErrorEnum;
         try{
@@ -180,7 +180,7 @@ public class SocketClient extends AbstractClientType {
     /**
      * this method is used when the family member in moved on a generic market space
      */
-    public void moveInMarket(FamilyMemberColor familyMemberColor, int servantUsed, int placeNumber)
+    public void moveInMarket(DiceAndFamilyMemberColor familyMemberColor, int servantUsed, int placeNumber)
             throws NetworkException,IllegalMoveException{
         MoveErrorEnum moveErrorEnum;
         try{
@@ -201,7 +201,7 @@ public class SocketClient extends AbstractClientType {
     /**
      * this method is called when the family member is moved on the harvest space
      */
-    public void harvesting (FamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
+    public void harvesting (DiceAndFamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
         try{
             outStream.writeObject(PacketType.HARVESTING);
             outStream.writeObject(new BuildOrHarvestPacket(familyMemberColor,servantUsed));
@@ -213,7 +213,7 @@ public class SocketClient extends AbstractClientType {
         }
 
     }
-    public void building (FamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
+    public void building (DiceAndFamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
         try{
             outStream.writeObject(PacketType.BUILDING);
             outStream.writeObject(new BuildOrHarvestPacket(familyMemberColor,servantUsed));
