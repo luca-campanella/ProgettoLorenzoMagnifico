@@ -1,10 +1,7 @@
 package it.polimi.ingsw.testingGSON.testingGSONBoard;
 
 import com.google.gson.*;
-import it.polimi.ingsw.gamelogic.Board.TowerFloorAS;
 import it.polimi.ingsw.gamelogic.Board.VaticanReport;
-import it.polimi.ingsw.gamelogic.Effects.EffectInterface;
-import it.polimi.ingsw.utils.Debug;
 
 import java.lang.reflect.Type;
 

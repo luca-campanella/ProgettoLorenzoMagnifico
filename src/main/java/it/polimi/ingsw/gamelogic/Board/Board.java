@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gamelogic.Board;
 
+import javax.smartcardio.Card;
+
 /**
  * Created by higla on 16/05/2017.
  */
@@ -11,8 +13,9 @@ public class Board {
     MarketAS[] market = new MarketAS[NUMBER_OF_MARKETS];
     BuildAS build = new BuildAS();
     HarvestAS harvest = new HarvestAS();
-    VaticanReport vaticanReport = new VaticanReport();
     CouncilAS council;
+    VaticanReport vaticanReport = new VaticanReport();
+
 
     public void createNewBoard(Tower[] towers, MarketAS[] market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport)
     {
@@ -54,7 +57,7 @@ public class Board {
             iFloor[k] = towers[k].getFloor(i);
         return iFloor;
     }
-    public String getTowerColor(Tower tower){
+    public CardColorEnum getTowerColor(Tower tower){
         return tower.getTowerColor();
     }
 

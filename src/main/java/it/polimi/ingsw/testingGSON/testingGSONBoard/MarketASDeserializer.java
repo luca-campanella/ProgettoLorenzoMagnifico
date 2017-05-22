@@ -2,9 +2,8 @@ package it.polimi.ingsw.testingGSON.testingGSONBoard;
 
 import com.google.gson.*;
 import it.polimi.ingsw.gamelogic.Board.MarketAS;
-import it.polimi.ingsw.gamelogic.Effects.EffectInterface;
-import it.polimi.ingsw.gamelogic.Effects.NoEffect;
-import it.polimi.ingsw.utils.Debug;
+import it.polimi.ingsw.gamelogic.effects.EffectInterface;
+import it.polimi.ingsw.gamelogic.effects.NoEffect;
 
 import java.lang.reflect.Type;
 
@@ -17,15 +16,13 @@ public class MarketASDeserializer implements JsonDeserializer<MarketAS> {
         throws JsonParseException {
         EffectInterface effect = new NoEffect();
         JsonObject jsonMarket = json.getAsJsonObject();
-        String idMarketAS = jsonMarket.get("marketId").getAsString();
+        //String idMarketAS = jsonMarket.get("marketId").getAsString();
         int valueTaken = jsonMarket.get("diceValue").getAsInt();
-        String effectName = jsonMarket.get("effect").getAsString();
 
-        EffectParser effectParser = new EffectParser();
-        effect = effectParser.parseEffect(effectName, jsonMarket);
+        effect = EffectParser.parseEffect(jsonMarket, context);
 
         MarketAS market = new MarketAS();
-        market.setMarketASId(idMarketAS);
+        //market.setMarketASId(idMarketAS);
         market.setDiceValue(valueTaken);
         market.setEffect(effect);
 

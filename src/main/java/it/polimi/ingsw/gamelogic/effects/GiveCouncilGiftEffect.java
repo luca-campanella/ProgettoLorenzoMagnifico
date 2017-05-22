@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gamelogic.Effects;
+package it.polimi.ingsw.gamelogic.effects;
 
 import it.polimi.ingsw.gamelogic.Player.Player;
 

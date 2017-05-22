@@ -1,58 +1,34 @@
 package it.polimi.ingsw.testingGSON.testingGSONBoard;
 
-import it.polimi.ingsw.gamelogic.Effects.EffectInterface;
-import it.polimi.ingsw.gamelogic.Effects.GiveCouncilGiftEffect;
-import it.polimi.ingsw.gamelogic.Effects.NoEffect;
-import it.polimi.ingsw.gamelogic.Effects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.gamelogic.effects.EffectInterface;
+import it.polimi.ingsw.gamelogic.effects.GiveCouncilGiftEffect;
+import it.polimi.ingsw.gamelogic.effects.NoEffect;
+import it.polimi.ingsw.gamelogic.effects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.gamelogic.Resource.Resource;
 import it.polimi.ingsw.gamelogic.Resource.ResourceEnum;
-import it.polimi.ingsw.utils.Debug;
 
 import com.google.gson.*;
+import it.polimi.ingsw.utils.Debug;
 
 /**
  * Created by higla on 20/05/2017.
  */
 public class EffectParser {
-
-    public EffectInterface parseEffect(String effectName, JsonObject jsonAction){
-        switch (effectName) {
-            case "TakeOrPaySomethingEffect":
-                final String resourceTaken = jsonAction.get("resourceTaken").getAsString();
-                final int valueTaken = jsonAction.get("valueTaken").getAsInt();
-                final Resource resource = getCorrectResource(resourceTaken, valueTaken);
-                return  new TakeOrPaySomethingEffect(resource);
-            case "GiveCouncilGiftEffect":
-                return new GiveCouncilGiftEffect();
-            case "NoEffect":
-                return new NoEffect();
-            default:
-                return new NoEffect();
+    /**
+     * this method returns the proper effect from
+     * @param json file
+     * @param context given a context
+     * @return
+     */
+    public static EffectInterface parseEffect(JsonObject json, JsonDeserializationContext context) {
+        EffectInterface effect = new NoEffect();
+        String effectName = json.get("effect").getAsString();
+        effectName = "it.polimi.ingsw.gamelogic.effects." + effectName;
+        try {
+            effect = context.deserialize(json.get("Effect"), Class.forName(effectName));
+        } catch (ClassNotFoundException e) {
+            Debug.printError("Class not found " + effectName, e);
         }
-    }
-
-    private Resource getCorrectResource(String resourceType, int resourceValue) {
-        switch (resourceType) {
-            case "wood":
-                return new Resource(ResourceEnum.WOOD, resourceValue);
-            case "stone":
-                return new Resource(ResourceEnum.STONE, resourceValue);
-            case "coin":
-                return new Resource(ResourceEnum.COIN, resourceValue);
-            case "servants":
-            case "servant":
-                return new Resource(ResourceEnum.SERVANT, resourceValue);
-            case "faith_points":
-            case "faith_point":
-                return new Resource(ResourceEnum.FAITH_POINTS, resourceValue);
-            case "military_points":
-            case "military_point":
-                return new Resource(ResourceEnum.MILITARY_POINTS, resourceValue);
-            case "victory_points":
-            case "victory_point":
-                return new Resource(ResourceEnum.VICTORY_POINTS, resourceValue);
-            default:
-                return new Resource(ResourceEnum.WOOD, 0);
-        }
+        return effect;
     }
 }

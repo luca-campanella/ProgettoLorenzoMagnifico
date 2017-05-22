@@ -1,18 +1,16 @@
 package it.polimi.ingsw.gamelogic.Board;
 
+import javax.smartcardio.Card;
 import java.util.ArrayList;
 
 /**
  * Created by higla on 16/05/2017.
  */
 public class Tower {
-    private String towerColor;
+    private CardColorEnum colorTower;
     final int NUMBER_OF_FLOORS = 4;
     TowerFloorAS[] floors = new TowerFloorAS[NUMBER_OF_FLOORS];
 
-    public Tower(String towerColor) {
-        this.towerColor = towerColor;
-    }
 
     public void addFloorsToTower(TowerFloorAS[] floor)
     {
@@ -23,8 +21,8 @@ public class Tower {
         return floors[index];
     }
 
-    public String getTowerColor() {
-        return towerColor;
+    public CardColorEnum getTowerColor() {
+        return colorTower;
     }
 
     public int getNUMBER_OF_FLOORS() {

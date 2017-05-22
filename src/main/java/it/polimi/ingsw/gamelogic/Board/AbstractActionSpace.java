@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gamelogic.Board;
 
-import it.polimi.ingsw.gamelogic.Effects.EffectInterface;
+import it.polimi.ingsw.gamelogic.effects.EffectInterface;
 import it.polimi.ingsw.gamelogic.Player.FamilyMember;
 
 /**
