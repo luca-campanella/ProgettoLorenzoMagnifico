@@ -13,6 +13,11 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
 
     RMIClientInterface RMIClientInterfaceInst;
 
+    /**
+     * Constructor, calls the super constructor and saves the interface to communicate with the client
+     * @param nickname
+     * @param RMIClientInterfaceInst
+     */
     public RMIPlayer(String nickname, RMIClientInterface RMIClientInterfaceInst)
     {
         super(nickname);
@@ -21,8 +26,8 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
 
     /**
      * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
-     * @param msg
-     * @throws NetworkException
+     * @param msg message
+     * @throws NetworkException if somthing went wrong on the network
      */
     @Override
     public void receiveChatMsg(String senderNickname, String msg) throws NetworkException {
@@ -38,8 +43,8 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
 
     /**
      * This method is used by the client to send chat message to all other players in the room (Direction: client -> sever)
-     * @param msg The message
-     * @throws NetworkException
+     * @param msg the message
+     * @throws NetworkException if somthing went wrong on the network
      */
     @Override
     public void sendChatMsg(String msg) throws RemoteException {

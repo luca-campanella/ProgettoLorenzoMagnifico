@@ -10,7 +10,7 @@ public class ClientConnectionException extends IOException {
 
     /**
      * Constructor, just calls the super constructor of IOException
-     * @param e
+     * @param e exceptio
      */
     public ClientConnectionException(Throwable e)
     {
@@ -19,8 +19,8 @@ public class ClientConnectionException extends IOException {
 
     /**
      * Constructor, just calls the super constructor of IOException
-     * @param msg
-     * @param e
+     * @param msg cause
+     * @param e exception
      */
     public ClientConnectionException(String msg, Throwable e)
     {

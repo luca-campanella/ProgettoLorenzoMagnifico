@@ -25,9 +25,9 @@ public abstract class AbstractConnectionPlayer extends Player {
 
     /**
      * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
-     * @param msg
+     * @param msg message
      * @param senderNickname the nickname of the sender
-     * @throws NetworkException
+     * @throws NetworkException if something went wrong on the network
      */
     public abstract void receiveChatMsg(String senderNickname, String msg) throws NetworkException;
 

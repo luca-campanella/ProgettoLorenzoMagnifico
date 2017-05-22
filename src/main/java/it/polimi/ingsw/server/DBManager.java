@@ -20,6 +20,7 @@ public  class DBManager {
 
     /**
      * Private constructor, basically it creates the database and the table if not already present
+     * @throws SQLException if something goes wrong opening the database or creating it if it doesn't exists already
      */
     private DBManager() throws SQLException {
 
@@ -43,6 +44,7 @@ public  class DBManager {
     /**
      * It creates the singleton instance only if it doesn't exist already
      * @return DBManager the singleton instance
+     * @throws SQLException if something goes wrong opening the database or creating it if it doesn't exists already
      */
     public static DBManager instance() throws SQLException {
         if (instance == null)
@@ -70,8 +72,8 @@ public  class DBManager {
 
     /**
      * This method checks if the player can be logged into the system
-     * @param username
-     * @param password
+     * @param username nickname / username
+     * @param password password
      * @throws LoginException if the username doesn't exist in the db (NOT_EXISTING_USERNAME) or if the password is wrong (NOT_EXISTING_USERNAME). @see {@link it.polimi.ingsw.exceptions.LoginException}
      */
     public static void checkLogin(String username, String password) throws LoginException
@@ -85,8 +87,8 @@ public  class DBManager {
 
     /**
      * Private method to fully check if the player is present in the database with the right password
-     * @param username
-     * @param password
+     * @param username nickname / username
+     * @param password password
      * @return true if present with the correct password
      */
     private static boolean isPasswordCorrect(String username, String password)
@@ -108,7 +110,7 @@ public  class DBManager {
 
     /**
      * Private method to check if a username is present in the db
-     * @param username
+     * @param username nickname / username
      * @return true if present
      */
     private static boolean isRegistered(String username)
@@ -129,8 +131,8 @@ public  class DBManager {
 
     /**
      * method used to register a new username to the db
-     * @param username
-     * @param password
+     * @param username nickname / username
+     * @param password password
      * @throws UsernameAlreadyInUseException if the username is already in use
      */
     public static void register(String username, String password) throws UsernameAlreadyInUseException {
