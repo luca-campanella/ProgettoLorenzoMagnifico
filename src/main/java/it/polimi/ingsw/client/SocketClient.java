@@ -2,7 +2,7 @@ package it.polimi.ingsw.client;
 
 
 import it.polimi.ingsw.exceptions.*;
-import it.polimi.ingsw.gamelogic.Player.DiceAndFamilyMemberColor;
+import it.polimi.ingsw.gamelogic.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.packet.*;
 import it.polimi.ingsw.protocol.ReadServerPacketProtocol;
 import it.polimi.ingsw.utils.Debug;

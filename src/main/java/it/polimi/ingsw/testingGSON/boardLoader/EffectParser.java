@@ -1,11 +1,7 @@
-package it.polimi.ingsw.testingGSON.testingGSONBoard;
+package it.polimi.ingsw.testingGSON.boardLoader;
 
 import it.polimi.ingsw.gamelogic.effects.EffectInterface;
-import it.polimi.ingsw.gamelogic.effects.GiveCouncilGiftEffect;
 import it.polimi.ingsw.gamelogic.effects.NoEffect;
-import it.polimi.ingsw.gamelogic.effects.TakeOrPaySomethingEffect;
-import it.polimi.ingsw.gamelogic.Resource.Resource;
-import it.polimi.ingsw.gamelogic.Resource.ResourceEnum;
 
 import com.google.gson.*;
 import it.polimi.ingsw.utils.Debug;

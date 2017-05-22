@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gamelogic.effects;
 
-import it.polimi.ingsw.gamelogic.Player.Player;
-import it.polimi.ingsw.gamelogic.Resource.Resource;
+import it.polimi.ingsw.gamelogic.player.Player;
+import it.polimi.ingsw.gamelogic.resource.Resource;
 import it.polimi.ingsw.utils.Debug;
 
 /**

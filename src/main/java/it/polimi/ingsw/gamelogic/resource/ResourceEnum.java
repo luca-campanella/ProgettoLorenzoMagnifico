@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gamelogic.Resource;
+package it.polimi.ingsw.gamelogic.resource;
 
 /**
  * Created by higla on 16/05/2017.

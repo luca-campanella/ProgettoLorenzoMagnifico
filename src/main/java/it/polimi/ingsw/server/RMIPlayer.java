@@ -7,7 +7,7 @@ import it.polimi.ingsw.utils.Debug;
 import java.rmi.RemoteException;
 
 /**
- * This class is the Player via RMI
+ * This class is the player via RMI
  */
 public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInterface {
 

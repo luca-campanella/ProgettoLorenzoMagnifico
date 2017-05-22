@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gamelogic.effects;
 
-import it.polimi.ingsw.gamelogic.Player.Player;
+import it.polimi.ingsw.gamelogic.player.Player;
 
 /**
  * Created by higla on 17/05/2017.

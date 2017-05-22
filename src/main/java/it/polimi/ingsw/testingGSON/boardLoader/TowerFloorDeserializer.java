@@ -1,10 +1,9 @@
-package it.polimi.ingsw.testingGSON.testingGSONBoard;
+package it.polimi.ingsw.testingGSON.boardLoader;
 
 import com.google.gson.*;
 import it.polimi.ingsw.gamelogic.Board.TowerFloorAS;
 import it.polimi.ingsw.gamelogic.effects.EffectInterface;
 import it.polimi.ingsw.gamelogic.effects.NoEffect;
-import it.polimi.ingsw.utils.Debug;
 
 import java.lang.reflect.Type;
 

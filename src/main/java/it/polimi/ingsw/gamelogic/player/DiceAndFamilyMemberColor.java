@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gamelogic.Player;
+package it.polimi.ingsw.gamelogic.player;
 
 /**
  * the colors of the family member and ogf the dices

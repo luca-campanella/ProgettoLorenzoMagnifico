@@ -1,7 +1,7 @@
-package it.polimi.ingsw.gamelogic.Controller;
+package it.polimi.ingsw.gamelogic.controller;
 
 import it.polimi.ingsw.gamelogic.Board.Board;
-import it.polimi.ingsw.gamelogic.Player.Player;
+import it.polimi.ingsw.gamelogic.player.Player;
 import it.polimi.ingsw.server.BoardConfigurator;
 import it.polimi.ingsw.server.Room;
 

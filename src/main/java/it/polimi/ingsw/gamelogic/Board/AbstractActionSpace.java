@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gamelogic.Board;
 
 import it.polimi.ingsw.gamelogic.effects.EffectInterface;
-import it.polimi.ingsw.gamelogic.Player.FamilyMember;
+import it.polimi.ingsw.gamelogic.player.FamilyMember;
 
 /**
  * Created by higla on 16/05/2017.

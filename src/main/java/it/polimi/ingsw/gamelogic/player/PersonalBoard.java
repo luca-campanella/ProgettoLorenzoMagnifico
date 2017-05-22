@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gamelogic.Player;
+package it.polimi.ingsw.gamelogic.player;
 
 /**
  * Created by higla on 16/05/2017.

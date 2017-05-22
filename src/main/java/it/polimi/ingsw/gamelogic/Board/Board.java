@@ -114,7 +114,10 @@ public class Board {
     public CouncilAS getCouncil() {
         return council;
     }
-
+    public String getCouncilShortEffect()
+    {
+        return this.getCouncil().getEffect().descriptionShortOfEffect();
+    }
     public void setCouncil(CouncilAS council) {
         this.council = council;
     }

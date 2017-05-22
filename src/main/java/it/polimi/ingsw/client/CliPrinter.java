@@ -9,10 +9,31 @@ import it.polimi.ingsw.gamelogic.Board.TowerFloorAS;
  * Created by higla on 20/05/2017.
  */
 public class CliPrinter {
+    public void printBoard(Board board){
+        //printing the towers
+        printTowers(board);
+        //printTowersVerbose(board);
+        //printing the market
+        printLine(199);
+        printMarket(board);
+        //printMarketVerbose(board)
+        printLine(199);
+        //printing build
+        printBuildAS(board);
+        printLine(199);
+        //printing harvest
+        printHarvestAS(board);
+        printLine(199);
+        //printing council
+        printCouncil(board);
+        //printing vaticanReport
+        printLine(199);
+        printVaticanReport(board);
+    }
 
     public void printTowersVerbose(Board board){
-    int i;
-    int k;
+        int i;
+        int k;
         for(i=0; i< board.getTowers().length; i++)
         {
             Tower tower = board.getTower(i);
@@ -39,7 +60,7 @@ public class CliPrinter {
                 System.out.print(" _____ ");*/
 
             for(k=0; k<board.getNUMBER_OF_TOWERS(); k++)
-            System.out.print("||   " + "cardName" + "  *" + temp[k].getDiceValue() + "* " + temp[k].getEffectShortDescription());
+                System.out.print("||   " + "cardName" + "  *" + temp[k].getDiceValue() + "* " + temp[k].getEffectShortDescription());
             System.out.println("||");
 
         }
@@ -47,16 +68,14 @@ public class CliPrinter {
     }
     public void printMarket(Board board)
     {
+        int i;
+        System.out.println("This is the market: ");
+        for(i=0; i< board.getMarket().length; i++)
         {
-            int i;
-            System.out.println("This is the market: ");
-            for(i=0; i< board.getMarket().length; i++)
-            {
-                MarketAS market = board.getMarketSpaceByIndex(i);
-                System.out.print("|" + i + "| *" + market.getDiceValue() + "* " + market.getEffectShortDescription() + " ");
-            }
-            System.out.println(" ");
+            MarketAS market = board.getMarketSpaceByIndex(i);
+            System.out.print("|" + i + "| *" + market.getDiceValue() + "* " + market.getEffectShortDescription() + " ");
         }
+        System.out.println(" ");
     }
     public void printMarketVerbose(Board board)
     {
@@ -67,6 +86,22 @@ public class CliPrinter {
             MarketAS market = board.getMarketSpaceByIndex(i);
             System.out.println("Space " + i + " Dice " + market.getDiceValue() + " " + market.getEffectDescription());
         }
+    }
+    public void printBuildAS(Board board)
+    {
+            System.out.println("This is Build Action Space: ");
+            System.out.println("Standard "+ board.getBuild().getValueStandard() + ". Malus " + board.getBuild().getValueMalus() );
+    }
+    public void printHarvestAS(Board board)
+    {
+        System.out.println("This is Harvest Action Space: ");
+        System.out.println("Standard "+ board.getHarvest().getValueStandard() + ". Malus " + board.getHarvest().getValueMalus() );
+    }
+    public void printCouncil(Board board)
+    {
+        System.out.println("This is Council Hall: ");
+        System.out.println("Effect " + board.getCouncilShortEffect());
+
     }
     public void printVaticanReport(Board board)
     {
@@ -86,27 +121,6 @@ public class CliPrinter {
             System.out.print(" | ");
         }
     }
-    public void printBoard(Board board){
-        //printing the towers
-        printTowers(board);
-        //printTowersVerbose(board);
-        //printing the market
-        printLine(199);
-        printMarket(board);
-        //printMarketVerbose(board)
-        printLine(199);
-        //printing build
-        System.out.println("This is buildActionSpace " + board.getBuild().toString() + ". No effect yet available ");
-        printLine(199);
-        //printing harvest
-        System.out.println("This is harvestActionSpace " + board.getHarvest().toString() + ". No effect yet available ");
-        printLine(199);
-        //printing council
-        System.out.println("This is councilActionSpace " + board.getCouncil().toString() + ". Nothing to show yet ");
-        //priting vaticanReport
-        printLine(199);
-        printVaticanReport(board);
-    }
     public void printBoardDetailed(Board board){
         System.out.println("");
         System.out.println("This is a detailed version of the board ");
@@ -120,9 +134,9 @@ public class CliPrinter {
         //printMarketVerbose(board)
         printLine(199);
         //printing build
-        System.out.println("This is buildActionSpace " + board.getBuild().toString() + ". No effect yet available ");
+        printBuildAS(board);
         printLine(199);
-        //printing harvest
+        printHarvestAS(board);
         System.out.println("This is harvestActionSpace " + board.getHarvest().toString() + ". No effect yet available ");
         printLine(199);
         //printing council
@@ -134,7 +148,7 @@ public class CliPrinter {
     public void printLine(int lineLenght){
         int i;
         for(i = 0; i < lineLenght; i++)
-        System.out.print("-");
+            System.out.print("-");
         System.out.println("");
     }
 }

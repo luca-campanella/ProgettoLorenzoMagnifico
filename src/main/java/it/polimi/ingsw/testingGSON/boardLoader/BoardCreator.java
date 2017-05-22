@@ -1,4 +1,4 @@
-package it.polimi.ingsw.testingGSON.testingGSONBoard;
+package it.polimi.ingsw.testingGSON.boardLoader;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,16 +15,10 @@ public class BoardCreator {
 
     public static void main(String[] args) throws Exception {
         Debug.instance(Debug.LEVEL_VERBOSE);
-
-        // Configure Gson
         GsonBuilder gsonBuilder = new GsonBuilder();
-       // gsonBuilder.registerTypeAdapter(Board.class, new BoardDeserializer());
-        //gsonBuilder.registerTypeAdapter(Tower.class, new TowerDeserializer());
         gsonBuilder.registerTypeAdapter(TowerFloorAS.class, new TowerFloorDeserializer());
         gsonBuilder.registerTypeAdapter(MarketAS.class, new MarketASDeserializer());
-        //gsonBuilder.registerTypeAdapter(BuildAS.class, new BuildDeserializer());
-        //gsonBuilder.registerTypeAdapter(HarvestAS.class, new HarvestDeserializer());
-        //gsonBuilder.registerTypeAdapter(VaticanReport.class, new VaticanReportDeserialize());
+        gsonBuilder.registerTypeAdapter(CouncilAS.class, new CouncilDeserializer());
 
         Gson gson = gsonBuilder.create();
         // The JSON data

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.testingGSON.testingGSONBoard;
+package it.polimi.ingsw.testingGSON.boardLoader;
 
 import com.google.gson.*;
 import it.polimi.ingsw.gamelogic.Board.HarvestAS;

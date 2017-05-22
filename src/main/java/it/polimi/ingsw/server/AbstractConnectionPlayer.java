@@ -1,10 +1,10 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.gamelogic.Player.Player;
+import it.polimi.ingsw.gamelogic.player.Player;
 
 /**
- * The abstract class that extends Player and handles connections either via socker or via RMI
+ * The abstract class that extends player and handles connections either via socker or via RMI
  */
 public abstract class AbstractConnectionPlayer extends Player {
 

@@ -153,7 +153,7 @@ public  class DBManager {
             Debug.printError("Cannot add " + username + " to db", e);
         }
 
-        Debug.printVerbose("Player " + username + " registered successfully");
+        Debug.printVerbose("player " + username + " registered successfully");
     }
 
     public static void main(String args[]) {

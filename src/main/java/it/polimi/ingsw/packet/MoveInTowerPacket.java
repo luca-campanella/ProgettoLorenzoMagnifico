@@ -1,6 +1,6 @@
 package it.polimi.ingsw.packet;
 
-import it.polimi.ingsw.gamelogic.Player.DiceAndFamilyMemberColor;
+import it.polimi.ingsw.gamelogic.player.DiceAndFamilyMemberColor;
 
 /**
  * Created by federico on 16/05/2017.

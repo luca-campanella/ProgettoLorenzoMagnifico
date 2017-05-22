@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gamelogic;
 
-import it.polimi.ingsw.gamelogic.Player.DiceAndFamilyMemberColor;
+import it.polimi.ingsw.gamelogic.player.DiceAndFamilyMemberColor;
 
 import java.util.Random;
 

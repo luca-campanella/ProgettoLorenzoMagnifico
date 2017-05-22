@@ -27,6 +27,6 @@
 ],
   "build":{"valueStandard": 1, "valueMalus": -3 },
   "harvest":{"valueStandard": 1, "valueMalus": -3 },
-  "council":{},
+  "council":{"effect": "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "STONE", "value" : 5}}},
   "vaticanReport":
   {"requiredFaithPoints": [3,4,5], "correspondingVictoryPoints": [0,1,2,3,4,5,7,9,11,13,15,17,19,22,25,30]}}
