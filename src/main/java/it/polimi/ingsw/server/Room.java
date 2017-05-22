@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.gamelogic.Controller.GameController;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;

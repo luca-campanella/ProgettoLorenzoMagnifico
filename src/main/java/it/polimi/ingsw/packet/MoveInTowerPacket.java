@@ -1,6 +1,6 @@
 package it.polimi.ingsw.packet;
 
-import it.polimi.ingsw.gamelogic.Player.FamilyMemberColor;
+import it.polimi.ingsw.gamelogic.Player.DiceAndFamilyMemberColor;
 
 /**
  * Created by federico on 16/05/2017.
@@ -18,7 +18,7 @@ public class MoveInTowerPacket extends MovePacket {
     /**
      * constructor
      */
-    public MoveInTowerPacket (FamilyMemberColor familyMemberColor, int servantUsed, int numberTower, int floorTower){
+    public MoveInTowerPacket (DiceAndFamilyMemberColor familyMemberColor, int servantUsed, int numberTower, int floorTower){
         super(familyMemberColor, servantUsed);
         this.numberTower=numberTower;
         this. floorTower=floorTower;
