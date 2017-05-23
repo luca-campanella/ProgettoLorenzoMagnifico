@@ -1,18 +1,18 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.effects.TakeOrPaySomethingEffect;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * the personal board of a single player
  */
-/*public class PersonalBoard {
+public class PersonalBoard {
 
-    private ArrayList<AbstractCard> greenCards;
-    private ArrayList<AbstractCard> yellowCards;
-    private ArrayList<AbstractCard> purpleCards;
-    private ArrayList<AbstractCard> blueCards;
+    private HashMap<CardColorEnum, ArrayList<AbstractCard>> ownedCards;
 
     TakeOrPaySomethingEffect bonusTileHarvestEffect;
     TakeOrPaySomethingEffect bonusTileBuildEffect;
@@ -21,9 +21,12 @@ import java.util.ArrayList;
 
         this.bonusTileHarvestEffect = bonusTileHarvestEffect;
         this.bonusTileBuildEffect = bonusTileBuildEffect;
-        greenCards = new ArrayList<AbstractCard>(6);
-        yellowCards = new ArrayList<AbstractCard>(6);
+
+    }
+
+    public void addCard(AbstractCard card, CardColorEnum color){
+
+        ownedCards.get(color).add(card);
 
     }
 }
-*/

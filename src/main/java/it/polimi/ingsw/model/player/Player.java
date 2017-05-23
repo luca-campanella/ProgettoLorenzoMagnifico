@@ -18,6 +18,7 @@ public abstract class Player {
     public Player()
     {
         super();
+        resource = new HashMap<>();
         loadResource();
     }
 
