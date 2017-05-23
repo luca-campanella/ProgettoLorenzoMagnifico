@@ -1,8 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
-import it.polimi.ingsw.model.effects.EffectInterface;
 import it.polimi.ingsw.model.effects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.PermanentEffectInterface;
 
 import java.util.ArrayList;
 
