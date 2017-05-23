@@ -14,10 +14,7 @@ public class TakeOrPaySomethingEffect implements ImmediateEffectInterface {
     public TakeOrPaySomethingEffect(Resource resource){
         this.resource = resource;
     }
-   /* public TakeOrPaySomethingEffect(String resourceType, int value)
-    {
-        Debug.printVerbose("Hello");
-    }*/
+
     @Override
     public void applyToPlayer(Player player) {
         giveResourcesToPlayer(player, resource);

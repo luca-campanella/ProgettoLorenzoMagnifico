@@ -15,8 +15,19 @@ public class TowerOrPaySomethingConditionedOnCardEffect extends TakeOrPaySomethi
     }
 
     @Override
-    //todo: apply to player
+    /*
+    This method gives you resources for each card of a certain type you have
+     */
     public void applyToPlayer(Player player) {
-        ;
+        int numberOfColoredCards = player.getNumberOfColoredCard(color);
+        int i;
+        for(i = 0; i<numberOfColoredCards; i++)
+            super.applyToPlayer(player);
+    }
+    public String descriptionOfEffect(){
+        return "This method gives to the player a dice that he can use and place somewher" + resource.getResourceAbbreviation();
+    }
+    public String descriptionShortOfEffect(){
+        return resource.getResourceAbbreviation();
     }
 }

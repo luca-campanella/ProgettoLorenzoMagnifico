@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.resource.ResourceType;
 
 import java.util.HashMap;
@@ -46,7 +47,11 @@ public abstract class Player {
         Integer valueNow = resource.get(type);
         valueNow = valueNow + value;
     }
-
+    //TODO: we need to put Cards Containers in Player and then implement this method.
+    public int getNumberOfColoredCard(CardColorEnum color)
+    {
+        return 0;
+    }
     public int getResource(ResourceType type){
 
         return resource.get(type);
