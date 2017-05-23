@@ -14,15 +14,23 @@ public class TakeOrPaySomethingConditionedEffect extends TakeOrPaySomethingEffec
         this.condition = condition;
     }
     @Override
+    /*
+    For Each condition give Resources to the Player
+     */
     public void applyToPlayer(Player player) {
-        super.applyToPlayer(player);
+        int i = player.getResource(condition.getType());
+        int temp = condition.getValue();
+        for(; temp>0;){
+            super.applyToPlayer(player);
+            temp -= condition.getValue();
+        }
     }
     public String descriptionOfEffect(){
-        return "Non so cosa fa";
+        return "Puoi prendere " + super.resource.toString() + " se hai " + this.condition.toString();
     }
 
     public String descriptionShortOfEffect(){
-        return "Non so cosa fa";
+        return "+"+super.resource.getResourceAbbreviation()+"-"+this.condition.getResourceAbbreviation();
     }
 
 }

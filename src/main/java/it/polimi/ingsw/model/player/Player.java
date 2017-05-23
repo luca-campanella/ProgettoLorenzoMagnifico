@@ -64,6 +64,11 @@ public abstract class Player {
         valueNow = valueNow + value;
 
     }
+    //TODO: we need to put Cards Containers in Player and then implement this method.
+    public int getNumberOfColoredCard(CardColorEnum color)
+    {
+        return 0;
+    }
 
     /*public void excommunication(ExcommunicationCard card){
 
