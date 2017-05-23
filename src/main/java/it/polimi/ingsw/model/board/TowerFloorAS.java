@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.model.effects.EffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 /**
- * Created by higla on 16/05/2017.
+ * This action space is the one placed on the tower, with a corresponding card to it
  */
 public class TowerFloorAS extends AbstractActionSpace {
 
@@ -12,12 +11,8 @@ public class TowerFloorAS extends AbstractActionSpace {
         this.doEffect();
     }
     private void doEffect(){
-        System.out.println("Stampo l'effetto " + getEffect());
+        System.out.println("Stampo l'effetto " + getEffects());
     }
 
-    public void setEffect(EffectInterface effect)
-    {
-       this.effect = effect;
-    }
 
 }

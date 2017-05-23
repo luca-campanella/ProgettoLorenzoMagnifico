@@ -22,7 +22,7 @@ public class TowerFloorDeserializer implements JsonDeserializer<TowerFloorAS> {
         TowerFloorAS towerFloorAS = new TowerFloorAS();
 
         towerFloorAS.setDiceValue(diceValue);
-        towerFloorAS.setEffect(effect);
+        towerFloorAS.addEffect(effect);
 
         return towerFloorAS;
 

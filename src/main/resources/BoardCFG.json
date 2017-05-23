@@ -1,32 +1,7 @@
 {"towers":
 [{"colorTower": "GREEN", "floors":
-[ {"diceValue": 1, "effect" : "NoEffect", "Effect":{}},
-  {"diceValue": 3, "effect" : "NoEffect", "Effect":{}},
-  {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "WOOD", "value" : 1}}},
-  {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "WOOD", "value" : 2}}}]},
-  {"colorTower": "BLUE", "floors":
-  [ {"diceValue": 1, "effect" : "NoEffect", "Effect":{}},
-    {"diceValue": 3, "effect" : "NoEffect", "Effect":{}},
-    {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "STONE", "value" : 1}}},
-    {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "STONE", "value" : 2}}}]},
-  {"colorTower": "YELLOW", "floors":
-  [ {"diceValue": 1, "effect" : "NoEffect", "Effect":{}},
-    {"diceValue": 3, "effect" : "NoEffect", "Effect":{}},
-    {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "MILITARY_POINT", "value" : 1}}},
-    {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "MILITARY_POINT", "value" : 2}}}]},
-  {"colorTower": "PURPLE", "floors":
-  [ {"diceValue": 1, "effect" : "NoEffect", "Effect":{}},
-    {"diceValue": 3, "effect" : "NoEffect", "Effect":{}},
-    {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "COIN", "value" : 1}}},
-    {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "COIN", "value" : 2}}}]}],
-"market":
-[{"diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "COIN", "value" : 5}}},
-  {"diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "SERVANT", "value" : 5}}},
-  {"diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "WOOD", "value" : 5}}},
-  {"diceValue": 1, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "STONE", "value" : 5}}}
-],
-  "build":{"valueStandard": 1, "valueMalus": -3 },
-  "harvest":{"valueStandard": 1, "valueMalus": -3 },
-  "council":{"effect": "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "STONE", "value" : 5}}},
-  "vaticanReport":
-  {"requiredFaithPoints": [3,4,5], "correspondingVictoryPoints": [0,1,2,3,4,5,7,9,11,13,15,17,19,22,25,30]}}
+[ {"diceValue": 1, "effect" : [{},{"resource":{"type":"COIN","value":2}},{"resource":{"type":"WOOD","value":2}}]},
+  {"diceValue": 3, "effect" : [{},{"resource":{"type":"COIN","value":2}},{"resource":{"type":"WOOD","value":2}}]},
+  {"diceValue": 5, "effect" : [{},{"resource":{"type":"COIN","value":2}},{"resource":{"type":"WOOD","value":2}}]},
+  {"diceValue": 7, "effect" : [{},{"resource":{"type":"COIN","value":2}},{"resource":{"type":"WOOD","value":2}}]},
+  ]}]}

@@ -24,7 +24,7 @@ public class MarketASDeserializer implements JsonDeserializer<MarketAS> {
         MarketAS market = new MarketAS();
         //market.setMarketASId(idMarketAS);
         market.setDiceValue(valueTaken);
-        market.setEffect(effect);
+        market.addEffect(effect);
 
         return market;
         }

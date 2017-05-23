@@ -11,7 +11,7 @@ public abstract class Player {
 
     private String nickname;
 
-    private PersonalBoard board;
+    //private PersonalBoard board;
 
     private HashMap<ResourceType, Integer> resource;
 

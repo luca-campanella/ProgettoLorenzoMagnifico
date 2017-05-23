@@ -2,15 +2,13 @@ package it.polimi.ingsw.testingGSON.boardLoader;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.polimi.ingsw.client.CliPrinter;
-import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.TowerFloorAS;
 import it.polimi.ingsw.model.effects.EffectInterface;
 import it.polimi.ingsw.model.effects.NoEffect;
 import it.polimi.ingsw.model.effects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceType;
 import it.polimi.ingsw.utils.Debug;
-
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 /**
 * Created by higla on 17/05/2017.
@@ -32,14 +30,22 @@ public class BoardCreator {
 
         Gson gson = gsonBuilder.registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
+        TowerFloorAS tfas = new TowerFloorAS();
+
+        tfas.addEffect(new NoEffect());
+        tfas.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.COIN, 10)));
+        tfas.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.WOOD, 4)));
+
+        System.out.println(gson.toJson(tfas));
+
 
         // The JSON data
-        try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
+        /*try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
             Board board = gson.fromJson(reader, Board.class);
 
             CliPrinter printer = new CliPrinter();
             printer.printBoard(board);
 
-        }
+        }*/
     }
 }

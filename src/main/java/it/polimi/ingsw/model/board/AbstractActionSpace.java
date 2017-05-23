@@ -3,14 +3,17 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.model.effects.EffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 
+import java.util.ArrayList;
+
 /**
  * Created by higla on 16/05/2017.
  */
 public abstract class AbstractActionSpace {
-    public int diceValue;
-    public EffectInterface effect;
+    private int diceValue;
+    private ArrayList<EffectInterface> effects;
 
     protected AbstractActionSpace() {
+        effects = new ArrayList<>(1);
     }
 
     /**
@@ -27,23 +30,33 @@ public abstract class AbstractActionSpace {
         this.diceValue = diceValue;
     }
 
-    public EffectInterface getEffect() {
-        return effect;
+    public ArrayList<EffectInterface> getEffects() {
+        return effects;
     }
 
-    public void setEffect(EffectInterface effect) {
-        this.effect = effect;
+    public void addEffect(EffectInterface effect) {
+        effects.add(effect);
     }
     public String getEffectShortDescription()
     {
-        return effect.descriptionShortOfEffect();
+        String desc = new String();
+        
+        for(EffectInterface i : effects)
+            desc += i.descriptionShortOfEffect();
+        
+        return desc;
     }
     public String getEffectDescription()
     {
-        return effect.descriptionOfEffect();
+        String desc = new String();
+
+        for(EffectInterface i : effects)
+            desc += i.descriptionOfEffect();
+
+        return desc;
     }
-    public void getEffect(EffectInterface effect) {
-        this.effect = effect;
+    public ArrayList<EffectInterface> getEffects(EffectInterface effect) {
+        return effects;
     }
 
 }
