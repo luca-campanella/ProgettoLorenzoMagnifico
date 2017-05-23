@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.effects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.model.player.Player;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,11 @@ import java.util.ArrayList;
 public class BuildingCard {
     private ArrayList<TakeOrPaySomethingEffect> cost;
     /*
-    this paramet
+    this parameter indicates minimum dice's value to attivate card's build effect
      */
-    private int buildEffectValue
+    private int buildEffectValue;
+    //apply to player deve avere anche il valore del dado.
+    private void applyEffectsToPlayer(Player player){
+        ;
+    }
 }
