@@ -176,7 +176,9 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
     }
 
     public <R> TypeAdapter<R> create(Gson gson, TypeToken<R> type) {
-        if (type.getRawType() != baseType) {
+        //if (null == type || !baseType.isAssignableFrom(type.getRawType()))
+        if (type.getRawType() != baseType)
+        {
             return null;
         }
 

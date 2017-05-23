@@ -10,10 +10,20 @@ public class HarvestAS extends AbstractActionSpace{
     int valueStandard;
     //it's the malus that family member has if it isn't the first
     int valueMalus;
+
+    public HarvestAS() {
+        super();
+    }
+
+    public HarvestAS(int valueStandard, int valueMalus) {
+        super();
+        this.valueStandard = valueStandard;
+        this.valueMalus = valueMalus;
+    }
+
     public void performAction(FamilyMember familyMember)
     {
         //TODO
-        ;
     }
 
 

@@ -18,7 +18,7 @@ public class CouncilDeserializer implements JsonDeserializer<CouncilAS> {
 
         effect = EffectParser.parseEffect(jsonCouncil, context);
         CouncilAS council = new CouncilAS();
-        council.setEffect(effect);
+        //council.setEffect(effect);
         return council;
 
     }

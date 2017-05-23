@@ -42,7 +42,7 @@ public abstract class AbstractActionSpace {
         String desc = new String();
         
         for(ImmediateEffectInterface i : effects)
-            desc += i.descriptionShortOfEffect();
+            desc += i.descriptionShortOfEffect() + "\n";
         
         return desc;
     }
@@ -51,7 +51,7 @@ public abstract class AbstractActionSpace {
         String desc = new String();
 
         for(ImmediateEffectInterface i : effects)
-            desc += i.descriptionOfEffect();
+            desc += i.descriptionOfEffect() + " | ";
 
         return desc;
     }
