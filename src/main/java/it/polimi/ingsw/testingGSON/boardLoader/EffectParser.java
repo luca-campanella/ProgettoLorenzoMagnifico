@@ -1,7 +1,7 @@
 package it.polimi.ingsw.testingGSON.boardLoader;
 
-import it.polimi.ingsw.model.effects.EffectInterface;
-import it.polimi.ingsw.model.effects.NoEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 
 import com.google.gson.*;
 import it.polimi.ingsw.utils.Debug;
@@ -16,8 +16,8 @@ public class EffectParser {
      * @param context given a context
      * @return
      */
-    public static EffectInterface parseEffect(JsonObject json, JsonDeserializationContext context) {
-        EffectInterface effect = new NoEffect();
+    public static ImmediateEffectInterface parseEffect(JsonObject json, JsonDeserializationContext context) {
+        ImmediateEffectInterface effect = new NoEffect();
         String effectName = json.get("effect").getAsString();
         effectName = "it.polimi.ingsw.model.effects." + effectName;
         try {

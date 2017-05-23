@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.model.effects.EffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public abstract class AbstractActionSpace {
     private int diceValue;
-    private ArrayList<EffectInterface> effects;
+    private ArrayList<ImmediateEffectInterface> effects;
 
     protected AbstractActionSpace() {
         effects = new ArrayList<>(1);
@@ -30,18 +30,18 @@ public abstract class AbstractActionSpace {
         this.diceValue = diceValue;
     }
 
-    public ArrayList<EffectInterface> getEffects() {
+    public ArrayList<ImmediateEffectInterface> getEffects() {
         return effects;
     }
 
-    public void addEffect(EffectInterface effect) {
+    public void addEffect(ImmediateEffectInterface effect) {
         effects.add(effect);
     }
     public String getEffectShortDescription()
     {
         String desc = new String();
         
-        for(EffectInterface i : effects)
+        for(ImmediateEffectInterface i : effects)
             desc += i.descriptionShortOfEffect();
         
         return desc;
@@ -50,12 +50,12 @@ public abstract class AbstractActionSpace {
     {
         String desc = new String();
 
-        for(EffectInterface i : effects)
+        for(ImmediateEffectInterface i : effects)
             desc += i.descriptionOfEffect();
 
         return desc;
     }
-    public ArrayList<EffectInterface> getEffects(EffectInterface effect) {
+    public ArrayList<ImmediateEffectInterface> getEffects(ImmediateEffectInterface effect) {
         return effects;
     }
 

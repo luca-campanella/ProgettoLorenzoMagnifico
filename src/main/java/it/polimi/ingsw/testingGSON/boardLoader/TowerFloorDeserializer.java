@@ -2,8 +2,8 @@ package it.polimi.ingsw.testingGSON.boardLoader;
 
 import com.google.gson.*;
 import it.polimi.ingsw.model.board.TowerFloorAS;
-import it.polimi.ingsw.model.effects.EffectInterface;
-import it.polimi.ingsw.model.effects.NoEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 
 import java.lang.reflect.Type;
 
@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 public class TowerFloorDeserializer implements JsonDeserializer<TowerFloorAS> {
     int diceValue;
     public TowerFloorAS deserialize (final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) throws JsonParseException{
-        EffectInterface effect = new NoEffect();
+        ImmediateEffectInterface effect = new NoEffect();
         JsonObject jsonFloor = json.getAsJsonObject();
 
         diceValue = jsonFloor.get("diceValue").getAsInt();

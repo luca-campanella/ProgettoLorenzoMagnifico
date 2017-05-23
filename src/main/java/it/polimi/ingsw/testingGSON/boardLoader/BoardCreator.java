@@ -3,9 +3,9 @@ package it.polimi.ingsw.testingGSON.boardLoader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.model.board.TowerFloorAS;
-import it.polimi.ingsw.model.effects.EffectInterface;
-import it.polimi.ingsw.model.effects.NoEffect;
-import it.polimi.ingsw.model.effects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceType;
 import it.polimi.ingsw.utils.Debug;
@@ -24,7 +24,7 @@ public class BoardCreator {
 
         Gson gson = gsonBuilder.create();*/
 
-        RuntimeTypeAdapterFactory<EffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(EffectInterface.class, "effectName");
+        RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
         runtimeTypeAdapterFactory.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
 

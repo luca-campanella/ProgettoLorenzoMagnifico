@@ -2,8 +2,8 @@ package it.polimi.ingsw.testingGSON.boardLoader;
 
 import com.google.gson.*;
 import it.polimi.ingsw.model.board.CouncilAS;
-import it.polimi.ingsw.model.effects.EffectInterface;
-import it.polimi.ingsw.model.effects.NoEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 
 import java.lang.reflect.Type;
 
@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 public class CouncilDeserializer implements JsonDeserializer<CouncilAS> {
 
     public CouncilAS deserialize (final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) throws JsonParseException {
-        EffectInterface effect = new NoEffect();
+        ImmediateEffectInterface effect = new NoEffect();
         JsonObject jsonCouncil = json.getAsJsonObject();
 
         effect = EffectParser.parseEffect(jsonCouncil, context);

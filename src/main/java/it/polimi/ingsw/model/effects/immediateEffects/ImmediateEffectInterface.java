@@ -1,11 +1,11 @@
-package it.polimi.ingsw.model.effects;
+package it.polimi.ingsw.model.effects.immediateEffects;
 
 import it.polimi.ingsw.model.player.Player;
 
 /**
  * Created by higla on 16/05/2017.
  */
-public interface EffectInterface {
+public interface ImmediateEffectInterface {
 
 
     /**
@@ -21,4 +21,3 @@ public interface EffectInterface {
 
 
 }
-

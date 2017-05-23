@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.effects;
+package it.polimi.ingsw.model.effects.immediateEffects;
 
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
@@ -8,7 +8,7 @@ import it.polimi.ingsw.utils.Debug;
  * Created by higla on 16/05/2017.
  * This methods gives or let players pay resources.
  */
-public class TakeOrPaySomethingEffect implements EffectInterface, ImmediateEffectInterface{
+public class TakeOrPaySomethingEffect implements ImmediateEffectInterface {
     Resource resource;
     public TakeOrPaySomethingEffect(Resource resource){
         this.resource = resource;
