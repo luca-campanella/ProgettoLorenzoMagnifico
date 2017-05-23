@@ -95,6 +95,8 @@ public  class DBManager {
     {
         String query =  "SELECT * FROM users WHERE username = ? AND password = ?";
 
+        //TODO insert encryption in query with MD5(), with password=MD5(?)
+
         try {
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, username);
