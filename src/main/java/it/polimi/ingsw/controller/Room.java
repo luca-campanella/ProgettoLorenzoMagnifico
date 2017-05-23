@@ -1,11 +1,13 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.model.controller.GameController;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * This is the class that handles a room and offers a layer between the network part of the controller and the actual game
@@ -66,9 +68,30 @@ public class Room {
         Debug.printDebug("*Room*: added player " + player.getNickname());
         if(currNOfPlayers == maxNOfPlayers) //GameController should start
         {
+            Debug.printVerbose("Room capacity reached, starting new game");
+            startGame();
+            Debug.printVerbose("Room capacity reached, returned from start function");
+        }
+        else if(currNOfPlayers == 2) //TODO good idea to load this from file
+        {
+            Debug.printVerbose("2 players reached ");
+            new Timer().schedule(new TimerTask() {
+
+                @Override
+                public void run() {
+                    Debug.printVerbose("Timeout reached, starting new game");
+                    startGame();
+                    Debug.printVerbose("Timeout reached, returned from start function");
+                }
+            }, timeoutInSec);
+        }
+    }
+
+    private void startGame()
+    {
+        Debug.printVerbose("Game on room started");
             isGameStarted = true;
             gameController = new GameController(currNOfPlayers, this);
-        }
     }
 
     /**
