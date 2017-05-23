@@ -15,4 +15,20 @@ public class Resource{
     {
         return type.getAbbreviation() + " " + value + " ";
     }
+
+    public ResourceType getType() {
+        return type;
+    }
+
+    public void setType(ResourceType type) {
+        this.type = type;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 }

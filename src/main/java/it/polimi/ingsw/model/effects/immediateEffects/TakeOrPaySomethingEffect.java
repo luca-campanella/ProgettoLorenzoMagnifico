@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.utils.Debug;
@@ -22,8 +23,8 @@ public class TakeOrPaySomethingEffect implements ImmediateEffectInterface {
         giveResourcesToPlayer(player, resource);
     }
 
-    private void giveResourcesToPlayer(Player player, Resource resourceToPlayer){
-        //do nothing at the moment.
+    private void giveResourcesToPlayer(Player player, Resource resource){
+        player.addResource(resource.getType(),resource.getValue() );
     }
 
     public String descriptionOfEffect(){

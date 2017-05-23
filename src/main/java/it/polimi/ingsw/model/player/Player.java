@@ -45,7 +45,6 @@ public abstract class Player {
 
         Integer valueNow = resource.get(type);
         valueNow = valueNow + value;
-
     }
 
     public int getResource(ResourceType type){
