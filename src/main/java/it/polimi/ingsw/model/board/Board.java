@@ -52,7 +52,7 @@ public class Board {
         final int NUMBER_OF_FLOORS = 4;
         TowerFloorAS[] iFloor = new TowerFloorAS[NUMBER_OF_FLOORS];
         for(k=0; k< NUMBER_OF_FLOORS; k++)
-            iFloor[k] = towers[k].getFloor(i);
+            iFloor[k] = towers[k].getFloorByIndex(i);
         return iFloor;
     }
     public CardColorEnum getTowerColor(Tower tower){
@@ -112,10 +112,10 @@ public class Board {
     public CouncilAS getCouncil() {
         return council;
     }
-    public String getCouncilShortEffect()
+    /*public String getCouncilShortEffect()
     {
         return this.getCouncil().getEffect().descriptionShortOfEffect();
-    }
+    }*/
     public void setCouncil(CouncilAS council) {
         this.council = council;
     }

@@ -1,18 +1,20 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.player.FamilyMember;
 
 /**
  * Created by higla on 20/05/2017.
  */
-public class CouncilAS {
-    ImmediateEffectInterface effect;
+public class CouncilAS extends AbstractActionSpace {
 
-    public ImmediateEffectInterface getEffect() {
-        return effect;
-    }
 
-    public void setEffect(ImmediateEffectInterface effect) {
-        this.effect = effect;
+    /**
+     * this method lets you perform an action
+     *
+     * @param familyMember
+     */
+    @Override
+    public void performAction(FamilyMember familyMember) {
+
     }
 }

@@ -1,7 +1,545 @@
-{"towers":
-[{"colorTower": "GREEN", "floors":
-[ {"diceValue": 1, "effect" : [{},{"resource":{"type":"COIN","value":2}},{"resource":{"type":"WOOD","value":2}}]},
-  {"diceValue": 3, "effect" : [{},{"resource":{"type":"COIN","value":2}},{"resource":{"type":"WOOD","value":2}}]},
-  {"diceValue": 5, "effect" : [{},{"resource":{"type":"COIN","value":2}},{"resource":{"type":"WOOD","value":2}}]},
-  {"diceValue": 7, "effect" : [{},{"resource":{"type":"COIN","value":2}},{"resource":{"type":"WOOD","value":2}}]},
-  ]}]}
+{
+  "NUMBER_OF_TOWERS": 4,
+  "NUMBER_OF_MARKETS": 4,
+  "towers": [
+    {
+      "colorTower": "BLUE",
+      "NUMBER_OF_FLOORS": 4,
+      "floors": [
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "colorTower": "BLUE",
+      "NUMBER_OF_FLOORS": 4,
+      "floors": [
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "colorTower": "BLUE",
+      "NUMBER_OF_FLOORS": 4,
+      "floors": [
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "colorTower": "BLUE",
+      "NUMBER_OF_FLOORS": 4,
+      "floors": [
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "COIN",
+                "value": 10
+              }
+            },
+            {
+              "effectName": "TakeOrPaySomethingEffect",
+              "resource": {
+                "type": "WOOD",
+                "value": 4
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "market": [
+    {
+      "diceValue": 0,
+      "effects": [
+        {
+          "effectName": "NoEffect"
+        },
+        {
+          "effectName": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 10
+          }
+        },
+        {
+          "effectName": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 4
+          }
+        }
+      ]
+    },
+    {
+      "diceValue": 0,
+      "effects": [
+        {
+          "effectName": "NoEffect"
+        },
+        {
+          "effectName": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 10
+          }
+        },
+        {
+          "effectName": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 4
+          }
+        }
+      ]
+    },
+    {
+      "diceValue": 0,
+      "effects": [
+        {
+          "effectName": "NoEffect"
+        },
+        {
+          "effectName": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 10
+          }
+        },
+        {
+          "effectName": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 4
+          }
+        }
+      ]
+    },
+    {
+      "diceValue": 0,
+      "effects": [
+        {
+          "effectName": "NoEffect"
+        },
+        {
+          "effectName": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 10
+          }
+        },
+        {
+          "effectName": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 4
+          }
+        }
+      ]
+    }
+  ],
+  "build": {
+    "valueStandard": 4,
+    "valueMalus": 5,
+    "first": false,
+    "diceValue": 0,
+    "effects": [
+      {
+        "effectName": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "COIN",
+          "value": 10
+        }
+      },
+      {
+        "effectName": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "COIN",
+          "value": 10
+        }
+      }
+    ]
+  },
+  "harvest": {
+    "valueStandard": 3,
+    "valueMalus": 5,
+    "diceValue": 0,
+    "effects": [
+      {
+        "effectName": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "COIN",
+          "value": 10
+        }
+      }
+    ]
+  },
+  "council": {
+    "diceValue": 0,
+    "effects": [
+      {
+        "effectName": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "COIN",
+          "value": 10
+        }
+      }
+    ]
+  },
+  "vaticanReport": {
+    "requiredFaithPoints": [
+      0,
+      0,
+      0
+    ],
+    "correspondingVictoryPoints": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

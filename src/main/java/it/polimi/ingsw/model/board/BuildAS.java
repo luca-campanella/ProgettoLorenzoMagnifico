@@ -6,16 +6,24 @@ import it.polimi.ingsw.model.player.FamilyMember;
  * Created by higla on 16/05/2017.
  */
 public class BuildAS extends AbstractActionSpace {
-    int valueStandard;
-    int valueMalus;
+    int valueStandard = 0;
+    int valueMalus = 0;
     private boolean first = true;
-    public BuildAS(){
-        ;
+    public BuildAS() {
+        super();
     }
-    @Override
+
+    public BuildAS(int valueStandard, int valueMalus, boolean first) {
+        super();
+        this.valueStandard = valueStandard;
+        this.valueMalus = valueMalus;
+        this.first = first;
+    }
+
     /**
      * This methods updates all the resources player has giving his yellow cards
      */
+    @Override
     public void performAction(FamilyMember familyMember) {
         boolean trueIfMalus;
         trueIfMalus = checkIfFirst();
@@ -33,6 +41,7 @@ public class BuildAS extends AbstractActionSpace {
         }
         return false;
     }
+
     public int getValueStandard() {
         return valueStandard;
     }
