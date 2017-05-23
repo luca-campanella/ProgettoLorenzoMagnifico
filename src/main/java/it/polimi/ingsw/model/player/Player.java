@@ -20,6 +20,8 @@ public abstract class Player {
 
     private ArrayList<FamilyMember> familyMembers;
 
+    //private ArrayList<AbstractLeaderCard> leaderCard;
+
     //private ArrayList<ExcommuncationCard> excommuncationCard;
 
     public Player()
@@ -42,6 +44,7 @@ public abstract class Player {
         loadResource();
         familyMembers = new ArrayList<>(4);
         //excommunicanionCard = new ArrayList<>(3);
+        //leaderCard = new ArrayList<>(3);
 
     }
 
@@ -67,7 +70,7 @@ public abstract class Player {
     //TODO: we need to put Cards Containers in Player and then implement this method.
     public int getNumberOfColoredCard(CardColorEnum color)
     {
-        return 0;
+        return personalBoard.getNumberOfColoredCard(color);
     }
 
     /*public void excommunication(ExcommunicationCard card){
@@ -102,5 +105,20 @@ public abstract class Player {
         personalBoard.addCard(card, color);
 
     }
+
+    /*public void addLeaderCard(AbstractLeaderCard leaderCard){
+
+        this.leaderCard.add(leaderCard);
+    }
+
+    public ArrayList<AbstractLeaderCard> viewLeaderCard(){
+
+        return leaderCard;
+    }
+
+    public void playLeaderCard(AbstractLeaderCard leaderCard){
+
+        //TODO METHOD
+    }*/
 
 }

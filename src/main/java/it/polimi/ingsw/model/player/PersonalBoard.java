@@ -80,4 +80,9 @@ public class PersonalBoard {
             //i.purplePoints(player);
         }
     }
+
+    public int getNumberOfColoredCard(CardColorEnum color){
+
+        return ownedCards.get(color).size();
+    }
 }
