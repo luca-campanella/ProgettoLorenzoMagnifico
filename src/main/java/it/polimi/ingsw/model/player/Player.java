@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.resource.ResourceType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -11,21 +14,35 @@ public abstract class Player {
 
     private String nickname;
 
-    //private PersonalBoard board;
+    private PersonalBoard personalBoard;
 
     private HashMap<ResourceType, Integer> resource;
+
+    private ArrayList<FamilyMember> familyMembers;
+
+    //private ArrayList<ExcommuncationCard> excommuncationCard;
 
     public Player()
     {
         super();
-        resource = new HashMap<>();
-        loadResource();
+        loadPlayer();
     }
 
     public Player(String nickname)
     {
-        this.nickname = nickname;
+        loadPlayer();
+        setNickname(nickname);
+    }
+
+    private void loadPlayer(){
+
+        personalBoard = new PersonalBoard();
+        //TODO CHOOSE TILES OF PERSONAL BOARD
+        resource = new HashMap<>();
         loadResource();
+        familyMembers = new ArrayList<>(4);
+        //excommunicanionCard = new ArrayList<>(3);
+
     }
 
     /**
@@ -48,6 +65,11 @@ public abstract class Player {
 
     }
 
+    /*public void excommunication(ExcommunicationCard card){
+
+        excommunicationCard.add(card);
+    }*/
+
     public int getResource(ResourceType type){
 
         return resource.get(type);
@@ -62,4 +84,18 @@ public abstract class Player {
     protected void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    public void setFamilyMembers(ArrayList<FamilyMember> familyMembers){
+
+        for(FamilyMember i : familyMembers)
+            this.familyMembers.add(i);
+
+    }
+
+    public void addCard(AbstractCard card, CardColorEnum color){
+
+        personalBoard.addCard(card, color);
+
+    }
+
 }
