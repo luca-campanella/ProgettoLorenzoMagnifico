@@ -30,7 +30,7 @@ public class SocketServer extends AbstractServerType {
 
         super(serverMainInst, port);
         startServer();
-        Debug.printVerbose("socket serve started succesfully");
+        Debug.printVerbose("socket server started successfully");
     }
 
 
@@ -59,7 +59,7 @@ public class SocketServer extends AbstractServerType {
         }
         catch(IOException e) // manage the unavailability of the port
         {
-            Debug.printError("Cannnot start socket controller, socket main port already in use?", e);
+            Debug.printError("Cannot start socket controller, socket main port already in use?", e);
             throw new ServerException("Problem starting socket controller (probably port alrady in use)", e);
         }
 
@@ -94,7 +94,8 @@ public class SocketServer extends AbstractServerType {
                 try {
                     Debug.printVerbose("creazione  player");
                     generetorOfConnection.submit(new SocketPlayer(socket, getServerMainInst()));
-                    Debug.printVerbose("creazione  player con successo");
+                    System.out.println("creazione  player con successo");
+                    System.out.flush();
                 } catch (IOException e) {
                     Debug.printError("Can't open input and ouput streams on socket, closing socket", e);
                     try {

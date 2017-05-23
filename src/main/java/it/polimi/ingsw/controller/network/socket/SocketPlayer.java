@@ -33,8 +33,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         this.socket = socket;
         this.serverMainInst = serverMainInst;
+        Debug.printVerbose("creazione  player");
         inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
         outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        Debug.printVerbose("creazione  player");
         readPacket = new ReadClientPacketProtocol(this);
 
     }

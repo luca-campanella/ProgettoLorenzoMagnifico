@@ -14,7 +14,7 @@
     {"diceValue": 3, "effect" : "NoEffect", "Effect":{}},
     {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "MILITARY_POINT", "value" : 1}}},
     {"diceValue": 7, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "MILITARY_POINT", "value" : 2}}}]},
-  {"colorTower": "VIOLET", "floors":
+  {"colorTower": "PURPLE", "floors":
   [ {"diceValue": 1, "effect" : "NoEffect", "Effect":{}},
     {"diceValue": 3, "effect" : "NoEffect", "Effect":{}},
     {"diceValue": 5, "effect" : "TakeOrPaySomethingEffect", "Effect":{"resource":{ "type": "COIN", "value" : 1}}},
