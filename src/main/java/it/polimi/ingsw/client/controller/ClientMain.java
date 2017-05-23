@@ -11,13 +11,15 @@ import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.utils.Debug;
 
 /**
- * TEST
+ * TODO: implement launcher
  */
 public class ClientMain {
     LauncherClientFake temp;
     AbstractUIType userInterface;
     AbstractClientType clientNetwork;
-
+    /*
+    this is Class Constructor
+     */
     private ClientMain()
     {
         temp = new LauncherClientFake(this);
@@ -31,11 +33,15 @@ public class ClientMain {
 
         new ClientMain();
     }
-
+    /*
+    This method returns Client's userInterface
+     */
     public AbstractUIType getUserInterface() {
         return userInterface;
     }
-
+    /*
+    This method show user's network choice
+     */
     public void callbackNetworkType(NetworkTypeEnum networkChoice){
         Debug.printDebug("I'm in ClientMain.callbackNetworkType, choice = " + networkChoice);
         if(networkChoice == NetworkTypeEnum.RMI) {
@@ -58,6 +64,9 @@ public class ClientMain {
         }
         userInterface.askLoginOrCreate();
     }
+    /*
+    this method is called when a user is trying to login.
+     */
     public void callbackLogin(String userID, String userPW){
         Debug.printDebug("Sono nel ClientMain.callbackLogin.");
         try {
