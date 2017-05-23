@@ -66,6 +66,10 @@ public class CliPrinter {
         }
 
     }
+    public String getEffectShortDescription(TowerFloorAS floor){
+
+        return "ciao";
+    }
     public void printMarket(Board board)
     {
         int i;
