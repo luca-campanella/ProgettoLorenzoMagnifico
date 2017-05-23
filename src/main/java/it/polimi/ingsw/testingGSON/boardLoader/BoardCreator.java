@@ -3,7 +3,7 @@ package it.polimi.ingsw.testingGSON.boardLoader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
-import it.polimi.ingsw.gamelogic.Board.*;
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.utils.Debug;
 import java.io.InputStreamReader;
 import java.io.Reader;

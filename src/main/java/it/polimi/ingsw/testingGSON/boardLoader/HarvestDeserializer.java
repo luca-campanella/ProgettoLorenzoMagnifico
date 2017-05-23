@@ -1,9 +1,9 @@
 package it.polimi.ingsw.testingGSON.boardLoader;
 
 import com.google.gson.*;
-import it.polimi.ingsw.gamelogic.Board.HarvestAS;
-import it.polimi.ingsw.gamelogic.effects.EffectInterface;
-import it.polimi.ingsw.gamelogic.effects.NoEffect;
+import it.polimi.ingsw.model.board.HarvestAS;
+import it.polimi.ingsw.model.effects.EffectInterface;
+import it.polimi.ingsw.model.effects.NoEffect;
 
 import java.lang.reflect.Type;
 

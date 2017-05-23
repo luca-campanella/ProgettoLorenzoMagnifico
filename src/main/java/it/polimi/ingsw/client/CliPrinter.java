@@ -1,9 +1,9 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.gamelogic.Board.Board;
-import it.polimi.ingsw.gamelogic.Board.MarketAS;
-import it.polimi.ingsw.gamelogic.Board.Tower;
-import it.polimi.ingsw.gamelogic.Board.TowerFloorAS;
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.MarketAS;
+import it.polimi.ingsw.model.board.Tower;
+import it.polimi.ingsw.model.board.TowerFloorAS;
 
 /**
  * Created by higla on 20/05/2017.
