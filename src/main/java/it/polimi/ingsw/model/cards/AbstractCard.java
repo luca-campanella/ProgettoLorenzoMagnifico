@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.model.effects.EffectInterface;
 import it.polimi.ingsw.model.effects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.PermanentEffectInterface;
 
@@ -13,5 +14,11 @@ public class AbstractCard {
     private int period;
     ArrayList<ImmediateEffectInterface> immediateEffect;
     ArrayList<PermanentEffectInterface> permanentEffect;
+
+
+
+    public void addImmediateEffect(ImmediateEffectInterface effect){
+        immediateEffect.add(effect);
+    }
 
 }
