@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 16/05/2017.
+ * This class is the abstract generalization of an Action Space, a place were a family member can be placed
  */
 public abstract class AbstractActionSpace {
     private int diceValue;
@@ -17,7 +17,7 @@ public abstract class AbstractActionSpace {
     }
 
     /**
-     * this method lets you perform an action
+     * this method lets you perform the actions corresponding to the action space
      */
     abstract public void performAction(FamilyMember familyMember);
 

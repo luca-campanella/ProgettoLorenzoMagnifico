@@ -3,35 +3,17 @@
   "NUMBER_OF_MARKETS": 4,
   "towers": [
     {
-      "colorTower": "GREEN",
+      "colorTower": "BLUE",
       "NUMBER_OF_FLOORS": 4,
       "floors": [
         {
-          "diceValue": 1,
-          "effects": [
-            {
-              "effectName": "NoEffect"
-            }
-          ]
-        },
-        {
           "diceValue": 0,
           "effects": [
-            {
-              "effectName": "NoEffect"
-            },
             {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -40,20 +22,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -62,20 +34,22 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
               }
-            },
+            }
+          ]
+        },
+        {
+          "diceValue": 0,
+          "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
-                "type": "WOOD",
-                "value": 4
+                "type": "COIN",
+                "value": 10
               }
             }
           ]
@@ -90,20 +64,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -112,20 +76,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -134,20 +88,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -156,20 +100,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -184,20 +118,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -206,20 +130,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -228,20 +142,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -250,20 +154,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -278,20 +172,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -300,20 +184,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -322,20 +196,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -344,20 +208,10 @@
           "diceValue": 0,
           "effects": [
             {
-              "effectName": "NoEffect"
-            },
-            {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
                 "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
               }
             }
           ]
@@ -378,12 +232,20 @@
             "type": "COIN",
             "value": 10
           }
+        }
+      ]
+    },
+    {
+      "diceValue": 0,
+      "effects": [
+        {
+          "effectName": "NoEffect"
         },
         {
           "effectName": "TakeOrPaySomethingEffect",
           "resource": {
-            "type": "WOOD",
-            "value": 4
+            "type": "COIN",
+            "value": 10
           }
         }
       ]
@@ -400,13 +262,6 @@
             "type": "COIN",
             "value": 10
           }
-        },
-        {
-          "effectName": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 4
-          }
         }
       ]
     },
@@ -421,35 +276,6 @@
           "resource": {
             "type": "COIN",
             "value": 10
-          }
-        },
-        {
-          "effectName": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 4
-          }
-        }
-      ]
-    },
-    {
-      "diceValue": 0,
-      "effects": [
-        {
-          "effectName": "NoEffect"
-        },
-        {
-          "effectName": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "COIN",
-            "value": 10
-          }
-        },
-        {
-          "effectName": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 4
           }
         }
       ]
@@ -462,18 +288,7 @@
     "diceValue": 0,
     "effects": [
       {
-        "effectName": "TakeOrPaySomethingEffect",
-        "resource": {
-          "type": "COIN",
-          "value": 10
-        }
-      },
-      {
-        "effectName": "TakeOrPaySomethingEffect",
-        "resource": {
-          "type": "COIN",
-          "value": 10
-        }
+        "effectName": "NoEffect"
       }
     ]
   },
@@ -483,17 +298,20 @@
     "diceValue": 0,
     "effects": [
       {
-        "effectName": "TakeOrPaySomethingEffect",
-        "resource": {
-          "type": "COIN",
-          "value": 10
-        }
+        "effectName": "NoEffect"
       }
     ]
   },
   "council": {
     "diceValue": 0,
     "effects": [
+      {
+        "effectName": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "COIN",
+          "value": 10
+        }
+      },
       {
         "effectName": "TakeOrPaySomethingEffect",
         "resource": {

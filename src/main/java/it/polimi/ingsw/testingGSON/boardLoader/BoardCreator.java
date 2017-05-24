@@ -34,7 +34,7 @@ public class BoardCreator {
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
-       /* Board boardTest = getBoardForTest();
+        Board boardTest = getBoardForTest();
 
         String boardInJson = gson.toJson(boardTest);
         System.out.println(boardInJson);
@@ -44,13 +44,13 @@ public class BoardCreator {
         System.out.println(boardTest.toString());
 
         CliPrinter printer = new CliPrinter();
-        printer.printBoard(boardFormJson);*/
+        printer.printBoard(boardFormJson);
 
         // The JSON data
        try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
             Board board = gson.fromJson(reader, Board.class);
 
-            CliPrinter printer = new CliPrinter();
+             printer = new CliPrinter();
             printer.printBoard(board);
 
         }
@@ -66,9 +66,9 @@ public class BoardCreator {
         for(int i = 0; i < 4; i++)
         {
             tfas = new TowerFloorAS();
-            tfas.addEffect(new NoEffect());
+            //tfas.addEffect(new NoEffect());
             tfas.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.COIN, 10)));
-            tfas.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.WOOD, 4)));
+            //tfas.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.WOOD, 4)));
             floorsArray[i] = tfas;
         }
         tower.setFloors(floorsArray);
@@ -84,7 +84,7 @@ public class BoardCreator {
         MarketAS marketAS = new MarketAS();
         marketAS.addEffect(new NoEffect());
         marketAS.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.COIN, 10)));
-        marketAS.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.WOOD, 4)));
+        //marketAS.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.WOOD, 4)));
 
         return marketAS;
     }
@@ -106,12 +106,12 @@ public class BoardCreator {
         }
 
         BuildAS buildAS = new BuildAS(4,5,false);
-        buildAS.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.COIN, 10)));
-        buildAS.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.COIN, 10)));
+        buildAS.addEffect(new NoEffect());
         HarvestAS harvestAS = new HarvestAS(3,5);
-        harvestAS.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.COIN, 10)));
+        harvestAS.addEffect(new NoEffect());
 
         CouncilAS councilAS = new CouncilAS();
+        councilAS.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.COIN, 10)));
         councilAS.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceType.COIN, 10)));
 
         VaticanReport vaticanReport = new VaticanReport(new int[VaticanReport.NUMBER_OF_AGES], new int[VaticanReport.WALK_OF_FAITH]);
