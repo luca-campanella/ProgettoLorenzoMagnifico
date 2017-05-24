@@ -12,4 +12,5 @@ public abstract class AbstractPermanentEffect {
         abstract public int getBonusOnBuild();
         abstract public boolean isImmediateEffectDisabled();
 
+
 }

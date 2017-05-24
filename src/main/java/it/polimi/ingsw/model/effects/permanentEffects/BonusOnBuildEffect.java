@@ -8,6 +8,9 @@ import it.polimi.ingsw.model.resource.Resource;
  */
 public class BonusOnBuildEffect extends AbstractPermanentEffect{
     private int bonus;
+    public BonusOnBuildEffect(int bonus){
+        this.bonus = bonus;
+    }
     public Resource getBonusOnTower(CardColorEnum color)
     {
         return null;
@@ -23,5 +26,13 @@ public class BonusOnBuildEffect extends AbstractPermanentEffect{
     public boolean isImmediateEffectDisabled()
     {
         return false;
+    }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
     }
 }
