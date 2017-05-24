@@ -3,28 +3,14 @@
   "NUMBER_OF_MARKETS": 4,
   "towers": [
     {
-      "colorTower": "BLUE",
+      "colorTower": "GREEN",
       "NUMBER_OF_FLOORS": 4,
       "floors": [
         {
-          "diceValue": 0,
+          "diceValue": 1,
           "effects": [
             {
               "effectName": "NoEffect"
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 10
-              }
-            },
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 4
-              }
             }
           ]
         },
