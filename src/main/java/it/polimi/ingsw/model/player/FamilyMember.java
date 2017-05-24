@@ -10,17 +10,17 @@ public class FamilyMember {
     /**
      * the dice that the family member is linked
      */
-    Dice dice;
+    private Dice dice;
 
     /**
      * color of the family member
      */
-    DiceAndFamilyMemberColor color;
+    private DiceAndFamilyMemberColor color;
 
     /**
      * player that owned this family member
      */
-    Player player;
+    private Player player;
 
     public FamilyMember(Dice dice, Player player){
 

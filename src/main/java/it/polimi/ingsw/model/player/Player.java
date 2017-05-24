@@ -20,7 +20,11 @@ public abstract class Player {
 
     private ArrayList<FamilyMember> familyMembers;
 
+    private ArrayList<FamilyMember> usedFamilyMembers;
+
     //private ArrayList<AbstractLeaderCard> leaderCard;
+
+    //private ArrayList<AbstractLeaderCard> playedLeaderCard;
 
     //private ArrayList<ExcommuncationCard> excommuncationCard;
 
@@ -100,6 +104,20 @@ public abstract class Player {
 
     }
 
+    public void playFamilyMember(FamilyMember familyMember){
+
+        this.familyMembers.remove(familyMember);
+        this.usedFamilyMembers.add(familyMember);
+
+    }
+
+    public void resetFamilyMember(){
+
+        familyMembers.addAll(usedFamilyMembers);
+        usedFamilyMembers.clear();
+
+    }
+
     public void addCard(AbstractCard card, CardColorEnum color){
 
         personalBoard.addCard(card, color);
@@ -118,7 +136,9 @@ public abstract class Player {
 
     public void playLeaderCard(AbstractLeaderCard leaderCard){
 
-        //TODO METHOD
+        this.leaderCard.remove(leaderCard);
+        playedLeaderCard.add(leaderCard);
+
     }*/
 
 }
