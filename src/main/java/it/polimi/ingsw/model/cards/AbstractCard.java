@@ -8,14 +8,14 @@ import java.util.ArrayList;
 /**
  * Created by higla on 23/05/2017.
  */
-public class AbstractCard {
+public abstract class AbstractCard {
     private String name;
     private int period;
     ArrayList<ImmediateEffectInterface> immediateEffect;
-    ArrayList<AbstractPermanentEffect> permanentEffect;
+    //ArrayList<AbstractPermanentEffect> permanentEffect;
 
 
-
+    //abstract public int characteristicValue();
     public void addImmediateEffect(ImmediateEffectInterface effect){
         immediateEffect.add(effect);
     }
@@ -44,11 +44,4 @@ public class AbstractCard {
         this.immediateEffect = immediateEffect;
     }
 
-    public ArrayList<AbstractPermanentEffect> getPermanentEffect() {
-        return permanentEffect;
-    }
-
-    public void setPermanentEffect(ArrayList<AbstractPermanentEffect> permanentEffect) {
-        this.permanentEffect = permanentEffect;
-    }
 }
