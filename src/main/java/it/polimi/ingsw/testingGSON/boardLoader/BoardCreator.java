@@ -33,7 +33,7 @@ public class BoardCreator {
         runtimeTypeAdapterFactory.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
-
+        /*
         Board boardTest = getBoardForTest();
 
         String boardInJson = gson.toJson(boardTest);
@@ -45,12 +45,11 @@ public class BoardCreator {
 
         CliPrinter printer = new CliPrinter();
         printer.printBoard(boardFormJson);
-
+        */
         // The JSON data
        try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
             Board board = gson.fromJson(reader, Board.class);
-
-             printer = new CliPrinter();
+            CliPrinter printer = new CliPrinter();
             printer.printBoard(board);
 
         }

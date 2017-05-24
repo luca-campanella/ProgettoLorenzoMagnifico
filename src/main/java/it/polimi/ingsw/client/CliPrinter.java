@@ -49,7 +49,7 @@ public class CliPrinter {
     public void printTowers(Board board){
         int i;
         int k;
-        TowerFloorAS[] temp = new TowerFloorAS[board.getNUMBER_OF_TOWERS()];
+        TowerFloorAS[] temp; // = new TowerFloorAS[board.getNUMBER_OF_TOWERS()];
         for(k=0; k<board.getNUMBER_OF_TOWERS(); k++)
             System.out.print("      " + board.getTowerColor(board.getTower(k)) + "            ");
         System.out.println();
