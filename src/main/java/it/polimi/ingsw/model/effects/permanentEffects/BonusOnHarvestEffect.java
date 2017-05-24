@@ -1,15 +1,19 @@
 package it.polimi.ingsw.model.effects.permanentEffects;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.model.resource.Resource;
 
 /**
  * Created by higla on 23/05/2017.
  */
-public class BonusOnHarvestEffect {
+public class BonusOnHarvestEffect extends AbstractPermanentEffect{
     private int bonus;
-    public int getBonusOnTower(CardColorEnum color)
+    public BonusOnHarvestEffect(int bonus){
+        this.bonus = bonus;
+    }
+    public Resource getBonusOnTower(CardColorEnum color)
     {
-        return 0;
+        return null;
     }
     public int getBonusOnHarvest()
     {
@@ -22,5 +26,13 @@ public class BonusOnHarvestEffect {
     public boolean isImmediateEffectDisabled()
     {
         return false;
+    }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
     }
 }
