@@ -53,9 +53,9 @@ public class CliPrinter {
         for(k=0; k<board.getNUMBER_OF_TOWERS(); k++)
             System.out.print("      " + board.getTowerColor(board.getTower(k)) + "            ");
         System.out.println();
-        for(i=0; i< board.getTowers().length; i++)
+        for(i=0; i< board.getNUMBER_OF_FLOORS(); i++)
         {
-            temp = board.getFloorLevel(3-i);
+            temp = board.getFloorLevel(board.getNUMBER_OF_FLOORS()-1-i);
            /* for(k=0; k<board.getNUMBER_OF_TOWERS(); k++)
                 System.out.print(" _____ ");*/
 
