@@ -6,7 +6,7 @@ import it.polimi.ingsw.controller.network.socket.SocketPlayer;
 import java.util.HashMap;
 
 /**
- * Created by federico on 18/05/2017.
+ * this is the protocol to read the client' s packet telling the server what to do
  */
 public class ReadClientPacketProtocol {
     /**

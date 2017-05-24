@@ -33,9 +33,13 @@ public class Dice {
      * throw the dice to obtain a new value (1-6)
      * @return the value of the dice
      */
-    public int throwDice() {
-        value = random.nextInt(5)+1;
-        return value;
+    public void throwDice() {
+
+        if(color == DiceAndFamilyMemberColor.NEUTRAL)
+            value=0;
+        else
+            value = random.nextInt(5)+1;
+
     }
 
     public DiceAndFamilyMemberColor getColor(){
