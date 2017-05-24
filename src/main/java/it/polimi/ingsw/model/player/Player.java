@@ -47,6 +47,7 @@ public abstract class Player {
         resource = new HashMap<>();
         loadResource();
         familyMembers = new ArrayList<>(4);
+        usedFamilyMembers = new ArrayList<>(4);
         //excommunicanionCard = new ArrayList<>(3);
         //leaderCard = new ArrayList<>(3);
 
