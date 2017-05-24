@@ -38,9 +38,12 @@ public class DeckCreator{
         immediateEffectAdapter.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
 
         RuntimeTypeAdapterFactory<AbstractPermanentEffect> permanentEffectAdapter = RuntimeTypeAdapterFactory.of(AbstractPermanentEffect.class, "permanentEffect");
+        permanentEffectAdapter.registerSubtype(BonusOnHarvestEffect.class, "BonusOnHarvestEffect");
+        permanentEffectAdapter.registerSubtype(BonusOnBuildEffect.class, "BonusOnBuildEffect");
 
-        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).create();
 
+        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).registerTypeAdapterFactory(permanentEffectAdapter).create();
+        /*
         Deck deckTest = getDeckForTest();
 
         String deckInJson = gson.toJson(deckTest);
@@ -50,15 +53,18 @@ public class DeckCreator{
 
         System.out.println(deckTest.toString());
 
-        //CliPrinter printer = new CliPrinter();
-        /*
+        */
+        ///*
+        CliPrinter printer = new CliPrinter();
+
         // The JSON data
         try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/DeckCFG.json"), "UTF-8")) {
-            Deck deck = gson.fromJson(reader, Board.class);
-            CliPrinter printer = new CliPrinter();
+            Deck deck = gson.fromJson(reader, Deck.class);
+            //CliPrinter printer = new CliPrinter();
             printer.printDeck(deck);
 
-        }*/
+        }
+        //*/
     }
 
     private static Deck getDeckForTest(){
@@ -67,7 +73,44 @@ public class DeckCreator{
         territoryCards.add(getTerritoryCard());
         territoryCards.add(getTerritoryCard());
         deck.setTerritoryCards(territoryCards);
+
+        ArrayList<CharacterCard> characterCards = new ArrayList<CharacterCard>();
+        characterCards.add(getCharacterCard());
+        characterCards.add(getCharacterCard());
+        deck.setCharacterCards(characterCards);
+
+        ArrayList<BuildingCard> buildingCards = new ArrayList<BuildingCard>();
+        buildingCards.add(getBuildingCard());
+        buildingCards.add(getBuildingCard());
+        deck.setBuildingCards(buildingCards);
+
+        ArrayList<VentureCard> ventureCards = new ArrayList<VentureCard>();
+        ventureCards.add(getVentureCard());
+        ventureCards.add(getVentureCard());
+        deck.setVentureCards(ventureCards);
+
         return deck;
+    }
+    public static VentureCard getVentureCard(){
+        VentureCard ventureCard = new VentureCard();
+        ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
+        cost.add((TakeOrPaySomethingEffect)getTakeOrPaySomethingEffect(6));
+        ventureCard.setCostChoiceMilitary(cost);
+        ventureCard.setCostChoiceResource(cost);
+        ventureCard.setName("Viola");
+        ventureCard.setImmediateEffect(getImmediateEffect());
+        ventureCard.setVictoryEndPoints(5);
+        return ventureCard;
+    }
+    public static CharacterCard getCharacterCard(){
+        CharacterCard characterCard = new CharacterCard();
+        ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
+        cost.add((TakeOrPaySomethingEffect)getTakeOrPaySomethingEffect(6));
+
+        characterCard.setName("Maga");
+        characterCard.setImmediateEffect(getImmediateEffect());
+        characterCard.setPermanentEffect(getPermanentEffect());
+        return characterCard;
     }
     public static TerritoryCard getTerritoryCard()
     {
@@ -75,16 +118,31 @@ public class DeckCreator{
         territoryCard.setHarvestEffectValue(2);
         territoryCard.setName("Bosco");
         territoryCard.setImmediateEffect(getImmediateEffect());
-        //territoryCard.setPermanentEffect(getPermanentEffect());
-
+        territoryCard.setEffectsOnHarvest(getImmediateEffect());
         return territoryCard;
     }
-    private static ArrayList<ImmediateEffectInterface> getImmediateEffect(){
-        Resource resource = new Resource(ResourceType.WOOD, 2);
-        Resource resource2 = new Resource(ResourceType.WOOD, 3);
 
+    public static BuildingCard getBuildingCard()
+    {
+        BuildingCard buildingCard = new BuildingCard();
+        buildingCard.setBuildEffectValue(2);
+        buildingCard.setName("Palazzo");
+        buildingCard.setImmediateEffect(getImmediateEffect());
+        buildingCard.setEffectsOnBuilding(getImmediateEffect());
+
+        ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
+        cost.add((TakeOrPaySomethingEffect)getTakeOrPaySomethingEffect(2));
+        buildingCard.setCost(cost);
+        return buildingCard;
+    }
+    private static ImmediateEffectInterface getTakeOrPaySomethingEffect(int value){
+        Resource resource = new Resource(ResourceType.WOOD, value);
         ImmediateEffectInterface effect = new TakeOrPaySomethingEffect(resource);
-        ImmediateEffectInterface effect2 = new TakeOrPaySomethingEffect(resource2);
+        return effect;
+    }
+    private static ArrayList<ImmediateEffectInterface> getImmediateEffect(){
+        ImmediateEffectInterface effect = getTakeOrPaySomethingEffect(2);
+        ImmediateEffectInterface effect2 = getTakeOrPaySomethingEffect(3);
 
         ArrayList<ImmediateEffectInterface> temp = new ArrayList<ImmediateEffectInterface>();
         temp.add(effect);

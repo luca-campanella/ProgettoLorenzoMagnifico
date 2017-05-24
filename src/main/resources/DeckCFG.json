@@ -1,8 +1,294 @@
-{"DICEVALUE": 1, "EFFECT" : "TakeOrPaySomethingEffect"}
-
 {
-  "title":   "Java Puzzlers: Traps, Pitfalls, and Corner Cases",
-  "isbn-10":  "032133678X",
-  "isbn-13":  "978-0321336781",
-  "authors":  ["Joshua Bloch", "Neal Gafter"]
+  "territoryCards": [
+    {
+      "harvestEffectValue": 2,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "name": "Bosco",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 2,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ],
+      "name": "Bosco",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ],
+  "characterCards": [
+    {
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ],
+  "buildingCards": [
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ],
+      "buildEffectValue": 2,
+      "name": "Palazzo",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ],
+      "buildEffectValue": 2,
+      "name": "Palazzo",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ],
+  "ventureCards": [
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "costChoiceMilitary": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Viola",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "costChoiceMilitary": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Viola",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ]
 }

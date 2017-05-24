@@ -4,6 +4,14 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.MarketAS;
 import it.polimi.ingsw.model.board.Tower;
 import it.polimi.ingsw.model.board.TowerFloorAS;
+import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.cards.CharacterCard;
+import it.polimi.ingsw.model.cards.Deck;
+import it.polimi.ingsw.model.cards.TerritoryCard;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
+
+import java.util.ArrayList;
 
 /**
  * Created by higla on 20/05/2017.
@@ -66,6 +74,46 @@ public class CliPrinter {
         }
 
     }
+    public void printDeck(Deck deck){
+        int i;
+        for(i = 0; i<1; i++) {
+            printTerritoryCard(deck.getTerritoryCards().get(i));
+            System.out.println(deck.getCharacterCards().get(i).toString());
+            System.out.println(deck.getBuildingCards().get(i).toString());
+            System.out.println(deck.getVentureCards().get(i).toString());
+        }
+    }
+    public void printTerritoryCard(TerritoryCard card){
+        System.out.print("Name " + card.getName()+", period " + card.getPeriod() + ", value " + card.getHarvestEffectValue());
+        System.out.print(". Immediate Effect :");
+        printImmediateEffects(card.getImmediateEffect());
+        System.out.print(". Harvest Effect: ");
+        printImmediateEffects(card.getEffectsOnHarvest());
+        System.out.println("");
+        //printPermanentEffects(card.getPermanentEffect());
+    }
+    /*public void printCharacterCards(CharacterCard characterCard){
+        System.out.println("Name " + characterCard.getName()+", period " + territoryCard.getPeriod() + ", value " + territoryCard.getHarvestEffectValue() + ".");
+        printImmediateEffects(territoryCard.getImmediateEffect());
+        printPermanentEffects(territoryCard.getPermanentEffect());
+    }*/
+    public void printImmediateEffects(ArrayList<ImmediateEffectInterface> effect)
+    {
+        int i;
+        for(i = 0; i< effect.size(); i++){
+            System.out.print(effect.get(i).descriptionOfEffect() + " ");
+        }
+        //System.out.println("");
+    }
+    public void printPermanentEffects(ArrayList<AbstractPermanentEffect> effect)
+    {
+        int i;
+        for(i = 0; i< effect.size(); i++){
+            System.out.print(" " + effect.get(i).toString() + " ");
+        }
+        System.out.println("");
+    }
+
     public String getEffectShortDescription(TowerFloorAS floor){
 
         return "ciao";
