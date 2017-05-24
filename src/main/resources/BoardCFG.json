@@ -3,53 +3,45 @@
   "NUMBER_OF_MARKETS": 4,
   "towers": [
     {
-      "colorTower": "BLUE",
+      "colorTower": "GREEN",
       "NUMBER_OF_FLOORS": 4,
       "floors": [
         {
-          "diceValue": 0,
+          "diceValue": 1,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            }
+          ]
+        },
+        {
+          "diceValue": 3,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            }
+          ]
+        },
+        {
+          "diceValue": 5,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
-                "type": "COIN",
-                "value": 10
+                "type": "WOOD",
+                "value": 1
               }
             }
           ]
         },
         {
-          "diceValue": 0,
+          "diceValue": 7,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
-                "type": "COIN",
-                "value": 10
-              }
-            }
-          ]
-        },
-        {
-          "diceValue": 0,
-          "effects": [
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 10
-              }
-            }
-          ]
-        },
-        {
-          "diceValue": 0,
-          "effects": [
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 10
+                "type": "WOOD",
+                "value": 2
               }
             }
           ]
@@ -61,49 +53,41 @@
       "NUMBER_OF_FLOORS": 4,
       "floors": [
         {
-          "diceValue": 0,
+          "diceValue": 1,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            }
+          ]
+        },
+        {
+          "diceValue": 3,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            }
+          ]
+        },
+        {
+          "diceValue": 5,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
-                "type": "COIN",
-                "value": 10
+                "type": "STONE",
+                "value": 1
               }
             }
           ]
         },
         {
-          "diceValue": 0,
+          "diceValue": 7,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
-                "type": "COIN",
-                "value": 10
-              }
-            }
-          ]
-        },
-        {
-          "diceValue": 0,
-          "effects": [
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 10
-              }
-            }
-          ]
-        },
-        {
-          "diceValue": 0,
-          "effects": [
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 10
+                "type": "STONE",
+                "value": 2
               }
             }
           ]
@@ -111,53 +95,45 @@
       ]
     },
     {
-      "colorTower": "BLUE",
+      "colorTower": "YELLOW",
       "NUMBER_OF_FLOORS": 4,
       "floors": [
         {
-          "diceValue": 0,
+          "diceValue": 1,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            }
+          ]
+        },
+        {
+          "diceValue": 3,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            }
+          ]
+        },
+        {
+          "diceValue": 5,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
-                "type": "COIN",
-                "value": 10
+                "type": "MILITARY_POINT",
+                "value": 1
               }
             }
           ]
         },
         {
-          "diceValue": 0,
+          "diceValue": 7,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
-                "type": "COIN",
-                "value": 10
-              }
-            }
-          ]
-        },
-        {
-          "diceValue": 0,
-          "effects": [
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 10
-              }
-            }
-          ]
-        },
-        {
-          "diceValue": 0,
-          "effects": [
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 10
+                "type": "MILITARY_POINT",
+                "value": 2
               }
             }
           ]
@@ -165,53 +141,45 @@
       ]
     },
     {
-      "colorTower": "BLUE",
+      "colorTower": "PURPLE",
       "NUMBER_OF_FLOORS": 4,
       "floors": [
         {
-          "diceValue": 0,
+          "diceValue": 1,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            }
+          ]
+        },
+        {
+          "diceValue": 3,
+          "effects": [
+            {
+              "effectName": "NoEffect"
+            }
+          ]
+        },
+        {
+          "diceValue": 5,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
-                "value": 10
+                "value": 1
               }
             }
           ]
         },
         {
-          "diceValue": 0,
+          "diceValue": 7,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
               "resource": {
                 "type": "COIN",
-                "value": 10
-              }
-            }
-          ]
-        },
-        {
-          "diceValue": 0,
-          "effects": [
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 10
-              }
-            }
-          ]
-        },
-        {
-          "diceValue": 0,
-          "effects": [
-            {
-              "effectName": "TakeOrPaySomethingEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 10
+                "value": 2
               }
             }
           ]
@@ -221,71 +189,62 @@
   ],
   "market": [
     {
-      "diceValue": 0,
+      "diceValue": 1,
       "effects": [
-        {
-          "effectName": "NoEffect"
-        },
         {
           "effectName": "TakeOrPaySomethingEffect",
           "resource": {
             "type": "COIN",
-            "value": 10
+            "value": 5
           }
         }
       ]
     },
     {
-      "diceValue": 0,
+      "diceValue": 1,
       "effects": [
-        {
-          "effectName": "NoEffect"
-        },
         {
           "effectName": "TakeOrPaySomethingEffect",
           "resource": {
-            "type": "COIN",
-            "value": 10
+            "type": "SERVANT",
+            "value": 5
           }
         }
       ]
     },
     {
-      "diceValue": 0,
+      "diceValue": 1,
       "effects": [
         {
-          "effectName": "NoEffect"
+          "effectName": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 3
+          }
         },
         {
           "effectName": "TakeOrPaySomethingEffect",
           "resource": {
             "type": "COIN",
-            "value": 10
+            "value": 2
           }
         }
       ]
     },
     {
-      "diceValue": 0,
+      "diceValue": 1,
       "effects": [
         {
           "effectName": "NoEffect"
-        },
-        {
-          "effectName": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "COIN",
-            "value": 10
-          }
         }
       ]
     }
   ],
   "build": {
-    "valueStandard": 4,
-    "valueMalus": 5,
+    "valueStandard": 1,
+    "valueMalus": 3,
     "first": false,
-    "diceValue": 0,
+    "diceValue": 1,
     "effects": [
       {
         "effectName": "NoEffect"
@@ -293,9 +252,9 @@
     ]
   },
   "harvest": {
-    "valueStandard": 3,
-    "valueMalus": 5,
-    "diceValue": 0,
+    "valueStandard": 1,
+    "valueMalus": 3,
+    "diceValue": 1,
     "effects": [
       {
         "effectName": "NoEffect"
@@ -303,47 +262,43 @@
     ]
   },
   "council": {
-    "diceValue": 0,
+    "diceValue": 1,
     "effects": [
       {
         "effectName": "TakeOrPaySomethingEffect",
         "resource": {
           "type": "COIN",
-          "value": 10
+          "value": 1
         }
       },
       {
-        "effectName": "TakeOrPaySomethingEffect",
-        "resource": {
-          "type": "COIN",
-          "value": 10
-        }
+        "effectName": "NoEffect"
       }
     ]
   },
   "vaticanReport": {
     "requiredFaithPoints": [
-      0,
-      0,
-      0
+      3,
+      4,
+      5
     ],
     "correspondingVictoryPoints": [
       0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      22,
+      25,
+      30
     ]
   }
 }
