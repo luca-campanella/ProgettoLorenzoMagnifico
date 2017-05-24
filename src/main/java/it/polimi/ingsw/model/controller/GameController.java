@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model.controller;
 
+import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.controller.network.socket.protocol.FunctionResponse;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.controller.BoardConfigurator;
 import it.polimi.ingsw.controller.Room;
@@ -127,6 +129,38 @@ public class GameController {
     {
         BoardConfigurator boardConfigurator = new BoardConfigurator();
         gameBoard = boardConfigurator.createBoard(numberOfPlayers);
+    }
+
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
+
+    }
+
+    public void harvest(FamilyMember familyMember){
+
+        familyMember.getPlayer().harvest(familyMember.getValue());
+        //TODO add control of the move and code on the board
+    }
+
+    public void build(FamilyMember familyMember){
+
+        familyMember.getPlayer().build(familyMember.getValue());
+        //TODO add control of the move and code on the board
+    }
+
+    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
+
+        //gameboard.placeOnMarket(familyMember, marketSpaceIndex);
+    }
+
+    public void discardCardLeader(Player player, int cardIndex){
+
+        //player.discardLeaderCard();
+    }
+
+    public void activateCardLeader(Player player,int cardIndex){
+
+        //player.activateLeaderCard();
+
     }
 }
 
