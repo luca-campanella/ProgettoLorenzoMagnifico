@@ -4,15 +4,15 @@ package it.polimi.ingsw.model.board;
  * Created by higla on 16/05/2017.
  */
 public class Board {
-    int NUMBER_OF_TOWERS;
-    int NUMBER_OF_MARKETS;
-    int NUMBER_OF_FLOORS;
-    Tower[] towers = new Tower[NUMBER_OF_TOWERS];
-    MarketAS[] market = new MarketAS[NUMBER_OF_MARKETS];
-    BuildAS build = new BuildAS();
-    HarvestAS harvest = new HarvestAS();
-    CouncilAS council;
-    VaticanReport vaticanReport = new VaticanReport();
+    private int NUMBER_OF_TOWERS;
+    private int NUMBER_OF_MARKETS;
+    private int NUMBER_OF_FLOORS;
+    private Tower[] towers = new Tower[NUMBER_OF_TOWERS];
+    private MarketAS[] market = new MarketAS[NUMBER_OF_MARKETS];
+    private BuildAS build = new BuildAS();
+    private HarvestAS harvest = new HarvestAS();
+    private CouncilAS council;
+    private VaticanReport vaticanReport = new VaticanReport();
 
 
     public void createNewBoard(Tower[] towers, MarketAS[] market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport)
