@@ -4,9 +4,9 @@ package it.polimi.ingsw.model.board;
  * Created by higla on 16/05/2017.
  */
 public class Board {
-    int NUMBER_OF_TOWERS = 4;
-    int NUMBER_OF_MARKETS = 4;
-
+    int NUMBER_OF_TOWERS;
+    int NUMBER_OF_MARKETS;
+    int NUMBER_OF_FLOORS;
     Tower[] towers = new Tower[NUMBER_OF_TOWERS];
     MarketAS[] market = new MarketAS[NUMBER_OF_MARKETS];
     BuildAS build = new BuildAS();
@@ -49,9 +49,9 @@ public class Board {
     }
     public TowerFloorAS[] getFloorLevel(int i){
         int k;
-        final int NUMBER_OF_FLOORS = 4;
+        //final int NUMBER_OF_FLOORS = 4;
         TowerFloorAS[] iFloor = new TowerFloorAS[NUMBER_OF_FLOORS];
-        for(k=0; k< NUMBER_OF_FLOORS; k++)
+        for(k=0; k< NUMBER_OF_TOWERS; k++)
             iFloor[k] = towers[k].getFloorByIndex(i);
         return iFloor;
     }
@@ -119,7 +119,9 @@ public class Board {
     public void setCouncil(CouncilAS council) {
         this.council = council;
     }
-
+    public int getNUMBER_OF_FLOORS(){
+        return NUMBER_OF_FLOORS;
+    }
 }
 
 

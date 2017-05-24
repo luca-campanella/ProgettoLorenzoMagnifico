@@ -1,6 +1,7 @@
 {
   "NUMBER_OF_TOWERS": 4,
   "NUMBER_OF_MARKETS": 4,
+  "NUMBER_OF_FLOORS": 4,
   "towers": [
     {
       "colorTower": "GREEN",
