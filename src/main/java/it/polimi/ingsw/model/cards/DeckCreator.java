@@ -94,7 +94,7 @@ public class DeckCreator{
     public static VentureCard getVentureCard(){
         VentureCard ventureCard = new VentureCard();
         ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
-        cost.add((TakeOrPaySomethingEffect)getTakeOrPaySomethingEffect(6));
+        cost.add(getTakeOrPaySomethingEffect(5));
         ventureCard.setCostChoiceMilitary(cost);
         ventureCard.setCostChoiceResource(cost);
         ventureCard.setName("Viola");
@@ -105,8 +105,8 @@ public class DeckCreator{
     public static CharacterCard getCharacterCard(){
         CharacterCard characterCard = new CharacterCard();
         ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
-        cost.add((TakeOrPaySomethingEffect)getTakeOrPaySomethingEffect(6));
-
+        cost.add(getTakeOrPaySomethingEffect(6));
+        characterCard.setCost(cost);
         characterCard.setName("Maga");
         characterCard.setImmediateEffect(getImmediateEffect());
         characterCard.setPermanentEffect(getPermanentEffect());
@@ -131,13 +131,13 @@ public class DeckCreator{
         buildingCard.setEffectsOnBuilding(getImmediateEffect());
 
         ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
-        cost.add((TakeOrPaySomethingEffect)getTakeOrPaySomethingEffect(2));
+        cost.add(getTakeOrPaySomethingEffect(6));
         buildingCard.setCost(cost);
         return buildingCard;
     }
-    private static ImmediateEffectInterface getTakeOrPaySomethingEffect(int value){
+    private static TakeOrPaySomethingEffect getTakeOrPaySomethingEffect(int value){
         Resource resource = new Resource(ResourceType.WOOD, value);
-        ImmediateEffectInterface effect = new TakeOrPaySomethingEffect(resource);
+        TakeOrPaySomethingEffect effect = new TakeOrPaySomethingEffect(resource);
         return effect;
     }
     private static ArrayList<ImmediateEffectInterface> getImmediateEffect(){

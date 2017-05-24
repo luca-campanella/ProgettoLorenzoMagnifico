@@ -1,14 +1,13 @@
 package it.polimi.ingsw.client;
 
+import com.sun.javafx.sg.prism.EffectFilter;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.MarketAS;
 import it.polimi.ingsw.model.board.Tower;
 import it.polimi.ingsw.model.board.TowerFloorAS;
-import it.polimi.ingsw.model.cards.AbstractCard;
-import it.polimi.ingsw.model.cards.CharacterCard;
-import it.polimi.ingsw.model.cards.Deck;
-import it.polimi.ingsw.model.cards.TerritoryCard;
+import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 
 import java.util.ArrayList;
@@ -78,10 +77,52 @@ public class CliPrinter {
         int i;
         for(i = 0; i<1; i++) {
             printTerritoryCard(deck.getTerritoryCards().get(i));
-            System.out.println(deck.getCharacterCards().get(i).toString());
-            System.out.println(deck.getBuildingCards().get(i).toString());
-            System.out.println(deck.getVentureCards().get(i).toString());
+            printCharacterCards(deck.getCharacterCards().get(i));
+            printBuildingCards(deck.getBuildingCards().get(i));
+            printVentureCards(deck.getVentureCards().get(i));
         }
+    }
+    public void printBuildingCards(BuildingCard card){
+        System.out.print("Name " + card.getName()+ ", period " + card.getPeriod() + ", costs ");
+        printCosts(card.getCost());
+        System.out.print(". Immediate Effect :");
+        printImmediateEffects(card.getImmediateEffect());
+        System.out.print(". Permanent Effect: ");
+        printImmediateEffects(card.getEffectsOnBuilding());
+        System.out.println("");
+        //printPermanentEffects(card.getPermanentEffect());
+    }
+    public void printVentureCards(VentureCard card){
+        System.out.print("Name " + card.getName()+ ", period " + card.getPeriod() + ", costs Military ");
+        printCosts(card.getCostChoiceMilitary());
+        System.out.print(" Alternative " );
+        printCosts(card.getCostChoiceResource());
+        System.out.print(". Immediate Effect :");
+        printImmediateEffects(card.getImmediateEffect());
+        System.out.print(". Number of victory points " + card.getVictoryEndPoints());
+        System.out.println("");
+        //printPermanentEffects(card.getPermanentEffect());
+    }
+
+    public void printCharacterCards(CharacterCard card){
+        System.out.print("Name " + card.getName()+ ", period " + card.getPeriod() + ", costs ");
+        printCosts(card.getCost());
+        System.out.print(". Immediate Effect :");
+        printImmediateEffects(card.getImmediateEffect());
+        System.out.print(". Permanent Effect: ");
+        printPermanentEffects(card.getPermanentEffect());
+        System.out.println("");
+        //printPermanentEffects(card.getPermanentEffect());
+    }
+    public void printCosts(ArrayList<TakeOrPaySomethingEffect> effect)
+    {
+        int i=0;
+        //for(i=0; i< effect.size(); i++)
+            printCost(effect.get(i));
+    }
+    public void printCost(TakeOrPaySomethingEffect effect)
+    {
+        System.out.print(effect.descriptionOfEffect());
     }
     public void printTerritoryCard(TerritoryCard card){
         System.out.print("Name " + card.getName()+", period " + card.getPeriod() + ", value " + card.getHarvestEffectValue());
@@ -90,13 +131,10 @@ public class CliPrinter {
         System.out.print(". Harvest Effect: ");
         printImmediateEffects(card.getEffectsOnHarvest());
         System.out.println("");
-        //printPermanentEffects(card.getPermanentEffect());
+
+
     }
-    /*public void printCharacterCards(CharacterCard characterCard){
-        System.out.println("Name " + characterCard.getName()+", period " + territoryCard.getPeriod() + ", value " + territoryCard.getHarvestEffectValue() + ".");
-        printImmediateEffects(territoryCard.getImmediateEffect());
-        printPermanentEffects(territoryCard.getPermanentEffect());
-    }*/
+
     public void printImmediateEffects(ArrayList<ImmediateEffectInterface> effect)
     {
         int i;
@@ -111,7 +149,6 @@ public class CliPrinter {
         for(i = 0; i< effect.size(); i++){
             System.out.print(" " + effect.get(i).toString() + " ");
         }
-        System.out.println("");
     }
 
     public String getEffectShortDescription(TowerFloorAS floor){

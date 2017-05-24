@@ -41,14 +41,14 @@
           }
         }
       ],
-      "name": "Bosco",
-      "period": 0,
+      "name": "Foresta",
+      "period": 1,
       "immediateEffect": [
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
             "type": "WOOD",
-            "value": 2
+            "value": 1
           }
         },
         {
@@ -62,74 +62,90 @@
     }
   ],
   "characterCards": [
-    {
-      "permanentEffect": [
-        {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
+  {
+    "cost": [
+      {
+        "resource": {
+          "type": "WOOD",
+          "value": 6
         }
-      ],
-      "name": "Maga",
-      "period": 0,
-      "immediateEffect": [
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
-          }
+      }
+    ],
+    "permanentEffect": [
+      {
+        "permanentEffect": "BonusOnBuildEffect",
+        "bonus": 2
+      },
+      {
+        "permanentEffect": "BonusOnHarvestEffect",
+        "bonus": 2
+      }
+    ],
+    "name": "Maga",
+    "period": 0,
+    "immediateEffect": [
+      {
+        "immediateEffect": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "WOOD",
+          "value": 2
         }
-      ]
-    },
-    {
-      "permanentEffect": [
-        {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
+      },
+      {
+        "immediateEffect": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "WOOD",
+          "value": 3
         }
-      ],
-      "name": "Maga",
-      "period": 0,
-      "immediateEffect": [
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
-          }
+      }
+    ]
+  },
+  {
+    "cost": [
+      {
+        "resource": {
+          "type": "WOOD",
+          "value": 6
         }
-      ]
-    }
-  ],
+      }
+    ],
+    "permanentEffect": [
+      {
+        "permanentEffect": "BonusOnBuildEffect",
+        "bonus": 2
+      },
+      {
+        "permanentEffect": "BonusOnHarvestEffect",
+        "bonus": 2
+      }
+    ],
+    "name": "Maga",
+    "period": 0,
+    "immediateEffect": [
+      {
+        "immediateEffect": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "WOOD",
+          "value": 2
+        }
+      },
+      {
+        "immediateEffect": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "WOOD",
+          "value": 3
+        }
+      }
+    ]
+  }
+],
   "buildingCards": [
     {
       "cost": [
         {
           "resource": {
             "type": "WOOD",
-            "value": 2
+            "value": 6
           }
         }
       ],
@@ -174,7 +190,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 2
+            "value": 6
           }
         }
       ],
@@ -221,7 +237,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 6
+            "value": 5
           }
         }
       ],
@@ -229,7 +245,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 6
+            "value": 5
           }
         }
       ],
@@ -258,7 +274,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 6
+            "value": 5
           }
         }
       ],
@@ -266,7 +282,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 6
+            "value": 5
           }
         }
       ],
