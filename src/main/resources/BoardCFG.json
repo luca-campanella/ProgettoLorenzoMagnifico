@@ -7,7 +7,7 @@
       "NUMBER_OF_FLOORS": 4,
       "floors": [
         {
-          "diceValue": 1,
+          "diceRequirement": 1,
           "effects": [
             {
               "effectName": "NoEffect"
@@ -15,7 +15,7 @@
           ]
         },
         {
-          "diceValue": 3,
+          "diceRequirement": 3,
           "effects": [
             {
               "effectName": "NoEffect"
@@ -23,7 +23,7 @@
           ]
         },
         {
-          "diceValue": 5,
+          "diceRequirement": 5,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
@@ -35,7 +35,7 @@
           ]
         },
         {
-          "diceValue": 7,
+          "diceRequirement": 7,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
@@ -53,7 +53,7 @@
       "NUMBER_OF_FLOORS": 4,
       "floors": [
         {
-          "diceValue": 1,
+          "diceRequirement": 1,
           "effects": [
             {
               "effectName": "NoEffect"
@@ -61,7 +61,7 @@
           ]
         },
         {
-          "diceValue": 3,
+          "diceRequirement": 3,
           "effects": [
             {
               "effectName": "NoEffect"
@@ -69,7 +69,7 @@
           ]
         },
         {
-          "diceValue": 5,
+          "diceRequirement": 5,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
@@ -81,7 +81,7 @@
           ]
         },
         {
-          "diceValue": 7,
+          "diceRequirement": 7,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
@@ -99,7 +99,7 @@
       "NUMBER_OF_FLOORS": 4,
       "floors": [
         {
-          "diceValue": 1,
+          "diceRequirement": 1,
           "effects": [
             {
               "effectName": "NoEffect"
@@ -107,7 +107,7 @@
           ]
         },
         {
-          "diceValue": 3,
+          "diceRequirement": 3,
           "effects": [
             {
               "effectName": "NoEffect"
@@ -115,7 +115,7 @@
           ]
         },
         {
-          "diceValue": 5,
+          "diceRequirement": 5,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
@@ -127,7 +127,7 @@
           ]
         },
         {
-          "diceValue": 7,
+          "diceRequirement": 7,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
@@ -145,7 +145,7 @@
       "NUMBER_OF_FLOORS": 4,
       "floors": [
         {
-          "diceValue": 1,
+          "diceRequirement": 1,
           "effects": [
             {
               "effectName": "NoEffect"
@@ -153,7 +153,7 @@
           ]
         },
         {
-          "diceValue": 3,
+          "diceRequirement": 3,
           "effects": [
             {
               "effectName": "NoEffect"
@@ -161,7 +161,7 @@
           ]
         },
         {
-          "diceValue": 5,
+          "diceRequirement": 5,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
@@ -173,7 +173,7 @@
           ]
         },
         {
-          "diceValue": 7,
+          "diceRequirement": 7,
           "effects": [
             {
               "effectName": "TakeOrPaySomethingEffect",
@@ -189,7 +189,7 @@
   ],
   "market": [
     {
-      "diceValue": 1,
+      "diceRequirement": 1,
       "effects": [
         {
           "effectName": "TakeOrPaySomethingEffect",
@@ -201,7 +201,7 @@
       ]
     },
     {
-      "diceValue": 1,
+      "diceRequirement": 1,
       "effects": [
         {
           "effectName": "TakeOrPaySomethingEffect",
@@ -213,7 +213,7 @@
       ]
     },
     {
-      "diceValue": 1,
+      "diceRequirement": 1,
       "effects": [
         {
           "effectName": "TakeOrPaySomethingEffect",
@@ -232,7 +232,7 @@
       ]
     },
     {
-      "diceValue": 1,
+      "diceRequirement": 1,
       "effects": [
         {
           "effectName": "NoEffect"
@@ -244,7 +244,7 @@
     "valueStandard": 1,
     "valueMalus": 3,
     "first": false,
-    "diceValue": 1,
+    "diceRequirement": 1,
     "effects": [
       {
         "effectName": "NoEffect"
@@ -254,7 +254,7 @@
   "harvest": {
     "valueStandard": 1,
     "valueMalus": 3,
-    "diceValue": 1,
+    "diceRequirement": 1,
     "effects": [
       {
         "effectName": "NoEffect"
@@ -262,7 +262,7 @@
     ]
   },
   "council": {
-    "diceValue": 1,
+    "diceRequirement": 1,
     "effects": [
       {
         "effectName": "TakeOrPaySomethingEffect",
