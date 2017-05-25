@@ -197,8 +197,8 @@ public class CliPrinter {
     }
     public void printCouncil(Board board)
     {
-        System.out.println("This is Council Hall: ");
-        //System.out.println("Effect " + board.getCouncilShortEffect());
+        System.out.print("This is Council Hall: ");
+        System.out.println("Effect " + board.getCouncil().getSpaceDescription());
 
     }
     public void printVaticanReport(Board board)

@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.resource.Resource;
  * Created by higla on 23/05/2017.
  */
 public class DiscountEffect implements ImmediateEffectInterface{
-    private CardColorEnum color;
+    //private CardColorEnum color;
     private Resource[] resources = new Resource[2];
     //todo
     @Override

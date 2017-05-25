@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.model.board.*;
-import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.*;
 import it.polimi.ingsw.model.effects.permanentEffects.*;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceType;
@@ -34,15 +32,19 @@ public class DeckCreator{
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> immediateEffectAdapter = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "immediateEffect");
         immediateEffectAdapter.registerSubtype(NoEffect.class, "NoEffect");
         immediateEffectAdapter.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
+        immediateEffectAdapter.registerSubtype(CouncilGiftEffect.class, "CouncilGiftEffect");
+        immediateEffectAdapter.registerSubtype(TakeCardNoFamilyMemberEffect.class, "TakeCardNoFamilyMemberEffect");
+        immediateEffectAdapter.registerSubtype(DiscountEffect.class, "DiscountEffect");
 
         RuntimeTypeAdapterFactory<AbstractPermanentEffect> permanentEffectAdapter = RuntimeTypeAdapterFactory.of(AbstractPermanentEffect.class, "permanentEffect");
         permanentEffectAdapter.registerSubtype(BonusOnHarvestEffect.class, "BonusOnHarvestEffect");
         permanentEffectAdapter.registerSubtype(BonusOnBuildEffect.class, "BonusOnBuildEffect");
         permanentEffectAdapter.registerSubtype(BonusOnTowerEffect.class, "BonusOnTowerEffect");
         permanentEffectAdapter.registerSubtype(MalusDisabledImmediateEffectsEffect.class, "MalusDisabledImmediateEffectsEffect");
+        permanentEffectAdapter.registerSubtype(NoPermanentEffect.class, "NoPermanentEffect");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).registerTypeAdapterFactory(permanentEffectAdapter).create();
-        ///*
+        /*
         Deck deckTest = getDeckForTest();
 
         String deckInJson = gson.toJson(deckTest);
@@ -52,8 +54,8 @@ public class DeckCreator{
 
         System.out.println(deckTest.toString());
 
-        //*/
-        /*
+        */
+        ///*
         CliPrinter printer = new CliPrinter();
 
         // The JSON data
@@ -63,7 +65,7 @@ public class DeckCreator{
             printer.printDeck(deck);
 
         }
-        */
+        //*/
     }
 
     private static Deck getDeckForTest(){
