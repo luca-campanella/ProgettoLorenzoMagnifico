@@ -5,6 +5,6 @@ package it.polimi.ingsw.model.player;
  */
 public enum DiceAndFamilyMemberColor {
 
-    RED,BLACK,ORANGE,NEUTRAL
+    WHITE,BLACK,ORANGE,NEUTRAL
 
 }

@@ -7,5 +7,5 @@ import java.io.IOException;
  */
 
 public class IllegaActionException extends IOException {
-    
+
 }

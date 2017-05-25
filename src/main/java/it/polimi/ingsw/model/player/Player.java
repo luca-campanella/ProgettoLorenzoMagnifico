@@ -135,11 +135,24 @@ public abstract class Player {
         return leaderCard;
     }
 
-    public void playLeaderCard(AbstractLeaderCard leaderCard){
+    public void activateLeaderCard(AbstractLeaderCard leaderCard){
 
         this.leaderCard.remove(leaderCard);
         playedLeaderCard.add(leaderCard);
 
+    }
+
+    public void discardLeaderCard(AbstractLeaderCard leaderCard){
+
+        this.leaderCard.remove(leaderCard);
+        //TODO get bonus
     }*/
 
+    public void harvest(int valueHarvest){
+
+    }
+
+    public void build(int valueBuild){
+
+    }
 }

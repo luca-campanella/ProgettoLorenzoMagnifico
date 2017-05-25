@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.controller;
 
+import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.controller.network.socket.protocol.FunctionResponse;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.controller.BoardConfigurator;
 import it.polimi.ingsw.controller.Room;
@@ -35,16 +38,33 @@ public class GameController {
 
     private HashMap<Integer, FunctionResponse> initializeGame;
 
+    private int round;
+
+    private int period;
+
     public GameController(int numberOfPlayers, Room room)
     {
 
         this.room = room;
         initializeGame = new HashMap<>(5);
+        dices = new ArrayList<>(3);
+        loadDices();
         loadInfoInitialization();
         doMethod(numberOfPlayers);
+        round=0;
+        period=0;
+        prepareForNewRound();
 
     }
 
+    private void loadDices(){
+
+        dices.add(new Dice(DiceAndFamilyMemberColor.BLACK));
+        dices.add(new Dice(DiceAndFamilyMemberColor.NEUTRAL));
+        dices.add(new Dice(DiceAndFamilyMemberColor.ORANGE));
+        dices.add(new Dice(DiceAndFamilyMemberColor.WHITE));
+
+    }
     private void loadInfoInitialization(){
 
         initializeGame.put(2, this::gameFor2);
@@ -88,11 +108,59 @@ public class GameController {
 
     }
 
-    private Board boardConfiguration(int numberOfPlayers)
+    private void prepareForNewRound(){
+
+        players.forEach(Player::resetFamilyMember);
+
+        //TODO clean and load the cards on board
+        //TODO change order players
+
+        if(round%2==0)
+            //TODO METHOD to call the excommunication
+        round = round + 1;
+    }
+
+    public void prepareForNewPeriod(){
+
+        period = period + 1;
+    }
+
+    private void boardConfiguration(int numberOfPlayers)
     {
         BoardConfigurator boardConfigurator = new BoardConfigurator();
         gameBoard = boardConfigurator.createBoard(numberOfPlayers);
-        return gameBoard;
+    }
+
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
+
+    }
+
+    public void harvest(FamilyMember familyMember){
+
+        familyMember.getPlayer().harvest(familyMember.getValue());
+        //TODO add control of the move and code on the board
+    }
+
+    public void build(FamilyMember familyMember){
+
+        familyMember.getPlayer().build(familyMember.getValue());
+        //TODO add control of the move and code on the board
+    }
+
+    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
+
+        //gameboard.placeOnMarket(familyMember, marketSpaceIndex);
+    }
+
+    public void discardCardLeader(Player player, int cardIndex){
+
+        //player.discardLeaderCard();
+    }
+
+    public void activateCardLeader(Player player,int cardIndex){
+
+        //player.activateLeaderCard();
+
     }
 }
 
