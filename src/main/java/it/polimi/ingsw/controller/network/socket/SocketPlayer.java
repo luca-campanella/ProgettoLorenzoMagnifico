@@ -91,6 +91,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
+            setNickname(packet.getNickname());
+            serverMainInst.makeJoinRoomLogin(this);
         }
         catch (UsernameAlreadyInUseException e) {
             try {
@@ -110,6 +112,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try {
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
+            setNickname(packet.getNickname());
+            serverMainInst.makeJoinRoomLogin(this);
         }
 
         catch (LoginException e) {
