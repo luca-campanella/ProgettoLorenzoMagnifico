@@ -35,6 +35,8 @@ public class DeckCreator{
         immediateEffectAdapter.registerSubtype(CouncilGiftEffect.class, "CouncilGiftEffect");
         immediateEffectAdapter.registerSubtype(TakeCardNoFamilyMemberEffect.class, "TakeCardNoFamilyMemberEffect");
         immediateEffectAdapter.registerSubtype(DiscountEffect.class, "DiscountEffect");
+       // RuntimeTypeAdapterFactory<TakeOrPaySomethingEffect> takeOrPayAdapter = RuntimeTypeAdapterFactory.of(TakeOrPaySomethingEffect.class, "immediateEffect");
+       // takeOrPayAdapter.registerSubtype(TowerOrPaySomethingConditionedOnCardEffect.class, "TowerOrPaySomethingConditionedOnCardEffect");
 
         RuntimeTypeAdapterFactory<AbstractPermanentEffect> permanentEffectAdapter = RuntimeTypeAdapterFactory.of(AbstractPermanentEffect.class, "permanentEffect");
         permanentEffectAdapter.registerSubtype(BonusOnHarvestEffect.class, "BonusOnHarvestEffect");

@@ -745,34 +745,34 @@
         }
       ]
     },
-  {
-    "cost": [
-      {
-        "resource": {
-          "type": "COIN",
-          "value": 4
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
         }
-      }
-    ],
-    "permanentEffect": [
-      {
-        "permanentEffect": "BonusOnTowerEffect",
-        "towerColor": "YELLOW",
-        "discountOnResource": {
-          "type": "STONE",
-          "value": 1
-        },
-        "discountOnDice": 2
-      }
-    ],
-    "name": "Stonemason",
-    "period": 1,
-    "immediateEffect": [
-      {
-        "immediateEffect": "NoEffect"
-      }
-    ]
-  },{
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnTowerEffect",
+          "towerColor": "YELLOW",
+          "discountOnResource": {
+            "type": "STONE",
+            "value": 1
+          },
+          "discountOnDice": 2
+        }
+      ],
+      "name": "Stonemason",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },{
       "cost": [
         {
           "resource": {
@@ -927,12 +927,12 @@
           "immediateEffect": "TakeCardNoFamilyMemberEffect",
           "diceValueOnTower": 4,
           "towerColorsAllowed":
-                  [
-                    "GREEN",
-                    "BLUE",
-                    "YELLOW",
-                    "PURPLE"
-                  ]
+          [
+            "GREEN",
+            "BLUE",
+            "YELLOW",
+            "PURPLE"
+          ]
         }
       ]
     },{
@@ -981,7 +981,7 @@
       "permanentEffect": [
         {
           "permanentEffect": "NoPermanentEffect"
-         }
+        }
       ],
       "name": "Architect",
       "period": 2,
@@ -999,39 +999,134 @@
           "immediateEffect": "NoEffect"
         }
       ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Patron",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 6,
+          "towerColorsAllowed":
+          [
+            "BLUE"
+          ]
+        }
+      ,
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Hero",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 6,
+          "towerColorsAllowed":
+          [
+            "PURPLE"
+          ]
+        }
+      ,
+        {
+          "immediateEffect": "CouncilGiftEffect"
+        }
+      ]
     },{
       "cost": [
         {
           "resource": {
-            "type": "WOOD",
-            "value": 6
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 3
+        }
+      ],
+      "name": "Peasant",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
           }
         }
       ],
       "permanentEffect": [
         {
           "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
+          "bonus": 3
         }
       ],
-      "name": "Maga",
-      "period": 0,
+      "name": "Scholar",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 5
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Papal Messanger",
+      "period": 2,
       "immediateEffect": [
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
+            "type": "FAITH_POINT",
             "value": 3
           }
         }
@@ -1041,224 +1136,42 @@
       "cost": [
         {
           "resource": {
-            "type": "WOOD",
-            "value": 6
+            "type": "COIN",
+            "value": 5
           }
         }
       ],
       "permanentEffect": [
         {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
+          "permanentEffect": "NoPermanentEffect"
         }
       ],
-      "name": "Maga",
-      "period": 0,
+      "name": "RoyalMessanger",
+      "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
-          }
+          "immediateEffect": "NoEffect"
         }
       ]
     },{
       "cost": [
         {
           "resource": {
-            "type": "WOOD",
+            "type": "COIN",
             "value": 6
           }
         }
       ],
       "permanentEffect": [
         {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
+          "permanentEffect": "NoPermanentEffect"
         }
       ],
-      "name": "Maga",
-      "period": 0,
+      "name": "Noble",
+      "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
-          }
-        }
-      ]
-    },
-    {
-      "cost": [
-        {
-          "resource": {
-            "type": "WOOD",
-            "value": 6
-          }
-        }
-      ],
-      "permanentEffect": [
-        {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
-        }
-      ],
-      "name": "Maga",
-      "period": 0,
-      "immediateEffect": [
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
-          }
-        }
-      ]
-    },{
-      "cost": [
-        {
-          "resource": {
-            "type": "WOOD",
-            "value": 6
-          }
-        }
-      ],
-      "permanentEffect": [
-        {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
-        }
-      ],
-      "name": "Maga",
-      "period": 0,
-      "immediateEffect": [
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
-          }
-        }
-      ]
-    },
-    {
-      "cost": [
-        {
-          "resource": {
-            "type": "WOOD",
-            "value": 6
-          }
-        }
-      ],
-      "permanentEffect": [
-        {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
-        }
-      ],
-      "name": "Maga",
-      "period": 0,
-      "immediateEffect": [
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
-          }
-        }
-      ]
-    },{
-      "cost": [
-        {
-          "resource": {
-            "type": "WOOD",
-            "value": 6
-          }
-        }
-      ],
-      "permanentEffect": [
-        {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
-        }
-      ],
-      "name": "Maga",
-      "period": 0,
-      "immediateEffect": [
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
-          }
+          "immediateEffect": "NoEffect"
         }
       ]
     },
@@ -1825,7 +1738,7 @@
         }
       ]
     }
-],
+  ],
   "buildingCards": [
     {
       "cost": [

@@ -8,10 +8,10 @@ import it.polimi.ingsw.model.resource.Resource;
  * Created by higla on 23/05/2017.
  */
 public class TowerOrPaySomethingConditionedOnCardEffect extends TakeOrPaySomethingEffect {
-    CardColorEnum color;
+    CardColorEnum colorConditionedOnCardEffect;
     public TowerOrPaySomethingConditionedOnCardEffect(Resource resource, CardColorEnum color){
         super(resource);
-        this.color = color;
+        this.colorConditionedOnCardEffect = color;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class TowerOrPaySomethingConditionedOnCardEffect extends TakeOrPaySomethi
     This method gives you resources for each card of a certain type you have
      */
     public void applyToPlayer(Player player) {
-        int numberOfColoredCards = player.getNumberOfColoredCard(color);
+        int numberOfColoredCards = player.getNumberOfColoredCard(colorConditionedOnCardEffect);
         int i;
         for(i = 0; i<numberOfColoredCards; i++)
             super.applyToPlayer(player);
