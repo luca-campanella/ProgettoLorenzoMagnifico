@@ -4,12 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.model.board.*;
-import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
-import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
-import it.polimi.ingsw.model.effects.permanentEffects.BonusOnBuildEffect;
-import it.polimi.ingsw.model.effects.permanentEffects.BonusOnHarvestEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.*;
+import it.polimi.ingsw.model.effects.permanentEffects.*;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceType;
 import it.polimi.ingsw.testingGSON.boardLoader.BoardCreator;
@@ -36,11 +32,18 @@ public class DeckCreator{
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> immediateEffectAdapter = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "immediateEffect");
         immediateEffectAdapter.registerSubtype(NoEffect.class, "NoEffect");
         immediateEffectAdapter.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
+        immediateEffectAdapter.registerSubtype(CouncilGiftEffect.class, "CouncilGiftEffect");
+        immediateEffectAdapter.registerSubtype(TakeCardNoFamilyMemberEffect.class, "TakeCardNoFamilyMemberEffect");
+        immediateEffectAdapter.registerSubtype(DiscountEffect.class, "DiscountEffect");
+       // RuntimeTypeAdapterFactory<TakeOrPaySomethingEffect> takeOrPayAdapter = RuntimeTypeAdapterFactory.of(TakeOrPaySomethingEffect.class, "immediateEffect");
+       // takeOrPayAdapter.registerSubtype(TowerOrPaySomethingConditionedOnCardEffect.class, "TowerOrPaySomethingConditionedOnCardEffect");
 
         RuntimeTypeAdapterFactory<AbstractPermanentEffect> permanentEffectAdapter = RuntimeTypeAdapterFactory.of(AbstractPermanentEffect.class, "permanentEffect");
         permanentEffectAdapter.registerSubtype(BonusOnHarvestEffect.class, "BonusOnHarvestEffect");
         permanentEffectAdapter.registerSubtype(BonusOnBuildEffect.class, "BonusOnBuildEffect");
-
+        permanentEffectAdapter.registerSubtype(BonusOnTowerEffect.class, "BonusOnTowerEffect");
+        permanentEffectAdapter.registerSubtype(MalusDisabledImmediateEffectsEffect.class, "MalusDisabledImmediateEffectsEffect");
+        permanentEffectAdapter.registerSubtype(NoPermanentEffect.class, "NoPermanentEffect");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).registerTypeAdapterFactory(permanentEffectAdapter).create();
         /*
@@ -69,16 +72,16 @@ public class DeckCreator{
 
     private static Deck getDeckForTest(){
         Deck deck = new Deck();
-        ArrayList<TerritoryCard> territoryCards = new ArrayList<TerritoryCard>();
+        /*ArrayList<TerritoryCard> territoryCards = new ArrayList<TerritoryCard>();
         territoryCards.add(getTerritoryCard());
         territoryCards.add(getTerritoryCard());
         deck.setTerritoryCards(territoryCards);
-
+        */
         ArrayList<CharacterCard> characterCards = new ArrayList<CharacterCard>();
         characterCards.add(getCharacterCard());
         characterCards.add(getCharacterCard());
         deck.setCharacterCards(characterCards);
-
+        /*
         ArrayList<BuildingCard> buildingCards = new ArrayList<BuildingCard>();
         buildingCards.add(getBuildingCard());
         buildingCards.add(getBuildingCard());
@@ -88,13 +91,13 @@ public class DeckCreator{
         ventureCards.add(getVentureCard());
         ventureCards.add(getVentureCard());
         deck.setVentureCards(ventureCards);
-
+        */
         return deck;
     }
     public static VentureCard getVentureCard(){
         VentureCard ventureCard = new VentureCard();
         ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
-        cost.add((TakeOrPaySomethingEffect)getTakeOrPaySomethingEffect(6));
+        cost.add(getTakeOrPaySomethingEffect(5));
         ventureCard.setCostChoiceMilitary(cost);
         ventureCard.setCostChoiceResource(cost);
         ventureCard.setName("Viola");
@@ -105,9 +108,9 @@ public class DeckCreator{
     public static CharacterCard getCharacterCard(){
         CharacterCard characterCard = new CharacterCard();
         ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
-        cost.add((TakeOrPaySomethingEffect)getTakeOrPaySomethingEffect(6));
-
-        characterCard.setName("Maga");
+        cost.add(getTakeOrPaySomethingEffect(6));
+        characterCard.setCost(cost);
+        characterCard.setName("Condottiero");
         characterCard.setImmediateEffect(getImmediateEffect());
         characterCard.setPermanentEffect(getPermanentEffect());
         return characterCard;
@@ -131,13 +134,13 @@ public class DeckCreator{
         buildingCard.setEffectsOnBuilding(getImmediateEffect());
 
         ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
-        cost.add((TakeOrPaySomethingEffect)getTakeOrPaySomethingEffect(2));
+        cost.add(getTakeOrPaySomethingEffect(6));
         buildingCard.setCost(cost);
         return buildingCard;
     }
-    private static ImmediateEffectInterface getTakeOrPaySomethingEffect(int value){
-        Resource resource = new Resource(ResourceType.WOOD, value);
-        ImmediateEffectInterface effect = new TakeOrPaySomethingEffect(resource);
+    private static TakeOrPaySomethingEffect getTakeOrPaySomethingEffect(int value){
+        Resource resource = new Resource(ResourceType.COIN, value);
+        TakeOrPaySomethingEffect effect = new TakeOrPaySomethingEffect(resource);
         return effect;
     }
     private static ArrayList<ImmediateEffectInterface> getImmediateEffect(){
@@ -150,12 +153,19 @@ public class DeckCreator{
         return temp;
     }
     private static ArrayList<AbstractPermanentEffect> getPermanentEffect(){
+        Resource resource = new Resource(ResourceType.COIN, 1);
+        CardColorEnum colorEnum = CardColorEnum.GREEN;
         AbstractPermanentEffect effect = new BonusOnBuildEffect(2);
         AbstractPermanentEffect effect2 = new BonusOnHarvestEffect(2);
+        AbstractPermanentEffect effect3 = new MalusDisabledImmediateEffectsEffect();
+        AbstractPermanentEffect effect4 = new BonusOnTowerEffect(colorEnum , resource, 2);
 
         ArrayList<AbstractPermanentEffect> temp = new ArrayList<AbstractPermanentEffect>();
         temp.add(effect);
         temp.add(effect2);
+        temp.add(effect3);
+        temp.add(effect4);
+
         return temp;
     }
 }

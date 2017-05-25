@@ -1,17 +1,36 @@
 {
   "territoryCards": [
     {
+      "harvestEffectValue": 1,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        }
+      ],
+      "name": "Commercial Hub",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
       "harvestEffectValue": 2,
       "effectsOnHarvest": [
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
             "type": "WOOD",
-            "value": 2
+            "value": 1
           }
         }
       ],
-      "name": "Bosco",
+      "name": "Woods",
       "period": 1,
       "immediateEffect": [
         {
@@ -24,7 +43,278 @@
       ]
     },
     {
-      "harvestEffectValue": 2,
+      "harvestEffectValue": 3,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 1
+          }
+        }
+      ],
+      "name": "Village",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 4,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 2
+          }
+        }
+      ],
+      "name": "Gravel Pit",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 2
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 5,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ],
+      "name": "Forest",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 6,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 1
+          }
+        }
+      ],
+      "name": "Monastery",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 5,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 2
+          }
+        }
+      ],
+      "name": "Citadel",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 6,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 200
+          }
+        }
+      ],
+      "name": "City",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 1,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 2
+          }
+        }
+      ],
+      "name": "Gold Mine",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 3,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "name": "Mountain Town",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 4,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 2
+          }
+        }
+      ],
+      "name": "Mining Town",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 3,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 3
+          }
+        }
+      ],
+      "name": "Rock Pit",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 4,
       "effectsOnHarvest": [
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
@@ -36,12 +326,875 @@
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        }
+      ],
+      "name": "Estate",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
             "type": "WOOD",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 2
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 2,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        }
+      ],
+      "name": "Hermitage",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 5,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 2
+          }
+        }
+      ],
+      "name": "Manor House",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 6,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 1
+          }
+        }
+      ],
+      "name": "Dukedom",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 1,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
             "value": 3
           }
         }
       ],
-      "name": "Bosco",
+      "name": "Trading Town",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 3,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "name": "Farm",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 5,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 4
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 1
+          }
+        }
+      ],
+      "name": "Colony",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 2,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        }
+      ],
+      "name": "Marble Pit",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 6,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 4
+          }
+        }
+      ],
+      "name": "Province",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 200
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 1,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        }
+      ],
+      "name": "Sanctuary",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 4,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 3
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 1
+          }
+        }
+      ],
+      "name": "Castle",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        }
+      ]
+    },
+    {
+      "harvestEffectValue": 2,
+      "effectsOnHarvest": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 2
+          }
+        }
+      ],
+      "name": "Fortified Town",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 1
+          }
+        }
+      ]
+    }
+  ],
+  "characterCards": [
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 2
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnTowerEffect",
+          "towerColor": "GREEN",
+          "discountOnResource": {
+            "type": "COIN",
+            "value": 0
+          },
+          "discountOnDice": 2
+        }
+      ],
+      "name": "Warlord",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnTowerEffect",
+          "towerColor": "YELLOW",
+          "discountOnResource": {
+            "type": "STONE",
+            "value": 1
+          },
+          "discountOnDice": 2
+        }
+      ],
+      "name": "Stonemason",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnTowerEffect",
+          "towerColor": "BLUE",
+          "discountOnResource": {
+            "type": "COIN",
+            "value": 1
+          },
+          "discountOnDice": 2
+        }],
+      "name": "Dame",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 2
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnTowerEffect",
+          "towerColor": "PURPLE",
+          "discountOnResource": {
+            "type": "STONE",
+            "value": 0
+          },
+          "discountOnDice": 2
+        }
+      ],
+      "name": "Knight",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "CouncilGiftEffect"
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Farmer",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Artisan",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 2
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "MalusDisabledImmediateEffectsEffect"
+        }
+      ],
+      "name": "Preacher",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 4
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 0
+        }
+      ],
+      "name": "Abbess",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 4,
+          "towerColorsAllowed":
+          [
+            "GREEN",
+            "BLUE",
+            "YELLOW",
+            "PURPLE"
+          ]
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Captain",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 6,
+          "towerColorsAllowed":
+          [
+            "GREEN"
+          ]
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Architect",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 6,
+          "towerColorsAllowed":
+          [
+            "YELLOW"
+          ]
+        }
+      ,
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Patron",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 6,
+          "towerColorsAllowed":
+          [
+            "BLUE"
+          ]
+        }
+      ,
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Hero",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 6,
+          "towerColorsAllowed":
+          [
+            "PURPLE"
+          ]
+        }
+      ,
+        {
+          "immediateEffect": "CouncilGiftEffect"
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 3
+        }
+      ],
+      "name": "Peasant",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 3
+        }
+      ],
+      "name": "Scholar",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 5
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Papal Messanger",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 5
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "RoyalMessanger",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Noble",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
       "period": 0,
       "immediateEffect": [
         {
@@ -59,10 +1212,15 @@
           }
         }
       ]
-    }
-  ],
-  "characterCards": [
-    {
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
       "permanentEffect": [
         {
           "permanentEffect": "BonusOnBuildEffect",
@@ -93,6 +1251,464 @@
       ]
     },
     {
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 2
+        },
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 2
+        }
+      ],
+      "name": "Maga",
+      "period": 0,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
       "permanentEffect": [
         {
           "permanentEffect": "BonusOnBuildEffect",
@@ -129,7 +1745,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 2
+            "value": 6
           }
         }
       ],
@@ -174,7 +1790,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 2
+            "value": 6
           }
         }
       ],
@@ -221,7 +1837,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 6
+            "value": 5
           }
         }
       ],
@@ -229,7 +1845,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 6
+            "value": 5
           }
         }
       ],
@@ -258,7 +1874,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 6
+            "value": 5
           }
         }
       ],
@@ -266,7 +1882,7 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 6
+            "value": 5
           }
         }
       ],

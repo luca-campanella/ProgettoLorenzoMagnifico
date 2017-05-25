@@ -7,7 +7,6 @@ import it.polimi.ingsw.client.network.socket.packet.*;
 import it.polimi.ingsw.controller.network.socket.protocol.ReadClientPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
 
-import javax.lang.model.type.ErrorType;
 import java.io.*;
 import java.net.Socket;
 
@@ -34,10 +33,23 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         this.socket = socket;
         this.serverMainInst = serverMainInst;
+        Debug.printVerbose("creazione  player");
         outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         outStream.flush();
-        inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-        Debug.printVerbose("qui");
+
+        InputStream instream1 = socket.getInputStream();
+        Debug.printVerbose("Input stream from socket got");
+        BufferedInputStream bufferesdinstream = new BufferedInputStream(instream1);
+        Debug.printVerbose("Buffered input stream created");
+        try {
+            inStream = new ObjectInputStream(bufferesdinstream);
+        } catch(IOException e) {
+            Debug.printError("Error creating the ObjStream", e);
+            throw e;
+        }
+        Debug.printVerbose("inStream created");
+
+        Debug.printVerbose("creazione  player");
         readPacket = new ReadClientPacketProtocol(this);
 
     }
@@ -79,11 +91,6 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
-            outStream.writeObject(RegisterErrorEnum.NO_ERROR);
-            outStream.flush();
-            setNickname(packet.getNickname());
-            serverMainInst.makeJoinRoomRegister(this);
-
         }
         catch (UsernameAlreadyInUseException e) {
             try {
@@ -103,10 +110,6 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try {
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
-            outStream.writeObject(LoginErrorEnum.NO_ERROR);
-            outStream.flush();
-            setNickname(packet.getNickname());
-            serverMainInst.makeJoinRoomRegister(this);
         }
 
         catch (LoginException e) {
