@@ -26,6 +26,7 @@ public class ReadServerPacketProtocol {
 
     public ReadServerPacketProtocol(SocketClient client){
         this.client=client;
+        instruction = new HashMap<>(2);
         putIstruction();
     }
 

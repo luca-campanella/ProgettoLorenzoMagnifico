@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.network.socket.packet.*;
 import it.polimi.ingsw.controller.network.socket.protocol.ReadClientPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
 
+import javax.lang.model.type.ErrorType;
 import java.io.*;
 import java.net.Socket;
 
@@ -33,10 +34,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         this.socket = socket;
         this.serverMainInst = serverMainInst;
-        Debug.printVerbose("creazione  player");
-        inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
         outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        Debug.printVerbose("creazione  player");
+        outStream.flush();
+        inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+        Debug.printVerbose("qui");
         readPacket = new ReadClientPacketProtocol(this);
 
     }
@@ -78,6 +79,11 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
+            outStream.writeObject(RegisterErrorEnum.NO_ERROR);
+            outStream.flush();
+            setNickname(packet.getNickname());
+            serverMainInst.makeJoinRoomRegister(this);
+
         }
         catch (UsernameAlreadyInUseException e) {
             try {
@@ -97,6 +103,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try {
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
+            outStream.writeObject(LoginErrorEnum.NO_ERROR);
+            outStream.flush();
+            setNickname(packet.getNickname());
+            serverMainInst.makeJoinRoomRegister(this);
         }
 
         catch (LoginException e) {

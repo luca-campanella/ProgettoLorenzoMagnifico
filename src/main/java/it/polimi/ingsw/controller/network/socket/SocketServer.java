@@ -92,10 +92,8 @@ public class SocketServer extends AbstractServerType {
                     break;
                 }
                 try {
-                    Debug.printVerbose("creazione  player");
                     generetorOfConnection.submit(new SocketPlayer(socket, getServerMainInst()));
                     System.out.println("creazione  player con successo");
-                    System.out.flush();
                 } catch (IOException e) {
                     Debug.printError("Can't open input and ouput streams on socket, closing socket", e);
                     try {
