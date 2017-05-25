@@ -75,12 +75,21 @@ public class CliPrinter {
     }
     public void printDeck(Deck deck){
         int i;
-        for(i = 0; i<1; i++) {
+        int temp;
+        for(i = 0; i<24; i++) {
+            System.out.print("Numero " + i + " ");
             printTerritoryCard(deck.getTerritoryCards().get(i));
-            printCharacterCards(deck.getCharacterCards().get(i));
-            printBuildingCards(deck.getBuildingCards().get(i));
-            printVentureCards(deck.getVentureCards().get(i));
         }
+        temp = i;
+        for(i = 0; i<24; i++) {
+            temp ++;
+            System.out.print("Numero " + temp + " ");
+            printCharacterCards(deck.getCharacterCards().get(i));
+        }
+
+        printBuildingCards(deck.getBuildingCards().get(0));
+        printVentureCards(deck.getVentureCards().get(0));
+
     }
     public void printBuildingCards(BuildingCard card){
         System.out.print("Name " + card.getName()+ ", period " + card.getPeriod() + ", costs ");

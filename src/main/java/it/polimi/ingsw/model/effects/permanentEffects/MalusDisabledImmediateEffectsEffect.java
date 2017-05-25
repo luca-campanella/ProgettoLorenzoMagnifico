@@ -6,7 +6,9 @@ import it.polimi.ingsw.model.resource.Resource;
 /**
  * Created by higla on 23/05/2017.
  */
-public class MalusDisabledImmediateEffectsEffect {
+public class MalusDisabledImmediateEffectsEffect extends  AbstractPermanentEffect{
+    //private int[] towerLevelsDisabled;
+
     public Resource getBonusOnTower(CardColorEnum color)
     {
         return null;
