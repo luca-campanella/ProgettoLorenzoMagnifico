@@ -122,6 +122,8 @@ public class Board {
     public int getNUMBER_OF_FLOORS(){
         return NUMBER_OF_FLOORS;
     }
+
+    //public void harvest()
 }
 
 
