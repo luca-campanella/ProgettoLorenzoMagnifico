@@ -181,11 +181,7 @@
       "harvestEffectValue": 6,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 200
-          }
+          "immediateEffect": "GiveCouncilGiftEffect"
         }
       ],
       "name": "City",
@@ -528,7 +524,7 @@
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
             "type": "MILITARY_POINT",
-            "value": 1
+            "value": 2
           }
         }
       ]
@@ -592,11 +588,7 @@
           }
         },
         {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 200
-          }
+          "immediateEffect": "GiveCouncilGiftEffect"
         }
       ]
     },
@@ -732,14 +724,7 @@
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
-            "type": "COIN",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "COIN",
+            "type": "MILITARY_POINT",
             "value": 3
           }
         }
@@ -756,7 +741,11 @@
       ],
       "permanentEffect": [
         {
-          "permanentEffect": "BonusOnTowerEffect",
+          "permanentEffect": "BonusOnTowerEffectChoice",
+          "discountOnSecondResource": {
+            "type": "COIN",
+            "value": 1
+          },
           "towerColor": "YELLOW",
           "discountOnResource": {
             "type": "STONE",
@@ -823,7 +812,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "CouncilGiftEffect"
+          "immediateEffect": "GiveCouncilGiftEffect"
         }
       ]
     },
@@ -909,8 +898,7 @@
       ],
       "permanentEffect": [
         {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 0
+          "permanentEffect": "NoPermanentEffect"
         }
       ],
       "name": "Abbess",
@@ -996,7 +984,17 @@
         }
       ,
         {
-          "immediateEffect": "NoEffect"
+          "immediateEffect": "DiscountEffect",
+          "resources": [
+            {
+              "type": "STONE",
+              "value": 1
+            },
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ]
         }
       ]
     },
@@ -1027,7 +1025,13 @@
         }
       ,
         {
-          "immediateEffect": "NoEffect"
+          "immediateEffect": "DiscountEffect",
+          "resources": [
+            {
+              "type": "COIN",
+              "value": 2
+            }
+          ]
         }
       ]
     },
@@ -1058,7 +1062,7 @@
         }
       ,
         {
-          "immediateEffect": "CouncilGiftEffect"
+          "immediateEffect": "GiveCouncilGiftEffect"
         }
       ]
     },{
@@ -1171,81 +1175,12 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "NoEffect"
-        }
-      ]
-    },
-    {
-      "cost": [
-        {
+          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "GREEN",
+          "numberOfCards": 1,
           "resource": {
-            "type": "WOOD",
-            "value": 6
-          }
-        }
-      ],
-      "permanentEffect": [
-        {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
-        }
-      ],
-      "name": "Maga",
-      "period": 0,
-      "immediateEffect": [
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
+            "type": "VICTORY_POINT",
             "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
-          }
-        }
-      ]
-    },{
-      "cost": [
-        {
-          "resource": {
-            "type": "WOOD",
-            "value": 6
-          }
-        }
-      ],
-      "permanentEffect": [
-        {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
-        }
-      ],
-      "name": "Maga",
-      "period": 0,
-      "immediateEffect": [
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
           }
         }
       ]
@@ -1254,36 +1189,26 @@
       "cost": [
         {
           "resource": {
-            "type": "WOOD",
+            "type": "COIN",
             "value": 6
           }
         }
       ],
       "permanentEffect": [
         {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
+          "permanentEffect": "NoPermanentEffect"
         }
       ],
-      "name": "Maga",
-      "period": 0,
+      "name": "Governor",
+      "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeOrPaySomethingEffect",
+          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "YELLOW",
+          "numberOfCards": 1,
           "resource": {
-            "type": "WOOD",
+            "type": "VICTORY_POINT",
             "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
           }
         }
       ]
@@ -1291,29 +1216,78 @@
       "cost": [
         {
           "resource": {
-            "type": "WOOD",
+            "type": "COIN",
+            "value": 7
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }],
+      "name": "Paramour",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "BLUE",
+          "numberOfCards": 3,
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
             "value": 6
           }
         }
       ],
       "permanentEffect": [
         {
-          "permanentEffect": "BonusOnBuildEffect",
-          "bonus": 2
-        },
-        {
-          "permanentEffect": "BonusOnHarvestEffect",
-          "bonus": 2
+          "permanentEffect": "NoPermanentEffect"
         }
       ],
-      "name": "Maga",
-      "period": 0,
+      "name": "Herald",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "PURPLE",
+          "numberOfCards": 1,
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Cardinal",
+      "period": 3,
       "immediateEffect": [
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
-            "type": "WOOD",
-            "value": 2
+            "type": "FAITH_POINT",
+            "value": 4
           }
         },
         {

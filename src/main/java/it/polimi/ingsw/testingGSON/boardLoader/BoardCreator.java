@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.model.board.*;
-import it.polimi.ingsw.model.effects.immediateEffects.CouncilGiftEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GiveCouncilGiftEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
@@ -32,7 +32,7 @@ public class BoardCreator {
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
         runtimeTypeAdapterFactory.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
-        runtimeTypeAdapterFactory.registerSubtype(CouncilGiftEffect.class, "CouncilGiftEffect");
+        runtimeTypeAdapterFactory.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
         /*

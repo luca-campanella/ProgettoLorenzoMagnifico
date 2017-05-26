@@ -114,10 +114,17 @@ public class CliPrinter {
     }
 
     public void printCharacterCards(CharacterCard card){
-        System.out.print("Name " + card.getName()+ ", period " + card.getPeriod() + ", costs ");
+        String temp = new String();
+        int i, lenght;
+        final int MAX_LENGHT = 26;
+        temp = "Name " + card.getName() +".";
+        lenght = MAX_LENGHT - temp.length();
+        for(i=0; i< lenght; i++)
+            temp += " ";
+        System.out.print(temp + "Period " + card.getPeriod() + " costs ");
         printCosts(card.getCost());
-        System.out.print(". Immediate Effect :");
-        printImmediateEffects(card.getImmediateEffect());
+        System.out.print(". Immediate Effect: ");
+        printImmediateShortEffects(card.getImmediateEffect());
         System.out.print(". Permanent Effect: ");
         printPermanentEffects(card.getPermanentEffect());
         System.out.println("");
@@ -131,19 +138,46 @@ public class CliPrinter {
     }
     public void printCost(TakeOrPaySomethingEffect effect)
     {
-        System.out.print(effect.descriptionOfEffect());
+        System.out.print(effect.descriptionShortOfEffect());
     }
-    public void printTerritoryCard(TerritoryCard card){
+    public void printTerritoryCardVerbose(TerritoryCard card){
         System.out.print("Name " + card.getName()+", period " + card.getPeriod() + ", value " + card.getHarvestEffectValue());
         System.out.print(". Immediate Effect :");
         printImmediateEffects(card.getImmediateEffect());
-        System.out.print(". Harvest Effect: ");
+        System.out.print("Harvest Effect: ");
         printImmediateEffects(card.getEffectsOnHarvest());
         System.out.println("");
-
-
+    }
+    public void printTerritoryCard(TerritoryCard card){
+        String temp = new String();
+        int i, lenght;
+        final int MAX_LENGHT = 25;
+        temp = "Name " + card.getName() +".";
+        lenght = MAX_LENGHT - temp.length();
+        for(i=0; i< lenght; i++)
+            temp += " ";
+        temp += " Period " + card.getPeriod() + ". Value " + card.getHarvestEffectValue();
+        System.out.print(temp);
+        System.out.print(". Immediate Effect: ");
+        printImmediateShortEffects(card.getImmediateEffect());
+        System.out.print("Harvest Effect: ");
+        printImmediateShortEffects(card.getEffectsOnHarvest());
+        System.out.println("");
     }
 
+    public void printImmediateShortEffects(ArrayList<ImmediateEffectInterface> effect) {
+        int i, lenght;
+        String temp = new String();
+        final int MAX_LENGHT = 12;
+        for (i = 0; i < effect.size(); i++) {
+            temp += (effect.get(i).descriptionShortOfEffect() + " ");
+        }
+        lenght = MAX_LENGHT - temp.length();
+        //temp += ".";
+        for(i=0; i<lenght; i++)
+            temp += " ";
+        System.out.print(temp);
+    }
     public void printImmediateEffects(ArrayList<ImmediateEffectInterface> effect)
     {
         int i;

@@ -4,13 +4,18 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
+import java.util.ArrayList;
+
 /**
  * Created by higla on 23/05/2017.
  */
 public class DiscountEffect implements ImmediateEffectInterface{
     //private CardColorEnum color;
-    private Resource[] resources = new Resource[2];
-    //todo
+    private ArrayList<Resource> resources;
+    public DiscountEffect(ArrayList<Resource> resources)
+    {
+        this.resources = resources;
+    }
     @Override
     public void applyToPlayer(Player player) {
         ;
@@ -21,6 +26,14 @@ public class DiscountEffect implements ImmediateEffectInterface{
     }
     @Override
     public String descriptionShortOfEffect() {
-        return "Discount";
+        return "Disc";
+    }
+
+    public ArrayList<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(ArrayList<Resource> resources) {
+        this.resources = resources;
     }
 }

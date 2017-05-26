@@ -273,7 +273,7 @@
         }
       },
       {
-        "effectName": "CouncilGiftEffect"
+        "effectName": "GiveCouncilGiftEffect"
       }
     ]
   },

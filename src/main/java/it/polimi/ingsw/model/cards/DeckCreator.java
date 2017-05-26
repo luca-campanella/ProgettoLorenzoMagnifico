@@ -32,18 +32,17 @@ public class DeckCreator{
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> immediateEffectAdapter = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "immediateEffect");
         immediateEffectAdapter.registerSubtype(NoEffect.class, "NoEffect");
         immediateEffectAdapter.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
-        immediateEffectAdapter.registerSubtype(CouncilGiftEffect.class, "CouncilGiftEffect");
+        immediateEffectAdapter.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
         immediateEffectAdapter.registerSubtype(TakeCardNoFamilyMemberEffect.class, "TakeCardNoFamilyMemberEffect");
         immediateEffectAdapter.registerSubtype(DiscountEffect.class, "DiscountEffect");
-       // RuntimeTypeAdapterFactory<TakeOrPaySomethingEffect> takeOrPayAdapter = RuntimeTypeAdapterFactory.of(TakeOrPaySomethingEffect.class, "immediateEffect");
-       // takeOrPayAdapter.registerSubtype(TowerOrPaySomethingConditionedOnCardEffect.class, "TowerOrPaySomethingConditionedOnCardEffect");
-
+        immediateEffectAdapter.registerSubtype(TakeOrPaySomethingConditionedOnCardEffect.class, "TakeOrPaySomethingConditionedOnCardEffect");
         RuntimeTypeAdapterFactory<AbstractPermanentEffect> permanentEffectAdapter = RuntimeTypeAdapterFactory.of(AbstractPermanentEffect.class, "permanentEffect");
         permanentEffectAdapter.registerSubtype(BonusOnHarvestEffect.class, "BonusOnHarvestEffect");
         permanentEffectAdapter.registerSubtype(BonusOnBuildEffect.class, "BonusOnBuildEffect");
         permanentEffectAdapter.registerSubtype(BonusOnTowerEffect.class, "BonusOnTowerEffect");
         permanentEffectAdapter.registerSubtype(MalusDisabledImmediateEffectsEffect.class, "MalusDisabledImmediateEffectsEffect");
         permanentEffectAdapter.registerSubtype(NoPermanentEffect.class, "NoPermanentEffect");
+        permanentEffectAdapter.registerSubtype(BonusOnTowerEffectChoice.class,"BonusOnTowerEffectChoice");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).registerTypeAdapterFactory(permanentEffectAdapter).create();
         /*
@@ -110,7 +109,7 @@ public class DeckCreator{
         ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
         cost.add(getTakeOrPaySomethingEffect(6));
         characterCard.setCost(cost);
-        characterCard.setName("Condottiero");
+        characterCard.setName("Noble");
         characterCard.setImmediateEffect(getImmediateEffect());
         characterCard.setPermanentEffect(getPermanentEffect());
         return characterCard;
@@ -143,13 +142,29 @@ public class DeckCreator{
         TakeOrPaySomethingEffect effect = new TakeOrPaySomethingEffect(resource);
         return effect;
     }
+    private static ArrayList<Resource> getListOfResources()
+    {
+        Resource resource = new Resource(ResourceType.STONE, 2);
+        ArrayList<Resource> resources = new ArrayList<Resource>();
+        resources.add(resource);
+        resources.add(resource);
+        return resources;
+    }
+    private static Resource getResource()
+    {
+        Resource resource = new Resource(ResourceType.SERVANT, 2);
+        return resource;
+    }
     private static ArrayList<ImmediateEffectInterface> getImmediateEffect(){
         ImmediateEffectInterface effect = getTakeOrPaySomethingEffect(2);
         ImmediateEffectInterface effect2 = getTakeOrPaySomethingEffect(3);
-
+        ImmediateEffectInterface effect3 = new DiscountEffect(getListOfResources());
+        ImmediateEffectInterface effect4 = new TakeOrPaySomethingConditionedOnCardEffect(getResource(), CardColorEnum.BLUE, 1);
         ArrayList<ImmediateEffectInterface> temp = new ArrayList<ImmediateEffectInterface>();
         temp.add(effect);
         temp.add(effect2);
+        temp.add(effect3);
+        temp.add(effect4);
         return temp;
     }
     private static ArrayList<AbstractPermanentEffect> getPermanentEffect(){
@@ -159,13 +174,14 @@ public class DeckCreator{
         AbstractPermanentEffect effect2 = new BonusOnHarvestEffect(2);
         AbstractPermanentEffect effect3 = new MalusDisabledImmediateEffectsEffect();
         AbstractPermanentEffect effect4 = new BonusOnTowerEffect(colorEnum , resource, 2);
+        AbstractPermanentEffect effect5 = new BonusOnTowerEffectChoice(colorEnum , resource,resource, 2);
 
         ArrayList<AbstractPermanentEffect> temp = new ArrayList<AbstractPermanentEffect>();
         temp.add(effect);
         temp.add(effect2);
         temp.add(effect3);
         temp.add(effect4);
-
+        temp.add(effect5);
         return temp;
     }
 }
