@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.leaders;
 
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+
 import java.util.ArrayList;
 
 /**
@@ -9,32 +11,33 @@ public class AbstractLeaderCard {
     private ArrayList<AbstractRequirement> requirements;
     private String name;
     private String description;
-    private String abilityDescription;
+    private AbstractLeaderAbility ability;
+    //private boolean hasOncePerRoundAbility;
 
     /**
      * This constructor should be called when you can already set all parameters
      * @param requirements ArrayList of {@link AbstractRequirement}
      * @param name The name of the leader
      * @param description the description of the leader
-     * @param abilityDescription the description of the ability of the leader
+     * @param ability the the ability of the leader
      */
-    public AbstractLeaderCard(ArrayList<AbstractRequirement> requirements, String name, String description, String abilityDescription) {
+    public AbstractLeaderCard(ArrayList<AbstractRequirement> requirements, String name, String description, AbstractLeaderAbility ability) {
         this.requirements = requirements;
         this.name = name;
         this.description = description;
-        this.abilityDescription = abilityDescription;
+        this.ability = ability;
     }
 
     /**
      * This constructor should be called when you want to set the requirements afterwards
      * @param name The name of the leader
      * @param description the description of the leader
-     * @param abilityDescription the description of the ability of the leader
+     * @param ability the ability of the leader
      */
-    public AbstractLeaderCard(String name, String description, String abilityDescription) {
+    public AbstractLeaderCard(String name, String description, AbstractLeaderAbility ability) {
         this.name = name;
         this.description = description;
-        this.abilityDescription = abilityDescription;
+        this.ability = ability;
         requirements = new ArrayList<AbstractRequirement>(1);
     }
 
@@ -58,7 +61,7 @@ public class AbstractLeaderCard {
         return description;
     }
 
-    public String getAbilityDescription() {
-        return abilityDescription;
+    public AbstractLeaderAbility getAbility() {
+        return ability;
     }
 }
