@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingConditionedEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  */
 public class VentureCard extends AbstractCard{
     private ArrayList<TakeOrPaySomethingEffect> costChoiceResource;
-    private ArrayList<TakeOrPaySomethingEffect> costChoiceMilitary;
+    private ArrayList<TakeOrPaySomethingConditionedEffect> costChoiceMilitary;
     private int victoryEndPoints;
 
     //TODO: method finalVictoryPoints
@@ -25,11 +26,11 @@ public class VentureCard extends AbstractCard{
         this.costChoiceResource = costChoiceResource;
     }
 
-    public ArrayList<TakeOrPaySomethingEffect> getCostChoiceMilitary() {
+    public ArrayList<TakeOrPaySomethingConditionedEffect> getCostChoiceMilitary() {
         return costChoiceMilitary;
     }
 
-    public void setCostChoiceMilitary(ArrayList<TakeOrPaySomethingEffect> costChoiceMilitary) {
+    public void setCostChoiceMilitary(ArrayList<TakeOrPaySomethingConditionedEffect> costChoiceMilitary) {
         this.costChoiceMilitary = costChoiceMilitary;
     }
 

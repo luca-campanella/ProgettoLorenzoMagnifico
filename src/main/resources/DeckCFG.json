@@ -1486,35 +1486,81 @@
       "costChoiceResource": [
         {
           "resource": {
-            "type": "WOOD",
-            "value": 5
+            "type": "COIN",
+            "value": 4
           }
         }
       ],
-      "costChoiceMilitary": [
-        {
-          "resource": {
-            "type": "WOOD",
-            "value": 5
-          }
-        }
-      ],
-      "victoryEndPoints": 5,
-      "name": "Viola",
-      "period": 0,
+      "victoryEndPoints": 4,
+      "name": "Hiring Recruits",
+      "period": 1,
       "immediateEffect": [
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
-            "type": "WOOD",
-            "value": 2
+            "type": "MILITARY_POINT",
+            "value": 5
           }
+        }
+      ]
+    }
+ ,
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 1
+          }
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Repairing the church",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        }
+      ]
+    },
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 3
+          }
+        }
+      ],
+      "victoryEndPoints": 3,
+      "name": "Building the Walls",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect"
         },
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
-            "type": "WOOD",
-            "value": 3
+            "type": "MILITARY_POINT",
+            "value": 2
           }
         }
       ]
@@ -1523,28 +1569,557 @@
       "costChoiceResource": [
         {
           "resource": {
+            "type": "STONE",
+            "value": 2
+          }
+        },
+        {
+          "resource": {
             "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "victoryEndPoints": 4,
+      "name": "Raising a statue",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect"
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "condition": {
+            "type": "MILITARY_POINT",
+            "value": 3
+          },
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": -2
+          }
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Military Campaign",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        }
+      ],
+      "victoryEndPoints": 4,
+      "name": "Hosting Panhandler",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 4
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "condition": {
+            "type": "MILITARY_POINT",
             "value": 5
+          },
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 3
+          }
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Fighting Heresies",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 2
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 2
+          }
+        },
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 1
           }
         }
       ],
       "costChoiceMilitary": [
         {
+          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "condition": {
+            "type": "MILITARY_POINT",
+            "value": 4
+          },
           "resource": {
-            "type": "WOOD",
-            "value": 5
+            "type": "MILITARY_POINT",
+            "value": 2
           }
         }
       ],
-      "victoryEndPoints": 5,
-      "name": "Viola",
-      "period": 0,
+      "victoryEndPoints": 1,
+      "name": "Support to the Bishop",
+      "period": 1,
       "immediateEffect": [
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
+            "type": "FAITH_POINT",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 6
+          }
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Hiring Soldiers",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 6
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 2
+          }
+        },
+        {
+          "resource": {
             "type": "WOOD",
             "value": 2
+          }
+        },
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 2
+          }
+        }
+      ],
+      "victoryEndPoints": 6,
+      "name": "Repairing the Abbey",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 2
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 4
+          }
+        }
+      ],
+      "victoryEndPoints": 2,
+      "name": "Building the bastions",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect"
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "condition": {
+            "type": "MILITARY_POINT",
+            "value": 6
+          },
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 3
+          }
+        }
+      ],
+      "victoryEndPoints": 3,
+      "name": "Support to the King",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect"
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 5
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        },
+        {
+          "resource": {
+            "type": "SERVANT",
+            "value": 2
+          }
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Improving the canals",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "HarvestNoFamilyMembersEffect",
+          "diceValue": 4
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 4
+          }
+        }
+      ],
+      "victoryEndPoints": 4,
+      "name": "Hosting Foreigners",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 5
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+     "costChoiceMilitary": [
+       {
+         "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+         "condition": {
+           "type": "MILITARY_POINT",
+           "value": 8
+         },
+         "resource": {
+           "type": "MILITARY_POINT",
+           "value": 4
+         }
+       }      ],
+      "victoryEndPoints": 5,
+      "name": "Crusade",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 5
+          }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }}
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 2
+          }
+        }
+      ],
+      "costChoiceMilitary": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "condition": {
+            "type": "MILITARY_POINT",
+            "value": 7
+          },
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value":4
+          }
+        }
+      ],
+      "victoryEndPoints": 4,
+      "name": "Support to the Cardinal",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value":3
+          }
+        }
+
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 8
+          }
+        }
+      ],
+      "victoryEndPoints": 6,
+      "name": "Hiring Mercenaries",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 7
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        },
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 3
+          }
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Repairing the Cathedral",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 7,
+          "towerColorsAllowed":
+          [
+            "GREEN",
+            "BLUE",
+            "YELLOW",
+            "PURPLE"
+          ]
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 6
+          }
+        }
+      ],
+      "victoryEndPoints": 4,
+      "name": "Building the Towers",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect"},
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 4
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 6
+          }
+        }
+      ],
+      "victoryEndPoints": 3,
+      "name": "Promoting Sacred Art",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "condition": {
+            "type": "MILITARY_POINT",
+            "value": 12
+          },
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 6
+          }
+        }
+      ],
+      "victoryEndPoints": 7,
+      "name": "Military Conquest",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 3
           }
         },
         {
@@ -1553,8 +2128,121 @@
             "type": "WOOD",
             "value": 3
           }
+        },
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 3
+          }
         }
       ]
     }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        },
+        {
+          "resource": {
+            "type": "SERVANTS",
+            "value": 3
+          }
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Improving the Roads",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "BuildNoFamilyMembersEffect",
+          "diceValue": 3
+        }      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "condition": {
+            "type": "MILITARY_POINT",
+            "value": 15
+          },
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 8
+          }
+        }
+      ],
+      "victoryEndPoints": 8,
+      "name": "Sacred War",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 4
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 4
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        },
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 3
+          }
+        }
+      ],
+      "costChoiceMilitary": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "condition": {
+            "type": "MILITARY_POINT",
+            "value": 10
+          },
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 5
+          }
+        }
+      ],
+      "victoryEndPoints": 10,
+      "name": "Support to the pope",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 2
+          }
+        }
+      ]
+    }
+
+
   ]
 }

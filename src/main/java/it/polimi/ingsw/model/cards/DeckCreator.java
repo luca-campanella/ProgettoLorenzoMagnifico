@@ -49,7 +49,7 @@ public class DeckCreator{
         permanentEffectAdapter.registerSubtype(BonusOnTowerEffectChoice.class,"BonusOnTowerEffectChoice");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).registerTypeAdapterFactory(permanentEffectAdapter).create();
-//        /*
+        /*
         Deck deckTest = getDeckForTest();
 
         String deckInJson = gson.toJson(deckTest);
@@ -59,8 +59,8 @@ public class DeckCreator{
 
         System.out.println(deckTest.toString());
 
-        //*/
-        /*
+        */
+        ///*
         CliPrinter printer = new CliPrinter();
 
         // The JSON data
@@ -70,7 +70,7 @@ public class DeckCreator{
             printer.printDeck(deck);
 
         }
-        */
+        //*/
     }
 
     private static Deck getDeckForTest(){
@@ -90,20 +90,20 @@ public class DeckCreator{
         buildingCards.add(getBuildingCard());
         deck.setBuildingCards(buildingCards);
 
-        *//*
+        */
         ArrayList<VentureCard> ventureCards = new ArrayList<VentureCard>();
         ventureCards.add(getVentureCard());
         ventureCards.add(getVentureCard());
         deck.setVentureCards(ventureCards);
-        */
+
         return deck;
     }
     public static VentureCard getVentureCard(){
         VentureCard ventureCard = new VentureCard();
         ArrayList<TakeOrPaySomethingEffect> cost = new ArrayList<TakeOrPaySomethingEffect>();
         cost.add(getTakeOrPaySomethingEffect(5));
-        ventureCard.setCostChoiceMilitary(cost);
-        ventureCard.setCostChoiceResource(cost);
+        //ventureCard.setCostChoiceMilitary(cost);
+        //ventureCard.setCostChoiceResource(cost);
         ventureCard.setName("Hiring Recruits");
         ventureCard.setImmediateEffect(getImmediateEffect());
         ventureCard.setVictoryEndPoints(4);

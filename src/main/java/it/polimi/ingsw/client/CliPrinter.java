@@ -4,6 +4,7 @@ import com.sun.javafx.sg.prism.EffectFilter;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingConditionedEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 
@@ -13,8 +14,10 @@ import java.util.ArrayList;
  * Created by higla on 20/05/2017.
  */
 public class CliPrinter {
-    final int sceneLenght = 39;
-    static int TOWER_LENGHT = 34;
+    static final int MAX_LENGHT_CARD_NAME = 30;
+    static final int sceneLenght = 39;
+    static final int TOWER_LENGHT = 34;
+    static final int SAMETYPE_CARDS_NUMBER = 24;
     public void printBoard(Board board){
         //printing the towers
         printTowers(board);
@@ -153,19 +156,23 @@ public class CliPrinter {
     public void printDeck(Deck deck){
         int i;
         int temp;
-        for(i = 0; i<24; i++) {
+        for(i = 0; i<SAMETYPE_CARDS_NUMBER; i++) {
             System.out.print("Numero " + i + " ");
             printTerritoryCard(deck.getTerritoryCards().get(i));
         }
         temp = i;
-        for(i = 0; i<24; i++) {
+        for(i = 0; i<SAMETYPE_CARDS_NUMBER; i++) {
             temp ++;
             System.out.print("Numero " + temp + " ");
             printCharacterCards(deck.getCharacterCards().get(i));
         }
 
         printBuildingCards(deck.getBuildingCards().get(0));
-        printVentureCards(deck.getVentureCards().get(0));
+        for(i = 0; i<SAMETYPE_CARDS_NUMBER; i++) {
+            temp ++;
+            System.out.print("Numero " + temp + " ");
+            printVentureCards(deck.getVentureCards().get(i));
+        }
 
     }
     public void printBuildingCards(BuildingCard card){
@@ -179,23 +186,36 @@ public class CliPrinter {
         //printPermanentEffects(card.getPermanentEffect());
     }
     public void printVentureCards(VentureCard card){
-        System.out.print("Name " + card.getName()+ ", period " + card.getPeriod() + ", costs Military ");
-        printCosts(card.getCostChoiceMilitary());
-        System.out.print(" Alternative " );
-        printCosts(card.getCostChoiceResource());
+        String temp = new String();
+        temp = "Name " + card.getName();
+        System.out.print(temp);
+        for(int i= 0; i<MAX_LENGHT_CARD_NAME-temp.length();i++)
+            System.out.print(" ");
+        System.out.print("Period " + card.getPeriod());
+        if(card.getCostChoiceMilitary() != null) {
+            System.out.print(" Military cost: ");
+            printCostsConditioned(card.getCostChoiceMilitary());
+        }
+        if(card.getCostChoiceResource() != null) {
+            System.out.print(" Resource cost: ");
+            printCosts(card.getCostChoiceResource());
+        }
         System.out.print(". Immediate Effect :");
         printImmediateEffects(card.getImmediateEffect());
         System.out.print(". Number of victory points " + card.getVictoryEndPoints());
         System.out.println("");
         //printPermanentEffects(card.getPermanentEffect());
     }
-
+    public void printCostsConditioned(ArrayList<TakeOrPaySomethingConditionedEffect> effects)
+    {
+        for(int i=0; i< effects.size(); i++)
+        System.out.print(effects.get(i).descriptionShortOfEffect());
+    }
     public void printCharacterCards(CharacterCard card){
         String temp = new String();
         int i, lenght;
-        final int MAX_LENGHT = 26;
         temp = "Name " + card.getName() +".";
-        lenght = MAX_LENGHT - temp.length();
+        lenght = MAX_LENGHT_CARD_NAME - temp.length();
         for(i=0; i< lenght; i++)
             temp += " ";
         System.out.print(temp + "Period " + card.getPeriod() + " costs ");
@@ -228,9 +248,8 @@ public class CliPrinter {
     public void printTerritoryCard(TerritoryCard card){
         String temp = new String();
         int i, lenght;
-        final int MAX_LENGHT = 25;
         temp = "Name " + card.getName() +".";
-        lenght = MAX_LENGHT - temp.length();
+        lenght = MAX_LENGHT_CARD_NAME - temp.length();
         for(i=0; i< lenght; i++)
             temp += " ";
         temp += " Period " + card.getPeriod() + ". Value " + card.getHarvestEffectValue();
@@ -245,11 +264,11 @@ public class CliPrinter {
     public void printImmediateShortEffects(ArrayList<ImmediateEffectInterface> effect) {
         int i, lenght;
         String temp = new String();
-        final int MAX_LENGHT = 12;
+        final int MAX_LENGHT_SHORT_EFFECTS = 12;
         for (i = 0; i < effect.size(); i++) {
             temp += (effect.get(i).descriptionShortOfEffect() + " ");
         }
-        lenght = MAX_LENGHT - temp.length();
+        lenght = MAX_LENGHT_SHORT_EFFECTS - temp.length();
         //temp += ".";
         for(i=0; i<lenght; i++)
             temp += " ";
