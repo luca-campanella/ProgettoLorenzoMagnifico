@@ -24,6 +24,7 @@ public class ReadClientPacketProtocol {
 
     public ReadClientPacketProtocol(SocketPlayer player){
         this.player=player;
+        instruction = new HashMap<>(10);
         putIstruction();
     }
 

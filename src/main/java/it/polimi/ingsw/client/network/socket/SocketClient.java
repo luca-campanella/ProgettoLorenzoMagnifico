@@ -57,11 +57,9 @@ public class SocketClient extends AbstractClientType {
         }
 
         try {
+            inStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
             outStream = new ObjectOutputStream(new BufferedOutputStream(socketClient.getOutputStream()));
             outStream.flush();
-            Debug.printVerbose("ObjectOutputStream created");
-            inStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
-            Debug.printVerbose("ObjectInputStream created");
         } catch (IOException e) {
             Debug.printError("Cannot open socket streams", e);
             throw new ClientConnectionException("Cannot open socket streams", e);
