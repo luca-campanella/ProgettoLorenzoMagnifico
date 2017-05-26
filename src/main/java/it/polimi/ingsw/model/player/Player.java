@@ -155,4 +155,8 @@ public abstract class Player {
     public void build(int valueBuild){
 
     }
+
+    public ArrayList<FamilyMember> getFamilyMembers(){
+        return familyMembers;
+    }
 }

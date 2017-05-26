@@ -4,11 +4,13 @@ import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.controller.network.socket.protocol.FunctionResponse;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.board.HarvestAS;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.controller.BoardConfigurator;
 import it.polimi.ingsw.controller.Room;
+import it.polimi.ingsw.model.resource.ResourceType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -135,13 +137,17 @@ public class GameController {
 
     }
 
-    public void harvest(FamilyMember familyMember){
+    public void harvest(FamilyMember familyMember, int servant){
 
+        if(!familyMember.getPlayer().getFamilyMembers().contains(familyMember) || familyMember.getPlayer().getResource(ResourceType.SERVANT)<servant)
+            return;//TODO cheating or refresh board
+        HarvestAS harvestPlace = gameBoard.getHarvest();
+        if(harvestPlace.getFamilyMembers().contains(familyMember))
         familyMember.getPlayer().harvest(familyMember.getValue());
         //TODO add control of the move and code on the board
     }
 
-    public void build(FamilyMember familyMember){
+    public void build(FamilyMember familyMember, int servant){
 
         familyMember.getPlayer().build(familyMember.getValue());
         //TODO add control of the move and code on the board
