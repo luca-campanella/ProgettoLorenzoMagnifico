@@ -6,7 +6,10 @@ import it.polimi.ingsw.model.player.Player;
  * Created by higla on 23/05/2017.
  */
 public class BuildNoFamilyMembersEffect extends AbstractPerformActionEffect {
-
+        public BuildNoFamilyMembersEffect(int buildValue)
+    {
+        this.diceValue = buildValue;
+    }
     @Override
     public void applyToPlayer(Player player) {
         ;

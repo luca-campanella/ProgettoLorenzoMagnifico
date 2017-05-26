@@ -5,8 +5,12 @@ import it.polimi.ingsw.model.player.Player;
 /**
  * Created by higla on 23/05/2017.
  */
-public class HarvestNoFamilyMembers extends AbstractPerformActionEffect {
+public class HarvestNoFamilyMembersEffect extends AbstractPerformActionEffect {
 
+    public HarvestNoFamilyMembersEffect(int harvestValue)
+    {
+        this.diceValue = harvestValue;
+    }
     @Override
     public void applyToPlayer(Player player){
         ;
@@ -18,6 +22,6 @@ public class HarvestNoFamilyMembers extends AbstractPerformActionEffect {
     }
     @Override
     public String descriptionShortOfEffect() {
-        return "Harvest";
+        return "Harv";
     }
 }

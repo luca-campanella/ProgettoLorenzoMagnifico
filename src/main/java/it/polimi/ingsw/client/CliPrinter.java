@@ -125,7 +125,7 @@ public class CliPrinter {
         printCosts(card.getCost());
         System.out.print(". Immediate Effect: ");
         printImmediateShortEffects(card.getImmediateEffect());
-        System.out.print(". Permanent Effect: ");
+        System.out.print("Permanent Effect: ");
         printPermanentEffects(card.getPermanentEffect());
         System.out.println("");
         //printPermanentEffects(card.getPermanentEffect());

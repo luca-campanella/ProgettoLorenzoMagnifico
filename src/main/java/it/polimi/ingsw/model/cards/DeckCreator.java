@@ -36,6 +36,10 @@ public class DeckCreator{
         immediateEffectAdapter.registerSubtype(TakeCardNoFamilyMemberEffect.class, "TakeCardNoFamilyMemberEffect");
         immediateEffectAdapter.registerSubtype(DiscountEffect.class, "DiscountEffect");
         immediateEffectAdapter.registerSubtype(TakeOrPaySomethingConditionedOnCardEffect.class, "TakeOrPaySomethingConditionedOnCardEffect");
+        immediateEffectAdapter.registerSubtype(HarvestNoFamilyMembersEffect.class, "HarvestNoFamilyMembersEffect");
+        immediateEffectAdapter.registerSubtype(BuildNoFamilyMembersEffect.class, "BuildNoFamilyMembersEffect");
+        immediateEffectAdapter.registerSubtype(TakeOrPaySomethingConditionedEffect.class, "TakeOrPaySomethingConditionedEffect");
+
         RuntimeTypeAdapterFactory<AbstractPermanentEffect> permanentEffectAdapter = RuntimeTypeAdapterFactory.of(AbstractPermanentEffect.class, "permanentEffect");
         permanentEffectAdapter.registerSubtype(BonusOnHarvestEffect.class, "BonusOnHarvestEffect");
         permanentEffectAdapter.registerSubtype(BonusOnBuildEffect.class, "BonusOnBuildEffect");
@@ -160,11 +164,17 @@ public class DeckCreator{
         ImmediateEffectInterface effect2 = getTakeOrPaySomethingEffect(3);
         ImmediateEffectInterface effect3 = new DiscountEffect(getListOfResources());
         ImmediateEffectInterface effect4 = new TakeOrPaySomethingConditionedOnCardEffect(getResource(), CardColorEnum.BLUE, 1);
+        ImmediateEffectInterface effect5 = new BuildNoFamilyMembersEffect(2);
+        ImmediateEffectInterface effect6 = new HarvestNoFamilyMembersEffect(3);
+        ImmediateEffectInterface effect7 = new TakeOrPaySomethingConditionedEffect(getResource(), getResource());
         ArrayList<ImmediateEffectInterface> temp = new ArrayList<ImmediateEffectInterface>();
-        temp.add(effect);
+        /*temp.add(effect);
         temp.add(effect2);
         temp.add(effect3);
-        temp.add(effect4);
+        temp.add(effect4);*/
+        temp.add(effect5);
+        temp.add(effect6);
+        temp.add(effect7);
         return temp;
     }
     private static ArrayList<AbstractPermanentEffect> getPermanentEffect(){
