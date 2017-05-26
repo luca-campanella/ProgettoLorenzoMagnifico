@@ -1,10 +1,7 @@
 package it.polimi.ingsw.client;
 
 import com.sun.javafx.sg.prism.EffectFilter;
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.MarketAS;
-import it.polimi.ingsw.model.board.Tower;
-import it.polimi.ingsw.model.board.TowerFloorAS;
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
@@ -16,6 +13,8 @@ import java.util.ArrayList;
  * Created by higla on 20/05/2017.
  */
 public class CliPrinter {
+    final int sceneLenght = 39;
+    static int TOWER_LENGHT = 34;
     public void printBoard(Board board){
         //printing the towers
         printTowers(board);
@@ -57,22 +56,100 @@ public class CliPrinter {
         int i;
         int k;
         TowerFloorAS[] temp; // = new TowerFloorAS[board.getNUMBER_OF_TOWERS()];
-        for(k=0; k<board.getNUMBER_OF_TOWERS(); k++)
-            System.out.print("      " + board.getTowerColor(board.getTower(k)) + "            ");
-        System.out.println();
+        for(k=0; k<board.getNUMBER_OF_TOWERS(); k++) {
+            for(i=0; i<10; i++)
+                System.out.print(" ");
+            printColorTower(board.getTowerColor(board.getTower(k)).toString());
+            for(i=0; i<18; i++)
+                System.out.print(" ");
+        }
+        printTowerCeiling(board, "_");
+
         for(i=0; i< board.getNUMBER_OF_FLOORS(); i++)
         {
+            //printTowerCeiling(board, "_");
+            System.out.println();
             temp = board.getFloorLevel(board.getNUMBER_OF_FLOORS()-1-i);
-           /* for(k=0; k<board.getNUMBER_OF_TOWERS(); k++)
-                System.out.print(" _____ ");*/
+            printPillar();
+            System.out.println();
+            printPillar();
+            System.out.println();
+            printCardNameActionSpace(board, temp);
+            System.out.println();
+            printPillar();
+            System.out.println();
+            printPillar();
+            printTowerCeiling(board, "|");
+            //System.out.println("");
 
-            for(k=0; k<board.getNUMBER_OF_TOWERS(); k++)
-                System.out.print("||   " + "cardName" + "  *" + temp[k].getDiceValue() + "* " + temp[k].getEffectShortDescription());
-            System.out.println("||");
+        }
+        //printTowerCeiling(board, "|");
+        System.out.println("");
+    }
+    private void printCardNameActionSpace(Board board,TowerFloorAS[] temp){
+        for(int k=0; k<board.getNUMBER_OF_TOWERS(); k++) {
+            String name = "cardName";
+            System.out.print("|");
+            for(int i = 0; i< (TOWER_LENGHT)/2 - name.length(); i++)
+                System.out.print(" ");
+            System.out.print(name);
+            for(int i = 0; i< (TOWER_LENGHT)/2 - name.length()-1; i++)
+                System.out.print(" ");
+            System.out.print("|");
 
+            String auxiliaryPrinterString = new String();
+            auxiliaryPrinterString = "cardName";
+            auxiliaryPrinterString = " *" + temp[k].getDiceValue() + "* " + temp[k].getEffectShortDescription();
+            System.out.print(auxiliaryPrinterString);
+            System.out.print(" ");
+            //System.out.print("Lunghezza " + auxiliaryPrinterString.length());
+        }
+    }
+    private void printPillar()
+    {
+        final int totalScene = 40;
+        for(int k=0; k<4; k++) {
+            System.out.print("|");
+            for (int i = 0; i < 25; i++)
+                System.out.print(" ");
+            System.out.print("|");
+            for (int j = 0; j < 11; j++) {
+                System.out.print(" ");
+            }
         }
 
     }
+    private void printTowerCeiling(Board board, String c)
+    {
+        int i, k, j;
+        final int totalScene = 38;
+        int numberOfUnderscore = 24;
+        System.out.println();
+        //total sum must be 38
+        for(k=0; k< board.getNUMBER_OF_TOWERS(); k++) {
+            System.out.print(""+ c);
+            for (i = 0; i < numberOfUnderscore; i++)
+                System.out.print("_");
+            if(c.equalsIgnoreCase(("|"))) {
+                numberOfUnderscore++;
+                System.out.print("_");
+            }
+            System.out.print(c);
+            for(j=0; j< totalScene - numberOfUnderscore -2; j++)
+                System.out.print(" ");
+            if(c.equalsIgnoreCase(("|")))
+                numberOfUnderscore--;
+        }
+    }
+    public void printColorTower(String printed){
+        int i;
+        int temp = 10 - printed.length();
+        if(printed.length()>0)
+            for(i=0; i<temp; i++)
+                printed += " ";
+        System.out.print(printed);
+    }
+
     public void printDeck(Deck deck){
         int i;
         int temp;

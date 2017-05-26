@@ -49,7 +49,7 @@ public class DeckCreator{
         permanentEffectAdapter.registerSubtype(BonusOnTowerEffectChoice.class,"BonusOnTowerEffectChoice");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).registerTypeAdapterFactory(permanentEffectAdapter).create();
-        /*
+//        /*
         Deck deckTest = getDeckForTest();
 
         String deckInJson = gson.toJson(deckTest);
@@ -59,8 +59,8 @@ public class DeckCreator{
 
         System.out.println(deckTest.toString());
 
-        */
-        ///*
+        //*/
+        /*
         CliPrinter printer = new CliPrinter();
 
         // The JSON data
@@ -70,7 +70,7 @@ public class DeckCreator{
             printer.printDeck(deck);
 
         }
-        //*/
+        */
     }
 
     private static Deck getDeckForTest(){
@@ -79,22 +79,23 @@ public class DeckCreator{
         territoryCards.add(getTerritoryCard());
         territoryCards.add(getTerritoryCard());
         deck.setTerritoryCards(territoryCards);
-        */
+
         ArrayList<CharacterCard> characterCards = new ArrayList<CharacterCard>();
         characterCards.add(getCharacterCard());
         characterCards.add(getCharacterCard());
         deck.setCharacterCards(characterCards);
-        /*
+
         ArrayList<BuildingCard> buildingCards = new ArrayList<BuildingCard>();
         buildingCards.add(getBuildingCard());
         buildingCards.add(getBuildingCard());
         deck.setBuildingCards(buildingCards);
 
+        */
         ArrayList<VentureCard> ventureCards = new ArrayList<VentureCard>();
         ventureCards.add(getVentureCard());
         ventureCards.add(getVentureCard());
         deck.setVentureCards(ventureCards);
-        */
+
         return deck;
     }
     public static VentureCard getVentureCard(){
@@ -103,9 +104,9 @@ public class DeckCreator{
         cost.add(getTakeOrPaySomethingEffect(5));
         ventureCard.setCostChoiceMilitary(cost);
         ventureCard.setCostChoiceResource(cost);
-        ventureCard.setName("Viola");
+        ventureCard.setName("Hiring Recruits");
         ventureCard.setImmediateEffect(getImmediateEffect());
-        ventureCard.setVictoryEndPoints(5);
+        ventureCard.setVictoryEndPoints(4);
         return ventureCard;
     }
     public static CharacterCard getCharacterCard(){
