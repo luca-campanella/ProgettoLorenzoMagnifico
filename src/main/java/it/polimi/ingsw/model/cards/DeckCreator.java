@@ -90,12 +90,12 @@ public class DeckCreator{
         buildingCards.add(getBuildingCard());
         deck.setBuildingCards(buildingCards);
 
-        */
+        *//*
         ArrayList<VentureCard> ventureCards = new ArrayList<VentureCard>();
         ventureCards.add(getVentureCard());
         ventureCards.add(getVentureCard());
         deck.setVentureCards(ventureCards);
-
+        */
         return deck;
     }
     public static VentureCard getVentureCard(){
