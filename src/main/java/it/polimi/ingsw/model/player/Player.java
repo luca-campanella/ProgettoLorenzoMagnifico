@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceType;
 
 import java.util.ArrayList;
@@ -66,10 +67,10 @@ public abstract class Player {
         resource.put(ResourceType.VICTORY_POINT, 0);
     }
 
-    public void addResource(ResourceType type, int value){
+    public void addResource(Resource resource){
 
-        Integer valueNow = resource.get(type);
-        valueNow = valueNow + value;
+        Integer valueNow = this.resource.get(resource.getType());
+        this.resource.put(resource.getType(),this.resource.get(resource.getType())+resource.getValue());
 
     }
     //TODO: we need to put Cards Containers in Player and then implement this method.

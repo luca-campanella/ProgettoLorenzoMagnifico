@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.player.FamilyMember;
+
 /**
  * Created by higla on 16/05/2017.
  */
@@ -15,8 +17,7 @@ public class Board {
     private VaticanReport vaticanReport = new VaticanReport();
 
 
-    public void createNewBoard(Tower[] towers, MarketAS[] market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport)
-    {
+    public void createNewBoard(Tower[] towers, MarketAS[] market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport) {
         this.towers = towers;
         this.market = market;
         this.build = build;
@@ -33,10 +34,11 @@ public class Board {
     public int getNUMBER_OF_MARKETS() {
         return NUMBER_OF_MARKETS;
     }
-    public Tower getTower(int i)
-    {
+
+    public Tower getTower(int i) {
         return this.towers[i];
     }
+
     public Tower[] getTowers() {
         return towers;
     }
@@ -44,18 +46,21 @@ public class Board {
     public void setTowers(Tower[] towers) {
         this.towers = towers;
     }
-    public TowerFloorAS[] getTowerFloor(Tower tower){
+
+    public TowerFloorAS[] getTowerFloor(Tower tower) {
         return tower.getFloors();
     }
-    public TowerFloorAS[] getFloorLevel(int i){
+
+    public TowerFloorAS[] getFloorLevel(int i) {
         int k;
         //final int NUMBER_OF_FLOORS = 4;
         TowerFloorAS[] iFloor = new TowerFloorAS[NUMBER_OF_FLOORS];
-        for(k=0; k< NUMBER_OF_TOWERS; k++)
+        for (k = 0; k < NUMBER_OF_TOWERS; k++)
             iFloor[k] = towers[k].getFloorByIndex(i);
         return iFloor;
     }
-    public CardColorEnum getTowerColor(Tower tower){
+
+    public CardColorEnum getTowerColor(Tower tower) {
         return tower.getTowerColor();
     }
 
@@ -66,10 +71,11 @@ public class Board {
     public void setMarket(MarketAS[] market) {
         this.market = market;
     }
-    public MarketAS getMarketSpaceByIndex(int index)
-    {
+
+    public MarketAS getMarketSpaceByIndex(int index) {
         return market[index];
     }
+
     public BuildAS getBuild() {
         return build;
     }
@@ -89,19 +95,20 @@ public class Board {
     public VaticanReport getVaticanReport() {
         return vaticanReport;
     }
-    public int[] getVaticanFaithAge(){
+
+    public int[] getVaticanFaithAge() {
         return this.vaticanReport.getRequiredFaithPoints();
     }
-    public int getVaticanFaithAgeIndex(int index)
-    {
+
+    public int getVaticanFaithAgeIndex(int index) {
         return vaticanReport.getRequiredFaithPointsByIndex(index);
     }
-    public int getVictoryPointsByIndex(int index)
-    {
+
+    public int getVictoryPointsByIndex(int index) {
         return vaticanReport.getRequiredVictoryPointByIndex(index);
     }
 
-    public int[] getVaticanVictoryPoints(){
+    public int[] getVaticanVictoryPoints() {
         return this.vaticanReport.getCorrespondingVictoryPoints();
     }
 
@@ -112,6 +119,7 @@ public class Board {
     public CouncilAS getCouncil() {
         return council;
     }
+
     /*public String getCouncilShortEffect()
     {
         return this.getCouncil().getEffect().descriptionShortOfEffect();
@@ -119,11 +127,18 @@ public class Board {
     public void setCouncil(CouncilAS council) {
         this.council = council;
     }
-    public int getNUMBER_OF_FLOORS(){
+
+    public int getNUMBER_OF_FLOORS() {
         return NUMBER_OF_FLOORS;
     }
 
-    //public void harvest()
+    public void harvest(FamilyMember familyMember) {
+        harvest.addFamilyMember(familyMember);
+    }
+
+    public void build(FamilyMember familyMember) {
+        build.addFamilyMember(familyMember);
+    }
 }
 
 

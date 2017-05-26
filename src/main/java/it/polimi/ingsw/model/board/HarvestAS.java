@@ -55,4 +55,15 @@ public class HarvestAS extends AbstractActionSpace{
     public void setValueMalus(int valueMalus) {
         this.valueMalus = valueMalus;
     }
+
+    public int getValueNeeded(){
+
+        if(familyMembers.size()>0)
+            return valueMalus+valueStandard;
+        return valueStandard;
+    }
+
+    public void addFamilyMember(FamilyMember familyMember){
+        familyMembers.add(familyMember);
+    }
 }
