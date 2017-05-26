@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.player.FamilyMember;
 
+import java.util.ArrayList;
+
 /**
  * Created by higla on 16/05/2017.
  */
@@ -9,6 +11,8 @@ public class BuildAS extends AbstractActionSpace {
     int valueStandard = 0;
     int valueMalus = 0;
     private boolean first = true;
+    //it's the list of family members on this place
+    private ArrayList<FamilyMember> familyMembers;
     public BuildAS() {
         super();
     }
@@ -18,6 +22,7 @@ public class BuildAS extends AbstractActionSpace {
         this.valueStandard = valueStandard;
         this.valueMalus = valueMalus;
         this.first = first;
+        familyMembers = new ArrayList<>(8);
     }
 
     /**
@@ -56,5 +61,20 @@ public class BuildAS extends AbstractActionSpace {
 
     public void setValueMalus(int valueMalus) {
         this.valueMalus = valueMalus;
+    }
+
+    public ArrayList<FamilyMember> getFamilyMembers(){
+        return  familyMembers;
+    }
+
+    public int getValueNeeded(){
+
+        if(familyMembers.size()>0)
+            return valueMalus+valueStandard;
+        return valueStandard;
+    }
+
+    public void addFamilyMember(FamilyMember familyMember){
+        familyMembers.add(familyMember);
     }
 }
