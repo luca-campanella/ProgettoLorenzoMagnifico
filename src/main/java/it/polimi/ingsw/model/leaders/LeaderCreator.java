@@ -57,7 +57,7 @@ public class LeaderCreator {
 
         System.out.println(leadersFormJson.toString());
 
-        leadersFormJson.getLeaders().forEach(leader -> System.out.println(leader.getName()));
+        leadersFormJson.getLeaders().forEach(leader -> System.out.println(leader.getName() + leader.getAbility().getAbilityDescription()));
     }
 
     public static void main(String args[]) {

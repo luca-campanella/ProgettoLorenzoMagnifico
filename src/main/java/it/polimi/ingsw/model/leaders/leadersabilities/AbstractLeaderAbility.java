@@ -10,7 +10,7 @@ import java.util.Optional;
  */
 public class AbstractLeaderAbility {
 
-    private String abilityDescription;
+    private transient String abilityDescription;
 
     public AbstractLeaderAbility(String abilityDescription) {
         this.abilityDescription = abilityDescription;
