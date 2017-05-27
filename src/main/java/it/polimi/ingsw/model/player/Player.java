@@ -23,9 +23,9 @@ public abstract class Player {
 
     private ArrayList<FamilyMember> usedFamilyMembers;
 
-    //private ArrayList<AbstractLeaderCard> leaderCard;
+    //private ArrayList<LeaderCard> leaderCard;
 
-    //private ArrayList<AbstractLeaderCard> playedLeaderCard;
+    //private ArrayList<LeaderCard> playedLeaderCard;
 
     //private ArrayList<ExcommuncationCard> excommuncationCard;
 
@@ -126,24 +126,24 @@ public abstract class Player {
 
     }
 
-    /*public void addLeaderCard(AbstractLeaderCard leaderCard){
+    /*public void addLeaderCard(LeaderCard leaderCard){
 
         this.leaderCard.add(leaderCard);
     }
 
-    public ArrayList<AbstractLeaderCard> viewLeaderCard(){
+    public ArrayList<LeaderCard> viewLeaderCard(){
 
         return leaderCard;
     }
 
-    public void activateLeaderCard(AbstractLeaderCard leaderCard){
+    public void activateLeaderCard(LeaderCard leaderCard){
 
         this.leaderCard.remove(leaderCard);
         playedLeaderCard.add(leaderCard);
 
     }
 
-    public void discardLeaderCard(AbstractLeaderCard leaderCard){
+    public void discardLeaderCard(LeaderCard leaderCard){
 
         this.leaderCard.remove(leaderCard);
         //TODO get bonus

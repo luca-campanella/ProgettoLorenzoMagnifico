@@ -1,13 +1,14 @@
 package it.polimi.ingsw.model.leaders;
 
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 
 import java.util.ArrayList;
 
 /**
  * This class is the Abstract class for leaders
  */
-public class AbstractLeaderCard {
+public class LeaderCard {
     private ArrayList<AbstractRequirement> requirements;
     private String name;
     private String description;
@@ -21,7 +22,7 @@ public class AbstractLeaderCard {
      * @param description the description of the leader
      * @param ability the the ability of the leader
      */
-    public AbstractLeaderCard(ArrayList<AbstractRequirement> requirements, String name, String description, AbstractLeaderAbility ability) {
+    public LeaderCard(ArrayList<AbstractRequirement> requirements, String name, String description, AbstractLeaderAbility ability) {
         this.requirements = requirements;
         this.name = name;
         this.description = description;
@@ -34,7 +35,7 @@ public class AbstractLeaderCard {
      * @param description the description of the leader
      * @param ability the ability of the leader
      */
-    public AbstractLeaderCard(String name, String description, AbstractLeaderAbility ability) {
+    public LeaderCard(String name, String description, AbstractLeaderAbility ability) {
         this.name = name;
         this.description = description;
         this.ability = ability;

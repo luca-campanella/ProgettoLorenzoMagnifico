@@ -1,6 +1,7 @@
-package it.polimi.ingsw.model.leaders;
+package it.polimi.ingsw.model.leaders.requirements;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 
 /**
  * This is a requirement for a leader, the player is required to have at least numReq cards of a certain type

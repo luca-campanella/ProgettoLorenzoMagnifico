@@ -1,5 +1,6 @@
-package it.polimi.ingsw.model.leaders;
+package it.polimi.ingsw.model.leaders.requirements;
 
+import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 import it.polimi.ingsw.model.resource.Resource;
 
 /**
