@@ -1,9 +1,11 @@
-package it.polimi.ingsw.client.controller;
+package it.polimi.ingsw.client;
 
 /**
  * Created by higla on 11/05/2017.
  */
 
+import it.polimi.ingsw.client.controller.AbstractUIType;
+import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
@@ -102,7 +104,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     public void printAllowedActions(){
         Debug.printDebug("Sono in CLI.printAllowedActions()");
-        System.out.println("Stampo tutte le azioni disponibili dell'utente");
+        System.out.println("I wanna print all the actions available");
     }
     /**
      * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
@@ -125,7 +127,7 @@ public class CommandLineUI extends AbstractUIType {
         UsrPwdContainer usrAndPwd;
         while(true)
         {
-            System.out.println("Do you want to Create a new account, or LogIn into an old one? Write Create, or Login If you skip, you will be signed in as a Guest");
+            System.out.println("Do you want to Create a new account, or LogIn into an old one? Write Create, or Login");
             tmpInput = inputScanner.nextLine();
             if(tmpInput.equalsIgnoreCase("Create")){
                 usrAndPwd = readUsrPwd();
@@ -138,12 +140,12 @@ public class CommandLineUI extends AbstractUIType {
                 clientMain.callbackLogin(usrAndPwd.getNickname(), usrAndPwd.getPassword());
                 break;
             }
-
+            /*
             //TODO eliminate skip
             if(tmpInput.equalsIgnoreCase("Skip")){
                 clientMain.callbackLoginAsGuest();
                 break;
-            }
+            }*/
         }
     }
 

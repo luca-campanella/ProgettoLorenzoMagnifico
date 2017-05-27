@@ -71,6 +71,8 @@ public class ClientMain {
         Debug.printDebug("Sono nel ClientMain.callbackLogin.");
         try {
             clientNetwork.loginPlayer(userID, userPW);
+            Debug.printDebug("Sono dopo clientNetwork.");
+
         } catch (NetworkException e) {
             //TODO handle network problems
             e.printStackTrace();
@@ -98,6 +100,8 @@ public class ClientMain {
             }
 
         }
+        Debug.printVerbose("Sto per chiamare askChatMsg");
+        Debug.printDebug("hellooo");
         userInterface.askChatMsg(); //TODO this is a method just for testing chat
     }
     public void callbackLoginAsGuest(){

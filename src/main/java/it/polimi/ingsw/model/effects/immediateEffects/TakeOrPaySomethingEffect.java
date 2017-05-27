@@ -21,7 +21,7 @@ public class TakeOrPaySomethingEffect implements ImmediateEffectInterface {
     }
 
     private void giveResourcesToPlayer(Player player, Resource resource){
-        player.addResource(resource.getType(),resource.getValue() );
+        player.addResource(resource);
     }
 
     public String descriptionOfEffect(){

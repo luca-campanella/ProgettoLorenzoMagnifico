@@ -1346,7 +1346,7 @@
           "immediateEffect": "TakeOrPaySomethingConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
-            "value": 1
+            "value": 2
           },
           "resource": {
             "type": "VICTORY_POINT",
