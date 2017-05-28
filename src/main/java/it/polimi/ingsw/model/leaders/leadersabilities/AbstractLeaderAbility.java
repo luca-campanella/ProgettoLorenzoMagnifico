@@ -18,7 +18,9 @@ public abstract class AbstractLeaderAbility {
     }
 
     /**
-     * this method will bew overridden by all Leaders having a once per round bonus which is a resource, if no leader overrides this method by default it returns null
+     * this method will bew overridden by the ability of all Leaders having a once per round bonus which is a resource,
+     * if no LeaderAbility overrides this method by default it returns null
+     * overridden in {@link OncePerRoundBonusLeaderAbility}
      * @return null
      */
     public ArrayList<Resource> getOncePerRoundBonus() {
@@ -26,7 +28,8 @@ public abstract class AbstractLeaderAbility {
     }
 
     /**
-     * This method will usually be overridden by "Francesco Sforza" ability
+     * This method will usually be overridden by "Francesco Sforza" ability, in {@link OncePerRoundHarvestLeaderAbility}
+     * If the optimal is empty no leader has this ability and the action should not be performed
      * @return empty Optional
      */
     public Optional<Integer> getOncePerRoundHarvestDiceValue() {
@@ -34,7 +37,16 @@ public abstract class AbstractLeaderAbility {
     }
 
     /**
-     * This method will usually be overridden by "Ludovico Ariosto" ability
+     * This method will usually be overridden by "Leonardo Da Vinci" ability, in {@link OncePerRoundProductionLeaderAbility}
+     * If the optimal is empty no leader has this ability and the action should not be performed
+     * @return empty Optional
+     */
+    public Optional<Integer> getOncePerRoundProductionDiceValue() {
+        return Optional.empty();
+    }
+
+    /**
+     * This method will usually be overridden by "Ludovico Ariosto" ability, in {@link CanPlaceFMInOccupiedASLeaderAbility}
      * @return false
      */
     public boolean canPlaceFamilyMemberInOccupiedActionSpace() {
@@ -42,12 +54,21 @@ public abstract class AbstractLeaderAbility {
     }
 
     /**
-     * This method will usually be overridden by "Filippo Bunelleschi" ability
-     * @return
+     * This method will usually be overridden by "Filippo Bunelleschi" ability, in {@link NotToSpendForOccupiedTowerLeaderAbility}
+     * @return false
      */
     public boolean hasNotToSpendForOccupiedTower() {
         return false;
     }
+
+    /**
+     * This method will usually be overridden by "Sigismondo Malatesta" ability, in {@link BonusNeutralFMLeaderAbility}
+     * @return 0
+     */
+    public int getBonusNeutralFM(){
+        return 0;
+    }
+
 
     public abstract String getAbilityDescription();
 }

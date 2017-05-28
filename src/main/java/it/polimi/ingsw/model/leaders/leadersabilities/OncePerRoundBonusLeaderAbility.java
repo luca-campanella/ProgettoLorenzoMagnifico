@@ -16,8 +16,8 @@ public class OncePerRoundBonusLeaderAbility extends AbstractLeaderAbility {
     }
 
     /**
-     * this method will bew overridden by all Leaders having a once per round bonus which is a resource, if no leader overrides this method by default it returns null
-     * @return null
+     * Override of the method to return the correct value of this particular ability
+     * @return the array of bonuses
      */
     @Override
     public ArrayList<Resource> getOncePerRoundBonus() {
@@ -28,7 +28,7 @@ public class OncePerRoundBonusLeaderAbility extends AbstractLeaderAbility {
     public String getAbilityDescription() {
         String tmpDescipt = new String();
         for(Resource i : bonuses)
-            tmpDescipt += "Receive " + i.getValue() + " " + i.getResourceAbbreviation() + "\n";
+            tmpDescipt += "Receive " + i.getResourceAbbreviation() + "\n";
         return tmpDescipt;
     }
 

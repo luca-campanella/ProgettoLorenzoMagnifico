@@ -11,7 +11,7 @@ public class NotToSpendForOccupiedTowerLeaderAbility extends AbstractLeaderAbili
     }
 
     /**
-     * This method will usually be overridden by "Filippo Bunelleschi" ability
+     * Override of the method to return the correct value of this particular ability
      * @return true
      */
     public boolean hasNotToSpendForOccupiedTower() {
