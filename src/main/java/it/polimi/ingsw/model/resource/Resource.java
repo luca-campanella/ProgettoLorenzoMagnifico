@@ -1,26 +1,40 @@
 package it.polimi.ingsw.model.resource;
 
 /**
- * Created by higla on 16/05/2017.
+ * This class describe a particular resource and contains the resource type and its value
  */
 public class Resource{
-    private ResourceType type;
+    /**
+     * the type of the resource
+     */
+    private ResourceTypeEnum type;
+
+    /**
+     * the amount
+     */
     private int value;
 
-    public Resource(ResourceType typeOfResource, int valueOfResource){
+    public Resource(ResourceTypeEnum typeOfResource, int valueOfResource){
         this.type = typeOfResource;
         this.value = valueOfResource;
     }
-    public String getResourceAbbreviation()
+
+    public String getResourceShortDescript()
     {
         return type.getAbbreviation() + " " + value + " ";
     }
 
-    public ResourceType getType() {
+    public String getResourceFullDescript() {
+        if(value > 1 || value < 1)
+             return value + " " + type.getFullName() + "s";
+        return value + " " + type.getFullName();
+    }
+
+    public ResourceTypeEnum getType() {
         return type;
     }
 
-    public void setType(ResourceType type) {
+    public void setType(ResourceTypeEnum type) {
         this.type = type;
     }
 

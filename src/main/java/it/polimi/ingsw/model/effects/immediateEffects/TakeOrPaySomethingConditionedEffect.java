@@ -30,7 +30,7 @@ public class TakeOrPaySomethingConditionedEffect extends TakeOrPaySomethingEffec
     }
 
     public String descriptionShortOfEffect(){
-        return "+"+super.resource.getResourceAbbreviation()+"-"+this.condition.getResourceAbbreviation();
+        return "+"+super.resource.getResourceShortDescript()+"-"+this.condition.getResourceShortDescript();
     }
 
 }

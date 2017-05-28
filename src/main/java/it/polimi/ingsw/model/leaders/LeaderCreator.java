@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 import it.polimi.ingsw.model.leaders.requirements.CardRequirement;
 import it.polimi.ingsw.model.leaders.requirements.ResourceRequirement;
 import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.model.resource.ResourceType;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 import it.polimi.ingsw.utils.Debug;
 
@@ -34,26 +34,26 @@ public class LeaderCreator {
                 "[...] sparuto de la persona [...], ma di ingegno tanto elevato che ben si può dire che e’" +
                         "ci fu donato dal cielo per dar nuova forma alla architettura.", new NotToSpendForOccupiedTowerLeaderAbility()));
 
-        leaders.add(new LeaderCard(createTwoReqArray(new ResourceRequirement(new Resource(ResourceType.MILITARY_POINT, 7)),
-                new ResourceRequirement(new Resource(ResourceType.FAITH_POINT,3))),
+        leaders.add(new LeaderCard(createTwoReqArray(new ResourceRequirement(new Resource(ResourceTypeEnum.MILITARY_POINT, 7)),
+                new ResourceRequirement(new Resource(ResourceTypeEnum.FAITH_POINT,3))),
                 "Sigismondo Malatesta",
                 "Era a campo la maistà del re de Ragona. [...] el fé levare de campo cum la soe gente e" +
         "cum lo altre di fiorentini, cum gram danno e poco onore del re.", new BonusNeutralFMLeaderAbility(3)));
 
-        leaders.add(new LeaderCard(createOneReqArray(new ResourceRequirement(new Resource(ResourceType.STONE, 10))),
+        leaders.add(new LeaderCard(createOneReqArray(new ResourceRequirement(new Resource(ResourceTypeEnum.STONE, 10))),
                 "Girolamo Savonarola",
                 "Dai quali tutti Michelagnolo molto era accarezzato, et acceso al honorato suo studio, ma sopra" +
                         " tutti dal Magni co, il quale spesse volte il giorno lo faceva chiamare monstrandogli sue gioie [...].",
-                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(new Resource(ResourceType.COIN, 3)))));
+                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(new Resource(ResourceTypeEnum.COIN, 3)))));
 
-        leaders.add(new LeaderCard(createOneReqArray(new ResourceRequirement(new Resource(ResourceType.MILITARY_POINT, 12))),
+        leaders.add(new LeaderCard(createOneReqArray(new ResourceRequirement(new Resource(ResourceTypeEnum.MILITARY_POINT, 12))),
                 "Giovanni dalle Bande Nere",
                 "Egli apprezzava più gli huomini prodi che le ricchezze le quai desiderava per donar a " +
                         "loro.",
                 new OncePerRoundBonusLeaderAbility(createThreeResourceBonusArray(
-                        new Resource(ResourceType.WOOD, 1),
-                        new Resource(ResourceType.STONE, 1),
-                        new Resource(ResourceType.COIN, 1)))));
+                        new Resource(ResourceTypeEnum.WOOD, 1),
+                        new Resource(ResourceTypeEnum.STONE, 1),
+                        new Resource(ResourceTypeEnum.COIN, 1)))));
 
         leaders.add(new LeaderCard(createTwoReqArray(new CardRequirement(4, CardColorEnum.BLUE), new CardRequirement(2, CardColorEnum.GREEN)),
                 "Leonardo Da Vinci",
@@ -61,13 +61,13 @@ public class LeaderCreator {
                         "il cientro desso mondo.",
                 new OncePerRoundProductionLeaderAbility(0)));
 
-        leaders.add(new LeaderCard(createOneReqArray(new ResourceRequirement(new Resource(ResourceType.WOOD, 10))),
+        leaders.add(new LeaderCard(createOneReqArray(new ResourceRequirement(new Resource(ResourceTypeEnum.WOOD, 10))),
                 "Sandro Botticelli",
                 "[...] ancora che agevolmente apprendesse tutto quello che e’ voleva, era nientedimanco " +
                         "inquieto sempre, né si contentava di scuola alcuna [...].",
                 new OncePerRoundBonusLeaderAbility(createTwoResourceBonusArray(
-                        new Resource(ResourceType.MILITARY_POINT, 2),
-                        new Resource(ResourceType.VICTORY_POINT, 1)))));
+                        new Resource(ResourceTypeEnum.MILITARY_POINT, 2),
+                        new Resource(ResourceTypeEnum.VICTORY_POINT, 1)))));
 
 
 

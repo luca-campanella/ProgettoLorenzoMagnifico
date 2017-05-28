@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.controller;
 
-import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.controller.network.socket.protocol.FunctionResponse;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.BuildAS;
@@ -11,7 +10,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.controller.BoardConfigurator;
 import it.polimi.ingsw.controller.Room;
-import it.polimi.ingsw.model.resource.ResourceType;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -142,7 +141,7 @@ public class GameController {
 
         //control on the input, if the player reall has that resources
         if(!familyMember.getPlayer().getFamilyMembers().contains(familyMember)
-                || familyMember.getPlayer().getResource(ResourceType.SERVANT)<servant)
+                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return;//TODO cheating or refresh board
         HarvestAS harvestPlace = gameBoard.getHarvest();
@@ -173,7 +172,7 @@ public class GameController {
 
         //control on the input, if the player reall has that resources
         if(!familyMember.getPlayer().getFamilyMembers().contains(familyMember)
-                || familyMember.getPlayer().getResource(ResourceType.SERVANT)<servant)
+                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return;//TODO cheating or refresh board
         BuildAS buildPlace = gameBoard.getBuild();

@@ -1,9 +1,7 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
-import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.utils.Debug;
 
 /**
  * Created by higla on 16/05/2017.
@@ -25,9 +23,9 @@ public class TakeOrPaySomethingEffect implements ImmediateEffectInterface {
     }
 
     public String descriptionOfEffect(){
-        return "This method gives to the player " + resource.getResourceAbbreviation();
+        return "This method gives to the player " + resource.getResourceShortDescript();
     }
     public String descriptionShortOfEffect(){
-        return resource.getResourceAbbreviation();
+        return resource.getResourceShortDescript();
     }
 }

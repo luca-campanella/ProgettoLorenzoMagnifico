@@ -27,9 +27,9 @@ public class TakeOrPaySomethingConditionedOnCardEffect extends TakeOrPaySomethin
             i += numberOfCards;
     }
     public String descriptionOfEffect(){
-        return "This method gives to the player a dice that he can use and place somewher" + resource.getResourceAbbreviation();
+        return "This method gives to the player a dice that he can use and place somewher" + resource.getResourceShortDescript();
     }
     public String descriptionShortOfEffect(){
-        return resource.getResourceAbbreviation() + " " + numberOfCards;
+        return resource.getResourceShortDescript() + " " + numberOfCards;
     }
 }

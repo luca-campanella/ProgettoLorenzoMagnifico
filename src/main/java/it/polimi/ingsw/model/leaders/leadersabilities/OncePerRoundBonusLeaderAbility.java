@@ -28,7 +28,7 @@ public class OncePerRoundBonusLeaderAbility extends AbstractLeaderAbility {
     public String getAbilityDescription() {
         String tmpDescipt = new String();
         for(Resource i : bonuses)
-            tmpDescipt += "Receive " + i.getResourceAbbreviation() + "\n";
+            tmpDescipt += "Receive " + i.getResourceFullDescript() + "\n";
         return tmpDescipt;
     }
 

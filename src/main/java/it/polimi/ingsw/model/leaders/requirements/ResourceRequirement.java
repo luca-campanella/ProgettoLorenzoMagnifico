@@ -19,6 +19,6 @@ public class ResourceRequirement extends AbstractRequirement {
 
     @Override
     public String getDescription() {
-        return resReq.getResourceAbbreviation();
+        return resReq.getResourceFullDescript();
     }
 }

@@ -37,6 +37,6 @@ public class CardRequirement extends AbstractRequirement {
 
     @Override
     public String getDescription() {
-        return numReq + " " + reqCardColor + " cards";
+        return numReq + " " + reqCardColor.getFullDescription() + "s";
     }
 }

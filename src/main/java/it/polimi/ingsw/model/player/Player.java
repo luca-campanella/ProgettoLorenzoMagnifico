@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.player;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.model.resource.ResourceType;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public abstract class Player {
 
     private PersonalBoard personalBoard;
 
-    private HashMap<ResourceType, Integer> resource;
+    private HashMap<ResourceTypeEnum, Integer> resource;
 
     private ArrayList<FamilyMember> familyMembers;
 
@@ -58,13 +58,13 @@ public abstract class Player {
      * you load all the resources needed by the player
      */
     private void loadResource(){
-        resource.put(ResourceType.COIN, 0);
-        resource.put(ResourceType.WOOD, 0);
-        resource.put(ResourceType.STONE, 0);
-        resource.put(ResourceType.SERVANT, 0);
-        resource.put(ResourceType.FAITH_POINT, 0);
-        resource.put(ResourceType.MILITARY_POINT, 0);
-        resource.put(ResourceType.VICTORY_POINT, 0);
+        resource.put(ResourceTypeEnum.COIN, 0);
+        resource.put(ResourceTypeEnum.WOOD, 0);
+        resource.put(ResourceTypeEnum.STONE, 0);
+        resource.put(ResourceTypeEnum.SERVANT, 0);
+        resource.put(ResourceTypeEnum.FAITH_POINT, 0);
+        resource.put(ResourceTypeEnum.MILITARY_POINT, 0);
+        resource.put(ResourceTypeEnum.VICTORY_POINT, 0);
     }
 
     public void addResource(Resource resource){
@@ -84,7 +84,7 @@ public abstract class Player {
         excommunicationCard.add(card);
     }*/
 
-    public int getResource(ResourceType type){
+    public int getResource(ResourceTypeEnum type){
 
         return resource.get(type);
 

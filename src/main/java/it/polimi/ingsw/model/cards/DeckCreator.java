@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.effects.immediateEffects.*;
 import it.polimi.ingsw.model.effects.permanentEffects.*;
 import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.model.resource.ResourceType;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.testingGSON.boardLoader.BoardCreator;
 import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 import it.polimi.ingsw.utils.Debug;
@@ -143,13 +143,13 @@ public class DeckCreator{
         return buildingCard;
     }
     private static TakeOrPaySomethingEffect getTakeOrPaySomethingEffect(int value){
-        Resource resource = new Resource(ResourceType.COIN, value);
+        Resource resource = new Resource(ResourceTypeEnum.COIN, value);
         TakeOrPaySomethingEffect effect = new TakeOrPaySomethingEffect(resource);
         return effect;
     }
     private static ArrayList<Resource> getListOfResources()
     {
-        Resource resource = new Resource(ResourceType.STONE, 2);
+        Resource resource = new Resource(ResourceTypeEnum.STONE, 2);
         ArrayList<Resource> resources = new ArrayList<Resource>();
         resources.add(resource);
         resources.add(resource);
@@ -157,7 +157,7 @@ public class DeckCreator{
     }
     private static Resource getResource()
     {
-        Resource resource = new Resource(ResourceType.SERVANT, 2);
+        Resource resource = new Resource(ResourceTypeEnum.SERVANT, 2);
         return resource;
     }
     private static ArrayList<ImmediateEffectInterface> getImmediateEffect(){
@@ -179,7 +179,7 @@ public class DeckCreator{
         return temp;
     }
     private static ArrayList<AbstractPermanentEffect> getPermanentEffect(){
-        Resource resource = new Resource(ResourceType.COIN, 1);
+        Resource resource = new Resource(ResourceTypeEnum.COIN, 1);
         CardColorEnum colorEnum = CardColorEnum.GREEN;
         AbstractPermanentEffect effect = new BonusOnBuildEffect(2);
         AbstractPermanentEffect effect2 = new BonusOnHarvestEffect(2);
