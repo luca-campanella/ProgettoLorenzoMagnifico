@@ -193,7 +193,10 @@ public class GameController {
 
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
 
-        //gameboard.placeOnMarket(familyMember, marketSpaceIndex);
+        if(!familyMember.getPlayer().getFamilyMembers().contains(familyMember)
+                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<familyMember.getValue())
+            //this means that the player doesn't has the resources that claimed to have, this is cheating
+            return;//TODO cheating or refresh board
     }
 
     public void discardCardLeader(Player player, int cardIndex){
