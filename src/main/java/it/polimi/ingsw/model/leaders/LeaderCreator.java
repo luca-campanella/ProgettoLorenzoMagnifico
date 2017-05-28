@@ -69,6 +69,27 @@ public class LeaderCreator {
                         new Resource(ResourceTypeEnum.MILITARY_POINT, 2),
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 1)))));
 
+        leaders.add(new LeaderCard(createFourReqArray(
+                new CardRequirement(2, CardColorEnum.GREEN),
+                new CardRequirement(2, CardColorEnum.YELLOW),
+                new CardRequirement(2, CardColorEnum.BLUE),
+                new CardRequirement(2, CardColorEnum.PURPLE)),
+                "Ludovico il Moro",
+                "Ludovicum Sfortiam Mediolanensium principem, cui Moro cognomen fuit, nequaquam a suscedine oris, quod esset aequo pallidior ita vocatum ferunt, quod pro insigni gestabat Mori arboris.",
+                new FixedFamilyMembersValueLeaderAbility(5)));
+
+        leaders.add(new LeaderCard(createOneReqArray(
+                new CardRequirement(6, CardColorEnum.YELLOW)),
+                "Lucrezia Borgia",
+                "Donna Lucretia, benché avvezza homai a mutar mariti secondo il capriccio et interesse dei suoi, [...] si trattenne  n che il tempo unico medico di queste passioni le fece volger l’animo a più soavi pensieri.",
+                new BonusColoredFamilyMembersLeaderAbility(2)));
+
+        leaders.add(new LeaderCard(createOneReqArray(
+                new CardRequirement(5, CardColorEnum.GREEN)),
+                "Federico da Montefeltro",
+            "[...] la gloriosa memoria del Duca Federico, il quale a dì suoi fu lume della Italia. Né quivi [Urbino] cosa alcuna volse, se non rarissima et eccellente.",
+                new BonusOneColoredFamilyMemberLeaderAbility(6)));
+
 
 
         return leaders;
@@ -85,6 +106,17 @@ public class LeaderCreator {
         ArrayList<AbstractRequirement> reqs = new ArrayList<AbstractRequirement>(2);
         reqs.add(req1);
         reqs.add(req2);
+
+        return reqs;
+    }
+
+
+    private static ArrayList<AbstractRequirement> createFourReqArray(AbstractRequirement req1, AbstractRequirement req2, AbstractRequirement req3, AbstractRequirement req4) {
+        ArrayList<AbstractRequirement> reqs = new ArrayList<AbstractRequirement>(2);
+        reqs.add(req1);
+        reqs.add(req2);
+        reqs.add(req3);
+        reqs.add(req4);
 
         return reqs;
     }
@@ -128,6 +160,10 @@ public class LeaderCreator {
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundBonusLeaderAbility.class, "OncePerRoundBonusLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(BonusNeutralFMLeaderAbility.class, "BonusNeutralFMLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundProductionLeaderAbility.class, "OncePerRoundProductionLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(FixedFamilyMembersValueLeaderAbility.class, "FixedFamilyMembersValueLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(BonusColoredFamilyMembersLeaderAbility.class, "BonusColoredFamilyMembersLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(BonusOneColoredFamilyMemberLeaderAbility.class, "BonusOneColoredFamilyMemberLeaderAbility");
+
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeAdapterFactoryReq).registerTypeAdapterFactory(runtimeAdapterFactoryAbility).create();
 
