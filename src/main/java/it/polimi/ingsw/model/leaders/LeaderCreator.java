@@ -30,7 +30,7 @@ public class LeaderCreator {
         ArrayList<AbstractRequirement> req1 = new ArrayList<AbstractRequirement>(1);
         req1.add( new CardRequirement(5, CardColorEnum.BLUE));
 
-        leaders.add(new LeaderCard(req1, "Ludovico Ariosto", "Io desidero intendere da voi Alessandro fratel, compar mio Bagno, S’in la Cort’è memoria\n" +
+        leaders.add(new LeaderCard(req1, "Ludovico Ariosto", "Io desidero intendere da voi Alessandro fratel, compar mio Bagno, S’in la Cort’è memoria " +
                 "più di noi; Se più il Signor m’accusa; se compagno Per me si lieva.", new CanPlaceFMInOccupiedASLeaderAbility()));
 
         return leaders;
@@ -60,6 +60,7 @@ public class LeaderCreator {
 
         System.out.println(leadersFormJson.toString());
 
+        //Prints the description of all leader fields with functional java
         leadersFormJson.getLeaders().forEach(leader -> System.out.println("**" + leader.getName() + "**" + "\n"
                 + leader.getDescription() + "\n"
                 + "Requirement: " + leader.getRequirements().stream().map(req -> req.getDescription()).collect(Collectors.joining()) + "\n"
