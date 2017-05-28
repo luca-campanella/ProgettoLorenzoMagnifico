@@ -7,7 +7,7 @@ package it.polimi.ingsw.model.leaders.leadersabilities;
 public class NotToSpendForOccupiedTowerLeaderAbility extends AbstractLeaderAbility {
 
     public NotToSpendForOccupiedTowerLeaderAbility() {
-        super("You don’t have to spend 3 coins when you place your Family Members in a Tower that is already occupied.");
+        super();
     }
 
     /**
@@ -16,5 +16,10 @@ public class NotToSpendForOccupiedTowerLeaderAbility extends AbstractLeaderAbili
      */
     public boolean hasNotToSpendForOccupiedTower() {
         return true;
+    }
+
+    @Override
+    public String getAbilityDescription() {
+        return "You don’t have to spend 3 coins when you place your Family Members in a Tower that is already occupied.";
     }
 }

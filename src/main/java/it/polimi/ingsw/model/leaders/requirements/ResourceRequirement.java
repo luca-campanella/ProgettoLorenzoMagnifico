@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.leaders.requirements;
 
-import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 import it.polimi.ingsw.model.resource.Resource;
 
 /**
@@ -16,5 +15,10 @@ public class ResourceRequirement extends AbstractRequirement {
 
     public Resource getResReq() {
         return resReq;
+    }
+
+    @Override
+    public String getDescription() {
+        return resReq.getValue() + " " + resReq.getResourceAbbreviation();
     }
 }

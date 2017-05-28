@@ -11,7 +11,7 @@ public class OncePerRoundHarvestLeaderAbility extends AbstractLeaderAbility {
     private int diceValue = 0;
 
     public OncePerRoundHarvestLeaderAbility(int diceValue) {
-        super("Perform a Harvest action at value " + diceValue + ". (You can increase this action value only by spending servants; you can’t increase it with Farmer or Peasant Development Cards.)");
+        super();
         this.diceValue = diceValue;
     }
 
@@ -22,6 +22,11 @@ public class OncePerRoundHarvestLeaderAbility extends AbstractLeaderAbility {
     @Override
     public Optional<Integer> getOncePerRoundHarvestDiceValue() {
         return Optional.of(diceValue);
+    }
+
+    @Override
+    public String getAbilityDescription() {
+        return "Perform a Harvest action at value " + diceValue + ". (You can increase this action value only by spending servants; you can’t increase it with Farmer or Peasant Development Cards.)";
     }
 
     public int getDiceValue() {

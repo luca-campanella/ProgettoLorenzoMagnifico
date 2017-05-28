@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 /**
- * Created by campus on 27/05/2017.
+ * This class describes how a leader ability should be formed.
+ * Each single ability will override a particular method,
+ * in order to return the correct value for that ability and not the value corresponding to not having that ability
  */
-public class AbstractLeaderAbility {
+public abstract class AbstractLeaderAbility {
 
-    private transient String abilityDescription;
 
-    public AbstractLeaderAbility(String abilityDescription) {
-        this.abilityDescription = abilityDescription;
+    public AbstractLeaderAbility() {
+        super();
     }
 
     /**
@@ -48,11 +49,5 @@ public class AbstractLeaderAbility {
         return false;
     }
 
-    public String getAbilityDescription() {
-        return abilityDescription;
-    }
-
-    protected void setAbilityDescription(String abilityDescription) {
-        this.abilityDescription = abilityDescription;
-    }
+    public abstract String getAbilityDescription();
 }

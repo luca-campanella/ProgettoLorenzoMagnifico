@@ -11,11 +11,7 @@ public class OncePerRoundBonusLeaderAbility extends AbstractLeaderAbility {
     private ArrayList<Resource> bonuses;
 
     public OncePerRoundBonusLeaderAbility(ArrayList<Resource> bonuses) {
-        super(null);
-        String tmpDescipt = new String();
-        for(Resource i : bonuses)
-            tmpDescipt += "Receive " + i.getValue() + " " + i.getResourceAbbreviation() + "\n";
-        setAbilityDescription(tmpDescipt);
+        super();
         this.bonuses = bonuses;
     }
 
@@ -27,5 +23,14 @@ public class OncePerRoundBonusLeaderAbility extends AbstractLeaderAbility {
     public ArrayList<Resource> getOncePerRoundBonus() {
         return bonuses;
     }
+
+    @Override
+    public String getAbilityDescription() {
+        String tmpDescipt = new String();
+        for(Resource i : bonuses)
+            tmpDescipt += "Receive " + i.getValue() + " " + i.getResourceAbbreviation() + "\n";
+        return tmpDescipt;
+    }
+
 
 }

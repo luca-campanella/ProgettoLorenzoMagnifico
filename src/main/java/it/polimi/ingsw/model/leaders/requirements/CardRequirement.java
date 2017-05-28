@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.leaders.requirements;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 
 /**
  * This is a requirement for a leader, the player is required to have at least numReq cards of a certain type
@@ -34,5 +33,10 @@ public class CardRequirement extends AbstractRequirement {
 
     public CardColorEnum getReqCardColor() {
         return reqCardColor;
+    }
+
+    @Override
+    public String getDescription() {
+        return numReq + " " + reqCardColor + " cards";
     }
 }

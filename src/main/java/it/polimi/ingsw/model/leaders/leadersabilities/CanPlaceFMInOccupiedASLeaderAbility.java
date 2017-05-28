@@ -7,7 +7,7 @@ package it.polimi.ingsw.model.leaders.leadersabilities;
 public class CanPlaceFMInOccupiedASLeaderAbility extends AbstractLeaderAbility {
 
     public CanPlaceFMInOccupiedASLeaderAbility() {
-        super("You can place your Family Members in occupied action spaces.");
+        super();
     }
 
     /**
@@ -17,6 +17,11 @@ public class CanPlaceFMInOccupiedASLeaderAbility extends AbstractLeaderAbility {
     @Override
     public boolean canPlaceFamilyMemberInOccupiedActionSpace() {
         return true;
+    }
+
+    @Override
+    public String getAbilityDescription() {
+        return "You can place your Family Members in occupied action spaces.";
     }
 
 }
