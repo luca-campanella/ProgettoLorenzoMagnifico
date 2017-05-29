@@ -8,6 +8,8 @@ import java.util.ArrayList;
  * this class is the place where the player can place the family member to harvest
  */
 public class HarvestAS extends AbstractActionSpace{
+
+    private boolean twoPlayersOneSpace;
     //It's the minimum dice value of the family member
     private int valueStandard;
     //it's the malus that family member has if it isn't the first
@@ -32,6 +34,7 @@ public class HarvestAS extends AbstractActionSpace{
         familyMembers = new ArrayList<>(8);
         this.valueStandard = valueStandard;
         this.valueMalus = valueMalus;
+        this.twoPlayersOneSpace = false;
     }
 
     public void performAction(FamilyMember familyMember)
@@ -66,4 +69,12 @@ public class HarvestAS extends AbstractActionSpace{
     public void addFamilyMember(FamilyMember familyMember){
         familyMembers.add(familyMember);
     }
+    public boolean isTwoPlayersOneSpace() {
+        return twoPlayersOneSpace;
+    }
+
+    public void setTwoPlayersOneSpace(boolean twoPlayersOneSpace) {
+        this.twoPlayersOneSpace = twoPlayersOneSpace;
+    }
+
 }

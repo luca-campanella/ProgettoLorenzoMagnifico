@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.model.board.Board;
-
 import it.polimi.ingsw.model.effects.immediateEffects.GiveCouncilGiftEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
@@ -26,6 +25,7 @@ public class ControllerGame {
     public static void main(String[] args) throws Exception {
         ControllerGame controllerGame =  new ControllerGame(2);
         CliPrinter cli = new CliPrinter();
+        //todo: load cards, implement these on board;
         cli.printBoard(controllerGame.getBoardGame());
     }
 
@@ -34,9 +34,9 @@ public class ControllerGame {
     }
 
     /**
-         *
+         *This method creates a new board and modifies it considering the number of players
          * @param numberOfPlayers is passed from room to the constructor so that boardGame is correct.
-         * @throws Exception
+         * @throws Exception if file where Board configuration is
          */
     public ControllerGame(int numberOfPlayers) throws Exception {
         boardGame = boardCreator();
@@ -64,8 +64,8 @@ public class ControllerGame {
     }
     private Board boardTwoPlayers(Board board)
     {
-        //board.getBuild()
-        //TODO: modify build and harvest;
+        board.getHarvest().setTwoPlayersOneSpace(true);
+
         return board;
     }
     private Board boardCreator() throws Exception
@@ -86,5 +86,7 @@ public class ControllerGame {
             return board;
         }
     }
+
+
 }
 

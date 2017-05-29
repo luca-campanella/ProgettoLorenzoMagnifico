@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * Created by higla on 16/05/2017.
  */
 public class BuildAS extends AbstractActionSpace {
+    private boolean twoPlayersOneSpace;
     int valueStandard = 0;
     int valueMalus = 0;
     private boolean first = true;
@@ -23,6 +24,7 @@ public class BuildAS extends AbstractActionSpace {
         this.valueMalus = valueMalus;
         this.first = first;
         familyMembers = new ArrayList<>(8);
+        this.twoPlayersOneSpace = false;
     }
 
     /**
@@ -77,4 +79,13 @@ public class BuildAS extends AbstractActionSpace {
     public void addFamilyMember(FamilyMember familyMember){
         familyMembers.add(familyMember);
     }
+
+    public boolean isTwoPlayersOneSpace() {
+        return twoPlayersOneSpace;
+    }
+
+    public void setTwoPlayersOneSpace(boolean twoPlayersOneSpace) {
+        this.twoPlayersOneSpace = twoPlayersOneSpace;
+    }
 }
+
