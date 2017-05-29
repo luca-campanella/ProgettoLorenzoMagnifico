@@ -2,7 +2,6 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
