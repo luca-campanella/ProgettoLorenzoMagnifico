@@ -24,7 +24,7 @@ public class ControllerGame {
     Room room;
     Board boardGame;
     public static void main(String[] args) throws Exception {
-        ControllerGame controllerGame =  new ControllerGame(3);
+        ControllerGame controllerGame =  new ControllerGame(2);
         CliPrinter cli = new CliPrinter();
         cli.printBoard(controllerGame.getBoardGame());
     }
@@ -65,7 +65,7 @@ public class ControllerGame {
     private Board boardTwoPlayers(Board board)
     {
         //board.getBuild()
-        //TODO: modify vuild and harvest;
+        //TODO: modify build and harvest;
         return board;
     }
     private Board boardCreator() throws Exception
