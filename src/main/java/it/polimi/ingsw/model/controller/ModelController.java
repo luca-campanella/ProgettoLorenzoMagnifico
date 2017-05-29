@@ -1,13 +1,13 @@
 package it.polimi.ingsw.model.controller;
 
-import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.controller.network.socket.protocol.FunctionResponse;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.server.network.socket.protocol.FunctionResponse;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.controller.BoardConfigurator;
-import it.polimi.ingsw.controller.Room;
+//import it.polimi.ingsw.server.BoardConfigurator;
+import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
@@ -121,7 +121,7 @@ public class ModelController {
 
         if(round%2==0)
             //TODO METHOD to call the excommunication
-        round = round + 1;
+            round = round + 1;
     }
 
     public void prepareForNewPeriod(){
@@ -165,7 +165,7 @@ public class ModelController {
     private boolean findFamilyMember(Player player, ArrayList<FamilyMember> familyMembers){
         for(FamilyMember i : familyMembers){
             if(i.getPlayer() == player && i.getColor()!=DiceAndFamilyMemberColor.NEUTRAL)
-               return true;
+                return true;
         }
         return false;
     }
@@ -218,5 +218,3 @@ public class ModelController {
 
     }
 }
-
-
