@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.network.socket.packet.*;
 import it.polimi.ingsw.controller.network.socket.protocol.ReadClientPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
 
+import javax.lang.model.type.ErrorType;
 import java.io.*;
 import java.net.Socket;
 
@@ -114,6 +115,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
             setNickname(packet.getNickname());
             serverMainInst.makeJoinRoomLogin(this);
+            outStream.writeObject(LoginErrorEnum.NO_ERROR);
+            outStream.flush();
         }
 
         catch (LoginException e) {
