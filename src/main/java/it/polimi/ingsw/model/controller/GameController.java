@@ -31,7 +31,7 @@ public class GameController {
     /**
      * the players that play in this game
      */
-    private LinkedList<Player> players;
+    private ArrayList<Player> players;
 
     private ArrayList<Dice> dices;
 
@@ -41,17 +41,18 @@ public class GameController {
 
     private int period;
 
-    public GameController(int numberOfPlayers, Room room)
+    public GameController(ArrayList<Player> players, Room room)
     {
 
+        this.players.addAll(players);
         this.room = room;
         initializeGame = new HashMap<>(5);
-        dices = new ArrayList<>(3);
+        dices = new ArrayList<>(4);
         loadDices();
         loadInfoInitialization();
-        doMethod(numberOfPlayers);
-        round=0;
-        period=0;
+        doMethod(players.size());
+        round=1;
+        period=1;
         prepareForNewRound();
 
     }
@@ -103,7 +104,9 @@ public class GameController {
 
     private void gameFor2(){
 
-        //TODO method
+        for(Player i : players){
+            //i.load
+        }
 
     }
 
