@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model.controller;
 
 import it.polimi.ingsw.controller.network.socket.protocol.FunctionResponse;
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.BuildAS;
-import it.polimi.ingsw.model.board.Dice;
-import it.polimi.ingsw.model.board.HarvestAS;
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -193,10 +190,16 @@ public class GameController {
 
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
 
+        MarketAS marketPlace = gameBoard.getMarketSpaceByIndex(marketSpaceIndex);
         if(!familyMember.getPlayer().getFamilyMembers().contains(familyMember)
-                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<familyMember.getValue())
+                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<marketPlace.getValueStandard()-familyMember.getValue()
+                || marketPlace == null)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return;//TODO cheating or refresh board
+        if(marketPlace.getFamilyMember() != null)
+            // this means that the place on the market is not available
+            return;
+        marketPlace.performAction(familyMember);
     }
 
     public void discardCardLeader(Player player, int cardIndex){

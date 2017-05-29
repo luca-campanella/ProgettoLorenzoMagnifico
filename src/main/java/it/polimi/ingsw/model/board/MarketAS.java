@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 16/05/2017.
+ * this class is the place on the market where the player can place the family member
  */
 public class MarketAS extends AbstractActionSpace{
 
@@ -18,7 +18,7 @@ public class MarketAS extends AbstractActionSpace{
     //it's the list of family members on this place
     private FamilyMember familyMember;
 
-    public void placeFamilyMember(FamilyMember familyMember){
+    private void placeFamilyMember(FamilyMember familyMember){
         this.familyMember = familyMember;
         performAction(familyMember);
     }
@@ -42,6 +42,8 @@ public class MarketAS extends AbstractActionSpace{
     }
 
     public void performAction(FamilyMember familyMember){
+
+        placeFamilyMember(familyMember);
         //TODO
     }
 

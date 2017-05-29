@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 16/05/2017.
+ * this class is the place where the player can place the family member to harvest
  */
 public class HarvestAS extends AbstractActionSpace{
     //It's the minimum dice value of the family member

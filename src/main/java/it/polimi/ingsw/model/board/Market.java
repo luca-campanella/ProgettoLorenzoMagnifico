@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by higla on 16/05/2017.
+ * this class is the maarket board, the place where all the market place are
  */
 public class Market {
 
@@ -55,5 +55,8 @@ public class Market {
         loadMarket4();
     }
 
+    public MarketAS getMarket(int position){
+        return marketSpaces.get(position);
+    }
 
 }
