@@ -13,12 +13,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
- * This is the server of one game
+ * This is the controller of one game
  */
-public class ModelController {
+public class GameController {
 
     /**
-     * the room that this server manages
+     * the room that this controller manages
      */
     private Room room;
 
@@ -30,7 +30,7 @@ public class ModelController {
     /**
      * the players that play in this game
      */
-    private LinkedList<Player> players;
+    private ArrayList<Player> players;
 
     private ArrayList<Dice> dices;
 
@@ -43,14 +43,15 @@ public class ModelController {
     public ModelController(int numberOfPlayers, Room room)
     {
 
+        this.players.addAll(players);
         this.room = room;
         initializeGame = new HashMap<>(5);
-        dices = new ArrayList<>(3);
+        dices = new ArrayList<>(4);
         loadDices();
         loadInfoInitialization();
-        doMethod(numberOfPlayers);
-        round=0;
-        period=0;
+        doMethod(players.size());
+        round=1;
+        period=1;
         prepareForNewRound();
 
     }
@@ -121,6 +122,12 @@ public class ModelController {
     public void prepareForNewPeriod(){
 
         period = period + 1;
+    }
+
+    private void boardConfiguration(int numberOfPlayers)
+    {
+        BoardConfigurator boardConfigurator = new BoardConfigurator();
+        gameBoard = boardConfigurator.createBoard(numberOfPlayers);
     }
 
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
