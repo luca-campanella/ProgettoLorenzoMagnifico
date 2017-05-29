@@ -19,7 +19,7 @@ public class Room {
      */
     ArrayList<AbstractConnectionPlayer> players;
 
-    ModelController gameController;
+    ModelController modelController;
 
     /**
      * timeout that starts when the second player joins the room. When time is up game starts. Set by the constructor
@@ -91,7 +91,7 @@ public class Room {
     {
         Debug.printVerbose("Game on room started 12");
             isGameStarted = true;
-            gameController = new ModelController(players, this);
+            modelController = new ModelController(players, this);
     }
 
     /**
