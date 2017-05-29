@@ -15,7 +15,7 @@ import java.util.LinkedList;
 /**
  * This is the controller of one game
  */
-public class GameController {
+public class ModelController {
 
     /**
      * the room that this controller manages

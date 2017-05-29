@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.controller.ModelController;
+
 import it.polimi.ingsw.model.effects.immediateEffects.GiveCouncilGiftEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
@@ -20,7 +20,7 @@ import java.io.Reader;
  * Created by higla on 29/05/2017.
  */
 public class ControllerGame {
-    ModelController game;
+    ControllerGame game;
     Room room;
     Board boardGame;
     public static void main(String[] args) throws Exception {
