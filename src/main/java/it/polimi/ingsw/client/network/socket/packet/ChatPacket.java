@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.network.socket.packet;
 
 /**
- * this packet is used to deliver the message to the controller
+ * this packet is used to deliver the message to the server
  */
 public class ChatPacket {
     private String message;

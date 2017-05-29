@@ -298,7 +298,7 @@ public class CliPrinter {
     {
         int i;
         System.out.println("This is the market: ");
-        for(i=0; i< board.getMarket().length; i++)
+        for(i=0; i< board.getMarket().size(); i++)
         {
             MarketAS market = board.getMarketSpaceByIndex(i);
             System.out.print("|" + i + "| *" + market.getDiceValue() + "* " + market.getEffectShortDescription() + " ");
@@ -309,7 +309,7 @@ public class CliPrinter {
     {
         int i;
         System.out.println("This is the market: ");
-        for(i=0; i< board.getMarket().length; i++)
+        for(i=0; i< board.getMarket().size(); i++)
         {
             MarketAS market = board.getMarketSpaceByIndex(i);
             System.out.println("Space " + i + " Dice " + market.getDiceValue() + " " + market.getEffectDescription());

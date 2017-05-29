@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.exceptions;
 import java.io.IOException;
 
 /**
- * Exception class to handle communication errors between controller and client
+ * Exception class to handle communication errors between server and client
  * @extends IOException
  */
 public class NetworkException extends IOException {

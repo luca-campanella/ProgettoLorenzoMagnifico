@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.player.FamilyMember;
 
+import java.util.ArrayList;
+
 /**
  * Created by higla on 16/05/2017.
  */
@@ -10,14 +12,14 @@ public class Board {
     private int NUMBER_OF_MARKETS;
     private int NUMBER_OF_FLOORS;
     private Tower[] towers = new Tower[NUMBER_OF_TOWERS];
-    private MarketAS[] market = new MarketAS[NUMBER_OF_MARKETS];
+    private ArrayList<MarketAS> market = new ArrayList<MarketAS>();
     private BuildAS build = new BuildAS();
     private HarvestAS harvest = new HarvestAS();
     private CouncilAS council;
     private VaticanReport vaticanReport = new VaticanReport();
 
 
-    public void createNewBoard(Tower[] towers, MarketAS[] market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport) {
+    public void createNewBoard(Tower[] towers, ArrayList<MarketAS> market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport) {
         this.towers = towers;
         this.market = market;
         this.build = build;
@@ -64,16 +66,16 @@ public class Board {
         return tower.getTowerColor();
     }
 
-    public MarketAS[] getMarket() {
+    public ArrayList<MarketAS> getMarket() {
         return market;
     }
 
-    public void setMarket(MarketAS[] market) {
+/*    public void setMarket(MarketAS[] market) {
         this.market = market;
-    }
+    }*/
 
     public MarketAS getMarketSpaceByIndex(int index) {
-        return market[index];
+        return market.get(index);
     }
 
     public BuildAS getBuild() {

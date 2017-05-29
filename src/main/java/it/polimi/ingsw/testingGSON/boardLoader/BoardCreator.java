@@ -23,11 +23,8 @@ public class BoardCreator {
     public static void main(String[] args) throws Exception {
         Debug.instance(Debug.LEVEL_VERBOSE);
         GsonBuilder gsonBuilder = new GsonBuilder();
-        /*gsonBuilder.registerTypeAdapter(TowerFloorAS.class, new TowerFloorDeserializer());
-        gsonBuilder.registerTypeAdapter(MarketAS.class, new MarketASDeserializer());
-        gsonBuilder.registerTypeAdapter(CouncilAS.class, new CouncilDeserializer());
 
-        Gson gson = gsonBuilder.create();*/
+        //Gson gson = gsonBuilder.create();
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
@@ -117,7 +114,7 @@ public class BoardCreator {
 
         VaticanReport vaticanReport = new VaticanReport(new int[VaticanReport.NUMBER_OF_AGES], new int[VaticanReport.WALK_OF_FAITH]);
 
-        boardTest.createNewBoard(towerstest, marketASArray, buildAS, harvestAS, councilAS, vaticanReport);
+        //boardTest.createNewBoard(towerstest, marketASArray, buildAS, harvestAS, councilAS, vaticanReport);
 
         return boardTest;
     }

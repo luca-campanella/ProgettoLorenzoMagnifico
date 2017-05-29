@@ -13,25 +13,25 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- * SocketClient is the class of client that communicates to the controller using the socket
+ * SocketClient is the class of client that communicates to the server using the socket
  */
 public class SocketClient extends AbstractClientType {
     /**
-     *socket connected to the controller
+     *socket connected to the server
      */
     private Socket socketClient;
     /**
-     * Information getted from the controller
+     * Information getted from the server
      */
     private ObjectInputStream inStream;
     /**
-     * Informations delivered to the controller
+     * Informations delivered to the server
      */
     private ObjectOutputStream outStream;
     private RegisterErrorEnum response;
 
     /**
-     * the protocol used to read packet sedf by the controller
+     * the protocol used to read packet sedf by the server
      */
     private ReadServerPacketProtocol readPacket;
 
@@ -100,8 +100,8 @@ public class SocketClient extends AbstractClientType {
     /**
      * this method is used when the user has never played and wants to create an account
      *
-     * @param nickname to register in the controller DB
-     * @param password to register in the controller DB
+     * @param nickname to register in the server DB
+     * @param password to register in the server DB
      * @throws NetworkException if something goes wrong during the connection
      */
     @Override

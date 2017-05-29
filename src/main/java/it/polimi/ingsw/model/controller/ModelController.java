@@ -17,7 +17,7 @@ import java.util.LinkedList;
 /**
  * This is the controller of one game
  */
-public class GameController {
+public class ModelController {
 
     /**
      * the room that this controller manages
@@ -42,7 +42,7 @@ public class GameController {
 
     private int period;
 
-    public GameController(ArrayList<AbstractConnectionPlayer> players, Room room)
+    public ModelController(ArrayList<AbstractConnectionPlayer> players, Room room)
     {
 
         this.players = new ArrayList<>(5);

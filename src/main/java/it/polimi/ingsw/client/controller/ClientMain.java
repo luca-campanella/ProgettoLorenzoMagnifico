@@ -71,8 +71,6 @@ public class ClientMain {
         Debug.printDebug("Sono nel ClientMain.callbackLogin.");
         try {
             clientNetwork.loginPlayer(userID, userPW);
-            Debug.printDebug("Sono dopo clientNetwork.");
-
         } catch (NetworkException e) {
             //TODO handle network problems
             e.printStackTrace();
@@ -101,7 +99,6 @@ public class ClientMain {
 
         }
         Debug.printVerbose("Sto per chiamare askChatMsg");
-        Debug.printDebug("hellooo");
         userInterface.askChatMsg(); //TODO this is a method just for testing chat
     }
     public void callbackLoginAsGuest(){
@@ -122,6 +119,7 @@ public class ClientMain {
             userInterface.printError("The username you inserted is already in use, please insert a new one");
             userInterface.askLoginOrCreate();
         }
+        userInterface.askLoginOrCreate();
     }
     public void callbackPlayLeader(){
         Debug.printDebug("Sono nel ClientMain.callbackPlayLeader");
@@ -137,8 +135,8 @@ public class ClientMain {
     public void callbackFamilyMemberSelected(String color)
     {
         Debug.printDebug("Sono nel ClientMain.callbackFamilyMember");
-        //chiamo il controller e gli dico che voglio usare quel family member.
-        //il controller mi dice quali azioni posso fare
+        //chiamo il server e gli dico che voglio usare quel family member.
+        //il server mi dice quali azioni posso fare
         //chiamerò quindi il mio abstract UIType con un qualcosa riguardante...
         userInterface.printAllowedActions();
     }
@@ -158,7 +156,7 @@ public class ClientMain {
 
 
     /**
-     * this is the call back method to send a message to all other players in the room (Direction: {@link AbstractUIType} -> {@link ClientMain}; general direction: Client -> controller)
+     * this is the call back method to send a message to all other players in the room (Direction: {@link AbstractUIType} -> {@link ClientMain}; general direction: Client -> server)
      * @param msg
      * @throws NetworkException
      */
