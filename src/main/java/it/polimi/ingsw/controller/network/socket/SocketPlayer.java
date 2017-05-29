@@ -94,6 +94,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             serverMainInst.registerPlayer(packet.getNickname(), packet.getPassword());
             setNickname(packet.getNickname());
             serverMainInst.makeJoinRoomLogin(this);
+            outStream.writeObject(LoginErrorEnum.NO_ERROR);
+            outStream.flush();
         }
         catch (UsernameAlreadyInUseException e) {
             try {
