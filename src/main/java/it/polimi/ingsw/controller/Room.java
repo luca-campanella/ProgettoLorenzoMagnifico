@@ -75,8 +75,8 @@ public class Room {
         else if(currNOfPlayers == 2) //TODO good idea to load this from file
         {
             Debug.printVerbose("2 players reached ");
-            new Timer().schedule(new TimerTask() {
-
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     Debug.printVerbose("Timeout reached, starting new game");
@@ -89,7 +89,7 @@ public class Room {
 
     private void startGame()
     {
-        Debug.printVerbose("Game on room started");
+        Debug.printVerbose("Game on room started 12");
             isGameStarted = true;
             gameController = new GameController(currNOfPlayers, this);
     }

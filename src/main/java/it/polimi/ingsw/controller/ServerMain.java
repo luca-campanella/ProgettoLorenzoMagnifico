@@ -117,10 +117,11 @@ public class ServerMain {
 	public void makeJoinRoomLogin(AbstractConnectionPlayer player) throws LoginException
 	{
 		if(room.isGameStarted()) {
-			room = new Room(4, 10);
+			room = new Room(4, 3000);
 			Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
 		}
-		else if(room.canJoin(player)) //it's woth checking if the layer can join only if we haven't just created a new room. If we just created the room there is no way the player is already inside
+		else if(room.canJoin(player))
+			//it's woth checking if the layer can join only if we haven't just created a new room. If we just created the room there is no way the player is already inside
 			if(!room.canJoin(player))
 				throw new LoginException(LoginErrorEnum.ALREADY_LOGGED_TO_ROOM);
 		room.addNewPlayer(player);
@@ -147,7 +148,7 @@ public class ServerMain {
 	public void makeJoinRoomRegister(AbstractConnectionPlayer player)
 	{
 		if(room.isGameStarted()) {
-			room = new Room(4, 3000);
+			room = new Room(4, 10000);
 			Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
 		}
 		room.addNewPlayer(player);
