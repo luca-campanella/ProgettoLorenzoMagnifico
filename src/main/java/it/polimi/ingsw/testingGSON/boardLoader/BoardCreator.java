@@ -66,7 +66,7 @@ public class BoardCreator {
 
         for(int i = 0; i < 4; i++)
         {
-            tfas = new TowerFloorAS();
+            //tfas = new TowerFloorAS();
             //tfas.addEffect(new NoEffect());
             tfas.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceTypeEnum.COIN, 10)));
             //tfas.addEffect(new TakeOrPaySomethingEffect(new Resource(ResourceTypeEnum.WOOD, 4)));

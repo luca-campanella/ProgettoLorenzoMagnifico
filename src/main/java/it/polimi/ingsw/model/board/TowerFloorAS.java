@@ -18,9 +18,9 @@ public class TowerFloorAS extends AbstractActionSpace {
 
     private FamilyMember familyMember;
 
-    public TowerFloorAS(int diceCost, ImmediateEffectInterface effect){
-        this.diceCost = diceCost;
-        this.effect = effect;
+    public TowerFloorAS(/*int diceCost, ImmediateEffectInterface effect*/){
+        /*this.diceCost = diceCost;
+        this.effect = effect;*/
     }
 
     public void placeCard(AbstractCard card){
