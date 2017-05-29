@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.controller;
 
+import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.controller.network.socket.protocol.FunctionResponse;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
@@ -41,9 +42,10 @@ public class GameController {
 
     private int period;
 
-    public GameController(ArrayList<Player> players, Room room)
+    public GameController(ArrayList<AbstractConnectionPlayer> players, Room room)
     {
 
+        this.players = new ArrayList<>(5);
         this.players.addAll(players);
         this.room = room;
         initializeGame = new HashMap<>(5);
@@ -105,7 +107,7 @@ public class GameController {
     private void gameFor2(){
 
         for(Player i : players){
-            //i.load
+            i.setFamilyMembers(dices);
         }
 
     }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -99,10 +100,10 @@ public abstract class Player {
         this.nickname = nickname;
     }
 
-    public void setFamilyMembers(ArrayList<FamilyMember> familyMembers){
+    public void setFamilyMembers(ArrayList<Dice> dice){
 
-        for(FamilyMember i : familyMembers)
-            this.familyMembers.add(i);
+        for(Dice i : dice)
+            this.familyMembers.add(new FamilyMember(i,this));
 
     }
 

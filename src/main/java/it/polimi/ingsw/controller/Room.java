@@ -91,7 +91,7 @@ public class Room {
     {
         Debug.printVerbose("Game on room started 12");
             isGameStarted = true;
-            gameController = new GameController(currNOfPlayers, this);
+            gameController = new GameController(players, this);
     }
 
     /**
