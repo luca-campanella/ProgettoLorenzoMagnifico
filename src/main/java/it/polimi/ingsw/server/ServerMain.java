@@ -1,8 +1,8 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.controller.network.rmi.RMIServer;
-import it.polimi.ingsw.controller.network.socket.SocketServer;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.server.network.rmi.RMIServer;
+import it.polimi.ingsw.server.network.socket.SocketServer;
 import it.polimi.ingsw.client.exceptions.LoginErrorEnum;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.ServerException;
@@ -12,7 +12,7 @@ import it.polimi.ingsw.utils.Debug;
 import java.sql.SQLException;
 
 /**
- * controller is the main class of the controller side of the application. On startup the controller creates two objects: RMIServer and SocketServer passing them the reference to himself in order to let them call himself.
+ * server is the main class of the server side of the application. On startup the server creates two objects: RMIServer and SocketServer passing them the reference to himself in order to let them call himself.
  */
 public class ServerMain {
 	
@@ -31,12 +31,12 @@ public class ServerMain {
 	private static final int MAX_N_OF_PLAYERS = 4;
 
 	/**
-	 * RMIServer instance, used to create the real rmi controller that publishes an object
+	 * RMIServer instance, used to create the real rmi server that publishes an object
 	 */
 	RMIServer RMIServerInst;
 
 	/**
-	 * SocketServer instance, used to create the real socket controller that opens a socket and listens for connections
+	 * SocketServer instance, used to create the real socket server that opens a socket and listens for connections
 	 */
 	SocketServer SocketServerInst;
 
@@ -103,7 +103,7 @@ public class ServerMain {
 
 	/**
 	 * this method is called by the AbstractServerType (either rmi or socket) to register a player in the DB
-	 * @param nickname to register in the controller DB
+	 * @param nickname to register in the server DB
 	 */
 	public void registerPlayer(String nickname, String password) throws UsernameAlreadyInUseException {
 		DBManager.register(nickname, password);
@@ -134,7 +134,7 @@ public class ServerMain {
 			try {
 				rooms.get(rooms.size() - 1).addNewPlayer(player);
 			} catch (FullRoomException | GameAlreadyStartedRoomException e1) {
-				Debug.printError("Fatal error on the controller, exiting", e1);
+				Debug.printError("Fatal error on the server, exiting", e1);
 				System.exit(-1);
 			}
 		}*/
@@ -161,7 +161,7 @@ public class ServerMain {
 			try {
 				rooms.get(rooms.size() - 1).addNewPlayer(player);
 			} catch (FullRoomException | GameAlreadyStartedRoomException e1) {
-				Debug.printError("Fatal error on the controller, exiting", e1);
+				Debug.printError("Fatal error on the server, exiting", e1);
 				System.exit(-1);
 			}
 		}*/

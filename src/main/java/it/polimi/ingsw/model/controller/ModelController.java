@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model.controller;
 
-import it.polimi.ingsw.controller.network.socket.protocol.FunctionResponse;
+import it.polimi.ingsw.server.network.socket.protocol.FunctionResponse;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.controller.BoardConfigurator;
-import it.polimi.ingsw.controller.Room;
+import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
@@ -14,12 +13,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
- * This is the controller of one game
+ * This is the server of one game
  */
-public class GameController {
+public class ModelController {
 
     /**
-     * the room that this controller manages
+     * the room that this server manages
      */
     private Room room;
 
@@ -41,7 +40,7 @@ public class GameController {
 
     private int period;
 
-    public GameController(int numberOfPlayers, Room room)
+    public ModelController(int numberOfPlayers, Room room)
     {
 
         this.room = room;
@@ -122,12 +121,6 @@ public class GameController {
     public void prepareForNewPeriod(){
 
         period = period + 1;
-    }
-
-    private void boardConfiguration(int numberOfPlayers)
-    {
-        BoardConfigurator boardConfigurator = new BoardConfigurator();
-        gameBoard = boardConfigurator.createBoard(numberOfPlayers);
     }
 
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){

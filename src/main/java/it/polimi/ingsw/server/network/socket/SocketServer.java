@@ -1,7 +1,7 @@
-package it.polimi.ingsw.controller.network.socket;
+package it.polimi.ingsw.server.network.socket;
 
-import it.polimi.ingsw.controller.AbstractServerType;
-import it.polimi.ingsw.controller.ServerMain;
+import it.polimi.ingsw.server.AbstractServerType;
+import it.polimi.ingsw.server.ServerMain;
 import it.polimi.ingsw.client.exceptions.ServerException;
 import it.polimi.ingsw.utils.Debug;
 
@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 public class SocketServer extends AbstractServerType {
 
     /**
-     * socket on the controller that is used by the client to log in
+     * socket on the server that is used by the client to log in
      */
     ServerSocket socketServer;
 
@@ -36,9 +36,9 @@ public class SocketServer extends AbstractServerType {
 
     /**
      * Closes all connections
-     * This method should be called only when you want to shut down the controller completely and terminate the program
+     * This method should be called only when you want to shut down the server completely and terminate the program
      *
-     * @throws ServerException if a problem is encountered closing the controller
+     * @throws ServerException if a problem is encountered closing the server
      */
     @Override
     public void closeServer() throws ServerException {
@@ -48,7 +48,7 @@ public class SocketServer extends AbstractServerType {
     /**
      * Performs the real connection stuff
      *
-     * @throws ServerException if a problem is encountered starting the controller
+     * @throws ServerException if a problem is encountered starting the server
      */
     @Override
     protected void startServer() throws ServerException {
@@ -59,8 +59,8 @@ public class SocketServer extends AbstractServerType {
         }
         catch(IOException e) // manage the unavailability of the port
         {
-            Debug.printError("Cannot start socket controller, socket main port already in use?", e);
-            throw new ServerException("Problem starting socket controller (probably port alrady in use)", e);
+            Debug.printError("Cannot start socket server, socket main port already in use?", e);
+            throw new ServerException("Problem starting socket server (probably port alrady in use)", e);
         }
 
         //start the thread that waits for incoming oscket connections
@@ -86,9 +86,9 @@ public class SocketServer extends AbstractServerType {
                 try {
                     socket = socketServer.accept();
                     Debug.printVerbose("New socket accepted from " + socket.getInetAddress());
-                } catch (IOException e) //error occurred if the controller shuts down
+                } catch (IOException e) //error occurred if the server shuts down
                  {
-                     Debug.printError("Can't accept new connection on socket controller, controller shuts down", e);
+                     Debug.printError("Can't accept new connection on socket server, server shuts down", e);
                     break;
                 }
                 try {
@@ -104,7 +104,7 @@ public class SocketServer extends AbstractServerType {
                         socket.close();
                     } catch (IOException e1) {
                         Debug.printError("Can't even close the socket, letting the client handle this", e);
-                        //TODO check that the clients handles this case correctly, the controller can't open in and output streams
+                        //TODO check that the clients handles this case correctly, the server can't open in and output streams
                     }
                 }
             }

@@ -1,6 +1,6 @@
-package it.polimi.ingsw.controller.network.rmi;
+package it.polimi.ingsw.server.network.rmi;
 
-import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.client.network.rmi.RMIClientInterface;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.utils.Debug;
@@ -26,7 +26,7 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
     }
 
     /**
-     * This method is called by the room to send a chat message arrived from another client. (Direction: controller -> client)
+     * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
      * @param msg message
      * @throws NetworkException if somthing went wrong on the network
      */

@@ -12,17 +12,17 @@ import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
 public abstract class AbstractClientType  {
 
     /**
-     * the instance of the controller to call the callback functions and communicate from controller to client
+     * the instance of the server to call the callback functions and communicate from server to client
      */
     private ClientMain controllerMain;
 
     /**
-     * The address of the controller to connect to
+     * The address of the server to connect to
      */
     private String serverAddress;
 
     /**
-     * the port of the controller to connect to
+     * the port of the server to connect to
      */
     private int port;
 
@@ -46,8 +46,8 @@ public abstract class AbstractClientType  {
 
     /**
      * this method is used when the user has never played and wants to create an account
-     * @param nickname to register in the controller DB
-     * @param password to register in the controller DB
+     * @param nickname to register in the server DB
+     * @param password to register in the server DB
      * @throws NetworkException if something goes wrong during the connection
      */
     public abstract void registerPlayer(String nickname, String password) throws NetworkException,UsernameAlreadyInUseException;

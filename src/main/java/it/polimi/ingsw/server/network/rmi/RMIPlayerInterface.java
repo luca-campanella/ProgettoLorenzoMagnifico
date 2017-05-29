@@ -1,10 +1,10 @@
-package it.polimi.ingsw.controller.network.rmi;
+package it.polimi.ingsw.server.network.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * The interface for rmi calls from client to controller
+ * The interface for rmi calls from client to server
  */
 public interface RMIPlayerInterface extends Remote {
 

@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.network.socket.protocol;
 import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.socket.packet.PacketType;
-import it.polimi.ingsw.controller.network.socket.protocol.FunctionResponse;
+import it.polimi.ingsw.server.network.socket.protocol.FunctionResponse;
 
 import java.util.HashMap;
 

@@ -1,13 +1,12 @@
-package it.polimi.ingsw.controller.network.socket;
+package it.polimi.ingsw.server.network.socket;
 
-import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.controller.ServerMain;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.server.ServerMain;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.socket.packet.*;
-import it.polimi.ingsw.controller.network.socket.protocol.ReadClientPacketProtocol;
+import it.polimi.ingsw.server.network.socket.protocol.ReadClientPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
 
-import javax.lang.model.type.ErrorType;
 import java.io.*;
 import java.net.Socket;
 
@@ -224,7 +223,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
 
     /**
-     * This method is called by the client to send a chat message to the others client. (Direction: client -> controller)
+     * This method is called by the client to send a chat message to the others client. (Direction: client -> server)
      */
     public void floodChatMsg(){
        try {
@@ -248,7 +247,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     }
 
     /**
-     * This method is called by the controller to send a chat message to the client. (Direction: controller -> client)
+     * This method is called by the server to send a chat message to the client. (Direction: server -> client)
      */
     @Override
     public void receiveChatMsg(String senderNickname, String msg) throws NetworkException {

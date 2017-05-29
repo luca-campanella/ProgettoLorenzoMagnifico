@@ -1,6 +1,6 @@
-package it.polimi.ingsw.controller.network;
+package it.polimi.ingsw.server.network;
 
-import it.polimi.ingsw.controller.Room;
+import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.player.Player;
 
@@ -25,7 +25,7 @@ public abstract class AbstractConnectionPlayer extends Player {
 
 
     /**
-     * This method is called by the room to send a chat message arrived from another client. (Direction: controller -> client)
+     * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
      * @param msg message
      * @param senderNickname the nickname of the sender
      * @throws NetworkException if something went wrong on the network

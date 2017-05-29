@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.controller.network.socket.protocol.FunctionResponse;
+import it.polimi.ingsw.server.network.socket.protocol.FunctionResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;

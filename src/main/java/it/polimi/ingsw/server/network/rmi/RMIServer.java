@@ -1,7 +1,7 @@
-package it.polimi.ingsw.controller.network.rmi;
+package it.polimi.ingsw.server.network.rmi;
 
-import it.polimi.ingsw.controller.AbstractServerType;
-import it.polimi.ingsw.controller.ServerMain;
+import it.polimi.ingsw.server.AbstractServerType;
+import it.polimi.ingsw.server.ServerMain;
 import it.polimi.ingsw.client.network.rmi.RMIClientInterface;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.utils.Debug;
@@ -13,17 +13,17 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.UUID;
 
 /**
- * RMIServer is the implementation of the controller via rmi. It’s interface is used to be published and called by the client side. In fact the RMIServer publishes himself (his stub) on the rmi registry controller and waits to be called by the client thru his function loginPlayer.
+ * RMIServer is the implementation of the server via rmi. It’s interface is used to be published and called by the client side. In fact the RMIServer publishes himself (his stub) on the rmi registry server and waits to be called by the client thru his function loginPlayer.
  */
 public class RMIServer extends AbstractServerType implements RMIServerInterface {
 
     private Registry registry;
 
 	/**
-	 * This is the public constructor of the class that also prepares and start the controller
-	 * @param serverMainInst the controller object
+	 * This is the public constructor of the class that also prepares and start the server
+	 * @param serverMainInst the server object
 	 * @param port
-	 * @throws ServerException if the creation of the controller goes wrong
+	 * @throws ServerException if the creation of the server goes wrong
 	 */
 	public RMIServer(ServerMain serverMainInst, int port) throws ServerException {
 		super(serverMainInst, port);
@@ -32,15 +32,15 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
 
 	/**
 	 * performs rmi actions to create registry and publishes the object (itself)
-	 * @throws ServerException if the creation of the controller goes wrong
+	 * @throws ServerException if the creation of the server goes wrong
 	 */
 	@Override
 	protected void startServer() throws ServerException
 	{
-		Debug.printDebug("I'm starting the rmi controller on port " + getPort());
+		Debug.printDebug("I'm starting the rmi server on port " + getPort());
         this.createOrLoadRegistry();
         this.publishObj();
-        Debug.printDebug("rmi controller started");
+        Debug.printDebug("rmi server started");
 	}
 
     /**
@@ -73,25 +73,25 @@ public class RMIServer extends AbstractServerType implements RMIServerInterface 
             registry.rebind("RMIServerInterface", this);
         } catch(RemoteException e) {
             Debug.printError("Unable to publish object", e);
-            throw new ServerException("Cannot publish controller object \"RMIServerInterface\"");
+            throw new ServerException("Cannot publish server object \"RMIServerInterface\"");
         }
     }
 
     /**
-     * Used to close the controller when it's needed no more
+     * Used to close the server when it's needed no more
      * @throws ServerException
      */
     @Override
 	public void closeServer() throws ServerException
 	{
-		//TODO implement the real closure of the controller
-		Debug.printDebug("I'm stopping the rmi controller");
+		//TODO implement the real closure of the server
+		Debug.printDebug("I'm stopping the rmi server");
 	}
 
     /**
      * this method is used when the user has never played and wants to create an account
-     * @param nickname to register in the controller DB
-     * @param password to register in the controller DB
+     * @param nickname to register in the server DB
+     * @param password to register in the server DB
      * @return
      * @throws RemoteException if something goes wrong during the connection
      */

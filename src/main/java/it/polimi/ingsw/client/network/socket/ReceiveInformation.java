@@ -30,7 +30,7 @@ public class ReceiveInformation extends Thread {
                 readPacket.doMethod(packet);
             }
             catch(IOException | ClassNotFoundException e){
-                Debug.printError("ERROR : controller had failed to deliver new information");
+                Debug.printError("ERROR : server had failed to deliver new information");
             }
         }
     }

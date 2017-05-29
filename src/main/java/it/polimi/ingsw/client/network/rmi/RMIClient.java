@@ -6,8 +6,8 @@ import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
-import it.polimi.ingsw.controller.network.rmi.RMIPlayerInterface;
-import it.polimi.ingsw.controller.network.rmi.RMIServerInterface;
+import it.polimi.ingsw.server.network.rmi.RMIPlayerInterface;
+import it.polimi.ingsw.server.network.rmi.RMIServerInterface;
 import it.polimi.ingsw.utils.Debug;
 
 import java.rmi.NotBoundException;
@@ -17,7 +17,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * The class to handle the rmi client side, publishes itself and passes its reference to the controller, so the controller can call it back with RMIClientInterface
+ * The class to handle the rmi client side, publishes itself and passes its reference to the server, so the server can call it back with RMIClientInterface
  */
 public class RMIClient extends AbstractClientType implements RMIClientInterface {
 
@@ -63,8 +63,8 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     /**
      * this method is used when the user has never played and wants to create an account, real implementation of the abstract method
      *
-     * @param nickname to register in the controller DB
-     * @param password to register in the controller DB
+     * @param nickname to register in the server DB
+     * @param password to register in the server DB
      * @throws NetworkException if something goes wrong during the connection
      */
     @Override
@@ -113,8 +113,8 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     }
 
     /**
-     * Performs the rmi operations to get "open" a rmi connection with the controller
-     * @throws ClientConnectionException if it can't find either the sever either the controller class or it can't pulbish itself on the registry
+     * Performs the rmi operations to get "open" a rmi connection with the server
+     * @throws ClientConnectionException if it can't find either the sever either the server class or it can't pulbish itself on the registry
      */
     @Override
     public void connect() throws ClientConnectionException {
@@ -132,7 +132,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     }
 
     /**
-     * This method is called from the controller to communicate that a chat message has arrived to the client (Direction: controller -> client)
+     * This method is called from the server to communicate that a chat message has arrived to the client (Direction: server -> client)
      * @param senderNick the nickname of the player who sent the msg
      * @param msg
      * @throws RemoteException

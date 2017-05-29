@@ -1,8 +1,8 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.exceptions.NetworkException;
-import it.polimi.ingsw.controller.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.model.controller.GameController;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * This is the class that handles a room and offers a layer between the network part of the controller and the actual game
+ * This is the class that handles a room and offers a layer between the network part of the server and the actual game
  */
 public class Room {
 
@@ -19,7 +19,7 @@ public class Room {
      */
     ArrayList<AbstractConnectionPlayer> players;
 
-    GameController gameController;
+    ModelController gameController;
 
     /**
      * timeout that starts when the second player joins the room. When time is up game starts. Set by the constructor
@@ -66,7 +66,7 @@ public class Room {
         player.setRoom(this);
         currNOfPlayers++;
         Debug.printDebug("*Room*: added player " + player.getNickname());
-        if(currNOfPlayers == maxNOfPlayers) //GameController should start
+        if(currNOfPlayers == maxNOfPlayers) //ModelController should start
         {
             Debug.printVerbose("Room capacity reached, starting new game");
             startGame();
@@ -91,7 +91,7 @@ public class Room {
     {
         Debug.printVerbose("Game on room started");
             isGameStarted = true;
-            gameController = new GameController(currNOfPlayers, this);
+            gameController = new ModelController(currNOfPlayers, this);
     }
 
     /**

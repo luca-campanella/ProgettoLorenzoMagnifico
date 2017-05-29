@@ -1,4 +1,4 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.exceptions.ServerException;
 
@@ -7,15 +7,15 @@ import it.polimi.ingsw.client.exceptions.ServerException;
  */
 public abstract class AbstractServerType {
 	/**
-	 * The instance of the main controller class in order to be able to call methods on it, like loginPlayer
+	 * The instance of the main server class in order to be able to call methods on it, like loginPlayer
 	 */
 	private ServerMain serverMainInst;
 	private int port;
 	
 	/**
-	 * Creates a new controller
-	 * @param serverMainInst: the main controller class
-	 * @param port: the port to start the controller to
+	 * Creates a new server
+	 * @param serverMainInst: the main server class
+	 * @param port: the port to start the server to
 	 */
 	public AbstractServerType(ServerMain serverMainInst, int port) {
 		this.serverMainInst = serverMainInst;
@@ -24,14 +24,14 @@ public abstract class AbstractServerType {
 	
 	/**
 	 * Performs the real connection stuff
-	 * @throws ServerException if a problem is encountered starting the controller
+	 * @throws ServerException if a problem is encountered starting the server
 	 */
 	protected abstract void startServer() throws ServerException;
 	
 	/**
 	 * Closes all connections
-	 * This method should be called only when you want to shut down the controller completely and terminate the program
-	 * @throws ServerException if a problem is encountered closing the controller
+	 * This method should be called only when you want to shut down the server completely and terminate the program
+	 * @throws ServerException if a problem is encountered closing the server
 	 */
 	public abstract void closeServer() throws ServerException;
 

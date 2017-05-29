@@ -1,4 +1,4 @@
-package it.polimi.ingsw.controller.network.rmi;
+package it.polimi.ingsw.server.network.rmi;
 
 import it.polimi.ingsw.client.network.rmi.RMIClientInterface;
 import it.polimi.ingsw.client.exceptions.LoginException;
@@ -8,7 +8,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * This interface lets the client call functions on the controller via rmi
+ * This interface lets the client call functions on the server via rmi
  */
 public interface RMIServerInterface extends Remote {
 
@@ -24,8 +24,8 @@ public interface RMIServerInterface extends Remote {
 
 	/**
 	 * this method is used when the user has never played and wants to create an account
-	 * @param nickname to register in the controller DB
-	 * @param password to register in the controller DB
+	 * @param nickname to register in the server DB
+	 * @param password to register in the server DB
 	 * @return
 	 * @throws RemoteException if something goes wrong during the connection
 	 */

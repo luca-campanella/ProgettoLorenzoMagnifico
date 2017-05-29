@@ -1,7 +1,7 @@
-package it.polimi.ingsw.controller.network.socket.protocol;
+package it.polimi.ingsw.server.network.socket.protocol;
 
 import it.polimi.ingsw.client.network.socket.packet.PacketType;
-import it.polimi.ingsw.controller.network.socket.SocketPlayer;
+import it.polimi.ingsw.server.network.socket.SocketPlayer;
 
 import java.util.HashMap;
 
