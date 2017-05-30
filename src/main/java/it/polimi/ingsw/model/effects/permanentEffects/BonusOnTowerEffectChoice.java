@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
 
 /**
- * Created by higla on 26/05/2017.
+ * This class handles all SecondChoice discounts
  */
 public class BonusOnTowerEffectChoice extends BonusOnTowerEffect {
     private Resource discountOnSecondResource;

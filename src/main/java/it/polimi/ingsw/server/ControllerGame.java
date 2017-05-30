@@ -43,12 +43,23 @@ public class ControllerGame {
         boardGame = boardModifier(numberOfPlayers, boardGame);
         this.room = room;
     }
+
+    /**
+     * costructor for controllerGame
+     * @param numberOfPlayers
+     * @throws Exception
+     */
     public ControllerGame(int numberOfPlayers) throws Exception {
         boardGame = boardCreator();
         boardGame = boardModifier(numberOfPlayers, boardGame);
     }
 
-
+    /**
+     * this method modifies the board given a
+     * @param numberOfPlayers
+     * @param board is the board to modify
+     * @return the board modified
+     */
     private Board boardModifier(int numberOfPlayers, Board board)
     {
         if(numberOfPlayers == 4)
@@ -58,22 +69,46 @@ public class ControllerGame {
             return board;
         return boardTwoPlayers(board);
     }
+
+    /**
+     * this method is called when game starts with 4 players. This method is waiting for the 5th player
+     * @param board
+     * @return board, which is not yet modified.
+     */
     private Board boardFourPlayers(Board board)
     {
         return board;
     }
+
+    /**
+     * this method modifies the board when there are three players
+     * @param board
+     * @return
+     */
     private Board boardThreePlayers(Board board)
     {
         board.getMarket().remove(3);
         board.getMarket().remove(2);
         return board;
     }
+
+    /**
+     * This method modifies the board if there are 2 players.
+     * @param board is the boardGame modified
+     * @return the board modified
+     */
     private Board boardTwoPlayers(Board board)
     {
         board.getHarvest().setTwoPlayersOneSpace(true);
-
+        board.getBuild().setTwoPlayersOneSpace(true);
         return board;
     }
+
+    /**
+     * this method is called when gameController is crated. It loads the 4 player-board
+     * @return the right board
+     * @throws Exception in case GSON isn't able to read the file
+     */
     private Board boardCreator() throws Exception
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -87,9 +122,7 @@ public class ControllerGame {
 
         try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
             Board board = gson.fromJson(reader, Board.class);
-           /* CliPrinter printer = new CliPrinter();
-            printer.printBoard(board);*/
-            return board;
+           return board;
         }
     }
 

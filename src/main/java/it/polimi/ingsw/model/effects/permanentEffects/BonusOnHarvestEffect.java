@@ -11,21 +11,9 @@ public class BonusOnHarvestEffect extends AbstractPermanentEffect{
     public BonusOnHarvestEffect(int bonus){
         this.bonus = bonus;
     }
-    public Resource getBonusOnTower(CardColorEnum color)
-    {
-        return null;
-    }
     public int getBonusOnHarvest()
     {
-        return 0;
-    }
-    public int getBonusOnBuild()
-    {
         return bonus;
-    }
-    public boolean isImmediateEffectDisabled()
-    {
-        return false;
     }
 
     public int getBonus() {
