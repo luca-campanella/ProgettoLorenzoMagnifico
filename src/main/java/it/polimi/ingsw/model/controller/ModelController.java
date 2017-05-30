@@ -105,10 +105,10 @@ public class ModelController {
     }
 
     private void gameFor2(){
-
+/*
         for(Player i : players){
             i.setFamilyMembers(dices);
-        }
+        }*/
 
     }
 
@@ -127,12 +127,6 @@ public class ModelController {
     public void prepareForNewPeriod(){
 
         period = period + 1;
-    }
-
-    private void boardConfiguration(int numberOfPlayers)
-    {
-        BoardConfigurator boardConfigurator = new BoardConfigurator();
-        gameBoard = boardConfigurator.createBoard(numberOfPlayers);
     }
 
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
