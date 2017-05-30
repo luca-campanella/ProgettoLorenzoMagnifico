@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Board {
     private int NUMBER_OF_TOWERS;
     private int NUMBER_OF_MARKETS;
     private int NUMBER_OF_FLOORS;
+    private Deck deck;
     private Tower[] towers = new Tower[NUMBER_OF_TOWERS];
     private ArrayList<MarketAS> market = new ArrayList<MarketAS>();
     private BuildAS build = new BuildAS();
@@ -140,6 +142,14 @@ public class Board {
 
     public void build(FamilyMember familyMember) {
         build.addFamilyMember(familyMember);
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
     }
 }
 

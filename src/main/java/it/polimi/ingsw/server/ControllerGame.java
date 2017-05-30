@@ -32,6 +32,7 @@ public class ControllerGame {
 
     public static void main(String[] args) throws Exception {
         ControllerGame controllerGame =  new ControllerGame(2);
+
         CliPrinter cli = new CliPrinter();
         //todo: load cards, implement these on board;
         cli.printBoard(controllerGame.getBoardGame());
@@ -63,8 +64,9 @@ public class ControllerGame {
      * @throws Exception if file where Board configuration is
      */
     public ControllerGame(ArrayList<Player> players, Room room) throws Exception {
-
-        boardGame = boardCreator();
+        JSONLoader jsonLoader = new JSONLoader();
+        boardGame = jsonLoader.boardCreator();
+        boardGame.setDeck(jsonLoader.createNewDeck());
         numberOfPlayers = players.size();
         boardModifier(numberOfPlayers);
         this.room = room;
@@ -79,7 +81,8 @@ public class ControllerGame {
      * @throws Exception
      */
     public ControllerGame(int numberOfPlayers) throws Exception {
-        boardGame = boardCreator();
+        JSONLoader jsonLoader = new JSONLoader();
+        boardGame = jsonLoader.boardCreator();
         boardModifier(numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
     }
@@ -117,27 +120,6 @@ public class ControllerGame {
         boardGame.getBuild().setTwoPlayersOneSpace(true);
     }
 
-    /**
-     * this method is called when gameController is created. It loads the 4 player-board
-     * @return the right board
-     * @throws Exception in case GSON isn't able to read the file
-     */
-    private Board boardCreator() throws Exception
-    {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-
-        RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
-        runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
-        runtimeTypeAdapterFactory.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
-        runtimeTypeAdapterFactory.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
-
-        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
-
-        try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
-            Board board = gson.fromJson(reader, Board.class);
-           return board;
-        }
-    }
 
     /**
      * call the method on the controller of the model to start a new game
