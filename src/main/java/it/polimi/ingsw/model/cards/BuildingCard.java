@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by higla on 23/05/2017.
  */
 public class BuildingCard extends AbstractCard{
-    
+
     /**
      * The array list of the cost to pay when taking the card
      */
