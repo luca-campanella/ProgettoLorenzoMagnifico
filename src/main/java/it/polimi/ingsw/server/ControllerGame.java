@@ -38,10 +38,16 @@ public class ControllerGame {
          * @param numberOfPlayers is passed from room to the constructor so that boardGame is correct.
          * @throws Exception if file where Board configuration is
          */
+    public ControllerGame(int numberOfPlayers, Room room) throws Exception {
+        boardGame = boardCreator();
+        boardGame = boardModifier(numberOfPlayers, boardGame);
+        this.room = room;
+    }
     public ControllerGame(int numberOfPlayers) throws Exception {
         boardGame = boardCreator();
         boardGame = boardModifier(numberOfPlayers, boardGame);
     }
+
 
     private Board boardModifier(int numberOfPlayers, Board board)
     {
