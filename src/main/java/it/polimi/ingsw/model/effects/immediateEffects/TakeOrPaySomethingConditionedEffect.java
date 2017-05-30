@@ -13,10 +13,11 @@ public class TakeOrPaySomethingConditionedEffect extends TakeOrPaySomethingEffec
         super(resource);
         this.condition = condition;
     }
-    @Override
-    /*
-    For Each condition give Resources to the Player
+
+    /**
+     * For Each condition give Resources to the Player
      */
+    @Override
     public void applyToPlayer(Player player) {
         int i = player.getResource(condition.getType());
         int temp = condition.getValue();
