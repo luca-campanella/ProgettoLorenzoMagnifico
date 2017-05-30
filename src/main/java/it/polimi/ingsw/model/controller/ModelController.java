@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.controller;
 
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.server.ControllerGame;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
@@ -20,7 +21,7 @@ public class ModelController {
     /**
      * the room that this controller manages
      */
-    private Room room;
+    private ControllerGame controllerGame;
 
     /**
      * the board of this game
@@ -37,12 +38,12 @@ public class ModelController {
 
     private int period;
 
-    public ModelController(ArrayList<AbstractConnectionPlayer> players, Room room, Board board)
+    public ModelController(ArrayList<Player> players, ControllerGame controllerGame, Board board)
     {
 
         this.players = new ArrayList<>(5);
         this.players.addAll(players);
-        this.room = room;
+        this.controllerGame = controllerGame;
         dices = new ArrayList<>(4);
         loadDices();
         round=1;
@@ -205,12 +206,12 @@ public class ModelController {
         marketPlace.performAction(familyMember);
     }
 
-    public void discardCardLeader(Player player, int cardIndex){
+    public void discardLeaderCard(Player player, String nameLeader){
 
         //player.discardLeaderCard();
     }
 
-    public void activateCardLeader(Player player,int cardIndex){
+    public void activateLeaderCard(Player player, String nameLeader){
 
         //player.activateLeaderCard();
 
