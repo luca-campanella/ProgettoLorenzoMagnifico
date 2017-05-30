@@ -180,14 +180,19 @@ public class CliPrinter {
             System.out.print("Numero " + i + " ");
             printTerritoryCard(deck.getTerritoryCards().get(i));
         }
-        temp = i;
+        temp = i-1;
+        for(i=0; i<SAMETYPE_CARDS_NUMBER; i++){
+            temp++;
+            System.out.print("Numero " + temp + " ");
+            printBuildingCards(deck.getBuildingCards().get(i));
+        }
         for(i = 0; i<SAMETYPE_CARDS_NUMBER; i++) {
             temp ++;
             System.out.print("Numero " + temp + " ");
             printCharacterCards(deck.getCharacterCards().get(i));
         }
 
-        printBuildingCards(deck.getBuildingCards().get(0));
+
         for(i = 0; i<SAMETYPE_CARDS_NUMBER; i++) {
             temp ++;
             System.out.print("Numero " + temp + " ");
