@@ -51,7 +51,7 @@ public class DeckCreator{
         permanentEffectAdapter.registerSubtype(BonusOnTowerEffectChoice.class,"BonusOnTowerEffectChoice");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).registerTypeAdapterFactory(permanentEffectAdapter).create();
-
+        /*
         Deck deckTest = getDeckForTest();
 
         String deckInJson = gson.toJson(deckTest);
@@ -60,7 +60,7 @@ public class DeckCreator{
         Deck deckFromJson = gson.fromJson(deckInJson, Deck.class);
 
         System.out.println(deckTest.toString());
-
+        */
        ///*
         CliPrinter printer = new CliPrinter();
 
