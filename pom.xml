@@ -39,20 +39,44 @@
     </dependencies>
 
     <build>
-    <defaultGoal>clean package install</defaultGoal>
-    <finalName>${project.name}</finalName>
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <plugins>
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.1</version>
-        <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
-        </configuration>
-    </plugin>
-    </plugins>
+        <defaultGoal>clean package install</defaultGoal>
+        <finalName>${project.name}</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.9</version>
+                <configuration>
+                    <destFile>target/jacoco.exec</destFile>
+                    <dataFile>target/jacoco.exec</dataFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 
