@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.controller;
 
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.server.network.socket.protocol.FunctionResponse;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -10,8 +10,7 @@ import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * This is the controller of one game
@@ -32,29 +31,22 @@ public class ModelController {
      * the players that play in this game
      */
     private ArrayList<Player> players;
-
     private ArrayList<Dice> dices;
-
-    private HashMap<Integer, FunctionResponse> initializeGame;
 
     private int round;
 
     private int period;
 
-    public ModelController(ArrayList<AbstractConnectionPlayer> players, Room room)
+    public ModelController(ArrayList<AbstractConnectionPlayer> players, Room room, Board board)
     {
 
         this.players = new ArrayList<>(5);
         this.players.addAll(players);
         this.room = room;
-        initializeGame = new HashMap<>(5);
         dices = new ArrayList<>(4);
         loadDices();
-        loadInfoInitialization();
-        doMethod(players.size());
         round=1;
         period=1;
-        prepareForNewRound();
 
     }
 
@@ -66,65 +58,73 @@ public class ModelController {
         dices.add(new Dice(DiceAndFamilyMemberColor.WHITE));
 
     }
-    private void loadInfoInitialization(){
 
-        initializeGame.put(2, this::gameFor2);
-        initializeGame.put(3, this::gameFor3);
-        initializeGame.put(4, this::gameFor4);
-        initializeGame.put(5, this::gameFor5);
-
-    }
-
-    public void doMethod(int numberOfPlayers){
-
-        FunctionResponse initialization=initializeGame.get(numberOfPlayers);
-        initialization.chooseMethod();
-
-    }
-
-    private void gameFor5(){
-
-        //TODO method
-        gameFor4();
-
-    }
-
-    private void gameFor4(){
-
-        //TODO method
-        gameFor3();
-
-    }
-
-    private void gameFor3(){
-
-        //TODO method
-        gameFor2();
-
-    }
-
-    private void gameFor2(){
-
+    /**
+     * this method prepare all the resources to prepere for the game
+     */
+    public void startNewGame()
+    {
+        //initialize all the family member on the players
         for(Player i : players){
             i.setFamilyMembers(dices);
         }
 
+        chooseOrderRandomly();
+        addCointStartGame();
     }
 
-    private void prepareForNewRound(){
+    /**
+     * choose the order of the players at the beginning of the game
+     */
+    private void chooseOrderRandomly(){
+        ArrayList<Player> playersOrder = new ArrayList<>(players.size());
+        Random random = new Random();
+        int valueIndex;
+        for(int i=0; i<players.size();){
 
-        players.forEach(Player::resetFamilyMember);
+            valueIndex = random.nextInt(players.size());
+            //add the player of the index
+            playersOrder.add(players.get(random.nextInt(valueIndex)));
+            //remove the player of the index
+            players.remove(valueIndex);
+
+        }
+        players.addAll(playersOrder);
+    }
+
+    /**
+     * add the initial coins for every player
+     */
+    private void addCointStartGame(){
+
+        Resource resource =new Resource(ResourceTypeEnum.COIN, 5);
+
+        for (Player player : players){
+
+            player.addResource(resource);
+            resource.setValue(resource.getValue()+1);
+
+        }
+
+    }
+
+    /**
+     * prepare the players for the new round
+     */
+    public void prepareForNewRound(){
+
+        //reload the family member
+        players.forEach(Player::reloadFamilyMember);
 
         //TODO clean and load the cards on board
         //TODO change order players
 
-        if(round%2==0)
+        if(round%2==0){}
             //TODO METHOD to call the excommunication
-            round = round + 1;
+        round = round + 1;
     }
 
     public void prepareForNewPeriod(){
-
         period = period + 1;
     }
 
@@ -132,6 +132,11 @@ public class ModelController {
 
     }
 
+    /**
+     * this method is called to harvest on the board
+     * @param familyMember the family member used to harvest
+     * @param servant the number of servant used to increase the value of the family member
+     */
     public void harvest(FamilyMember familyMember, int servant){
 
         //control on the input, if the player reall has that resources

@@ -60,18 +60,33 @@ public abstract class Player {
      */
     private void loadResource(){
         resource.put(ResourceTypeEnum.COIN, 0);
-        resource.put(ResourceTypeEnum.WOOD, 0);
-        resource.put(ResourceTypeEnum.STONE, 0);
-        resource.put(ResourceTypeEnum.SERVANT, 0);
+        resource.put(ResourceTypeEnum.WOOD, 2);
+        resource.put(ResourceTypeEnum.STONE, 2);
+        resource.put(ResourceTypeEnum.SERVANT, 3);
         resource.put(ResourceTypeEnum.FAITH_POINT, 0);
         resource.put(ResourceTypeEnum.MILITARY_POINT, 0);
         resource.put(ResourceTypeEnum.VICTORY_POINT, 0);
     }
 
+    /**
+     * this method is used to add a resource on the player
+     * @param resource the object of the resource, it contains the value and the type
+     */
     public void addResource(Resource resource){
 
-        Integer valueNow = this.resource.get(resource.getType());
         this.resource.put(resource.getType(),this.resource.get(resource.getType())+resource.getValue());
+
+    }
+
+    /**
+     * this method is used to add an array of resources on the player
+     * @param resources the object of the resource, it contains the value and the type
+     */
+    public void addResource(ArrayList<Resource> resources){
+
+        for(Resource resource : resources){
+            this.resource.put(resource.getType(),this.resource.get(resource.getType())+resource.getValue());
+        }
 
     }
     //TODO: we need to put Cards Containers in Player and then implement this method.
@@ -114,7 +129,7 @@ public abstract class Player {
 
     }
 
-    public void resetFamilyMember(){
+    public void reloadFamilyMember(){
 
         familyMembers.addAll(usedFamilyMembers);
         usedFamilyMembers.clear();
