@@ -17,8 +17,8 @@ import java.io.Reader;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 24/05/2017.
- */
+ * DeckCreator
+ * */
 public class DeckCreator{
     public static void main(String[] args) throws Exception {
         Debug.instance(Debug.LEVEL_VERBOSE);
@@ -40,7 +40,7 @@ public class DeckCreator{
         immediateEffectAdapter.registerSubtype(BuildNoFamilyMembersEffect.class, "BuildNoFamilyMembersEffect");
         immediateEffectAdapter.registerSubtype(TakeOrPaySomethingConditionedEffect.class, "TakeOrPaySomethingConditionedEffect");
         immediateEffectAdapter.registerSubtype(PayForSomethingEffect.class, "PayForSomethingEffect");
-
+        immediateEffectAdapter.registerSubtype(PayForGiftEffect.class, "PayForGiftEffect");
 
         RuntimeTypeAdapterFactory<AbstractPermanentEffect> permanentEffectAdapter = RuntimeTypeAdapterFactory.of(AbstractPermanentEffect.class, "permanentEffect");
         permanentEffectAdapter.registerSubtype(BonusOnHarvestEffect.class, "BonusOnHarvestEffect");

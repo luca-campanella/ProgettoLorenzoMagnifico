@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
 
 /**
- * Created by higla on 23/05/2017.
+ * This class handles all the effects when you build. In particular.
  */
 public class BonusOnBuildEffect extends AbstractPermanentEffect{
     private int bonus;
@@ -17,5 +17,11 @@ public class BonusOnBuildEffect extends AbstractPermanentEffect{
     }
     public void setBonus(int bonus) {
         this.bonus = bonus;
+    }
+    public String getShortDescription(){
+        return "+"+bonus+" OnB";
+    }
+    public String getDescription(){
+        return "gives a player " + bonus + " on the dice, when he builds";
     }
 }

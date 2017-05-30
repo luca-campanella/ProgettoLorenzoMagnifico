@@ -13,5 +13,10 @@ public class BonusOnTowerEffectChoice extends BonusOnTowerEffect {
         super(towerColor, resourceDiscount, diceDiscount);
         this.discountOnSecondResource = secondDiscount;
     }
-
+    public String getShortDescription(){
+        return "+"+ discountOnDice + "On" + towerColor.getCardColor() + "-" + discountOnResource + "-" + discountOnSecondResource;
+    }
+    public String getDescription(){
+        return "Get a +" + discountOnDice + "On " + towerColor.getCardColor() + "towers. And -" + discountOnResource + "discountOnSecondResource";
+    }
 }

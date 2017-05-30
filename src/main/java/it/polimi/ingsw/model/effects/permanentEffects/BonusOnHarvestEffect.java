@@ -6,13 +6,14 @@ import it.polimi.ingsw.model.resource.Resource;
 /**
  * Created by higla on 23/05/2017.
  */
-public class BonusOnHarvestEffect extends AbstractPermanentEffect{
+public class BonusOnHarvestEffect extends AbstractPermanentEffect {
     private int bonus;
-    public BonusOnHarvestEffect(int bonus){
+
+    public BonusOnHarvestEffect(int bonus) {
         this.bonus = bonus;
     }
-    public int getBonusOnHarvest()
-    {
+
+    public int getBonusOnHarvest() {
         return bonus;
     }
 
@@ -22,5 +23,13 @@ public class BonusOnHarvestEffect extends AbstractPermanentEffect{
 
     public void setBonus(int bonus) {
         this.bonus = bonus;
+    }
+
+    public String getShortDescription() {
+        return "+" + bonus + " OnH";
+    }
+
+    public String getDescription() {
+        return "gives a player " + bonus + " on the dice, when he harvests";
     }
 }

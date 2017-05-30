@@ -8,9 +8,9 @@ import it.polimi.ingsw.model.resource.ResourceTypeEnum;
  * This class handles all bonus on towers. Both resources and dices
  */
 public class BonusOnTowerEffect extends AbstractPermanentEffect{
-    private CardColorEnum towerColor;
-    private Resource discountOnResource;
-    private int discountOnDice;
+    protected CardColorEnum towerColor;
+    protected Resource discountOnResource;
+    protected int discountOnDice;
     public BonusOnTowerEffect(CardColorEnum towerColor, Resource resourceDiscount, int diceDiscount)
     {
         this.towerColor = towerColor;
@@ -38,5 +38,11 @@ public class BonusOnTowerEffect extends AbstractPermanentEffect{
         if(color == towerColor)
             return discountOnResource;
         return null;
+    }
+    public String getShortDescription(){
+        return "+"+ discountOnDice + " On " + towerColor.getCardColor().toString() + "-" + discountOnResource ;
+    }
+    public String getDescription(){
+        return "Get a +" + discountOnDice + " On " + towerColor.getCardColor().toString() + "towers. And -" + discountOnResource;
     }
 }

@@ -8,5 +8,10 @@ import it.polimi.ingsw.model.resource.Resource;
  */
 public class NoPermanentEffect extends AbstractPermanentEffect {
 
-
+    public String getShortDescription(){
+        return "NoEf";
+    }
+    public String getDescription(){
+        return "NoEffect";
+    }
 }

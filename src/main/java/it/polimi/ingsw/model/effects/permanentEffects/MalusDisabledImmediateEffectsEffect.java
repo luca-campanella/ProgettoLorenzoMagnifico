@@ -13,4 +13,12 @@ public class MalusDisabledImmediateEffectsEffect extends  AbstractPermanentEffec
     {
         return true;
     }
+
+    public String getShortDescription(){
+        return "£$£";
+    }
+    public String getDescription(){
+        return "Disable all immediate effects on action Space";
+    }
 }
+

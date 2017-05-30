@@ -201,15 +201,20 @@ public class CliPrinter {
 
     }
     public void printBuildingCards(BuildingCard card){
-        System.out.print("Name " + card.getName()+ ", period " + card.getPeriod() + ", costs ");
+        String tempPrinter = new String();
+        tempPrinter = "Name " + card.getName();
+        while(tempPrinter.length() < 30)
+            tempPrinter += " ";
+        System.out.print(tempPrinter + "Period " + card.getPeriod() + ", costs ");
         printCosts(card.getCost());
-        System.out.print(". Immediate Effect :");
-        printImmediateEffects(card.getImmediateEffect());
-        System.out.print(". Permanent Effect: ");
-        printImmediateEffects(card.getEffectsOnBuilding());
+        System.out.print("Immediate Effect:   ");
+        printImmediateShortEffects(card.getImmediateEffect());
+        System.out.print("Choose Effect:   ");
+        printImmediateShortEffects(card.getEffectsOnBuilding());
         System.out.println("");
         //printPermanentEffects(card.getPermanentEffect());
     }
+
     public void printVentureCards(VentureCard card){
         String temp = new String();
         temp = "Name " + card.getName();
@@ -311,7 +316,7 @@ public class CliPrinter {
     {
         int i;
         for(i = 0; i< effect.size(); i++){
-            System.out.print(" " + effect.get(i).toString() + " ");
+            System.out.print(effect.get(i).getShortDescription());
         }
     }
 

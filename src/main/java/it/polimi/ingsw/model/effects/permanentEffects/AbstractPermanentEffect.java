@@ -6,7 +6,8 @@ import it.polimi.ingsw.model.resource.Resource;
 import javax.smartcardio.Card;
 
 /**
- * Created by higla on 23/05/2017.
+ * This is the abstract class that handles all abstract effects.
+ * Controllers will call this class in order to check if a card applies a particular effect to a particular action
  */
 public abstract class AbstractPermanentEffect {
         public Resource getBonusOnTower(CardColorEnum color)
@@ -28,7 +29,6 @@ public abstract class AbstractPermanentEffect {
         {
                 return false;
         }
-
-
-
+        public abstract String getShortDescription();
+        public abstract String getDescription();
 }

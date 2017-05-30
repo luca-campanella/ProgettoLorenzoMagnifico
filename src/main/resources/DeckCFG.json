@@ -1603,7 +1603,7 @@
             "value": 3
           }
         }
-       ]
+      ]
     },{
       "cost": [
         {
@@ -1694,18 +1694,18 @@
               "value": 3
             }],
           "immediateEffect": "PayForSomethingEffect",
-            "toPay": [
+          "toPay": [
             {
-            "type": "STONE",
-            "value": 2
+              "type": "STONE",
+              "value": 2
             }
-            ],
-            "toGain": [
+          ],
+          "toGain": [
             {
-            "type": "COIN",
-            "value": 5
+              "type": "COIN",
+              "value": 5
             }
-            ]
+          ]
         }
       ],
       "buildEffectValue": 2,
@@ -1731,17 +1731,11 @@
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "PayForSomethingEffect",
+          "immediateEffect": "PayForGiftEffect",
           "toPay": [
             {
               "type": "COIN",
               "value": 1
-            }
-          ],
-          "toGain": [
-            {
-              "type": "WOOD",
-              "value": 30
             }
           ]
         }
@@ -2309,7 +2303,7 @@
             "value": 2
           }
         }
-          ],
+      ],
       "effectsOnBuilding": [
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
@@ -2319,11 +2313,7 @@
           }
         },
         {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 200
-          }
+          "immediateEffect": "GiveCouncilGiftEffect"
         }
       ],
       "buildEffectValue": 5,
@@ -2358,7 +2348,7 @@
             "value": 3
           }
         }
-          ],
+      ],
       "effectsOnBuilding": [
         {
           "immediateEffect": "PayForSomethingEffect",
@@ -2463,7 +2453,7 @@
             "value": 2
           }
         }
-          ],
+      ],
       "effectsOnBuilding": [
         {
           "immediateEffect": "PayForSomethingEffect",
@@ -2520,7 +2510,7 @@
             "value": 1
           }
         }
-          ],
+      ],
       "buildEffectValue": 2,
       "name": "Cathedral",
       "period": 3,
@@ -2565,7 +2555,7 @@
         }
       ]
     }
- ,
+  ,
     {
       "costChoiceResource": [
         {
@@ -2954,18 +2944,18 @@
   ,
 
     {
-     "costChoiceMilitary": [
-       {
-         "immediateEffect": "TakeOrPaySomethingConditionedEffect",
-         "condition": {
-           "type": "MILITARY_POINT",
-           "value": 8
-         },
-         "resource": {
-           "type": "MILITARY_POINT",
-           "value": 4
-         }
-       }      ],
+      "costChoiceMilitary": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "condition": {
+            "type": "MILITARY_POINT",
+            "value": 8
+          },
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 4
+          }
+        }      ],
       "victoryEndPoints": 5,
       "name": "Crusade",
       "period": 2,
@@ -3303,7 +3293,5 @@
         }
       ]
     }
-
-
   ]
 }

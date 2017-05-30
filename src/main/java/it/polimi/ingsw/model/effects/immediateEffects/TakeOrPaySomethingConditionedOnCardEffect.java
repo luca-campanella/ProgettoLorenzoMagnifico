@@ -30,6 +30,6 @@ public class TakeOrPaySomethingConditionedOnCardEffect extends TakeOrPaySomethin
         return "This method gives to the player a dice that he can use and place somewher" + resource.getResourceShortDescript();
     }
     public String descriptionShortOfEffect(){
-        return resource.getResourceShortDescript() + " " + numberOfCards;
+        return resource.getResourceShortDescript() + " x " + numberOfCards + " " + colorConditionedOnCardEffect.getCardColor();
     }
 }
