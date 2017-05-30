@@ -11,8 +11,10 @@ import it.polimi.ingsw.testingGSON.boardLoader.BoardCreator;
 import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 import it.polimi.ingsw.utils.Debug;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by higla on 30/05/2017.
@@ -23,8 +25,7 @@ public class JSONLoader {
      * @return
      * @throws Exception
      */
-    public Deck createNewDeck() throws Exception
-    {
+    public Deck createNewDeck() throws IOException {
         Debug.instance(Debug.LEVEL_VERBOSE);
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -55,6 +56,7 @@ public class JSONLoader {
             Deck deck = gson.fromJson(reader, Deck.class);
             return deck;
         }
+
     }
 
     /**

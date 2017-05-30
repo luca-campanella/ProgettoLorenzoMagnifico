@@ -84,7 +84,7 @@ public class DeckCreator{
         characterCards.add(getCharacterCard());
         characterCards.add(getCharacterCard());
         deck.setCharacterCards(characterCards);
-        */
+
         ArrayList<BuildingCard> buildingCards = new ArrayList<BuildingCard>();
         buildingCards.add(getBuildingCard());
         buildingCards.add(getBuildingCard());
