@@ -39,6 +39,8 @@ public class DeckCreator{
         immediateEffectAdapter.registerSubtype(HarvestNoFamilyMembersEffect.class, "HarvestNoFamilyMembersEffect");
         immediateEffectAdapter.registerSubtype(BuildNoFamilyMembersEffect.class, "BuildNoFamilyMembersEffect");
         immediateEffectAdapter.registerSubtype(TakeOrPaySomethingConditionedEffect.class, "TakeOrPaySomethingConditionedEffect");
+        immediateEffectAdapter.registerSubtype(PayForSomethingEffect.class, "PayForSomethingEffect");
+
 
         RuntimeTypeAdapterFactory<AbstractPermanentEffect> permanentEffectAdapter = RuntimeTypeAdapterFactory.of(AbstractPermanentEffect.class, "permanentEffect");
         permanentEffectAdapter.registerSubtype(BonusOnHarvestEffect.class, "BonusOnHarvestEffect");
@@ -49,7 +51,7 @@ public class DeckCreator{
         permanentEffectAdapter.registerSubtype(BonusOnTowerEffectChoice.class,"BonusOnTowerEffectChoice");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).registerTypeAdapterFactory(permanentEffectAdapter).create();
-        /*
+
         Deck deckTest = getDeckForTest();
 
         String deckInJson = gson.toJson(deckTest);
@@ -59,8 +61,7 @@ public class DeckCreator{
 
         System.out.println(deckTest.toString());
 
-        */
-        ///*
+       ///*
         CliPrinter printer = new CliPrinter();
 
         // The JSON data
@@ -69,8 +70,7 @@ public class DeckCreator{
             //CliPrinter printer = new CliPrinter();
             printer.printDeck(deck);
 
-        }
-        //*/
+        }//*/
     }
 
     private static Deck getDeckForTest(){
@@ -84,18 +84,18 @@ public class DeckCreator{
         characterCards.add(getCharacterCard());
         characterCards.add(getCharacterCard());
         deck.setCharacterCards(characterCards);
-
+        */
         ArrayList<BuildingCard> buildingCards = new ArrayList<BuildingCard>();
         buildingCards.add(getBuildingCard());
         buildingCards.add(getBuildingCard());
         deck.setBuildingCards(buildingCards);
 
-        */
+        /*
         ArrayList<VentureCard> ventureCards = new ArrayList<VentureCard>();
         ventureCards.add(getVentureCard());
         ventureCards.add(getVentureCard());
         deck.setVentureCards(ventureCards);
-
+        */
         return deck;
     }
     public static VentureCard getVentureCard(){
@@ -133,7 +133,8 @@ public class DeckCreator{
     {
         BuildingCard buildingCard = new BuildingCard();
         buildingCard.setBuildEffectValue(2);
-        buildingCard.setName("Palazzo");
+        buildingCard.setName("Bank");
+        //setto i costi
         buildingCard.setImmediateEffect(getImmediateEffect());
         buildingCard.setEffectsOnBuilding(getImmediateEffect());
 
@@ -168,14 +169,19 @@ public class DeckCreator{
         ImmediateEffectInterface effect5 = new BuildNoFamilyMembersEffect(2);
         ImmediateEffectInterface effect6 = new HarvestNoFamilyMembersEffect(3);
         ImmediateEffectInterface effect7 = new TakeOrPaySomethingConditionedEffect(getResource(), getResource());
+        ArrayList<Resource> toPay = new ArrayList<Resource>();
+        toPay.add(getResource());
+        toPay.add(getResource());
+        ImmediateEffectInterface effect8 = new PayForSomethingEffect(toPay, toPay);
+
         ArrayList<ImmediateEffectInterface> temp = new ArrayList<ImmediateEffectInterface>();
-        /*temp.add(effect);
-        temp.add(effect2);
-        temp.add(effect3);
-        temp.add(effect4);*/
-        temp.add(effect5);
-        temp.add(effect6);
-        temp.add(effect7);
+        temp.add(effect);
+        //temp.add(effect2);
+        //temp.add(effect3);
+        //temp.add(effect4);
+        //temp.add(effect5);
+        //temp.add(effect6);
+        temp.add(effect8);
         return temp;
     }
     private static ArrayList<AbstractPermanentEffect> getPermanentEffect(){

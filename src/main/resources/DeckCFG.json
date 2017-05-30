@@ -1395,42 +1395,36 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 6
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 3
           }
         }
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeOrPaySomethingEffect",
+          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "YELLOW",
+          "numberOfCards": 1,
           "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
+            "type": "COIN",
+            "value": 1
           }
         }
       ],
-      "buildEffectValue": 2,
-      "name": "Palazzo",
-      "period": 0,
+      "buildEffectValue": 5,
+      "name": "Mint",
+      "period": 1,
       "immediateEffect": [
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
+            "type": "VICTORY_POINT",
+            "value": 5
           }
         }
       ]
@@ -1440,41 +1434,1293 @@
         {
           "resource": {
             "type": "WOOD",
-            "value": 6
+            "value": 3
+          }
+        },
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 1
           }
         }
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeOrPaySomethingEffect",
+          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "GREEN",
+          "numberOfCards": 1,
           "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "immediateEffect": "TakeOrPaySomethingEffect",
-          "resource": {
-            "type": "WOOD",
-            "value": 3
+            "type": "COIN",
+            "value": 1
           }
         }
       ],
-      "buildEffectValue": 2,
-      "name": "Palazzo",
-      "period": 0,
+      "buildEffectValue": 5,
+      "name": "Tax Office",
+      "period": 1,
       "immediateEffect": [
         {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
+            "type": "VICTORY_POINT",
+            "value": 5
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 2
+          }
+        },
+        {
+          "resource": {
+            "type": "STONE",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "PURPLE",
+          "numberOfCards": 1,
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        }
+      ],
+      "buildEffectValue": 6,
+      "name": "Triumphal Arch",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 6
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "resource": {
             "type": "WOOD",
             "value": 2
           }
         },
         {
+          "resource": {
+            "type": "COIN",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "PURPLE",
+          "numberOfCards": 1,
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        }
+      ],
+      "buildEffectValue": 6,
+      "name": "Theater",
+      "period": 1,
+      "immediateEffect": [
+        {
           "immediateEffect": "TakeOrPaySomethingEffect",
           "resource": {
+            "type": "VICTORY_POINT",
+            "value": 6
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
             "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+       ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Stonemason's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        },
+        {
+          "resource": {
+            "type": "WOOD",
+            "value": 2
+          }
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeOrPaySomethingEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
             "value": 3
           }
         }

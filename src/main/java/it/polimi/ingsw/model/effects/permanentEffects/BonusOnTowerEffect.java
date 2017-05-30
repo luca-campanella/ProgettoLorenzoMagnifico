@@ -29,8 +29,8 @@ public class BonusOnTowerEffect extends AbstractPermanentEffect{
         return discountOnDice;
     }
 
-    /*
-    This method checks if there's a bonus linked to that tower.
+    /**
+     This method checks if there's a bonus linked to that tower.
     If there is, it returns the amount of that bonus.
      */
     @Override
