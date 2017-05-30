@@ -9,7 +9,8 @@ bin/
 .DS_Store
 ._*
 
-.idea/
+/.idea/*
+!/.idea/runConfigurations/
 *.iml
 
 #ignore javadoc folder
