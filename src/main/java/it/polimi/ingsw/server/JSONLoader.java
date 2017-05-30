@@ -18,8 +18,13 @@ import java.io.Reader;
  * Created by higla on 30/05/2017.
  */
 public class JSONLoader {
-
-    public Deck createNewDeck() throws Exception{
+    /**
+     * Reads deck from json and loads that on the board.
+     * @return
+     * @throws Exception
+     */
+    public Deck createNewDeck() throws Exception
+    {
         Debug.instance(Debug.LEVEL_VERBOSE);
         GsonBuilder gsonBuilder = new GsonBuilder();
 

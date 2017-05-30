@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.effects.immediateEffects.GiveCouncilGiftEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class ControllerGame {
     private ControllerGame game;
     private Room room;
+    private Deck deck;
     private Board boardGame;
     private ModelController modelController;
     private int numberOfPlayers;
@@ -32,12 +34,14 @@ public class ControllerGame {
 
     public static void main(String[] args) throws Exception {
         ControllerGame controllerGame =  new ControllerGame(2);
-
         CliPrinter cli = new CliPrinter();
-        //todo: load cards, implement these on board;
+        //cli.printDeck(controllerGame.getDeck());
         cli.printBoard(controllerGame.getBoardGame());
     }
-
+    private  Deck getDeck()
+    {
+        return deck;
+    }
     public void endTurn(){
 
         numberOfTurn++;
@@ -66,13 +70,15 @@ public class ControllerGame {
     public ControllerGame(ArrayList<Player> players, Room room) throws Exception {
         JSONLoader jsonLoader = new JSONLoader();
         boardGame = jsonLoader.boardCreator();
-        boardGame.setDeck(jsonLoader.createNewDeck());
+        deck = jsonLoader.createNewDeck();
         numberOfPlayers = players.size();
         boardModifier(numberOfPlayers);
         this.room = room;
         modelController = new ModelController(players, this, boardGame);
         numberOfTurn = 0;
         numberOfRound = 1;
+
+
     }
 
     /**
@@ -83,6 +89,9 @@ public class ControllerGame {
     public ControllerGame(int numberOfPlayers) throws Exception {
         JSONLoader jsonLoader = new JSONLoader();
         boardGame = jsonLoader.boardCreator();
+        deck = jsonLoader.createNewDeck();
+        int period = 1;
+        boardGame = deck.fillBoard(boardGame, period);
         boardModifier(numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
     }

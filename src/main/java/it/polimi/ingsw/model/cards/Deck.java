@@ -1,9 +1,13 @@
 package it.polimi.ingsw.model.cards;
 
-import java.util.ArrayList;
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.utils.Debug;
 
+import java.util.ArrayList;
+import java.util.Random;
 /**
- * Created by higla on 23/05/2017.
+ * This class has all cards.
  */
 public class Deck {
     private ArrayList<AbstractCard> allCards;
@@ -17,6 +21,27 @@ public class Deck {
     }
     public void getNextCard(){
         ;
+    }
+    public Board fillBoard(Board board, int period)
+    {
+        int i = 0;
+        int k = territoryCards.size()/3;
+        int temp = period * (int)(Math.random()*k);
+        for(i=0; i<board.getNUMBER_OF_FLOORS(); i++){
+            //i take a random number - 0 to 7
+            Debug.printDebug("K vale " + k);
+            //then in base of the period, i choose the right card
+            while(territoryCards.get(temp).getPeriod() != period)
+                temp = period * (int)(Math.random()*k);
+            Debug.printDebug("temp vale " + temp + " period vale " + period  );
+            board.setCardsOnTower(territoryCards.get(temp), CardColorEnum.GREEN,i);
+            Debug.printDebug(territoryCards.get(temp).getName());
+
+            //then i remove the card from all territory card, and decrease the card count
+            territoryCards.remove(temp);
+            k--;
+        }
+        return board;
     }
 
     public ArrayList<AbstractCard> getAllCards() {

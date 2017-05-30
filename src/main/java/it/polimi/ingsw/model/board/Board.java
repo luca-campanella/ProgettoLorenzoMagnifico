@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.player.FamilyMember;
 
@@ -142,6 +143,19 @@ public class Board {
 
     public void build(FamilyMember familyMember) {
         build.addFamilyMember(familyMember);
+    }
+
+    public Tower getTowerByColor(CardColorEnum color)
+    {
+        for(int i= 0; i< getNUMBER_OF_TOWERS(); i++)
+            if(color == this.getTower(i).getTowerColor())
+                return this.getTower(i);
+        return null;
+    }
+
+    public void setCardsOnTower(AbstractCard card, CardColorEnum color, int level)
+    {
+        this.getTowerByColor(color).setCardOnFloor(level, card);
     }
 
     public Deck getDeck() {

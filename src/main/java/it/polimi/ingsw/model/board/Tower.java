@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.cards.AbstractCard;
+
 /**
  * This class represents the single tower and collects action spaces regarding cards
  */
@@ -34,5 +36,10 @@ public class Tower {
     }
     public TowerFloorAS[] getFloors() {
         return floors;
+    }
+
+    public void setCardOnFloor(int i, AbstractCard card)
+    {
+        this.floors[i].setCard(card);
     }
 }

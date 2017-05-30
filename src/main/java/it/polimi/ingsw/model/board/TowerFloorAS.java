@@ -54,5 +54,7 @@ public class TowerFloorAS extends AbstractActionSpace {
         Debug.printVerbose("Stampo l'effetto " + getEffects());
     }
 
-
+    public void setCard(AbstractCard card) {
+        this.card = card;
+    }
 }

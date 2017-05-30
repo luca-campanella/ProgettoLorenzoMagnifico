@@ -15,10 +15,12 @@ import java.util.ArrayList;
  */
 public class CliPrinter {
     static final int MAX_LENGHT_CARD_NAME = 30;
+    //lenght of tower + action space next to that tower
     static final int sceneLenght = 39;
     static final int TOWER_LENGHT = 34;
     static final int SAMETYPE_CARDS_NUMBER = 24;
-
+    //lenght of tower
+    static final int INSIDE_TOWER_LENGHT = 25;
     /**
      * this method prints the board
      * @param board
@@ -111,17 +113,20 @@ public class CliPrinter {
      */
     private void printCardNameActionSpace(Board board,TowerFloorAS[] temp){
         for(int k=0; k<board.getNUMBER_OF_TOWERS(); k++) {
-            String name = "cardName";
+            //temp printing, waiting for filling all the cards
+            String name = temp[0].getCard().getName();
+
             System.out.print("|");
-            for(int i = 0; i< (TOWER_LENGHT)/2 - name.length(); i++)
+            int tempLength = ((INSIDE_TOWER_LENGHT) - name.length())/2;
+            for(int i = 0; i< tempLength; i++)
                 System.out.print(" ");
             System.out.print(name);
-            for(int i = 0; i< (TOWER_LENGHT)/2 - name.length()-1; i++)
+            tempLength += name.length();
+            for(int i = 0; i< (INSIDE_TOWER_LENGHT) - tempLength; i++)
                 System.out.print(" ");
             System.out.print("|");
 
             String auxiliaryPrinterString = new String();
-            auxiliaryPrinterString = "cardName";
             auxiliaryPrinterString = " *" + temp[k].getDiceValue() + "* " + temp[k].getEffectShortDescription();
             System.out.print(auxiliaryPrinterString);
             System.out.print(" ");
