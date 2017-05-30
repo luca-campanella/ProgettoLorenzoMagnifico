@@ -40,6 +40,10 @@ public class BuildAS extends AbstractActionSpace {
         //altrimenti chiama la funzione con il valore +0
     }
 
+    /**
+     * this method checks if the player that put here a family member is the first
+     * @return
+     */
     private boolean checkIfFirst(){
         if(first == true)
         {
@@ -69,6 +73,10 @@ public class BuildAS extends AbstractActionSpace {
         return  familyMembers;
     }
 
+    /**
+     * this method returns the right build value
+     * @return
+     */
     public int getValueNeeded(){
 
         if(familyMembers.size()>0)

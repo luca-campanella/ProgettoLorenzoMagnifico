@@ -18,6 +18,11 @@ public class CliPrinter {
     static final int sceneLenght = 39;
     static final int TOWER_LENGHT = 34;
     static final int SAMETYPE_CARDS_NUMBER = 24;
+
+    /**
+     * this method prints the board
+     * @param board
+     */
     public void printBoard(Board board){
         //printing the towers
         printTowers(board);
@@ -40,6 +45,10 @@ public class CliPrinter {
         printVaticanReport(board);
     }
 
+    /**
+     * this method prints all the towers with a lot of overhead
+     * @param board
+     */
     public void printTowersVerbose(Board board){
         int i;
         int k;
@@ -55,6 +64,11 @@ public class CliPrinter {
         }
 
     }
+
+    /**
+     * print towers with no overhead
+     * @param board
+     */
     public void printTowers(Board board){
         int i;
         int k;
@@ -89,6 +103,12 @@ public class CliPrinter {
         //printTowerCeiling(board, "|");
         System.out.println("");
     }
+
+    /**
+     * this method prints the card name action space
+     * @param board
+     * @param temp
+     */
     private void printCardNameActionSpace(Board board,TowerFloorAS[] temp){
         for(int k=0; k<board.getNUMBER_OF_TOWERS(); k++) {
             String name = "cardName";
