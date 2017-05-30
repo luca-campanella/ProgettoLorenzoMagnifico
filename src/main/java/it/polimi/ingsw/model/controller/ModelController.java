@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
-//import it.polimi.ingsw.server.BoardConfigurator;
 import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
@@ -105,10 +104,10 @@ public class ModelController {
     }
 
     private void gameFor2(){
-/*
+
         for(Player i : players){
             i.setFamilyMembers(dices);
-        }*/
+        }
 
     }
 
@@ -212,3 +211,5 @@ public class ModelController {
 
     }
 }
+
+
