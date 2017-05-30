@@ -173,6 +173,11 @@ public abstract class Player {
 
     }
 
+    public void purplePoints(){
+
+        personalBoard.purplePoints(this);
+    }
+
     public ArrayList<FamilyMember> getFamilyMembers(){
         return familyMembers;
     }
