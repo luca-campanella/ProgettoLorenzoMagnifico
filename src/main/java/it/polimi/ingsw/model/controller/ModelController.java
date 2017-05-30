@@ -216,6 +216,11 @@ public class ModelController {
         //player.activateLeaderCard();
 
     }
+
+    public void endGame(){
+
+        players.forEach(Player::purplePoints);
+    }
 }
 
 

@@ -15,10 +15,10 @@ public class TakeOrPaySomethingConditionedOnCardEffect extends TakeOrPaySomethin
         this.colorConditionedOnCardEffect = color;
     }
 
-    @Override
-    /*
-    This method gives you resources for each card of a certain type you have
+    /**
+      *  This method gives you resources for each card of a certain type you have
      */
+    @Override
     public void applyToPlayer(Player player) {
         int numberOfColoredCards = player.getNumberOfColoredCard(colorConditionedOnCardEffect);
         int i;

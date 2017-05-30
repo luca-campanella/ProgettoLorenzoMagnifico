@@ -27,12 +27,29 @@ public class ControllerGame {
     private Board boardGame;
     private ModelController modelController;
     private int numberOfPlayers;
+    private int numberOfRound;
+    private int numberOfTurn;
 
     public static void main(String[] args) throws Exception {
         ControllerGame controllerGame =  new ControllerGame(2);
         CliPrinter cli = new CliPrinter();
         //todo: load cards, implement these on board;
         cli.printBoard(controllerGame.getBoardGame());
+    }
+
+    public void endTurn(){
+
+        numberOfTurn++;
+
+        if(numberOfTurn >= numberOfPlayers*4 && numberOfRound == 3)
+            modelController.endGame();
+
+        if(numberOfTurn >= numberOfPlayers*4){
+            modelController.prepareForNewRound();
+            numberOfTurn = 0;
+            numberOfRound++;
+        }
+
     }
 
     public Board getBoardGame() {
@@ -46,11 +63,14 @@ public class ControllerGame {
      * @throws Exception if file where Board configuration is
      */
     public ControllerGame(ArrayList<Player> players, Room room) throws Exception {
+
         boardGame = boardCreator();
         numberOfPlayers = players.size();
         boardModifier(numberOfPlayers);
         this.room = room;
         modelController = new ModelController(players, this, boardGame);
+        numberOfTurn = 0;
+        numberOfRound = 1;
     }
 
     /**
