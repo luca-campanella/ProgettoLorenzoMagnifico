@@ -11,8 +11,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.language>java</sonar.language>
-        <sonar.coverage.exclusions>**/*</sonar.coverage.exclusions>
+        <!-- sonar.coverage.exclusions>**/*</sonar.coverage.exclusions -->
         <sonar.host.url>http://localhost:9000/</sonar.host.url>
+        <sonar.junit.repotsPath>target/surface-reports</sonar.junit.repotsPath>
     </properties>
 
     <dependencies>
