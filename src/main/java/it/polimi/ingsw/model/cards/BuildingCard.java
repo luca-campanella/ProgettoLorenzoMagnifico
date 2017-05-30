@@ -10,13 +10,23 @@ import java.util.ArrayList;
  * Created by higla on 23/05/2017.
  */
 public class BuildingCard extends AbstractCard{
+    
+    /**
+     * The array list of the cost to pay when taking the card
+     */
     private ArrayList<TakeOrPaySomethingEffect> cost;
+
+    /**
+     * the array list of effects called when a Building action is perfomed.
+     * This arraylist will usually be filled with {@link it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect}
+     */
     private ArrayList<ImmediateEffectInterface> effectsOnBuilding;
 
-    /*
-    this parameter indicates minimum dice's value to attivate card's build effect
+    /**
+     * this parameter indicates minimum dice's value to attivate card's build effect
      */
     private int buildEffectValue;
+
     //apply to player deve avere anche il valore del dado.
     private void applyEffectsToPlayer(Player player){
         ;
