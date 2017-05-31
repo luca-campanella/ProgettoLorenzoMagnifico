@@ -95,5 +95,11 @@ public class BuildAS extends AbstractActionSpace {
     public void setTwoPlayersOneSpace(boolean twoPlayersOneSpace) {
         this.twoPlayersOneSpace = twoPlayersOneSpace;
     }
+
+    public void clearBuild(){
+
+        familyMembers.clear();
+
+    }
 }
 
