@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.Player;
 
 import java.util.ArrayList;
@@ -32,5 +34,11 @@ public class TerritoryCard extends AbstractCard{
 
     public void setEffectsOnHarvest(ArrayList<ImmediateEffectInterface> effectsOnHarvest) {
         this.effectsOnHarvest = effectsOnHarvest;
+    }
+    public ArrayList<ImmediateEffectInterface> getCost() {
+        ArrayList<ImmediateEffectInterface> noEffects = new ArrayList<>(0);
+        NoEffect noEffect = new NoEffect();
+        noEffects.add(noEffect);
+        return noEffects ;
     }
 }

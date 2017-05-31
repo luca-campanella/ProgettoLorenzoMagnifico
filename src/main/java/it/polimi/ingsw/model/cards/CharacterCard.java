@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 
@@ -33,4 +34,5 @@ public class CharacterCard extends AbstractCard {
     public void setPermanentEffect(ArrayList<AbstractPermanentEffect> permanentEffect) {
         this.permanentEffect = permanentEffect;
     }
+
 }

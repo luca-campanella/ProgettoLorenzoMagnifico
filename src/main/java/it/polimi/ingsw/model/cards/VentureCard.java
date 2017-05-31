@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingConditionedEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 
@@ -17,7 +18,12 @@ public class VentureCard extends AbstractCard{
     /*private Resource getFinalVictoryPoints{
 
     }*/
-
+    public ArrayList<ImmediateEffectInterface> getCost(){
+        ArrayList<ImmediateEffectInterface> costFusion = new ArrayList<>();
+        costFusion.addAll(costChoiceResource);
+        costFusion.addAll(costChoiceMilitary);
+        return  costFusion;
+    }
     public ArrayList<TakeOrPaySomethingEffect> getCostChoiceResource() {
         return costChoiceResource;
     }

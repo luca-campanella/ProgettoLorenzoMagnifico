@@ -91,7 +91,7 @@ public class CliPrinter {
             temp = board.getFloorLevel(board.getNUMBER_OF_FLOORS()-1-i);
             printPillar();
             System.out.println();
-            printPillar();
+            printCostCards(temp);
             System.out.println();
             printCardNameActionSpace(board, temp);
             System.out.println();
@@ -114,7 +114,7 @@ public class CliPrinter {
     private void printCardNameActionSpace(Board board,TowerFloorAS[] temp){
         for(int k=0; k<board.getNUMBER_OF_TOWERS(); k++) {
             //temp printing, waiting for filling all the cards
-            String name = temp[0].getCard().getName();
+            String name = temp[k].getCard().getName();
 
             System.out.print("|");
             int tempLength = ((INSIDE_TOWER_LENGHT) - name.length())/2;
@@ -133,10 +133,85 @@ public class CliPrinter {
             //System.out.print("Lunghezza " + auxiliaryPrinterString.length());
         }
     }
+
+    /**
+     * this class prints all costs cards in a level
+     */
+    private void printCostCards(TowerFloorAS[] floors){
+        printOneEmptyPillar();
+        printVentureCostPillar(floors[1]);
+        printOneEmptyPillar();
+        printOneEmptyPillar();
+    }
+
+    /** this method prints pillars for just one tower
+     *
+     */
+    private void printOneEmptyPillar()
+    {
+        System.out.print("|");
+            for (int i = 0; i < 25; i++)
+                System.out.print(" ");
+            System.out.print("|");
+            for (int j = 0; j < 11; j++) {
+                System.out.print(" ");
+            }
+    }
+    /**
+     * This method prints a venture card cost pillar
+     */
+    public void printVentureCostPillar(TowerFloorAS floor){
+        ArrayList<? extends ImmediateEffectInterface> costs;
+        String tempCostsScene = "| Cost: ";
+        costs = floor.getCard().getCost();
+        //first i print the costs
+        for(int i = 0; i<costs.size(); i++)
+            tempCostsScene += costs.get(i).descriptionShortOfEffect() + " ";
+        //then i print the remaining space from cost to .. |
+        while(tempCostsScene.length()< TOWER_LENGHT)
+            tempCostsScene += " ";
+        tempCostsScene += "|";
+        //then i prepare the scene for the next pillar
+        for(int i = 0; i<sceneLenght-TOWER_LENGHT; i++)
+        tempCostsScene += " ";
+
+        System.out.print(tempCostsScene);
+    }
+    public void printCharacterCards(CharacterCard card){
+        String temp = new String();
+        int i, lenght;
+        temp = "Name " + card.getName() +".";
+        lenght = MAX_LENGHT_CARD_NAME - temp.length();
+        for(i=0; i< lenght; i++)
+            temp += " ";
+        System.out.print(temp + "Period " + card.getPeriod() + " costs ");
+        printCosts(card.getCost());
+        System.out.print(". Immediate Effect: ");
+        printImmediateShortEffects(card.getImmediateEffect());
+        System.out.print("Permanent Effect: ");
+        printPermanentEffects(card.getPermanentEffect());
+        System.out.println("");
+        //printPermanentEffects(card.getPermanentEffect());
+    }
+    public void printCosts(ArrayList<? extends ImmediateEffectInterface> effect)
+    {
+        int i=0;
+        for(i=0; i< effect.size(); i++)
+            printCost(effect.get(i));
+    }
+    public void printCost(ImmediateEffectInterface effect)
+    {
+        System.out.print(effect.descriptionShortOfEffect());
+    }
+
+
+    /**
+     * this class prints a pillar
+     */
     private void printPillar()
     {
         final int totalScene = 40;
-        for(int k=0; k<4; k++) {
+        for(int k=0; k< 4; k++) {
             System.out.print("|");
             for (int i = 0; i < 25; i++)
                 System.out.print(" ");
@@ -246,32 +321,7 @@ public class CliPrinter {
         for(int i=0; i< effects.size(); i++)
         System.out.print(effects.get(i).descriptionShortOfEffect());
     }
-    public void printCharacterCards(CharacterCard card){
-        String temp = new String();
-        int i, lenght;
-        temp = "Name " + card.getName() +".";
-        lenght = MAX_LENGHT_CARD_NAME - temp.length();
-        for(i=0; i< lenght; i++)
-            temp += " ";
-        System.out.print(temp + "Period " + card.getPeriod() + " costs ");
-        printCosts(card.getCost());
-        System.out.print(". Immediate Effect: ");
-        printImmediateShortEffects(card.getImmediateEffect());
-        System.out.print("Permanent Effect: ");
-        printPermanentEffects(card.getPermanentEffect());
-        System.out.println("");
-        //printPermanentEffects(card.getPermanentEffect());
-    }
-    public void printCosts(ArrayList<TakeOrPaySomethingEffect> effect)
-    {
-        int i=0;
-        //for(i=0; i< effect.size(); i++)
-            printCost(effect.get(i));
-    }
-    public void printCost(TakeOrPaySomethingEffect effect)
-    {
-        System.out.print(effect.descriptionShortOfEffect());
-    }
+
     public void printTerritoryCardVerbose(TerritoryCard card){
         System.out.print("Name " + card.getName()+", period " + card.getPeriod() + ", value " + card.getHarvestEffectValue());
         System.out.print(". Immediate Effect :");

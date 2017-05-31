@@ -17,8 +17,9 @@ public class Deck {
     private ArrayList<BuildingCard> buildingCards;
     private ArrayList<VentureCard> ventureCards;
 
-    public void shuffle(){
-        ;
+    public void shufflePartOfArrayList(ArrayList<? extends  AbstractCard> developmentCard){
+
+
     }
     public void getNextCard(){
         ;
@@ -32,11 +33,10 @@ public class Deck {
      */
     public Board fillBoard(Board board, int period)
     {
-/*
         board = fillTower(board, period, territoryCards, CardColorEnum.GREEN);
         board = fillTower(board, period, characterCards, CardColorEnum.BLUE);
         board = fillTower(board, period, buildingCards, CardColorEnum.YELLOW);
-        board = fillTower(board, period, ventureCards, CardColorEnum.PURPLE);*/
+        board = fillTower(board, period, ventureCards, CardColorEnum.PURPLE);
         return board;
     }
 
@@ -48,7 +48,7 @@ public class Deck {
      * @param colorTower
      * @return
      */
-    public Board fillTower(Board board, int period, ArrayList<AbstractCard> developmentCard, CardColorEnum colorTower)
+    public Board fillTower(Board board, int period, ArrayList<? extends AbstractCard> developmentCard, CardColorEnum colorTower)
     {
         int i;
         int k = 7;
@@ -62,7 +62,6 @@ public class Deck {
             Debug.printDebug("temp vale " + temp + " period vale " + period);
             board.setCardsOnTower(developmentCard.get(temp), colorTower, i);
             Debug.printDebug(developmentCard.get(temp).getName());
-
             //then i remove the card from all territory card, and decrease the card count
             developmentCard.remove(temp);
             k--;

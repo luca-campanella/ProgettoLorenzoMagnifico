@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
+import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
 
@@ -12,9 +14,8 @@ public abstract class AbstractCard {
     private String name;
     private int period;
     ArrayList<ImmediateEffectInterface> immediateEffect;
-    //ArrayList<AbstractPermanentEffect> permanentEffect;
 
-
+    public abstract ArrayList<? extends ImmediateEffectInterface> getCost();
     //abstract public int characteristicValue();
     public void addImmediateEffect(ImmediateEffectInterface effect){
         immediateEffect.add(effect);
