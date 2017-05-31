@@ -18,11 +18,17 @@ public class VentureCard extends AbstractCard{
     /*private Resource getFinalVictoryPoints{
 
     }*/
-    public ArrayList<ImmediateEffectInterface> getCost(){
-        ArrayList<ImmediateEffectInterface> costFusion = new ArrayList<>();
-        costFusion.addAll(costChoiceResource);
-        costFusion.addAll(costChoiceMilitary);
-        return  costFusion;
+    public ArrayList<? extends ImmediateEffectInterface> getCost(){
+        ArrayList<TakeOrPaySomethingEffect> costFusion = new ArrayList<>();
+        if(costChoiceResource != null)
+            costFusion.addAll(costChoiceResource);
+        try {
+            costFusion.addAll(costChoiceMilitary);
+        }catch(NullPointerException e)
+        {
+            ;
+        }
+            return  costFusion;
     }
     public ArrayList<TakeOrPaySomethingEffect> getCostChoiceResource() {
         return costChoiceResource;

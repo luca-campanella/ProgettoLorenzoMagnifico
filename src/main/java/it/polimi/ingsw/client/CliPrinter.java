@@ -16,11 +16,12 @@ import java.util.ArrayList;
 public class CliPrinter {
     static final int MAX_LENGHT_CARD_NAME = 30;
     //lenght of tower + action space next to that tower
-    static final int sceneLenght = 39;
-    static final int TOWER_LENGHT = 34;
-    static final int SAMETYPE_CARDS_NUMBER = 24;
+    static final int sceneLenght = 39 +10;
+    static final int TOWER_LENGHT = 34 ;
+    static final int SAMETYPE_CARDS_NUMBER = 24 ;
     //lenght of tower
-    static final int INSIDE_TOWER_LENGHT = 25;
+    static final int INSIDE_TOWER_LENGHT = 25 +10;
+
     /**
      * this method prints the board
      * @param board
@@ -76,10 +77,10 @@ public class CliPrinter {
         int k;
         TowerFloorAS[] temp; // = new TowerFloorAS[board.getNUMBER_OF_TOWERS()];
         for(k=0; k<board.getNUMBER_OF_TOWERS(); k++) {
-            for(i=0; i<10; i++)
+            for(i=0; i<15; i++)
                 System.out.print(" ");
             printColorTower(board.getTowerColor(board.getTower(k)).toString());
-            for(i=0; i<18; i++)
+            for(i=0; i<23; i++)
                 System.out.print(" ");
         }
         printTowerCeiling(board, "_");
@@ -89,13 +90,13 @@ public class CliPrinter {
             //printTowerCeiling(board, "_");
             System.out.println();
             temp = board.getFloorLevel(board.getNUMBER_OF_FLOORS()-1-i);
-            printPillar();
-            System.out.println();
             printCostCards(temp);
+            System.out.println();
+            printPillar();
             System.out.println();
             printCardNameActionSpace(board, temp);
             System.out.println();
-            printPillar();
+            printImmediateEffectPillar(temp);
             System.out.println();
             printPillar();
             printTowerCeiling(board, "|");
@@ -105,7 +106,28 @@ public class CliPrinter {
         //printTowerCeiling(board, "|");
         System.out.println("");
     }
+    private void printImmediateEffectPillar(TowerFloorAS[] floors){
+        for(int i= 0; i< floors.length; i++)
+        printCardEffectOnFloor(floors[i]);
+    }
+    private void printCardEffectOnFloor(TowerFloorAS floor)
+    {
+        ArrayList<? extends ImmediateEffectInterface> costs;
+        String tempCostsScene = "| Instantly: ";
+        costs = floor.getCard().getImmediateEffect();
+        //first i print the costs
+        for(int i = 0; i< costs.size(); i++)
+            tempCostsScene += costs.get(i).descriptionShortOfEffect() + " ";
+        //then i print the remaining space from cost to .. |
+        while(tempCostsScene.length()< INSIDE_TOWER_LENGHT+1)
+            tempCostsScene += " ";
+        tempCostsScene += "|";
+        //then i prepare the scene for the next pillar. Middle tower lenght is 26 not 29
+        for(int i = 0; i< sceneLenght-INSIDE_TOWER_LENGHT -3; i++)
+            tempCostsScene += " ";
 
+        System.out.print(tempCostsScene);
+    }
     /**
      * this method prints the card name action space
      * @param board
@@ -139,40 +161,41 @@ public class CliPrinter {
      */
     private void printCostCards(TowerFloorAS[] floors){
         printOneEmptyPillar();
-        printVentureCostPillar(floors[1]);
-        printOneEmptyPillar();
-        printOneEmptyPillar();
+        printGenericCostPillar(floors[1]);
+        printGenericCostPillar(floors[2]);
+        printGenericCostPillar(floors[3]);
     }
-
+    //printVenutreCostPillar
     /** this method prints pillars for just one tower
      *
      */
     private void printOneEmptyPillar()
     {
         System.out.print("|");
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < INSIDE_TOWER_LENGHT; i++)
                 System.out.print(" ");
             System.out.print("|");
-            for (int j = 0; j < 11; j++) {
+            for (int j = 0; j < sceneLenght - INSIDE_TOWER_LENGHT - 3; j++) {
                 System.out.print(" ");
             }
     }
     /**
-     * This method prints a venture card cost pillar
+     * This method prints a generic card cost pillar
      */
-    public void printVentureCostPillar(TowerFloorAS floor){
+    public void printGenericCostPillar(TowerFloorAS floor){
         ArrayList<? extends ImmediateEffectInterface> costs;
-        String tempCostsScene = "| Cost: ";
+        String tempCostsScene = "|Cost: ";
+        String subCostScene = " ";
         costs = floor.getCard().getCost();
         //first i print the costs
-        for(int i = 0; i<costs.size(); i++)
+        for(int i = 0; i< costs.size(); i++)
             tempCostsScene += costs.get(i).descriptionShortOfEffect() + " ";
         //then i print the remaining space from cost to .. |
-        while(tempCostsScene.length()< TOWER_LENGHT)
+        while(tempCostsScene.length()< INSIDE_TOWER_LENGHT+1)
             tempCostsScene += " ";
         tempCostsScene += "|";
-        //then i prepare the scene for the next pillar
-        for(int i = 0; i<sceneLenght-TOWER_LENGHT; i++)
+        //then i prepare the scene for the next pillar. Middle tower lenght is 26 not 29
+        for(int i = 0; i< sceneLenght-INSIDE_TOWER_LENGHT -3; i++)
         tempCostsScene += " ";
 
         System.out.print(tempCostsScene);
@@ -210,13 +233,13 @@ public class CliPrinter {
      */
     private void printPillar()
     {
-        final int totalScene = 40;
+
         for(int k=0; k< 4; k++) {
             System.out.print("|");
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < INSIDE_TOWER_LENGHT; i++)
                 System.out.print(" ");
             System.out.print("|");
-            for (int j = 0; j < 11; j++) {
+            for (int j = 0; j < sceneLenght - INSIDE_TOWER_LENGHT - 3; j++) {
                 System.out.print(" ");
             }
         }
@@ -225,8 +248,7 @@ public class CliPrinter {
     private void printTowerCeiling(Board board, String c)
     {
         int i, k, j;
-        final int totalScene = 38;
-        int numberOfUnderscore = 24;
+        int numberOfUnderscore = 34;
         System.out.println();
         //total sum must be 38
         for(k=0; k< board.getNUMBER_OF_TOWERS(); k++) {
@@ -238,7 +260,7 @@ public class CliPrinter {
                 System.out.print("_");
             }
             System.out.print(c);
-            for(j=0; j< totalScene - numberOfUnderscore -2; j++)
+            for(j=0; j< sceneLenght - numberOfUnderscore - 3; j++)
                 System.out.print(" ");
             if(c.equalsIgnoreCase(("|")))
                 numberOfUnderscore--;
