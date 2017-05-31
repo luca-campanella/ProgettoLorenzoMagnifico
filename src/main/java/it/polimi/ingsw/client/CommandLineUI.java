@@ -11,6 +11,7 @@ import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.utils.Debug;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 //TODO
 public class CommandLineUI extends AbstractUIType {
@@ -213,6 +214,30 @@ public class CommandLineUI extends AbstractUIType {
         } catch (NetworkException e) {
             Debug.printError("Cannot send chat message", e);
         }
+    }
+
+    /**
+     * when the model need to call back the client to choose what effect applying
+     * @param nameCard the name of the card that has different choices on the effects
+     * @param choices the choices available
+     * @return the number of the choice the player want
+     */
+    public int askChoice(String nameCard, ArrayList<String> choices){
+
+        Debug.printDebug("you can choose different effect on the card " + nameCard);
+        int cont = 0;
+        for (String choice : choices){
+            Debug.printDebug(cont + ") "+ choice);
+            cont++;
+        }
+        Debug.printDebug(cont + ") NONE");
+        Debug.printDebug("chose the effect to activate:");
+        int numChoice;
+        do{
+            numChoice = inputScanner.nextInt();
+        } while (numChoice < 0 || numChoice>choices.size() );
+
+        return numChoice;
     }
 
 }

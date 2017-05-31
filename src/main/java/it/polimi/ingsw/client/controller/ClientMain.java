@@ -10,10 +10,12 @@ import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.utils.Debug;
 
+import java.util.ArrayList;
+
 /**
  * TODO: implement launcher
  */
-public class ClientMain {
+public class ClientMain implements ControllerModelInterface{
     LauncherClientFake temp;
     AbstractUIType userInterface;
     AbstractClientType clientNetwork;
@@ -162,6 +164,12 @@ public class ClientMain {
      */
     public void callbackSendChatMsg(String msg) throws NetworkException {
         clientNetwork.sendChatMsg(msg);
+    }
+
+    public int choose(String nameCard, ArrayList<String> choices){
+
+        return userInterface.askChoice(nameCard, choices);
+
     }
 }
 

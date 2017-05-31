@@ -2,6 +2,8 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.UIControllerUserInterface;
 
+import java.util.ArrayList;
+
 /**
  * Created by higla on 11/05/2017.
  */
@@ -43,5 +45,8 @@ abstract public class AbstractUIType {
 
     //TODO this is a method just for testing chat
     public abstract void askChatMsg();
+
+
+    public abstract int askChoice(String nameCard, ArrayList<String> choices);
 }
 
