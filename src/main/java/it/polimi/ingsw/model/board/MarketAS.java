@@ -32,6 +32,14 @@ public class MarketAS extends AbstractActionSpace{
         this.valueStandard = valueStandard;
     }
 
+    /**
+     * it clears the market removing the family member
+     */
+    public void clearMarket(){
+
+        familyMember = null;
+
+    }
 
     public int getValueStandard() {
         return valueStandard;

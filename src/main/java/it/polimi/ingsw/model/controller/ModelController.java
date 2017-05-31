@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.controller;
 
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.server.ControllerGame;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
@@ -112,17 +113,40 @@ public class ModelController {
     /**
      * prepare the players for the new round
      */
-    public void prepareForNewRound(){
+    public void prepareForNewRound(ArrayList<AbstractCard> cards){
 
         //reload the family member
         players.forEach(Player::reloadFamilyMember);
 
+        reDoOrderPlayer(gameBoard.getCouncil().getFamilyMembers());
+
+        gameBoard.clearBoard();
+
         //TODO clean and load the cards on board
-        //TODO change order players
 
         if(round%2==0){}
             //TODO METHOD to call the excommunication
         round = round + 1;
+    }
+
+    /**
+     * manage the order of the players based on the council
+     * @param familyMembers the family members placed on the council
+     */
+    public void reDoOrderPlayer(ArrayList<FamilyMember> familyMembers){
+
+        ArrayList<Player> newPlayersOrder = new ArrayList<>(players.size());
+
+        for(FamilyMember i : familyMembers){
+            newPlayersOrder.add(i.getPlayer());
+            players.remove(i.getPlayer());
+        }
+
+        for(Player i : players)
+            newPlayersOrder.add(i);
+
+        players = newPlayersOrder;
+
     }
 
     public void prepareForNewPeriod(){

@@ -77,4 +77,13 @@ public class HarvestAS extends AbstractActionSpace{
         this.twoPlayersOneSpace = twoPlayersOneSpace;
     }
 
+    /**
+     * deletes all the family member on the space
+     */
+    public void clearHarvest(){
+
+        familyMembers.clear();
+
+    }
+
 }

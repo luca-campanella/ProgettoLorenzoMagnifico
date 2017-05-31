@@ -16,9 +16,9 @@ public class CouncilAS extends AbstractActionSpace {
     private ArrayList<FamilyMember> familyMembers;
     //ArrayList<ImmediateEffectInterface> effects;
 
-    public CouncilAS(int numberOfPlayers){
+    public CouncilAS(){
 
-        familyMembers = new ArrayList<>(numberOfPlayers);
+        familyMembers = new ArrayList<>(5);
 
     }
     /**

@@ -165,7 +165,19 @@ public class Board {
     public void setDeck(Deck deck) {
         this.deck = deck;
     }
+
+    /**
+     * clear all the spaces on the board removing all the family members placed
+     */
+    public void clearBoard(){
+
+        market.forEach(MarketAS::clearMarket);
+        build.clearBuild();
+        harvest.clearHarvest();
+
+    }
 }
+
 
 
 //
