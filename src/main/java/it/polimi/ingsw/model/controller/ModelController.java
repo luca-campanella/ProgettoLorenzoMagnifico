@@ -113,7 +113,7 @@ public class ModelController {
     /**
      * prepare the players for the new round
      */
-    public void prepareForNewRound(ArrayList<AbstractCard> cards){
+    public void prepareForNewRound(){
 
         //reload the family member
         players.forEach(Player::reloadFamilyMember);

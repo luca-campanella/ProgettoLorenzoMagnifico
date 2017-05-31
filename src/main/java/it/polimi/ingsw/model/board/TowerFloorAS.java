@@ -24,8 +24,9 @@ public class TowerFloorAS extends AbstractActionSpace {
     }
 
     public void placeCard(AbstractCard card){
+
         this.card = card;
-        clearFloor();
+
     }
 
     public AbstractCard getCard(){
@@ -38,8 +39,9 @@ public class TowerFloorAS extends AbstractActionSpace {
         this.familyMember = familyMember;
     }
 
-    private void clearFloor(){
+    public void clearFloor(){
         this.familyMember = null;
+        card = null;
     }
 
     public int getDiceCost(){
