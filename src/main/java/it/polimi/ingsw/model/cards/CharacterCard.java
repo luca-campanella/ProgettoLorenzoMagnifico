@@ -34,5 +34,10 @@ public class CharacterCard extends AbstractCard {
     public void setPermanentEffect(ArrayList<AbstractPermanentEffect> permanentEffect) {
         this.permanentEffect = permanentEffect;
     }
-
+    public String secondEffect(){
+        String temp = new String();
+        for(int i=0; i<permanentEffect.size(); i++)
+            temp += permanentEffect.get(i).getShortDescription();
+        return temp;
+    }
 }

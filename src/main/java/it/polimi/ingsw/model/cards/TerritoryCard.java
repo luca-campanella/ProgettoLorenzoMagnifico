@@ -41,4 +41,11 @@ public class TerritoryCard extends AbstractCard{
         noEffects.add(noEffect);
         return noEffects ;
     }
+    public String secondEffect(){
+        String temp = new String();
+        temp = "H.Value " + harvestEffectValue + "/";
+        for(int i=0; i<effectsOnHarvest.size(); i++)
+            temp += effectsOnHarvest.get(i).descriptionShortOfEffect();
+        return temp;
+    }
 }

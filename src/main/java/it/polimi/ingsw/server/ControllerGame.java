@@ -94,6 +94,7 @@ public class ControllerGame {
         boardGame = deck.fillBoard(boardGame, period);
         boardModifier(numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
+
     }
 
     /**

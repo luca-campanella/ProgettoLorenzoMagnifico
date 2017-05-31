@@ -53,4 +53,7 @@ public class VentureCard extends AbstractCard{
     public void setVictoryEndPoints(int victoryEndPoints) {
         this.victoryEndPoints = victoryEndPoints;
     }
+    public String secondEffect(){
+        return "+V " + victoryEndPoints;
+    }
 }

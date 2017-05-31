@@ -98,7 +98,7 @@ public class CliPrinter {
             System.out.println();
             printImmediateEffectPillar(temp);
             System.out.println();
-            printPillar();
+            printSecondEffectPillar(temp);
             printTowerCeiling(board, "|");
             //System.out.println("");
 
@@ -108,9 +108,14 @@ public class CliPrinter {
     }
     private void printImmediateEffectPillar(TowerFloorAS[] floors){
         for(int i= 0; i< floors.length; i++)
-        printCardEffectOnFloor(floors[i]);
+        printCardImmediateEffectOnFloor(floors[i]);
     }
-    private void printCardEffectOnFloor(TowerFloorAS floor)
+    private void printSecondEffectPillar(TowerFloorAS[] floors){
+        for(int i= 0; i< floors.length; i++)
+            printCardSecondEffectOnFloor(floors[i]);
+    }
+
+    private void printCardImmediateEffectOnFloor(TowerFloorAS floor)
     {
         ArrayList<? extends ImmediateEffectInterface> costs;
         String tempCostsScene = "| Instantly: ";
@@ -119,6 +124,21 @@ public class CliPrinter {
         for(int i = 0; i< costs.size(); i++)
             tempCostsScene += costs.get(i).descriptionShortOfEffect() + " ";
         //then i print the remaining space from cost to .. |
+        while(tempCostsScene.length()< INSIDE_TOWER_LENGHT+1)
+            tempCostsScene += " ";
+        tempCostsScene += "|";
+        //then i prepare the scene for the next pillar. Middle tower lenght is 26 not 29
+        for(int i = 0; i< sceneLenght-INSIDE_TOWER_LENGHT -3; i++)
+            tempCostsScene += " ";
+
+        System.out.print(tempCostsScene);
+    }
+    private void printCardSecondEffectOnFloor(TowerFloorAS floor)
+    {
+        String tempCostsScene = "| Second: ";
+        tempCostsScene += floor.getCard().secondEffect();
+
+        //Here i fit my string to the scene.. |
         while(tempCostsScene.length()< INSIDE_TOWER_LENGHT+1)
             tempCostsScene += " ";
         tempCostsScene += "|";
