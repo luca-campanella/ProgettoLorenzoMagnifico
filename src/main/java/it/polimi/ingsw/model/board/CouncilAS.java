@@ -51,7 +51,7 @@ public class CouncilAS extends AbstractActionSpace {
     /**
      * delete all the family members on this space
      */
-    public void clearSpace(){
+    public void clearCouncil(){
 
         familyMembers.clear();
 

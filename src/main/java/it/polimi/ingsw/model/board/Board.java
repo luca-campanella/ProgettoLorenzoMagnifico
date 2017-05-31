@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 16/05/2017.
+ * the board where the game develops
  */
 public class Board {
     private int NUMBER_OF_TOWERS;
@@ -171,9 +171,12 @@ public class Board {
      */
     public void clearBoard(){
 
+        for(int i = 0 ; i < NUMBER_OF_TOWERS ; i++ )
+            towers[i].clearTower();
         market.forEach(MarketAS::clearMarket);
         build.clearBuild();
         harvest.clearHarvest();
+        council.clearCouncil();
 
     }
 }
