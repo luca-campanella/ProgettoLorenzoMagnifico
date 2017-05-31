@@ -55,4 +55,10 @@ public class BuildingCard extends AbstractCard{
     public void setEffectsOnBuilding(ArrayList<ImmediateEffectInterface> effectsOnBuilding) {
         this.effectsOnBuilding = effectsOnBuilding;
     }
+    public String secondEffect(){
+        String temp = new String();
+        for(int i=0; i<effectsOnBuilding.size();i++)
+            temp += effectsOnBuilding.get(i).descriptionShortOfEffect();
+        return temp;
+    }
 }

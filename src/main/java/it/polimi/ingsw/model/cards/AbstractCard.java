@@ -16,6 +16,7 @@ public abstract class AbstractCard {
     ArrayList<ImmediateEffectInterface> immediateEffect;
 
     public abstract ArrayList<? extends ImmediateEffectInterface> getCost();
+    public abstract String secondEffect();
     //abstract public int characteristicValue();
     public void addImmediateEffect(ImmediateEffectInterface effect){
         immediateEffect.add(effect);
@@ -44,5 +45,6 @@ public abstract class AbstractCard {
     public void setImmediateEffect(ArrayList<ImmediateEffectInterface> immediateEffect) {
         this.immediateEffect = immediateEffect;
     }
+
 
 }

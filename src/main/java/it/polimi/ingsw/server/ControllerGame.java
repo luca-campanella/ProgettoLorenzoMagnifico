@@ -50,7 +50,7 @@ public class ControllerGame {
             modelController.endGame();
 
         if(numberOfTurn >= numberOfPlayers*4){
-            modelController.prepareForNewRound();
+            //modelController.prepareForNewRound();
             numberOfTurn = 0;
             numberOfRound++;
         }
@@ -94,6 +94,7 @@ public class ControllerGame {
         boardGame = deck.fillBoard(boardGame, period);
         boardModifier(numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
+
     }
 
     /**
