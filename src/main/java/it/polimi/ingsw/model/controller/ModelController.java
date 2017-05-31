@@ -157,7 +157,7 @@ public class ModelController {
             //cannot place this familymembers because the value is too low
             return;
         gameBoard.harvest(familyMember);
-        familyMember.getPlayer().harvest(servant+familyMember.getValue());
+        familyMember.getPlayer().harvest(servant+familyMember.getValue()+harvestPlace.getValueMalus());
 
     }
 
@@ -188,7 +188,7 @@ public class ModelController {
             //cannot place this familymembers because the value is too low
             return;
         gameBoard.build(familyMember);
-        familyMember.getPlayer().build(familyMember.getValue());
+        familyMember.getPlayer().build(servant+familyMember.getValue()+ buildPlace.getValueMalus());
         //TODO add control of the move and code on the board
     }
 
