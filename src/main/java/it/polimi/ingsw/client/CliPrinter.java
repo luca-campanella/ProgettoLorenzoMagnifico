@@ -110,11 +110,20 @@ public class CliPrinter {
         for(int i= 0; i< floors.length; i++)
         printCardImmediateEffectOnFloor(floors[i]);
     }
+
+    /**
+     * this method prints the second  effect pillar
+     * @param floors
+     */
     private void printSecondEffectPillar(TowerFloorAS[] floors){
         for(int i= 0; i< floors.length; i++)
             printCardSecondEffectOnFloor(floors[i]);
     }
 
+    /**
+     * this method prints all immediate effect
+     * @param floor
+     */
     private void printCardImmediateEffectOnFloor(TowerFloorAS floor)
     {
         ArrayList<? extends ImmediateEffectInterface> costs;
@@ -133,6 +142,11 @@ public class CliPrinter {
 
         System.out.print(tempCostsScene);
     }
+
+    /**
+     * this method prints all second effects permanent / harvests / build and purple
+     * @param floor
+     */
     private void printCardSecondEffectOnFloor(TowerFloorAS floor)
     {
         String tempCostsScene = "| Second: ";
@@ -220,22 +234,12 @@ public class CliPrinter {
 
         System.out.print(tempCostsScene);
     }
-    public void printCharacterCards(CharacterCard card){
-        String temp = new String();
-        int i, lenght;
-        temp = "Name " + card.getName() +".";
-        lenght = MAX_LENGHT_CARD_NAME - temp.length();
-        for(i=0; i< lenght; i++)
-            temp += " ";
-        System.out.print(temp + "Period " + card.getPeriod() + " costs ");
-        printCosts(card.getCost());
-        System.out.print(". Immediate Effect: ");
-        printImmediateShortEffects(card.getImmediateEffect());
-        System.out.print("Permanent Effect: ");
-        printPermanentEffects(card.getPermanentEffect());
-        System.out.println("");
-        //printPermanentEffects(card.getPermanentEffect());
-    }
+
+
+    /**
+     * this method print the cost of a card. It doesn't print the green tower
+     * @param effect it's the effect printed
+     */
     public void printCosts(ArrayList<? extends ImmediateEffectInterface> effect)
     {
         int i=0;
@@ -265,12 +269,17 @@ public class CliPrinter {
         }
 
     }
+
+    /**
+     * this method prints the tower ceiling
+     * @param board
+     * @param c it's a character that will be printed if we're printing a roof or a ceiling
+     */
     private void printTowerCeiling(Board board, String c)
     {
         int i, k, j;
         int numberOfUnderscore = 34;
         System.out.println();
-        //total sum must be 38
         for(k=0; k< board.getNUMBER_OF_TOWERS(); k++) {
             System.out.print(""+ c);
             for (i = 0; i < numberOfUnderscore; i++)
@@ -286,6 +295,11 @@ public class CliPrinter {
                 numberOfUnderscore--;
         }
     }
+
+    /**
+     * this method prints the color on the top of the towers
+     * @param printed
+     */
     public void printColorTower(String printed){
         int i;
         int temp = 10 - printed.length();
@@ -295,99 +309,10 @@ public class CliPrinter {
         System.out.print(printed);
     }
 
-    public void printDeck(Deck deck){
-        int i;
-        int temp;
-        for(i = 0; i<SAMETYPE_CARDS_NUMBER; i++) {
-            System.out.print("Numero " + i + " ");
-            printTerritoryCard(deck.getTerritoryCards().get(i));
-        }
-        temp = i-1;
-        for(i=0; i<SAMETYPE_CARDS_NUMBER; i++){
-            temp++;
-            System.out.print("Numero " + temp + " ");
-            printBuildingCards(deck.getBuildingCards().get(i));
-        }
-        for(i = 0; i<SAMETYPE_CARDS_NUMBER; i++) {
-            temp ++;
-            System.out.print("Numero " + temp + " ");
-            printCharacterCards(deck.getCharacterCards().get(i));
-        }
-
-
-        for(i = 0; i<SAMETYPE_CARDS_NUMBER; i++) {
-            temp ++;
-            System.out.print("Numero " + temp + " ");
-            printVentureCards(deck.getVentureCards().get(i));
-        }
-
-    }
-    public void printBuildingCards(BuildingCard card){
-        String tempPrinter = new String();
-        tempPrinter = "Name " + card.getName();
-        while(tempPrinter.length() < 30)
-            tempPrinter += " ";
-        System.out.print(tempPrinter + "Period " + card.getPeriod() + ", costs ");
-        printCosts(card.getCost());
-        System.out.print("Immediate Effect:   ");
-        printImmediateShortEffects(card.getImmediateEffect());
-        System.out.print("Choose Effect:   ");
-        printImmediateShortEffects(card.getEffectsOnBuilding());
-        System.out.println("");
-        //printPermanentEffects(card.getPermanentEffect());
-    }
-
-    public void printVentureCards(VentureCard card){
-        String temp = new String();
-        temp = "Name " + card.getName();
-        System.out.print(temp);
-        for(int i= 0; i<MAX_LENGHT_CARD_NAME-temp.length();i++)
-            System.out.print(" ");
-        System.out.print("Period " + card.getPeriod());
-        if(card.getCostChoiceMilitary() != null) {
-            System.out.print(" Military cost: ");
-            printCostsConditioned(card.getCostChoiceMilitary());
-        }
-        if(card.getCostChoiceResource() != null) {
-            System.out.print(" Resource cost: ");
-            printCosts(card.getCostChoiceResource());
-        }
-        System.out.print(". Immediate Effect :");
-        printImmediateEffects(card.getImmediateEffect());
-        System.out.print(". Number of victory points " + card.getVictoryEndPoints());
-        System.out.println("");
-        //printPermanentEffects(card.getPermanentEffect());
-    }
-    public void printCostsConditioned(ArrayList<TakeOrPaySomethingConditionedEffect> effects)
-    {
-        for(int i=0; i< effects.size(); i++)
-        System.out.print(effects.get(i).descriptionShortOfEffect());
-    }
-
-    public void printTerritoryCardVerbose(TerritoryCard card){
-        System.out.print("Name " + card.getName()+", period " + card.getPeriod() + ", value " + card.getHarvestEffectValue());
-        System.out.print(". Immediate Effect :");
-        printImmediateEffects(card.getImmediateEffect());
-        System.out.print("Harvest Effect: ");
-        printImmediateEffects(card.getEffectsOnHarvest());
-        System.out.println("");
-    }
-    public void printTerritoryCard(TerritoryCard card){
-        String temp = new String();
-        int i, lenght;
-        temp = "Name " + card.getName() +".";
-        lenght = MAX_LENGHT_CARD_NAME - temp.length();
-        for(i=0; i< lenght; i++)
-            temp += " ";
-        temp += " Period " + card.getPeriod() + ". Value " + card.getHarvestEffectValue();
-        System.out.print(temp);
-        System.out.print(". Immediate Effect: ");
-        printImmediateShortEffects(card.getImmediateEffect());
-        System.out.print("Harvest Effect: ");
-        printImmediateShortEffects(card.getEffectsOnHarvest());
-        System.out.println("");
-    }
-
+    /**
+     * this method prints the short immediate effect
+     * @param effect
+     */
     public void printImmediateShortEffects(ArrayList<ImmediateEffectInterface> effect) {
         int i, lenght;
         String temp = new String();
@@ -401,14 +326,12 @@ public class CliPrinter {
             temp += " ";
         System.out.print(temp);
     }
-    public void printImmediateEffects(ArrayList<ImmediateEffectInterface> effect)
-    {
-        int i;
-        for(i = 0; i< effect.size(); i++){
-            System.out.print(effect.get(i).descriptionOfEffect() + " ");
-        }
-        //System.out.println("");
-    }
+
+
+    /**
+     * this method prints the permanente effect
+     * @param effect are the effects that will be printed
+     */
     public void printPermanentEffects(ArrayList<AbstractPermanentEffect> effect)
     {
         int i;
@@ -417,10 +340,10 @@ public class CliPrinter {
         }
     }
 
-    public String getEffectShortDescription(TowerFloorAS floor){
-
-        return "ciao";
-    }
+    /**
+     * this method prints the market
+     * @param board it's the game board
+     */
     public void printMarket(Board board)
     {
         int i;
@@ -432,6 +355,11 @@ public class CliPrinter {
         }
         System.out.println(" ");
     }
+
+    /**
+     * this method prints the market verbose
+     * @param board
+     */
     public void printMarketVerbose(Board board)
     {
         int i;
@@ -442,22 +370,42 @@ public class CliPrinter {
             System.out.println("Space " + i + " Dice " + market.getDiceValue() + " " + market.getEffectDescription());
         }
     }
+
+    /**
+     * this method prints the build action space
+     * @param board
+     */
     public void printBuildAS(Board board)
     {
             System.out.println("This is Build Action Space: ");
             System.out.println("Standard "+ board.getBuild().getValueStandard() + ". Malus " + board.getBuild().getValueMalus() );
     }
+
+    /**
+     * this method print the Harvest action space on board
+     * @param board
+     */
     public void printHarvestAS(Board board)
     {
         System.out.println("This is Harvest Action Space: ");
         System.out.println("Standard "+ board.getHarvest().getValueStandard() + ". Malus " + board.getHarvest().getValueMalus() );
     }
+
+    /**
+     * this method prints out the council hall
+     * @param board
+     */
     public void printCouncil(Board board)
     {
         System.out.print("This is Council Hall: ");
         System.out.println("Effect " + board.getCouncil().getSpaceDescription());
 
     }
+
+    /**
+     * this method prints the VaticanReport on board
+     * @param board
+     */
     public void printVaticanReport(Board board)
     {
         int i;
@@ -476,6 +424,11 @@ public class CliPrinter {
             System.out.print(" | ");
         }
     }
+
+    /**
+     * this method prints the board detailed
+     * @param board
+     */
     public void printBoardDetailed(Board board){
         System.out.println("");
         System.out.println("This is a detailed version of the board ");
@@ -500,6 +453,11 @@ public class CliPrinter {
         printLine(199);
         printVaticanReport(board);
     }
+
+    /**
+     * this method prints a line
+     * @param lineLenght
+     */
     public void printLine(int lineLenght){
         int i;
         for(i = 0; i < lineLenght; i++)
