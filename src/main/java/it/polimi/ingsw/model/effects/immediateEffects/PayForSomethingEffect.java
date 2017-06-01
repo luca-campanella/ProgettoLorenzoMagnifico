@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class PayForSomethingEffect implements ImmediateEffectInterface {
     ArrayList<Resource> toPay;
     ArrayList<Resource> toGain;
-    public PayForSomethingEffect( ArrayList<Resource> temp, ArrayList<Resource> temp2){
-        toPay = temp;
-        toGain = temp2;
+    public PayForSomethingEffect( ArrayList<Resource> toPay, ArrayList<Resource> toGain){
+        this.toPay = toPay;
+        this.toGain = toGain;
     }
     public void applyToPlayer(Player player){
         ;
@@ -36,4 +36,13 @@ public class PayForSomethingEffect implements ImmediateEffectInterface {
             temp += "-"+this.toPay.get(k).getResourceShortDescript();
         return temp;
     }
+
+    public ArrayList<Resource> getToPay() {
+        return toPay;
+    }
+
+    public ArrayList<Resource> getToGain() {
+        return toGain;
+    }
+
 }

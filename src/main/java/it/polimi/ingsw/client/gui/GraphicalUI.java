@@ -8,7 +8,8 @@ import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.utils.Debug;
 
-        import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GraphicalUI extends AbstractUIType {
     //TODO gui -- I copied CLI here because absUIType wouldn't let me run the program and test it
@@ -60,6 +61,11 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public void askChatMsg() {
 
+    }
+
+    @Override
+    public int askChoice(String nameCard, ArrayList<String> choices) {
+        return 0;
     }
 
     /**
