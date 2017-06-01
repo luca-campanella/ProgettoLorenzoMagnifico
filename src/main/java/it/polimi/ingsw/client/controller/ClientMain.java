@@ -8,9 +8,11 @@ import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * TODO: implement launcher
@@ -166,9 +168,9 @@ public class ClientMain implements ControllerModelInterface{
         clientNetwork.sendChatMsg(msg);
     }
 
-    public int choose(String nameCard, ArrayList<String> choices){
+    public int choose(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer){
 
-        return userInterface.askChoice(nameCard, choices);
+        return userInterface.askChoice(nameCard, choices, resourcePlayer);
 
     }
 }

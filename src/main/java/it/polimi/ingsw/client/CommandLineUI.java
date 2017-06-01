@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client;
 
 /**
- * Created by higla on 11/05/2017.
+ * to insert inputs on the cli
  */
 
 import it.polimi.ingsw.client.controller.AbstractUIType;
@@ -9,9 +9,11 @@ import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 //TODO
 public class CommandLineUI extends AbstractUIType {
@@ -222,7 +224,7 @@ public class CommandLineUI extends AbstractUIType {
      * @param choices the choices available
      * @return the number of the choice the player want
      */
-    public int askChoice(String nameCard, ArrayList<String> choices){
+    public int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer){
 
         Debug.printDebug("you can choose different effect on the card " + nameCard);
         int cont = 0;
