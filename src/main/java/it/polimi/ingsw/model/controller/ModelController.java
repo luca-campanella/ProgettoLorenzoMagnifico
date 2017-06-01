@@ -1,14 +1,11 @@
 package it.polimi.ingsw.model.controller;
 
-import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.server.ControllerGame;
-import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
@@ -165,7 +162,7 @@ public class ModelController {
     public void harvest(FamilyMember familyMember, int servant){
 
         //control on the input, if the player reall has that resources
-        if(!familyMember.getPlayer().getFamilyMembers().contains(familyMember)
+        if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return;//TODO cheating or refresh board
@@ -196,7 +193,7 @@ public class ModelController {
     public void build(FamilyMember familyMember, int servant){
 
         //control on the input, if the player reall has that resources
-        if(!familyMember.getPlayer().getFamilyMembers().contains(familyMember)
+        if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return;//TODO cheating or refresh board
@@ -219,7 +216,7 @@ public class ModelController {
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
 
         MarketAS marketPlace = gameBoard.getMarketSpaceByIndex(marketSpaceIndex);
-        if(!familyMember.getPlayer().getFamilyMembers().contains(familyMember)
+        if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<marketPlace.getValueStandard()-familyMember.getValue()
                 || marketPlace == null)
             //this means that the player doesn't has the resources that claimed to have, this is cheating

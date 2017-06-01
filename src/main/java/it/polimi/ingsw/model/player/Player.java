@@ -20,7 +20,7 @@ public abstract class Player {
 
     private HashMap<ResourceTypeEnum, Integer> resource;
 
-    private ArrayList<FamilyMember> familyMembers;
+    private ArrayList<FamilyMember> notUsedFamilyMembers;
 
     private ArrayList<FamilyMember> usedFamilyMembers;
 
@@ -48,7 +48,7 @@ public abstract class Player {
         //TODO CHOOSE TILES OF PERSONAL BOARD
         resource = new HashMap<>();
         loadResource();
-        familyMembers = new ArrayList<>(4);
+        notUsedFamilyMembers = new ArrayList<>(4);
         usedFamilyMembers = new ArrayList<>(4);
         //excommunicanionCard = new ArrayList<>(3);
         //leaderCard = new ArrayList<>(3);
@@ -118,20 +118,20 @@ public abstract class Player {
     public void setFamilyMembers(ArrayList<Dice> dices){
 
         for(Dice i : dices)
-            this.familyMembers.add(new FamilyMember(i,this));
+            this.notUsedFamilyMembers.add(new FamilyMember(i,this));
 
     }
 
     public void playFamilyMember(FamilyMember familyMember){
 
-        this.familyMembers.remove(familyMember);
+        this.notUsedFamilyMembers.remove(familyMember);
         this.usedFamilyMembers.add(familyMember);
 
     }
 
     public void reloadFamilyMember(){
 
-        familyMembers.addAll(usedFamilyMembers);
+        notUsedFamilyMembers.addAll(usedFamilyMembers);
         usedFamilyMembers.clear();
 
     }
@@ -178,7 +178,7 @@ public abstract class Player {
         personalBoard.purplePoints(this);
     }
 
-    public ArrayList<FamilyMember> getFamilyMembers(){
-        return familyMembers;
+    public ArrayList<FamilyMember> getNotUsedFamilyMembers(){
+        return notUsedFamilyMembers;
     }
 }
