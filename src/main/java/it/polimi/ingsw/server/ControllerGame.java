@@ -3,6 +3,7 @@ package it.polimi.ingsw.server;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
+import it.polimi.ingsw.client.controller.ControllerModelInterface;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
@@ -18,11 +19,12 @@ import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by higla on 29/05/2017.
  */
-public class ControllerGame {
+public class ControllerGame  implements ControllerModelInterface {
     private ControllerGame game;
     private Room room;
     private Deck deck;
@@ -31,6 +33,7 @@ public class ControllerGame {
     private int numberOfPlayers;
     private int numberOfRound;
     private int numberOfTurn;
+    private HashMap<String, Integer> playerChoices;
 
     public static void main(String[] args) throws Exception {
         ControllerGame controllerGame =  new ControllerGame(2);
@@ -77,8 +80,7 @@ public class ControllerGame {
         modelController = new ModelController(players, this, boardGame);
         numberOfTurn = 0;
         numberOfRound = 1;
-
-
+        playerChoices = new HashMap<>(10);
     }
 
     /**
@@ -204,6 +206,12 @@ public class ControllerGame {
     public void playLeaderCard(Player player, String nameLeader){
 
         modelController.activateLeaderCard(player, nameLeader);
+
+    }
+
+    public int choose(String nameCard, ArrayList<String> choices ){
+
+        return playerChoices.get(nameCard);
 
     }
 
