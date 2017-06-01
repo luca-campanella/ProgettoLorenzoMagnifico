@@ -1,25 +1,24 @@
 package it.polimi.ingsw.model.controller;
 
-import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.server.ControllerGame;
+import it.polimi.ingsw.client.controller.ChoiceContainer;
 import it.polimi.ingsw.model.board.*;
+import it.polimi.ingsw.model.cards.BuildingCard;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
  * This is the controller of one game
  */
 public class ModelController {
-
-    /**
-     * the room that this controller manages
-     */
-    private ControllerGame controllerGame;
 
     /**
      * the board of this game
@@ -36,12 +35,11 @@ public class ModelController {
 
     private int period;
 
-    public ModelController(ArrayList<Player> players, ControllerGame controllerGame, Board board)
+    public ModelController(ArrayList<Player> players, Board board)
     {
 
         this.players = new ArrayList<>(5);
         this.players.addAll(players);
-        this.controllerGame = controllerGame;
         dices = new ArrayList<>(4);
         loadDices();
         round=1;
@@ -241,6 +239,53 @@ public class ModelController {
     public void endGame(){
 
         players.forEach(Player::purplePoints);
+    }
+
+    /**
+     * this method returns the player object starting from his nickname
+     * @param nickname
+     * @return the corresponding Player
+     * @throws IllegalArgumentException if not player with that nickname is found
+     */
+    public Player getPlayerByNickname(String nickname) throws IllegalArgumentException {
+        for(Player i : players) {
+            if(i.getNickname().equals(nickname))
+                return i;
+        }
+        throw new IllegalArgumentException("No nickname matching " + nickname);
+    }
+
+    /**
+     * This method return all the possible choices when a player decides to build
+     * This method will be called by {@link it.polimi.ingsw.client.controller.ClientMain}, all on the client
+     * @param familyMember the family member chosen to perform the cation, important to know the value of the action
+     * @param servants number of servants added, still importants, some cards have higher values than others
+     * @return an list of choices
+     */
+    public LinkedList<ChoiceContainer> getChoicesOnBuild(FamilyMember familyMember, Resource servants) {
+        LinkedList<ChoiceContainer> choicesList = new LinkedList<ChoiceContainer>();
+        LinkedList<BuildingCard> buildingCards = familyMember.getPlayer().getPersonalBoard().getYellowBuildingCards();
+
+        int realDiceValue = familyMember.getValue() + servants.getValue();
+
+        ArrayList<Resource> tempResources;
+
+        for(BuildingCard cardIter : buildingCards) {
+            if(cardIter.getBuildEffectValue() <= realDiceValue) {
+                ArrayList<ImmediateEffectInterface> effects = cardIter.getEffectsOnBuilding();
+
+
+                for(ImmediateEffectInterface effectIter : effects){
+                    if(effectIter instanceof PayForSomethingEffect) {
+                        tempResources = ((PayForSomethingEffect) effectIter).getToPay();
+
+                    }
+                }
+                //choicesList.add(new ChoiceContainer(cardIter.getName()))
+            }
+        }
+
+        return choicesList;
     }
 }
 
