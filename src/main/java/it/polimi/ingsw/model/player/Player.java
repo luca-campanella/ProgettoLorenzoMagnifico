@@ -18,10 +18,10 @@ public abstract class Player {
 
     private PersonalBoard personalBoard;
 
-    private HashMap<ResourceTypeEnum, Integer> resource;
+    private HashMap<ResourceTypeEnum, Integer> resourcesMap;
 
     private ArrayList<FamilyMember> notUsedFamilyMembers;
-
+    
     private ArrayList<FamilyMember> usedFamilyMembers;
 
     //private ArrayList<LeaderCard> leaderCard;
@@ -46,7 +46,7 @@ public abstract class Player {
 
         personalBoard = new PersonalBoard();
         //TODO CHOOSE TILES OF PERSONAL BOARD
-        resource = new HashMap<>();
+        resourcesMap = new HashMap<>();
         loadResource();
         notUsedFamilyMembers = new ArrayList<>(4);
         usedFamilyMembers = new ArrayList<>(4);
@@ -59,13 +59,13 @@ public abstract class Player {
      * you load all the resources needed by the player
      */
     private void loadResource(){
-        resource.put(ResourceTypeEnum.COIN, 0);
-        resource.put(ResourceTypeEnum.WOOD, 2);
-        resource.put(ResourceTypeEnum.STONE, 2);
-        resource.put(ResourceTypeEnum.SERVANT, 3);
-        resource.put(ResourceTypeEnum.FAITH_POINT, 0);
-        resource.put(ResourceTypeEnum.MILITARY_POINT, 0);
-        resource.put(ResourceTypeEnum.VICTORY_POINT, 0);
+        resourcesMap.put(ResourceTypeEnum.COIN, 0);
+        resourcesMap.put(ResourceTypeEnum.WOOD, 2);
+        resourcesMap.put(ResourceTypeEnum.STONE, 2);
+        resourcesMap.put(ResourceTypeEnum.SERVANT, 3);
+        resourcesMap.put(ResourceTypeEnum.FAITH_POINT, 0);
+        resourcesMap.put(ResourceTypeEnum.MILITARY_POINT, 0);
+        resourcesMap.put(ResourceTypeEnum.VICTORY_POINT, 0);
     }
 
     /**
@@ -74,7 +74,7 @@ public abstract class Player {
      */
     public void addResource(Resource resource){
 
-        this.resource.put(resource.getType(),this.resource.get(resource.getType())+resource.getValue());
+        this.resourcesMap.put(resource.getType(),this.resourcesMap.get(resource.getType())+resource.getValue());
 
     }
 
@@ -85,7 +85,7 @@ public abstract class Player {
     public void addResource(ArrayList<Resource> resources){
 
         for(Resource resource : resources){
-            this.resource.put(resource.getType(),this.resource.get(resource.getType())+resource.getValue());
+            this.resourcesMap.put(resource.getType(),this.resourcesMap.get(resource.getType())+resource.getValue());
         }
 
     }
@@ -102,7 +102,7 @@ public abstract class Player {
 
     public int getResource(ResourceTypeEnum type){
 
-        return resource.get(type);
+        return resourcesMap.get(type);
 
     }
 
