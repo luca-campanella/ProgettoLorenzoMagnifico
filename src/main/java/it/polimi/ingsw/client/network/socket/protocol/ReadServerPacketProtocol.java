@@ -8,7 +8,7 @@ import it.polimi.ingsw.server.network.socket.protocol.FunctionResponse;
 import java.util.HashMap;
 
 /**
- * Created by federico on 21/05/2017.
+ * this is the protocol that the client uses to read the placket delivered by the server
  */
 public class ReadServerPacketProtocol {
     /**

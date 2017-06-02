@@ -136,16 +136,20 @@ public class Room {
      * call the method on controller game to place a family member on the tower
      * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
-    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws IllegalMoveException{
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
 
-        controllerGame.placeOnTower(familyMember, towerIndex, floorIndex);
-        floodPlaceOnTower(familyMember, towerIndex, floorIndex);
+        controllerGame.placeOnTower(familyMember, towerIndex, floorIndex, playerChoices);
+        floodPlaceOnTower(familyMember, towerIndex, floorIndex, playerChoices);
 
     }
 
+    /**
+     * the method called by the client to do place a family member on the market
+     * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
+     */
     public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
 
-        controllerGame.placeOnMarket(familyMember, marketIndex);
+        controllerGame.placeOnMarket(familyMember, marketIndex, playerChoices);
         floodPlaceOnMarket(familyMember, marketIndex, playerChoices);
 
     }
@@ -175,12 +179,12 @@ public class Room {
     /**
      * launch the move of a player to the others player
      */
-    private void floodPlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
+    private void floodPlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices){
 
         for(AbstractConnectionPlayer player : players) {
             if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
                 try {
-                    player.receivePlaceOnTower(familyMember, towerIndex, floorIndex);
+                    player.receivePlaceOnTower(familyMember, towerIndex, floorIndex, playerChoices);
                 } catch (NetworkException e) { //not a big problem if a chat message is not sent
                     Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
                 }

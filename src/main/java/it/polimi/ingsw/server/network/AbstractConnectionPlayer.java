@@ -39,7 +39,7 @@ public abstract class AbstractConnectionPlayer extends Player {
      * this method is called by the room to deliver a move on tower of another player
      * @throws NetworkException if something went wrong on the network
      */
-    public abstract void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws NetworkException;
+    public abstract void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws NetworkException;
 
     /**
      * this method is called by the room to deliver a move on market of another player

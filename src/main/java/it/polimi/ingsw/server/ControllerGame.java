@@ -219,7 +219,7 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param floorIndex the number of floor on the tower the family member is placed
      * @throws IllegalMoveException if the move is not correct
      */
-    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws IllegalMoveException {
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.placeOnTower(familyMember, towerIndex, floorIndex);
@@ -256,7 +256,7 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param familyMember the familymember the player places
      * @param marketSpaceIndex the number of servant you add on the family member to increase the value
      */
-    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex)  throws IllegalMoveException{
+    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.placeOnMarket(familyMember, marketSpaceIndex);

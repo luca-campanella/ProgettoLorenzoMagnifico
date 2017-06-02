@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.network.socket.packet;
 
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
+import it.polimi.ingsw.model.player.FamilyMember;
 
 /**
  * this packet is send when the player move his family member in the market
@@ -9,20 +9,20 @@ public class MoveInMarketPacket extends MovePacket {
     /**
      * number to recognise the place on the market
      */
-    private int placeNumber;
+    private int marketIndex;
 
     /**
      * constructor
-     * @param familyMemberColor the color of the family member
-     * @param servantUsed number of servant used on the family member
-     * @param placeNumber numberID of the place on the market
+     * @param familyMember the family member used
+     * @param marketIndex numberID of the place on the market
      */
-    public MoveInMarketPacket(DiceAndFamilyMemberColor familyMemberColor, int servantUsed, int placeNumber){
-        super(familyMemberColor, servantUsed);
-        this.placeNumber=placeNumber;
+    public MoveInMarketPacket(FamilyMember familyMember, int marketIndex){
+        super(familyMember);
+        this.marketIndex =marketIndex;
     }
 
-    public int getPlaceNumber() {
-        return placeNumber;
+    public int getMarketIndex() {
+        return marketIndex;
     }
+
 }

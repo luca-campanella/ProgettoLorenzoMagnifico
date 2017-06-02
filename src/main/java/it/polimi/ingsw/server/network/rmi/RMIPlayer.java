@@ -45,7 +45,7 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
     }
 
     @Override
-    public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws NetworkException {
+    public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
 
     }
 

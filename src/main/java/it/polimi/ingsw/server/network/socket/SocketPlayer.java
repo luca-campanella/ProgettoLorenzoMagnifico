@@ -265,22 +265,78 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
-    public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws NetworkException{
+    public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws NetworkException{
+
+        try{
+
+            outStream.writeObject(PacketType.MOVE_IN_TOWER);
+            outStream.writeObject(new MoveInTowerPacket(familyMember,towerIndex,floorIndex, playerChoices));
+            outStream.flush();
+
+        }
+        catch (IOException  e){
+
+            Debug.printError("Connection not available",e);
+            throw new NetworkException(e);
+
+        }
 
     }
 
     @Override
     public void receivePlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
 
+        try{
+
+            outStream.writeObject(PacketType.MOVE_IN_MARKET);
+            outStream.writeObject(new MoveInMarketPacket(familyMember, marketIndex));
+            outStream.flush();
+
+        }
+
+        catch(IOException e){
+
+            Debug.printError("network is not available",e);
+            throw new NetworkException(e);
+
+        }
+
     }
 
     @Override
     public void receiveBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException {
 
+        try{
+
+            outStream.writeObject(PacketType.BUILDING);
+            outStream.writeObject(new BuildPacket(familyMember,servant,playerChoices));
+            outStream.flush();
+
+        }
+
+        catch (IOException e){
+            Debug.printError("network is not avaiable", e);
+            throw new NetworkException(e);
+
+        }
     }
 
     @Override
     public void receiveHarvest(FamilyMember familyMember, int servant) throws NetworkException {
+
+        try{
+
+            outStream.writeObject(PacketType.HARVESTING);
+            outStream.writeObject(new HarvestPacket(familyMember,servant));
+            outStream.flush();
+
+        }
+        catch (IOException e){
+
+            Debug.printError("network is not available", e);
+            throw new NetworkException(e);
+
+        }
 
     }
 
