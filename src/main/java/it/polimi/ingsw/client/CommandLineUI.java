@@ -9,6 +9,8 @@ import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
@@ -261,6 +263,29 @@ public class CommandLineUI extends AbstractUIType {
         } while (numChoice < 0 || numChoice>choices.size() );
 
         return numChoice;
+    }
+
+    /**
+     * This method is called when a choice on a council gift should be perfomed by the ui
+     *
+     * @param options
+     * @returns to controller the index of the selected option, the choice the user made
+     */
+    @Override
+    public int askCouncilGift(ArrayList<TakeOrPaySomethingEffect> options) {
+        CliOptionsHandler optionsHandler = new CliOptionsHandler(options);
+        return optionsHandler.askUserChoice();
+    }
+
+    /**
+     * This method is called when a choice on which effect to activate in a yellow card should be perfomed by the ui
+     * @param possibleEffectChoices
+     * @return the index of the chosen effect
+     */
+    @Override
+    public int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+        CliOptionsHandler optionsHandler = new CliOptionsHandler(possibleEffectChoices);
+        return optionsHandler.askUserChoice();
     }
 
 }

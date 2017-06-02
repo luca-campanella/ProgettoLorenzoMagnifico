@@ -1,7 +1,11 @@
 package it.polimi.ingsw.model.controller;
 
-import it.polimi.ingsw.model.board.*;
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.board.HarvestAS;
+import it.polimi.ingsw.model.board.MarketAS;
 import it.polimi.ingsw.model.cards.BuildingCard;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -149,27 +153,39 @@ public class ModelController {
         return false;
     }
 
-    public void build(FamilyMember familyMember, int servant){
+    /*public boolean isBuildLegalAction(FamilyMember familyMember, int servant){
 
         //control on the input, if the player reall has that resources
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
-            return;//TODO cheating or refresh board
+            return false;//TODO cheating or refresh board
         BuildAS buildPlace = gameBoard.getBuild();
         //control on the action space, if the player already has a family member
         if(findFamilyMember(familyMember.getPlayer(), buildPlace.getFamilyMembers())
                 && familyMember.getColor()!=DiceAndFamilyMemberColor.NEUTRAL)
             //this means that the player has already placed a family member on that action space
-            return;
+            return false;
         //TODO control of the blue effect
         //control if the family member has a right value to build
         if(servant+familyMember.getValue() < buildPlace.getValueNeeded())
             //cannot place this familymembers because the value is too low
-            return;
+            return false;
         gameBoard.build(familyMember);
         familyMember.getPlayer().build(servant+familyMember.getValue()+ buildPlace.getValueMalus());
         //TODO add control of the move and code on the board
+
+        return true;
+    }*/
+
+    public void build(FamilyMember familyMember, int servants) {
+        Player player = familyMember.getPlayer();
+
+
+
+        ArrayList<TakeOrPaySomethingEffect> personalTileEffects = player.getPersonalTile().getEffectOnBuild();
+        personalTileEffects.forEach(effect -> effect.applyToPlayer(player));
+
     }
 
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){

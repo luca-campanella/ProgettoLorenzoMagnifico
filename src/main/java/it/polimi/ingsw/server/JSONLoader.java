@@ -2,11 +2,16 @@ package it.polimi.ingsw.server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.polimi.ingsw.client.CliPrinter;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.effects.immediateEffects.*;
 import it.polimi.ingsw.model.effects.permanentEffects.*;
+import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.testingGSON.boardLoader.BoardCreator;
 import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 import it.polimi.ingsw.utils.Debug;
@@ -14,8 +19,8 @@ import it.polimi.ingsw.utils.Debug;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-
+import java.util.ArrayList;
+import java.lang.reflect.*;
 /**
  * Created by higla on 30/05/2017.
  */
@@ -79,5 +84,32 @@ public class JSONLoader {
             Board board = gson.fromJson(reader, Board.class);
             return board;
         }
+    }
+
+    /**
+     * this loads an arrayList of tiles. The first element of the array list is the standard tile
+     * @return an array list of tiles
+     * @throws IOException
+     */
+    public ArrayList<PersonalTile> loadTiles() throws IOException{
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
+        runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
+        runtimeTypeAdapterFactory.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
+
+        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
+
+
+        try (Reader reader = new InputStreamReader(PersonalTile.class.getResourceAsStream("/PersonalTiles.json"), "UTF-8")) {
+
+            Type type = new TypeToken<ArrayList<PersonalTile>>(){}.getType();
+            ArrayList<PersonalTile> inList = gson.fromJson(reader, type);
+            for (PersonalTile i : inList) {
+                System.out.println(i);
+            }
+            return inList;
+        }
+
     }
 }

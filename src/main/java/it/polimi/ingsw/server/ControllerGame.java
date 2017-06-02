@@ -2,9 +2,8 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.client.controller.ControllerModelInterface;
-import it.polimi.ingsw.client.exceptions.IllegalMoveException;
-import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -130,6 +129,7 @@ public class ControllerGame  implements ControllerModelInterface {
      */
     public ControllerGame(int numberOfPlayers) throws Exception {
         JSONLoader jsonLoader = new JSONLoader();
+        ArrayList<PersonalTile> personalTiles = jsonLoader.loadTiles();
         boardGame = jsonLoader.boardCreator();
         deck = jsonLoader.createNewDeck();
         int period = 1;

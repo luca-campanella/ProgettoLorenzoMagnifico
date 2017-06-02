@@ -6,6 +6,8 @@ package it.polimi.ingsw.client.gui;
 
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
@@ -41,6 +43,28 @@ public class GraphicalUI extends AbstractUIType {
 
     @Override
     public int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer) {
+        return 0;
+    }
+
+    /**
+     * This method is called when a choice on a council gift should be perfomed by the ui
+     *
+     * @param options
+     * @return the index of the selected option, the choice the user made
+     */
+    @Override
+    public int askCouncilGift(ArrayList<TakeOrPaySomethingEffect> options) {
+        return 0;
+    }
+
+    /**
+     * This method is called when a choice on which effect to activate in a yellow card should be perfomed by the ui
+     *
+     * @param possibleEffectChoices
+     * @return the index of the chosen effect
+     */
+    @Override
+    public int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
         return 0;
     }
 

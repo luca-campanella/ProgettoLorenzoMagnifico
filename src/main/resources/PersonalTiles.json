@@ -1,0 +1,189 @@
+[
+  {
+    "DICEONHARVEST": 1,
+    "DICEONBUILD": 1,
+    "effectOnBuild": [
+      {
+        "resource": {
+          "type": "MILITARY_POINT",
+          "value": 2
+        }
+      },
+      {
+        "resource": {
+          "type": "COIN",
+          "value": 2
+        }
+      }
+    ],
+    "effectOnHarvest": [
+      {
+        "resource": {
+          "type": "WOOD",
+          "value": 1
+        }
+      },
+      {
+        "resource": {
+          "type": "STONE",
+          "value": 1
+        }
+      },
+      {
+        "resource": {
+          "type": "SERVANT",
+          "value": 1
+        }
+      }
+    ]
+  },
+  {
+    "DICEONHARVEST": 1,
+    "DICEONBUILD": 1,
+    "effectOnBuild": [
+      {
+        "resource": {
+          "type": "SERVANT",
+          "value": 2
+        }
+      },
+      {
+        "resource": {
+          "type": "COIN",
+          "value": 1
+        }
+      }
+    ],
+    "effectOnHarvest": [
+      {
+        "resource": {
+          "type": "WOOD",
+          "value": 1
+        }
+      },
+      {
+        "resource": {
+          "type": "STONE",
+          "value": 1
+        }
+      },
+      {
+        "resource": {
+          "type": "MILITARY_POINT",
+          "value": 1
+        }
+      }
+    ]
+  },{
+  "DICEONHARVEST": 1,
+  "DICEONBUILD": 1,
+  "effectOnBuild": [
+    {
+      "resource": {
+        "type": "MILITARY_POINT",
+        "value": 2
+      }
+    },
+    {
+      "resource": {
+        "type": "COIN",
+        "value": 1
+      }
+    }
+  ],
+  "effectOnHarvest": [
+    {
+      "resource": {
+        "type": "WOOD",
+        "value": 1
+      }
+    },
+    {
+      "resource": {
+        "type": "STONE",
+        "value": 1
+      }
+    },
+    {
+      "resource": {
+        "type": "SERVANT",
+        "value": 1
+      }
+    }
+  ]
+},{
+  "DICEONHARVEST": 1,
+  "DICEONBUILD": 1,
+  "effectOnBuild": [
+    {
+      "resource": {
+        "type": "SERVANT",
+        "value": 1
+      }
+    },
+    {
+      "resource": {
+        "type": "COIN",
+        "value": 2
+      }
+    }
+  ],
+  "effectOnHarvest": [
+    {
+      "resource": {
+        "type": "WOOD",
+        "value": 1
+      }
+    },
+    {
+      "resource": {
+        "type": "STONE",
+        "value": 1
+      }
+    },
+    {
+      "resource": {
+        "type": "MILITARY_POINT",
+        "value": 1
+      }
+    }
+  ]
+},{
+  "DICEONHARVEST": 1,
+  "DICEONBUILD": 1,
+  "effectOnBuild": [
+    {
+      "resource": {
+        "type": "MILITARY_POINT",
+        "value": 2
+      }
+    },
+    {
+      "resource": {
+        "type": "SERVANT",
+        "value": 1
+      }
+    }
+  ],
+  "effectOnHarvest": [
+    {
+      "resource": {
+        "type": "WOOD",
+        "value": 1
+      }
+    },
+    {
+      "resource": {
+        "type": "STONE",
+        "value": 1
+      }
+    },
+    {
+      "resource": {
+        "type": "COIN",
+        "value": 1
+      }
+    }
+  ]
+}
+]

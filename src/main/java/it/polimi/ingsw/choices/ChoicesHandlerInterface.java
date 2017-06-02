@@ -1,7 +1,7 @@
 package it.polimi.ingsw.choices;
 
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingConditionedEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public interface ChoicesHandlerInterface {
      * @param numberDiffGifts the number of different council gifts to ask for
      * @return The arraylist of effect chosen
      */
-    public ArrayList<TakeOrPaySomethingConditionedEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts);
+    public ArrayList<TakeOrPaySomethingEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts);
 
     /**
      * Callback from model to controller

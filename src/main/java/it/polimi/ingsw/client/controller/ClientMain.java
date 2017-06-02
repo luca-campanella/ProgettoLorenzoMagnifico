@@ -12,7 +12,6 @@ import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingConditionedEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
@@ -31,6 +30,21 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     AbstractUIType userInterface;
     AbstractClientType clientNetwork;
     ModelController modelController;
+
+    /**
+     * this hashmap is filled with all the choices the user made regarding the move he's currently performed
+     * it is filled by all the callback methods
+     * it should be re-instantiated every time a new action is performed
+     */
+    HashMap<String, Integer> choicesOnCurrentAction;
+
+    /**
+     * this hashmap is used to check that the user has sufficient resources to make a building choice
+     * it is initialized with the resources of the player at the beginning of the build action
+     */
+    HashMap<ResourceTypeEnum, Integer> resourcesCheckHashmap;
+
+    FamilyMember familyMemberCurrentAction;
 
     /**
     this is Class Constructor
@@ -141,6 +155,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * this method it's a callback method that is called from the AbstractyUIType when i want to play a Leader
      */
     public void callbackPlayLeader(){
+        initialActionsOnPlayerMove();
         Debug.printDebug("I'm in ClientMain.callbackPlayLeader");
     }
 
@@ -171,6 +186,15 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         //il server mi dice quali azioni posso fare
         //chiamerò quindi il mio abstract UIType con un qualcosa riguardante...
         userInterface.printAllowedActions();
+    }
+
+    /**
+     * this method should be called every time a new action / move is perfomed by the user
+     * It initialises the data structures used afterwards
+     */
+    private void initialActionsOnPlayerMove() {
+        choicesOnCurrentAction = new HashMap<>();
+        
     }
 
     /**
@@ -253,12 +277,19 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * @return The arraylist of effect chosen
      */
     @Override
-    public ArrayList<TakeOrPaySomethingConditionedEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
-        ArrayList<TakeOrPaySomethingEffect> choices = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
+    public ArrayList<TakeOrPaySomethingEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
+        ArrayList<TakeOrPaySomethingEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
+        ArrayList<TakeOrPaySomethingEffect> choices = new ArrayList<>(numberDiffGifts);
+        int choice;
 
-        userInterface.askCouncilGift(choices);
+        for(int i = 0; i < numberDiffGifts; i++) {
+            choice = userInterface.askCouncilGift(options);
+            choices.add(options.get(choice));
+            options.remove(choice);
+            choicesOnCurrentAction.put(choiceCode + i, choice);
+        }
 
-        return null;
+        return choices;
     }
 
     /**
@@ -272,7 +303,10 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      */
     @Override
     public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String choiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
-        return null;
+
+        int choice = userInterface.askYellowBuildingCardEffectChoice(possibleEffectChoices);
+        choicesOnCurrentAction.put(choiceCode, choice);
+        return possibleEffectChoices.get(choice);
     }
 }
 
