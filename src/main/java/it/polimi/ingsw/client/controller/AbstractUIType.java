@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.UIControllerUserInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
@@ -50,5 +51,12 @@ abstract public class AbstractUIType {
 
 
     public abstract int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer);
+
+    /**
+     * This method is called when a choi
+     * @param choices
+     * @return
+     */
+    public abstract TakeOrPaySomethingEffect askCouncilGift(ArrayList<TakeOrPaySomethingEffect> choices);
 }
 

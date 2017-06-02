@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.controller;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
@@ -11,6 +12,8 @@ import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingConditionedEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -23,7 +26,7 @@ import java.util.LinkedList;
 /**
  * TODO: implement launcher
  */
-public class ClientMain implements ControllerModelInterface{
+public class ClientMain implements ControllerModelInterface, ChoicesHandlerInterface {
     LauncherClientFake temp;
     AbstractUIType userInterface;
     AbstractClientType clientNetwork;
@@ -237,6 +240,39 @@ public class ClientMain implements ControllerModelInterface{
         }
 
 
+    }
+
+    /**
+     * Callback from model to controller
+     * The model uses this method when encounters a council gift and should choose between the possible ones
+     * The method also performs checks that all the chosen council gifts are different one another
+     * This implementation calls the view and asks what the user wants to choose
+     * The UI should perform a <b>blocking</b> question to the user and return directly to this method
+     * @param choiceCode
+     * @param numberDiffGifts the number of different council gifts to ask for
+     * @return The arraylist of effect chosen
+     */
+    @Override
+    public ArrayList<TakeOrPaySomethingConditionedEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
+        ArrayList<TakeOrPaySomethingEffect> choices = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
+
+        userInterface.askCouncilGift(choices);
+
+        return null;
+    }
+
+    /**
+     * Callback from model to controller
+     * The model uses this method when encounters a {@link BuildingCard} with more than one effects and wants to make the user choose which one activate
+     * This implementation calls the view and asks what the user wants to choose
+     * The UI should perform a <b>blocking</b> question to the user and return directly to this method
+     * @param choiceCode
+     * @param possibleEffectChoices
+     * @return
+     */
+    @Override
+    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String choiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+        return null;
     }
 }
 

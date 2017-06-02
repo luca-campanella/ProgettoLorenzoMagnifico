@@ -7,11 +7,9 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
-import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Random;
 
 /**
  * This is the controller of one game
@@ -249,6 +247,10 @@ public class ModelController {
      */
     public LinkedList<BuildingCard> getYellowBuildingCards(Player player) {
         return player.getPersonalBoard().getYellowBuildingCards();
+    }
+
+    public Board getBoard() {
+        return gameBoard;
     }
 }
 
