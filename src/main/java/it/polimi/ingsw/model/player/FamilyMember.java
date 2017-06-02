@@ -22,10 +22,16 @@ public class FamilyMember {
      */
     private Player player;
 
+    /**
+     * this is the value of the family member, it can be the same of the linked dice or can be different if an effect changes it
+     */
+    private int valueFamilyMember;
+
     public FamilyMember(Dice dice, Player player){
 
         this.player= player;
         this.dice=dice;
+        valueFamilyMember = dice.getValue();
         color= dice.getColor();
 
     }
@@ -36,7 +42,22 @@ public class FamilyMember {
      */
     public int getValue(){
 
-        return dice.getValue();
+        return valueFamilyMember;
+
+    }
+
+    /**
+     * it align the value of the family member with the value of the linked dice
+     */
+    public void alignValue(){
+
+        valueFamilyMember = dice.getValue();
+
+    }
+
+    public void setValueFamilyMember(int valueFamilyMember){
+
+        this.valueFamilyMember = valueFamilyMember;
 
     }
 
