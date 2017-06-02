@@ -24,6 +24,8 @@ public abstract class Player {
 
     private ArrayList<FamilyMember> usedFamilyMembers;
 
+    private PersonalTile personalTile = null;
+
     //private ArrayList<LeaderCard> leaderCard;
 
     //private ArrayList<LeaderCard> playedLeaderCard;
@@ -66,6 +68,14 @@ public abstract class Player {
         resourcesMap.put(ResourceTypeEnum.FAITH_POINT, 0);
         resourcesMap.put(ResourceTypeEnum.MILITARY_POINT, 0);
         resourcesMap.put(ResourceTypeEnum.VICTORY_POINT, 0);
+    }
+
+    public void setPersonalTile(PersonalTile personalTile) {
+        this.personalTile = personalTile;
+    }
+
+    public PersonalTile getPersonalTile() {
+        return personalTile;
     }
 
     /**
