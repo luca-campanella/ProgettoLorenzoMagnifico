@@ -269,22 +269,23 @@ public class CommandLineUI extends AbstractUIType {
      * This method is called when a choice on a council gift should be perfomed by the ui
      *
      * @param options
-     * @return the index of the selected option, the choice the user made
+     * @returns to controller the index of the selected option, the choice the user made
      */
     @Override
     public int askCouncilGift(ArrayList<TakeOrPaySomethingEffect> options) {
-        return 0;
+        CliOptionsHandler optionsHandler = new CliOptionsHandler(options);
+        return optionsHandler.askUserChoice();
     }
 
     /**
      * This method is called when a choice on which effect to activate in a yellow card should be perfomed by the ui
-     *
      * @param possibleEffectChoices
      * @return the index of the chosen effect
      */
     @Override
     public int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
-        return 0;
+        CliOptionsHandler optionsHandler = new CliOptionsHandler(possibleEffectChoices);
+        return optionsHandler.askUserChoice();
     }
 
 }
