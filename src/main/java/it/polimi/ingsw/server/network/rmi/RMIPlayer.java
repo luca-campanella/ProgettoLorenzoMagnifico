@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network.rmi;
 
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.client.network.rmi.RMIClientInterface;
 import it.polimi.ingsw.client.exceptions.NetworkException;
@@ -39,6 +40,11 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
             Debug.printError("rmi: cannot send chat message to" + getNickname(), e);
             throw new NetworkException("rmi: cannot send chat message to" + getNickname(), e);
         }
+
+    }
+
+    @Override
+    public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws NetworkException {
 
     }
 

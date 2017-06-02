@@ -1,7 +1,8 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
-import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
@@ -17,9 +18,9 @@ public class Room {
     /**
      * Array of order of the players in the room, its dimension is set in the constructor
      */
-    ArrayList<AbstractConnectionPlayer> orderPlayers;
+    ArrayList<AbstractConnectionPlayer> players;
 
-    ControllerGame gameController;
+    ControllerGame controllerGame;
 
     /**
      * timeout that starts when the second player joins the room. When time is up game starts. Set by the constructor
@@ -31,7 +32,7 @@ public class Room {
     private boolean isGameStarted;
     /**
      * Constructor
-     * @param maxNOfPlayers max number of orderPlayers for this room
+     * @param maxNOfPlayers max number of players for this room
      * @param timeoutInSec timeout that starts when the second player joins the room. When time is up game starts
      */
     public Room(int maxNOfPlayers, int timeoutInSec)
@@ -40,7 +41,7 @@ public class Room {
         this.maxNOfPlayers = maxNOfPlayers;
         currNOfPlayers = 0;
         isGameStarted = false;
-        orderPlayers = new ArrayList<AbstractConnectionPlayer>(maxNOfPlayers);
+        players = new ArrayList<AbstractConnectionPlayer>(maxNOfPlayers);
     }
 
     public boolean isGameStarted() {
@@ -48,7 +49,7 @@ public class Room {
     }
 
     public boolean canJoin(AbstractConnectionPlayer player) {
-        for(AbstractConnectionPlayer i : orderPlayers) {
+        for(AbstractConnectionPlayer i : players) {
             if(i.getNickname().equals(player.getNickname()))
                 return false;
         }
@@ -62,7 +63,7 @@ public class Room {
      */
     public void addNewPlayer(AbstractConnectionPlayer player)
     {
-        orderPlayers.add(player);
+        players.add(player);
         player.setRoom(this);
         currNOfPlayers++;
         Debug.printDebug("*Room*: added player " + player.getNickname());
@@ -74,7 +75,7 @@ public class Room {
         }
         else if(currNOfPlayers == 2) //TODO good idea to load this from file
         {
-            Debug.printVerbose("2 orderPlayers reached ");
+            Debug.printVerbose("2 players reached ");
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
@@ -95,8 +96,8 @@ public class Room {
         Debug.printVerbose("Game on room started");
             isGameStarted = true;
             try{
-                gameController = new ControllerGame(orderPlayers, this);
-                gameController.startNewGame();
+                controllerGame = new ControllerGame(players, this);
+                controllerGame.startNewGame();
             }
             catch (Exception e) {
                 Debug.printError("Connection Error", e);
@@ -109,7 +110,7 @@ public class Room {
      */
     public void updateOrderPlayer(ArrayList<AbstractConnectionPlayer> orderPlayers){
 
-        this.orderPlayers = orderPlayers;
+        this.players = orderPlayers;
 
     }
 
@@ -119,12 +120,39 @@ public class Room {
      * @param msg
      */
     public void floodChatMsg(AbstractConnectionPlayer player, String msg) {
-        for(AbstractConnectionPlayer i : orderPlayers) {
+        for(AbstractConnectionPlayer i : players) {
             if(player != i) {//the message should not be sent to the sender
                 try {
                     i.receiveChatMsg(player.getNickname(), msg);
                 } catch (NetworkException e) { //not a big problem if a chat message is not sent
                     Debug.printError("Unable to sent chat message to " + i.getNickname(), e);
+                }
+            }
+        }
+    }
+
+    /**
+     * call the method on controller game to place a family member on the tower
+     * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
+     */
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws IllegalMoveException{
+
+        controllerGame.placeOnTower(familyMember, towerIndex, floorIndex);
+        floodPlaceOnTower(familyMember, towerIndex, floorIndex);
+
+    }
+
+    /**
+     * launch the move of a player to the others player
+     */
+    public void floodPlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
+
+        for(AbstractConnectionPlayer player : players) {
+            if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
+                try {
+                    player.receivePlaceOnTower(familyMember, towerIndex, floorIndex);
+                } catch (NetworkException e) { //not a big problem if a chat message is not sent
+                    Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
                 }
             }
         }

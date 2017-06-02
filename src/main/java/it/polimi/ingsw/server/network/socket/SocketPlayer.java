@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network.socket;
 
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.server.ServerMain;
 import it.polimi.ingsw.client.exceptions.*;
@@ -261,6 +262,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
             Debug.printError("ERROR: the player " + senderNickname + " had tried to write a message in the chat", e);
         }
+    }
+
+    public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws NetworkException{
+
     }
     public void endPhase(){
         //TODO call the room' s method to tell the player had ended his phase

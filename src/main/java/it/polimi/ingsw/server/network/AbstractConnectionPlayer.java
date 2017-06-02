@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network;
 
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.player.Player;
@@ -31,6 +32,11 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @throws NetworkException if something went wrong on the network
      */
     public abstract void receiveChatMsg(String senderNickname, String msg) throws NetworkException;
+
+    /**
+     * this method is called by the room to deliver a move on tower of another player
+     */
+    public abstract void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws NetworkException;
 
     protected Room getRoomContr() {
         return roomContr;

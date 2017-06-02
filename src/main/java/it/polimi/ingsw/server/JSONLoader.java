@@ -60,8 +60,8 @@ public class JSONLoader {
     }
 
     /**
-     * this method is called when gameController is created and loads the 4 player-board
-     * @return the4-orderPlayers board
+     * this method is called when controllerGame is created and loads the 4 player-board
+     * @return the4-players board
      * @throws Exception in case GSON isn't able to read the file
      */
     public Board boardCreator() throws Exception
