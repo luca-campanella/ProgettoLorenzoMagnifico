@@ -181,6 +181,10 @@ public class Board {
         council.clearCouncil();
 
     }
+
+    public CouncilAS getCouncilAS() {
+        return council;
+    }
 }
 
 
