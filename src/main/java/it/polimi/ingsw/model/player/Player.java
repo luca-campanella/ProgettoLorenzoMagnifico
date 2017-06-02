@@ -138,7 +138,7 @@ public abstract class Player {
 
     public void addCard(AbstractCard card, CardColorEnum color){
 
-        personalBoard.addCard(card, color);
+        //personalBoard.addCard(card, color);
 
     }
 

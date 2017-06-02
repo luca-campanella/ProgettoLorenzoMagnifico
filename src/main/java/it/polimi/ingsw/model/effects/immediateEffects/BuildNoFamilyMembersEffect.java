@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 import it.polimi.ingsw.model.player.Player;
 
 /**
- * Created by higla on 23/05/2017.
+ * This method allows you to build without having a family member. example: 69 - Cardinal
  */
 public class BuildNoFamilyMembersEffect extends AbstractPerformActionEffect {
         public BuildNoFamilyMembersEffect(int buildValue)

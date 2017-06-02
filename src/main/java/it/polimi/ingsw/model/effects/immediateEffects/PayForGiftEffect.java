@@ -6,7 +6,8 @@ import it.polimi.ingsw.model.resource.Resource;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 30/05/2017.
+ * This effect allows player to get a council gift, if they pay some resources.
+ * example: 32
  */
 public class PayForGiftEffect extends AbstractPerformActionEffect {
     ArrayList<Resource> toPay;

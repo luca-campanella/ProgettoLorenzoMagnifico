@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.resource.Resource;
 import java.util.ArrayList;
 
 /**
- * Pay some resources to get some resources. An example is yellow card
+ * Pay some resources to get some resources. An example is yellow card 30
  */
 public class PayForSomethingEffect implements ImmediateEffectInterface {
     ArrayList<Resource> toPay;

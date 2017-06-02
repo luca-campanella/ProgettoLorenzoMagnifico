@@ -6,9 +6,11 @@ package it.polimi.ingsw.client.gui;
 
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class GraphicalUI extends AbstractUIType {
@@ -37,6 +39,11 @@ public class GraphicalUI extends AbstractUIType {
         System.out.println("Stampo tutte le azioni disponibili dell'utente");
     }
 
+    @Override
+    public int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer) {
+        return 0;
+    }
+
     /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error
      *
@@ -63,7 +70,7 @@ public class GraphicalUI extends AbstractUIType {
 
     }
 
-    @Override
+    //@Override
     public int askChoice(String nameCard, ArrayList<String> choices) {
         return 0;
     }

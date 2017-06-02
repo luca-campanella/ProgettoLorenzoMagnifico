@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
 /**
- * Created by higla on 23/05/2017.
+ * This effect allows you to take something if you have some cards
  */
 public class TakeOrPaySomethingConditionedOnCardEffect extends TakeOrPaySomethingEffect {
     CardColorEnum colorConditionedOnCardEffect;
