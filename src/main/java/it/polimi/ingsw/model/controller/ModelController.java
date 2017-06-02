@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -26,13 +27,16 @@ public class ModelController {
      * the players that play in this game
      */
     private ArrayList<Player> players;
+    /**
+     * the dices available to that game
+     */
     private ArrayList<Dice> dices;
 
     private int round;
 
     private int period;
 
-    public ModelController(ArrayList<Player> players, Board board)
+    public ModelController(ArrayList<? extends Player> players, Board board)
     {
 
         this.players = new ArrayList<>(5);
@@ -45,16 +49,14 @@ public class ModelController {
     }
 
     private void loadDices(){
-
         dices.add(new Dice(DiceAndFamilyMemberColor.BLACK));
         dices.add(new Dice(DiceAndFamilyMemberColor.NEUTRAL));
         dices.add(new Dice(DiceAndFamilyMemberColor.ORANGE));
         dices.add(new Dice(DiceAndFamilyMemberColor.WHITE));
-
     }
 
     /**
-     * this method prepare all the resources to prepere for the game
+     * this method prepare all the resources to prepare for the game
      */
     public void startNewGame()
     {
@@ -63,35 +65,15 @@ public class ModelController {
             i.setFamilyMembers(dices);
         }
 
-        chooseOrderRandomly();
-        addCointStartGame();
     }
 
-    /**
-     * choose the order of the players at the beginning of the game
-     */
-    private void chooseOrderRandomly(){
-        ArrayList<Player> playersOrder = new ArrayList<>(players.size());
-        Random random = new Random();
-        int valueIndex;
-        for(int i=0; i<players.size();){
-
-            valueIndex = random.nextInt(players.size());
-            //add the player of the index
-            playersOrder.add(players.get(random.nextInt(valueIndex)));
-            //remove the player of the index
-            players.remove(valueIndex);
-
-        }
-        players.addAll(playersOrder);
-    }
 
     /**
      * add the initial coins for every player
      */
-    private void addCointStartGame(){
+    public void addCoinsStartGame(ArrayList<? extends Player> players){
 
-        Resource resource =new Resource(ResourceTypeEnum.COIN, 5);
+        Resource resource = new Resource(ResourceTypeEnum.COIN, 5);
 
         for (Player player : players){
 
@@ -110,8 +92,6 @@ public class ModelController {
         //reload the family member
         players.forEach(Player::reloadFamilyMember);
 
-        reDoOrderPlayer(gameBoard.getCouncil().getFamilyMembers());
-
         gameBoard.clearBoard();
 
         //TODO clean and load the cards on board
@@ -121,32 +101,18 @@ public class ModelController {
         round = round + 1;
     }
 
-    /**
-     * manage the order of the players based on the council
-     * @param familyMembers the family members placed on the council
-     */
-    public void reDoOrderPlayer(ArrayList<FamilyMember> familyMembers){
+    public ArrayList<FamilyMember> getFamilyMemberCouncil(){
 
-        ArrayList<Player> newPlayersOrder = new ArrayList<>(players.size());
-
-        for(FamilyMember i : familyMembers){
-            newPlayersOrder.add(i.getPlayer());
-            players.remove(i.getPlayer());
-        }
-
-        for(Player i : players)
-            newPlayersOrder.add(i);
-
-        players = newPlayersOrder;
+        return gameBoard.getCouncil().getFamilyMembers();
 
     }
 
     public void prepareForNewPeriod(){
         period = period + 1;
     }
-
+    //todo place on tower
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
-
+;
     }
 
     /**
@@ -156,7 +122,7 @@ public class ModelController {
      */
     public void harvest(FamilyMember familyMember, int servant){
 
-        //control on the input, if the player reall has that resources
+        //control on the input, if the player has that resources
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating

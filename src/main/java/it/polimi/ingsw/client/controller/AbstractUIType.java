@@ -14,23 +14,23 @@ import java.util.HashMap;
 abstract public class AbstractUIType {
     UIControllerUserInterface UIController = new UIControllerUserInterface();
 
-    //inizia a chiedere all'utente di fare azioni
+    //This method read an action from the user
     abstract public void readAction();
-    //chiede all'utente con quale metodo si vuole connettere
+    //This method ask what network the user wants to use
     abstract public void askNetworkType();
-    //chiede all'utente se ha già un account e loggare o se vuole crearne uno nuovo
+    //This method ask the user if he wants to login or to create a new account
     abstract public void askLoginOrCreate();
-    //permette all'utente di create un nuovo account
+    //This method allows the user to create a newAccount
     abstract public void createNewAccount();
-    //permette all'utente di Loggare
+    //This method allows the user to ask to Login
     abstract public void askLogin();
-    //aggiorna l'UI
+    //This method updates the view
     abstract public void updateView();
     //Highlights that login has failed and manages that
     abstract public void loginFailure(String failureReason);
     //Selects a family member
     abstract public void selectFamilyMember();
-    //stampa le azioni disp
+    //This method prints allowed actions
     abstract public void printAllowedActions();
 
     /**

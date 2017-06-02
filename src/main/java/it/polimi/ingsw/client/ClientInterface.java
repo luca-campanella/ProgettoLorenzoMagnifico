@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client;
 
 /**
- * Created by higla on 11/05/2017.
- */
+*   This class is the client interface class. - todo ?
+ *  */
 public class ClientInterface {
 }

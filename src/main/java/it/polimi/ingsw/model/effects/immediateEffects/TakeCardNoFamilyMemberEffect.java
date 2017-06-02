@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.player.Player;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 23/05/2017.
+ * This method allows player to place a dice on a tower and take a card.
  */
 public class TakeCardNoFamilyMemberEffect extends AbstractPerformActionEffect {
     private int diceValueOnTower;

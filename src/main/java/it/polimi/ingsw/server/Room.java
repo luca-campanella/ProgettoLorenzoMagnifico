@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
@@ -14,9 +15,9 @@ import java.util.TimerTask;
 public class Room {
 
     /**
-     * Array of players in the room, its dimension is set in the constructor
+     * Array of order of the players in the room, its dimension is set in the constructor
      */
-    ArrayList<AbstractConnectionPlayer> players;
+    ArrayList<AbstractConnectionPlayer> orderPlayers;
 
     ControllerGame gameController;
 
@@ -30,7 +31,7 @@ public class Room {
     private boolean isGameStarted;
     /**
      * Constructor
-     * @param maxNOfPlayers max number of players for this room
+     * @param maxNOfPlayers max number of orderPlayers for this room
      * @param timeoutInSec timeout that starts when the second player joins the room. When time is up game starts
      */
     public Room(int maxNOfPlayers, int timeoutInSec)
@@ -39,7 +40,7 @@ public class Room {
         this.maxNOfPlayers = maxNOfPlayers;
         currNOfPlayers = 0;
         isGameStarted = false;
-        players = new ArrayList<AbstractConnectionPlayer>(maxNOfPlayers);
+        orderPlayers = new ArrayList<AbstractConnectionPlayer>(maxNOfPlayers);
     }
 
     public boolean isGameStarted() {
@@ -47,7 +48,7 @@ public class Room {
     }
 
     public boolean canJoin(AbstractConnectionPlayer player) {
-        for(AbstractConnectionPlayer i : players) {
+        for(AbstractConnectionPlayer i : orderPlayers) {
             if(i.getNickname().equals(player.getNickname()))
                 return false;
         }
@@ -61,7 +62,7 @@ public class Room {
      */
     public void addNewPlayer(AbstractConnectionPlayer player)
     {
-        players.add(player);
+        orderPlayers.add(player);
         player.setRoom(this);
         currNOfPlayers++;
         Debug.printDebug("*Room*: added player " + player.getNickname());
@@ -73,7 +74,7 @@ public class Room {
         }
         else if(currNOfPlayers == 2) //TODO good idea to load this from file
         {
-            Debug.printVerbose("2 players reached ");
+            Debug.printVerbose("2 orderPlayers reached ");
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
@@ -86,11 +87,30 @@ public class Room {
         }
     }
 
+    /**
+     * when the time out is ended or the room is full the game start to prepare all the object needed on the game
+     */
     private void startGame()
     {
-        Debug.printVerbose("Game on room started 12");
+        Debug.printVerbose("Game on room started");
             isGameStarted = true;
-            //gameController = new ControllerGame(currNOfPlayers, this);
+            try{
+                gameController = new ControllerGame(orderPlayers, this);
+                gameController.startNewGame();
+            }
+            catch (Exception e) {
+                Debug.printError("Connection Error", e);
+            }
+    }
+
+    /**
+     * reload the order of player when it changes
+     * @param orderPlayers the order of players
+     */
+    public void updateOrderPlayer(ArrayList<AbstractConnectionPlayer> orderPlayers){
+
+        this.orderPlayers = orderPlayers;
+
     }
 
     /**
@@ -99,7 +119,7 @@ public class Room {
      * @param msg
      */
     public void floodChatMsg(AbstractConnectionPlayer player, String msg) {
-        for(AbstractConnectionPlayer i : players) {
+        for(AbstractConnectionPlayer i : orderPlayers) {
             if(player != i) {//the message should not be sent to the sender
                 try {
                     i.receiveChatMsg(player.getNickname(), msg);

@@ -51,8 +51,8 @@ public class ClientMain implements ControllerModelInterface{
     public AbstractUIType getUserInterface() {
         return userInterface;
     }
-    /*
-    This method show user's network choice
+    /**
+    * This method show user's network choice
      */
     public void callbackNetworkType(NetworkTypeEnum networkChoice){
         Debug.printDebug("I'm in ClientMain.callbackNetworkType, choice = " + networkChoice);
@@ -76,8 +76,8 @@ public class ClientMain implements ControllerModelInterface{
         }
         userInterface.askLoginOrCreate();
     }
-    /*
-    this method is called when a user is trying to login.
+    /**
+    * this method is called when a user is trying to login.
      */
     public void callbackLogin(String userID, String userPW){
         Debug.printDebug("Sono nel ClientMain.callbackLogin.");
@@ -110,7 +110,7 @@ public class ClientMain implements ControllerModelInterface{
             }
 
         }
-        Debug.printVerbose("Sto per chiamare askChatMsg");
+        Debug.printVerbose("Im going to call askChatMsg");
         userInterface.askChatMsg(); //TODO this is a method just for testing chat
     }
     public void callbackLoginAsGuest(){
@@ -118,7 +118,7 @@ public class ClientMain implements ControllerModelInterface{
         userInterface.readAction();
     }
     public void callbackCreateAccount(String userID, String userPW){
-        Debug.printDebug("Sono nel ClientMain.callbackCreateAccount");
+        Debug.printDebug("I'm in ClientMain.callbackCreateAccount");
         try {
             clientNetwork.registerPlayer(userID, userPW);
         } catch (NetworkException e) {
@@ -133,17 +133,34 @@ public class ClientMain implements ControllerModelInterface{
         }
         userInterface.askLoginOrCreate();
     }
+
+    /**
+     * this method it's a callback method that is called from the AbstractyUIType when i want to play a Leader
+     */
     public void callbackPlayLeader(){
-        Debug.printDebug("Sono nel ClientMain.callbackPlayLeader");
+        Debug.printDebug("I'm in ClientMain.callbackPlayLeader");
     }
+
+    /**
+     * this method it's a callback method called from AbstractUIType when i want to discard a Leader.
+     */
     public void callbackDiscardLeader(){
-        Debug.printDebug("Sono nel ClientMain.callbackDiscardLeader");
+        Debug.printDebug("I'm in ClientMain.callbackDiscardLeader");
     }
+
+    /**
+     * this method is a callback method called from abstractUIType when a placement of a family member is performed
+     */
     public void callbackPerformPlacement(){
-        Debug.printDebug("Sono nel ClientMain.callbackPerformPlacement");
+        Debug.printDebug("I'm in ClientMain.callbackPerformPlacement");
         //get status... ricevo una lista di family member che posso usare
         userInterface.selectFamilyMember();
     }
+
+    /**
+     * this method is a callback method called from abstractUiType when a family member is selected
+     * @param color refers to the color of the family member selected.
+     */
     public void callbackFamilyMemberSelected(String color)
     {
         Debug.printDebug("Sono nel ClientMain.callbackFamilyMember");
@@ -152,7 +169,10 @@ public class ClientMain implements ControllerModelInterface{
         //chiamerò quindi il mio abstract UIType con un qualcosa riguardante...
         userInterface.printAllowedActions();
     }
-    //faccio un oggetto di azioni permesse
+
+    /**
+     * this method will ask to the model Controller what action user can do
+     */
     public void askAction(){
         userInterface.readAction();
     }
@@ -176,12 +196,24 @@ public class ClientMain implements ControllerModelInterface{
         clientNetwork.sendChatMsg(msg);
     }
 
+    /**
+     * Questo metodo che fa? Non c'è nessuno che lo sa -- Arto todo: comment this method
+     * @param nameCard
+     * @param choices
+     * @param resourcePlayer
+     * @return
+     */
     public int choose(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer){
 
         return userInterface.askChoice(nameCard, choices, resourcePlayer);
 
     }
 
+    /**
+     * this method allows player to place a family member on a build action space
+     * @param familyMember
+     * @param servants
+     */
     public void callbackPlacedFMOnBuild(FamilyMember familyMember, Resource servants){
         /*We make a copy of the hashmap beacuse we have to perfom some checks on it and this checks should not affect
         the hashmap of the player. Even tough making a copy using the constructor makes just a shallow copy, this is sufficient

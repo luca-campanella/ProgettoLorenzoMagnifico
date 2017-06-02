@@ -33,6 +33,10 @@ public class CouncilAS extends AbstractActionSpace {
 
     }
 
+    /**
+     * this method gives a description of the action space
+     * @return
+     */
     public String getSpaceDescription(){
         int i;
         String temp = new String();
@@ -41,9 +45,11 @@ public class CouncilAS extends AbstractActionSpace {
     return temp;
     }
 
-
+    /**
+     * this method
+     * @returns all family member insde the council
+     */
     public ArrayList<FamilyMember> getFamilyMembers(){
-
         return familyMembers;
 
     }

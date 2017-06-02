@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.resource.Resource;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 23/05/2017.
+ * This effect discount something for the player. Example 51
  */
 public class DiscountEffect implements ImmediateEffectInterface{
     //private CardColorEnum color;

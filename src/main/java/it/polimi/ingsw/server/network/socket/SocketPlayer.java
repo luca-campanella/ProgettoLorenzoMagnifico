@@ -173,7 +173,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     public void harvesting(){
         try{
-            BuildOrHarvestPacket packet=(BuildOrHarvestPacket) inStream.readObject();
+            HarvestPacket packet=(HarvestPacket) inStream.readObject();
             //TODO method
         }
         catch(IOException | ClassNotFoundException e){
@@ -184,7 +184,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     public void building(){
         try{
-            BuildOrHarvestPacket packet=(BuildOrHarvestPacket) inStream.readObject();
+            BuildPacket packet=(BuildPacket) inStream.readObject();
             //TODO method
         }
         catch(IOException | ClassNotFoundException e){

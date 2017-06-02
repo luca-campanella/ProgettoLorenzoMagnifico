@@ -8,9 +8,10 @@ import it.polimi.ingsw.model.player.Player;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 23/05/2017.
+ * This is the green card.
  */
 public class TerritoryCard extends AbstractCard{
+    //green card don't have a cost (rules)
     /*
   this parameter indicates minimum dice's value to attivate card's build effect
    */
@@ -35,12 +36,24 @@ public class TerritoryCard extends AbstractCard{
     public void setEffectsOnHarvest(ArrayList<ImmediateEffectInterface> effectsOnHarvest) {
         this.effectsOnHarvest = effectsOnHarvest;
     }
+
+    /**
+     * todo: inconsistenza. Abbiamo fatto in odo che tutti gli altri costi si potessero modificare, e questo no? --Arto
+     * todo: secondo me è cmq giusto cosi --Arto
+     * this method force to have no cost.
+     * @return
+     */
     public ArrayList<ImmediateEffectInterface> getCost() {
         ArrayList<ImmediateEffectInterface> noEffects = new ArrayList<>(0);
         NoEffect noEffect = new NoEffect();
         noEffects.add(noEffect);
         return noEffects ;
     }
+
+    /**
+     * this method returns a string with all harvesting effects
+     * @return
+     */
     public String secondEffect(){
         String temp = new String();
         temp = "H.Value " + harvestEffectValue + "/";

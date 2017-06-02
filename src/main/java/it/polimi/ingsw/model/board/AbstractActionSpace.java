@@ -39,6 +39,10 @@ public abstract class AbstractActionSpace {
         this.diceRequirement = diceValue;
     }
 
+    /**
+     * this method returns all immediate effects of a card
+     * @return
+     */
     public ArrayList<ImmediateEffectInterface> getEffects() {
         return effects;
     }
@@ -66,7 +70,7 @@ public abstract class AbstractActionSpace {
     }
 
     /**
-     * Mathod used for debugging
+     * Method used for debugging
      * @return a description of the effects
      */
     public String getEffectDescription()

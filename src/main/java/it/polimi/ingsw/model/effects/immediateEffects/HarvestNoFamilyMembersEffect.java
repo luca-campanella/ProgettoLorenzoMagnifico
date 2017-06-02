@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 import it.polimi.ingsw.model.player.Player;
 
 /**
- * Created by higla on 23/05/2017.
+ * This effect allows player to harvest without placing a family member on HarvestAS ex: 69
  */
 public class HarvestNoFamilyMembersEffect extends AbstractPerformActionEffect {
 

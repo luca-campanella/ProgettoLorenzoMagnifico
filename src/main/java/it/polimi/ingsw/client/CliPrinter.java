@@ -217,19 +217,25 @@ public class CliPrinter {
      * This method prints a generic card cost pillar
      */
     public void printGenericCostPillar(TowerFloorAS floor){
+        int i = 0;
         ArrayList<? extends ImmediateEffectInterface> costs;
         String tempCostsScene = "|Cost: ";
         String subCostScene = " ";
         costs = floor.getCard().getCost();
         //first i print the costs
-        for(int i = 0; i< costs.size(); i++)
-            tempCostsScene += costs.get(i).descriptionShortOfEffect() + " ";
+        try {
+            for (i = 0; i < costs.size(); i++)
+                tempCostsScene += costs.get(i).descriptionShortOfEffect() + " ";
+        }
+        catch(NullPointerException e){
+            System.out.print(costs.get(i).toString());
+        }
         //then i print the remaining space from cost to .. |
         while(tempCostsScene.length()< INSIDE_TOWER_LENGHT+1)
             tempCostsScene += " ";
         tempCostsScene += "|";
         //then i prepare the scene for the next pillar. Middle tower lenght is 26 not 29
-        for(int i = 0; i< sceneLenght-INSIDE_TOWER_LENGHT -3; i++)
+        for(i = 0; i< sceneLenght-INSIDE_TOWER_LENGHT -3; i++)
         tempCostsScene += " ";
 
         System.out.print(tempCostsScene);

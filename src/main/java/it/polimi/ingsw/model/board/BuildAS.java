@@ -5,12 +5,17 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 16/05/2017.
+ * This action space is the build action space.
  */
 public class BuildAS extends AbstractActionSpace {
+    // this boolean checks ?
     private boolean twoPlayersOneSpace;
+    //this is the standard build value (ex 0)
     int valueStandard = 0;
+    //this is the standard malus build value. (ex -3)
     int valueMalus = 0;
+    //this boolean check if the player that puts there the family member is the first
+    //todo Non lo dovrebbe fare il controller? -- Arto
     private boolean first = true;
     //it's the list of family members on this place
     private ArrayList<FamilyMember> familyMembers;

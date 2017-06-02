@@ -3,8 +3,8 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 import it.polimi.ingsw.model.player.Player;
 
 /**
- * Created by higla on 17/05/2017.
- */
+ * This effect hasn't effect
+ * */
 public class NoEffect implements  ImmediateEffectInterface {
 
     public void applyToPlayer(Player player){

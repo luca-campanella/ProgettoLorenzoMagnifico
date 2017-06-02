@@ -5,7 +5,8 @@ import it.polimi.ingsw.client.gui.GraphicalUI;
 import java.util.* ;
 
 /**
- * Created by higla on 11/05/2017.
+ * todo: implement a proper launcher
+ * This class is the temporary launcher of Lorenzo's il magnifico
  */
 public class LauncherClientFake {
     ClientMain clientMain;

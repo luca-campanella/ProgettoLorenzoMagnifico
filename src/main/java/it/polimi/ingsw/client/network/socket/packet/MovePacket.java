@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import java.io.Serializable;
 
 /**
- * Created by federico on 16/05/2017.
+ *  the packet created to deliver the action on socket
  */
 public class MovePacket implements Serializable {
     private DiceAndFamilyMemberColor familyMemberColor;
