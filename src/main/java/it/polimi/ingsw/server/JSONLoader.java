@@ -2,6 +2,9 @@ package it.polimi.ingsw.server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
@@ -17,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
-
+import java.lang.reflect.*;
 /**
  * Created by higla on 30/05/2017.
  */
@@ -83,7 +86,7 @@ public class JSONLoader {
         }
     }
 
-    public PersonalTile loadTiles() throws IOException{
+    public ArrayList<PersonalTile> loadTiles() throws IOException{
         GsonBuilder gsonBuilder = new GsonBuilder();
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
@@ -92,20 +95,30 @@ public class JSONLoader {
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
-        /*PersonalTile personalTile = new PersonalTile();
+        PersonalTile personalTile = new PersonalTile();
         ArrayList<PersonalTile> personalTiles = new ArrayList<PersonalTile>();
         Resource resource = new Resource(ResourceTypeEnum.COIN, 2);
         TakeOrPaySomethingEffect effect = new TakeOrPaySomethingEffect(resource);
         ArrayList<TakeOrPaySomethingEffect> effects = new ArrayList<>();
         effects.add(effect);
+        effects.add(effect);
         personalTile.setEffectOnBuild(effects);
         personalTile.setEffectOnHarvest(effects);
         personalTiles.add(personalTile);
-        System.out.println(gson.toJson(personalTiles));*/
+
+        System.out.println(gson.toJson(personalTiles));
+
+
 
         try (Reader reader = new InputStreamReader(PersonalTile.class.getResourceAsStream("/PersonalTiles.json"), "UTF-8")) {
-           PersonalTile personalTile  = gson.fromJson(reader, PersonalTile.class);
-            return personalTile;
+           //ArrayList<PersonalTile> personalTiles  = gson.fromJson(reader, PersonalTile.class);
+
+            Type type = new TypeToken<ArrayList<TakeOrPaySomethingEffect>>(){}.getType();
+            ArrayList<PersonalTile> inList = gson.fromJson(reader, type);
+            for (PersonalTile i : inList) {
+                System.out.println(i);
+            }
+            return inList;
         }
 
     }

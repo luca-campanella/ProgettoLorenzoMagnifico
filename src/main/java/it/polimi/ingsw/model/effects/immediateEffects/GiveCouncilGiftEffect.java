@@ -14,5 +14,5 @@ public class GiveCouncilGiftEffect implements ImmediateEffectInterface {
     public String descriptionOfEffect(){
         return "Gives a Council Gift to a player.";
     }
-    public String descriptionShortOfEffect(){return "Gift";}
+    public String descriptionShortOfEffect(){return "Gift " + numberOfCouncilGift;}
 }

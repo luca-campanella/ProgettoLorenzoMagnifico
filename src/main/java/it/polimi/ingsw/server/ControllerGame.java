@@ -130,7 +130,7 @@ public class ControllerGame  implements ControllerModelInterface {
      */
     public ControllerGame(int numberOfPlayers) throws Exception {
         JSONLoader jsonLoader = new JSONLoader();
-        PersonalTile personalTile = jsonLoader.loadTiles();
+        ArrayList<PersonalTile> personalTiles = jsonLoader.loadTiles();
         boardGame = jsonLoader.boardCreator();
         deck = jsonLoader.createNewDeck();
         int period = 1;
