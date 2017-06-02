@@ -36,7 +36,7 @@ public class ModelController {
 
     private int period;
 
-    public ModelController(ArrayList<Player> players, Board board)
+    public ModelController(ArrayList<? extends Player> players, Board board)
     {
 
         this.players = new ArrayList<>(5);

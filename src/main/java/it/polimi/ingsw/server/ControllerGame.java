@@ -113,7 +113,7 @@ public class ControllerGame  implements ControllerModelInterface {
         boardModifier(numberOfPlayers);
         this.room = room;
         this.players = players;
-        modelController = new ModelController(players, this, boardGame);
+        modelController = new ModelController(players, boardGame);
         numberOfTurn = 0;
         numberOfRound = 1;
         playerChoices = new HashMap<>(10);
