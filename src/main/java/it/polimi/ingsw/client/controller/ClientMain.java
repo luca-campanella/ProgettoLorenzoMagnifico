@@ -8,7 +8,9 @@ import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.network.rmi.RMIClient;
 import it.polimi.ingsw.client.network.socket.SocketClient;
+import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.controller.ModelController;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -181,15 +183,28 @@ public class ClientMain implements ControllerModelInterface{
     }
 
     public void callbackPlacedFMOnBuild(FamilyMember familyMember, Resource servants){
-        /*We make a copy of the hashmap beacuse we ahve to perfoms some checks on it and this checks should not affect
+        /*We make a copy of the hashmap beacuse we have to perfom some checks on it and this checks should not affect
         the hashmap of the player. Even tough making a copy using the constructor makes just a shallow copy, this is sufficient
         since Integer types are immutable
          */
 
         HashMap<ResourceTypeEnum, Integer> controlHashMap = new HashMap<ResourceTypeEnum, Integer>(familyMember.getPlayer().getResourcesMap());
-        LinkedList<ChoiceContainer> choices;
+        /*LinkedList<ChoiceContainer> choices;
 
-        choices = modelController.getChoicesOnBuild(familyMember, servants);
+        choices = modelController.getChoicesOnBuild(familyMember, servants);*/
+
+        LinkedList<BuildingCard> buildingCards = modelController.getYellowBuildingCards(familyMember.getPlayer());
+        ArrayList<ImmediateEffectInterface> effects;
+
+        for(BuildingCard cardIter : buildingCards) {
+            effects = cardIter.getEffectsOnBuilding();
+            if(effects.size() > 1) {
+
+            }
+
+        }
+
+
     }
 }
 

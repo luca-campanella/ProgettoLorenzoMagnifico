@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model.controller;
 
-import it.polimi.ingsw.client.controller.ChoiceContainer;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.BuildingCard;
-import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -255,14 +252,14 @@ public class ModelController {
         throw new IllegalArgumentException("No nickname matching " + nickname);
     }
 
-    /**
+    /*
      * This method return all the possible choices when a player decides to build
      * This method will be called by {@link it.polimi.ingsw.client.controller.ClientMain}, all on the client
      * @param familyMember the family member chosen to perform the cation, important to know the value of the action
      * @param servants number of servants added, still importants, some cards have higher values than others
      * @return an list of choices
      */
-    public LinkedList<ChoiceContainer> getChoicesOnBuild(FamilyMember familyMember, Resource servants) {
+    /*public LinkedList<ChoiceContainer> getChoicesOnBuild(FamilyMember familyMember, Resource servants) {
         LinkedList<ChoiceContainer> choicesList = new LinkedList<ChoiceContainer>();
         LinkedList<BuildingCard> buildingCards = familyMember.getPlayer().getPersonalBoard().getYellowBuildingCards();
 
@@ -272,20 +269,20 @@ public class ModelController {
 
         for(BuildingCard cardIter : buildingCards) {
             if(cardIter.getBuildEffectValue() <= realDiceValue) {
-                ArrayList<ImmediateEffectInterface> effects = cardIter.getEffectsOnBuilding();
-
-
-                for(ImmediateEffectInterface effectIter : effects){
-                    if(effectIter instanceof PayForSomethingEffect) {
-                        tempResources = ((PayForSomethingEffect) effectIter).getToPay();
-
-                    }
-                }
-                //choicesList.add(new ChoiceContainer(cardIter.getName()))
+                choicesList.add(new ChoiceContainer(cardIter.getName(), cardIter.getEffectsOnBuilding()));
             }
         }
 
         return choicesList;
+    }*/
+
+    /**
+     * This method returns all the building yellow cards of a certain player
+     * @param player the selected player
+     * @return the list of cards
+     */
+    public LinkedList<BuildingCard> getYellowBuildingCards(Player player) {
+        return player.getPersonalBoard().getYellowBuildingCards();
     }
 }
 
