@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.client.controller.ControllerModelInterface;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.effects.immediateEffects.GiveCouncilGiftEffect;
@@ -14,6 +15,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.testingGSON.boardLoader.BoardCreator;
 import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 
@@ -21,9 +23,10 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
- * Created by higla on 29/05/2017.
+ * the controller of the game on the server
  */
 public class ControllerGame  implements ControllerModelInterface {
     private ControllerGame game;
@@ -35,6 +38,7 @@ public class ControllerGame  implements ControllerModelInterface {
     private int numberOfRound;
     private int numberOfTurn;
     private HashMap<String, Integer> playerChoices;
+    private ArrayList<AbstractConnectionPlayer> players;
 
     public static void main(String[] args) throws Exception {
         ControllerGame controllerGame =  new ControllerGame(2);
@@ -54,10 +58,40 @@ public class ControllerGame  implements ControllerModelInterface {
             modelController.endGame();
 
         if(numberOfTurn >= numberOfPlayers*4){
-            //modelController.prepareForNewRound();
+            modelController.prepareForNewRound();
+            reDoOrderPlayer(modelController.getFamilyMemberCouncil());
             numberOfTurn = 0;
             numberOfRound++;
+
         }
+
+    }
+
+    /**
+     * manage the order of the players based on the council
+     * @param familyMembers the family members placed on the council
+     */
+    private void reDoOrderPlayer(ArrayList<FamilyMember> familyMembers){
+
+        ArrayList<AbstractConnectionPlayer> newPlayersOrder = new ArrayList<>(players.size());
+
+        for(FamilyMember i : familyMembers){
+
+            for(AbstractConnectionPlayer player : players){
+
+                if(i.getPlayer().getNickname().equals(player.getNickname())){
+
+                    newPlayersOrder.add(player);
+                    players.remove(i.getPlayer());
+
+                }
+            }
+        }
+
+        newPlayersOrder.addAll(players);
+        players.clear();
+        players = newPlayersOrder;
+        room.updateOrderPlayer(players);
 
     }
 
@@ -66,18 +100,19 @@ public class ControllerGame  implements ControllerModelInterface {
     }
 
     /**
-     * This method creates a new board and modifies it considering the number of players
+     * This method creates a new board and modifies it considering the number of orderPlayers
      * @param players the payers that are on the game
      * @param room the room where the game is located
      * @throws Exception if file where Board configuration is
      */
-    public ControllerGame(ArrayList<Player> players, Room room) throws Exception {
+    public ControllerGame(ArrayList<AbstractConnectionPlayer> players, Room room) throws Exception {
         JSONLoader jsonLoader = new JSONLoader();
         boardGame = jsonLoader.boardCreator();
         deck = jsonLoader.createNewDeck();
         numberOfPlayers = players.size();
         boardModifier(numberOfPlayers);
         this.room = room;
+        this.players = players;
         modelController = new ModelController(players, this, boardGame);
         numberOfTurn = 0;
         numberOfRound = 1;
@@ -101,8 +136,8 @@ public class ControllerGame  implements ControllerModelInterface {
     }
 
     /**
-     * this method modifies the board given a number of players
-     * @param numberOfPlayers the number of players that will play on this game
+     * this method modifies the board given a number of orderPlayers
+     * @param numberOfPlayers the number of orderPlayers that will play on this game
      */
     private void boardModifier(int numberOfPlayers)
     {
@@ -116,7 +151,7 @@ public class ControllerGame  implements ControllerModelInterface {
 
 
     /**
-     * this method modifies the board when there are three players
+     * this method modifies the board when there are three orderPlayers
      */
     private void boardThreePlayers()
     {
@@ -125,7 +160,7 @@ public class ControllerGame  implements ControllerModelInterface {
     }
 
     /**
-     * This method modifies the board if there are 2 players.
+     * This method modifies the board if there are 2 orderPlayers.
      */
     private void boardTwoPlayers()
     {
@@ -140,6 +175,34 @@ public class ControllerGame  implements ControllerModelInterface {
     public void startNewGame(){
 
         modelController.startNewGame();
+
+        chooseOrderRandomly();
+
+        //add the coins to the players based on the order of turn
+        modelController.addCoinsStartGame(players);
+
+    }
+
+    /**
+     * choose the order of the players at the beginning of the game
+     */
+    private void chooseOrderRandomly(){
+
+        ArrayList<AbstractConnectionPlayer> playersOrder = new ArrayList<>(players.size());
+        Random random = new Random();
+        int valueIndex;
+        for(int i=0; i<players.size();){
+
+            valueIndex = random.nextInt(players.size());
+            //add the player of the index
+            playersOrder.add(players.get(random.nextInt(valueIndex)));
+            //remove the player of the index
+            players.remove(valueIndex);
+
+        }
+        players.addAll(playersOrder);
+
+        room.updateOrderPlayer(players);
 
     }
 

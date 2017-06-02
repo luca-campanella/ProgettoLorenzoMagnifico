@@ -7,9 +7,9 @@ import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * This is the controller of one game
@@ -36,7 +36,7 @@ public class ModelController {
 
     private int period;
 
-    public ModelController(ArrayList<Player> players, ControllerGame controllerGame, Board board)
+    public ModelController(ArrayList<? extends AbstractConnectionPlayer> players, ControllerGame controllerGame, Board board)
     {
 
         this.players = new ArrayList<>(5);
@@ -68,35 +68,15 @@ public class ModelController {
             i.setFamilyMembers(dices);
         }
 
-        chooseOrderRandomly();
-        addCointStartGame();
     }
 
-    /**
-     * choose the order of the players at the beginning of the game
-     */
-    private void chooseOrderRandomly(){
-        ArrayList<Player> playersOrder = new ArrayList<>(players.size());
-        Random random = new Random();
-        int valueIndex;
-        for(int i=0; i<players.size();){
-
-            valueIndex = random.nextInt(players.size());
-            //add the player of the index
-            playersOrder.add(players.get(random.nextInt(valueIndex)));
-            //remove the player of the index
-            players.remove(valueIndex);
-
-        }
-        players.addAll(playersOrder);
-    }
 
     /**
      * add the initial coins for every player
      */
-    private void addCointStartGame(){
+    public void addCoinsStartGame(ArrayList<? extends Player> players){
 
-        Resource resource =new Resource(ResourceTypeEnum.COIN, 5);
+        Resource resource = new Resource(ResourceTypeEnum.COIN, 5);
 
         for (Player player : players){
 
@@ -115,8 +95,6 @@ public class ModelController {
         //reload the family member
         players.forEach(Player::reloadFamilyMember);
 
-        reDoOrderPlayer(gameBoard.getCouncil().getFamilyMembers());
-
         gameBoard.clearBoard();
 
         //TODO clean and load the cards on board
@@ -126,23 +104,9 @@ public class ModelController {
         round = round + 1;
     }
 
-    /**
-     * manage the order of the players based on the council
-     * @param familyMembers the family members placed on the council
-     */
-    public void reDoOrderPlayer(ArrayList<FamilyMember> familyMembers){
+    public ArrayList<FamilyMember> getFamilyMemberCouncil(){
 
-        ArrayList<Player> newPlayersOrder = new ArrayList<>(players.size());
-
-        for(FamilyMember i : familyMembers){
-            newPlayersOrder.add(i.getPlayer());
-            players.remove(i.getPlayer());
-        }
-
-        for(Player i : players)
-            newPlayersOrder.add(i);
-
-        players = newPlayersOrder;
+        return gameBoard.getCouncil().getFamilyMembers();
 
     }
 

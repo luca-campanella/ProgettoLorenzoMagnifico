@@ -11,6 +11,7 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
 
 /**
  * SocketClient is the class of client that communicates to the server using the socket
@@ -162,12 +163,13 @@ public class SocketClient extends AbstractClientType {
      * @param numberTower number of the tower
      * @param floorTower floor of the tower
      */
-    public void moveInTower(DiceAndFamilyMemberColor familyMemberColor, int servantUsed, int numberTower, int floorTower)
+    public void moveInTower(DiceAndFamilyMemberColor familyMemberColor, int servantUsed,
+                            int numberTower, int floorTower, HashMap<String, Integer> playerChoices)
             throws NetworkException,IllegalMoveException {
         MoveErrorEnum moveErrorEnum;
         try{
             outStream.writeObject(PacketType.MOVE_IN_TOWER);
-            outStream.writeObject(new MoveInTowerPacket(familyMemberColor,servantUsed,numberTower,floorTower));
+            outStream.writeObject(new MoveInTowerPacket(familyMemberColor,servantUsed,numberTower,floorTower, playerChoices));
             outStream.flush();
             moveErrorEnum=(MoveErrorEnum) inStream.readObject();
         }
@@ -207,7 +209,7 @@ public class SocketClient extends AbstractClientType {
     public void harvesting (DiceAndFamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
         try{
             outStream.writeObject(PacketType.HARVESTING);
-            outStream.writeObject(new BuildOrHarvestPacket(familyMemberColor,servantUsed));
+            outStream.writeObject(new HarvestPacket(familyMemberColor,servantUsed));
             outStream.flush();
         }
         catch (IOException e){
@@ -216,10 +218,10 @@ public class SocketClient extends AbstractClientType {
         }
 
     }
-    public void building (DiceAndFamilyMemberColor familyMemberColor, int servantUsed) throws NetworkException{
+    public void building (DiceAndFamilyMemberColor familyMemberColor, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException{
         try{
             outStream.writeObject(PacketType.BUILDING);
-            outStream.writeObject(new BuildOrHarvestPacket(familyMemberColor,servantUsed));
+            outStream.writeObject(new BuildPacket(familyMemberColor,servantUsed,playerChoices));
             outStream.flush();
         }
         catch (IOException e){

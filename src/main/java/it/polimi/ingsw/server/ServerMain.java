@@ -26,7 +26,7 @@ public class ServerMain {
 	private static final int SOCKET_PORT = 3035;
 
 	/**
-	 * Constant that specifies the maximum numbers of players in a game (default set to 4, set to 5 to extend functionalities)
+	 * Constant that specifies the maximum numbers of orderPlayers in a game (default set to 4, set to 5 to extend functionalities)
 	 */
 	private static final int MAX_N_OF_PLAYERS = 4;
 
