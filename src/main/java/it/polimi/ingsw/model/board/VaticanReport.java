@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model.board;
 
 /**
- * Created by higla on 20/05/2017.
+ * This is the vatican walk of faith.
+ * It also contains excommunication cards
+ * todo: add excommunication cards
  */
 public class VaticanReport {
     public static final int NUMBER_OF_AGES = 3;

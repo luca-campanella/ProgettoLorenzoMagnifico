@@ -41,7 +41,7 @@ public class Deck {
     }
     //This method needs to be changed.. It isn't really working probably
     /**
-     * this method fills towers.
+     * this method fills towers with correct cards
      * @param board
      * @param period
      * @param developmentCard
@@ -51,15 +51,17 @@ public class Deck {
     public Board fillTower(Board board, int period, ArrayList<? extends AbstractCard> developmentCard, CardColorEnum colorTower)
     {
         int i;
-        int k = 7;
-        int temp = period * (int)(Math.random()*k);;
+        //k goes from 8 to 4 again and again, depending on round
+        int k = ((developmentCard.size()+4)%8)+4;
+        int temp;
         for (i = 0; i < board.getNUMBER_OF_FLOORS(); i++) {
+            temp =  (int)(Math.random()*k);
             //i take a random number - 0 to 7
-       //     Debug.printDebug("K vale " + k);
+            //Debug.printDebug("K vale " + k + " temp invece " +temp );
             //then in base of the period, i choose the right card
             while (developmentCard.get(temp).getPeriod() != period)
-                temp = period * (int) (Math.random() * k);
-         //   Debug.printDebug("temp vale " + temp + " period vale " + period);
+                temp = (int) (Math.random() * k);
+            //Debug.printDebug("temp vale " + temp + " period vale " + period);
             board.setCardsOnTower(developmentCard.get(temp), colorTower, i);
           //  Debug.printDebug(developmentCard.get(temp).getName());
             //then i remove the card from all territory card, and decrease the card count

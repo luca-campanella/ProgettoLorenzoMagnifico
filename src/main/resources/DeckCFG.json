@@ -3201,7 +3201,7 @@
         },
         {
           "resource": {
-            "type": "SERVANTS",
+            "type": "SERVANT",
             "value": 3
           }
         }

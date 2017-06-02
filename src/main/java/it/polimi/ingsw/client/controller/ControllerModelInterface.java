@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * the interface of ModelController on the client
+ * This class is the interface of ModelController on the client
  */
 public interface ControllerModelInterface {
 

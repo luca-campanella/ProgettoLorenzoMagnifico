@@ -30,6 +30,9 @@ public class ModelController {
      * the players that play in this game
      */
     private ArrayList<Player> players;
+    /**
+     * the dices available to that game
+     */
     private ArrayList<Dice> dices;
 
     private int round;
@@ -49,16 +52,14 @@ public class ModelController {
     }
 
     private void loadDices(){
-
         dices.add(new Dice(DiceAndFamilyMemberColor.BLACK));
         dices.add(new Dice(DiceAndFamilyMemberColor.NEUTRAL));
         dices.add(new Dice(DiceAndFamilyMemberColor.ORANGE));
         dices.add(new Dice(DiceAndFamilyMemberColor.WHITE));
-
     }
 
     /**
-     * this method prepare all the resources to prepere for the game
+     * this method prepare all the resources to prepare for the game
      */
     public void startNewGame()
     {
@@ -112,9 +113,9 @@ public class ModelController {
     public void prepareForNewPeriod(){
         period = period + 1;
     }
-
+    //todo place on tower
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
-
+;
     }
 
     /**
@@ -124,7 +125,7 @@ public class ModelController {
      */
     public void harvest(FamilyMember familyMember, int servant){
 
-        //control on the input, if the player reall has that resources
+        //control on the input, if the player has that resources
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating

@@ -7,9 +7,14 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import java.util.ArrayList;
 
 /**
- * the board where the game develops
+ * This class is the board where the game develops
+ * todo: when we create the board, should we pass all the deck to it?
+ * Isn't it wrong? Players could already know cards before those are fitted in the right spaces.
+ * Of course deck is standard.. Potrebbe non essere un problema a dire il vero.
+ * Di fatti, piu ci giochi piu impari quali carte ci sono, quindi basi anche un po la tua strategia su quello....
  */
 public class Board {
+    //the following constants are loaded from file and establish the number of action spaces / towers of the board
     private int NUMBER_OF_TOWERS;
     private int NUMBER_OF_MARKETS;
     private int NUMBER_OF_FLOORS;
@@ -21,7 +26,7 @@ public class Board {
     private CouncilAS council;
     private VaticanReport vaticanReport = new VaticanReport();
 
-
+    // this is the constructor
     public void createNewBoard(Tower[] towers, ArrayList<MarketAS> market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport) {
         this.towers = towers;
         this.market = market;
@@ -47,7 +52,7 @@ public class Board {
     public Tower[] getTowers() {
         return towers;
     }
-
+    //todo: we have to cancel this method
     public void setTowers(Tower[] towers) {
         this.towers = towers;
     }
@@ -72,7 +77,7 @@ public class Board {
     public ArrayList<MarketAS> getMarket() {
         return market;
     }
-
+    //todo: we should cancel this one too
 /*    public void setMarket(MarketAS[] market) {
         this.market = market;
     }*/
@@ -116,7 +121,7 @@ public class Board {
     public int[] getVaticanVictoryPoints() {
         return this.vaticanReport.getCorrespondingVictoryPoints();
     }
-
+    //todo we should cancel this one also
     public void setVaticanReport(VaticanReport vaticanReport) {
         this.vaticanReport = vaticanReport;
     }
@@ -129,9 +134,6 @@ public class Board {
     {
         return this.getCouncil().getEffect().descriptionShortOfEffect();
     }*/
-    public void setCouncil(CouncilAS council) {
-        this.council = council;
-    }
 
     public int getNUMBER_OF_FLOORS() {
         return NUMBER_OF_FLOORS;

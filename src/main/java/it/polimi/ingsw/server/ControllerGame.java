@@ -45,6 +45,20 @@ public class ControllerGame  implements ControllerModelInterface {
         CliPrinter cli = new CliPrinter();
         //cli.printDeck(controllerGame.getDeck());
         cli.printBoard(controllerGame.getBoardGame());
+        controllerGame.testSecondRound(1);
+        cli.printBoard(controllerGame.getBoardGame());
+        controllerGame.testSecondRound(2);
+        cli.printBoard(controllerGame.getBoardGame());
+        controllerGame.testSecondRound(2);
+        cli.printBoard(controllerGame.getBoardGame());
+        controllerGame.testSecondRound(3);
+        cli.printBoard(controllerGame.getBoardGame());
+        controllerGame.testSecondRound(3);
+        cli.printBoard(controllerGame.getBoardGame());
+
+    }
+    public void testSecondRound(int period){
+        boardGame = deck.fillBoard(boardGame,period);
     }
     private  Deck getDeck()
     {
@@ -120,7 +134,7 @@ public class ControllerGame  implements ControllerModelInterface {
     }
 
     /**
-     * costructor for controllerGame
+     * costructor for controllerGame. This is just a temp constructor to test the class
      * @param numberOfPlayers
      * @throws Exception
      */

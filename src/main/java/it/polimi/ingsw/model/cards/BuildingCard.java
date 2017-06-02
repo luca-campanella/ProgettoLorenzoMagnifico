@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.player.Player;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 23/05/2017.
+ * Those are the yellow cards.
  */
 public class BuildingCard extends AbstractCard{
 
@@ -35,7 +35,7 @@ public class BuildingCard extends AbstractCard{
     public ArrayList<TakeOrPaySomethingEffect> getCost() {
         return cost;
     }
-
+    //todo: cancel
     public void setCost(ArrayList<TakeOrPaySomethingEffect> cost) {
         this.cost = cost;
     }
@@ -43,7 +43,7 @@ public class BuildingCard extends AbstractCard{
     public int getBuildEffectValue() {
         return buildEffectValue;
     }
-
+    //todo: cancel
     public void setBuildEffectValue(int buildEffectValue) {
         this.buildEffectValue = buildEffectValue;
     }
@@ -51,10 +51,16 @@ public class BuildingCard extends AbstractCard{
     public ArrayList<ImmediateEffectInterface> getEffectsOnBuilding() {
         return effectsOnBuilding;
     }
-
+    //todo: cancel
     public void setEffectsOnBuilding(ArrayList<ImmediateEffectInterface> effectsOnBuilding) {
         this.effectsOnBuilding = effectsOnBuilding;
     }
+
+    /**
+     * this method is called from the printer and helps it to print all effectsOnBuilding.
+     * todo: I dind't want to put this method in the CLI because all second effects are different. -- Arto
+     * @return the string with all effects.
+     */
     public String secondEffect(){
         String temp = new String();
         for(int i=0; i<effectsOnBuilding.size();i++)

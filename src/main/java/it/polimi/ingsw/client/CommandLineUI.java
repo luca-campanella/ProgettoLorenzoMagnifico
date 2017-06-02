@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 //TODO
+
+/**
+ * this class is the CLI. It allows players to do actions, play, discard leaders.
+ */
 public class CommandLineUI extends AbstractUIType {
 
     String tmpInput;
@@ -25,7 +29,7 @@ public class CommandLineUI extends AbstractUIType {
 
 
     /**
-     * This is the costructor of the class
+     * This is the constructor of the class
      * @param clientMain is the clientMain
      */
     public CommandLineUI(ClientMain clientMain)
@@ -152,6 +156,10 @@ public class CommandLineUI extends AbstractUIType {
         }
     }
 
+    /**
+     * this method allows CLI to ask proper Database's info to user.
+     * @return
+     */
     private UsrPwdContainer readUsrPwd()
     {
         String nickname, password;
@@ -164,15 +172,24 @@ public class CommandLineUI extends AbstractUIType {
         return new UsrPwdContainer(nickname, password);
     }
 
-    //permette all'utente di create un nuovo account
+    /*
+    todo: we need to cancel this
+     */
     public void createNewAccount(){
         System.out.println("Creating new Account...");
     }
-    //permette all'utente di Loggare
+    /*
+    todo: we need to cancel this one too
+     */
     public void askLogin(){
         System.out.println("Logging In...");
     }
-    //aggiorna l'UI
+
+    /**
+     * todo: what does this method really do?
+     * Chiama il criprinter, il quale è singleton e in base a non so quali parametri chiama il metodo giusto?
+     * A questo punto: meglio far chiamare direttamente dal controller un GenericPrinter o dalla CLI il CLIPrinter.
+     */
     public void updateView()
     {
         System.out.println("Aggiorno la view");
@@ -189,6 +206,10 @@ public class CommandLineUI extends AbstractUIType {
         //askLoginOrCreate()
     }
 
+    /**
+     * if an error occurs, this method printsit
+     * @param error
+     */
     public void printError(String error)
     {
         System.out.println( error );

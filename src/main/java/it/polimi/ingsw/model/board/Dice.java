@@ -23,7 +23,7 @@ public class Dice {
      * value of the dice
      */
     private int value;
-
+    //this is the constructor
     public Dice(DiceAndFamilyMemberColor color){
         this.color=color;
         random= new Random();

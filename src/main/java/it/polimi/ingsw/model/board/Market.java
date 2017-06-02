@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * this class is the maarket board, the place where all the market place are
+ * this class is the market board, the place where all the market places are
  */
 public class Market {
 
@@ -23,7 +23,6 @@ public class Market {
     }
 
     private void loadFunction(){
-
         loadPlaces.put(2,this::loadMarket2);
         loadPlaces.put(3,this::loadMarket3);
         loadPlaces.put(4,this::loadMarket4);

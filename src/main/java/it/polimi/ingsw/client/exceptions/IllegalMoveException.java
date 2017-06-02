@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.exceptions;
 import java.io.IOException;
 
 /**
- * exception throwed when the player tries to do an illegal move
+ * This exception is threw when the player tries to do an illegal move
  */
 public class IllegalMoveException extends IOException {
 
