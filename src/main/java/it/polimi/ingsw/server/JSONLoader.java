@@ -86,6 +86,11 @@ public class JSONLoader {
         }
     }
 
+    /**
+     * this loads an arrayList of tiles. The first element of the array list is the standard tile
+     * @return an array list of tiles
+     * @throws IOException
+     */
     public ArrayList<PersonalTile> loadTiles() throws IOException{
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -95,25 +100,10 @@ public class JSONLoader {
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
-        PersonalTile personalTile = new PersonalTile();
-        ArrayList<PersonalTile> personalTiles = new ArrayList<PersonalTile>();
-        Resource resource = new Resource(ResourceTypeEnum.COIN, 2);
-        TakeOrPaySomethingEffect effect = new TakeOrPaySomethingEffect(resource);
-        ArrayList<TakeOrPaySomethingEffect> effects = new ArrayList<>();
-        effects.add(effect);
-        effects.add(effect);
-        personalTile.setEffectOnBuild(effects);
-        personalTile.setEffectOnHarvest(effects);
-        personalTiles.add(personalTile);
-
-        System.out.println(gson.toJson(personalTiles));
-
-
 
         try (Reader reader = new InputStreamReader(PersonalTile.class.getResourceAsStream("/PersonalTiles.json"), "UTF-8")) {
-           //ArrayList<PersonalTile> personalTiles  = gson.fromJson(reader, PersonalTile.class);
 
-            Type type = new TypeToken<ArrayList<TakeOrPaySomethingEffect>>(){}.getType();
+            Type type = new TypeToken<ArrayList<PersonalTile>>(){}.getType();
             ArrayList<PersonalTile> inList = gson.fromJson(reader, type);
             for (PersonalTile i : inList) {
                 System.out.println(i);
