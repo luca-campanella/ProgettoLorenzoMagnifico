@@ -1,0 +1,20 @@
+{
+    "DICEONHARVEST": 1,
+    "DICEONBUILD": 1,
+    "effectOnBuild": [
+      {
+        "resource": {
+          "type": "COIN",
+          "value": 2
+        }
+      }
+    ],
+    "effectOnHarvest": [
+      {
+        "resource": {
+          "type": "COIN",
+          "value": 2
+        }
+      }
+    ]
+  }

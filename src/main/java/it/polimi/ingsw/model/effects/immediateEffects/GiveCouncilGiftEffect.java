@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.player.Player;
  * This effect gives a gift to the player. example: 52
  */
 public class GiveCouncilGiftEffect implements ImmediateEffectInterface {
+    int numberOfCouncilGift;
     public void applyToPlayer(Player player)
     {
         ;

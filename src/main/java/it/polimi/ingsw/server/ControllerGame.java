@@ -1,26 +1,16 @@
 package it.polimi.ingsw.server;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.client.controller.ControllerModelInterface;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
-import it.polimi.ingsw.model.effects.immediateEffects.GiveCouncilGiftEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.testingGSON.boardLoader.BoardCreator;
-import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -140,6 +130,7 @@ public class ControllerGame  implements ControllerModelInterface {
      */
     public ControllerGame(int numberOfPlayers) throws Exception {
         JSONLoader jsonLoader = new JSONLoader();
+        PersonalTile personalTile = jsonLoader.loadTiles();
         boardGame = jsonLoader.boardCreator();
         deck = jsonLoader.createNewDeck();
         int period = 1;
@@ -292,6 +283,7 @@ public class ControllerGame  implements ControllerModelInterface {
         return playerChoices.get(nameCard);
 
     }
+
 
 
 }
