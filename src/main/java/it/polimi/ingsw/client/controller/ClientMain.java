@@ -1,18 +1,22 @@
 package it.polimi.ingsw.client.controller;
 
-import it.polimi.ingsw.client.network.AbstractClientType;
-import it.polimi.ingsw.client.network.NetworkTypeEnum;
-import it.polimi.ingsw.client.network.rmi.RMIClient;
-import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
+import it.polimi.ingsw.client.network.AbstractClientType;
+import it.polimi.ingsw.client.network.NetworkTypeEnum;
+import it.polimi.ingsw.client.network.rmi.RMIClient;
+import it.polimi.ingsw.client.network.socket.SocketClient;
+import it.polimi.ingsw.model.controller.ModelController;
+import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * TODO: implement launcher
@@ -21,7 +25,9 @@ public class ClientMain implements ControllerModelInterface{
     LauncherClientFake temp;
     AbstractUIType userInterface;
     AbstractClientType clientNetwork;
-    /*
+    ModelController modelController;
+
+    /**
     this is Class Constructor
      */
     private ClientMain()
@@ -172,6 +178,18 @@ public class ClientMain implements ControllerModelInterface{
 
         return userInterface.askChoice(nameCard, choices, resourcePlayer);
 
+    }
+
+    public void callbackPlacedFMOnBuild(FamilyMember familyMember, Resource servants){
+        /*We make a copy of the hashmap beacuse we ahve to perfoms some checks on it and this checks should not affect
+        the hashmap of the player. Even tough making a copy using the constructor makes just a shallow copy, this is sufficient
+        since Integer types are immutable
+         */
+
+        HashMap<ResourceTypeEnum, Integer> controlHashMap = new HashMap<ResourceTypeEnum, Integer>(familyMember.getPlayer().getResourcesMap());
+        LinkedList<ChoiceContainer> choices;
+
+        choices = modelController.getChoicesOnBuild(familyMember, servants);
     }
 }
 

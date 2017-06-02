@@ -21,7 +21,7 @@ public abstract class Player {
     private HashMap<ResourceTypeEnum, Integer> resourcesMap;
 
     private ArrayList<FamilyMember> notUsedFamilyMembers;
-    
+
     private ArrayList<FamilyMember> usedFamilyMembers;
 
     //private ArrayList<LeaderCard> leaderCard;
@@ -180,5 +180,18 @@ public abstract class Player {
 
     public ArrayList<FamilyMember> getNotUsedFamilyMembers(){
         return notUsedFamilyMembers;
+    }
+
+
+    /**
+     * this method returns all the resources the user has.
+     * @return the hashmap of the resources the user has
+     */
+    public HashMap<ResourceTypeEnum, Integer> getResourcesMap() {
+        return resourcesMap;
+    }
+
+    public PersonalBoard getPersonalBoard() {
+        return personalBoard;
     }
 }
