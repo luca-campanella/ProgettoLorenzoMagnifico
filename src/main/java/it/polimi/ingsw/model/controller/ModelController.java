@@ -1,7 +1,11 @@
 package it.polimi.ingsw.model.controller;
 
-import it.polimi.ingsw.model.board.*;
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.board.HarvestAS;
+import it.polimi.ingsw.model.board.MarketAS;
 import it.polimi.ingsw.model.cards.BuildingCard;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -175,7 +179,13 @@ public class ModelController {
     }*/
 
     public void build(FamilyMember familyMember, int servants) {
-        
+        Player player = familyMember.getPlayer();
+
+
+
+        ArrayList<TakeOrPaySomethingEffect> personalTileEffects = player.getPersonalTile().getEffectOnBuild();
+        personalTileEffects.forEach(effect -> effect.applyToPlayer(player));
+
     }
 
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
