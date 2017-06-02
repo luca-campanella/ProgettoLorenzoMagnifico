@@ -223,7 +223,6 @@ public class ControllerGame  implements ControllerModelInterface {
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.placeOnTower(familyMember, towerIndex, floorIndex);
-        room.floodPlaceOnTower(familyMember, towerIndex, floorIndex);
 
     }
 
@@ -232,9 +231,11 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param familyMember the familymember the player places
      * @param servant the number of servant you add on the family member to increase the value
      */
-    public void harvest(FamilyMember familyMember, int servant){
+    public void harvest(FamilyMember familyMember, int servant)  throws IllegalMoveException{
 
+        controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.harvest(familyMember, servant);
+
 
     }
 
@@ -243,8 +244,9 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param familyMember the familymember the player places
      * @param servant the number of servant you add on the family member to increase the value
      */
-    public void build(FamilyMember familyMember, int servant){
+    public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
 
+        controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.build(familyMember, servant);
 
     }
@@ -254,8 +256,9 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param familyMember the familymember the player places
      * @param marketSpaceIndex the number of servant you add on the family member to increase the value
      */
-    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
+    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex)  throws IllegalMoveException{
 
+        controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.placeOnMarket(familyMember, marketSpaceIndex);
 
     }
@@ -265,8 +268,9 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param player the player who has the card
      * @param nameLeader the name of the leader card
      */
-    public void discardLeaderCard(Player player, String nameLeader){
+    public void discardLeaderCard(Player player, String nameLeader)  throws IllegalMoveException{
 
+        controlTurnPlayer(player.getNickname());
         modelController.discardLeaderCard(player, nameLeader);
 
     }
@@ -276,8 +280,9 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param player the player who has the card
      * @param nameLeader the name of the leader card
      */
-    public void playLeaderCard(Player player, String nameLeader){
+    public void playLeaderCard(Player player, String nameLeader)  throws IllegalMoveException{
 
+        controlTurnPlayer(player.getNickname());
         modelController.activateLeaderCard(player, nameLeader);
 
     }

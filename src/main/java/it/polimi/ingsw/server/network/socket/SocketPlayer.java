@@ -10,6 +10,7 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
 
 public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
@@ -267,6 +268,22 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws NetworkException{
 
     }
+
+    @Override
+    public void receivePlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
+
+    }
+
+    @Override
+    public void receiveBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException {
+
+    }
+
+    @Override
+    public void receiveHarvest(FamilyMember familyMember, int servant) throws NetworkException {
+
+    }
+
     public void endPhase(){
         //TODO call the room' s method to tell the player had ended his phase
     }

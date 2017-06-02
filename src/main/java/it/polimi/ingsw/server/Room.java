@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -142,15 +143,92 @@ public class Room {
 
     }
 
+    public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
+
+        controllerGame.placeOnMarket(familyMember, marketIndex);
+        floodPlaceOnMarket(familyMember, marketIndex, playerChoices);
+
+    }
+
+    /**
+     * call the method on controller game to build
+     * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
+     */
+    public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws  IllegalMoveException{
+
+        controllerGame.build(familyMember, servant, playerChoices);
+        floodBuild(familyMember, servant, playerChoices);
+
+    }
+
+    /**
+     * call the method on controller game to harvest
+     * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
+     */
+    public void harvest(FamilyMember familyMember, int servant) throws  IllegalMoveException{
+
+        controllerGame.harvest(familyMember, servant);
+        floodHarvest(familyMember, servant);
+
+    }
+
     /**
      * launch the move of a player to the others player
      */
-    public void floodPlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
+    private void floodPlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
 
         for(AbstractConnectionPlayer player : players) {
             if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
                 try {
                     player.receivePlaceOnTower(familyMember, towerIndex, floorIndex);
+                } catch (NetworkException e) { //not a big problem if a chat message is not sent
+                    Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+                }
+            }
+        }
+    }
+
+    /**
+     * launch the move of a player to the others player
+     */
+    private void floodBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
+
+        for(AbstractConnectionPlayer player : players) {
+            if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
+                try {
+                    player.receiveBuild(familyMember, servant, playerChoices);
+                } catch (NetworkException e) { //not a big problem if a chat message is not sent
+                    Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+                }
+            }
+        }
+    }
+
+    /**
+     * launch the move of a player to the others player
+     */
+    private void floodHarvest(FamilyMember familyMember, int servant){
+
+        for(AbstractConnectionPlayer player : players) {
+            if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
+                try {
+                    player.receiveHarvest(familyMember, servant);
+                } catch (NetworkException e) { //not a big problem if a chat message is not sent
+                    Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+                }
+            }
+        }
+    }
+
+    /**
+     * launch the move of a player to the others player
+     */
+    private void floodPlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices){
+
+        for(AbstractConnectionPlayer player : players) {
+            if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
+                try {
+                    player.receivePlaceOnMarket(familyMember, marketIndex, playerChoices);
                 } catch (NetworkException e) { //not a big problem if a chat message is not sent
                     Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
                 }

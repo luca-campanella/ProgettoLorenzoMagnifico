@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.utils.Debug;
 
 import java.rmi.RemoteException;
+import java.util.HashMap;
 
 /**
  * This class is the player via rmi
@@ -45,6 +46,22 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
 
     @Override
     public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws NetworkException {
+
+    }
+
+    @Override
+    public void receivePlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
+
+    }
+
+
+    @Override
+    public void receiveBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException {
+
+    }
+
+    @Override
+    public void receiveHarvest(FamilyMember familyMember, int servant) throws NetworkException {
 
     }
 
