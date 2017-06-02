@@ -2,11 +2,13 @@ package it.polimi.ingsw.server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.effects.immediateEffects.*;
 import it.polimi.ingsw.model.effects.permanentEffects.*;
+import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.testingGSON.boardLoader.BoardCreator;
 import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 import it.polimi.ingsw.utils.Debug;
@@ -14,7 +16,7 @@ import it.polimi.ingsw.utils.Debug;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 /**
  * Created by higla on 30/05/2017.
@@ -79,5 +81,32 @@ public class JSONLoader {
             Board board = gson.fromJson(reader, Board.class);
             return board;
         }
+    }
+
+    public PersonalTile loadTiles() throws IOException{
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
+        runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
+        runtimeTypeAdapterFactory.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
+
+        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
+
+        /*PersonalTile personalTile = new PersonalTile();
+        ArrayList<PersonalTile> personalTiles = new ArrayList<PersonalTile>();
+        Resource resource = new Resource(ResourceTypeEnum.COIN, 2);
+        TakeOrPaySomethingEffect effect = new TakeOrPaySomethingEffect(resource);
+        ArrayList<TakeOrPaySomethingEffect> effects = new ArrayList<>();
+        effects.add(effect);
+        personalTile.setEffectOnBuild(effects);
+        personalTile.setEffectOnHarvest(effects);
+        personalTiles.add(personalTile);
+        System.out.println(gson.toJson(personalTiles));*/
+
+        try (Reader reader = new InputStreamReader(PersonalTile.class.getResourceAsStream("/PersonalTiles.json"), "UTF-8")) {
+           PersonalTile personalTile  = gson.fromJson(reader, PersonalTile.class);
+            return personalTile;
+        }
+
     }
 }
