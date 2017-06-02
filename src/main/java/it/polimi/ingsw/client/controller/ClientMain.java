@@ -12,7 +12,6 @@ import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingConditionedEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
@@ -253,12 +252,18 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * @return The arraylist of effect chosen
      */
     @Override
-    public ArrayList<TakeOrPaySomethingConditionedEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
-        ArrayList<TakeOrPaySomethingEffect> choices = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
+    public ArrayList<TakeOrPaySomethingEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
+        ArrayList<TakeOrPaySomethingEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
+        ArrayList<TakeOrPaySomethingEffect> choices = new ArrayList<>(numberDiffGifts);
+        int choice;
 
-        userInterface.askCouncilGift(choices);
+        for(int i = 0; i < numberDiffGifts; i++) {
+            choice = userInterface.askCouncilGift(options);
+            choices.add(options.get(choice));
+            options.remove(choice);
+        }
 
-        return null;
+        return choices;
     }
 
     /**
@@ -272,7 +277,8 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      */
     @Override
     public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String choiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
-        return null;
+
+        return possibleEffectChoices.get(userInterface.askYellowBuildingCardEffectChoice(possibleEffectChoices));
     }
 }
 

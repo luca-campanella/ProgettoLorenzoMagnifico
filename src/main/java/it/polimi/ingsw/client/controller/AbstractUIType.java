@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.UIControllerUserInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
@@ -53,10 +54,17 @@ abstract public class AbstractUIType {
     public abstract int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer);
 
     /**
-     * This method is called when a choi
-     * @param choices
-     * @return
+     * This method is called when a choice on a council gift should be perfomed by the ui
+     * @param options
+     * @return the index of the selected option, the choice the user made
      */
-    public abstract TakeOrPaySomethingEffect askCouncilGift(ArrayList<TakeOrPaySomethingEffect> choices);
+    public abstract int askCouncilGift(ArrayList<TakeOrPaySomethingEffect> options);
+
+    /**
+     * This method is called when a choice on which effect to activate in a yellow card should be perfomed by the ui
+     * @param possibleEffectChoices
+     * @return the index of the chosen effect
+     */
+    public abstract int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices);
 }
 
