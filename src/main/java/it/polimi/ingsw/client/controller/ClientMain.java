@@ -32,6 +32,13 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     ModelController modelController;
 
     /**
+     * this hashmap is filled with all the choices the user made regarding the move he's currently performed
+     * it is filled by all the callback methods
+     * it should be re-instantiated every time a new action is performed
+     */
+    HashMap<String, Integer> choicesOnCurrentAction;
+
+    /**
     this is Class Constructor
      */
     private ClientMain()
@@ -140,6 +147,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * this method it's a callback method that is called from the AbstractyUIType when i want to play a Leader
      */
     public void callbackPlayLeader(){
+        initialActionsOnPlayerMove();
         Debug.printDebug("I'm in ClientMain.callbackPlayLeader");
     }
 
@@ -170,6 +178,14 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         //il server mi dice quali azioni posso fare
         //chiamerò quindi il mio abstract UIType con un qualcosa riguardante...
         userInterface.printAllowedActions();
+    }
+
+    /**
+     * this method should be called every time a new action / move is perfomed by the user
+     * It initialises the data structures used afterwards
+     */
+    private void initialActionsOnPlayerMove() {
+        choicesOnCurrentAction = new HashMap<>();
     }
 
     /**
@@ -261,6 +277,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
             choice = userInterface.askCouncilGift(options);
             choices.add(options.get(choice));
             options.remove(choice);
+            choicesOnCurrentAction.put(choiceCode + i, choice);
         }
 
         return choices;
@@ -278,7 +295,9 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     @Override
     public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String choiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
 
-        return possibleEffectChoices.get(userInterface.askYellowBuildingCardEffectChoice(possibleEffectChoices));
+        int choice = userInterface.askYellowBuildingCardEffectChoice(possibleEffectChoices);
+        choicesOnCurrentAction.put(choiceCode, choice);
+        return possibleEffectChoices.get(choice);
     }
 }
 
