@@ -2,6 +2,8 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.client.controller.ControllerModelInterface;
+import it.polimi.ingsw.client.exceptions.IllegalMoveException;
+import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
@@ -217,7 +219,7 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param floorIndex the number of floor on the tower the family member is placed
      * @throws IllegalMoveException if the move is not correct
      */
-    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws  IllegalMoveException{
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex) throws IllegalMoveException {
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.placeOnTower(familyMember, towerIndex, floorIndex);
