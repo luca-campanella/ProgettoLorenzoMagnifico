@@ -14,7 +14,8 @@ public class CouncilAS extends AbstractActionSpace {
      * the list of family member on this space
      */
     private ArrayList<FamilyMember> familyMembers;
-    //ArrayList<ImmediateEffectInterface> effects;
+    ArrayList<ImmediateEffectInterface> effectsOnPlacement;
+    ArrayList<ImmediateEffectInterface> councilGiftChoices;
 
     public CouncilAS(){
 
@@ -61,5 +62,13 @@ public class CouncilAS extends AbstractActionSpace {
 
         familyMembers.clear();
 
+    }
+
+    public ArrayList<ImmediateEffectInterface> getCouncilGiftChoices() {
+        return councilGiftChoices;
+    }
+
+    public void setCouncilGiftChoices(ArrayList<ImmediateEffectInterface> councilGiftChoices) {
+        this.councilGiftChoices = councilGiftChoices;
     }
 }

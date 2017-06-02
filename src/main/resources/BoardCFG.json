@@ -264,7 +264,7 @@
   },
   "council": {
     "diceRequirement": 1,
-    "effects": [
+    "effectsOnPlacement": [
       {
         "effectName": "TakeOrPaySomethingEffect",
         "resource": {
@@ -274,6 +274,43 @@
       },
       {
         "effectName": "GiveCouncilGiftEffect"
+      }
+    ],
+    "councilGiftChoices" : [
+      {
+        "effectName": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "COIN",
+          "value": 2
+        }
+      },{
+        "effectName": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "SERVANT",
+          "value": 2
+        }
+      },{
+        "effectName": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "MILITARY_POINT",
+          "value": 2
+        }
+      },{
+        "effectName": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "FAITH_POINT",
+          "value": 1
+        }
+      },{
+        "effectName": "TakeOrPaySomethingEffect",
+        "resource": {
+          "type": "WOOD",
+          "value": 1
+        },
+        "resource":{
+          "type": "STONE",
+          "value": 1
+        }
       }
     ]
   },
