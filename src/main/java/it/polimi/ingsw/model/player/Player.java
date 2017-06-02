@@ -134,6 +134,9 @@ public abstract class Player {
         notUsedFamilyMembers.addAll(usedFamilyMembers);
         usedFamilyMembers.clear();
 
+        //align th family member with the value of the linked dice, to delete any changes of the family members' values
+        notUsedFamilyMembers.forEach(FamilyMember::alignValue);
+
     }
 
     public void addCard(AbstractCard card, CardColorEnum color){
