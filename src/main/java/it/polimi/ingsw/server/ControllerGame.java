@@ -2,6 +2,8 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.client.controller.ControllerModelInterface;
+import it.polimi.ingsw.client.exceptions.IllegalMoveException;
+import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
@@ -28,7 +30,7 @@ public class ControllerGame  implements ControllerModelInterface {
     private int numberOfRound;
     private int numberOfTurn;
     private HashMap<String, Integer> playerChoices;
-    private ArrayList<AbstractConnectionPlayer> players;
+    private ArrayList<AbstractConnectionPlayer> orderOfPlayers;
 
     public static void main(String[] args) throws Exception {
         ControllerGame controllerGame =  new ControllerGame(2);
@@ -72,30 +74,29 @@ public class ControllerGame  implements ControllerModelInterface {
     }
 
     /**
-     * manage the order of the players based on the council
+     * manage the order of the orderOfPlayers based on the council
      * @param familyMembers the family members placed on the council
      */
     private void reDoOrderPlayer(ArrayList<FamilyMember> familyMembers){
 
-        ArrayList<AbstractConnectionPlayer> newPlayersOrder = new ArrayList<>(players.size());
+        ArrayList<AbstractConnectionPlayer> newPlayersOrder = new ArrayList<>(orderOfPlayers.size());
 
         for(FamilyMember i : familyMembers){
 
-            for(AbstractConnectionPlayer player : players){
+            for(AbstractConnectionPlayer player : orderOfPlayers){
 
                 if(i.getPlayer().getNickname().equals(player.getNickname())){
 
                     newPlayersOrder.add(player);
-                    players.remove(i.getPlayer());
+                    orderOfPlayers.remove(i.getPlayer());
 
                 }
             }
         }
 
-        newPlayersOrder.addAll(players);
-        players.clear();
-        players = newPlayersOrder;
-        room.updateOrderPlayer(players);
+        newPlayersOrder.addAll(orderOfPlayers);
+        orderOfPlayers.clear();
+        orderOfPlayers = newPlayersOrder;
 
     }
 
@@ -104,7 +105,7 @@ public class ControllerGame  implements ControllerModelInterface {
     }
 
     /**
-     * This method creates a new board and modifies it considering the number of orderPlayers
+     * This method creates a new board and modifies it considering the number of players
      * @param players the payers that are on the game
      * @param room the room where the game is located
      * @throws Exception if file where Board configuration is
@@ -116,7 +117,7 @@ public class ControllerGame  implements ControllerModelInterface {
         numberOfPlayers = players.size();
         boardModifier(numberOfPlayers);
         this.room = room;
-        this.players = players;
+        this.orderOfPlayers = players;
         modelController = new ModelController(players, boardGame);
         numberOfTurn = 0;
         numberOfRound = 1;
@@ -141,8 +142,8 @@ public class ControllerGame  implements ControllerModelInterface {
     }
 
     /**
-     * this method modifies the board given a number of orderPlayers
-     * @param numberOfPlayers the number of orderPlayers that will play on this game
+     * this method modifies the board given a number of players
+     * @param numberOfPlayers the number of players that will play on this game
      */
     private void boardModifier(int numberOfPlayers)
     {
@@ -156,7 +157,7 @@ public class ControllerGame  implements ControllerModelInterface {
 
 
     /**
-     * this method modifies the board when there are three orderPlayers
+     * this method modifies the board when there are three players
      */
     private void boardThreePlayers()
     {
@@ -165,7 +166,7 @@ public class ControllerGame  implements ControllerModelInterface {
     }
 
     /**
-     * This method modifies the board if there are 2 orderPlayers.
+     * This method modifies the board if there are 2 players.
      */
     private void boardTwoPlayers()
     {
@@ -183,31 +184,31 @@ public class ControllerGame  implements ControllerModelInterface {
 
         chooseOrderRandomly();
 
-        //add the coins to the players based on the order of turn
-        modelController.addCoinsStartGame(players);
+        //add the coins to the orderOfPlayers based on the order of turn
+        modelController.addCoinsStartGame(orderOfPlayers);
 
     }
 
     /**
-     * choose the order of the players at the beginning of the game
+     * choose the order of the orderOfPlayers at the beginning of the game
      */
     private void chooseOrderRandomly(){
 
-        ArrayList<AbstractConnectionPlayer> playersOrder = new ArrayList<>(players.size());
+        ArrayList<AbstractConnectionPlayer> playersOrder = new ArrayList<>(orderOfPlayers.size());
         Random random = new Random();
         int valueIndex;
-        for(int i=0; i<players.size();){
+        for(int i=0; i< orderOfPlayers.size();){
 
-            valueIndex = random.nextInt(players.size());
+            valueIndex = random.nextInt(orderOfPlayers.size());
             //add the player of the index
-            playersOrder.add(players.get(random.nextInt(valueIndex)));
+            playersOrder.add(orderOfPlayers.get(random.nextInt(valueIndex)));
             //remove the player of the index
-            players.remove(valueIndex);
+            orderOfPlayers.remove(valueIndex);
 
         }
-        players.addAll(playersOrder);
+        orderOfPlayers.addAll(playersOrder);
 
-        room.updateOrderPlayer(players);
+        room.updateOrderPlayer(orderOfPlayers);
 
     }
 
@@ -216,9 +217,11 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param familyMember the familymember the player places
      * @param towerIndex the number of the tower where the family member is placed
      * @param floorIndex the number of floor on the tower the family member is placed
+     * @throws IllegalMoveException if the move is not correct
      */
-    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
 
+        controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.placeOnTower(familyMember, towerIndex, floorIndex);
 
     }
@@ -228,9 +231,11 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param familyMember the familymember the player places
      * @param servant the number of servant you add on the family member to increase the value
      */
-    public void harvest(FamilyMember familyMember, int servant){
+    public void harvest(FamilyMember familyMember, int servant)  throws IllegalMoveException{
 
+        controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.harvest(familyMember, servant);
+
 
     }
 
@@ -239,8 +244,9 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param familyMember the familymember the player places
      * @param servant the number of servant you add on the family member to increase the value
      */
-    public void build(FamilyMember familyMember, int servant){
+    public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
 
+        controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.build(familyMember, servant);
 
     }
@@ -250,8 +256,9 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param familyMember the familymember the player places
      * @param marketSpaceIndex the number of servant you add on the family member to increase the value
      */
-    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
+    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
 
+        controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.placeOnMarket(familyMember, marketSpaceIndex);
 
     }
@@ -261,8 +268,9 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param player the player who has the card
      * @param nameLeader the name of the leader card
      */
-    public void discardLeaderCard(Player player, String nameLeader){
+    public void discardLeaderCard(Player player, String nameLeader)  throws IllegalMoveException{
 
+        controlTurnPlayer(player.getNickname());
         modelController.discardLeaderCard(player, nameLeader);
 
     }
@@ -272,8 +280,9 @@ public class ControllerGame  implements ControllerModelInterface {
      * @param player the player who has the card
      * @param nameLeader the name of the leader card
      */
-    public void playLeaderCard(Player player, String nameLeader){
+    public void playLeaderCard(Player player, String nameLeader)  throws IllegalMoveException{
 
+        controlTurnPlayer(player.getNickname());
         modelController.activateLeaderCard(player, nameLeader);
 
     }
@@ -284,7 +293,12 @@ public class ControllerGame  implements ControllerModelInterface {
 
     }
 
+    private void controlTurnPlayer(String playerName) throws IllegalMoveException{
 
+        if(!playerName.equals(orderOfPlayers.get(numberOfTurn%numberOfPlayers).getNickname()))
+            throw new IllegalMoveException(MoveErrorEnum.NOT_PLAYER_TURN);
+
+    }
 
 }
 

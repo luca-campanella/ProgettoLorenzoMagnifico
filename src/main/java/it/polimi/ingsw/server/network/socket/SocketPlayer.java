@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network.socket;
 
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.server.ServerMain;
 import it.polimi.ingsw.client.exceptions.*;
@@ -9,6 +10,7 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
 
 public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
@@ -262,6 +264,94 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             Debug.printError("ERROR: the player " + senderNickname + " had tried to write a message in the chat", e);
         }
     }
+
+    /**
+     * This method is called by the server to send a packet with the information of the move. (Direction: server -> client)
+     */
+    public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws NetworkException{
+
+        try{
+
+            outStream.writeObject(PacketType.MOVE_IN_TOWER);
+            outStream.writeObject(new MoveInTowerPacket(familyMember,towerIndex,floorIndex, playerChoices));
+            outStream.flush();
+
+        }
+        catch (IOException  e){
+
+            Debug.printError("Connection not available",e);
+            throw new NetworkException(e);
+
+        }
+
+    }
+
+    /**
+     * This method is called by the server to send a packet with the information of the move. (Direction: server -> client)
+     */
+    @Override
+    public void receivePlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
+
+        try{
+
+            outStream.writeObject(PacketType.MOVE_IN_MARKET);
+            outStream.writeObject(new MoveInMarketPacket(familyMember, marketIndex));
+            outStream.flush();
+
+        }
+
+        catch(IOException e){
+
+            Debug.printError("network is not available",e);
+            throw new NetworkException(e);
+
+        }
+
+    }
+
+    /**
+     * This method is called by the server to send a packet with the information of the move. (Direction: server -> client)
+     */
+    @Override
+    public void receiveBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException {
+
+        try{
+
+            outStream.writeObject(PacketType.BUILDING);
+            outStream.writeObject(new BuildPacket(familyMember,servant,playerChoices));
+            outStream.flush();
+
+        }
+
+        catch (IOException e){
+            Debug.printError("network is not avaiable", e);
+            throw new NetworkException(e);
+
+        }
+    }
+
+    /**
+     * This method is called by the server to send a packet with the information of the move. (Direction: server -> client)
+     */
+    @Override
+    public void receiveHarvest(FamilyMember familyMember, int servant) throws NetworkException {
+
+        try{
+
+            outStream.writeObject(PacketType.HARVESTING);
+            outStream.writeObject(new HarvestPacket(familyMember,servant));
+            outStream.flush();
+
+        }
+        catch (IOException e){
+
+            Debug.printError("network is not available", e);
+            throw new NetworkException(e);
+
+        }
+
+    }
+
     public void endPhase(){
         //TODO call the room' s method to tell the player had ended his phase
     }

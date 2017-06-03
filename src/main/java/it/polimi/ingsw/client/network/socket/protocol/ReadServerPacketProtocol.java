@@ -8,7 +8,7 @@ import it.polimi.ingsw.server.network.socket.protocol.FunctionResponse;
 import java.util.HashMap;
 
 /**
- * Created by federico on 21/05/2017.
+ * this is the protocol that the client uses to read the placket delivered by the server
  */
 public class ReadServerPacketProtocol {
     /**
@@ -35,7 +35,13 @@ public class ReadServerPacketProtocol {
      */
     private void putIstruction() {
         //instruction.put(PacketType.CHAT, () -> client.receiveChatMsg());
-        instruction.put(PacketType.REGISTER, () -> client.receiveUpdates());
+        instruction.put(PacketType.MOVE_IN_TOWER, ()-> client.receivePlaceOnTower());
+        instruction.put(PacketType.MOVE_IN_MARKET, ()-> client.receivePlaceOnMarket());
+        instruction.put(PacketType.HARVESTING, ()-> client.receiveHarvest());
+        instruction.put(PacketType.BUILDING, ()-> client.receiveBuild());
+        //instruction.put(PacketType.DISCARD_LEADER, ()-> client.receiveDiscardCard());
+        //instruction.put(PacketType.PLAY_LEADER, ()-> client.receivePlayCard());
+        instruction.put(PacketType.END_PHASE, ()-> client.receiveEndPhase());
     }
 
     /**
