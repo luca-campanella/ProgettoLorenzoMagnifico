@@ -30,12 +30,16 @@ public class SocketClient extends AbstractClientType {
      * Informations delivered to the server
      */
     private ObjectOutputStream outStream;
-    private RegisterErrorEnum response;
 
     /**
      * the protocol used to read packet sedf by the server
      */
     private ReadServerPacketProtocol readPacket;
+
+    /**
+     * this is the parallel thread to receive packet from the server
+     */
+    private ReceiveInformation receiveInformation;
 
     /**
      *Initialization of the attributes on the superclass
@@ -67,6 +71,10 @@ public class SocketClient extends AbstractClientType {
             throw new ClientConnectionException("Cannot open socket streams", e);
         }
         readPacket= new ReadServerPacketProtocol(this);
+
+        receiveInformation = new ReceiveInformation(inStream, readPacket);
+        // start the thread to read the packet delivered by the server
+        receiveInformation.start();
 
     }
     /**
@@ -108,17 +116,18 @@ public class SocketClient extends AbstractClientType {
      */
     @Override
     public void registerPlayer(String nickname, String password) throws NetworkException,UsernameAlreadyInUseException {
+        RegisterErrorEnum response;
         try{
             outStream.writeObject(PacketType.REGISTER);
             outStream.writeObject(new LoginOrRegisterPacket(nickname,password));
             outStream.flush();
-            response=(RegisterErrorEnum)inStream.readObject();
+            response =(RegisterErrorEnum)inStream.readObject();
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("connection not avaiable",e);
             throw new NetworkException(e);
         }
-        if(response== RegisterErrorEnum.ALREADY_EXISTING_USERNAME){
+        if(response == RegisterErrorEnum.ALREADY_EXISTING_USERNAME){
             throw new UsernameAlreadyInUseException("Username already in use");
         }
     }
@@ -297,8 +306,29 @@ public class SocketClient extends AbstractClientType {
             throw new NetworkException(e);
         }
     }
-    public void receiveUpdates(){
-        //TODO
+
+    public void receivePlaceOnTower(){
+
+
+    }
+
+    public void receivePlaceOnMarket(){
+
+
+    }
+
+    public void receiveHarvest(){
+
+
+    }
+
+    public void receiveBuild(){
+
+
+    }
+
+    public void receiveEndPhase(){
+
 
     }
 

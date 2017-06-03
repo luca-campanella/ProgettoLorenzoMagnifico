@@ -265,6 +265,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
+    /**
+     * This method is called by the server to send a packet with the information of the move. (Direction: server -> client)
+     */
     public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws NetworkException{
 
         try{
@@ -283,6 +286,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     }
 
+    /**
+     * This method is called by the server to send a packet with the information of the move. (Direction: server -> client)
+     */
     @Override
     public void receivePlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
 
@@ -303,6 +309,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     }
 
+    /**
+     * This method is called by the server to send a packet with the information of the move. (Direction: server -> client)
+     */
     @Override
     public void receiveBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException {
 
@@ -321,6 +330,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
+    /**
+     * This method is called by the server to send a packet with the information of the move. (Direction: server -> client)
+     */
     @Override
     public void receiveHarvest(FamilyMember familyMember, int servant) throws NetworkException {
 
