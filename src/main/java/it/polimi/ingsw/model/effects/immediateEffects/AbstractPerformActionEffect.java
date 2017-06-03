@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 import it.polimi.ingsw.model.player.Player;
 
 /**
- * Created by higla on 23/05/2017.
+ * This class is the abstract perform action effect.
  */
 public abstract class AbstractPerformActionEffect implements ImmediateEffectInterface{
     int diceValue;

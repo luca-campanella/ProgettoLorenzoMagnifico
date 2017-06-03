@@ -14,13 +14,12 @@ import java.util.ArrayList;
  * Created by higla on 20/05/2017.
  */
 public class CliPrinter {
-    static final int MAX_LENGHT_CARD_NAME = 30;
-    //lenght of tower + action space next to that tower
-    static final int sceneLenght = 39 +10;
-    static final int TOWER_LENGHT = 34 ;
-    static final int SAMETYPE_CARDS_NUMBER = 24 ;
-    //lenght of tower
-    static final int INSIDE_TOWER_LENGHT = 25 +10;
+    //all the next attributes are used to pretty print the board
+    //length of tower + action space next to that tower -> total sceneLength
+    static final int sceneLenght = 49;
+    //length of a tower
+    static final int INSIDE_TOWER_LENGHT = 35;
+    static final int LINELENGTH = 200;
 
     /**
      * this method prints the board
@@ -29,23 +28,23 @@ public class CliPrinter {
     public void printBoard(Board board){
         //printing the towers
         printTowers(board);
-        //printTowersVerbose(board);
         //printing the market
-        printLine(199);
+        printLine(LINELENGTH);
         printMarket(board);
         //printMarketVerbose(board)
-        printLine(199);
+        printLine(LINELENGTH);
         //printing build
         printBuildAS(board);
-        printLine(199);
+        printLine(LINELENGTH);
         //printing harvest
         printHarvestAS(board);
-        printLine(199);
+        printLine(LINELENGTH);
         //printing council
         printCouncil(board);
         //printing vaticanReport
-        printLine(199);
+        printLine(LINELENGTH);
         printVaticanReport(board);
+        System.out.println();
     }
 
     /**
@@ -74,45 +73,72 @@ public class CliPrinter {
      */
     public void printTowers(Board board){
         int i;
-        int k;
-        TowerFloorAS[] temp; // = new TowerFloorAS[board.getNUMBER_OF_TOWERS()];
-        for(k=0; k<board.getNUMBER_OF_TOWERS(); k++) {
-            for(i=0; i<15; i++)
-                System.out.print(" ");
-            printColorTower(board.getTowerColor(board.getTower(k)).toString());
-            for(i=0; i<23; i++)
-                System.out.print(" ");
-        }
+        TowerFloorAS[] floorOfAllTowers; // = new TowerFloorAS[board.getNUMBER_OF_TOWERS()];
+        printTowersName(board);
         printTowerCeiling(board, "_");
-
         for(i=0; i< board.getNUMBER_OF_FLOORS(); i++)
         {
-            //printTowerCeiling(board, "_");
-            System.out.println();
-            temp = board.getFloorLevel(board.getNUMBER_OF_FLOORS()-1-i);
-            printCostCards(temp);
-            System.out.println();
-            printPillar();
-            System.out.println();
-            printCardNameActionSpace(board, temp);
-            System.out.println();
-            printImmediateEffectPillar(temp);
-            System.out.println();
-            printSecondEffectPillar(temp);
-            printTowerCeiling(board, "|");
-            //System.out.println("");
-
+            floorOfAllTowers = board.getFloorLevel(board.getNUMBER_OF_FLOORS()-1-i);
+            printTower(board, floorOfAllTowers);
         }
-        //printTowerCeiling(board, "|");
         System.out.println("");
     }
+
+    /**
+     * this method prints a single tower floor level (ex. territory lvl 1, character lvl 1.....)
+     * @param board
+     * @param floorOfAllTowers
+     */
+    private void printTower(Board board, TowerFloorAS[] floorOfAllTowers)
+    {
+        System.out.println();
+        printCostCards(floorOfAllTowers);
+        System.out.println();
+        printPillar();
+        System.out.println();
+        printCardNameActionSpace(board, floorOfAllTowers);
+        System.out.println();
+        printImmediateEffectPillar(floorOfAllTowers);
+        System.out.println();
+        printSecondEffectPillar(floorOfAllTowers);
+        printTowerCeiling(board, "|");
+    }
+
+    /**
+     * this method prints the tower name at the top of the towers.
+     * @param board
+     */
+    private void printTowersName(Board board)
+    {
+        int i;
+        int k;
+        int tempLength;
+        String tempString;
+        for(k=0; k<board.getNUMBER_OF_TOWERS(); k++) {
+            tempString = board.getTowerColor(board.getTower(k)).toString();
+            tempLength = (INSIDE_TOWER_LENGHT - tempString.length())/2 -1;
+            for(i=0; i<tempLength; i++)
+                System.out.print(" ");
+            printColorTower(tempString);
+            for(i=0; i<tempLength; i++)
+                System.out.print(" ");
+            for(i=0; i< sceneLenght - INSIDE_TOWER_LENGHT - 3; i++)
+                System.out.print(" ");
+
+        }
+    }
+
+    /**
+     * this method prints an immediate effect pillar floor
+     * @param floors
+     */
     private void printImmediateEffectPillar(TowerFloorAS[] floors){
         for(int i= 0; i< floors.length; i++)
         printCardImmediateEffectOnFloor(floors[i]);
     }
 
     /**
-     * this method prints the second  effect pillar
+     * this method prints the second effect of a card, as a pillar
      * @param floors
      */
     private void printSecondEffectPillar(TowerFloorAS[] floors){
@@ -182,11 +208,10 @@ public class CliPrinter {
                 System.out.print(" ");
             System.out.print("|");
 
-            String auxiliaryPrinterString = new String();
+            String auxiliaryPrinterString;
             auxiliaryPrinterString = " *" + temp[k].getDiceValue() + "* " + temp[k].getEffectShortDescription();
             System.out.print(auxiliaryPrinterString);
             System.out.print(" ");
-            //System.out.print("Lunghezza " + auxiliaryPrinterString.length());
         }
     }
 
@@ -199,7 +224,6 @@ public class CliPrinter {
         printGenericCostPillar(floors[2]);
         printGenericCostPillar(floors[3]);
     }
-    //printVenutreCostPillar
     /** this method prints pillars for just one tower
      *
      */
@@ -429,35 +453,6 @@ public class CliPrinter {
             System.out.print(board.getVictoryPointsByIndex(i));
             System.out.print(" | ");
         }
-    }
-
-    /**
-     * this method prints the board detailed
-     * @param board
-     */
-    public void printBoardDetailed(Board board){
-        System.out.println("");
-        System.out.println("This is a detailed version of the board ");
-
-        //printing the towers
-        printTowersVerbose(board);
-        //printTowersVerbose(board);
-        //printing the market
-        printLine(199);
-        printMarketVerbose(board);
-        //printMarketVerbose(board)
-        printLine(199);
-        //printing build
-        printBuildAS(board);
-        printLine(199);
-        printHarvestAS(board);
-        System.out.println("This is harvestActionSpace " + board.getHarvest().toString() + ". No effect yet available ");
-        printLine(199);
-        //printing council
-        System.out.println("This is councilActionSpace " + board.getCouncil().toString() + ". Nothing to show yet ");
-        //priting vaticanReport
-        printLine(199);
-        printVaticanReport(board);
     }
 
     /**
