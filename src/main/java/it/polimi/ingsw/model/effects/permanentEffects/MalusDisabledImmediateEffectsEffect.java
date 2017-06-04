@@ -6,7 +6,8 @@ package it.polimi.ingsw.model.effects.permanentEffects;
 public class MalusDisabledImmediateEffectsEffect extends  AbstractPermanentEffect{
 
     /**
-     * Over this level all permenent effects are disabled (in this level too)
+     * Over this level (floor) all permanent effects are disabled (in this level too)
+     * It is not a dice value, but a floor / level value, because the dice value of a tower can be loaded from file
      */
     int firstLevelDisabled;
 
