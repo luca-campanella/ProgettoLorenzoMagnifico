@@ -28,16 +28,33 @@ public abstract class AbstractPermanentEffect {
         public int getBonusOnDice(CardColorEnum color) {
                 return 0;
         }
+
+        /**
+         * This method returns the bonus on the dice when the player performs a harvest action
+         * This method is overriden by {@link BonusOnHarvestEffect} to return the right value
+         * @return 0
+         */
         public int getBonusOnHarvest()
         {
                 return 0;
         }
+
+        /**
+         * This method returns the bonus on the dice when the player performs a build action
+         * This method is overriden by {@link BonusOnBuildEffect} to return the right value
+         * @return 0
+         */
         public int getBonusOnBuild()
         {
                 return 0;
         }
 
-        public boolean isImmediateEffectDisabled()
+        /**
+         * This method returns if the player has immediate effects disabled on a certain level of towers
+         * @param towerLevel the level of the tower to check if at that level the effects are disabled
+         * @return false
+         */
+        public boolean isImmediateEffectDisabled(int towerLevel)
         {
                 return false;
         }

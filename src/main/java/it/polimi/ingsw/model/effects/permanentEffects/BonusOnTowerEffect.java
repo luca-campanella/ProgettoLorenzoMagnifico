@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.effects.permanentEffects;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 /**
  * This class handles all bonus on towers. Both resources and dices
@@ -10,12 +9,12 @@ import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 public class BonusOnTowerEffect extends AbstractPermanentEffect{
     protected CardColorEnum towerColor;
     protected Resource discountOnResource;
-    protected int discountOnDice;
-    public BonusOnTowerEffect(CardColorEnum towerColor, Resource resourceDiscount, int diceDiscount)
+    protected int bonusOnDice;
+    public BonusOnTowerEffect(CardColorEnum towerColor, Resource resourceDiscount, int bonusOnDice)
     {
         this.towerColor = towerColor;
         this.discountOnResource = resourceDiscount;
-        this.discountOnDice = diceDiscount;
+        this.bonusOnDice = bonusOnDice;
 
     }
 
@@ -25,13 +24,25 @@ public class BonusOnTowerEffect extends AbstractPermanentEffect{
     public Resource getDiscountOnResource() {
         return discountOnResource;
     }
-    public int getDiscountOnDice() {
-        return discountOnDice;
+
+    /**
+     * This method checks if there's a bonus linked to that tower. It overrides the method to return the right value
+     * If there is, it returns the amount of that bonus.
+     * @param color the color of the tower / card
+     * @return the bonus, 0 otherwise
+     */
+    @Override
+    public int getBonusOnDice(CardColorEnum color) {
+        if(color == towerColor)
+           return bonusOnDice;
+        return 0;
     }
 
     /**
-     This method checks if there's a bonus linked to that tower.
-    If there is, it returns the amount of that bonus.
+     * This method checks if there's a bonus linked to that tower. It overrides the method to return the right value
+     * If there is, it returns the amount of that bonus.
+     * @param color the color of the tower / card
+     * @return the Resource, null if the color is wrong
      */
     @Override
     public Resource getDiscountOnTower(CardColorEnum color) {
@@ -40,9 +51,9 @@ public class BonusOnTowerEffect extends AbstractPermanentEffect{
         return null;
     }
     public String getShortDescription(){
-        return "+"+ discountOnDice + " On " + towerColor.getCardColor() + "-" + discountOnResource.getResourceShortDescript() + " " ;
+        return "+"+ bonusOnDice + " On " + towerColor.getCardColor() + "-" + discountOnResource.getResourceShortDescript() + " " ;
     }
     public String getDescription(){
-        return "Get a +" + discountOnDice + " On " + towerColor.getCardColor().toString() + "towers. And -" + discountOnResource;
+        return "Get a +" + bonusOnDice + " On " + towerColor.getCardColor().toString() + "towers. And -" + discountOnResource;
     }
 }
