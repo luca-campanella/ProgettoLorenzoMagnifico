@@ -11,9 +11,15 @@ public class BuildNoFamilyMembersEffect extends AbstractPerformActionEffect {
     {
         this.diceValue = buildValue;
     }
+
+    /**
+     * todo: handling choices
+     * @param player
+     * @param choicesHandlerInterface
+     */
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
-        ;
+        player.build(diceValue);
     }
 
     @Override

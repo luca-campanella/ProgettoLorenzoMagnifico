@@ -17,6 +17,12 @@ public class DiscountEffect implements ImmediateEffectInterface{
     {
         this.resources = resources;
     }
+
+    /**
+     * todo: need to ask fede
+     * @param player
+     * @param choicesHandlerInterface
+     */
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
         ;

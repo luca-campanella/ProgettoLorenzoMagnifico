@@ -8,6 +8,12 @@ import it.polimi.ingsw.model.player.Player;
  */
 public class GiveCouncilGiftEffect implements ImmediateEffectInterface {
     int numberOfCouncilGift;
+
+    /**
+     * todo: ask choices to player
+     * @param player
+     * @param choicesHandlerInterface
+     */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface)
     {
         //choicesHandlerInterface.callbackOnCoucilGift();

@@ -16,7 +16,7 @@ public class PayForGiftEffect extends AbstractPerformActionEffect {
         toPay = temp;
     }
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
-        ;
+
     }
     public String descriptionOfEffect()
     {
