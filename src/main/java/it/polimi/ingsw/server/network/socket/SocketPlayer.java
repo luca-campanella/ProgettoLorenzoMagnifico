@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network.socket;
 
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.server.ServerMain;
@@ -10,6 +11,7 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
@@ -420,6 +422,28 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         }
 
+    }
+
+    /**
+     * the method to deliver to the client the new dices on the board
+     * @throws NetworkException
+     */
+    @Override
+    public void receiveDices(ArrayList<Dice> dices) throws NetworkException {
+
+        try{
+
+            outStream.writeObject(PacketType.DICES);
+            outStream.writeObject(new DicesPacket(dices));
+            outStream.flush();
+
+        }
+        catch (IOException e){
+
+            Debug.printError("network is not available", e);
+            throw new NetworkException(e);
+
+        }
     }
 }
 

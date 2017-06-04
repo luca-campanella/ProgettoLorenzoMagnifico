@@ -35,6 +35,7 @@ public class ReadServerPacketProtocol {
      */
     private void putIstruction() {
         instruction.put(PacketType.CHAT, () -> client.receiveChatMsg());
+        instruction.put(PacketType.DICES, () -> client.receiveDices());
         instruction.put(PacketType.MOVE_IN_TOWER, ()-> client.receivePlaceOnTower());
         instruction.put(PacketType.MOVE_IN_MARKET, ()-> client.receivePlaceOnMarket());
         instruction.put(PacketType.HARVEST, ()-> client.receiveHarvest());

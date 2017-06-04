@@ -1,10 +1,12 @@
 package it.polimi.ingsw.server.network;
 
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.player.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -70,4 +72,6 @@ public abstract class AbstractConnectionPlayer extends Player {
     {
         this.room = room;
     }
+
+    public abstract  void receiveDices(ArrayList<Dice> dices) throws NetworkException;
 }

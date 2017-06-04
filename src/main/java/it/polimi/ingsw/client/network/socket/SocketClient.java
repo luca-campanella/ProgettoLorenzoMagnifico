@@ -418,9 +418,21 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
+        }
+    }
 
+    public void receiveDices(){
+
+        try{
+
+            DicesPacket packet = (DicesPacket)inStream.readObject();
+            //TODO method
         }
 
+        catch (IOException | ClassNotFoundException e){
+
+            Debug.printError("Network is not working", e);
+        }
     }
 
 }

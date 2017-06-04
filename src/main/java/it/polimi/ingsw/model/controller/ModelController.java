@@ -200,6 +200,7 @@ public class ModelController {
      * @param servants the number of servants the player performed the action with
      */
     public void build(FamilyMember familyMember, int servants) {
+
         Player player = familyMember.getPlayer();
 
         //set the family member as used in the player

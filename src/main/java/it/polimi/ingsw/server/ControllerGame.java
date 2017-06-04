@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.controller.ControllerModelInterface;
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
@@ -70,6 +71,7 @@ public class ControllerGame  implements ControllerModelInterface {
 
         if(numberOfTurn >= numberOfPlayers*4){
             modelController.prepareForNewRound();
+            modelController.getDices();
             reDoOrderPlayer(modelController.getFamilyMemberCouncil());
             numberOfTurn = 0;
             numberOfRound++;
@@ -239,7 +241,7 @@ public class ControllerGame  implements ControllerModelInterface {
     public void harvest(FamilyMember familyMember, int servant)  throws IllegalMoveException{
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
-        modelController.harvest(familyMember, servant);
+        //modelController.harvest(familyMember, servant);
 
 
     }
@@ -303,6 +305,11 @@ public class ControllerGame  implements ControllerModelInterface {
         if(!playerName.equals(orderOfPlayers.get(numberOfTurn%numberOfPlayers).getNickname()))
             throw new IllegalMoveException(MoveErrorEnum.NOT_PLAYER_TURN);
 
+    }
+
+    private void deliverDices(ArrayList<Dice> dices){
+
+        room.deliverDices(dices);
     }
 
 }

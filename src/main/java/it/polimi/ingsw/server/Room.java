@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
@@ -259,6 +260,25 @@ public class Room {
                 } catch (NetworkException e) { //not a big problem if a chat message is not sent
                     Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
                 }
+            }
+        }
+    }
+
+    /**
+     * deliver the new dices on the board to all the player
+     */
+    public void deliverDices(ArrayList<Dice> dices) {
+
+        for(AbstractConnectionPlayer player : players){
+
+            try {
+                player.receiveDices(dices);
+            }
+
+            catch (NetworkException e){
+
+                Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+
             }
         }
     }
