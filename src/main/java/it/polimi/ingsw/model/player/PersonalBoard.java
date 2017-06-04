@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.*;
-import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 
 import java.util.LinkedList;
 
@@ -18,23 +19,16 @@ public class PersonalBoard {
     private LinkedList<VentureCard> ventureCards;
 
     /**
-     * the two following attributes represent the bonuses of the tiles near the personal board
+     * It represent the bonuses of the tiles near the personal board
      */
-    GainResourceEffect bonusTileHarvestEffect;
-    GainResourceEffect bonusTileBuildEffect;
+    private PersonalTile personalTile = null;
+
 
     public PersonalBoard() {
         territoryCards = new LinkedList<TerritoryCard>();
         buildingCards = new LinkedList<BuildingCard>();
         characterCards = new LinkedList<CharacterCard>();
         ventureCards = new LinkedList<VentureCard>();
-    }
-
-    public void setTiles(GainResourceEffect bonusTileHarvestEffect, GainResourceEffect bonusTileBuildEffect) {
-
-        this.bonusTileHarvestEffect = bonusTileHarvestEffect;
-        this.bonusTileBuildEffect = bonusTileBuildEffect;
-
     }
 
     public void addGreenTerritoryCard(TerritoryCard card) {
@@ -57,7 +51,7 @@ public class PersonalBoard {
         return buildingCards;
     }
 
-    public void harvest(int familyMemberValue, Player player) {
+    public void harvest(int realDiceValueNoBlueBonus, Player player, ChoicesHandlerInterface choicesController) {
 
         //TODO bonuses of the blue card
         //bonusTileHarvestEffect.applyToPlayer(player);
@@ -68,15 +62,22 @@ public class PersonalBoard {
         }*/
     }
 
-    public void building(int familyMemberValue, Player player) {
+    public void build(int realDiceValueNoBlueBonus, Player player, ChoicesHandlerInterface choicesController) {
 
-        //TODO bonuses of the blue card
-        /*bonusTileBuildEffect.applyToPlayer(player);
-        LinkedList<AbstractCard> yellowCard = ownedCards.get(CardColorEnum.YELLOW);
-        for (AbstractCard i : yellowCard) {
-            //        i.building(familyMemberValue, player);
+        //we check if there is some blue card that has a bonus on build, in this case we should modify the value of the dice
+        int realDiceValueBlue = realDiceValueNoBlueBonus;
 
-        }*/
+        for(CharacterCard cardIter : characterCards) {
+            for(AbstractPermanentEffect effectIter : cardIter.getPermanentEffects()) {
+                realDiceValueBlue += effectIter.getBonusOnBuild();
+            }
+        }
+
+        final int realDiceValueBlueFinal = realDiceValueBlue; //to pass to the lambda expr
+        buildingCards.forEach(card -> card.applyEffectsToPlayer(player, realDiceValueBlueFinal, choicesController));
+
+        //We add bonus tiles afterwards because the resources got from the bonus tiles should not count on the checks for the yellow cards
+        personalTile.activateEffectsOnBuild(player, choicesController);
     }
 
     public void blueBonus(AbstractActionSpace space) {
@@ -112,4 +113,11 @@ public class PersonalBoard {
         return null;
     }
 
+    public PersonalTile getPersonalTile() {
+        return personalTile;
+    }
+
+    public LinkedList<CharacterCard> getCharacterCards() {
+        return characterCards;
+    }
 }

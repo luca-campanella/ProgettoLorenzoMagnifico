@@ -40,7 +40,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     HashMap<String, Integer> choicesOnCurrentAction;
 
     /**
-     * this hashmap is used to check that the user has sufficient resources to make a building choice
+     * this hashmap is used to check that the user has sufficient resources to make a build choice
      * it is initialized with the resources of the player at the beginning of the build action
      */
     HashMap<ResourceTypeEnum, Integer> resourcesCheckHashmap;

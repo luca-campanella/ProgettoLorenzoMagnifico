@@ -1,0 +1,1 @@
+Creare un wrapper per le carte blu che permetta di non copiare il codice in giro

@@ -3,10 +3,8 @@ package it.polimi.ingsw.model.controller;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
-import it.polimi.ingsw.model.board.HarvestAS;
 import it.polimi.ingsw.model.board.MarketAS;
 import it.polimi.ingsw.model.cards.BuildingCard;
-import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -132,12 +130,12 @@ public class ModelController {
 ;
     }
 
-    /**
+    /*
      * this method is called to harvest on the board
      * @param familyMember the family member used to harvest
      * @param servant the number of servant used to increase the value of the family member
      */
-    public void harvest(FamilyMember familyMember, int servant){
+   /* public void isHarvestActionLegal(FamilyMember familyMember, int servant){
 
         //control on the input, if the player has that resources
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
@@ -158,7 +156,7 @@ public class ModelController {
         gameBoard.harvest(familyMember);
         familyMember.getPlayer().harvest(servant+familyMember.getValue()+harvestPlace.getValueMalus());
 
-    }
+    }*/
 
     private boolean findFamilyMember(Player player, ArrayList<FamilyMember> familyMembers){
         for(FamilyMember i : familyMembers){
@@ -193,17 +191,20 @@ public class ModelController {
         return true;
     }*/
 
+    /**
+     * This methos is called when the player builds, it is the entry point to the model
+     * @param familyMember the family member the player performed the action with
+     * @param servants the number of servants the player performed the action with
+     */
     public void build(FamilyMember familyMember, int servants) {
         Player player = familyMember.getPlayer();
 
-        LinkedList<BuildingCard> cards = player.getPersonalBoard().getYellowBuildingCards();
+        //set the family member as used in the player
+        player.playFamilyMember(familyMember);
+        //just adds the family member to the BuildAS
+        gameBoard.build(familyMember);
 
-        cards.forEach(card -> card.applyEffectsToPlayer(player, servants, choicesController));
-
-        //We add bonus tiles afterwards because the resources got from the bonus tiles should not count on the checks for the yellow cards
-        ArrayList<GainResourceEffect> personalTileEffects = player.getPersonalTile().getEffectOnBuild();
-        personalTileEffects.forEach(effect -> effect.applyToPlayer(player, choicesController));
-
+        player.build(familyMember.getValue() + servants, choicesController);
     }
 
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
@@ -275,7 +276,7 @@ public class ModelController {
     }*/
 
     /**
-     * This method returns all the building yellow cards of a certain player
+     * This method returns all the build yellow cards of a certain player
      * @param player the selected player
      * @return the list of cards
      */

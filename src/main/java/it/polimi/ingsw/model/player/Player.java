@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -24,7 +25,7 @@ public abstract class Player {
 
     private ArrayList<FamilyMember> usedFamilyMembers;
 
-    private PersonalTile personalTile = null;
+    //private PersonalTile personalTile = null; MOVED TO PERSONALBOARD
 
     //private ArrayList<LeaderCard> leaderCard;
 
@@ -70,13 +71,6 @@ public abstract class Player {
         resourcesMap.put(ResourceTypeEnum.VICTORY_POINT, 0);
     }
 
-    public void setPersonalTile(PersonalTile personalTile) {
-        this.personalTile = personalTile;
-    }
-
-    public PersonalTile getPersonalTile() {
-        return personalTile;
-    }
 
     /**
      * this method is used to add a resource on the player
@@ -181,20 +175,21 @@ public abstract class Player {
 
     /**
      * this method is called when a player harvests. It increments player's resources
-     * @param valueHarvest
+     * @param realDiceValueNoBlueBonus the real value (not considered the bonus from blue cards) to perform the action with
+     * @param choicesController the controller to make callback on choices
      */
-    public void harvest(int valueHarvest){
-        this.getPersonalBoard().harvest(valueHarvest, this);
+    public void harvest(int realDiceValueNoBlueBonus, ChoicesHandlerInterface choicesController){
+        personalBoard.harvest(realDiceValueNoBlueBonus, this, choicesController);
 
     }
 
     /**
-     * this method allows a player to build.
-     * @param valueBuild
+     * this method is called when a player builds. It increments player's resources
+     * @param realDiceValueNoBlueBonus the real value (not considered the bonus from blue cards) to perform the action with
+     * @param choicesController the controller to make callback on choices
      */
-    public void build(int valueBuild){
-        this.getPersonalBoard().building(valueBuild, this);
-
+    public void build(int realDiceValueNoBlueBonus, ChoicesHandlerInterface choicesController){
+        personalBoard.build(realDiceValueNoBlueBonus, this, choicesController);
     }
 
     public void purplePoints(){
