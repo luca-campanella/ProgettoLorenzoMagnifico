@@ -106,6 +106,9 @@ public class ModelController {
      */
     public void prepareForNewRound(){
 
+        //throws the dices to change the value
+        dices.forEach(Dice::throwDice);
+
         //reload the family member
         players.forEach(Player::reloadFamilyMember);
 
@@ -281,6 +284,10 @@ public class ModelController {
      */
     public LinkedList<BuildingCard> getYellowBuildingCards(Player player) {
         return player.getPersonalBoard().getYellowBuildingCards();
+    }
+
+    public ArrayList<Dice> getDices() {
+        return dices;
     }
 
     public Board getBoard() {

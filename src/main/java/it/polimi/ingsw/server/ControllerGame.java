@@ -49,13 +49,16 @@ public class ControllerGame  implements ControllerModelInterface {
         cli.printBoard(controllerGame.getBoardGame());
 
     }
+
     public void testSecondRound(int period){
         boardGame = deck.fillBoard(boardGame,period);
     }
+
     private  Deck getDeck()
     {
         return deck;
     }
+
     public void endPhase(AbstractConnectionPlayer player) throws IllegalMoveException{
 
         controlTurnPlayer(player.getNickname());

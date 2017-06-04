@@ -34,14 +34,14 @@ public class ReadServerPacketProtocol {
      * this method is used to save all the response based on the packetType
      */
     private void putIstruction() {
-        //instruction.put(PacketType.CHAT, () -> client.receiveChatMsg());
-        //instruction.put(PacketType.MOVE_IN_TOWER, ()-> client.receivePlaceOnTower());
-        //instruction.put(PacketType.MOVE_IN_MARKET, ()-> client.receivePlaceOnMarket());
-        //instruction.put(PacketType.HARVEST, ()-> client.receiveHarvest());
-        //instruction.put(PacketType.BUILD, ()-> client.receiveBuild());
+        instruction.put(PacketType.CHAT, () -> client.receiveChatMsg());
+        instruction.put(PacketType.MOVE_IN_TOWER, ()-> client.receivePlaceOnTower());
+        instruction.put(PacketType.MOVE_IN_MARKET, ()-> client.receivePlaceOnMarket());
+        instruction.put(PacketType.HARVEST, ()-> client.receiveHarvest());
+        instruction.put(PacketType.BUILD, ()-> client.receiveBuild());
         //instruction.put(PacketType.DISCARD_LEADER, ()-> client.receiveDiscardCard());
         //instruction.put(PacketType.PLAY_LEADER, ()-> client.receivePlayCard());
-        //instruction.put(PacketType.END_PHASE, ()-> client.receiveEndPhase());
+        instruction.put(PacketType.END_PHASE, ()-> client.receiveEndPhase());
     }
 
     /**
