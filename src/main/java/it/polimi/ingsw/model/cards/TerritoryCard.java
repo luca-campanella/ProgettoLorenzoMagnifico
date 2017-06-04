@@ -1,9 +1,12 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.PayForCouncilGiftEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 
@@ -18,9 +21,14 @@ public class TerritoryCard extends AbstractCard{
     private int harvestEffectValue;
     ArrayList<ImmediateEffectInterface> effectsOnHarvest;
     //TODO: implement method
-    private void applyEffectToPlayer(Player player)
-    {
-        ;
+    private void applyEffectToPlayer(Player player, int realDiceValue, ChoicesHandlerInterface choicesController) {
+
+        if (realDiceValue < harvestEffectValue) {
+            //No effect should be activated
+            Debug.printVerbose("No effect activated on card " + getName() + "because realDiceValue < harvestEffectValue (" + realDiceValue + " < " + harvestEffectValue + ")");
+            return;
+        }
+        //todo: implement effective effect
     }
 
     public void setHarvestEffectValue(int value){ this.harvestEffectValue = value; }

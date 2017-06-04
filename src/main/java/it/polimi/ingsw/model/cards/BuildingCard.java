@@ -42,7 +42,7 @@ public class BuildingCard extends AbstractCard{
 
         if(realDiceValue < buildEffectValue) {
             //No effect should be activated
-            Debug.printVerbose("No effect activated on card " + getName() + "because realDiceValue < buildEffectValue (" + realDiceValue + " < " + buildEffectValue);
+            Debug.printVerbose("No effect activated on card " + getName() + "because realDiceValue < buildEffectValue (" + realDiceValue + " < " + buildEffectValue +")");
             return;
         }
 
