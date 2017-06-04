@@ -4,6 +4,7 @@ package it.polimi.ingsw.client.network.socket.packet;
  * thi packet is used to deliver to the client the chat message of the other player (server -> client)
  */
 public class ReceiveChatPacket extends ChatPacket {
+
     String nickname;
 
     /**

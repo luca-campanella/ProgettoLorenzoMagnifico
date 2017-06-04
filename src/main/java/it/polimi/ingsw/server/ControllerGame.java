@@ -56,7 +56,9 @@ public class ControllerGame  implements ControllerModelInterface {
     {
         return deck;
     }
-    public void endTurn(){
+    public void endPhase(AbstractConnectionPlayer player) throws IllegalMoveException{
+
+        controlTurnPlayer(player.getNickname());
 
         numberOfTurn++;
 

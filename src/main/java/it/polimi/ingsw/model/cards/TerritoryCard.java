@@ -59,7 +59,7 @@ public class TerritoryCard extends AbstractCard{
     }
 
     /**
-     * this method returns a string with all harvesting effects
+     * this method returns a string with all harvest effects
      * @return
      */
     public String secondEffect(){

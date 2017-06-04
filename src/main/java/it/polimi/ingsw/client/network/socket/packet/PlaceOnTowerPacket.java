@@ -7,15 +7,15 @@ import java.util.HashMap;
 /**
  *  the packet created to deliver the action of place a family member on tower, on socket
  */
-public class MoveInTowerPacket extends MovePacket {
+public class PlaceOnTowerPacket extends MovePacket {
     /**
      * number of tower where the family member is moved
      */
-    private int numberTower;
+    private int towerIndex;
     /**
      * floor of the tower where the family member is moved
      */
-    private int floorTower;
+    private int floorIndex;
     /**
      * the choices of the player when has to choose to target of the effect
      */
@@ -24,25 +24,25 @@ public class MoveInTowerPacket extends MovePacket {
     /**
      * constructor
      */
-    public MoveInTowerPacket (FamilyMember familyMember,
-                              int numberTower, int floorTower, HashMap<String, Integer> playerChoices){
+    public PlaceOnTowerPacket(FamilyMember familyMember,
+                              int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices){
 
         super(familyMember);
-        this.numberTower=numberTower;
-        this. floorTower=floorTower;
+        this.towerIndex =towerIndex;
+        this.floorIndex =floorIndex;
         this.playerChoices = playerChoices;
 
     }
 
-    public int getNumberTower(){
+    public int getTowerIndex(){
 
-        return numberTower;
+        return towerIndex;
 
     }
 
-    public int getFloorTower(){
+    public int getFloorIndex(){
 
-        return floorTower;
+        return floorIndex;
 
     }
 

@@ -15,7 +15,7 @@ public abstract class AbstractConnectionPlayer extends Player {
     /**
      * this instance is used to call methods of the room the player is in. There is redundancy
      */
-    private Room roomContr;
+    private Room room;
 
     public AbstractConnectionPlayer() {
         super();
@@ -59,13 +59,15 @@ public abstract class AbstractConnectionPlayer extends Player {
      */
     public abstract void receiveHarvest(FamilyMember familyMember, int servant) throws NetworkException;
 
-    protected Room getRoomContr() {
-        return roomContr;
+    public abstract void receiveEndPhase(AbstractConnectionPlayer player) throws NetworkException;
+
+    protected Room getRoom() {
+        return room;
     }
 
 
     public void setRoom(Room room)
     {
-        roomContr = room;
+        this.room = room;
     }
 }

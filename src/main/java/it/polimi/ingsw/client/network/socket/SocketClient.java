@@ -4,7 +4,6 @@ package it.polimi.ingsw.client.network.socket;
 import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.exceptions.*;
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.client.network.socket.packet.*;
 import it.polimi.ingsw.client.network.socket.protocol.ReadServerPacketProtocol;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -178,7 +177,7 @@ public class SocketClient extends AbstractClientType {
         MoveErrorEnum moveErrorEnum;
         try{
             outStream.writeObject(PacketType.MOVE_IN_TOWER);
-            outStream.writeObject(new MoveInTowerPacket(familyMember,numberTower,floorTower, playerChoices));
+            outStream.writeObject(new PlaceOnTowerPacket(familyMember,numberTower,floorTower, playerChoices));
             outStream.flush();
             moveErrorEnum=(MoveErrorEnum) inStream.readObject();
         }
@@ -195,12 +194,12 @@ public class SocketClient extends AbstractClientType {
     /**
      * this method is used when the family member in moved on a generic market space
      */
-    public void moveInMarket(FamilyMember familyMember, int marketIndex)
+    public void moveInMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices)
             throws NetworkException,IllegalMoveException{
         MoveErrorEnum moveErrorEnum;
         try{
             outStream.writeObject(PacketType.MOVE_IN_MARKET);
-            outStream.writeObject(new MoveInMarketPacket(familyMember, marketIndex));
+            outStream.writeObject(new PlaceOnMarketPacket(familyMember, marketIndex, playerChoices));
             outStream.flush();
             moveErrorEnum=(MoveErrorEnum)inStream.readObject();
         }
@@ -217,39 +216,57 @@ public class SocketClient extends AbstractClientType {
     /**
      * this method is called when the family member is moved on the harvest space
      */
-    public void harvesting (FamilyMember familyMember, int servantUsed) throws NetworkException{
+    public void harvesting (FamilyMember familyMember, int servantUsed) throws NetworkException, IllegalMoveException {
+
+        MoveErrorEnum moveErrorEnum;
 
         try{
 
-            outStream.writeObject(PacketType.HARVESTING);
+            outStream.writeObject(PacketType.HARVEST);
             outStream.writeObject(new HarvestPacket(familyMember,servantUsed));
             outStream.flush();
+            moveErrorEnum=(MoveErrorEnum)inStream.readObject();
 
         }
 
-        catch (IOException e){
+        catch (IOException | ClassNotFoundException e){
 
             Debug.printError("network is not available", e);
             throw new NetworkException(e);
 
         }
 
-    }
-    public void building (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices)
-            throws NetworkException{
+        if(moveErrorEnum == MoveErrorEnum.NOT_PLAYER_TURN){
 
-        try{
-
-            outStream.writeObject(PacketType.BUILDING);
-            outStream.writeObject(new BuildPacket(familyMember,servantUsed,playerChoices));
-            outStream.flush();
+            throw new IllegalMoveException(moveErrorEnum);
 
         }
 
-        catch (IOException e){
+    }
+    public void building (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices)
+            throws NetworkException, IllegalMoveException {
+
+        MoveErrorEnum moveErrorEnum;
+
+        try{
+
+            outStream.writeObject(PacketType.BUILD);
+            outStream.writeObject(new BuildPacket(familyMember,servantUsed,playerChoices));
+            outStream.flush();
+            moveErrorEnum=(MoveErrorEnum)inStream.readObject();
+
+        }
+
+        catch (IOException | ClassNotFoundException e){
 
             Debug.printError("network is not avaiable", e);
             throw new NetworkException(e);
+
+        }
+
+        if(moveErrorEnum == MoveErrorEnum.NOT_PLAYER_TURN){
+
+            throw new IllegalMoveException(moveErrorEnum);
 
         }
 
@@ -279,7 +296,6 @@ public class SocketClient extends AbstractClientType {
 
     /**
      * This method is used to send chat message to all players in the room
-     *
      * @throws NetworkException
      */
     @Override
@@ -295,40 +311,127 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    /**
+     * this method is used to receive message from the other players
+     * @throws NetworkException
+     */
     public void receiveChatMsg() throws NetworkException{
-        try{
-            ChatReceivedPacket packet = (ChatReceivedPacket)inStream.readObject();
 
+        try{
+
+            ChatReceivedPacket packet = (ChatReceivedPacket)inStream.readObject();
             getControllerMain().receiveChatMsg(packet.getSenderNickname(), packet.getMessage());
+
         }
         catch(IOException | ClassNotFoundException e){
+
             Debug.printError("network is not available",e);
             throw new NetworkException(e);
+
         }
     }
 
-    public void receivePlaceOnTower(){
+    /**
+     * this method is used to receive moves on tower from other players
+     * @throws NetworkException
+     */
+    public void receivePlaceOnTower() throws NetworkException{
 
+        try {
+
+            PlaceOnTowerPacket packet = (PlaceOnTowerPacket)inStream.readObject();
+            //TODO method
+
+        }
+
+        catch (ClassNotFoundException | IOException e){
+
+            throw new NetworkException(e);
+
+        }
 
     }
 
-    public void receivePlaceOnMarket(){
+    /**
+     * this method is used to receive moves on market from other players
+     * @throws NetworkException
+     */
+    public void receivePlaceOnMarket() throws NetworkException{
 
+        try {
+
+            PlaceOnMarketPacket packet = (PlaceOnMarketPacket)inStream.readObject();
+            //TODO method
+
+        }
+
+        catch (ClassNotFoundException | IOException e){
+
+            throw new NetworkException(e);
+
+        }
+    }
+
+    /**
+     * this method is used to receive moves on harvest from other players
+     * @throws NetworkException
+     */
+    public void receiveHarvest() throws NetworkException{
+
+        try {
+
+            HarvestPacket packet = (HarvestPacket)inStream.readObject();
+            //TODO method
+
+        }
+
+        catch (ClassNotFoundException | IOException e){
+
+            throw new NetworkException(e);
+
+        }
 
     }
 
-    public void receiveHarvest(){
+    /**
+     * this method is used to receive moves on build from other players
+     * @throws NetworkException
+     */
+    public void receiveBuild() throws NetworkException{
 
+        try {
+
+            BuildPacket packet = (BuildPacket)inStream.readObject();
+            //TODO method
+
+        }
+
+        catch (ClassNotFoundException | IOException e){
+
+            throw new NetworkException(e);
+
+        }
 
     }
 
-    public void receiveBuild(){
+    /**
+     * this method is used to receive the end of turn of the other players
+     * @throws NetworkException
+     */
+    public void receiveEndPhase() throws NetworkException{
 
+        try {
 
-    }
+            EndPhasePacket packet = (EndPhasePacket)inStream.readObject();
+            //TODO method
 
-    public void receiveEndPhase(){
+        }
 
+        catch (ClassNotFoundException | IOException e){
+
+            throw new NetworkException(e);
+
+        }
 
     }
 

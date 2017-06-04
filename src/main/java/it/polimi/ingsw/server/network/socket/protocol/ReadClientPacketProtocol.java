@@ -34,10 +34,10 @@ public class ReadClientPacketProtocol {
     private void putIstruction(){
         instruction.put(PacketType.LOGIN, ()-> player.loginPlayer());
         instruction.put(PacketType.REGISTER, ()-> player.registerPlayer());
-        instruction.put(PacketType.MOVE_IN_TOWER, ()-> player.moveInTower());
-        instruction.put(PacketType.MOVE_IN_MARKET, ()-> player.moveInMarket());
-        instruction.put(PacketType.HARVESTING, ()-> player.harvesting());
-        instruction.put(PacketType.BUILDING, ()-> player.building());
+        instruction.put(PacketType.MOVE_IN_TOWER, ()-> player.placeOnTower());
+        instruction.put(PacketType.MOVE_IN_MARKET, ()-> player.placeOnMarket());
+        instruction.put(PacketType.HARVEST, ()-> player.harvest());
+        instruction.put(PacketType.BUILD, ()-> player.build());
         instruction.put(PacketType.DISCARD_LEADER, ()-> player.discardCard());
         instruction.put(PacketType.PLAY_LEADER, ()-> player.playCard());
         instruction.put(PacketType.CHAT, ()-> player.floodChatMsg());

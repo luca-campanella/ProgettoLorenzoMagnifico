@@ -1,5 +1,8 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.utils.Debug;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -47,6 +50,15 @@ public class CliOptionsHandler {
     }
 
     /**
+     * This method is called create choices between effects
+     * @param effectOptions the effect options
+     */
+    public void addEffectsArrayList(ArrayList<? extends ImmediateEffectInterface> effectOptions) {
+        for (ImmediateEffectInterface effectIter : effectOptions)
+            this.addOption(effectIter.descriptionShortOfEffect());
+    }
+
+    /**
      * this method modifies an option.
      * @param option is the String list of options that someone has
      */
@@ -72,13 +84,40 @@ public class CliOptionsHandler {
         for(int i = 0; i< options.size(); i++)
             System.out.println(i + "--- " + options.get(i));
 
-        numberPicked = scanner.nextInt();
+        numberPicked = readAndParseInt();
 
-        while(numberPicked > options.size()) {
-            System.out.println("Please insert a valid number, between 0 and " + options.size());
-            numberPicked = scanner.nextInt();
+        while(numberPicked >= options.size() || numberPicked < 0) {
+            System.out.println("Please insert a valid number, between 0 and " + (options.size() - 1));
+            numberPicked = readAndParseInt();
         }
 
         return numberPicked;
+    }
+
+    /**
+     * reads a line from the console and tries to parse it as an integer, if it cannot returns -1
+     * @return the integer read or -1 if error
+     */
+    private int readAndParseInt(){
+        String line = scanner.nextLine();
+        try{
+            return Integer.parseInt(line);
+        } catch (NumberFormatException e) {
+            Debug.printVerbose("Not entered a number");
+            return -1;
+        }
+    }
+
+    //Just for testing
+    public static void main(String[] args)
+    {
+        CliOptionsHandler cliOptionsHandler = new CliOptionsHandler(4);
+
+        for(int i = 0; i < 4; i++)
+            cliOptionsHandler.addOption("Opzione numero " + i);
+
+        int choice = cliOptionsHandler.askUserChoice();
+
+        System.out.println("The user chose option number: " + choice);
     }
 }

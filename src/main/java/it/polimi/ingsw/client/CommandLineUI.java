@@ -273,7 +273,8 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public int askCouncilGift(ArrayList<TakeOrPaySomethingEffect> options) {
-        CliOptionsHandler optionsHandler = new CliOptionsHandler(options);
+        CliOptionsHandler optionsHandler = new CliOptionsHandler(options.size());
+        optionsHandler.addEffectsArrayList(options);
         return optionsHandler.askUserChoice();
     }
 
@@ -284,7 +285,8 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
-        CliOptionsHandler optionsHandler = new CliOptionsHandler(possibleEffectChoices);
+        CliOptionsHandler optionsHandler = new CliOptionsHandler(possibleEffectChoices.size());
+        optionsHandler.addEffectsArrayList(possibleEffectChoices);
         return optionsHandler.askUserChoice();
     }
 

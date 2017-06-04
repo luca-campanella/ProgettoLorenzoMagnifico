@@ -65,6 +65,11 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
 
     }
 
+    @Override
+    public void receiveEndPhase(AbstractConnectionPlayer player) throws NetworkException {
+
+    }
+
     /**
      * This method is used by the client to send chat message to all other players in the room (Direction: client -> sever)
      * @param msg the message
@@ -72,6 +77,6 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
      */
     @Override
     public void sendChatMsg(String msg) throws RemoteException {
-        getRoomContr().floodChatMsg(this, msg);
+        getRoom().floodChatMsg(this, msg);
     }
 }

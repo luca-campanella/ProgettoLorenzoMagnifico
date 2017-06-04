@@ -177,7 +177,7 @@ public class Room {
     }
 
     /**
-     * launch the move of a player to the others player
+     * launch the move of a player to the other players
      */
     private void floodPlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices){
 
@@ -193,7 +193,7 @@ public class Room {
     }
 
     /**
-     * launch the move of a player to the others player
+     * launch the move of a player to the other players
      */
     private void floodBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 
@@ -209,7 +209,7 @@ public class Room {
     }
 
     /**
-     * launch the move of a player to the others player
+     * launch the move of a player to the other players
      */
     private void floodHarvest(FamilyMember familyMember, int servant){
 
@@ -225,7 +225,7 @@ public class Room {
     }
 
     /**
-     * launch the move of a player to the others player
+     * launch the move of a player to the other players
      */
     private void floodPlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices){
 
@@ -233,6 +233,29 @@ public class Room {
             if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
                 try {
                     player.receivePlaceOnMarket(familyMember, marketIndex, playerChoices);
+                } catch (NetworkException e) { //not a big problem if a chat message is not sent
+                    Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+                }
+            }
+        }
+    }
+
+    public void endPhase(AbstractConnectionPlayer player) throws IllegalMoveException{
+
+        controllerGame.endPhase(player);
+        floodEndPhase(player);
+
+    }
+
+    /**
+     * launch the end of a player' phase to the other players
+     */
+    private void floodEndPhase(AbstractConnectionPlayer playerEndPhase){
+
+        for(AbstractConnectionPlayer player : players) {
+            if(player != playerEndPhase) {
+                try {
+                    player.receiveEndPhase(playerEndPhase);
                 } catch (NetworkException e) { //not a big problem if a chat message is not sent
                     Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
                 }
