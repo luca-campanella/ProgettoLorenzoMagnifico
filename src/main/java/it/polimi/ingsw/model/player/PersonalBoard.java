@@ -60,7 +60,7 @@ public class PersonalBoard {
     public void harvest(int familyMemberValue, Player player) {
 
         //TODO bonuses of the blue card
-        bonusTileHarvestEffect.applyToPlayer(player);
+        //bonusTileHarvestEffect.applyToPlayer(player);
         /*LinkedList<AbstractCard> greenCard = ownedCards.get(CardColorEnum.GREEN);
         for (AbstractCard i : greenCard) {
             //        i.harvest(familyMemberValue, player);
