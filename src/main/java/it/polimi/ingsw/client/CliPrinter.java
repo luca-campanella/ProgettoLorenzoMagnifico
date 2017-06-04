@@ -1,17 +1,13 @@
 package it.polimi.ingsw.client;
 
-import com.sun.javafx.sg.prism.EffectFilter;
 import it.polimi.ingsw.model.board.*;
-import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingConditionedEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 
 import java.util.ArrayList;
 
 /**
- * Created by higla on 20/05/2017.
+ * This class prints on command line the board
  */
 public class CliPrinter {
     //all the next attributes are used to pretty print the board
@@ -20,7 +16,7 @@ public class CliPrinter {
     //length of a tower
     static final int INSIDE_TOWER_LENGHT = 35;
     static final int LINELENGTH = 200;
-
+    static final int MAX_LENGHT_SHORT_EFFECTS = 12;
     /**
      * this method prints the board
      * @param board
@@ -45,26 +41,6 @@ public class CliPrinter {
         printLine(LINELENGTH);
         printVaticanReport(board);
         System.out.println();
-    }
-
-    /**
-     * this method prints all the towers with a lot of overhead
-     * @param board
-     */
-    public void printTowersVerbose(Board board){
-        int i;
-        int k;
-        for(i=0; i< board.getTowers().length; i++)
-        {
-            Tower tower = board.getTower(i);
-            System.out.println("This is the " + board.getTowerColor(tower) + " tower:");
-            for(k=0; k < tower.getFloors().length; k++)
-            {
-                TowerFloorAS floor = tower.getFloorByIndex(k);
-                System.out.println("Floor " + k + " has this dice value " + floor.getDiceValue() + " and " + floor.getEffectDescription());
-            }
-        }
-
     }
 
     /**
@@ -110,21 +86,9 @@ public class CliPrinter {
      */
     private void printTowersName(Board board)
     {
-        int i;
         int k;
-        int tempLength;
-        String tempString;
         for(k=0; k<board.getNUMBER_OF_TOWERS(); k++) {
-            tempString = board.getTowerColor(board.getTower(k)).toString();
-            tempLength = (INSIDE_TOWER_LENGHT - tempString.length())/2 -1;
-            for(i=0; i<tempLength; i++)
-                System.out.print(" ");
-            printColorTower(tempString);
-            for(i=0; i<tempLength; i++)
-                System.out.print(" ");
-            for(i=0; i< sceneLenght - INSIDE_TOWER_LENGHT - 3; i++)
-                System.out.print(" ");
-
+            printStringOnPillar(board.getTowerColor(board.getTower(k)).toString());
         }
     }
 
@@ -147,26 +111,36 @@ public class CliPrinter {
     }
 
     /**
+     * this method prints a string inside a scene (consideringa scene a tower | to the start of the other |
+     * @param toPrint
+     */
+    private void printStringOnPillar(String toPrint)
+    {
+        int i;
+        int tempLength;
+        tempLength = (INSIDE_TOWER_LENGHT - toPrint.length())/2 -1;
+        for(i=0; i<tempLength; i++)
+            System.out.print(" ");
+        printColorTower(toPrint);
+        for(i=0; i<tempLength; i++)
+            System.out.print(" ");
+        for(i=0; i< sceneLenght - INSIDE_TOWER_LENGHT - 3; i++)
+            System.out.print(" ");
+    }
+    /**
      * this method prints all immediate effect
      * @param floor
      */
     private void printCardImmediateEffectOnFloor(TowerFloorAS floor)
     {
         ArrayList<? extends ImmediateEffectInterface> costs;
-        String tempCostsScene = "| Instantly: ";
+        String immediateEffectsString = "| Instantly: ";
         costs = floor.getCard().getImmediateEffect();
         //first i print the costs
         for(int i = 0; i< costs.size(); i++)
-            tempCostsScene += costs.get(i).descriptionShortOfEffect() + " ";
+            immediateEffectsString += costs.get(i).descriptionShortOfEffect() + " ";
         //then i print the remaining space from cost to .. |
-        while(tempCostsScene.length()< INSIDE_TOWER_LENGHT+1)
-            tempCostsScene += " ";
-        tempCostsScene += "|";
-        //then i prepare the scene for the next pillar. Middle tower lenght is 26 not 29
-        for(int i = 0; i< sceneLenght-INSIDE_TOWER_LENGHT -3; i++)
-            tempCostsScene += " ";
-
-        System.out.print(tempCostsScene);
+        printScene(immediateEffectsString);
     }
 
     /**
@@ -244,7 +218,6 @@ public class CliPrinter {
         int i = 0;
         ArrayList<? extends ImmediateEffectInterface> costs;
         String tempCostsScene = "|Cost: ";
-        String subCostScene = " ";
         costs = floor.getCard().getCost();
         //first i print the costs
         try {
@@ -254,33 +227,20 @@ public class CliPrinter {
         catch(NullPointerException e){
             System.out.print(costs.get(i).toString());
         }
+        printScene(tempCostsScene);
+    }
+    private void printScene(String toPrint)
+    {
+        int i;
         //then i print the remaining space from cost to .. |
-        while(tempCostsScene.length()< INSIDE_TOWER_LENGHT+1)
-            tempCostsScene += " ";
-        tempCostsScene += "|";
+        while(toPrint.length()< INSIDE_TOWER_LENGHT+1)
+            toPrint += " ";
+        toPrint += "|";
         //then i prepare the scene for the next pillar. Middle tower lenght is 26 not 29
         for(i = 0; i< sceneLenght-INSIDE_TOWER_LENGHT -3; i++)
-        tempCostsScene += " ";
-
-        System.out.print(tempCostsScene);
+            toPrint += " ";
+        System.out.print(toPrint);
     }
-
-
-    /**
-     * this method print the cost of a card. It doesn't print the green tower
-     * @param effect it's the effect printed
-     */
-    public void printCosts(ArrayList<? extends ImmediateEffectInterface> effect)
-    {
-        int i=0;
-        for(i=0; i< effect.size(); i++)
-            printCost(effect.get(i));
-    }
-    public void printCost(ImmediateEffectInterface effect)
-    {
-        System.out.print(effect.descriptionShortOfEffect());
-    }
-
 
     /**
      * this class prints a pillar
@@ -297,7 +257,6 @@ public class CliPrinter {
                 System.out.print(" ");
             }
         }
-
     }
 
     /**
@@ -346,7 +305,7 @@ public class CliPrinter {
     public void printImmediateShortEffects(ArrayList<ImmediateEffectInterface> effect) {
         int i, lenght;
         String temp = new String();
-        final int MAX_LENGHT_SHORT_EFFECTS = 12;
+
         for (i = 0; i < effect.size(); i++) {
             temp += (effect.get(i).descriptionShortOfEffect() + " ");
         }
@@ -359,7 +318,7 @@ public class CliPrinter {
 
 
     /**
-     * this method prints the permanente effect
+     * this method prints the permanent effect
      * @param effect are the effects that will be printed
      */
     public void printPermanentEffects(ArrayList<AbstractPermanentEffect> effect)
@@ -386,20 +345,6 @@ public class CliPrinter {
         System.out.println(" ");
     }
 
-    /**
-     * this method prints the market verbose
-     * @param board
-     */
-    public void printMarketVerbose(Board board)
-    {
-        int i;
-        System.out.println("This is the market: ");
-        for(i=0; i< board.getMarket().size(); i++)
-        {
-            MarketAS market = board.getMarketSpaceByIndex(i);
-            System.out.println("Space " + i + " Dice " + market.getDiceValue() + " " + market.getEffectDescription());
-        }
-    }
 
     /**
      * this method prints the build action space
@@ -447,7 +392,7 @@ public class CliPrinter {
         }
         System.out.println();
         //System.out.println("Those are the Victory points you get from vaticanReport ");
-        printLine(199);
+        printLine(LINELENGTH);
         System.out.print(" | ");
         for(i = 0; i< board.getVaticanVictoryPoints().length; i++) {
             System.out.print(board.getVictoryPointsByIndex(i));

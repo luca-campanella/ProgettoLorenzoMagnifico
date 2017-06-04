@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 
 /**
@@ -11,7 +12,7 @@ public interface ImmediateEffectInterface {
     /**
      * this method is the method that all effects must implements
      */
-    abstract public void applyToPlayer(Player player);
+    abstract public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface);
 
     /**
      * when someone invokes this method, gets a description of what the method does

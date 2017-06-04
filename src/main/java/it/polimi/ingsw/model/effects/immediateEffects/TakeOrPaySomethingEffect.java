@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
@@ -13,7 +14,7 @@ public class TakeOrPaySomethingEffect implements ImmediateEffectInterface {
     }
 
     @Override
-    public void applyToPlayer(Player player) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
         giveResourcesToPlayer(player, resource);
     }
 

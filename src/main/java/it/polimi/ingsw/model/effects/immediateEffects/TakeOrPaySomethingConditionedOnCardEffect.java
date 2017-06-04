@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
@@ -19,11 +20,11 @@ public class TakeOrPaySomethingConditionedOnCardEffect extends TakeOrPaySomethin
       *  This method gives you resources for each card of a certain type you have
      */
     @Override
-    public void applyToPlayer(Player player) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
         int numberOfColoredCards = player.getNumberOfColoredCard(colorConditionedOnCardEffect);
         int i;
         for(i = 0; i<numberOfColoredCards;)
-            super.applyToPlayer(player);
+            super.applyToPlayer(player, choicesHandlerInterface);
             i += numberOfCards;
     }
     public String descriptionOfEffect(){

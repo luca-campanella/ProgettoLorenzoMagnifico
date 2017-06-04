@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 
 /**
@@ -11,7 +12,7 @@ public class BuildNoFamilyMembersEffect extends AbstractPerformActionEffect {
         this.diceValue = buildValue;
     }
     @Override
-    public void applyToPlayer(Player player) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
         ;
     }
 

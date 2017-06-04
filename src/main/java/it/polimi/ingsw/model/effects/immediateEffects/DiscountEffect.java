@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
@@ -17,7 +18,7 @@ public class DiscountEffect implements ImmediateEffectInterface{
         this.resources = resources;
     }
     @Override
-    public void applyToPlayer(Player player) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
         ;
     }
     @Override

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
@@ -15,7 +16,7 @@ public class PayForSomethingEffect implements ImmediateEffectInterface {
         this.toPay = toPay;
         this.toGain = toGain;
     }
-    public void applyToPlayer(Player player){
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
         ;
     }
     public String descriptionOfEffect()

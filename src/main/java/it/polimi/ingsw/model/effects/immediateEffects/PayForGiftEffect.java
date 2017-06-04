@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
@@ -14,7 +15,7 @@ public class PayForGiftEffect extends AbstractPerformActionEffect {
     public PayForGiftEffect( ArrayList<Resource> temp){
         toPay = temp;
     }
-    public void applyToPlayer(Player player){
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
         ;
     }
     public String descriptionOfEffect()

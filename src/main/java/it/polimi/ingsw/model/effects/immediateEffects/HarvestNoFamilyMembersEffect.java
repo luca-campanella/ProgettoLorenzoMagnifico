@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 
 /**
@@ -12,7 +13,7 @@ public class HarvestNoFamilyMembersEffect extends AbstractPerformActionEffect {
         this.diceValue = harvestValue;
     }
     @Override
-    public void applyToPlayer(Player player){
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
         ;
     }
 
