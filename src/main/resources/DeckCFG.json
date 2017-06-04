@@ -881,7 +881,8 @@
       ],
       "permanentEffect": [
         {
-          "permanentEffect": "MalusDisabledImmediateEffectsEffect"
+          "permanentEffect": "MalusDisabledImmediateEffectsEffect",
+          "firstLevelDisabled" : 3
         }
       ],
       "name": "Preacher",
@@ -1422,13 +1423,15 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 1
           }
         },
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
             "value": 3
           }
@@ -1461,13 +1464,15 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 3
           }
         },
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
             "value": 1
           }
@@ -1500,13 +1505,15 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 2
           }
         },
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
             "value": 2
           }
@@ -1539,13 +1546,15 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 2
           }
         },
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 2
           }
@@ -1577,14 +1586,16 @@
     },{
       "cost": [
         {
-          "resource": {
-            "type": "COIN",
-            "value": 1
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "WOOD",
+            "value": 2
           }
         },
         {
-          "resource": {
-            "type": "WOOD",
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "COIN",
             "value": 2
           }
         }
@@ -1636,13 +1647,15 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 1
           }
         },
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
             "value": 2
           }
@@ -1696,13 +1709,8 @@
     {
       "cost": [
         {
-          "resource": {
-            "type": "COIN",
-            "value": 1
-          }
-        },
-        {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 2
           }
@@ -1713,26 +1721,14 @@
           "immediateEffect": "PayForSomethingEffect",
           "toPay": [
             {
-              "type": "STONE",
+              "type": "COIN",
               "value": -1
             }
           ],
           "toGain": [
             {
-              "type": "COIN",
-              "value": 3
-            }],
-          "immediateEffect": "PayForSomethingEffect",
-          "toPay": [
-            {
-              "type": "STONE",
-              "value": -2
-            }
-          ],
-          "toGain": [
-            {
-              "type": "COIN",
-              "value": 5
+              "type": "FAITH_POINT",
+              "value": 1
             }
           ]
         }
@@ -1752,7 +1748,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
             "value": 2
           }
@@ -1784,15 +1781,17 @@
     },{
       "cost": [
         {
-          "resource": {
-            "type": "STONE",
-            "value": 1
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "WOOD",
+            "value": 2
           }
         },
         {
-          "resource": {
-            "type": "WOOD",
-            "value": 2
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "STONE",
+            "value": 1
           }
         }
       ],
@@ -1832,7 +1831,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 3
           }
@@ -1885,7 +1885,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 4
           }
@@ -1938,7 +1939,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
             "value": 4
           }
@@ -1991,13 +1993,15 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 1
           }
         },
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
             "value": 2
           }
@@ -2043,7 +2047,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
             "value": 3
           }
@@ -2091,14 +2096,16 @@
     },{
       "cost": [
         {
-          "resource": {
-            "type": "STONE",
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "WOOD",
             "value": 1
           }
         },
         {
-          "resource": {
-            "type": "WOOD",
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "STONE",
             "value": 1
           }
         }
@@ -2135,20 +2142,22 @@
     },{
       "cost": [
         {
-          "resource": {
-            "type": "COIN",
-            "value": 2
-          }
-        },
-        {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 2
           }
         },
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
+            "value": 2
+          }
+        },{
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "COIN",
             "value": 2
           }
         }
@@ -2185,19 +2194,22 @@
     },{
       "cost": [
         {
-          "resource": {
-            "type": "COIN",
-            "value": 3
-          }
-        },
-        {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 1
           }
-        },{
-          "resource": {
+        },
+        {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
+            "value": 3
+          }
+        },{
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "COIN",
             "value": 3
           }
         }
@@ -2226,15 +2238,16 @@
     },{
       "cost": [
         {
-          "resource": {
-            "type": "COIN",
-            "value": 4
-          }
-        },
-        {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 3
+          }
+        },{
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "COIN",
+            "value": 4
           }
         }
       ],
@@ -2273,21 +2286,23 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "SERVANT",
             "value": 2
           }
         },
         {
-          "resource": {
-            "type": "WOOD",
-            "value": 4
-          }
-        },
-        {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
             "value": 2
+          }
+        },{
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "WOOD",
+            "value": 4
           }
         }
       ],
@@ -2315,20 +2330,22 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "WOOD",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "STONE",
+            "value": 4
+          }
+        },{
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
-            "value": 2
-          }
-        },
-        {
-          "resource": {
-            "type": "WOOD",
-            "value": 2
-          }
-        },
-        {
-          "resource": {
-            "type": "WOOD",
             "value": 2
           }
         }
@@ -2361,20 +2378,22 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "WOOD",
+            "value": 3
+          }
+        },
+        {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "STONE",
+            "value": 1
+          }
+        },{
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
-            "value": 3
-          }
-        },
-        {
-          "resource": {
-            "type": "WOOD",
-            "value": 3
-          }
-        },
-        {
-          "resource": {
-            "type": "WOOD",
             "value": 3
           }
         }
@@ -2415,15 +2434,17 @@
     },{
       "cost": [
         {
-          "resource": {
-            "type": "STONE",
-            "value": 4
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "WOOD",
+            "value": 1
           }
         },
         {
-          "resource": {
-            "type": "WOOD",
-            "value": 1
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "STONE",
+            "value": 4
           }
         }
       ],
@@ -2463,23 +2484,27 @@
           }
         }
       ]
-    },{
+    },
+    {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "SERVANT",
             "value": 1
           }
         },
         {
-          "resource": {
-            "type": "WOOD",
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "STONE",
             "value": 2
           }
         },
         {
-          "resource": {
-            "type": "STONE",
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "WOOD",
             "value": 2
           }
         }
@@ -2520,13 +2545,15 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "STONE",
             "value": 4
           }
         },
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "WOOD",
             "value": 4
           }
