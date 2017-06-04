@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 
 /**
@@ -7,7 +8,7 @@ import it.polimi.ingsw.model.player.Player;
  * */
 public class NoEffect implements  ImmediateEffectInterface {
 
-    public void applyToPlayer(Player player){
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
         //This method doesn't do anything
         ;
     }

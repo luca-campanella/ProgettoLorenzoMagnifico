@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 
 /**
@@ -7,9 +8,9 @@ import it.polimi.ingsw.model.player.Player;
  */
 public class GiveCouncilGiftEffect implements ImmediateEffectInterface {
     int numberOfCouncilGift;
-    public void applyToPlayer(Player player)
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface)
     {
-        ;
+        //choicesHandlerInterface.callbackOnCoucilGift();
     }
     public String descriptionOfEffect(){
         return "Gives a Council Gift to a player.";

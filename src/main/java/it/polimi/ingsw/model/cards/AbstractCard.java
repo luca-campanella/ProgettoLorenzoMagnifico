@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.resource.Resource;
 import java.util.ArrayList;
 
 /**
- * Created by higla on 23/05/2017.
+ * Abstract card class.
  */
 public abstract class AbstractCard {
     private String name;

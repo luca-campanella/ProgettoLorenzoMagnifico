@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.player.Player;
 
@@ -12,7 +13,7 @@ public class TakeCardNoFamilyMemberEffect extends AbstractPerformActionEffect {
     private int diceValueOnTower;
     private ArrayList<CardColorEnum> towerColorsAllowed;
     @Override
-    public void applyToPlayer(Player player) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
         ;
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
@@ -18,11 +19,11 @@ public class TakeOrPaySomethingConditionedEffect extends TakeOrPaySomethingEffec
      * For Each condition give Resources to the Player
      */
     @Override
-    public void applyToPlayer(Player player) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
         int i = player.getResource(condition.getType());
         int temp = condition.getValue();
         for(; temp>0;){
-            super.applyToPlayer(player);
+            super.applyToPlayer(player, choicesHandlerInterface);
             temp -= condition.getValue();
         }
     }
