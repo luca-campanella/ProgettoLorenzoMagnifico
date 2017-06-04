@@ -60,18 +60,24 @@ public class ControllerGame  implements ControllerModelInterface {
         return deck;
     }
 
+    /**
+     * this method in launch during every end of the player's phase
+     * @throws IllegalMoveException
+     */
     public void endPhase(AbstractConnectionPlayer player) throws IllegalMoveException{
 
         controlTurnPlayer(player.getNickname());
 
         numberOfTurn++;
 
+       //control if the game gad ended
         if(numberOfTurn >= numberOfPlayers*4 && numberOfRound == 3)
             modelController.endGame();
 
+        //control if all the player had done all the move
         if(numberOfTurn >= numberOfPlayers*4){
             modelController.prepareForNewRound();
-            modelController.getDices();
+            deliverDices(modelController.getDices());
             reDoOrderPlayer(modelController.getFamilyMemberCouncil());
             numberOfTurn = 0;
             numberOfRound++;
@@ -300,6 +306,10 @@ public class ControllerGame  implements ControllerModelInterface {
 
     }
 
+    /**
+     * control if is the turn of the player that had delivered a move
+     * @throws IllegalMoveException
+     */
     private void controlTurnPlayer(String playerName) throws IllegalMoveException{
 
         if(!playerName.equals(orderOfPlayers.get(numberOfTurn%numberOfPlayers).getNickname()))
@@ -307,9 +317,13 @@ public class ControllerGame  implements ControllerModelInterface {
 
     }
 
+    /**
+     * deliver the dices loaded to the room
+     */
     private void deliverDices(ArrayList<Dice> dices){
 
         room.deliverDices(dices);
+
     }
 
 }
