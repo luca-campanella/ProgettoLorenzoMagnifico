@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model.effects.permanentEffects;
 
-import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.resource.Resource;
-
 /**
- * Created by higla on 23/05/2017.
+ * This class handles the bonus on the dice when the player harvests
  */
 public class BonusOnHarvestEffect extends AbstractPermanentEffect {
     private int bonus;
@@ -13,6 +10,11 @@ public class BonusOnHarvestEffect extends AbstractPermanentEffect {
         this.bonus = bonus;
     }
 
+    /**
+     * This method returns the bonus on the dice when the player performs an harvest action
+     * @return the bonus
+     */
+    @Override
     public int getBonusOnHarvest() {
         return bonus;
     }

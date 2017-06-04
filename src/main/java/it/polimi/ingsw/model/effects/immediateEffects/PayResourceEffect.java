@@ -5,17 +5,14 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
 /**
- * This methods gives or let players pay resources.
+ * This class is generally used for the cost
  */
-public class TakeOrPaySomethingEffect implements ImmediateEffectInterface {
-    Resource resource;
-    public TakeOrPaySomethingEffect(Resource resource){
-        this.resource = resource;
-    }
+public class PayResourceEffect implements ImmediateEffectInterface {
+    Resource cost;
 
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
-        giveResourcesToPlayer(player, resource);
+        giveResourcesToPlayer(player, cost);
     }
 
     private void giveResourcesToPlayer(Player player, Resource resource){
@@ -23,9 +20,10 @@ public class TakeOrPaySomethingEffect implements ImmediateEffectInterface {
     }
 
     public String descriptionOfEffect(){
-        return "This method gives to the player " + resource.getResourceShortDescript();
+        return "This Effect let you pay " + cost.getResourceShortDescript();
     }
     public String descriptionShortOfEffect(){
-        return resource.getResourceShortDescript();
+        return cost.getResourceShortDescript();
     }
 }
+

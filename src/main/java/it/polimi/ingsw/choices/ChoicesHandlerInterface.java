@@ -1,7 +1,7 @@
 package it.polimi.ingsw.choices;
 
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * and the other one that reads the choices from a data structure (server side and client when not in turn)
  *
  * choice code explanation:
- * <b>Yellow building card</b>
+ * <b>Yellow build card</b>
  * choiceCode == card name -> the value of the hashmap is the integer index of the arraylist of effects of the card
  */
 public interface ChoicesHandlerInterface {
@@ -23,7 +23,7 @@ public interface ChoicesHandlerInterface {
      * @param numberDiffGifts the number of different council gifts to ask for
      * @return The arraylist of effect chosen
      */
-    public ArrayList<TakeOrPaySomethingEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts);
+    public ArrayList<GainResourceEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts);
 
     /**
      * Callback from model to controller

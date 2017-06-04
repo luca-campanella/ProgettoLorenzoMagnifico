@@ -1,0 +1,3 @@
+Creare un wrapper per le carte blu che permetta di non copiare il codice in giro
+
+Rendere la cli come la qui, quindi con un thread e poi distinguere chiamate bloccanti (domande) da quelle non -> discutere

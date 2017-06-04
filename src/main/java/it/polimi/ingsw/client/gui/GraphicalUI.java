@@ -6,8 +6,8 @@ package it.polimi.ingsw.client.gui;
 
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
@@ -53,7 +53,7 @@ public class GraphicalUI extends AbstractUIType {
      * @return the index of the selected option, the choice the user made
      */
     @Override
-    public int askCouncilGift(ArrayList<TakeOrPaySomethingEffect> options) {
+    public int askCouncilGift(ArrayList<GainResourceEffect> options) {
         return 0;
     }
 

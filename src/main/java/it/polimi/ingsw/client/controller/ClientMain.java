@@ -11,10 +11,10 @@ import it.polimi.ingsw.client.network.rmi.RMIClient;
 import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.controller.ModelController;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -22,7 +22,6 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 /**
  * TODO: implement launcher
@@ -41,7 +40,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     HashMap<String, Integer> choicesOnCurrentAction;
 
     /**
-     * this hashmap is used to check that the user has sufficient resources to make a building choice
+     * this hashmap is used to check that the user has sufficient resources to make a build choice
      * it is initialized with the resources of the player at the beginning of the build action
      */
     HashMap<ResourceTypeEnum, Integer> resourcesCheckHashmap;
@@ -276,9 +275,9 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * @return The arraylist of effect chosen
      */
     @Override
-    public ArrayList<TakeOrPaySomethingEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
-        ArrayList<TakeOrPaySomethingEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
-        ArrayList<TakeOrPaySomethingEffect> choices = new ArrayList<>(numberDiffGifts);
+    public ArrayList<GainResourceEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
+        ArrayList<GainResourceEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
+        ArrayList<GainResourceEffect> choices = new ArrayList<>(numberDiffGifts);
         int choice;
 
         for(int i = 0; i < numberDiffGifts; i++) {

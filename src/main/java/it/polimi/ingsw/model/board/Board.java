@@ -139,10 +139,19 @@ public class Board {
         return NUMBER_OF_FLOORS;
     }
 
+    /**
+     * just adds the family member to the {@link HarvestAS}
+     * @param familyMember the family member to perform the action with
+     */
     public void harvest(FamilyMember familyMember) {
         harvest.addFamilyMember(familyMember);
     }
 
+
+    /**
+     * just adds the family member to the {@link BuildAS}
+     * @param familyMember the family member to perform the action with
+     */
     public void build(FamilyMember familyMember) {
         build.addFamilyMember(familyMember);
     }
