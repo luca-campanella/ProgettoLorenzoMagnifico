@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForCouncilGiftEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeSomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
@@ -18,7 +18,7 @@ public class BuildingCard extends AbstractCard{
     /**
      * The array list of the cost to pay when taking the card
      */
-    private ArrayList<TakeOrPaySomethingEffect> cost;
+    private ArrayList<TakeSomethingEffect> cost;
 
     /**
      * the array list of effects called when a Building action is perfomed.
@@ -53,17 +53,17 @@ public class BuildingCard extends AbstractCard{
 
         //if the choice contains a council gift we should also ask the user what gift he desires
         if(choice instanceof PayForCouncilGiftEffect) {
-            ArrayList<TakeOrPaySomethingEffect> councilGiftChoice = choicesController.callbackOnCoucilGift(getName() + ":councilGift", 1);
+            ArrayList<TakeSomethingEffect> councilGiftChoice = choicesController.callbackOnCoucilGift(getName() + ":councilGift", 1);
             councilGiftChoice.get(0).applyToPlayer(player, choicesController);
         }
         choice.applyToPlayer(player, choicesController);
     }
 
-    public ArrayList<TakeOrPaySomethingEffect> getCost() {
+    public ArrayList<TakeSomethingEffect> getCost() {
         return cost;
     }
     //todo: cancel
-    public void setCost(ArrayList<TakeOrPaySomethingEffect> cost) {
+    public void setCost(ArrayList<TakeSomethingEffect> cost) {
         this.cost = cost;
     }
 

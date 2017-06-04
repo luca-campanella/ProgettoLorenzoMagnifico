@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.resource.Resource;
 /**
  * This effect allows you to take something if you have some cards
  */
-public class TakeOrPaySomethingConditionedOnCardEffect extends TakeOrPaySomethingEffect {
+public class TakeOrPaySomethingConditionedOnCardEffect extends TakeSomethingEffect {
     CardColorEnum colorConditionedOnCardEffect;
     int numberOfCards;
     public TakeOrPaySomethingConditionedOnCardEffect(Resource resource, CardColorEnum color, int numberOfCards){

@@ -32,7 +32,7 @@ public class JSONLoader {
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> immediateEffectAdapter = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "immediateEffect");
         immediateEffectAdapter.registerSubtype(NoEffect.class, "NoEffect");
-        immediateEffectAdapter.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
+        immediateEffectAdapter.registerSubtype(TakeSomethingEffect.class, "TakeSomethingEffect");
         immediateEffectAdapter.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
         immediateEffectAdapter.registerSubtype(TakeCardNoFamilyMemberEffect.class, "TakeCardNoFamilyMemberEffect");
         immediateEffectAdapter.registerSubtype(DiscountEffect.class, "DiscountEffect");
@@ -71,7 +71,7 @@ public class JSONLoader {
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
-        runtimeTypeAdapterFactory.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
+        runtimeTypeAdapterFactory.registerSubtype(TakeSomethingEffect.class, "TakeSomethingEffect");
         runtimeTypeAdapterFactory.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
@@ -92,7 +92,7 @@ public class JSONLoader {
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
-        runtimeTypeAdapterFactory.registerSubtype(TakeOrPaySomethingEffect.class, "TakeOrPaySomethingEffect");
+        runtimeTypeAdapterFactory.registerSubtype(TakeSomethingEffect.class, "TakeSomethingEffect");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 

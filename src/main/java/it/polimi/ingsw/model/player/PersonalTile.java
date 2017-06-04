@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeSomethingEffect;
 
 import java.util.ArrayList;
 
@@ -14,25 +14,25 @@ public class PersonalTile {
     /**
      * this arrayList is called every time a user builds with a diceValue of 1
      */
-    ArrayList<TakeOrPaySomethingEffect> effectOnBuild;
+    ArrayList<TakeSomethingEffect> effectOnBuild;
     /**
      * this arrayList is called every time a user harvests with a diceValue of 1
      */
-    ArrayList<TakeOrPaySomethingEffect> effectOnHarvest;
+    ArrayList<TakeSomethingEffect> effectOnHarvest;
 
-    public ArrayList<TakeOrPaySomethingEffect> getEffectOnBuild() {
+    public ArrayList<TakeSomethingEffect> getEffectOnBuild() {
         return effectOnBuild;
     }
 
-    public void setEffectOnBuild(ArrayList<TakeOrPaySomethingEffect> effectOnBuild) {
+    public void setEffectOnBuild(ArrayList<TakeSomethingEffect> effectOnBuild) {
         this.effectOnBuild = effectOnBuild;
     }
 
-    public ArrayList<TakeOrPaySomethingEffect> getEffectOnHarvest() {
+    public ArrayList<TakeSomethingEffect> getEffectOnHarvest() {
         return effectOnHarvest;
     }
 
-    public void setEffectOnHarvest(ArrayList<TakeOrPaySomethingEffect> effectOnHarvest) {
+    public void setEffectOnHarvest(ArrayList<TakeSomethingEffect> effectOnHarvest) {
         this.effectOnHarvest = effectOnHarvest;
     }
 }

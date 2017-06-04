@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.player;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.*;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeSomethingEffect;
 
 import java.util.LinkedList;
 
@@ -20,8 +20,8 @@ public class PersonalBoard {
     /**
      * the two following attributes represent the bonuses of the tiles near the personal board
      */
-    TakeOrPaySomethingEffect bonusTileHarvestEffect;
-    TakeOrPaySomethingEffect bonusTileBuildEffect;
+    TakeSomethingEffect bonusTileHarvestEffect;
+    TakeSomethingEffect bonusTileBuildEffect;
 
     public PersonalBoard() {
         territoryCards = new LinkedList<TerritoryCard>();
@@ -30,7 +30,7 @@ public class PersonalBoard {
         ventureCards = new LinkedList<VentureCard>();
     }
 
-    public void setTiles(TakeOrPaySomethingEffect bonusTileHarvestEffect, TakeOrPaySomethingEffect bonusTileBuildEffect) {
+    public void setTiles(TakeSomethingEffect bonusTileHarvestEffect, TakeSomethingEffect bonusTileBuildEffect) {
 
         this.bonusTileHarvestEffect = bonusTileHarvestEffect;
         this.bonusTileBuildEffect = bonusTileBuildEffect;
@@ -111,4 +111,5 @@ public class PersonalBoard {
 
         return null;
     }
+
 }

@@ -179,11 +179,21 @@ public abstract class Player {
         //TODO get bonus
     }*/
 
+    /**
+     * this method is called when a player harvests. It increments player's resources
+     * @param valueHarvest
+     */
     public void harvest(int valueHarvest){
+        this.getPersonalBoard().harvest(valueHarvest, this);
 
     }
 
+    /**
+     * this method allows a player to build.
+     * @param valueBuild
+     */
     public void build(int valueBuild){
+        this.getPersonalBoard().building(valueBuild, this);
 
     }
 

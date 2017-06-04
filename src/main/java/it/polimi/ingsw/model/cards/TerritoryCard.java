@@ -3,8 +3,6 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.PayForCouncilGiftEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
 

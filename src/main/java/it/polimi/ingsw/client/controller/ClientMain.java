@@ -14,7 +14,7 @@ import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeSomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -22,7 +22,6 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 /**
  * TODO: implement launcher
@@ -276,9 +275,9 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * @return The arraylist of effect chosen
      */
     @Override
-    public ArrayList<TakeOrPaySomethingEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
-        ArrayList<TakeOrPaySomethingEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
-        ArrayList<TakeOrPaySomethingEffect> choices = new ArrayList<>(numberDiffGifts);
+    public ArrayList<TakeSomethingEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
+        ArrayList<TakeSomethingEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
+        ArrayList<TakeSomethingEffect> choices = new ArrayList<>(numberDiffGifts);
         int choice;
 
         for(int i = 0; i < numberDiffGifts; i++) {
