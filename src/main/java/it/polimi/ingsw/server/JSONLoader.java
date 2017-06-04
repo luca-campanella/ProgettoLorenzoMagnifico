@@ -2,16 +2,12 @@ package it.polimi.ingsw.server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.effects.immediateEffects.*;
 import it.polimi.ingsw.model.effects.permanentEffects.*;
-import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.testingGSON.boardLoader.BoardCreator;
 import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 import it.polimi.ingsw.utils.Debug;
@@ -45,7 +41,7 @@ public class JSONLoader {
         immediateEffectAdapter.registerSubtype(BuildNoFamilyMembersEffect.class, "BuildNoFamilyMembersEffect");
         immediateEffectAdapter.registerSubtype(TakeOrPaySomethingConditionedEffect.class, "TakeOrPaySomethingConditionedEffect");
         immediateEffectAdapter.registerSubtype(PayForSomethingEffect.class, "PayForSomethingEffect");
-        immediateEffectAdapter.registerSubtype(PayForGiftEffect.class, "PayForGiftEffect");
+        immediateEffectAdapter.registerSubtype(PayForCouncilGiftEffect.class, "PayForCouncilGiftEffect");
 
         RuntimeTypeAdapterFactory<AbstractPermanentEffect> permanentEffectAdapter = RuntimeTypeAdapterFactory.of(AbstractPermanentEffect.class, "permanentEffect");
         permanentEffectAdapter.registerSubtype(BonusOnHarvestEffect.class, "BonusOnHarvestEffect");

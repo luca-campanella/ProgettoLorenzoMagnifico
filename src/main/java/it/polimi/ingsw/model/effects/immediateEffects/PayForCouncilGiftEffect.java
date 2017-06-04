@@ -10,9 +10,9 @@ import java.util.ArrayList;
  * This effect allows player to get a council gift, if they pay some resources.
  * example: 32
  */
-public class PayForGiftEffect extends AbstractPerformActionEffect {
+public class PayForCouncilGiftEffect extends AbstractPerformActionEffect {
     ArrayList<Resource> toPay;
-    public PayForGiftEffect( ArrayList<Resource> temp){
+    public PayForCouncilGiftEffect(ArrayList<Resource> temp){
         toPay = temp;
     }
 
