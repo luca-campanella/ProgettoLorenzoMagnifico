@@ -49,7 +49,7 @@ public class BuildingCard extends AbstractCard{
         //we should ask the user or the network package which effect he wants to activate
         ImmediateEffectInterface choice = choicesController.callbackOnYellowBuildingCardEffectChoice(getName(), effectsOnBuilding);
 
-        Debug.printVerbose("In yellow building card " + getName() + "got this choice " + choice.descriptionOfEffect());
+        Debug.printVerbose("In yellow build card " + getName() + "got this choice " + choice.descriptionOfEffect());
 
         //if the choice contains a council gift we should also ask the user what gift he desires
         if(choice instanceof PayForCouncilGiftEffect) {

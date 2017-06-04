@@ -86,7 +86,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
-
+    /**
+     * the registration on the player on the game, it put the infotmation on the database and inserts the player on the available room
+     */
     public void registerPlayer() {
 
         try {
@@ -110,9 +112,11 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
-
-
+    /**
+     * the login of the player on the game, it controls the information and, if the control is successful, inserts the player on the available room
+     */
     public void loginPlayer(){
+
         try {
             LoginOrRegisterPacket packet = (LoginOrRegisterPacket) inStream.readObject();
             serverMainInst.loginPlayer(packet.getNickname(), packet.getPassword());
@@ -135,10 +139,17 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             Debug.printError("network is not working",e);}
     }
 
-    public void moveInTower(){
+    /**
+     * receives the packet from socket of the move on tower and deliver the move to the room
+     */
+    public void placeOnTower(){
+
         try{
-            MoveInTowerPacket packet=(MoveInTowerPacket)inStream.readObject();
-            //TODO method in room
+
+            PlaceOnTowerPacket packet=(PlaceOnTowerPacket)inStream.readObject();
+            getRoom().placeOnTower(packet.getFamilyMember(), packet.getTowerIndex(), packet.getFloorIndex(), packet.getPlayersChoices());
+            outStream.writeObject(MoveErrorEnum.NO_ERROR);
+
         }
         catch (IllegalMoveException e){
             try{
@@ -154,11 +165,17 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     }
 
-    public void moveInMarket(){
+    /**
+     * receives the packet from socket of the move on market and deliver the move to the room
+     */
+    public void placeOnMarket(){
         try{
-            MoveInMarketPacket packet=(MoveInMarketPacket)inStream.readObject();
-            //TODO method in room
-        }
+
+            PlaceOnMarketPacket packet=(PlaceOnMarketPacket)inStream.readObject();
+            getRoom().placeOnMarket(packet.getFamilyMember(), packet.getMarketIndex(), packet.getPlayerChoices());
+            outStream.writeObject(MoveErrorEnum.NO_ERROR);
+
+    }
         catch (IllegalMoveException e){
             try{
                 outStream.writeObject(e.getErrorType());
@@ -173,10 +190,13 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     }
 
-    public void harvesting(){
+    /**
+     * receives the packet from socket of the move of harvesting and deliver the move to the room
+     */
+    public void harvest(){
         try{
             HarvestPacket packet=(HarvestPacket) inStream.readObject();
-            //TODO method
+            getRoom().harvest(packet.getFamilyMember(), packet.getServantUsed());
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
@@ -184,10 +204,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     }
 
-    public void building(){
+    public void build(){
         try{
             BuildPacket packet=(BuildPacket) inStream.readObject();
-            //TODO method
+            getRoom().build(packet.getFamilyMember(), packet.getServantUsed(), packet.getPlayerChoices());
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
@@ -195,6 +215,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     }
 
+    /**
+     * receives the packet from socket of the playing of a leader card and deliver the move to the room
+     */
     public void playCard(){
         try{
             PlayCardPacket packet=(PlayCardPacket)inStream.readObject();
@@ -209,6 +232,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
+    /**
+     * receives the packet from socket of the discarding of a leader card and deliver the move to the room
+     */
     public void discardCard(){
         try{
             DiscardCardPacket packet=(DiscardCardPacket)inStream.readObject();
@@ -230,7 +256,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void floodChatMsg(){
        try {
            String msg = (String) inStream.readObject();
-           getRoomContr().floodChatMsg(this,msg);
+           getRoom().floodChatMsg(this,msg);
        }
        catch(IOException | ClassNotFoundException e){
            Debug.printError("network is not working",e);
@@ -273,7 +299,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.MOVE_IN_TOWER);
-            outStream.writeObject(new MoveInTowerPacket(familyMember,towerIndex,floorIndex, playerChoices));
+            outStream.writeObject(new PlaceOnTowerPacket(familyMember,towerIndex,floorIndex, playerChoices));
             outStream.flush();
 
         }
@@ -295,7 +321,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.MOVE_IN_MARKET);
-            outStream.writeObject(new MoveInMarketPacket(familyMember, marketIndex));
+            outStream.writeObject(new PlaceOnMarketPacket(familyMember, marketIndex, playerChoices));
             outStream.flush();
 
         }
@@ -317,14 +343,14 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         try{
 
-            outStream.writeObject(PacketType.BUILDING);
+            outStream.writeObject(PacketType.BUILD);
             outStream.writeObject(new BuildPacket(familyMember,servant,playerChoices));
             outStream.flush();
 
         }
 
         catch (IOException e){
-            Debug.printError("network is not avaiable", e);
+            Debug.printError("network is not available", e);
             throw new NetworkException(e);
 
         }
@@ -338,7 +364,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         try{
 
-            outStream.writeObject(PacketType.HARVESTING);
+            outStream.writeObject(PacketType.HARVEST);
             outStream.writeObject(new HarvestPacket(familyMember,servant));
             outStream.flush();
 
@@ -352,8 +378,37 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     }
 
+    /**
+     * delver to the room the ending of a player's phase
+     */
     public void endPhase(){
-        //TODO call the room' s method to tell the player had ended his phase
+
+        try {
+            getRoom().endPhase(this);
+        }
+
+        catch (IllegalMoveException e){
+
+        }
+
+    }
+
+    public void receiveEndPhase(AbstractConnectionPlayer player) throws NetworkException{
+
+        try{
+
+            outStream.writeObject(PacketType.END_PHASE);
+            outStream.writeObject(new EndPhasePacket(player));
+            outStream.flush();
+
+        }
+        catch (IOException e){
+
+            Debug.printError("network is not available", e);
+            throw new NetworkException(e);
+
+        }
+
     }
 }
 
