@@ -51,6 +51,7 @@ public abstract class AbstractPermanentEffect {
 
         /**
          * This method returns if the player has immediate effects disabled on a certain level of towers
+         * This method will be overridden by {@link MalusDisabledImmediateEffectsEffect} to return the correct value
          * @param towerLevel the level of the tower to check if at that level the effects are disabled
          * @return false
          */
