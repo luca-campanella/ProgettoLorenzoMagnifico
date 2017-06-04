@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.UIControllerUserInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeSomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ abstract public class AbstractUIType {
      * @param options
      * @return the index of the selected option, the choice the user made
      */
-    public abstract int askCouncilGift(ArrayList<TakeSomethingEffect> options);
+    public abstract int askCouncilGift(ArrayList<GainSomethingEffect> options);
 
     /**
      * This method is called when a choice on which effect to activate in a yellow card should be perfomed by the ui

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.model.effects.immediateEffects.GainOrPayResourceConditionedEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingConditionedEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeSomethingEffect;
 
 import java.util.ArrayList;
 
@@ -12,9 +12,9 @@ import java.util.ArrayList;
 //todo: maybe victoryEndPoints are a resource and not a number -- Arto
 public class VentureCard extends AbstractCard{
     //purple cards have 2 costs, one is on resources
-    private ArrayList<TakeSomethingEffect> costChoiceResource;
+    private ArrayList<GainSomethingEffect> costChoiceResource;
     //the other on military points.
-    private ArrayList<TakeOrPaySomethingConditionedEffect> costChoiceMilitary;
+    private ArrayList<GainOrPayResourceConditionedEffect> costChoiceMilitary;
 
     private int victoryEndPoints;
 
@@ -28,7 +28,7 @@ public class VentureCard extends AbstractCard{
      * @return a list with all costs
      */
     public ArrayList<? extends ImmediateEffectInterface> getCost(){
-        ArrayList<TakeSomethingEffect> costFusion = new ArrayList<>();
+        ArrayList<GainSomethingEffect> costFusion = new ArrayList<>();
         if(costChoiceResource != null)
             costFusion.addAll(costChoiceResource);
         try {
@@ -39,19 +39,19 @@ public class VentureCard extends AbstractCard{
         }
             return  costFusion;
     }
-    public ArrayList<TakeSomethingEffect> getCostChoiceResource() {
+    public ArrayList<GainSomethingEffect> getCostChoiceResource() {
         return costChoiceResource;
     }
 
-    public void setCostChoiceResource(ArrayList<TakeSomethingEffect> costChoiceResource) {
+    public void setCostChoiceResource(ArrayList<GainSomethingEffect> costChoiceResource) {
         this.costChoiceResource = costChoiceResource;
     }
 
-    public ArrayList<TakeOrPaySomethingConditionedEffect> getCostChoiceMilitary() {
+    public ArrayList<GainOrPayResourceConditionedEffect> getCostChoiceMilitary() {
         return costChoiceMilitary;
     }
 
-    public void setCostChoiceMilitary(ArrayList<TakeOrPaySomethingConditionedEffect> costChoiceMilitary) {
+    public void setCostChoiceMilitary(ArrayList<GainOrPayResourceConditionedEffect> costChoiceMilitary) {
         this.costChoiceMilitary = costChoiceMilitary;
     }
 

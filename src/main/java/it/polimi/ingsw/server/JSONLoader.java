@@ -32,14 +32,14 @@ public class JSONLoader {
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> immediateEffectAdapter = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "immediateEffect");
         immediateEffectAdapter.registerSubtype(NoEffect.class, "NoEffect");
-        immediateEffectAdapter.registerSubtype(TakeSomethingEffect.class, "TakeSomethingEffect");
+        immediateEffectAdapter.registerSubtype(GainSomethingEffect.class, "GainSomethingEffect");
         immediateEffectAdapter.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
         immediateEffectAdapter.registerSubtype(TakeCardNoFamilyMemberEffect.class, "TakeCardNoFamilyMemberEffect");
         immediateEffectAdapter.registerSubtype(DiscountEffect.class, "DiscountEffect");
-        immediateEffectAdapter.registerSubtype(TakeOrPaySomethingConditionedOnCardEffect.class, "TakeOrPaySomethingConditionedOnCardEffect");
+        immediateEffectAdapter.registerSubtype(GainResourceConditionedOnCardEffect.class, "GainResourceConditionedOnCardEffect");
         immediateEffectAdapter.registerSubtype(HarvestNoFamilyMembersEffect.class, "HarvestNoFamilyMembersEffect");
         immediateEffectAdapter.registerSubtype(BuildNoFamilyMembersEffect.class, "BuildNoFamilyMembersEffect");
-        immediateEffectAdapter.registerSubtype(TakeOrPaySomethingConditionedEffect.class, "TakeOrPaySomethingConditionedEffect");
+        immediateEffectAdapter.registerSubtype(GainOrPayResourceConditionedEffect.class, "GainOrPayResourceConditionedEffect");
         immediateEffectAdapter.registerSubtype(PayForSomethingEffect.class, "PayForSomethingEffect");
         immediateEffectAdapter.registerSubtype(PayForCouncilGiftEffect.class, "PayForCouncilGiftEffect");
 
@@ -71,7 +71,7 @@ public class JSONLoader {
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
-        runtimeTypeAdapterFactory.registerSubtype(TakeSomethingEffect.class, "TakeSomethingEffect");
+        runtimeTypeAdapterFactory.registerSubtype(GainSomethingEffect.class, "GainSomethingEffect");
         runtimeTypeAdapterFactory.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
@@ -92,7 +92,7 @@ public class JSONLoader {
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
-        runtimeTypeAdapterFactory.registerSubtype(TakeSomethingEffect.class, "TakeSomethingEffect");
+        runtimeTypeAdapterFactory.registerSubtype(GainSomethingEffect.class, "GainSomethingEffect");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 

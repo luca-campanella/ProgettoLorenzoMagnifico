@@ -8,10 +8,12 @@ import it.polimi.ingsw.model.resource.Resource;
 /**
  * This effect allows you to take something if you have some cards
  */
-public class TakeOrPaySomethingConditionedOnCardEffect extends TakeSomethingEffect {
+public class GainResourceConditionedOnCardEffect extends GainSomethingEffect {
     CardColorEnum colorConditionedOnCardEffect;
+    //instead of 2 points victory for 1 card, we could have 1 point victory for 2 cards
+    //it could also be 2x3 cards...
     int numberOfCards;
-    public TakeOrPaySomethingConditionedOnCardEffect(Resource resource, CardColorEnum color, int numberOfCards){
+    public GainResourceConditionedOnCardEffect(Resource resource, CardColorEnum color, int numberOfCards){
         super(resource);
         this.colorConditionedOnCardEffect = color;
     }
@@ -24,14 +26,12 @@ public class TakeOrPaySomethingConditionedOnCardEffect extends TakeSomethingEffe
         //first you get the number of sameColoredCards
         int numberOfColoredCards = player.getNumberOfColoredCard(colorConditionedOnCardEffect);
         int i;
-        for(i = 0; i<numberOfColoredCards;) {
-            //todo: qua posso chiamare il super?
+        for(i = 0; i<numberOfColoredCards; i += numberOfCards) {
             super.applyToPlayer(player, choicesHandlerInterface);
-            i += numberOfCards;
         }
     }
     public String descriptionOfEffect(){
-        return "This method gives to the player a dice that he can use and place somewhere" + resource.getResourceShortDescript();
+        return "This effect gives you some resources " + resource.getResourceShortDescript() + " if you have " + numberOfCards + " of this " + colorConditionedOnCardEffect;
     }
     public String descriptionShortOfEffect(){
         return resource.getResourceShortDescript() + " x " + numberOfCards + " " + colorConditionedOnCardEffect.getCardColor();

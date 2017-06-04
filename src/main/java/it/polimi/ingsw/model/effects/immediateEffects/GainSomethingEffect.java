@@ -7,9 +7,9 @@ import it.polimi.ingsw.model.resource.Resource;
 /**
  * This methods gives or let players pay resources.
  */
-public class TakeSomethingEffect implements ImmediateEffectInterface {
+public class GainSomethingEffect implements ImmediateEffectInterface {
     Resource resource;
-    public TakeSomethingEffect(Resource resource){
+    public GainSomethingEffect(Resource resource){
         this.resource = resource;
     }
 

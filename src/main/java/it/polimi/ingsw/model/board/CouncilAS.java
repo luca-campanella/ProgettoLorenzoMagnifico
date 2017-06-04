@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.TakeSomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class CouncilAS extends AbstractActionSpace {
      */
     private ArrayList<FamilyMember> familyMembers;
     ArrayList<ImmediateEffectInterface> effectsOnPlacement;
-    ArrayList<TakeSomethingEffect> councilGiftChoices;
+    ArrayList<GainSomethingEffect> councilGiftChoices;
 
     public CouncilAS(){
 
@@ -65,11 +65,11 @@ public class CouncilAS extends AbstractActionSpace {
 
     }
 
-    public ArrayList<TakeSomethingEffect> getCouncilGiftChoices() {
+    public ArrayList<GainSomethingEffect> getCouncilGiftChoices() {
         return councilGiftChoices;
     }
 
-    public void setCouncilGiftChoices(ArrayList<TakeSomethingEffect> councilGiftChoices) {
+    public void setCouncilGiftChoices(ArrayList<GainSomethingEffect> councilGiftChoices) {
         this.councilGiftChoices = councilGiftChoices;
     }
 }

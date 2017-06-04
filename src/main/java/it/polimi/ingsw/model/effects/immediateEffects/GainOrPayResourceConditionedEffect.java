@@ -7,12 +7,12 @@ import it.polimi.ingsw.model.resource.Resource;
 /**
  * This effect allows you to take something if you have some resources
  */
-public class TakeOrPaySomethingConditionedEffect extends TakeSomethingEffect {
+public class GainOrPayResourceConditionedEffect extends GainSomethingEffect {
     //this condition is positive. But also the effective cost of the card is positive
     //this is coherent with all costs management.
     //Costs is something you need to pay in order to get the card.
     private Resource condition;
-    public TakeOrPaySomethingConditionedEffect(Resource resource, Resource condition)
+    public GainOrPayResourceConditionedEffect(Resource resource, Resource condition)
     {
         super(resource);
         this.condition = condition;

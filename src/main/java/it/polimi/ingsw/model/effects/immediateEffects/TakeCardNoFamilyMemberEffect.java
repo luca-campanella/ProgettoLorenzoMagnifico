@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class TakeCardNoFamilyMemberEffect extends AbstractPerformActionEffect {
     private int diceValueOnTower;
     private ArrayList<CardColorEnum> towerColorsAllowed;
+    //private ArrayList<...>
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
        // todo: choicesHandlerInterface.callbackOnTakeCard(diceValueOnTower, towerColorsAllowed, SCONTO? )
