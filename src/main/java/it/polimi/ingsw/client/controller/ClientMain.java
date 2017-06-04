@@ -12,6 +12,8 @@ import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
@@ -194,7 +196,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      */
     private void initialActionsOnPlayerMove() {
         choicesOnCurrentAction = new HashMap<>();
-        
+
     }
 
     /**
@@ -247,12 +249,9 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         since Integer types are immutable
          */
 
-        HashMap<ResourceTypeEnum, Integer> controlHashMap = new HashMap<ResourceTypeEnum, Integer>(familyMember.getPlayer().getResourcesMap());
-        /*LinkedList<ChoiceContainer> choices;
+        resourcesCheckHashmap = new HashMap<ResourceTypeEnum, Integer>(familyMember.getPlayer().getResourcesMap());
 
-        choices = modelController.getChoicesOnBuild(familyMember, servants);*/
-
-        LinkedList<BuildingCard> buildingCards = modelController.getYellowBuildingCards(familyMember.getPlayer());
+        /*LinkedList<BuildingCard> buildingCards = modelController.getYellowBuildingCards(familyMember.getPlayer());
         ArrayList<ImmediateEffectInterface> effects;
 
         for(BuildingCard cardIter : buildingCards) {
@@ -261,7 +260,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
 
             }
 
-        }
+        }*/
 
 
     }
@@ -295,6 +294,8 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     /**
      * Callback from model to controller
      * The model uses this method when encounters a {@link BuildingCard} with more than one effects and wants to make the user choose which one activate
+     * This callback should be called even if the user has no choices, because it also performs resource checks
+     * If in these chacks it understands no effect can be chosen then it returns a {@link NoEffect} class and puts the choice in the hashmap to -1
      * This implementation calls the view and asks what the user wants to choose
      * The UI should perform a <b>blocking</b> question to the user and return directly to this method
      * @param choiceCode
@@ -304,9 +305,56 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     @Override
     public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String choiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
 
-        int choice = userInterface.askYellowBuildingCardEffectChoice(possibleEffectChoices);
+        //We will make a copy of the arraylist beacuse we have to remove some objects that cannot be chosen from the user
+        ArrayList<ImmediateEffectInterface> realPossibleEffectChoices = new ArrayList<>(possibleEffectChoices.size());
+        ImmediateEffectInterface effectIter;
+        //we check if the user has left sufficient resources to perform this effect
+        for(int i = 0; i < possibleEffectChoices.size(); i++) {
+            effectIter = possibleEffectChoices.get(i);
+            if(effectIter instanceof PayForSomethingEffect) {
+                if(!checkIfPayable(resourcesCheckHashmap, ((PayForSomethingEffect) effectIter).getToPay()))
+                    continue; //we should not add the option because the player doesn't have enough resources
+            }
+            realPossibleEffectChoices.add(effectIter);
+        }
+
+        int choice;
+        ImmediateEffectInterface effectChosen;
+
+        //if there's no possibility left or one possibility the choice isalready made, no need to ask the user
+        if(possibleEffectChoices.size() == 0)
+        {
+            choice = -1;
+            effectChosen = new NoEffect();
+        }
+        else if(possibleEffectChoices.size() == 1) {
+            effectChosen = realPossibleEffectChoices.get(1);
+            choice = possibleEffectChoices.indexOf(effectChosen);
+        }
+        else { //there are possible choices: let's ask the UI what to chose
+            int tmpChoice = userInterface.askYellowBuildingCardEffectChoice(possibleEffectChoices);
+            effectChosen = realPossibleEffectChoices.get(tmpChoice);
+            choice = possibleEffectChoices.indexOf(effectChosen);
+        }
+
         choicesOnCurrentAction.put(choiceCode, choice);
-        return possibleEffectChoices.get(choice);
+        return effectChosen;
+    }
+
+
+    /**
+     * This method checks if the user has sufficient resources to play for that effect, mostly used for {@link PayForSomethingEffect} checks
+     * @param resMap The hashmap of the resources of the player
+     * @param resToPay the arraylist of the resources he has to pay
+     * @return if he can pay them or not
+     */
+    private boolean checkIfPayable(HashMap<ResourceTypeEnum, Integer> resMap, ArrayList<Resource> resToPay) {
+        for(Resource resIter : resToPay) {
+            if(resMap.get(resIter.getType()) < resIter.getValue())
+                return false;
+        }
+
+        return true;
     }
 }
 

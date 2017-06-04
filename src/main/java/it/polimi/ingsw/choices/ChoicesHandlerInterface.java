@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  * This interface is used for the callbacks from the model to the controller
- * It will be implemented by two possibile objects, one that asks the choices to the user (client side)
+ * It will be implemented by two possible objects, one that asks the choices to the user (client side)
  * and the other one that reads the choices from a data structure (server side and client when not in turn)
  */
 public interface ChoicesHandlerInterface {

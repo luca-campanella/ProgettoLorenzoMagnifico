@@ -99,6 +99,7 @@ public abstract class Player {
         }
 
     }
+
     //TODO: we need to put Cards Containers in Player and then implement this method.
     public int getNumberOfColoredCard(CardColorEnum color)
     {
