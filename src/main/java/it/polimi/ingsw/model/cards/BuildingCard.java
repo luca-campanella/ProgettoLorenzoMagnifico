@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.PayForCouncilGiftEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -50,8 +51,12 @@ public class BuildingCard extends AbstractCard{
 
         Debug.printVerbose("In yellow building card " + getName() + "got this choice " + choice.descriptionOfEffect());
 
+        //if the choice contains a council gift we should also ask the user what gift he desires
+        if(choice instanceof PayForCouncilGiftEffect) {
+            ArrayList<TakeOrPaySomethingEffect> councilGiftChoice = choicesController.callbackOnCoucilGift(getName() + ":councilGift", 1);
+            councilGiftChoice.get(0).applyToPlayer(player, choicesController);
+        }
         choice.applyToPlayer(player, choicesController);
-
     }
 
     public ArrayList<TakeOrPaySomethingEffect> getCost() {
