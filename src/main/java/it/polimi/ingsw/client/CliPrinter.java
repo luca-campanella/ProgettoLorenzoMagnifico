@@ -151,7 +151,6 @@ public class CliPrinter {
     {
         String tempCostsScene = "| Second: ";
         tempCostsScene += floor.getCard().secondEffect();
-
         //Here i fit my string to the scene.. |
         while(tempCostsScene.length()< INSIDE_TOWER_LENGHT+1)
             tempCostsScene += " ";

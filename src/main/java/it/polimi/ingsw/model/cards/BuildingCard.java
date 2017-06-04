@@ -4,6 +4,7 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForCouncilGiftEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
@@ -18,7 +19,7 @@ public class BuildingCard extends AbstractCard{
     /**
      * The array list of the cost to pay when taking the card
      */
-    private ArrayList<GainResourceEffect> cost;
+    private ArrayList<PayResourceEffect> cost;
 
     /**
      * the array list of effects called when a Building action is perfomed.
@@ -59,11 +60,11 @@ public class BuildingCard extends AbstractCard{
         choice.applyToPlayer(player, choicesController);
     }
 
-    public ArrayList<GainResourceEffect> getCost() {
+    public ArrayList<PayResourceEffect> getCost() {
         return cost;
     }
     //todo: cancel
-    public void setCost(ArrayList<GainResourceEffect> cost) {
+    public void setCost(ArrayList<PayResourceEffect> cost) {
         this.cost = cost;
     }
 
