@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.effects.immediateEffects.GainOrPayResourceConditionedEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 //todo: maybe victoryEndPoints are a resource and not a number -- Arto
 public class VentureCard extends AbstractCard{
     //purple cards have 2 costs, one is on resources
-    private ArrayList<GainSomethingEffect> costChoiceResource;
+    private ArrayList<GainResourceEffect> costChoiceResource;
     //the other on military points.
     private ArrayList<GainOrPayResourceConditionedEffect> costChoiceMilitary;
 
@@ -28,7 +28,7 @@ public class VentureCard extends AbstractCard{
      * @return a list with all costs
      */
     public ArrayList<? extends ImmediateEffectInterface> getCost(){
-        ArrayList<GainSomethingEffect> costFusion = new ArrayList<>();
+        ArrayList<GainResourceEffect> costFusion = new ArrayList<>();
         if(costChoiceResource != null)
             costFusion.addAll(costChoiceResource);
         try {
@@ -39,11 +39,11 @@ public class VentureCard extends AbstractCard{
         }
             return  costFusion;
     }
-    public ArrayList<GainSomethingEffect> getCostChoiceResource() {
+    public ArrayList<GainResourceEffect> getCostChoiceResource() {
         return costChoiceResource;
     }
 
-    public void setCostChoiceResource(ArrayList<GainSomethingEffect> costChoiceResource) {
+    public void setCostChoiceResource(ArrayList<GainResourceEffect> costChoiceResource) {
         this.costChoiceResource = costChoiceResource;
     }
 

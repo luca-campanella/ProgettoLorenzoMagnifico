@@ -4,7 +4,7 @@
       "harvestEffectValue": 1,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 1
@@ -23,7 +23,7 @@
       "harvestEffectValue": 2,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 1
@@ -34,7 +34,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 1
@@ -46,14 +46,14 @@
       "harvestEffectValue": 3,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 1
@@ -72,7 +72,7 @@
       "harvestEffectValue": 4,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 2
@@ -83,7 +83,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 2
@@ -95,7 +95,7 @@
       "harvestEffectValue": 5,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 3
@@ -106,7 +106,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 1
@@ -118,14 +118,14 @@
       "harvestEffectValue": 6,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 1
@@ -136,14 +136,14 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 2
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 1
@@ -155,14 +155,14 @@
       "harvestEffectValue": 5,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 2
@@ -189,7 +189,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 3
@@ -201,7 +201,7 @@
       "harvestEffectValue": 1,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 2
@@ -212,7 +212,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 1
@@ -224,14 +224,14 @@
       "harvestEffectValue": 3,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 2
@@ -242,7 +242,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 1
@@ -254,14 +254,14 @@
       "harvestEffectValue": 4,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 2
@@ -272,14 +272,14 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 2
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 1
@@ -291,7 +291,7 @@
       "harvestEffectValue": 3,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 3
@@ -302,7 +302,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 1
@@ -314,14 +314,14 @@
       "harvestEffectValue": 4,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 2
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 1
@@ -332,14 +332,14 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 2
@@ -351,7 +351,7 @@
       "harvestEffectValue": 2,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
@@ -362,7 +362,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
@@ -374,14 +374,14 @@
       "harvestEffectValue": 5,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 2
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 2
@@ -400,21 +400,21 @@
       "harvestEffectValue": 6,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 2
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 1
@@ -425,7 +425,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 4
@@ -437,7 +437,7 @@
       "harvestEffectValue": 1,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 3
@@ -448,14 +448,14 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 1
@@ -467,14 +467,14 @@
       "harvestEffectValue": 3,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 2
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 2
@@ -485,14 +485,14 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 1
@@ -504,14 +504,14 @@
       "harvestEffectValue": 5,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 4
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 1
@@ -522,7 +522,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 2
@@ -534,14 +534,14 @@
       "harvestEffectValue": 2,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 2
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 1
@@ -552,7 +552,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 3
@@ -564,14 +564,14 @@
       "harvestEffectValue": 6,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 4
@@ -582,7 +582,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 1
@@ -598,14 +598,14 @@
       "harvestEffectValue": 1,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
@@ -616,7 +616,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
@@ -628,14 +628,14 @@
       "harvestEffectValue": 4,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 3
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 1
@@ -646,14 +646,14 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 2
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 2
@@ -665,14 +665,14 @@
       "harvestEffectValue": 2,
       "effectsOnHarvest": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 1
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 2
@@ -683,14 +683,14 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 2
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 1
@@ -724,7 +724,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 3
@@ -882,7 +882,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 4
@@ -908,7 +908,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
@@ -944,7 +944,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 2
@@ -1132,7 +1132,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 3
@@ -1180,7 +1180,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
           "colorConditionedOnCardEffect": "GREEN",
           "numberOfCards": 1,
           "resource": {
@@ -1208,7 +1208,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
           "colorConditionedOnCardEffect": "YELLOW",
           "numberOfCards": 1,
           "resource": {
@@ -1234,7 +1234,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
           "colorConditionedOnCardEffect": "BLUE",
           "numberOfCards": 3,
           "resource": {
@@ -1262,7 +1262,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
           "colorConditionedOnCardEffect": "PURPLE",
           "numberOfCards": 1,
           "resource": {
@@ -1289,7 +1289,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 4
@@ -1319,7 +1319,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 4
@@ -1348,7 +1348,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
             "value": 2
@@ -1413,7 +1413,7 @@
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
           "colorConditionedOnCardEffect": "YELLOW",
           "numberOfCards": 1,
           "resource": {
@@ -1427,7 +1427,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 5
@@ -1452,7 +1452,7 @@
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
           "colorConditionedOnCardEffect": "GREEN",
           "numberOfCards": 1,
           "resource": {
@@ -1466,7 +1466,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 5
@@ -1491,7 +1491,7 @@
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
           "colorConditionedOnCardEffect": "PURPLE",
           "numberOfCards": 1,
           "resource": {
@@ -1505,7 +1505,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 6
@@ -1530,7 +1530,7 @@
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedOnCardEffect",
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
           "colorConditionedOnCardEffect": "BLUE",
           "numberOfCards": 1,
           "resource": {
@@ -1544,7 +1544,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 6
@@ -1603,7 +1603,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 3
@@ -1662,7 +1662,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 3
@@ -1719,7 +1719,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
@@ -1751,7 +1751,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 1
@@ -1799,7 +1799,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 3
@@ -1852,7 +1852,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 4
@@ -1905,7 +1905,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 5
@@ -1958,7 +1958,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 6
@@ -2010,7 +2010,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 4
@@ -2052,13 +2052,13 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 2
           }
         },{
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
@@ -2102,7 +2102,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 3
@@ -2132,14 +2132,14 @@
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 2
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 2
@@ -2152,7 +2152,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 8
@@ -2181,7 +2181,7 @@
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 5
@@ -2193,7 +2193,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 7
@@ -2240,7 +2240,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 8
@@ -2270,7 +2270,7 @@
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 10
@@ -2282,7 +2282,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 10
@@ -2312,7 +2312,7 @@
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 2
@@ -2328,7 +2328,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 9
@@ -2382,7 +2382,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 9
@@ -2426,14 +2426,14 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 5
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 2
@@ -2487,7 +2487,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 7
@@ -2511,7 +2511,7 @@
       ],
       "effectsOnBuilding": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 1
@@ -2523,14 +2523,14 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "VICTORY_POINT",
             "value": 7
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 3
@@ -2554,7 +2554,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 5
@@ -2589,7 +2589,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
@@ -2616,7 +2616,7 @@
           "numberOfCouncilGift" : 1
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 2
@@ -2654,7 +2654,7 @@
     {
       "costChoiceMilitary": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
             "value": 3
@@ -2670,7 +2670,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 3
@@ -2694,7 +2694,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 4
@@ -2707,7 +2707,7 @@
     {
       "costChoiceMilitary": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
             "value": 5
@@ -2723,7 +2723,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 2
@@ -2756,7 +2756,7 @@
       ],
       "costChoiceMilitary": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
             "value": 4
@@ -2772,7 +2772,7 @@
       "period": 1,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 3
@@ -2796,7 +2796,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 6
@@ -2832,7 +2832,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 2
@@ -2860,7 +2860,7 @@
           "numberOfCouncilGift" : 1
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 3
@@ -2873,7 +2873,7 @@
     {
       "costChoiceMilitary": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
             "value": 6
@@ -2893,7 +2893,7 @@
           "numberOfCouncilGift" : 1
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 5
@@ -2944,7 +2944,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 5
@@ -2957,7 +2957,7 @@
     {
       "costChoiceMilitary": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
             "value": 8
@@ -2972,14 +2972,14 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 5
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
@@ -3011,7 +3011,7 @@
       ],
       "costChoiceMilitary": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
             "value": 7
@@ -3027,7 +3027,7 @@
       "period": 2,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value":3
@@ -3052,7 +3052,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 7
@@ -3088,7 +3088,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 1
@@ -3125,7 +3125,7 @@
         {
           "immediateEffect": "GiveCouncilGiftEffect"},
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 4
@@ -3149,7 +3149,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 3
@@ -3162,7 +3162,7 @@
     {
       "costChoiceMilitary": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
             "value": 12
@@ -3178,21 +3178,21 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 3
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "WOOD",
             "value": 3
           }
         },
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "STONE",
             "value": 3
@@ -3231,7 +3231,7 @@
     {
       "costChoiceMilitary": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
             "value": 15
@@ -3247,7 +3247,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 4
@@ -3280,7 +3280,7 @@
       ],
       "costChoiceMilitary": [
         {
-          "immediateEffect": "TakeOrPaySomethingConditionedEffect",
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
           "condition": {
             "type": "MILITARY_POINT",
             "value": 10
@@ -3296,7 +3296,7 @@
       "period": 3,
       "immediateEffect": [
         {
-          "immediateEffect": "TakeSomethingEffect",
+          "immediateEffect": "GainResourceEffect",
           "resource": {
             "type": "FAITH_POINT",
             "value": 2

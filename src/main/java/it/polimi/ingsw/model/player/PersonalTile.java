@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 
 import java.util.ArrayList;
 
@@ -14,25 +14,25 @@ public class PersonalTile {
     /**
      * this arrayList is called every time a user builds with a diceValue of 1
      */
-    ArrayList<GainSomethingEffect> effectOnBuild;
+    ArrayList<GainResourceEffect> effectOnBuild;
     /**
      * this arrayList is called every time a user harvests with a diceValue of 1
      */
-    ArrayList<GainSomethingEffect> effectOnHarvest;
+    ArrayList<GainResourceEffect> effectOnHarvest;
 
-    public ArrayList<GainSomethingEffect> getEffectOnBuild() {
+    public ArrayList<GainResourceEffect> getEffectOnBuild() {
         return effectOnBuild;
     }
 
-    public void setEffectOnBuild(ArrayList<GainSomethingEffect> effectOnBuild) {
+    public void setEffectOnBuild(ArrayList<GainResourceEffect> effectOnBuild) {
         this.effectOnBuild = effectOnBuild;
     }
 
-    public ArrayList<GainSomethingEffect> getEffectOnHarvest() {
+    public ArrayList<GainResourceEffect> getEffectOnHarvest() {
         return effectOnHarvest;
     }
 
-    public void setEffectOnHarvest(ArrayList<GainSomethingEffect> effectOnHarvest) {
+    public void setEffectOnHarvest(ArrayList<GainResourceEffect> effectOnHarvest) {
         this.effectOnHarvest = effectOnHarvest;
     }
 }

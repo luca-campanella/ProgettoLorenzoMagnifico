@@ -27,7 +27,7 @@
           "diceRequirement": 5,
           "effects": [
             {
-              "effectName": "TakeSomethingEffect",
+              "effectName": "GainResourceEffect",
               "resource": {
                 "type": "WOOD",
                 "value": 1
@@ -39,7 +39,7 @@
           "diceRequirement": 7,
           "effects": [
             {
-              "effectName": "TakeSomethingEffect",
+              "effectName": "GainResourceEffect",
               "resource": {
                 "type": "WOOD",
                 "value": 2
@@ -73,7 +73,7 @@
           "diceRequirement": 5,
           "effects": [
             {
-              "effectName": "TakeSomethingEffect",
+              "effectName": "GainResourceEffect",
               "resource": {
                 "type": "STONE",
                 "value": 1
@@ -85,7 +85,7 @@
           "diceRequirement": 7,
           "effects": [
             {
-              "effectName": "TakeSomethingEffect",
+              "effectName": "GainResourceEffect",
               "resource": {
                 "type": "STONE",
                 "value": 2
@@ -119,7 +119,7 @@
           "diceRequirement": 5,
           "effects": [
             {
-              "effectName": "TakeSomethingEffect",
+              "effectName": "GainResourceEffect",
               "resource": {
                 "type": "MILITARY_POINT",
                 "value": 1
@@ -131,7 +131,7 @@
           "diceRequirement": 7,
           "effects": [
             {
-              "effectName": "TakeSomethingEffect",
+              "effectName": "GainResourceEffect",
               "resource": {
                 "type": "MILITARY_POINT",
                 "value": 2
@@ -165,7 +165,7 @@
           "diceRequirement": 5,
           "effects": [
             {
-              "effectName": "TakeSomethingEffect",
+              "effectName": "GainResourceEffect",
               "resource": {
                 "type": "COIN",
                 "value": 1
@@ -177,7 +177,7 @@
           "diceRequirement": 7,
           "effects": [
             {
-              "effectName": "TakeSomethingEffect",
+              "effectName": "GainResourceEffect",
               "resource": {
                 "type": "COIN",
                 "value": 2
@@ -193,7 +193,7 @@
       "diceRequirement": 1,
       "effects": [
         {
-          "effectName": "TakeSomethingEffect",
+          "effectName": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 5
@@ -205,7 +205,7 @@
       "diceRequirement": 1,
       "effects": [
         {
-          "effectName": "TakeSomethingEffect",
+          "effectName": "GainResourceEffect",
           "resource": {
             "type": "SERVANT",
             "value": 5
@@ -217,14 +217,14 @@
       "diceRequirement": 1,
       "effects": [
         {
-          "effectName": "TakeSomethingEffect",
+          "effectName": "GainResourceEffect",
           "resource": {
             "type": "MILITARY_POINT",
             "value": 3
           }
         },
         {
-          "effectName": "TakeSomethingEffect",
+          "effectName": "GainResourceEffect",
           "resource": {
             "type": "COIN",
             "value": 2
@@ -266,7 +266,7 @@
     "diceRequirement": 1,
     "effectsOnPlacement": [
       {
-        "effectName": "TakeSomethingEffect",
+        "effectName": "GainResourceEffect",
         "resource": {
           "type": "COIN",
           "value": 1
@@ -278,31 +278,31 @@
     ],
     "councilGiftChoices" : [
       {
-        "effectName": "TakeSomethingEffect",
+        "effectName": "GainResourceEffect",
         "resource": {
           "type": "COIN",
           "value": 2
         }
       },{
-        "effectName": "TakeSomethingEffect",
+        "effectName": "GainResourceEffect",
         "resource": {
           "type": "SERVANT",
           "value": 2
         }
       },{
-        "effectName": "TakeSomethingEffect",
+        "effectName": "GainResourceEffect",
         "resource": {
           "type": "MILITARY_POINT",
           "value": 2
         }
       },{
-        "effectName": "TakeSomethingEffect",
+        "effectName": "GainResourceEffect",
         "resource": {
           "type": "FAITH_POINT",
           "value": 1
         }
       },{
-        "effectName": "TakeSomethingEffect",
+        "effectName": "GainResourceEffect",
         "resource": {
           "type": "WOOD",
           "value": 1

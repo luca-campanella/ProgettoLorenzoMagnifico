@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards;
 
-import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 public class CharacterCard extends AbstractCard {
     //blue cards have a cost (usually they cost coins)
-    private ArrayList<GainSomethingEffect> cost;
+    private ArrayList<PayResourceEffect> cost;
     //and a permanent effect, that buffs players actions
     ArrayList<AbstractPermanentEffect> permanentEffect;
 
@@ -20,11 +21,11 @@ public class CharacterCard extends AbstractCard {
         return true;
     }
 
-    public ArrayList<GainSomethingEffect> getCost() {
+    public ArrayList<PayResourceEffect> getCost() {
         return cost;
     }
 
-    public void setCost(ArrayList<GainSomethingEffect> cost) {
+    public void setCost(ArrayList<PayResourceEffect> cost) {
         this.cost = cost;
     }
 

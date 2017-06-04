@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.CliPrinter;
 import it.polimi.ingsw.model.board.*;
-import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.GiveCouncilGiftEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
@@ -28,7 +28,7 @@ public class BoardCreator {
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
-        runtimeTypeAdapterFactory.registerSubtype(GainSomethingEffect.class, "GainSomethingEffect");
+        runtimeTypeAdapterFactory.registerSubtype(GainResourceEffect.class, "GainResourceEffect");
         runtimeTypeAdapterFactory.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
@@ -65,8 +65,8 @@ public class BoardCreator {
         {
             //tfas = new TowerFloorAS();
             //tfas.addEffect(new NoEffect());
-            tfas.addEffect(new GainSomethingEffect(new Resource(ResourceTypeEnum.COIN, 10)));
-            //tfas.addEffect(new GainSomethingEffect(new Resource(ResourceTypeEnum.WOOD, 4)));
+            tfas.addEffect(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN, 10)));
+            //tfas.addEffect(new GainResourceEffect(new Resource(ResourceTypeEnum.WOOD, 4)));
             floorsArray[i] = tfas;
         }
         tower.setFloors(floorsArray);
@@ -81,8 +81,8 @@ public class BoardCreator {
     private static MarketAS getMarketASForTest() {
         MarketAS marketAS = new MarketAS();
         marketAS.addEffect(new NoEffect());
-        marketAS.addEffect(new GainSomethingEffect(new Resource(ResourceTypeEnum.COIN, 10)));
-        //marketAS.addEffect(new GainSomethingEffect(new Resource(ResourceTypeEnum.WOOD, 4)));
+        marketAS.addEffect(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN, 10)));
+        //marketAS.addEffect(new GainResourceEffect(new Resource(ResourceTypeEnum.WOOD, 4)));
 
         return marketAS;
     }
@@ -109,8 +109,8 @@ public class BoardCreator {
         harvestAS.addEffect(new NoEffect());
 
         CouncilAS councilAS = new CouncilAS();
-        councilAS.addEffect(new GainSomethingEffect(new Resource(ResourceTypeEnum.COIN, 10)));
-        councilAS.addEffect(new GainSomethingEffect(new Resource(ResourceTypeEnum.COIN, 10)));
+        councilAS.addEffect(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN, 10)));
+        councilAS.addEffect(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN, 10)));
 
         VaticanReport vaticanReport = new VaticanReport(new int[VaticanReport.NUMBER_OF_AGES], new int[VaticanReport.WALK_OF_FAITH]);
 
