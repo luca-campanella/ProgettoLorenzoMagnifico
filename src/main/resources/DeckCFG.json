@@ -703,10 +703,11 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 2
-          }
+        }
         }
       ],
       "permanentEffect": [
@@ -735,7 +736,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 4
           }
@@ -766,7 +768,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 4
           }
@@ -822,7 +825,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 3
           }
@@ -845,7 +849,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 3
           }
@@ -867,7 +872,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 2
           }
@@ -893,7 +899,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 3
           }
@@ -929,7 +936,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 4
           }
@@ -963,7 +971,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 4
           }
@@ -1004,7 +1013,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 3
           }
@@ -1041,7 +1051,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 4
           }
@@ -1072,7 +1083,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 4
           }
@@ -1095,7 +1107,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 4
           }
@@ -1117,7 +1130,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 5
           }
@@ -1143,7 +1157,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 5
           }
@@ -1165,7 +1180,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 6
           }
@@ -1193,7 +1209,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 6
           }
@@ -1220,7 +1237,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 7
           }
@@ -1247,7 +1265,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 6
           }
@@ -1274,7 +1293,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 4
           }
@@ -1304,9 +1324,10 @@
     {
       "cost": [
         {
-          "resource": {
-            "type": "WOOD",
-            "value": 6
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
+            "type": "COIN",
+            "value": 5
           }
         }
       ],
@@ -1333,7 +1354,8 @@
     },{
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 5
           }
@@ -1363,7 +1385,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 6
           }
