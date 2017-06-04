@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.controller;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.HarvestAS;
@@ -33,6 +34,12 @@ public class ModelController {
      * the dices available to that game
      */
     private ArrayList<Dice> dices;
+
+
+    /**
+     * this is the object that lets the model make callbacks on the controller and get the answer either from the user or from the network package
+     */
+    private ChoicesHandlerInterface choicesController;
 
     private int round;
 
@@ -69,6 +76,14 @@ public class ModelController {
 
     }
 
+    /**
+     * This method should be called by the server at game startup setting the controller
+     * from the client is should be called to swap from asking the user (his turn) to asking the package (not his turn) coming from the server for the choices
+     * @param choicesController
+     */
+    public void setChoicesController(ChoicesHandlerInterface choicesController) {
+        this.choicesController = choicesController;
+    }
 
     /**
      * add the initial coins for every player
@@ -181,10 +196,13 @@ public class ModelController {
     public void build(FamilyMember familyMember, int servants) {
         Player player = familyMember.getPlayer();
 
+        LinkedList<BuildingCard> cards = player.getPersonalBoard().getYellowBuildingCards();
 
+        cards.forEach(card -> card.applyEffectsToPlayer(player, servants, choicesController));
 
+        //We add bonus tiles afterwards because the resources got from the bonus tiles should not count on the checks for the yellow cards
         ArrayList<TakeOrPaySomethingEffect> personalTileEffects = player.getPersonalTile().getEffectOnBuild();
-        personalTileEffects.forEach(effect -> effect.applyToPlayer(player));
+        personalTileEffects.forEach(effect -> effect.applyToPlayer(player, choicesController));
 
     }
 

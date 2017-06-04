@@ -10,14 +10,25 @@ import java.util.ArrayList;
  * This effect allows player to get a council gift, if they pay some resources.
  * example: 32
  */
-public class PayForGiftEffect extends AbstractPerformActionEffect {
+public class PayForCouncilGiftEffect extends AbstractPerformActionEffect {
     ArrayList<Resource> toPay;
-    public PayForGiftEffect( ArrayList<Resource> temp){
+    public PayForCouncilGiftEffect(ArrayList<Resource> temp){
         toPay = temp;
     }
-    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
 
+
+    /**
+     * just subtracts the resources to pay from the player and adds the resources to gain
+     * Performs the exchange
+     * @param player the player to apply to
+     * @param choicesHandlerInterface not used in this case, no choice inside the effect
+     */
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
+        //ArrayList<TakeOrPaySomethingEffect> choice = choicesHandlerInterface.callbackOnCoucilGift("cg", 1);
+        player.addResource(toPay);
+        //choice.get(0).applyToPlayer(player, choicesHandlerInterface); this is now done in the card and not here
     }
+
     public String descriptionOfEffect()
     {
         return "Pay "+ toPay.toString() + " to have a gift";
