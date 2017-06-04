@@ -11,7 +11,7 @@ import it.polimi.ingsw.client.network.rmi.RMIClient;
 import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.controller.ModelController;
-import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
@@ -275,9 +275,9 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * @return The arraylist of effect chosen
      */
     @Override
-    public ArrayList<GainSomethingEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
-        ArrayList<GainSomethingEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
-        ArrayList<GainSomethingEffect> choices = new ArrayList<>(numberDiffGifts);
+    public ArrayList<GainResourceEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
+        ArrayList<GainResourceEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
+        ArrayList<GainResourceEffect> choices = new ArrayList<>(numberDiffGifts);
         int choice;
 
         for(int i = 0; i < numberDiffGifts; i++) {

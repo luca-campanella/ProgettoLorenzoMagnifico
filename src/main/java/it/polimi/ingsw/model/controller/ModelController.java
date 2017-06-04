@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.HarvestAS;
 import it.polimi.ingsw.model.board.MarketAS;
 import it.polimi.ingsw.model.cards.BuildingCard;
-import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -201,7 +201,7 @@ public class ModelController {
         cards.forEach(card -> card.applyEffectsToPlayer(player, servants, choicesController));
 
         //We add bonus tiles afterwards because the resources got from the bonus tiles should not count on the checks for the yellow cards
-        ArrayList<GainSomethingEffect> personalTileEffects = player.getPersonalTile().getEffectOnBuild();
+        ArrayList<GainResourceEffect> personalTileEffects = player.getPersonalTile().getEffectOnBuild();
         personalTileEffects.forEach(effect -> effect.applyToPlayer(player, choicesController));
 
     }

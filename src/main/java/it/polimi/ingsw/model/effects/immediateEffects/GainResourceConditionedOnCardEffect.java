@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.resource.Resource;
 /**
  * This effect allows you to take something if you have some cards
  */
-public class GainResourceConditionedOnCardEffect extends GainSomethingEffect {
+public class GainResourceConditionedOnCardEffect extends GainResourceEffect {
     CardColorEnum colorConditionedOnCardEffect;
     //instead of 2 points victory for 1 card, we could have 1 point victory for 2 cards
     //it could also be 2x3 cards...

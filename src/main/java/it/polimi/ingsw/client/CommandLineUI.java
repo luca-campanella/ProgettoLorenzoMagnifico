@@ -10,7 +10,7 @@ import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
@@ -272,7 +272,7 @@ public class CommandLineUI extends AbstractUIType {
      * @returns to controller the index of the selected option, the choice the user made
      */
     @Override
-    public int askCouncilGift(ArrayList<GainSomethingEffect> options) {
+    public int askCouncilGift(ArrayList<GainResourceEffect> options) {
         CliOptionsHandler optionsHandler = new CliOptionsHandler(options.size());
         optionsHandler.addEffectsArrayList(options);
         return optionsHandler.askUserChoice();

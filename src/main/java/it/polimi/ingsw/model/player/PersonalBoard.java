@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.player;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.*;
-import it.polimi.ingsw.model.effects.immediateEffects.GainSomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 
 import java.util.LinkedList;
 
@@ -20,8 +20,8 @@ public class PersonalBoard {
     /**
      * the two following attributes represent the bonuses of the tiles near the personal board
      */
-    GainSomethingEffect bonusTileHarvestEffect;
-    GainSomethingEffect bonusTileBuildEffect;
+    GainResourceEffect bonusTileHarvestEffect;
+    GainResourceEffect bonusTileBuildEffect;
 
     public PersonalBoard() {
         territoryCards = new LinkedList<TerritoryCard>();
@@ -30,7 +30,7 @@ public class PersonalBoard {
         ventureCards = new LinkedList<VentureCard>();
     }
 
-    public void setTiles(GainSomethingEffect bonusTileHarvestEffect, GainSomethingEffect bonusTileBuildEffect) {
+    public void setTiles(GainResourceEffect bonusTileHarvestEffect, GainResourceEffect bonusTileBuildEffect) {
 
         this.bonusTileHarvestEffect = bonusTileHarvestEffect;
         this.bonusTileBuildEffect = bonusTileBuildEffect;
