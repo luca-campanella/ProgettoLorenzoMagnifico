@@ -15,9 +15,19 @@ public class PayForGiftEffect extends AbstractPerformActionEffect {
     public PayForGiftEffect( ArrayList<Resource> temp){
         toPay = temp;
     }
+
+
+    /**
+     * just subtracts the resources to pay from the player and adds the resources to gain
+     * Performs the exchange
+     * @param player the player to apply to
+     * @param choicesHandlerInterface not used in this case, no choice inside the effect
+     */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
-        ;
+
+        player.addResource(toPay);
     }
+
     public String descriptionOfEffect()
     {
         return "Pay "+ toPay.toString() + " to have a gift";

@@ -321,7 +321,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         int choice;
         ImmediateEffectInterface effectChosen;
 
-        //if there's no possibility left or one possibility the choice isalready made, no need to ask the user
+        //if there's no possibility left or one possibility the choice is already made, no need to ask the user
         if(possibleEffectChoices.size() == 0)
         {
             choice = -1;
@@ -335,6 +335,11 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
             int tmpChoice = userInterface.askYellowBuildingCardEffectChoice(possibleEffectChoices);
             effectChosen = realPossibleEffectChoices.get(tmpChoice);
             choice = possibleEffectChoices.indexOf(effectChosen);
+        }
+
+        //we need to subtract the resources he payed from the copy of the hashmap in order to be sure next checks are correct
+        if(effectChosen instanceof PayForSomethingEffect) {
+            addResourcesToMap(resourcesCheckHashmap, ((PayForSomethingEffect) effectChosen).getToGain());
         }
 
         choicesOnCurrentAction.put(choiceCode, choice);
@@ -355,6 +360,18 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         }
 
         return true;
+    }
+
+    /**
+     * this method is used to add an array of resources to an hasmap of resources
+     * @param resources the object of the resource, it contains the value and the type
+     */
+    private void addResourcesToMap(HashMap<ResourceTypeEnum, Integer> resMap, ArrayList<Resource> resources){
+
+        for(Resource resource : resources){
+            resMap.put(resource.getType(),resMap.get(resource.getType())+resource.getValue());
+        }
+
     }
 }
 

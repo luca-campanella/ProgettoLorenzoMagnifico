@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.TakeOrPaySomethingEffect;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 
@@ -27,9 +30,28 @@ public class BuildingCard extends AbstractCard{
      */
     private int buildEffectValue;
 
-    //apply to player deve avere anche il valore del dado.
-    private void applyEffectsToPlayer(Player player){
-        ;
+    /**
+     * This method should be called by {@link it.polimi.ingsw.model.controller.ModelController#build(FamilyMember, int)}
+     * It activates the cards only if the card dice requirement is higher than {@param realDiceValue} (the {@link FamilyMember} + servants value)
+     * @param player the player to apply the effects to
+     * @param realDiceValue the real value when performing the action (the {@link FamilyMember} + servants)
+     * @param choicesController the controller that handles the choices on the effects, either by asking the user or the hashmap of choices inside the network package
+     */
+    public void applyEffectsToPlayer(Player player, int realDiceValue, ChoicesHandlerInterface choicesController){
+
+        if(realDiceValue < buildEffectValue) {
+            //No effect should be activated
+            Debug.printVerbose("No effect activated on card " + getName() + "because realDiceValue < buildEffectValue (" + realDiceValue + " < " + buildEffectValue);
+            return;
+        }
+
+        //we should ask the user or the network package which effect he wants to activate
+        ImmediateEffectInterface choice = choicesController.callbackOnYellowBuildingCardEffectChoice(getName(), effectsOnBuilding);
+
+        Debug.printVerbose("In yellow building card " + getName() + "got this choice " + choice.descriptionOfEffect());
+
+        choice.applyToPlayer(player, choicesController);
+
     }
 
     public ArrayList<TakeOrPaySomethingEffect> getCost() {

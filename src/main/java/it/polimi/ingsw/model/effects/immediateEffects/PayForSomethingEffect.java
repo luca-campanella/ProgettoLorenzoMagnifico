@@ -16,9 +16,18 @@ public class PayForSomethingEffect implements ImmediateEffectInterface {
         this.toPay = toPay;
         this.toGain = toGain;
     }
+
+    /**
+     * just subtracts the resources to pay from the player and adds the resources to gain
+     * Performs the exchange
+     * @param player the player to apply to
+     * @param choicesHandlerInterface not used in this case, no choice inside the effect
+     */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
-        ;
+        player.addResource(toPay);
+        player.addResource(toGain);
     }
+
     public String descriptionOfEffect()
     {
         return "Pay "+ toPay.toString() + " to gain some advantage " + toGain.toString();
