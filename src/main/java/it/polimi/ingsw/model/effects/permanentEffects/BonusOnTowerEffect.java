@@ -34,7 +34,7 @@ public class BonusOnTowerEffect extends AbstractPermanentEffect{
     If there is, it returns the amount of that bonus.
      */
     @Override
-    public Resource getBonusOnTower(CardColorEnum color) {
+    public Resource getDiscountOnTower(CardColorEnum color) {
         if(color == towerColor)
             return discountOnResource;
         return null;
