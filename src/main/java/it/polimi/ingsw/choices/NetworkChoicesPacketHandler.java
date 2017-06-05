@@ -51,13 +51,13 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
      * Callback from model to controller
      * The model uses this method when encounters a {@link BuildingCard} with more than one effects and wnats to make the user choose which one activate
      *
-     * @param choiceCode
+     * @param cardNameChoiceCode
      * @param possibleEffectChoices
      * @return
      */
     @Override
-    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String choiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
-        int choice = choicesMap.get(choiceCode);
+    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+        int choice = choicesMap.get(cardNameChoiceCode);
         ImmediateEffectInterface effect = possibleEffectChoices.get(choice);
         Debug.printVerbose("Callback on yellowBuldingCardCalled, choice = " + choice + " corrisponding con to effect: " + effect.descriptionOfEffect());
         return effect;

@@ -28,9 +28,9 @@ public interface ChoicesHandlerInterface {
     /**
      * Callback from model to controller
      * The model uses this method when encounters a {@link it.polimi.ingsw.model.cards.BuildingCard} with more than one effects and wnats to make the user choose which one activate
-     * @param choiceCode
+     * @param cardNameChoiceCode in this case the choice code corresponds to the card name
      * @param possibleEffectChoices
      * @return
      */
-    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String choiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices);
+    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices);
 }

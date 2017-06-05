@@ -73,6 +73,7 @@ public class PersonalBoard {
             }
         }
 
+
         final int realDiceValueBlueFinal = realDiceValueBlue; //to pass to the lambda expr
         buildingCards.forEach(card -> card.applyEffectsToPlayer(player, realDiceValueBlueFinal, choicesController));
 

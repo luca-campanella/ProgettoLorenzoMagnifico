@@ -297,12 +297,12 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * If in these chacks it understands no effect can be chosen then it returns a {@link NoEffect} class and puts the choice in the hashmap to -1
      * This implementation calls the view and asks what the user wants to choose
      * The UI should perform a <b>blocking</b> question to the user and return directly to this method
-     * @param choiceCode
+     * @param cardNameChoiceCode
      * @param possibleEffectChoices
      * @return
      */
     @Override
-    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String choiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
 
         //We will make a copy of the arraylist beacuse we have to remove some objects that cannot be chosen from the user
         ArrayList<ImmediateEffectInterface> realPossibleEffectChoices = new ArrayList<>(possibleEffectChoices.size());
@@ -335,13 +335,13 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
             effectChosen = realPossibleEffectChoices.get(tmpChoice);
             choice = possibleEffectChoices.indexOf(effectChosen);
         }
-
+        //TODO implement choose no choice
         //we need to subtract the resources he payed from the copy of the hashmap in order to be sure next checks are correct
         if(effectChosen instanceof PayForSomethingEffect) {
             addResourcesToMap(resourcesCheckHashmap, ((PayForSomethingEffect) effectChosen).getToGain());
         }
 
-        choicesOnCurrentAction.put(choiceCode, choice);
+        choicesOnCurrentAction.put(cardNameChoiceCode, choice);
         return effectChosen;
     }
 
