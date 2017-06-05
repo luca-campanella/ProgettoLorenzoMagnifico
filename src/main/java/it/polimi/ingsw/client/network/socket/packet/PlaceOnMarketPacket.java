@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.network.socket.packet;
 
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 import java.util.HashMap;
@@ -20,12 +21,12 @@ public class PlaceOnMarketPacket extends MovePacket {
 
     /**
      * constructor
-     * @param familyMember the family member used
+     * @param familyMemberColor the color of the family member used
      * @param marketIndex numberID of the place on the market
      */
-    public PlaceOnMarketPacket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices){
+    public PlaceOnMarketPacket(DiceAndFamilyMemberColor familyMemberColor, int marketIndex, HashMap<String, Integer> playerChoices){
 
-        super(familyMember);
+        super(familyMemberColor);
         this.marketIndex =marketIndex;
         this.playerChoices = playerChoices;
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.network.socket.packet;
 
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 import java.util.HashMap;
@@ -24,10 +25,10 @@ public class PlaceOnTowerPacket extends MovePacket {
     /**
      * constructor
      */
-    public PlaceOnTowerPacket(FamilyMember familyMember,
+    public PlaceOnTowerPacket(DiceAndFamilyMemberColor familyMemberColor,
                               int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices){
 
-        super(familyMember);
+        super(familyMemberColor);
         this.towerIndex =towerIndex;
         this.floorIndex =floorIndex;
         this.playerChoices = playerChoices;

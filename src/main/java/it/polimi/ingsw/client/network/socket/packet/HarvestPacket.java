@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.network.socket.packet;
 
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 /**
@@ -7,7 +8,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
  */
 public class HarvestPacket extends MoveBuildOrHarvestPacket {
 
-    public HarvestPacket(FamilyMember familyMember, int servantUsed){
-        super(familyMember,servantUsed);
+    public HarvestPacket(DiceAndFamilyMemberColor familyMemberColor, int servantUsed){
+        super(familyMemberColor,servantUsed);
     }
 }

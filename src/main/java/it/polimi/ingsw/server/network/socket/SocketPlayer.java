@@ -156,7 +156,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             PlaceOnTowerPacket packet=(PlaceOnTowerPacket)inStream.readObject();
-            getRoom().placeOnTower(packet.getFamilyMember(), packet.getTowerIndex(), packet.getFloorIndex(), packet.getPlayersChoices());
+            getRoom().placeOnTower(getFamilyMemberByColor(packet.getFamilyMemberColor()), packet.getTowerIndex(), packet.getFloorIndex(), packet.getPlayersChoices());
             outStream.writeObject(MoveErrorEnum.NO_ERROR);
 
         }
@@ -181,7 +181,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             PlaceOnMarketPacket packet=(PlaceOnMarketPacket)inStream.readObject();
-            getRoom().placeOnMarket(packet.getFamilyMember(), packet.getMarketIndex(), packet.getPlayerChoices());
+            getRoom().placeOnMarket(getFamilyMemberByColor(packet.getFamilyMemberColor()), packet.getMarketIndex(), packet.getPlayerChoices());
             outStream.writeObject(MoveErrorEnum.NO_ERROR);
 
     }
@@ -205,7 +205,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void harvest(){
         try{
             HarvestPacket packet=(HarvestPacket) inStream.readObject();
-            getRoom().harvest(packet.getFamilyMember(), packet.getServantUsed());
+            getRoom().harvest(getFamilyMemberByColor(packet.getFamilyMemberColor()), packet.getServantUsed());
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
@@ -216,7 +216,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void build(){
         try{
             BuildPacket packet=(BuildPacket) inStream.readObject();
-            getRoom().build(packet.getFamilyMember(), packet.getServantUsed(), packet.getPlayerChoices());
+            getRoom().build(getFamilyMemberByColor(packet.getFamilyMemberColor()), packet.getServantUsed(), packet.getPlayerChoices());
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
@@ -308,7 +308,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.MOVE_IN_TOWER);
-            outStream.writeObject(new PlaceOnTowerPacket(familyMember,towerIndex,floorIndex, playerChoices));
+            outStream.writeObject(new PlaceOnTowerPacket(familyMember.getColor(),towerIndex,floorIndex, playerChoices));
             outStream.flush();
 
         }
@@ -330,7 +330,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.MOVE_IN_MARKET);
-            outStream.writeObject(new PlaceOnMarketPacket(familyMember, marketIndex, playerChoices));
+            outStream.writeObject(new PlaceOnMarketPacket(familyMember.getColor(), marketIndex, playerChoices));
             outStream.flush();
 
         }
@@ -353,7 +353,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.BUILD);
-            outStream.writeObject(new BuildPacket(familyMember,servant,playerChoices));
+            outStream.writeObject(new BuildPacket(familyMember.getColor(),servant,playerChoices));
             outStream.flush();
 
         }
@@ -374,7 +374,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.HARVEST);
-            outStream.writeObject(new HarvestPacket(familyMember,servant));
+            outStream.writeObject(new HarvestPacket(familyMember.getColor(),servant));
             outStream.flush();
 
         }
@@ -411,7 +411,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.END_PHASE);
-            outStream.writeObject(new EndPhasePacket(player));
+            outStream.writeObject(new EndPhasePacket(player.getNickname()));
             outStream.flush();
 
         }
