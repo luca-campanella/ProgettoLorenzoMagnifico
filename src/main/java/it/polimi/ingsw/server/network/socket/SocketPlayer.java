@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network.socket;
 
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.server.ServerMain;
@@ -10,6 +11,7 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
@@ -44,13 +46,19 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         BufferedInputStream bufferesdinstream = new BufferedInputStream(instream1);
         Debug.printVerbose("Buffered input stream created");
         try {
+
             inStream = new ObjectInputStream(bufferesdinstream);
-        } catch(IOException e) {
+
+        }
+
+        catch(IOException e) {
+
             Debug.printError("Error creating the ObjStream", e);
             throw e;
-        }
-        Debug.printVerbose("inStream created");
 
+        }
+
+        Debug.printVerbose("inStream created");
         Debug.printVerbose("creazione  player");
         readPacket = new ReadClientPacketProtocol(this);
 
@@ -58,6 +66,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     public void run() {
         Debug.printVerbose("New socket player object waiting for login");
+
         /**
          *the type of packet that can be received, it works like a header for the input object
          */
@@ -379,7 +388,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     }
 
     /**
-     * delver to the room the ending of a player's phase
+     * deliver to the room the ending of a player's phase
      */
     public void endPhase(){
 
@@ -393,6 +402,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     }
 
+    /**
+     * information delivered by the room to the other players, inform the player that a player had ended his phase
+     * @throws NetworkException
+     */
     public void receiveEndPhase(AbstractConnectionPlayer player) throws NetworkException{
 
         try{
@@ -409,6 +422,28 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         }
 
+    }
+
+    /**
+     * the method to deliver to the client the new dices on the board
+     * @throws NetworkException
+     */
+    @Override
+    public void receiveDices(ArrayList<Dice> dices) throws NetworkException {
+
+        try{
+
+            outStream.writeObject(PacketType.DICES);
+            outStream.writeObject(new DicesPacket(dices));
+            outStream.flush();
+
+        }
+        catch (IOException e){
+
+            Debug.printError("network is not available", e);
+            throw new NetworkException(e);
+
+        }
     }
 }
 

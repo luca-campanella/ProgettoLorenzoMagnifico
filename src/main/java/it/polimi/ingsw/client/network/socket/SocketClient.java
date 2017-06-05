@@ -313,9 +313,8 @@ public class SocketClient extends AbstractClientType {
 
     /**
      * this method is used to receive message from the other players
-     * @throws NetworkException
      */
-    public void receiveChatMsg() throws NetworkException{
+    public void receiveChatMsg(){
 
         try{
 
@@ -326,16 +325,14 @@ public class SocketClient extends AbstractClientType {
         catch(IOException | ClassNotFoundException e){
 
             Debug.printError("network is not available",e);
-            throw new NetworkException(e);
 
         }
     }
 
     /**
      * this method is used to receive moves on tower from other players
-     * @throws NetworkException
      */
-    public void receivePlaceOnTower() throws NetworkException{
+    public void receivePlaceOnTower(){
 
         try {
 
@@ -346,7 +343,6 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
-            throw new NetworkException(e);
 
         }
 
@@ -354,9 +350,8 @@ public class SocketClient extends AbstractClientType {
 
     /**
      * this method is used to receive moves on market from other players
-     * @throws NetworkException
      */
-    public void receivePlaceOnMarket() throws NetworkException{
+    public void receivePlaceOnMarket(){
 
         try {
 
@@ -367,16 +362,14 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
-            throw new NetworkException(e);
 
         }
     }
 
     /**
      * this method is used to receive moves on harvest from other players
-     * @throws NetworkException
      */
-    public void receiveHarvest() throws NetworkException{
+    public void receiveHarvest(){
 
         try {
 
@@ -387,7 +380,6 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
-            throw new NetworkException(e);
 
         }
 
@@ -395,9 +387,8 @@ public class SocketClient extends AbstractClientType {
 
     /**
      * this method is used to receive moves on build from other players
-     * @throws NetworkException
      */
-    public void receiveBuild() throws NetworkException{
+    public void receiveBuild(){
 
         try {
 
@@ -408,7 +399,6 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
-            throw new NetworkException(e);
 
         }
 
@@ -416,9 +406,8 @@ public class SocketClient extends AbstractClientType {
 
     /**
      * this method is used to receive the end of turn of the other players
-     * @throws NetworkException
      */
-    public void receiveEndPhase() throws NetworkException{
+    public void receiveEndPhase(){
 
         try {
 
@@ -429,10 +418,21 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
-            throw new NetworkException(e);
+        }
+    }
 
+    public void receiveDices(){
+
+        try{
+
+            DicesPacket packet = (DicesPacket)inStream.readObject();
+            //TODO method
         }
 
+        catch (IOException | ClassNotFoundException e){
+
+            Debug.printError("Network is not working", e);
+        }
     }
 
 }

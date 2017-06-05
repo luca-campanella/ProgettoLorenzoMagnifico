@@ -5,6 +5,9 @@ package it.polimi.ingsw.client.network.socket.packet;
  */
 public class ReceiveChatPacket extends ChatPacket {
 
+    /**
+     * the nickname of the player that had written the message
+     */
     String nickname;
 
     /**

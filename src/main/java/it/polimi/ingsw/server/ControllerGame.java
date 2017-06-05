@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.controller.ControllerModelInterface;
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
@@ -49,24 +50,34 @@ public class ControllerGame  implements ControllerModelInterface {
         cli.printBoard(controllerGame.getBoardGame());
 
     }
+
     public void testSecondRound(int period){
         boardGame = deck.fillBoard(boardGame,period);
     }
+
     private  Deck getDeck()
     {
         return deck;
     }
+
+    /**
+     * this method in launch during every end of the player's phase
+     * @throws IllegalMoveException
+     */
     public void endPhase(AbstractConnectionPlayer player) throws IllegalMoveException{
 
         controlTurnPlayer(player.getNickname());
 
         numberOfTurn++;
 
+       //control if the game gad ended
         if(numberOfTurn >= numberOfPlayers*4 && numberOfRound == 3)
             modelController.endGame();
 
+        //control if all the player had done all the move
         if(numberOfTurn >= numberOfPlayers*4){
             modelController.prepareForNewRound();
+            deliverDices(modelController.getDices());
             reDoOrderPlayer(modelController.getFamilyMemberCouncil());
             numberOfTurn = 0;
             numberOfRound++;
@@ -236,7 +247,7 @@ public class ControllerGame  implements ControllerModelInterface {
     public void harvest(FamilyMember familyMember, int servant)  throws IllegalMoveException{
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
-        modelController.harvest(familyMember, servant);
+        //modelController.harvest(familyMember, servant);
 
 
     }
@@ -295,10 +306,23 @@ public class ControllerGame  implements ControllerModelInterface {
 
     }
 
+    /**
+     * control if is the turn of the player that had delivered a move
+     * @throws IllegalMoveException
+     */
     private void controlTurnPlayer(String playerName) throws IllegalMoveException{
 
         if(!playerName.equals(orderOfPlayers.get(numberOfTurn%numberOfPlayers).getNickname()))
             throw new IllegalMoveException(MoveErrorEnum.NOT_PLAYER_TURN);
+
+    }
+
+    /**
+     * deliver the dices loaded to the room
+     */
+    private void deliverDices(ArrayList<Dice> dices){
+
+        room.deliverDices(dices);
 
     }
 

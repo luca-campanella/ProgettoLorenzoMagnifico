@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.cards;
 
-import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 
@@ -29,11 +28,11 @@ public class CharacterCard extends AbstractCard {
         this.cost = cost;
     }
 
-    public ArrayList<AbstractPermanentEffect> getPermanentEffect() {
+    public ArrayList<AbstractPermanentEffect> getPermanentEffects() {
         return permanentEffect;
     }
 
-    public void setPermanentEffect(ArrayList<AbstractPermanentEffect> permanentEffect) {
+    public void setPermanentEffects(ArrayList<AbstractPermanentEffect> permanentEffect) {
         this.permanentEffect = permanentEffect;
     }
 
