@@ -308,7 +308,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.MOVE_IN_TOWER);
-            outStream.writeObject(new PlaceOnTowerPacket(familyMember.getColor(),towerIndex,floorIndex, playerChoices));
+            outStream.writeObject(new ReceivePlaceOnTowerPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),towerIndex,floorIndex, playerChoices));
             outStream.flush();
 
         }
@@ -330,7 +330,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.MOVE_IN_MARKET);
-            outStream.writeObject(new PlaceOnMarketPacket(familyMember.getColor(), marketIndex, playerChoices));
+            outStream.writeObject(new ReceivePlaceOnMarketPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(), marketIndex, playerChoices));
             outStream.flush();
 
         }
@@ -353,7 +353,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.BUILD);
-            outStream.writeObject(new BuildPacket(familyMember.getColor(),servant,playerChoices));
+            outStream.writeObject(new ReceiveBuildPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),servant,playerChoices));
             outStream.flush();
 
         }
@@ -374,7 +374,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.HARVEST);
-            outStream.writeObject(new HarvestPacket(familyMember.getColor(),servant));
+            outStream.writeObject(new ReceiveHarvestPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),servant));
             outStream.flush();
 
         }

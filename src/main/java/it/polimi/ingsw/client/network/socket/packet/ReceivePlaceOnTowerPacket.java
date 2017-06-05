@@ -11,7 +11,7 @@ public class ReceivePlaceOnTowerPacket extends PlaceOnTowerPacket{
 
     private String nickname;
 
-    ReceivePlaceOnTowerPacket(String nickname, DiceAndFamilyMemberColor familyMemberColor, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices){
+    public ReceivePlaceOnTowerPacket(String nickname, DiceAndFamilyMemberColor familyMemberColor, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices){
 
         super(familyMemberColor,towerIndex, floorIndex, playerChoices);
         this.nickname = nickname;

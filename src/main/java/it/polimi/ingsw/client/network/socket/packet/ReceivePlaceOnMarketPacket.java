@@ -11,7 +11,7 @@ public class ReceivePlaceOnMarketPacket extends PlaceOnMarketPacket{
 
     private String nickname;
 
-    ReceivePlaceOnMarketPacket(String nickname, DiceAndFamilyMemberColor familyMemberColor, int marketIndex, HashMap<String, Integer> playerChoices){
+    public ReceivePlaceOnMarketPacket(String nickname, DiceAndFamilyMemberColor familyMemberColor, int marketIndex, HashMap<String, Integer> playerChoices){
 
         super(familyMemberColor,marketIndex, playerChoices);
         this.nickname = nickname;

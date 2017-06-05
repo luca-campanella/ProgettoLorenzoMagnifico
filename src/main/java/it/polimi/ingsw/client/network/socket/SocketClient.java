@@ -336,7 +336,7 @@ public class SocketClient extends AbstractClientType {
 
         try {
 
-            PlaceOnTowerPacket packet = (PlaceOnTowerPacket)inStream.readObject();
+            ReceivePlaceOnTowerPacket packet = (ReceivePlaceOnTowerPacket)inStream.readObject();
             //TODO method
 
         }
@@ -355,7 +355,7 @@ public class SocketClient extends AbstractClientType {
 
         try {
 
-            PlaceOnMarketPacket packet = (PlaceOnMarketPacket)inStream.readObject();
+            ReceivePlaceOnMarketPacket packet = (ReceivePlaceOnMarketPacket)inStream.readObject();
             //TODO method
 
         }
@@ -373,7 +373,7 @@ public class SocketClient extends AbstractClientType {
 
         try {
 
-            HarvestPacket packet = (HarvestPacket)inStream.readObject();
+            ReceiveHarvestPacket packet = (ReceiveHarvestPacket)inStream.readObject();
             //TODO method
 
         }
@@ -392,7 +392,7 @@ public class SocketClient extends AbstractClientType {
 
         try {
 
-            BuildPacket packet = (BuildPacket)inStream.readObject();
+            ReceiveBuildPacket packet = (ReceiveBuildPacket)inStream.readObject();
             //TODO method
 
         }

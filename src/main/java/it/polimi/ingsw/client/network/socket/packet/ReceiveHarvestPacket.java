@@ -9,7 +9,7 @@ public class ReceiveHarvestPacket extends HarvestPacket{
 
     private String nickname;
 
-    ReceiveHarvestPacket(String nickname, DiceAndFamilyMemberColor familyMemberColor, int servantUsed){
+    public ReceiveHarvestPacket(String nickname, DiceAndFamilyMemberColor familyMemberColor, int servantUsed){
 
         super(familyMemberColor,servantUsed);
         this.nickname = nickname;

@@ -11,7 +11,7 @@ public class ReceiveBuildPacket extends BuildPacket{
 
     private String nickname;
 
-    ReceiveBuildPacket(String nickname, DiceAndFamilyMemberColor familyMemberColor, int servantUsed, HashMap<String, Integer> playerChoices){
+    public ReceiveBuildPacket(String nickname, DiceAndFamilyMemberColor familyMemberColor, int servantUsed, HashMap<String, Integer> playerChoices){
 
         super(familyMemberColor,servantUsed, playerChoices);
         this.nickname = nickname;
