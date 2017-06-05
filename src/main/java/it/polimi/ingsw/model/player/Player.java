@@ -94,6 +94,12 @@ public abstract class Player {
 
     }
 
+    public int getResource(ResourceTypeEnum type){
+
+        return resourcesMap.get(type);
+
+    }
+
     //TODO: we need to put Cards Containers in Player and then implement this method.
     public int getNumberOfColoredCard(CardColorEnum color)
     {
@@ -105,11 +111,6 @@ public abstract class Player {
         excommunicationCard.add(card);
     }*/
 
-    public int getResource(ResourceTypeEnum type){
-
-        return resourcesMap.get(type);
-
-    }
 
     public String getNickname()
     {
