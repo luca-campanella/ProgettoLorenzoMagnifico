@@ -89,6 +89,51 @@ public class LeaderCreator {
                 "Federico da Montefeltro",
             "[...] la gloriosa memoria del Duca Federico, il quale a dì suoi fu lume della Italia. Né quivi [Urbino] cosa alcuna volse, se non rarissima et eccellente.",
                 new BonusOneColoredFamilyMemberLeaderAbility(6)));
+        //todo lorenzo de' Medici
+        //todo: permanent effect on Santa Rita
+        leaders.add(new LeaderCard(createOneReqArray(
+                new ResourceRequirement(new Resource(ResourceTypeEnum.FAITH_POINT, 8))),
+                "Santa Rita",
+                "Fu talmente abbracciata la santa astinenza, e l’aspro vestire dalla nostra Beata Rita,\n" +
+                        "che chi la mirava, restava meravigliato, e quasi fuor di se stesso rimaneva.",
+                new FixedFamilyMembersValueLeaderAbility(5)));
+
+        leaders.add(new LeaderCard(createTwoReqArray(
+                new CardRequirement(4, CardColorEnum.YELLOW),
+                new CardRequirement(2, CardColorEnum.BLUE)),
+                "Cosimo de' Medici",
+                "Debebunt igitur Medici magno Cosmo omnis Medicea, et Florentina posteritas.",
+                new OncePerRoundBonusLeaderAbility(createTwoResourceBonusArray(
+                        new Resource(ResourceTypeEnum.SERVANT, 3),
+                        new Resource(ResourceTypeEnum.VICTORY_POINT, 1)))));
+
+        leaders.add(new LeaderCard(createTwoReqArray(
+                new CardRequirement(2, CardColorEnum.PURPLE),
+                new CardRequirement(4, CardColorEnum.GREEN)),
+                "Bartolomeo Colleoni",
+                "Et era allhor frequente per le bocche del volgo un sì fatto motto: «Havere il Coglione\n" +
+                        "allo Sforza, il gioco di maniera in man concio, che non facendo ei torto alle carte più\n" +
+                        "non potea perdere».",
+                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(
+                        new Resource(ResourceTypeEnum.VICTORY_POINT, 4)))));
+        //todo: council gift
+        leaders.add(new LeaderCard(createOneReqArray(
+                new ResourceRequirement(new Resource(ResourceTypeEnum.SERVANT, 15))),
+                "Ludovico III Gonzaga",
+                "[…] la qual cosa sopportava con sdegno Lodovico, parendogli che nota infame gli fosse\n" +
+                        "l’essergli preposto dal padre il fratello, il quale veramente odiava.",
+                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(
+                        new Resource(ResourceTypeEnum.VICTORY_POINT, 4)))));
+        //todo: second effect, discount of 3 coins
+        leaders.add(new LeaderCard(createTwoReqArray(
+                new CardRequirement(4, CardColorEnum.PURPLE),
+                new CardRequirement(2, CardColorEnum.YELLOW)),
+                "Pico della Mirandola",
+                "Ioannes Picus Mirandula merito cognomine phoenix appellatus est, quod in eum,\n" +
+                        "Dii superi, supra familiae claritatem, omnis corporis, ac animi vel rarissima dona\n" +
+                        "contulerint.",
+                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(
+                        new Resource(ResourceTypeEnum.VICTORY_POINT, 4)))));
 
 
 
