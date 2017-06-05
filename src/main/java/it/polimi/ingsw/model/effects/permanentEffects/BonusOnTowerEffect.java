@@ -51,9 +51,15 @@ public class BonusOnTowerEffect extends AbstractPermanentEffect{
         return null;
     }
     public String getShortDescription(){
-        return "+"+ bonusOnDice + " On " + towerColor.getCardColor() + "-" + discountOnResource.getResourceShortDescript() + " " ;
+        String temp = "+"+ bonusOnDice + " On " + towerColor.getCardColor();
+        if (discountOnResource != null)
+            temp += "-" + discountOnResource.getResourceShortDescript() + " " ;
+        return temp;
     }
     public String getDescription(){
-        return "Get a +" + bonusOnDice + " On " + towerColor.getCardColor().toString() + "towers. And -" + discountOnResource;
+        String temp =  "Get a +" + bonusOnDice + " On " + towerColor.getCardColor().toString() + "towers. ";
+        if (discountOnResource != null)
+            temp += "And -" + discountOnResource;
+        return temp;
     }
 }

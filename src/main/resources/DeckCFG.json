@@ -714,11 +714,8 @@
         {
           "permanentEffect": "BonusOnTowerEffect",
           "towerColor": "GREEN",
-          "discountOnResource": {
-            "type": "COIN",
-            "value": 0
-          },
-          "discountOnDice": 2
+
+          "bonusOnDice": 2
         }
       ],
       "name": "Warlord",
@@ -755,7 +752,7 @@
             "type": "STONE",
             "value": 1
           },
-          "discountOnDice": 2
+          "bonusOnDice": 2
         }
       ],
       "name": "Stonemason",
@@ -783,7 +780,7 @@
             "type": "COIN",
             "value": 1
           },
-          "discountOnDice": 2
+          "bonusOnDice": 2
         }],
       "name": "Dame",
       "period": 1,
@@ -796,7 +793,8 @@
     {
       "cost": [
         {
-          "resource": {
+          "immediateEffect": "PayResourceEffect",
+          "cost": {
             "type": "COIN",
             "value": 2
           }
@@ -806,11 +804,8 @@
         {
           "permanentEffect": "BonusOnTowerEffect",
           "towerColor": "PURPLE",
-          "discountOnResource": {
-            "type": "STONE",
-            "value": 0
-          },
-          "discountOnDice": 2
+
+          "bonusOnDice": 2
         }
       ],
       "name": "Knight",
