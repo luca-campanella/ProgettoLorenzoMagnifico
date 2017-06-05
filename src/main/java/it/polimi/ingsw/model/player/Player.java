@@ -214,4 +214,15 @@ public abstract class Player {
     public PersonalBoard getPersonalBoard() {
         return personalBoard;
     }
+
+    public FamilyMember getFamilyMemberByColor(DiceAndFamilyMemberColor familyMemberColor){
+
+        for(FamilyMember familyMember : notUsedFamilyMembers){
+
+            if(familyMember.getColor() == familyMemberColor)
+                return familyMember;
+
+        }
+        return null;
+    }
 }

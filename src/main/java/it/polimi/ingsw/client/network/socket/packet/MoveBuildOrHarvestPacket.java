@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.network.socket.packet;
 
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 import java.io.Serializable;
@@ -11,9 +12,9 @@ public class MoveBuildOrHarvestPacket extends MovePacket {
 
     private int servantUsed;
 
-    public MoveBuildOrHarvestPacket(FamilyMember familyMember, int servantUsed){
+    public MoveBuildOrHarvestPacket(DiceAndFamilyMemberColor familyMemberColor, int servantUsed){
 
-        super(familyMember);
+        super(familyMemberColor);
         this.servantUsed=servantUsed;
     }
 

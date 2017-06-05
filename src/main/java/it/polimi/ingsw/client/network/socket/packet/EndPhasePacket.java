@@ -7,17 +7,17 @@ import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
  */
 public class EndPhasePacket {
 
-    private AbstractConnectionPlayer player;
+    private String nickname;
 
-    public EndPhasePacket(AbstractConnectionPlayer player){
+    public EndPhasePacket(String nickname){
 
-        this.player = player;
+        this.nickname = nickname;
 
     }
 
-    public AbstractConnectionPlayer getPlayer(){
+    public String getNickname(){
 
-        return player;
+        return nickname;
 
     }
 }
