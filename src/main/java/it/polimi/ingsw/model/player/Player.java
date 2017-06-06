@@ -52,7 +52,7 @@ public abstract class Player {
         personalBoard = new PersonalBoard();
         //TODO CHOOSE TILES OF PERSONAL BOARD
         resourcesMap = new ResourceCollector();
-        loadInizialResources();
+        loadInitialResources();
         notUsedFamilyMembers = new ArrayList<>(4);
         usedFamilyMembers = new ArrayList<>(4);
         //excommunicanionCard = new ArrayList<>(3);
@@ -63,7 +63,7 @@ public abstract class Player {
     /**
      * you load all the resources needed by the player
      */
-    private void loadInizialResources(){
+    private void loadInitialResources(){
         resourcesMap.addResource(new Resource(ResourceTypeEnum.WOOD, 2));
         resourcesMap.addResource(new Resource(ResourceTypeEnum.STONE, 2));
         resourcesMap.addResource(new Resource(ResourceTypeEnum.SERVANT, 3));

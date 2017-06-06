@@ -13,6 +13,8 @@ import java.util.ArrayList;
  * choice code explanation:
  * <b>Yellow build card</b>
  * choiceCode == card name -> the value of the hashmap is the integer index of the arraylist of effects of the card
+ * if choiceCode == -1 the choice resulted in not activating any effect (activate a {@link it.polimi.ingsw.model.effects.immediateEffects.NoEffect}
+ * either because the user decided so or because he didn't have enough resources to activate the effect
  */
 public interface ChoicesHandlerInterface {
 

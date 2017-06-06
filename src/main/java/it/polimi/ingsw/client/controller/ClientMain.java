@@ -333,10 +333,16 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         }
         else { //there are possible choices: let's ask the UI what to chose
             int tmpChoice = userInterface.askYellowBuildingCardEffectChoice(possibleEffectChoices);
-            effectChosen = realPossibleEffectChoices.get(tmpChoice);
-            choice = possibleEffectChoices.indexOf(effectChosen);
+            if(tmpChoice == -1) { // the player decided not to activate any effect
+                effectChosen = new NoEffect();
+                choice = -1;
+            }
+             else { //he chose an effect, let's return the correct one
+                effectChosen = realPossibleEffectChoices.get(tmpChoice);
+                choice = possibleEffectChoices.indexOf(effectChosen);
+            }
         }
-        //TODO implement choose no choice
+
         //we need to subtract the resources he payed from the copy of the hashmap in order to be sure next checks are correct
         if(effectChosen instanceof PayForSomethingEffect) {
             resourcesCheckMap.addResources(((PayForSomethingEffect) effectChosen).getToGain());
