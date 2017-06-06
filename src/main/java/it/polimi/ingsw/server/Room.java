@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
@@ -72,7 +73,9 @@ public class Room {
         if(currNOfPlayers == maxNOfPlayers) //ModelController should start
         {
             Debug.printVerbose("Room capacity reached, starting new game");
+            System.out.println("io");
             startGame();
+            System.out.println("sono");
             Debug.printVerbose("Room capacity reached, returned from start function");
         }
         else if(currNOfPlayers == 2) //TODO good idea to load this from file
@@ -83,7 +86,9 @@ public class Room {
                 @Override
                 public void run() {
                     Debug.printVerbose("Timeout reached, starting new game");
+                    System.out.println("io");
                     startGame();
+                    System.out.println("sono");
                     Debug.printVerbose("Timeout reached, returned from start function");
                 }
             }, timeoutInSec);
@@ -98,8 +103,10 @@ public class Room {
         Debug.printVerbose("Game on room started");
             isGameStarted = true;
             try{
+                System.out.println("just before constructor");
                 controllerGame = new ControllerGame(players, this);
-                controllerGame.startNewGame();
+                System.out.println("after constructor");
+                System.out.println("after after constructor");
             }
             catch (Exception e) {
                 Debug.printError("Connection Error", e);
@@ -125,8 +132,12 @@ public class Room {
         for(AbstractConnectionPlayer i : players) {
             if(player != i) {//the message should not be sent to the sender
                 try {
+
                     i.receiveChatMsg(player.getNickname(), msg);
-                } catch (NetworkException e) { //not a big problem if a chat message is not sent
+                    System.out.println("send message to " + player.getNickname());
+
+                } catch (NetworkException e)
+                { //not a big problem if a chat message is not sent
                     Debug.printError("Unable to sent chat message to " + i.getNickname(), e);
                 }
             }
@@ -277,9 +288,19 @@ public class Room {
 
             catch (NetworkException e){
 
-                Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+                Debug.printError("Unable to sent new dices to " + player.getNickname(), e);
 
             }
         }
+    }
+
+    /**
+     * deliver the initial game board to the players
+     */
+    public void receiveStartGameBoard(Board gameBoard){
+
+        for(AbstractConnectionPlayer player : players)
+            player.receiveStartGameBoard(gameBoard);
+
     }
 }

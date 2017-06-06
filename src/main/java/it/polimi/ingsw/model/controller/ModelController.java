@@ -49,6 +49,7 @@ public class ModelController {
         this.players = new ArrayList<>(5);
         this.players.addAll(players);
         dices = new ArrayList<>(4);
+        this.gameBoard = board;
         loadDices();
         round=1;
         period=1;
@@ -67,6 +68,9 @@ public class ModelController {
      */
     public void startNewGame()
     {
+        //throws the dices to change the value
+        dices.forEach(Dice::throwDice);
+
         //initialize all the family member on the players
         for(Player i : players){
             i.setFamilyMembers(dices);

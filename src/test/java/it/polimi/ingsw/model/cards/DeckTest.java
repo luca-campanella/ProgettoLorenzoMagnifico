@@ -1,13 +1,13 @@
 package it.polimi.ingsw.model.cards;
 
-import org.junit.Test;
+//import org.junit.Test;
 
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 /**
  * This test is created to test Deck Class. In particular shuffle method and fillBoard method.
  */
-public class DeckTest {
+/*public class DeckTest {
     @Test
     public void shufflePartOfArrayList() throws Exception {
     }
@@ -16,4 +16,4 @@ public class DeckTest {
     public void fillBoard() throws Exception {
     }
 
-}
+}*/

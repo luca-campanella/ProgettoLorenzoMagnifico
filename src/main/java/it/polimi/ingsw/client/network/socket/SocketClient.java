@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.socket.packet.*;
 import it.polimi.ingsw.client.network.socket.protocol.ReadServerPacketProtocol;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.utils.Debug;
 
@@ -72,8 +73,6 @@ public class SocketClient extends AbstractClientType {
         readPacket= new ReadServerPacketProtocol(this);
 
         receiveInformation = new ReceiveInformation(inStream, readPacket);
-        // start the thread to read the packet delivered by the server
-        receiveInformation.start();
 
     }
     /**
@@ -104,6 +103,8 @@ public class SocketClient extends AbstractClientType {
                 loginResponse==LoginErrorEnum.WRONG_PASSWORD){
             throw new LoginException(loginResponse);
         }
+        // start the thread to read the packet delivered by the server
+        receiveInformation.start();
     }
 
     /**
@@ -123,12 +124,14 @@ public class SocketClient extends AbstractClientType {
             response =(RegisterErrorEnum)inStream.readObject();
         }
         catch(IOException | ClassNotFoundException e){
-            Debug.printError("connection not avaiable",e);
+            Debug.printError("connection not available",e);
             throw new NetworkException(e);
         }
         if(response == RegisterErrorEnum.ALREADY_EXISTING_USERNAME){
             throw new UsernameAlreadyInUseException("Username already in use");
         }
+        // start the thread to read the packet delivered by the server
+        receiveInformation.start();
     }
     public void playCard(String nameLeader) throws NetworkException{
         try{
@@ -137,7 +140,7 @@ public class SocketClient extends AbstractClientType {
             outStream.flush();
         }
         catch(IOException e){
-            Debug.printError("network is not avaiable",e);
+            Debug.printError("network is not available",e);
             throw new NetworkException(e);
 
         }
@@ -318,8 +321,8 @@ public class SocketClient extends AbstractClientType {
 
         try{
 
-            ChatReceivedPacket packet = (ChatReceivedPacket)inStream.readObject();
-            getControllerMain().receiveChatMsg(packet.getSenderNickname(), packet.getMessage());
+            ReceiveChatPacket packet = (ReceiveChatPacket)inStream.readObject();
+            getControllerMain().receiveChatMsg(packet.getNickname(), packet.getMessage());
 
         }
         catch(IOException | ClassNotFoundException e){
@@ -421,6 +424,9 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    /**
+     * this method is used to receive the new dices loaded by the server
+     */
     public void receiveDices(){
 
         try{
@@ -431,7 +437,24 @@ public class SocketClient extends AbstractClientType {
 
         catch (IOException | ClassNotFoundException e){
 
-            Debug.printError("Network is not working", e);
+            Debug.printError("Error: cannot receive the dices loaded by the server", e);
+        }
+    }
+
+    /**
+     * this method is used to receive the initial board loaded by the server
+     */
+    public void receiveStartGameBoard(){
+
+        try{
+
+            Board board = (Board)inStream.readObject();
+            //TODO method
+        }
+
+        catch (IOException | ClassNotFoundException e){
+
+            Debug.printError("Error: cannot receive the initial board", e);
         }
     }
 

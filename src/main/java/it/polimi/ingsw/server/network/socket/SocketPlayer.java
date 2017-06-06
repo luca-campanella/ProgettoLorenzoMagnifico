@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network.socket;
 
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
@@ -37,17 +38,17 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         this.socket = socket;
         this.serverMainInst = serverMainInst;
-        Debug.printVerbose("creazione  player");
+        Debug.printVerbose("creation  player");
         outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         outStream.flush();
 
         InputStream instream1 = socket.getInputStream();
         Debug.printVerbose("Input stream from socket got");
-        BufferedInputStream bufferesdinstream = new BufferedInputStream(instream1);
+        BufferedInputStream bufferedInstream = new BufferedInputStream(instream1);
         Debug.printVerbose("Buffered input stream created");
         try {
 
-            inStream = new ObjectInputStream(bufferesdinstream);
+            inStream = new ObjectInputStream(bufferedInstream);
 
         }
 
@@ -59,7 +60,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
 
         Debug.printVerbose("inStream created");
-        Debug.printVerbose("creazione  player");
+        Debug.printVerbose("creation  player");
         readPacket = new ReadClientPacketProtocol(this);
 
     }
@@ -85,7 +86,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         while(true){
             try{
+                System.out.println("sono qua");
                 packetType = (PacketType)inStream.readObject();
+                System.out.println("sono qua");
                 readPacket.doMethod(packetType);
             }
             catch(IOException | ClassNotFoundException e){
@@ -265,7 +268,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void floodChatMsg(){
        try {
            String msg = (String) inStream.readObject();
+           System.out.println("read the object");
            getRoom().floodChatMsg(this,msg);
+           System.out.println("flood the object");
        }
        catch(IOException | ClassNotFoundException e){
            Debug.printError("network is not working",e);
@@ -291,6 +296,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         ReceiveChatPacket chatPacket= new ReceiveChatPacket(senderNickname , msg);
         try{
+            outStream.writeObject(PacketType.CHAT);
             outStream.writeObject(chatPacket);
             outStream.flush();
         }
@@ -445,5 +451,28 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         }
     }
+
+    /**
+     * deliver to the socket client the initial board
+     */
+    @Override
+    public void receiveStartGameBoard(Board gameBoard) {
+
+        try{
+
+            outStream.writeObject(PacketType.GAME_BOARD);
+            outStream.writeObject(gameBoard);
+            outStream.flush();
+
+        }
+
+        catch (IOException e){
+
+            Debug.printError("Cannot deliver the board to the server", e);
+        }
+
+    }
+
+
 }
 

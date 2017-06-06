@@ -26,7 +26,7 @@ public class ReadServerPacketProtocol {
 
     public ReadServerPacketProtocol(SocketClient client){
         this.client=client;
-        instruction = new HashMap<>(2);
+        instruction = new HashMap<>(12);
         putIstruction();
     }
 
@@ -40,6 +40,7 @@ public class ReadServerPacketProtocol {
         instruction.put(PacketType.MOVE_IN_MARKET, ()-> client.receivePlaceOnMarket());
         instruction.put(PacketType.HARVEST, ()-> client.receiveHarvest());
         instruction.put(PacketType.BUILD, ()-> client.receiveBuild());
+        instruction.put(PacketType.GAME_BOARD, ()->client.receiveStartGameBoard());
         //instruction.put(PacketType.DISCARD_LEADER, ()-> client.receiveDiscardCard());
         //instruction.put(PacketType.PLAY_LEADER, ()-> client.receivePlayCard());
         instruction.put(PacketType.END_PHASE, ()-> client.receiveEndPhase());
