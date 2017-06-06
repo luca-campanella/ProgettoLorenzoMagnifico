@@ -2,12 +2,13 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.player.FamilyMember;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This action space is the build action space.
  */
-public class BuildAS extends AbstractActionSpace {
+public class BuildAS extends AbstractActionSpace implements Serializable{
     // this boolean checks ?
     private boolean twoPlayersOneSpace;
     //this is the standard build value (ex 0)

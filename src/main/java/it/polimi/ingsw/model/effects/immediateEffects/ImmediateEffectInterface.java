@@ -3,10 +3,12 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 
+import java.io.Serializable;
+
 /**
  * Created by higla on 16/05/2017.
  */
-public interface ImmediateEffectInterface {
+public interface ImmediateEffectInterface extends Serializable {
 
 
     /**

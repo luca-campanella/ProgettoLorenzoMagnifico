@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model.resource;
 
+import java.io.Serializable;
+
 /**
  * This class describe a particular resource and contains the resource type and its value
  */
-public class Resource{
+public class Resource implements Serializable{
     /**
      * the type of the resource
      */

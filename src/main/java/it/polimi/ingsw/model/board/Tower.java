@@ -2,10 +2,12 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.cards.AbstractCard;
 
+import java.io.Serializable;
+
 /**
  * This class represents the single tower and collects action spaces regarding cards
  */
-public class Tower {
+public class Tower implements Serializable{
     private CardColorEnum colorTower;
     private final int NUMBER_OF_FLOORS = 4;
     TowerFloorAS[] floors;

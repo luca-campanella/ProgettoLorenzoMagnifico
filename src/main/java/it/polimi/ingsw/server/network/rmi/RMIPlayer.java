@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network.rmi;
 
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
@@ -74,6 +75,11 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
 
     @Override
     public void receiveDices(ArrayList<Dice> dices) throws NetworkException {
+
+    }
+
+    @Override
+    public void receiveStartGameBoard(Board gameBoard) {
 
     }
 

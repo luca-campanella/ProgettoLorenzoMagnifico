@@ -8,12 +8,13 @@ import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * The main player class, no network
  */
-public abstract class Player {
+public abstract class Player implements Serializable{
 
     private String nickname;
 
@@ -132,6 +133,9 @@ public abstract class Player {
 
     }
 
+    /**
+     * this method is used to return available the family member used on the previous turn
+     */
     public void reloadFamilyMember(){
 
         notUsedFamilyMembers.addAll(usedFamilyMembers);
@@ -212,7 +216,7 @@ public abstract class Player {
         return personalBoard;
     }
 
-    public FamilyMember getFamilyMemberByColor(DiceAndFamilyMemberColor familyMemberColor){
+    public FamilyMember getFamilyMemberByColor(DiceAndFamilyMemberColorEnum familyMemberColor){
 
         for(FamilyMember familyMember : notUsedFamilyMembers){
 

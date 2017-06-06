@@ -5,12 +5,13 @@ import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.*;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * the personal board of a single player
  */
-public class PersonalBoard {
+public class PersonalBoard implements Serializable{
 
     private LinkedList<TerritoryCard> territoryCards;
     private LinkedList<BuildingCard> buildingCards;

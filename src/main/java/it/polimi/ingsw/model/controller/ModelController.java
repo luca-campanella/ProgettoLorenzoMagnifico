@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.MarketAS;
 import it.polimi.ingsw.model.cards.BuildingCard;
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
@@ -57,10 +57,10 @@ public class ModelController {
     }
 
     private void loadDices(){
-        dices.add(new Dice(DiceAndFamilyMemberColor.BLACK));
-        dices.add(new Dice(DiceAndFamilyMemberColor.NEUTRAL));
-        dices.add(new Dice(DiceAndFamilyMemberColor.ORANGE));
-        dices.add(new Dice(DiceAndFamilyMemberColor.WHITE));
+        dices.add(new Dice(DiceAndFamilyMemberColorEnum.BLACK));
+        dices.add(new Dice(DiceAndFamilyMemberColorEnum.NEUTRAL));
+        dices.add(new Dice(DiceAndFamilyMemberColorEnum.ORANGE));
+        dices.add(new Dice(DiceAndFamilyMemberColorEnum.WHITE));
     }
 
     /**
@@ -75,7 +75,6 @@ public class ModelController {
         for(Player i : players){
             i.setFamilyMembers(dices);
         }
-
     }
 
     /**
@@ -152,7 +151,7 @@ public class ModelController {
         HarvestAS harvestPlace = gameBoard.getHarvest();
         //control on the action space, if the player already has a family member
         if(findFamilyMember(familyMember.getPlayer(), harvestPlace.getFamilyMembers())
-                && familyMember.getColor()!=DiceAndFamilyMemberColor.NEUTRAL)
+                && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
             //this means that the player has already placed a family member on that action space
             return;
         //TODO control of the blue effect
@@ -167,7 +166,7 @@ public class ModelController {
 
     private boolean findFamilyMember(Player player, ArrayList<FamilyMember> familyMembers){
         for(FamilyMember i : familyMembers){
-            if(i.getPlayer() == player && i.getColor()!=DiceAndFamilyMemberColor.NEUTRAL)
+            if(i.getPlayer() == player && i.getColor()!= DiceAndFamilyMemberColorEnum.NEUTRAL)
                 return true;
         }
         return false;
@@ -183,7 +182,7 @@ public class ModelController {
         BuildAS buildPlace = gameBoard.getBuild();
         //control on the action space, if the player already has a family member
         if(findFamilyMember(familyMember.getPlayer(), buildPlace.getFamilyMembers())
-                && familyMember.getColor()!=DiceAndFamilyMemberColor.NEUTRAL)
+                && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
             //this means that the player has already placed a family member on that action space
             return false;
         //TODO control of the blue effect

@@ -2,12 +2,13 @@ package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Abstract card class.
  */
-public abstract class AbstractCard {
+public abstract class AbstractCard implements Serializable{
     private String name;
     private int period;
     ArrayList<ImmediateEffectInterface> immediateEffect;

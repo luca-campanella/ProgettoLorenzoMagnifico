@@ -4,13 +4,14 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.utils.Debug;
 
+import java.io.Serializable;
 import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Random;
 /**
  * This class has all cards.
  */
-public class Deck {
+public class Deck implements Serializable{
     private ArrayList<AbstractCard> allCards;
     private ArrayList<TerritoryCard> territoryCards;
     private ArrayList<CharacterCard> characterCards;

@@ -4,12 +4,13 @@ import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * this space is used to choose the order of the players' turn
  */
-public class CouncilAS extends AbstractActionSpace {
+public class CouncilAS extends AbstractActionSpace implements Serializable{
 
     /**
      * the list of family member on this space

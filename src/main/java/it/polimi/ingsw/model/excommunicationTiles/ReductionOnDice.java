@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.excommunicationTiles;
 
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class ReductionOnDice extends AbstractExcommunicationTileEffect{
     //colors effected
-    private ArrayList<DiceAndFamilyMemberColor> colorsEffected;
+    ArrayList<DiceAndFamilyMemberColorEnum> colorsEffected;
     //amount of malus
     private int malusValue;
 
@@ -20,9 +20,9 @@ public class ReductionOnDice extends AbstractExcommunicationTileEffect{
      * @param colorOfDice your diceValue is decreased by malusValue
      * @return
      */
-    public int reductionOnDice(DiceAndFamilyMemberColor colorOfDice)
+    public int reductionOnDice(DiceAndFamilyMemberColorEnum colorOfDice)
     {
-        for(DiceAndFamilyMemberColor i : colorsEffected)
+        for(DiceAndFamilyMemberColorEnum i : colorsEffected)
             if(i == colorOfDice)
                 return malusValue;
         return 0;

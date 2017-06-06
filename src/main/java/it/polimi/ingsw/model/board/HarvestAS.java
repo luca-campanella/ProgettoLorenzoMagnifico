@@ -2,12 +2,13 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.player.FamilyMember;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * this class is the place where the player can place the family member to harvest
  */
-public class HarvestAS extends AbstractActionSpace{
+public class HarvestAS extends AbstractActionSpace implements Serializable{
 
     private boolean twoPlayersOneSpace;
     //It's the minimum dice value of the family member

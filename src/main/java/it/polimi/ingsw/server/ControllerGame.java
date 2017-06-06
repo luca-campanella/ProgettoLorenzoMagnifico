@@ -215,12 +215,12 @@ public class ControllerGame  implements ControllerModelInterface {
 
         ArrayList<AbstractConnectionPlayer> playersOrder = new ArrayList<>(orderOfPlayers.size());
         Random random = new Random();
-        int valueIndex;
+
         for(int i=0; i< orderOfPlayers.size();){
 
-            valueIndex = random.nextInt(orderOfPlayers.size());
+            int valueIndex = random.nextInt(orderOfPlayers.size());
             //add the player of the index
-            playersOrder.add(orderOfPlayers.get(random.nextInt(valueIndex)));
+            playersOrder.add(orderOfPlayers.get(valueIndex));
             //remove the player of the index
             orderOfPlayers.remove(valueIndex);
 

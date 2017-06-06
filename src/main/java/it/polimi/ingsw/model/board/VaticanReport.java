@@ -1,11 +1,13 @@
 package it.polimi.ingsw.model.board;
 
+import java.io.Serializable;
+
 /**
  * This is the vatican walk of faith.
  * It also contains excommunication cards
  * todo: add excommunication cards
  */
-public class VaticanReport {
+public class VaticanReport implements Serializable{
     public static final int NUMBER_OF_AGES = 3;
     public static final int WALK_OF_FAITH = 16;
     private int[] requiredFaithPoints = new int[NUMBER_OF_AGES];
