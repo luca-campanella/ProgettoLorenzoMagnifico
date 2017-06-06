@@ -2,8 +2,6 @@ package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.PayForCouncilGiftEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -55,10 +53,12 @@ public class BuildingCard extends AbstractCard{
         Debug.printVerbose("In yellow build card " + getName() + "got this choice " + choice.descriptionOfEffect());
 
         //if the choice contains a council gift we should also ask the user what gift he desires
-        if(choice instanceof PayForCouncilGiftEffect) {
+        //This can now be done in the card and not here because the card can call the callback, since the name of the card is passed as a parameter
+        /*if(choice instanceof PayForCouncilGiftEffect) {
             ArrayList<GainResourceEffect> councilGiftChoice = choicesController.callbackOnCoucilGift(getName() + ":councilGift", 1);
             councilGiftChoice.get(0).applyToPlayer(player, choicesController, getName());
-        }
+        }*/
+
         choice.applyToPlayer(player, choicesController, getName());
     }
 

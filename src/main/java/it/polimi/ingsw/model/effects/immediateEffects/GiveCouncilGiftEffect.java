@@ -3,20 +3,27 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 
+import java.util.ArrayList;
+
 /**
- * This effect gives a gift to the player. example: 52
+ * This effect gives a council gift to the player. example: 52
  */
 public class GiveCouncilGiftEffect implements ImmediateEffectInterface {
     int numberOfCouncilGift;
 
     /**
-     * todo: ask choices to player
+     * this method uses callback to determine which give give the user
+     * The it applies the gift (a {@link GainResourceEffect}) to the player
      * @param player
      * @param choicesHandlerInterface
      */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName)
     {
-        //choicesHandlerInterface.callbackOnCouncilGift();
+        ArrayList<GainResourceEffect> choices = choicesHandlerInterface.callbackOnCoucilGift(cardName + ":councilGift", numberOfCouncilGift);
+
+        //we apply all the choices made by the user to the player
+        for(GainResourceEffect effectIter : choices)
+            effectIter.applyToPlayer(player, choicesHandlerInterface, cardName);
     }
     public String descriptionOfEffect(){
         return "Gives a Council Gift to a player.";
