@@ -52,13 +52,12 @@ public class PersonalBoard {
 
     public void harvest(int realDiceValueNoBlueBonus, Player player, ChoicesHandlerInterface choicesController) {
 
-        //TODO bonuses of the blue card
-        //bonusTileHarvestEffect.applyToPlayer(player);
-        /*LinkedList<AbstractCard> greenCard = ownedCards.get(CardColorEnum.GREEN);
-        for (AbstractCard i : greenCard) {
-            //        i.harvest(familyMemberValue, player);
+        //we check if there is some blue card that has a bonus on harvest, in this case we should modify the value of the dice
+        final int realDiceValueBlue = realDiceValueNoBlueBonus + characterCardsCollector.getBonusOnHarvest();
 
-        }*/
+        territoryCards.forEach(card -> card.applyEffectsToPlayer(player, realDiceValueBlue, choicesController));
+
+        personalTile.activateEffectsOnHarvest(player, choicesController);
     }
 
     public void build(int realDiceValueNoBlueBonus, Player player, ChoicesHandlerInterface choicesController) {
