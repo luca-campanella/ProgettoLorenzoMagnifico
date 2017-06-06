@@ -26,8 +26,11 @@ public class ReceiveInformation extends Thread {
     public void run(){
         while(true){
             try {
+                System.out.println("before receive");
                 PacketType packet = (PacketType) inStream.readObject();
+                System.out.println("received");
                 readPacket.doMethod(packet);
+                System.out.println("do method");
             }
             catch(IOException | ClassNotFoundException e){
                 Debug.printError("ERROR : server had failed to deliver new information");

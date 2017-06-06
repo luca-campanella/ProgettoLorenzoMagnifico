@@ -25,13 +25,13 @@ public class ReadClientPacketProtocol {
     public ReadClientPacketProtocol(SocketPlayer player){
         this.player=player;
         instruction = new HashMap<>(10);
-        putIstruction();
+        putInstruction();
     }
 
     /**
      * this method is used to save all the response based on the packetType
      */
-    private void putIstruction(){
+    private void putInstruction(){
         instruction.put(PacketType.LOGIN, ()-> player.loginPlayer());
         instruction.put(PacketType.REGISTER, ()-> player.registerPlayer());
         instruction.put(PacketType.MOVE_IN_TOWER, ()-> player.placeOnTower());

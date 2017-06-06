@@ -124,6 +124,7 @@ public class ControllerGame  implements ControllerModelInterface {
      * @throws Exception if file where Board configuration is
      */
     public ControllerGame(ArrayList<AbstractConnectionPlayer> players, Room room) throws Exception {
+
         JSONLoader jsonLoader = new JSONLoader();
         boardGame = jsonLoader.boardCreator();
         deck = jsonLoader.createNewDeck();
@@ -132,9 +133,11 @@ public class ControllerGame  implements ControllerModelInterface {
         this.room = room;
         this.orderOfPlayers = players;
         modelController = new ModelController(players, boardGame);
+        room.receiveStartGameBoard(boardGame);
         numberOfTurn = 0;
         numberOfRound = 1;
         playerChoices = new HashMap<>(10);
+
     }
 
     /**
@@ -143,6 +146,7 @@ public class ControllerGame  implements ControllerModelInterface {
      * @throws Exception
      */
     public ControllerGame(int numberOfPlayers) throws Exception {
+
         JSONLoader jsonLoader = new JSONLoader();
         ArrayList<PersonalTile> personalTiles = jsonLoader.loadTiles();
         boardGame = jsonLoader.boardCreator();
@@ -193,12 +197,12 @@ public class ControllerGame  implements ControllerModelInterface {
      */
     public void startNewGame(){
 
-        modelController.startNewGame();
+        /*modelController.startNewGame();
 
         chooseOrderRandomly();
 
         //add the coins to the orderOfPlayers based on the order of turn
-        modelController.addCoinsStartGame(orderOfPlayers);
+        modelController.addCoinsStartGame(orderOfPlayers);*/
 
     }
 

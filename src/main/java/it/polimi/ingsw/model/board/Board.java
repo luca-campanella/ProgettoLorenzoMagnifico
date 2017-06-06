@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.player.FamilyMember;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * Of course deck is standard.. Potrebbe non essere un problema a dire il vero.
  * Di fatti, piu ci giochi piu impari quali carte ci sono, quindi basi anche un po la tua strategia su quello....
  */
-public class Board {
+public class Board implements Serializable {
     //the following constants are loaded from file and establish the number of action spaces / towers of the board
     private int NUMBER_OF_TOWERS;
     private int NUMBER_OF_MARKETS;

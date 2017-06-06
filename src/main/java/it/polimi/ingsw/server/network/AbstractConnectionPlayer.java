@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network;
 
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.Room;
@@ -73,5 +74,7 @@ public abstract class AbstractConnectionPlayer extends Player {
         this.room = room;
     }
 
-    public abstract  void receiveDices(ArrayList<Dice> dices) throws NetworkException;
+    public abstract void receiveDices(ArrayList<Dice> dices) throws NetworkException;
+
+    public abstract void receiveStartGameBoard(Board gameBoard);
 }
