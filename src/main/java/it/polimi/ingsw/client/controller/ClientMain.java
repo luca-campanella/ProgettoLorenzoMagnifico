@@ -16,7 +16,6 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
-import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
@@ -243,14 +242,15 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * @param familyMember
      * @param servants
      */
-    public void callbackPlacedFMOnBuild(FamilyMember familyMember, Resource servants){
+    public void callbackPlacedFMOnBuild(FamilyMember familyMember, int servants){
         /*We make a copy of the hashmap beacuse we have to perfom some checks on it and this checks should not affect
         the hashmap of the player. Even tough making a copy using the constructor makes just a shallow copy, this is sufficient
         since Integer types are immutable
          */
 
         resourcesCheckMap = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
-
+        //TODO call this method sith the real values, saved in the state of ClientMain, they are not passed from the view
+        modelController.build(familyMemberCurrentAction, servants);
         /*LinkedList<BuildingCard> buildingCards = modelController.getYellowBuildingCards(familyMember.getPlayer());
         ArrayList<ImmediateEffectInterface> effects;
 
@@ -262,6 +262,18 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
 
         }*/
 
+
+    }
+
+    /**
+     * this method allows player to place a family member on a harvest action space
+     * @param familyMember
+     * @param servants
+     */
+    public void callbackPlacedFMOnHarvest(FamilyMember familyMember, int servants){
+
+        //TODO call this method sith the real values, saved in the state of ClientMain, they are not passed from the view
+        modelController.harvest(familyMemberCurrentAction, servants);
 
     }
 
@@ -350,34 +362,6 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
 
         choicesOnCurrentAction.put(cardNameChoiceCode, choice);
         return effectChosen;
-    }
-
-
-    /**
-     * This method checks if the user has sufficient resources to play for that effect, mostly used for {@link PayForSomethingEffect} checks
-     * @param resMap The hashmap of the resources of the player
-     * @param resToPay the arraylist of the resources he has to pay
-     * @return if he can pay them or not
-     */
-    private boolean checkIfPayable(HashMap<ResourceTypeEnum, Integer> resMap, ArrayList<Resource> resToPay) {
-        for(Resource resIter : resToPay) {
-            if(resMap.get(resIter.getType()) < resIter.getValue())
-                return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * this method is used to add an array of resources to an hasmap of resources
-     * @param resources the object of the resource, it contains the value and the type
-     */
-    private void addResourcesToMap(HashMap<ResourceTypeEnum, Integer> resMap, ArrayList<Resource> resources){
-
-        for(Resource resource : resources){
-            resMap.put(resource.getType(),resMap.get(resource.getType())+resource.getValue());
-        }
-
     }
 }
 

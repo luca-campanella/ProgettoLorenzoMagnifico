@@ -99,6 +99,17 @@ public class ResourceCollector implements Serializable{
 
     }
 
+    public ArrayList<Resource> getAllResources(){
+
+        ArrayList<Resource> ris = new ArrayList<>(7);
+
+        for(ResourceTypeEnum resTypeIter : ResourceTypeEnum.values())
+            ris.add(new Resource(resTypeIter, resourcesMap.get(resTypeIter)));
+
+        return ris;
+
+    }
+
     /**
      * This method checks if an arraylist of resources can be contained inside the saved resources,
      * for example it can check if the plahyer as sufficient resources to play for a certain effect,
