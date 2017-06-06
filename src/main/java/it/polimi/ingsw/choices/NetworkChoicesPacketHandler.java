@@ -3,6 +3,7 @@ package it.polimi.ingsw.choices;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -51,14 +52,19 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
      * Callback from model to controller
      * The model uses this method when encounters a {@link BuildingCard} with more than one effects and wnats to make the user choose which one activate
      *
-     * @param choiceCode
+     * @param cardNameChoiceCode
      * @param possibleEffectChoices
      * @return
      */
     @Override
-    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String choiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
-        int choice = choicesMap.get(choiceCode);
-        ImmediateEffectInterface effect = possibleEffectChoices.get(choice);
+    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+        ImmediateEffectInterface effect;
+        int choice = choicesMap.get(cardNameChoiceCode);
+        if(choice == -1)
+            effect = new NoEffect();
+        else
+            effect = possibleEffectChoices.get(choice);
+
         Debug.printVerbose("Callback on yellowBuldingCardCalled, choice = " + choice + " corrisponding con to effect: " + effect.descriptionOfEffect());
         return effect;
     }

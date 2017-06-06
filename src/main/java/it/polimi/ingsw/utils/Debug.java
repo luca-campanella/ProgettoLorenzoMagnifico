@@ -137,7 +137,7 @@ public class Debug {
 			printStream.println("---" + header + "exception: ");
 			printStream.println("--- Added message: " + text);
 			printStream.println("--- Exception Message: " + e.getMessage());
-			printStream.println("--- Stack Trace: ");
+			printStream.println("--- Stack Trace: " + getStackTrace(e));
 		}
 	}
 
@@ -221,4 +221,18 @@ public class Debug {
     {
 		printException(e, text, "ERROR", System.err, LEVEL_ERRORS);
     }
+
+
+	private static String getStackTrace(Throwable error)
+	{
+		StringBuilder stringBuilder = new StringBuilder();
+
+		for (StackTraceElement stackTraceElement : error.getStackTrace()) {
+
+			stringBuilder.append(stackTraceElement.toString() + "\n");
+
+		}
+		return stringBuilder.toString();
+	}
+
 }

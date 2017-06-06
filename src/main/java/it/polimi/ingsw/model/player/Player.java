@@ -5,10 +5,10 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * The main player class, no network
@@ -19,7 +19,9 @@ public abstract class Player {
 
     private PersonalBoard personalBoard;
 
-    private HashMap<ResourceTypeEnum, Integer> resourcesMap;
+    //private HashMap<ResourceTypeEnum, Integer> resourcesMap;
+
+    private ResourceCollector resourcesMap;
 
     private ArrayList<FamilyMember> notUsedFamilyMembers;
 
@@ -49,8 +51,8 @@ public abstract class Player {
 
         personalBoard = new PersonalBoard();
         //TODO CHOOSE TILES OF PERSONAL BOARD
-        resourcesMap = new HashMap<>();
-        loadResource();
+        resourcesMap = new ResourceCollector();
+        loadInitialResources();
         notUsedFamilyMembers = new ArrayList<>(4);
         usedFamilyMembers = new ArrayList<>(4);
         //excommunicanionCard = new ArrayList<>(3);
@@ -61,14 +63,11 @@ public abstract class Player {
     /**
      * you load all the resources needed by the player
      */
-    private void loadResource(){
-        resourcesMap.put(ResourceTypeEnum.COIN, 0);
-        resourcesMap.put(ResourceTypeEnum.WOOD, 2);
-        resourcesMap.put(ResourceTypeEnum.STONE, 2);
-        resourcesMap.put(ResourceTypeEnum.SERVANT, 3);
-        resourcesMap.put(ResourceTypeEnum.FAITH_POINT, 0);
-        resourcesMap.put(ResourceTypeEnum.MILITARY_POINT, 0);
-        resourcesMap.put(ResourceTypeEnum.VICTORY_POINT, 0);
+    private void loadInitialResources(){
+        resourcesMap.addResource(new Resource(ResourceTypeEnum.WOOD, 2));
+        resourcesMap.addResource(new Resource(ResourceTypeEnum.STONE, 2));
+        resourcesMap.addResource(new Resource(ResourceTypeEnum.SERVANT, 3));
+
     }
 
 
@@ -78,7 +77,7 @@ public abstract class Player {
      */
     public void addResource(Resource resource){
 
-        this.resourcesMap.put(resource.getType(),this.resourcesMap.get(resource.getType())+resource.getValue());
+        resourcesMap.addResource(resource);
 
     }
 
@@ -86,11 +85,15 @@ public abstract class Player {
      * this method is used to add an array of resources on the player
      * @param resources the object of the resource, it contains the value and the type
      */
-    public void addResource(ArrayList<Resource> resources){
+    public void addResources(ArrayList<Resource> resources){
 
-        for(Resource resource : resources){
-            this.resourcesMap.put(resource.getType(),this.resourcesMap.get(resource.getType())+resource.getValue());
-        }
+        resourcesMap.addResources(resources);
+
+    }
+
+    public int getResource(ResourceTypeEnum type){
+
+        return resourcesMap.getResource(type);
 
     }
 
@@ -105,11 +108,6 @@ public abstract class Player {
         excommunicationCard.add(card);
     }*/
 
-    public int getResource(ResourceTypeEnum type){
-
-        return resourcesMap.get(type);
-
-    }
 
     public String getNickname()
     {
@@ -204,13 +202,24 @@ public abstract class Player {
 
     /**
      * this method returns all the resources the user has.
-     * @return the hashmap of the resources the user has
+     * @return the {@link ResourceCollector} of the resources the user has
      */
-    public HashMap<ResourceTypeEnum, Integer> getResourcesMap() {
+    public ResourceCollector getResourcesCollector() {
         return resourcesMap;
     }
 
     public PersonalBoard getPersonalBoard() {
         return personalBoard;
+    }
+
+    public FamilyMember getFamilyMemberByColor(DiceAndFamilyMemberColor familyMemberColor){
+
+        for(FamilyMember familyMember : notUsedFamilyMembers){
+
+            if(familyMember.getColor() == familyMemberColor)
+                return familyMember;
+
+        }
+        return null;
     }
 }
