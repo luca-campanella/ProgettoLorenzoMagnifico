@@ -26,7 +26,7 @@ public class PayForCouncilGiftEffect extends AbstractPerformActionEffect {
      */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
         //ArrayList<GainResourceEffect> choice = choicesHandlerInterface.callbackOnCoucilGift("cg", 1);
-        player.addResource(toPay);
+        player.addResources(toPay);
         //choice.get(0).applyToPlayer(player, choicesHandlerInterface); this is now done in the card and not here
     }
 
