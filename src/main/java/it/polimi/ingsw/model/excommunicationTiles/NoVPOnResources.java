@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * You lose n victory points each m resource you have
  */
-public class NoVPonResources extends AbstractExcommunicationTileEffect{
+public class NoVPOnResources extends AbstractExcommunicationTileEffect{
     //number of victory points lost. (n) per resource
     private int numberOfVictoryPointLostPerResource;
     //resources where the excommunication i1s applied (m)
@@ -28,6 +28,11 @@ public class NoVPonResources extends AbstractExcommunicationTileEffect{
         return numberOfVPLost;
     }
 
-
+    public String getShortEffectDescription(){
+        String temp = "-"+ numberOfVictoryPointLostPerResource + " VP for ";
+        for(Resource i : resourcesEffected)
+            temp += i.getResourceShortDescript() + " ";
+        return temp;
+    }
 
 }

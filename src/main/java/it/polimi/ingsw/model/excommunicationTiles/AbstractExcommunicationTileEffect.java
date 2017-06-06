@@ -1,9 +1,12 @@
 package it.polimi.ingsw.model.excommunicationTiles;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
+
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
+
+import java.util.ArrayList;
 
 /**
  * this class contains all the excommunication effects
@@ -39,7 +42,7 @@ public abstract class AbstractExcommunicationTileEffect {
      * @param familyMemberColor you dice has a
      * @return malusValue
      */
-    public int reductionOnDice(DiceAndFamilyMemberColor familyMemberColor)
+    public int reductionOnDice(DiceAndFamilyMemberColorEnum familyMemberColor)
     {
         return 0;
     }
@@ -94,10 +97,15 @@ public abstract class AbstractExcommunicationTileEffect {
     }
 
     /**
-     todo:update comments
+     * this method returns a value different from 0 when a player has an excommunication Tile that let lose
+     * victory points to the player.
+     * @param resource are the resource of the player
+     * @return the number of victory points lost
      */
-    public int getMalusVP()
+    public int noVPonResource(ArrayList<Resource> resource)
     {
         return 0;
     }
+
+    public abstract String getShortEffectDescription();
 }

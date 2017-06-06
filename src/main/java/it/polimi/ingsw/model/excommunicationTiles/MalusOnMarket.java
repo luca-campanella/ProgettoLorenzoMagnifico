@@ -14,4 +14,8 @@ public class MalusOnMarket extends AbstractExcommunicationTileEffect{
     {
         return maluseActivate;
     }
+
+    public String getShortEffectDescription(){
+        return "Market not available";
+    }
 }

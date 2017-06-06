@@ -8,4 +8,8 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 public class LoseVPonCostCards extends AbstractExcommunicationTileEffect{
     //if this colored card has a cost, you take less vp for each resource it costs.
     private CardColorEnum coloredCard;
+
+    public String getShortEffectDescription(){
+        return "- VP on cost of color: "+ coloredCard.toString() + " cards ";
+    }
 }

@@ -20,4 +20,8 @@ public class PayMoreServantsEffect extends AbstractExcommunicationTileEffect{
     {
         return moreServants;
     }
+
+    public String getShortEffectDescription(){
+        return "+"+ moreServants + " For +1 on dice";
+    }
 }

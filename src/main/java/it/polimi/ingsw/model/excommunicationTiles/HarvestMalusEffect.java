@@ -15,4 +15,7 @@ public class HarvestMalusEffect extends AbstractExcommunicationTileEffect{
         return malusOnDice;
     }
 
+    public String getShortEffectDescription(){
+        return "-"+ malusOnDice + "On Harvest";
+    }
 }
