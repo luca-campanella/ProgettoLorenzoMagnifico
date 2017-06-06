@@ -41,7 +41,7 @@ public class TerritoryCard extends AbstractCard{
 
         //Here we should activate all effects, differently from the Building card
         //TODO give the method the card name
-        effectsOnHarvest.forEach(effect -> effect.applyToPlayer(player, choicesController));
+        effectsOnHarvest.forEach(effect -> effect.applyToPlayer(player, choicesController, getName()));
     }
 
     public void setHarvestEffectValue(int value){ this.harvestEffectValue = value; }
