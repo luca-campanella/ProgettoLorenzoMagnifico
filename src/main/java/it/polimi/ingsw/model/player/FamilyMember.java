@@ -2,10 +2,12 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.board.Dice;
 
+import java.io.Serializable;
+
 /**
  * the family member owned by a player
  */
-public class FamilyMember {
+public class FamilyMember implements Serializable{
 
     /**
      * the dice that the family member is linked
@@ -15,7 +17,7 @@ public class FamilyMember {
     /**
      * color of the family member
      */
-    private DiceAndFamilyMemberColor color;
+    private DiceAndFamilyMemberColorEnum color;
 
     /**
      * player that owned this family member
@@ -61,7 +63,7 @@ public class FamilyMember {
 
     }
 
-    public DiceAndFamilyMemberColor getColor(){
+    public DiceAndFamilyMemberColorEnum getColor(){
 
         return color;
 

@@ -4,13 +4,14 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 import it.polimi.ingsw.model.resource.Resource;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * This object is a collector for the Character cards, it contains the cards and offers methods to
  * perform queries on them and obtain description of effects
  */
-public class CharacterCardCollector {
+public class CharacterCardCollector implements Serializable{
 
     private LinkedList<CharacterCard> characterCards;
 

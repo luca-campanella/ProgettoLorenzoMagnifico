@@ -1,18 +1,19 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * this class has the value of different dices
  */
-public class Dice {
+public class Dice implements Serializable{
 
     /**
      * color of the dice (and of the family member)
      */
-    private DiceAndFamilyMemberColor color;
+    private DiceAndFamilyMemberColorEnum color;
 
     /**
      * random is an attribute to use random method
@@ -24,7 +25,7 @@ public class Dice {
      */
     private int value;
     //this is the constructor
-    public Dice(DiceAndFamilyMemberColor color){
+    public Dice(DiceAndFamilyMemberColorEnum color){
         this.color=color;
         random= new Random();
     }
@@ -35,14 +36,14 @@ public class Dice {
      */
     public void throwDice() {
 
-        if(color == DiceAndFamilyMemberColor.NEUTRAL)
+        if(color == DiceAndFamilyMemberColorEnum.NEUTRAL)
             value=0;
         else
             value = random.nextInt(5)+1;
 
     }
 
-    public DiceAndFamilyMemberColor getColor(){
+    public DiceAndFamilyMemberColorEnum getColor(){
         return color;
     }
 

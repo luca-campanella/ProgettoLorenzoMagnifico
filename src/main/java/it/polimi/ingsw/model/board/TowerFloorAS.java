@@ -5,10 +5,12 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.utils.Debug;
 
+import java.io.Serializable;
+
 /**
  * This action space is the one placed on the tower, with a corresponding card to it
  */
-public class TowerFloorAS extends AbstractActionSpace {
+public class TowerFloorAS extends AbstractActionSpace implements Serializable {
 
     private int diceCost;
 

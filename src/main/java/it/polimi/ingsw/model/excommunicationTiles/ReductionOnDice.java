@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.excommunicationTiles;
 
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class ReductionOnDice {
     //colors effected
-    ArrayList<DiceAndFamilyMemberColor> colorsEffected;
+    ArrayList<DiceAndFamilyMemberColorEnum> colorsEffected;
     //amount of malus
     int malusValue;
 }

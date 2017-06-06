@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.network.socket.packet;
 
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColor;
-import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 
 import java.io.Serializable;
 
@@ -10,15 +9,15 @@ import java.io.Serializable;
  */
 public class MovePacket implements Serializable {
 
-    private DiceAndFamilyMemberColor familyMemberColor;
+    private DiceAndFamilyMemberColorEnum familyMemberColor;
 
-    public MovePacket(DiceAndFamilyMemberColor familyMemberColor){
+    public MovePacket(DiceAndFamilyMemberColorEnum familyMemberColor){
 
         this.familyMemberColor=familyMemberColor;
 
     }
 
-    public DiceAndFamilyMemberColor getFamilyMemberColor() {
+    public DiceAndFamilyMemberColorEnum getFamilyMemberColor() {
         return familyMemberColor;
     }
 

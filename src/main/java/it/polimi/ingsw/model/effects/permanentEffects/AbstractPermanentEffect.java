@@ -3,11 +3,13 @@ package it.polimi.ingsw.model.effects.permanentEffects;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
 
+import java.io.Serializable;
+
 /**
  * This is the abstract class that handles all abstract effects.
  * Controllers will call this class in order to check if a card applies a particular effect to a particular action
  */
-public abstract class AbstractPermanentEffect {
+public abstract class AbstractPermanentEffect implements Serializable{
 
         /**
          * This method is used to get the discount when placing a family member on a certain tower

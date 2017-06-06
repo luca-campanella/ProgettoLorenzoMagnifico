@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.resource;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +9,7 @@ import java.util.HashMap;
  * it is used by {@link it.polimi.ingsw.model.player.Player} to keep track of his resources, but also in other contexts
  * This class also implements all the methods necessary to operate on the hashmap
  */
-public class ResourceCollector {
+public class ResourceCollector implements Serializable{
 
     private HashMap<ResourceTypeEnum, Integer> resourcesMap;
 

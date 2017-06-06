@@ -2,12 +2,13 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.player.FamilyMember;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * this class is the place on the market where the player can place the family member
  */
-public class MarketAS extends AbstractActionSpace{
+public class MarketAS extends AbstractActionSpace implements Serializable{
 
     public MarketAS() {
         super();
