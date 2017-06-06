@@ -1,0 +1,51 @@
+[
+  {
+    "period": 1,
+    "effect": {
+      "excommunicationTiles": "GainFewerResourceEffect",
+      "resourceExcommunication": {
+        "type": "MILITARY_POINT",
+        "value": 1
+      }
+    }
+  },
+  {
+    "period": 1,
+    "effect": {
+      "excommunicationTiles": "GainFewerResourceEffect",
+      "resourceExcommunication": {
+        "type": "COIN",
+        "value": 1
+      }
+    }
+  },
+  {
+    "period": 1,
+    "effect": {
+      "excommunicationTiles": "GainFewerResourceEffect",
+      "resourceExcommunication": {
+        "type": "SERVANT",
+        "value": 1
+      }
+    }
+  },
+  {
+    "period": 1,
+    "effect": {
+      "excommunicationTiles": "GainFewerResourceEffect",
+      "resourceExcommunication": {
+        "type": "WOOD",
+        "value": 1
+      }
+    }
+  },{
+  "period": 1,
+  "effect": {
+    "excommunicationTiles": "GainFewerResourceEffect",
+    "resourceExcommunication": {
+      "type": "STONE",
+      "value": 1
+    }
+  }
+}
+]

@@ -39,6 +39,10 @@ public class PersonalTile implements Serializable{
         effectOnBuild.forEach(effect -> effect.applyToPlayer(player, choicesController, "personalTile"));
     }
 
+    public void activateEffectsOnHarvest(Player player, ChoicesHandlerInterface choicesController) {
+        effectOnHarvest.forEach(effect -> effect.applyToPlayer(player, choicesController, "personalTile"));
+    }
+
     public void setEffectOnHarvest(ArrayList<GainResourceEffect> effectOnHarvest) {
         this.effectOnHarvest = effectOnHarvest;
     }

@@ -15,5 +15,8 @@ public class BuildMalusEffect extends AbstractExcommunicationTileEffect{
         return malusOnDice;
     }
 
+    public String getShortEffectDescription(){
+        return "-"+ malusOnDice + "On Build";
+    }
 
 }

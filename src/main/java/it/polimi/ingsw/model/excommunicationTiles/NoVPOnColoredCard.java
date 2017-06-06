@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
  * This malus doesn't allow you to take VP for a certain color.
  * So it will just recalculate if it needs to sub resources and if he does, he will.
  * */
-public class NoVPonColoredCard extends AbstractExcommunicationTileEffect{
+public class NoVPOnColoredCard extends AbstractExcommunicationTileEffect{
     private CardColorEnum colorExcomunnication;
 
     /**
@@ -19,6 +19,9 @@ public class NoVPonColoredCard extends AbstractExcommunicationTileEffect{
         if(colorExcomunnication == color)
             return true;
         return false;
+    }
+    public String getShortEffectDescription(){
+        return "You can't take "+ colorExcomunnication.toString() + "-cards bonus at the end of the game";
     }
 
 }

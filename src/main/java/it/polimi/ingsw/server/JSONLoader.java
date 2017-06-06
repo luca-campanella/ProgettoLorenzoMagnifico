@@ -101,9 +101,9 @@ public class JSONLoader {
 
             Type type = new TypeToken<ArrayList<PersonalTile>>(){}.getType();
             ArrayList<PersonalTile> inList = gson.fromJson(reader, type);
-            for (PersonalTile i : inList) {
-                System.out.println(i);
-            }
+            /*for (PersonalTile i : inList) {
+                Debug.printDebug(i.toString());
+            }*/
             return inList;
         }
 

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.excommunicationTiles;
 
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * This class models the excommunication tile that decreases some of yours family members diceValue by a certain value
  * you can still use your servants to increase value of your actions
  */
-public class ReductionOnDice extends AbstractExcommunicationTileEffect{
+public class ReductionOnDiceEffect extends AbstractExcommunicationTileEffect{
     //colors effected
     ArrayList<DiceAndFamilyMemberColorEnum> colorsEffected;
     //amount of malus
@@ -27,5 +28,10 @@ public class ReductionOnDice extends AbstractExcommunicationTileEffect{
                 return malusValue;
         return 0;
     }
-
+    public String getShortEffectDescription(){
+        String temp = "-"+ malusValue + "OnDice colors: ";
+        for(DiceAndFamilyMemberColorEnum i : colorsEffected)
+            temp += i.toString() + ", ";
+        return temp;
+    }
 }

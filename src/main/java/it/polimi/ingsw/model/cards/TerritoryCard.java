@@ -41,7 +41,7 @@ public class TerritoryCard extends AbstractCard{
 
         //Here we should activate all effects, differently from the Building card
         //TODO give the method the card name
-        effectsOnHarvest.forEach(effect -> effect.applyToPlayer(player, choicesController));
+        effectsOnHarvest.forEach(effect -> effect.applyToPlayer(player, choicesController,getName()));
     }
 
     public void setHarvestEffectValue(int value){ this.harvestEffectValue = value; }
@@ -59,9 +59,7 @@ public class TerritoryCard extends AbstractCard{
     }
 
     /**
-     * todo: inconsistenza. Abbiamo fatto in odo che tutti gli altri costi si potessero modificare, e questo no? --Arto
-     * todo: secondo me è cmq giusto cosi --Arto
-     * this method force to have no cost.
+     * this method force to have no costs.
      * @return
      */
     public ArrayList<ImmediateEffectInterface> getCost() {
