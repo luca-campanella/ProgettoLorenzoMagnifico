@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -194,6 +195,19 @@ public class Board implements Serializable {
 
     public CouncilAS getCouncilAS() {
         return council;
+    }
+
+    /**
+     * This method performs the real action on the model when the player places a FM on a tower
+     * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Tower}, {@link it.polimi.ingsw.model.board.TowerFloorAS}
+     * @param familyMember the family member to perform the action with
+     * @param towerIndex the tower to place the family member to
+     * @param floorIndex the floor to place the family member to
+     * @param choicesController needed because there can be some decisions tied to the action
+     */
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, ChoicesHandlerInterface choicesController) {
+        towers[towerIndex].placeFamilyMember(familyMember, floorIndex, choicesController);
+        return;
     }
 }
 

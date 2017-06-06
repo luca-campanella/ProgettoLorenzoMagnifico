@@ -6,29 +6,28 @@ package it.polimi.ingsw.model.effects.permanentEffects;
 public class MalusDisabledImmediateEffectsEffect extends  AbstractPermanentEffect{
 
     /**
-     * Over this level (floor) all permanent effects are disabled (in this level too)
-     * It is not a dice value, but a floor / level value, because the dice value of a tower can be loaded from file
+     * Over this dice value (floor) all permanent effects are disabled (in this level too)
      */
-    int firstLevelDisabled;
+    int minDiceValueDisabled;
 
     /**
-     * This method returns if the player has immediate effects disabled on a certain level of towers
-     * @param towerLevel the level of the tower to check if at that level the effects are disabled
-     * @return true if the level is higher than the limit level over which immediate effects are disabled
+     * This method returns if the player has immediate effects disabled on a certain level of towers, that has a certain dice requirement
+     * @param requiredDiceValue the required dice value check if at that level the effects are disabled
+     * @return true if the dice value is equal or higher than the limit over which immediate effects are disabled
      */
     @Override
-    public boolean isImmediateEffectDisabled(int towerLevel)
+    public boolean isImmediateEffectDisabled(int requiredDiceValue)
     {
-        if(towerLevel >= firstLevelDisabled)
+        if(requiredDiceValue >= minDiceValueDisabled)
             return true;
         return false;
     }
 
     public String getShortDescription(){
-        return "!ImmEffLv>" + firstLevelDisabled;
+        return "!ImmEffLv>=" + minDiceValueDisabled;
     }
     public String getDescription(){
-        return "Disable all immediate effects on action spaces of towers higher than level" + firstLevelDisabled;
+        return "Disable all immediate effects on action spaces with a dice requirements equal or higher than" + minDiceValueDisabled;
     }
 }
 

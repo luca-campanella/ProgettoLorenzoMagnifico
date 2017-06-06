@@ -33,13 +33,13 @@ public class BuildingCard extends AbstractCard{
     /**
      * This method should be called by {@link it.polimi.ingsw.model.controller.ModelController#build(FamilyMember, int)}
      * It activates the cards only if the card dice requirement is higher than {@param realDiceValue} (the {@link FamilyMember} + servants value)
-     * In contrast with {@link TerritoryCard#applyEffectsToPlayer(Player, int, ChoicesHandlerInterface)} this method doesn't apply
+     * In contrast with {@link TerritoryCard#applyEffectsFromHarvestToPlayer(Player, int, ChoicesHandlerInterface)} this method doesn't apply
      * all the effects inside the card because they are a choice, just one effect can be chosen and activated
      * @param player the player to apply the effects to
      * @param realDiceValue the real value when performing the action (the {@link FamilyMember} + servants)
      * @param choicesController the controller that handles the choices on the effects, either by asking the user or the hashmap of choices inside the network package
      */
-    public void applyEffectsToPlayer(Player player, int realDiceValue, ChoicesHandlerInterface choicesController){
+    public void applyEffectsFromBuildToPlayer(Player player, int realDiceValue, ChoicesHandlerInterface choicesController){
 
         if(realDiceValue < buildEffectValue) {
             //No effect should be activated

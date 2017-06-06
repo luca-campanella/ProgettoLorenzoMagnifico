@@ -44,9 +44,12 @@ public class CharacterCardCollector implements Serializable{
     public LinkedList<Resource> getDiscountOnTower(CardColorEnum color)
     {
         LinkedList<Resource> discount = new LinkedList<>();
+        Resource res;
         for(CharacterCard cardIter : characterCards) {
             for(AbstractPermanentEffect effectIter : cardIter.getPermanentEffects()) {
-                discount.add(effectIter.getDiscountOnTower(color));
+                res = effectIter.getDiscountOnTower(color);
+                if(res != null)
+                    discount.add(res);
             }
         }
         return discount;
@@ -104,15 +107,15 @@ public class CharacterCardCollector implements Serializable{
     }
 
     /**
-     * This method returns if the player has immediate effects disabled on a certain level of towers
-     * @param towerLevel the level of the tower to check if at that level the effects are disabled
+     * This method returns if the player has immediate effects disabled on a certain level of towers (over a certain dice value required)
+     * @param requiredDiceValue the dicerequired dice value of the action space of the tower floor to check if at that level the effects are disabled
      * @return true if the effects are disabled over that tower level
      */
-    public boolean isImmediateEffectDisabled(int towerLevel)
+    public boolean isImmediateEffectDisabled(int requiredDiceValue)
     {
         for(CharacterCard cardIter : characterCards) {
             for(AbstractPermanentEffect effectIter : cardIter.getPermanentEffects()) {
-                if(effectIter.isImmediateEffectDisabled(towerLevel))
+                if(effectIter.isImmediateEffectDisabled(requiredDiceValue))
                     return true;
             }
         }

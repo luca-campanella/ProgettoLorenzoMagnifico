@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.resource;
 
 import java.io.Serializable;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -85,7 +86,7 @@ public class ResourceCollector implements Serializable{
      * this method is used to add an array of resources
      * @param resources the arraylist of the resources, it contains the value and the type
      */
-    public void addResources(ArrayList<Resource> resources){
+    public void addResources(AbstractList<Resource> resources){
 
         for(Resource resource : resources){
             this.resourcesMap.put(resource.getType(),this.resourcesMap.get(resource.getType())+resource.getValue());

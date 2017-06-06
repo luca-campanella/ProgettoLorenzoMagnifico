@@ -56,7 +56,7 @@ public class PersonalBoard implements Serializable{
         //we check if there is some blue card that has a bonus on harvest, in this case we should modify the value of the dice
         final int realDiceValueBlue = realDiceValueNoBlueBonus + characterCardsCollector.getBonusOnHarvest();
 
-        territoryCards.forEach(card -> card.applyEffectsToPlayer(player, realDiceValueBlue, choicesController));
+        territoryCards.forEach(card -> card.applyEffectsFromHarvestToPlayer(player, realDiceValueBlue, choicesController));
 
         personalTile.activateEffectsOnHarvest(player, choicesController);
     }
@@ -66,7 +66,7 @@ public class PersonalBoard implements Serializable{
         //we check if there is some blue card that has a bonus on build, in this case we should modify the value of the dice
         final int realDiceValueBlue = realDiceValueNoBlueBonus + characterCardsCollector.getBonusOnBuild();
 
-        buildingCards.forEach(card -> card.applyEffectsToPlayer(player, realDiceValueBlue, choicesController));
+        buildingCards.forEach(card -> card.applyEffectsFromBuildToPlayer(player, realDiceValueBlue, choicesController));
 
         //We add bonus tiles afterwards because the resources got from the bonus tiles should not count on the checks for the yellow cards
         personalTile.activateEffectsOnBuild(player, choicesController);
@@ -109,6 +109,10 @@ public class PersonalBoard implements Serializable{
         return personalTile;
     }
 
+
+    public CharacterCardCollector getCharacterCardsCollector() {
+        return characterCardsCollector;
+    }
 
     @Deprecated
     public LinkedList<CharacterCard> getCharacterCards() {

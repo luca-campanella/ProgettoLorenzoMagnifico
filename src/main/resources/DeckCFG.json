@@ -877,7 +877,7 @@
       "permanentEffect": [
         {
           "permanentEffect": "MalusDisabledImmediateEffectsEffect",
-          "firstLevelDisabled" : 3
+          "minDiceValueDisabled" : 5
         }
       ],
       "name": "Preacher",
