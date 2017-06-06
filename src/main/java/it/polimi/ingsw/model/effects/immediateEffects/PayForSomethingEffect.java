@@ -27,9 +27,9 @@ public class PayForSomethingEffect implements ImmediateEffectInterface {
      */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
         //to pay is by default < 0
-        player.addResource(toPay);
+        player.addResources(toPay);
         //to gain is by default > 0
-        player.addResource(toGain);
+        player.addResources(toGain);
     }
 
     public String descriptionOfEffect()

@@ -287,7 +287,11 @@ public class CommandLineUI extends AbstractUIType {
     public int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
         CliOptionsHandler optionsHandler = new CliOptionsHandler(possibleEffectChoices.size());
         optionsHandler.addEffectsArrayList(possibleEffectChoices);
-        return optionsHandler.askUserChoice();
+        optionsHandler.addOption("Do not activate any effect and save resources for later");
+        int choice = optionsHandler.askUserChoice();
+        if(choice == possibleEffectChoices.size())
+            return -1; // the player chose not to activate any effect
+        return choice;
     }
 
 }

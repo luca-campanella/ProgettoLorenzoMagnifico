@@ -17,6 +17,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
@@ -40,10 +41,10 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     HashMap<String, Integer> choicesOnCurrentAction;
 
     /**
-     * this hashmap is used to check that the user has sufficient resources to make a build choice
+     * this resource collector is used to check that the user has sufficient resources to make a build choice
      * it is initialized with the resources of the player at the beginning of the build action
      */
-    HashMap<ResourceTypeEnum, Integer> resourcesCheckHashmap;
+    ResourceCollector resourcesCheckMap;
 
     FamilyMember familyMemberCurrentAction;
 
@@ -248,7 +249,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         since Integer types are immutable
          */
 
-        resourcesCheckHashmap = new HashMap<ResourceTypeEnum, Integer>(familyMember.getPlayer().getResourcesMap());
+        resourcesCheckMap = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
 
         /*LinkedList<BuildingCard> buildingCards = modelController.getYellowBuildingCards(familyMember.getPlayer());
         ArrayList<ImmediateEffectInterface> effects;
@@ -311,7 +312,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         for(int i = 0; i < possibleEffectChoices.size(); i++) {
             effectIter = possibleEffectChoices.get(i);
             if(effectIter instanceof PayForSomethingEffect) {
-                if(!checkIfPayable(resourcesCheckHashmap, ((PayForSomethingEffect) effectIter).getToPay()))
+                if(!resourcesCheckMap.checkIfContainable(((PayForSomethingEffect) effectIter).getToPay()));
                     continue; //we should not add the option because the player doesn't have enough resources
             }
             realPossibleEffectChoices.add(effectIter);
@@ -332,13 +333,19 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         }
         else { //there are possible choices: let's ask the UI what to chose
             int tmpChoice = userInterface.askYellowBuildingCardEffectChoice(possibleEffectChoices);
-            effectChosen = realPossibleEffectChoices.get(tmpChoice);
-            choice = possibleEffectChoices.indexOf(effectChosen);
+            if(tmpChoice == -1) { // the player decided not to activate any effect
+                effectChosen = new NoEffect();
+                choice = -1;
+            }
+             else { //he chose an effect, let's return the correct one
+                effectChosen = realPossibleEffectChoices.get(tmpChoice);
+                choice = possibleEffectChoices.indexOf(effectChosen);
+            }
         }
-        //TODO implement choose no choice
+
         //we need to subtract the resources he payed from the copy of the hashmap in order to be sure next checks are correct
         if(effectChosen instanceof PayForSomethingEffect) {
-            addResourcesToMap(resourcesCheckHashmap, ((PayForSomethingEffect) effectChosen).getToGain());
+            resourcesCheckMap.addResources(((PayForSomethingEffect) effectChosen).getToGain());
         }
 
         choicesOnCurrentAction.put(cardNameChoiceCode, choice);

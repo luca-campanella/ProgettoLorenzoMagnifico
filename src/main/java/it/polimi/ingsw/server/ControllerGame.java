@@ -149,6 +149,7 @@ public class ControllerGame  implements ControllerModelInterface {
 
         JSONLoader jsonLoader = new JSONLoader();
         ArrayList<PersonalTile> personalTiles = jsonLoader.loadTiles();
+
         boardGame = jsonLoader.boardCreator();
         deck = jsonLoader.createNewDeck();
         int period = 1;

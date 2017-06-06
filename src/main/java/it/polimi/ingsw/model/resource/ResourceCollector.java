@@ -52,12 +52,23 @@ public class ResourceCollector {
     }
 
     /**
-     * this method is used to add a single resource
+     * this method is used to add a single resource, if {@link Resource#getValue()} < 0 subtracts the resource instead
      * @param resource the object of the resource, it contains the value and the type
      */
     public void addResource(Resource resource){
 
         this.resourcesMap.put(resource.getType(),this.resourcesMap.get(resource.getType())+resource.getValue());
+
+    }
+
+    /**
+     * this method is used to subtract a single resource,
+     * {@link Resource#getValue()} should be positive to work as a subtractor
+     * @param resource the object of the resource, it contains the value and the type
+     */
+    public void subResource(Resource resource){
+
+        this.resourcesMap.put(resource.getType(),this.resourcesMap.get(resource.getType())-resource.getValue());
 
     }
 

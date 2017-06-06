@@ -3,6 +3,7 @@ package it.polimi.ingsw.choices;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -57,8 +58,13 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
      */
     @Override
     public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+        ImmediateEffectInterface effect;
         int choice = choicesMap.get(cardNameChoiceCode);
-        ImmediateEffectInterface effect = possibleEffectChoices.get(choice);
+        if(choice == -1)
+            effect = new NoEffect();
+        else
+            effect = possibleEffectChoices.get(choice);
+
         Debug.printVerbose("Callback on yellowBuldingCardCalled, choice = " + choice + " corrisponding con to effect: " + effect.descriptionOfEffect());
         return effect;
     }
