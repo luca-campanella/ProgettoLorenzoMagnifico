@@ -215,6 +215,23 @@ public class ModelController {
         player.build(familyMember.getValue() + servants, choicesController);
     }
 
+    /**
+     * This methos is called when the player harvests, it is the entry point to the model
+     * @param familyMember the family member the player performed the action with
+     * @param servants the number of servants the player performed the action with
+     */
+    public void harvest(FamilyMember familyMember, int servants) {
+
+        Player player = familyMember.getPlayer();
+
+        //set the family member as used in the player
+        player.playFamilyMember(familyMember);
+        //just adds the family member to the BuildAS
+        gameBoard.harvest(familyMember);
+
+        player.harvest(familyMember.getValue() + servants, choicesController);
+    }
+
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
 
         MarketAS marketPlace = gameBoard.getMarketSpaceByIndex(marketSpaceIndex);
