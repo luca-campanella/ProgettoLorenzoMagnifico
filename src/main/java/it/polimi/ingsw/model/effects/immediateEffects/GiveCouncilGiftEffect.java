@@ -14,7 +14,7 @@ public class GiveCouncilGiftEffect implements ImmediateEffectInterface {
      * @param player
      * @param choicesHandlerInterface
      */
-    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface)
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName)
     {
         //choicesHandlerInterface.callbackOnCouncilGift();
     }

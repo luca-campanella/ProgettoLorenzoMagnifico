@@ -24,7 +24,7 @@ public class DiscountEffect implements ImmediateEffectInterface{
      * @param choicesHandlerInterface
      */
     @Override
-    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
         ;
     }
     @Override

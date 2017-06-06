@@ -14,7 +14,7 @@ public class GainResourceEffect implements ImmediateEffectInterface {
     }
 
     @Override
-    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
         giveResourcesToPlayer(player, resource);
     }
 

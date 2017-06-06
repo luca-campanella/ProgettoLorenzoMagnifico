@@ -11,7 +11,7 @@ public class PayResourceEffect implements ImmediateEffectInterface {
     Resource cost;
 
     @Override
-    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
         giveResourcesToPlayer(player, cost);
     }
 

@@ -12,7 +12,7 @@ public interface ImmediateEffectInterface {
     /**
      * this method is the method that all effects must implements
      */
-    abstract public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface);
+    abstract public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName);
 
     /**
      * when someone invokes this method, gets a description of what the method does

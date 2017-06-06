@@ -13,7 +13,7 @@ public class HarvestNoFamilyMembersEffect extends AbstractPerformActionEffect {
         this.diceValue = harvestValue;
     }
     @Override
-    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName){
         player.harvest(diceValue, choicesHandlerInterface);
     }
 

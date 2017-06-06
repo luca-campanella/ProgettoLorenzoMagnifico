@@ -18,7 +18,7 @@ public class BuildNoFamilyMembersEffect extends AbstractPerformActionEffect {
      * @param choicesHandlerInterface
      */
     @Override
-    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
         //todo: add choicesHandlerInterface.askNumberOfServants
         player.build(diceValue, choicesHandlerInterface);
     }

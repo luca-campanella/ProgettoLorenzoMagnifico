@@ -35,7 +35,7 @@ public class PersonalTile {
     }
 
     public void activateEffectsOnBuild(Player player, ChoicesHandlerInterface choicesController) {
-        effectOnBuild.forEach(effect -> effect.applyToPlayer(player, choicesController));
+        effectOnBuild.forEach(effect -> effect.applyToPlayer(player, choicesController, "personalTile"));
     }
 
     public void setEffectOnHarvest(ArrayList<GainResourceEffect> effectOnHarvest) {

@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.player.Player;
  * */
 public class NoEffect implements  ImmediateEffectInterface {
 
-    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface){
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName){
         //This method doesn't do anything
         ;
     }

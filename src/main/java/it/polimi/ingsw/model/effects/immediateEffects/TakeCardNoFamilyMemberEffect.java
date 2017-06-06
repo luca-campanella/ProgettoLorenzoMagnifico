@@ -14,7 +14,7 @@ public class TakeCardNoFamilyMemberEffect extends AbstractPerformActionEffect {
     private ArrayList<CardColorEnum> towerColorsAllowed;
     //private ArrayList<...>
     @Override
-    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
        // todo: choicesHandlerInterface.callbackOnTakeCard(diceValueOnTower, towerColorsAllowed, SCONTO? )
     }
 

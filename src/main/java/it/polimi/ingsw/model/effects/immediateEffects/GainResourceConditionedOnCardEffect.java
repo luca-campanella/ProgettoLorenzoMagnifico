@@ -22,12 +22,12 @@ public class GainResourceConditionedOnCardEffect extends GainResourceEffect {
       *  This method gives you resources for each card of a certain type you have
      */
     @Override
-    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface) {
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
         //first you get the number of sameColoredCards
         int numberOfColoredCards = player.getNumberOfColoredCard(colorConditionedOnCardEffect);
         int i;
         for(i = 0; i<numberOfColoredCards; i += numberOfCards) {
-            super.applyToPlayer(player, choicesHandlerInterface);
+            super.applyToPlayer(player, choicesHandlerInterface, cardName);
         }
     }
     public String descriptionOfEffect(){

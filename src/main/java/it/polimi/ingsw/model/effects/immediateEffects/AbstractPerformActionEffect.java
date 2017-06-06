@@ -9,7 +9,7 @@ import it.polimi.ingsw.model.player.Player;
 public abstract class AbstractPerformActionEffect implements ImmediateEffectInterface{
     int diceValue;
 
-    public abstract void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface);
+    public abstract void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface, String cardName);
 
 
 }
