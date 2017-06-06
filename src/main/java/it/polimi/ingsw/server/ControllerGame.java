@@ -22,7 +22,7 @@ import java.util.Random;
  * the controller of the game on the server
  */
 public class ControllerGame  implements ControllerModelInterface {
-    private ControllerGame game;
+
     private Room room;
     private Deck deck;
     private Board boardGame;
@@ -33,7 +33,7 @@ public class ControllerGame  implements ControllerModelInterface {
     private HashMap<String, Integer> playerChoices;
     private ArrayList<AbstractConnectionPlayer> orderOfPlayers;
 
-    public static void main(String[] args) throws Exception {
+    /*public static void main(String[] args) throws Exception {
         ControllerGame controllerGame =  new ControllerGame(2);
         CliPrinter cli = new CliPrinter();
         //cli.printDeck(controllerGame.getDeck());
@@ -49,7 +49,7 @@ public class ControllerGame  implements ControllerModelInterface {
         controllerGame.testSecondRound(3);
         cli.printBoard(controllerGame.getBoardGame());
 
-    }
+    }*/
 
     public void testSecondRound(int period){
         boardGame = deck.fillBoard(boardGame,period);
@@ -133,6 +133,7 @@ public class ControllerGame  implements ControllerModelInterface {
         this.room = room;
         this.orderOfPlayers = players;
         modelController = new ModelController(players, boardGame);
+        startNewGame();
         room.receiveStartGameBoard(boardGame);
         numberOfTurn = 0;
         numberOfRound = 1;
@@ -196,14 +197,14 @@ public class ControllerGame  implements ControllerModelInterface {
     /**
      * call the method on the controller of the model to start a new game
      */
-    public void startNewGame(){
+    private void startNewGame(){
 
-        /*modelController.startNewGame();
+        modelController.startNewGame();
 
         chooseOrderRandomly();
 
         //add the coins to the orderOfPlayers based on the order of turn
-        modelController.addCoinsStartGame(orderOfPlayers);*/
+        modelController.addCoinsStartGame(orderOfPlayers);
 
     }
 

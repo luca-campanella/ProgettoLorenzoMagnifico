@@ -106,7 +106,6 @@ public class Room {
                 System.out.println("just before constructor");
                 controllerGame = new ControllerGame(players, this);
                 System.out.println("after constructor");
-                controllerGame.startNewGame();
                 System.out.println("after after constructor");
             }
             catch (Exception e) {
