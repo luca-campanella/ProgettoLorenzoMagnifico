@@ -14,6 +14,6 @@ public class MalusDiceOnTowerColorEffect extends AbstractExcommunicationTileEffe
     private CardColorEnum towerColorsMalus;
 
     public String getShortEffectDescription(){
-        return "-"+ malusDice + "OnDice for towers with this color: " + towerColorsMalus;
+        return "-"+ malusDice + " OnDice for towers with this color: " + towerColorsMalus;
     }
 }

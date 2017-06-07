@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.excommunicationTiles;
 /**
  * This excommunication Tiles doesn't allow you to place a family member on the market.
  */
-public class MalusOnMarket extends AbstractExcommunicationTileEffect{
+public class MalusOnMarketEffect extends AbstractExcommunicationTileEffect{
     private boolean maluseActivate = false;
 
     /**

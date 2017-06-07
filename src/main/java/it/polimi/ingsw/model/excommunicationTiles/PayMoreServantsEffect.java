@@ -22,6 +22,6 @@ public class PayMoreServantsEffect extends AbstractExcommunicationTileEffect{
     }
 
     public String getShortEffectDescription(){
-        return "+"+ moreServants + " For +1 on dice";
+        return "You need to pay "+ moreServants + " more servants for +1 on dice";
     }
 }

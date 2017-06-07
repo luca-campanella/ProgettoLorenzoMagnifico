@@ -74,5 +74,61 @@
       ],
       "malusValue": 1
     }
+  },
+  {
+    "period": 2,
+    "effect": {
+      "excommunicationTiles": "MalusDiceOnTowerColorEffect",
+      "malusDice": 4,
+      "towerColorsMalus": "GREEN"
+    }
+  },
+
+  {
+    "period": 2,
+    "effect": {
+      "excommunicationTiles": "MalusDiceOnTowerColorEffect",
+      "malusDice": 4,
+      "towerColorsMalus": "YELLOW"
+    }
+  },
+
+  {
+    "period": 2,
+    "effect": {
+      "excommunicationTiles": "MalusDiceOnTowerColorEffect",
+      "malusDice": 4,
+      "towerColorsMalus": "BLUE"
+    }
+  },
+  {
+    "period": 2,
+    "effect": {
+      "excommunicationTiles": "MalusDiceOnTowerColorEffect",
+      "malusDice": 4,
+      "towerColorsMalus": "PURPLE"
+    }
+  },
+  {
+    "period": 2,
+    "effect": {
+      "excommunicationTiles": "MalusOnMarketEffect",
+      "maluseActivate": true
+    }
+  },
+  {
+    "period": 2,
+    "effect": {
+      "excommunicationTiles": "PayMoreServantsEffect",
+      "moreServants": 1
+    }
+  },
+  {
+    "period": 2,
+    "effect": {
+      "excommunicationTiles": "SkipRoundEffect",
+      "maluseActivate": true
+    }
   }
+
 ]
