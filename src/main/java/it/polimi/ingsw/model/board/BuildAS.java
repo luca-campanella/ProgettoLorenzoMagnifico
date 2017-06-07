@@ -11,22 +11,19 @@ import java.util.ArrayList;
 public class BuildAS extends AbstractActionSpace implements Serializable{
     // this boolean checks ?
     private boolean twoPlayersOneSpace;
-    //this is the standard build value (ex 0)
-    int valueStandard = 0;
+
     //this is the standard malus build value. (ex -3)
     int valueMalus = 0;
     //this boolean check if the player that puts there the family member is the first
     //todo Non lo dovrebbe fare il controller? -- Arto
     private boolean first = true;
-    //it's the list of family members on this place
-    private ArrayList<FamilyMember> familyMembers;
     public BuildAS() {
         super();
     }
 
-    public BuildAS(int valueStandard, int valueMalus, boolean first) {
+    public BuildAS(int diceRequirement, int valueMalus, boolean first) {
         super();
-        this.valueStandard = valueStandard;
+        this.diceRequirement = diceRequirement;
         this.valueMalus = valueMalus;
         this.first = first;
         familyMembers = new ArrayList<>(8);
@@ -59,12 +56,12 @@ public class BuildAS extends AbstractActionSpace implements Serializable{
         return false;
     }
 
-    public int getValueStandard() {
-        return valueStandard;
+    public int getdiceRequirement() {
+        return diceRequirement;
     }
 
-    public void setValueStandard(int valueStandard) {
-        this.valueStandard = valueStandard;
+    public void setdiceRequirement(int diceRequirement) {
+        this.diceRequirement = diceRequirement;
     }
 
     public int getValueMalus() {
@@ -86,8 +83,8 @@ public class BuildAS extends AbstractActionSpace implements Serializable{
     public int getValueNeeded(){
 
         if(familyMembers.size()>0)
-            return valueMalus+valueStandard;
-        return valueStandard;
+            return valueMalus+diceRequirement;
+        return diceRequirement;
     }
 
     public void addFamilyMember(FamilyMember familyMember){

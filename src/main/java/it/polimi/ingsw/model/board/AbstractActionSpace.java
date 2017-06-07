@@ -12,14 +12,18 @@ import java.util.ArrayList;
 public abstract class AbstractActionSpace {
 
     /**
+     *it's the list of family members on this place
+     */
+    protected ArrayList<FamilyMember> familyMembers;
+    /**
      * the value the {@link FamilyMember} needs to be able to be put into the action space
      */
-    private int diceRequirement;
+    protected int diceRequirement;
 
     /**
      * The effects associated with the ActionSpace
      */
-    private ArrayList<ImmediateEffectInterface> effects;
+    protected ArrayList<ImmediateEffectInterface> effects;
 
     protected AbstractActionSpace() {
         effects = new ArrayList<>(1);

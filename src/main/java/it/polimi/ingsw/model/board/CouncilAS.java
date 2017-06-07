@@ -15,7 +15,6 @@ public class CouncilAS extends AbstractActionSpace implements Serializable{
     /**
      * the list of family member on this space
      */
-    private ArrayList<FamilyMember> familyMembers;
     ArrayList<ImmediateEffectInterface> effectsOnPlacement;
     ArrayList<GainResourceEffect> councilGiftChoices;
 

@@ -32,7 +32,7 @@ public class ControllerGame  implements ControllerModelInterface {
     private int numberOfTurn;
     private HashMap<String, Integer> playerChoices;
     private ArrayList<AbstractConnectionPlayer> orderOfPlayers;
-    /*
+
     public static void main(String[] args) throws Exception {
         ControllerGame controllerGame =  new ControllerGame(2);
         CliPrinter cli = new CliPrinter();
@@ -48,7 +48,7 @@ public class ControllerGame  implements ControllerModelInterface {
         cli.printBoard(controllerGame.getBoardGame());
         controllerGame.testSecondRound(3);
         cli.printBoard(controllerGame.getBoardGame());
-    }*/
+    }
 
     public void testSecondRound(int period){
         boardGame = deck.fillBoard(boardGame,period);

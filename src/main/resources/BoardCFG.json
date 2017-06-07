@@ -242,9 +242,8 @@
     }
   ],
   "build": {
-    "valueStandard": 1,
     "valueMalus": 3,
-    "first": false,
+    "first": true,
     "diceRequirement": 1,
     "effects": [
       {
@@ -253,9 +252,9 @@
     ]
   },
   "harvest": {
-    "valueStandard": 1,
     "valueMalus": 3,
     "diceRequirement": 1,
+    "first": true,
     "effects": [
       {
         "effectName": "NoEffect"

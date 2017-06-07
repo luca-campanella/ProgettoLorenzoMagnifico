@@ -352,7 +352,7 @@ public class CliPrinter {
     public void printBuildAS(Board board)
     {
             System.out.println("This is Build Action Space: ");
-            System.out.println("Standard "+ board.getBuild().getValueStandard() + ". Malus " + board.getBuild().getValueMalus() );
+            System.out.println("Standard "+ board.getBuild().getdiceRequirement() + ". Malus " + board.getBuild().getValueMalus() );
     }
 
     /**
