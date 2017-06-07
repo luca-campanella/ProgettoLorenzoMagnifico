@@ -14,7 +14,7 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
 
     private int diceCost;
 
-    private ImmediateEffectInterface effect;
+   // private ImmediateEffectInterface effect;
 
     private AbstractCard card;
 
