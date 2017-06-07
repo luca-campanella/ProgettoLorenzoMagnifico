@@ -29,9 +29,17 @@ public class ReductionOnDiceEffect extends AbstractExcommunicationTileEffect{
         return 0;
     }
     public String getShortEffectDescription(){
-        String temp = "-"+ malusValue + "OnDice colors: ";
+        String temp = "-"+ malusValue + " OnDice colors: ";
         for(DiceAndFamilyMemberColorEnum i : colorsEffected)
-            temp += i.toString() + ", ";
+            temp += i.toString() + " ";
         return temp;
+    }
+
+    public void setColorsEffected(ArrayList<DiceAndFamilyMemberColorEnum> colorsEffected) {
+        this.colorsEffected = colorsEffected;
+    }
+
+    public void setMalusValue(int malusValue) {
+        this.malusValue = malusValue;
     }
 }

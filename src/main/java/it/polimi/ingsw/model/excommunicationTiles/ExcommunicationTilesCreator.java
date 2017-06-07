@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.excommunicationTiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
@@ -35,6 +36,23 @@ public class ExcommunicationTilesCreator {
         gainF.setResourceExcommunication(new Resource(ResourceTypeEnum.COIN, 1));
         excommunicationTile.setEffect(gainF);
         excommunicationTiles.add(excommunicationTile);
+
+        ExcommunicationTile excommunicationTileTwo = new ExcommunicationTile();
+        excommunicationTileTwo.setPeriod(1);
+        HarvestMalusEffect malusHarvest = new HarvestMalusEffect();
+        BuildMalusEffect buildHarvest = new BuildMalusEffect();
+        buildHarvest.setMalusOnDice(3);
+        excommunicationTileTwo.setEffect(buildHarvest);
+        excommunicationTiles.add(excommunicationTileTwo);
+
+        ExcommunicationTile excommunicationTileThree = new ExcommunicationTile();
+        excommunicationTileTwo.setPeriod(1);
+        ReductionOnDiceEffect effect = new ReductionOnDiceEffect();
+        ArrayList<DiceAndFamilyMemberColorEnum> colors = new ArrayList<>();
+        colors.add(DiceAndFamilyMemberColorEnum.BLACK);
+        effect.setColorsEffected(colors);
+        excommunicationTileThree.setEffect(effect);
+        excommunicationTiles.add(excommunicationTileThree);
         String temp = gson.toJson(excommunicationTiles);
         System.out.println(temp);
 

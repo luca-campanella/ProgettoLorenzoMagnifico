@@ -38,14 +38,41 @@
         "value": 1
       }
     }
-  },{
-  "period": 1,
-  "effect": {
-    "excommunicationTiles": "GainFewerResourceEffect",
-    "resourceExcommunication": {
-      "type": "STONE",
-      "value": 1
+  },
+  {
+    "period": 1,
+    "effect": {
+      "excommunicationTiles": "GainFewerResourceEffect",
+      "resourceExcommunication": {
+        "type": "STONE",
+        "value": 1
+      }
+    }
+  },
+  {
+    "period": 1,
+    "effect": {
+      "excommunicationTiles": "BuildMalusEffect",
+      "malusOnDice": 3
+    }
+  },
+  {
+    "period": 1,
+    "effect": {
+      "excommunicationTiles": "HarvestMalusEffect",
+      "malusOnDice": 3
+    }
+  },
+  {
+    "period": 1,
+    "effect": {
+      "excommunicationTiles": "ReductionOnDiceEffect",
+      "colorsEffected": [
+        "BLACK",
+        "ORANGE",
+        "WHITE"
+      ],
+      "malusValue": 1
     }
   }
-}
 ]
