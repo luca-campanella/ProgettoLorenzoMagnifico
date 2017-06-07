@@ -131,9 +131,24 @@ public class ModelController {
     public void prepareForNewPeriod(){
         period = period + 1;
     }
-    //todo place on tower
-    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
-;
+
+
+    /**
+     * This method performs the real action on the model when the player places a FM on a tower
+     * This method goes down on the model to perform the action calling {@link Board}, {@link it.polimi.ingsw.model.board.Tower}, {@link it.polimi.ingsw.model.board.TowerFloorAS}
+     * @param familyMember the family member to perform the action with
+     * @param servants the number of servants to perform the action with
+     * @param towerIndex the tower to place the family member to
+     * @param floorIndex the floor to place the family member to
+     */
+    public void placeOnTower(FamilyMember familyMember, int servants, int towerIndex, int floorIndex){
+        Player player = familyMember.getPlayer();
+
+        //set the family member as used in the player
+        player.playFamilyMember(familyMember);
+        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
+        //just adds the family member to the BuildAS
+        gameBoard.placeOnTower(familyMember, towerIndex, floorIndex, choicesController);
     }
 
     /*
@@ -208,6 +223,7 @@ public class ModelController {
 
         //set the family member as used in the player
         player.playFamilyMember(familyMember);
+        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
         //just adds the family member to the BuildAS
         gameBoard.build(familyMember);
 
@@ -225,6 +241,7 @@ public class ModelController {
 
         //set the family member as used in the player
         player.playFamilyMember(familyMember);
+        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
         //just adds the family member to the BuildAS
         gameBoard.harvest(familyMember);
 

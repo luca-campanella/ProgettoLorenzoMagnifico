@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.exceptions.IllegaActionException;
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 
@@ -25,10 +25,19 @@ public abstract class AbstractActionSpace {
         effects = new ArrayList<>(1);
     }
 
-    /**
+
+    /*
      * this method lets you perform the actions corresponding to the action space
+     * @param familyMember the family member to perform the action with
+     * @param choicesController the controller fo choices in case the action has choices the user should make
      */
-    abstract public void performAction(FamilyMember familyMember) throws IllegaActionException;
+   public void performAction(FamilyMember familyMember, ChoicesHandlerInterface choicesController){
+       ;
+   }
+//todo decide either of this methods
+    public void performAction(FamilyMember familyMember) {
+        ;
+    }
 
 
     public int getDiceValue() {

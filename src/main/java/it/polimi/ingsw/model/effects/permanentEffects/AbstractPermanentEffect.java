@@ -22,7 +22,7 @@ public abstract class AbstractPermanentEffect implements Serializable{
                 return null;
         }
         /**
-         * This method is used to get the discount when placing a family member on a certain tower
+         * This method is used to get the bonus on the dice when placing a family member on a certain tower
          * this method is overriden by {@link BonusOnTowerEffect} to return the correct bonus
          * @param color the color of the tower / card
          * @return the bonus on the dice of the family member placed on that tower
@@ -52,15 +52,16 @@ public abstract class AbstractPermanentEffect implements Serializable{
         }
 
         /**
-         * This method returns if the player has immediate effects disabled on a certain level of towers
+         * This method returns if the player has immediate effects disabled on a certain level of towers, that has a certain dice requirement
          * This method will be overridden by {@link MalusDisabledImmediateEffectsEffect} to return the correct value
-         * @param towerLevel the level of the tower to check if at that level the effects are disabled
-         * @return false
+         * @param requiredDiceValue the required dice value check if at that level the effects are disabled
+         * @return false, by default
          */
-        public boolean isImmediateEffectDisabled(int towerLevel)
+        public boolean isImmediateEffectDisabled(int requiredDiceValue)
         {
                 return false;
         }
+
         public abstract String getShortDescription();
         public abstract String getDescription();
 }

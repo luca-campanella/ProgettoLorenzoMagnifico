@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.io.Serializable;
+import java.util.AbstractList;
 import java.util.ArrayList;
 
 /**
@@ -74,6 +75,7 @@ public abstract class Player implements Serializable{
 
     /**
      * this method is used to add a resource on the player
+     * if {@link Resource#getValue()} < 0 subtracts the resource instead
      * @param resource the object of the resource, it contains the value and the type
      */
     public void addResource(Resource resource){
@@ -83,13 +85,21 @@ public abstract class Player implements Serializable{
     }
 
     /**
+     * this method is used to subtract a single resource,
+     * {@link Resource#getValue()} should be positive to work as a subtractor
+     * @param resource the object of the resource, it contains the value and the type
+     */
+    public void subResource(Resource resource) {
+        resourcesMap.subResource(resource);
+    }
+
+    /**
      * this method is used to add an array of resources on the player
      * @param resources the object of the resource, it contains the value and the type
      */
-    public void addResources(ArrayList<Resource> resources){
+    public void addResources(AbstractList<Resource> resources) {
 
         resourcesMap.addResources(resources);
-
     }
 
     public int getResource(ResourceTypeEnum type){
@@ -226,4 +236,5 @@ public abstract class Player implements Serializable{
         }
         return null;
     }
+
 }
