@@ -16,7 +16,7 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
     //it's the malus that family member has if it isn't the first
     private int valueMalus;
     //it's the list of family members on this place
-    private ArrayList<FamilyMember> familyMembers;
+   // private ArrayList<FamilyMember> familyMembers;
 
     public HarvestAS() {
         super();

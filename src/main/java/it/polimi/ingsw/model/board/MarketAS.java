@@ -17,28 +17,28 @@ public class MarketAS extends AbstractActionSpace implements Serializable{
     //It's the minimum dice value of the family member
     private int valueStandard;
     //it's the list of family members on this place
-    private FamilyMember familyMember;
+    //private FamilyMember familyMember;
 
     private void placeFamilyMember(FamilyMember familyMember){
-        this.familyMember = familyMember;
+        familyMembers.add(familyMember);
         performAction(familyMember);
     }
 
     public FamilyMember getFamilyMember(){
-        return  familyMember;
+        return familyMembers.get(0);
     }
-
+    /*
     public MarketAS(int valueStandard) {
         super();
         this.valueStandard = valueStandard;
-    }
+    }*/
 
     /**
      * it clears the market removing the family member
      */
     public void clearMarket(){
 
-        familyMember = null;
+        familyMembers = null;
 
     }
 

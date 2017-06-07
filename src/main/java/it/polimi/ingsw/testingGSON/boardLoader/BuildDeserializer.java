@@ -19,7 +19,7 @@ public class BuildDeserializer implements JsonDeserializer<BuildAS>{
         int valueMalus = jsonBuild.get("diceValueMalus").getAsInt();
 
         BuildAS build = new BuildAS();
-        build.setValueStandard(valueStandard);
+        build.setdiceRequirement(valueStandard);
         build.setValueMalus(valueMalus);
 
         return build;
