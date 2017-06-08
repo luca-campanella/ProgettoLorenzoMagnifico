@@ -207,8 +207,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
      */
     public void harvest(){
         try{
-            HarvestPacket packet=(HarvestPacket) inStream.readObject();
-            getRoom().harvest(getFamilyMemberByColor(packet.getFamilyMemberColor()), packet.getServantUsed());
+            BuildOrHarvest packet=(BuildOrHarvest) inStream.readObject();
+            getRoom().harvest(getFamilyMemberByColor(packet.getFamilyMemberColor()), packet.getServantUsed(),packet.getPlayerChoices());
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
@@ -218,7 +218,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     public void build(){
         try{
-            BuildPacket packet=(BuildPacket) inStream.readObject();
+            BuildOrHarvest packet=(BuildOrHarvest) inStream.readObject();
             getRoom().build(getFamilyMemberByColor(packet.getFamilyMemberColor()), packet.getServantUsed(), packet.getPlayerChoices());
         }
         catch(IOException | ClassNotFoundException e){
@@ -359,7 +359,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
 
             outStream.writeObject(PacketType.BUILD);
-            outStream.writeObject(new ReceiveBuildPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),servant,playerChoices));
+            outStream.writeObject(new ReceiveBuildOrHarvestPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),servant,playerChoices));
             outStream.flush();
 
         }
@@ -375,12 +375,12 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
      * This method is called by the server to send a packet with the information of the move. (Direction: server -> client)
      */
     @Override
-    public void receiveHarvest(FamilyMember familyMember, int servant) throws NetworkException {
+    public void receiveHarvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException {
 
         try{
 
             outStream.writeObject(PacketType.HARVEST);
-            outStream.writeObject(new ReceiveHarvestPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),servant));
+            outStream.writeObject(new ReceiveBuildOrHarvestPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),servant, playerChoices));
             outStream.flush();
 
         }
@@ -439,7 +439,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         try{
 
-            outStream.writeObject(PacketType.DICES);
+            outStream.writeObject(PacketType.DICE);
             outStream.writeObject(new DicesPacket(dices));
             outStream.flush();
 
@@ -471,6 +471,21 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             Debug.printError("Cannot deliver the board to the server", e);
         }
 
+    }
+
+    /**
+     * this method is used to inform the player that his turn is started
+     */
+    @Override
+    public void receiveStartOfTurn() {
+
+        try{
+            outStream.writeObject(PacketType.START_TURN);
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Cannot deliver the token to start the turn");
+        }
     }
 
 

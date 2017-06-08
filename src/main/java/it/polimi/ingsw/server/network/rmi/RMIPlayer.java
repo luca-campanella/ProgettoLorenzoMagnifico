@@ -33,7 +33,7 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
     /**
      * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
      * @param msg message
-     * @throws NetworkException if somthing went wrong on the network
+     * @throws NetworkException if something went wrong on the network
      */
     @Override
     public void receiveChatMsg(String senderNickname, String msg) throws NetworkException {
@@ -47,25 +47,61 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
 
     }
 
+    /**
+     * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
+     * @param familyMember the family member placed on the tower
+     * @param towerIndex the number of the tower
+     * @param floorIndex the number of the floor on the tower
+     * @param playerChoices the choices of the player if the effects on the card had different alternatives
+     * @throws NetworkException if something went wrong on the network
+     */
     @Override
     public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
 
+        try{
+            RMIClientInterfaceInst.receivePlaceOnTower(familyMember, towerIndex, floorIndex, playerChoices);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send move on tower to" + getNickname(), e);
+            throw new NetworkException(e);
+        }
     }
 
     @Override
     public void receivePlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
 
+        try{
+            RMIClientInterfaceInst.receivePlaceOnMarket(familyMember, marketIndex, playerChoices);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send move on market to" + getNickname(), e);
+            throw new NetworkException(e);
+        }
     }
 
 
     @Override
     public void receiveBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException {
 
+        try{
+            RMIClientInterfaceInst.receiveBuild(familyMember, servant, playerChoices);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send move on tower to" + getNickname(), e);
+            throw new NetworkException(e);
+        }
     }
 
     @Override
-    public void receiveHarvest(FamilyMember familyMember, int servant) throws NetworkException {
+    public void receiveHarvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException {
 
+        try{
+            RMIClientInterfaceInst.receiveHarvest(familyMember, servant, playerChoices);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send move on tower to" + getNickname(), e);
+            throw new NetworkException(e);
+        }
     }
 
     @Override
@@ -80,6 +116,11 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
 
     @Override
     public void receiveStartGameBoard(Board gameBoard) {
+
+    }
+
+    @Override
+    public void receiveStartOfTurn() {
 
     }
 

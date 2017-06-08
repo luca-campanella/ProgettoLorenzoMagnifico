@@ -219,14 +219,14 @@ public class SocketClient extends AbstractClientType {
     /**
      * this method is called when the family member is moved on the harvest space
      */
-    public void harvesting (FamilyMember familyMember, int servantUsed) throws NetworkException, IllegalMoveException {
+    public void harvesting (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
 
         MoveErrorEnum moveErrorEnum;
 
         try{
 
             outStream.writeObject(PacketType.HARVEST);
-            outStream.writeObject(new HarvestPacket(familyMember.getColor(),servantUsed));
+            outStream.writeObject(new BuildOrHarvest(familyMember.getColor(),servantUsed,playerChoices));
             outStream.flush();
             moveErrorEnum=(MoveErrorEnum)inStream.readObject();
 
@@ -254,7 +254,7 @@ public class SocketClient extends AbstractClientType {
         try{
 
             outStream.writeObject(PacketType.BUILD);
-            outStream.writeObject(new BuildPacket(familyMember.getColor(),servantUsed,playerChoices));
+            outStream.writeObject(new BuildOrHarvest(familyMember.getColor(),servantUsed,playerChoices));
             outStream.flush();
             moveErrorEnum=(MoveErrorEnum)inStream.readObject();
 
@@ -376,7 +376,7 @@ public class SocketClient extends AbstractClientType {
 
         try {
 
-            ReceiveHarvestPacket packet = (ReceiveHarvestPacket)inStream.readObject();
+            ReceiveBuildOrHarvestPacket packet = (ReceiveBuildOrHarvestPacket)inStream.readObject();
             //TODO method
 
         }
@@ -395,7 +395,7 @@ public class SocketClient extends AbstractClientType {
 
         try {
 
-            ReceiveBuildPacket packet = (ReceiveBuildPacket)inStream.readObject();
+            ReceiveBuildOrHarvestPacket packet = (ReceiveBuildOrHarvestPacket)inStream.readObject();
             //TODO method
 
         }
@@ -456,6 +456,12 @@ public class SocketClient extends AbstractClientType {
 
             Debug.printError("Error: cannot receive the initial board", e);
         }
+    }
+
+    public void startTurn(){
+
+        //TODO method to tell the client the turn is started
+
     }
 
 }

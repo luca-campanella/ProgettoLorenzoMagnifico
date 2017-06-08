@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.rmi.RMIPlayerInterface;
 import it.polimi.ingsw.server.network.rmi.RMIServerInterface;
 import it.polimi.ingsw.utils.Debug;
@@ -15,6 +16,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashMap;
 
 /**
  * The class to handle the rmi client side, publishes itself and passes its reference to the server, so the server can call it back with RMIClientInterface
@@ -140,5 +142,25 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receiveChatMsg(String senderNick, String msg) throws RemoteException {
         getControllerMain().receiveChatMsg(senderNick, msg);
+    }
+
+    @Override
+    public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws RemoteException {
+
+    }
+
+    @Override
+    public void receivePlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws RemoteException {
+
+    }
+
+    @Override
+    public void receiveBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws RemoteException {
+
+    }
+
+    @Override
+    public void receiveHarvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws RemoteException {
+
     }
 }
