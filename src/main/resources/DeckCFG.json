@@ -1591,7 +1591,7 @@
           "immediateEffect": "PayResourceEffect",
           "cost": {
             "type": "COIN",
-            "value": 2
+            "value": 1
           }
         }
       ],

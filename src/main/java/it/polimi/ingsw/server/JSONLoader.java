@@ -27,7 +27,7 @@ public class JSONLoader {
      * @return
      * @throws Exception
      */
-    protected Deck createNewDeck() throws IOException {
+    public Deck createNewDeck() throws IOException {
         Debug.instance(Debug.LEVEL_VERBOSE);
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -115,7 +115,7 @@ public class JSONLoader {
 
     }
 
-    protected ArrayList<ExcommunicationTile> loadExcommunicationTiles() throws IOException{
+    public ArrayList<ExcommunicationTile> loadExcommunicationTiles() throws IOException{
         GsonBuilder gsonBuilder = new GsonBuilder();
         ArrayList<ExcommunicationTile> excommunicationDeck;
         RuntimeTypeAdapterFactory<AbstractExcommunicationTileEffect> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(AbstractExcommunicationTileEffect.class, "excommunicationTiles");
