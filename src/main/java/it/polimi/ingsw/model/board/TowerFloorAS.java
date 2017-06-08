@@ -52,7 +52,7 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
             getEffects().forEach(effect -> effect.applyToPlayer(player, choiceController, "TowerFloorAS"));
         }
 
-        //todo discount on card already checked in tower -> not ok! should be activated in the card because we are not sure we are gonna use it all
+        //todo discount on card already checked in tower -> not ok! should be activated in the card because we are not sure we are gonna use it allabstra
 
 
     }

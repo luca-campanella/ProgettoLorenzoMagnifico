@@ -181,10 +181,10 @@ public class Room {
      * call the method on controller game to harvest
      * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
-    public void harvest(FamilyMember familyMember, int servant) throws  IllegalMoveException{
+    public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws  IllegalMoveException{
 
-        controllerGame.harvest(familyMember, servant);
-        floodHarvest(familyMember, servant);
+        controllerGame.harvest(familyMember, servant,playerChoices);
+        floodHarvest(familyMember, servant,playerChoices);
 
     }
 
@@ -197,8 +197,8 @@ public class Room {
             if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
                 try {
                     player.receivePlaceOnTower(familyMember, towerIndex, floorIndex, playerChoices);
-                } catch (NetworkException e) { //not a big problem if a chat message is not sent
-                    Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+                } catch (NetworkException e) {
+                    Debug.printError("Unable to sent move on tower to " + player.getNickname(), e);
                 }
             }
         }
@@ -213,8 +213,8 @@ public class Room {
             if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
                 try {
                     player.receiveBuild(familyMember, servant, playerChoices);
-                } catch (NetworkException e) { //not a big problem if a chat message is not sent
-                    Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+                } catch (NetworkException e) {
+                    Debug.printError("Unable to sent move on build to " + player.getNickname(), e);
                 }
             }
         }
@@ -223,14 +223,14 @@ public class Room {
     /**
      * launch the move of a player to the other players
      */
-    private void floodHarvest(FamilyMember familyMember, int servant){
+    private void floodHarvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 
         for(AbstractConnectionPlayer player : players) {
             if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
                 try {
-                    player.receiveHarvest(familyMember, servant);
-                } catch (NetworkException e) { //not a big problem if a chat message is not sent
-                    Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+                    player.receiveHarvest(familyMember, servant,playerChoices);
+                } catch (NetworkException e) {
+                    Debug.printError("Unable to sent move on harvest to " + player.getNickname(), e);
                 }
             }
         }
@@ -245,8 +245,8 @@ public class Room {
             if(!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
                 try {
                     player.receivePlaceOnMarket(familyMember, marketIndex, playerChoices);
-                } catch (NetworkException e) { //not a big problem if a chat message is not sent
-                    Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+                } catch (NetworkException e) {
+                    Debug.printError("Unable to sent move on market to " + player.getNickname(), e);
                 }
             }
         }
@@ -268,8 +268,8 @@ public class Room {
             if(player != playerEndPhase) {
                 try {
                     player.receiveEndPhase(playerEndPhase);
-                } catch (NetworkException e) { //not a big problem if a chat message is not sent
-                    Debug.printError("Unable to sent chat message to " + player.getNickname(), e);
+                } catch (NetworkException e) {
+                    Debug.printError("Unable to sent end phase message to " + player.getNickname(), e);
                 }
             }
         }
@@ -301,6 +301,15 @@ public class Room {
 
         for(AbstractConnectionPlayer player : players)
             player.receiveStartGameBoard(gameBoard);
+
+    }
+
+    /**
+     * inform the player that is his turn to play
+     */
+    public void playersTurn(AbstractConnectionPlayer player) {
+
+        player.receiveStartOfTurn();
 
     }
 }

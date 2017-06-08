@@ -82,4 +82,5 @@ public abstract class AbstractClientType  {
     protected int getPort() {
         return port;
     }
+
 }

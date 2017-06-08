@@ -83,6 +83,9 @@ public class ControllerGame  implements ControllerModelInterface {
 
         }
 
+        //call the method to inform the player that is his turn
+        room.playersTurn(orderOfPlayers.get(numberOfRound%numberOfPlayers));
+
     }
 
     /**
@@ -249,8 +252,9 @@ public class ControllerGame  implements ControllerModelInterface {
      * call the method on the controller of the model to harvest
      * @param familyMember the familymember the player places
      * @param servant the number of servant you add on the family member to increase the value
+     * @param playerChoices
      */
-    public void harvest(FamilyMember familyMember, int servant)  throws IllegalMoveException{
+    public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
         //modelController.harvest(familyMember, servant);

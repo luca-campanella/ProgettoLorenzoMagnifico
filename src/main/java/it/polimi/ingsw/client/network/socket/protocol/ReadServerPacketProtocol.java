@@ -35,7 +35,7 @@ public class ReadServerPacketProtocol {
      */
     private void putIstruction() {
         instruction.put(PacketType.CHAT, () -> client.receiveChatMsg());
-        instruction.put(PacketType.DICES, () -> client.receiveDices());
+        instruction.put(PacketType.DICE, () -> client.receiveDices());
         instruction.put(PacketType.MOVE_IN_TOWER, ()-> client.receivePlaceOnTower());
         instruction.put(PacketType.MOVE_IN_MARKET, ()-> client.receivePlaceOnMarket());
         instruction.put(PacketType.HARVEST, ()-> client.receiveHarvest());
@@ -44,6 +44,7 @@ public class ReadServerPacketProtocol {
         //instruction.put(PacketType.DISCARD_LEADER, ()-> client.receiveDiscardCard());
         //instruction.put(PacketType.PLAY_LEADER, ()-> client.receivePlayCard());
         instruction.put(PacketType.END_PHASE, ()-> client.receiveEndPhase());
+        instruction.put(PacketType.START_TURN, ()-> client.startTurn());
     }
 
     /**

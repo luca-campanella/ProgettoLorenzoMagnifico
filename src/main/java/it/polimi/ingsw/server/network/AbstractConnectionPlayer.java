@@ -60,7 +60,7 @@ public abstract class AbstractConnectionPlayer extends Player {
      * this method is called by the room to deliver a harvest move of another player
      * @throws NetworkException if something went wrong on the network
      */
-    public abstract void receiveHarvest(FamilyMember familyMember, int servant) throws NetworkException;
+    public abstract void receiveHarvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException;
 
     public abstract void receiveEndPhase(AbstractConnectionPlayer player) throws NetworkException;
 
@@ -77,4 +77,6 @@ public abstract class AbstractConnectionPlayer extends Player {
     public abstract void receiveDices(ArrayList<Dice> dices) throws NetworkException;
 
     public abstract void receiveStartGameBoard(Board gameBoard);
+
+    public abstract void receiveStartOfTurn();
 }
