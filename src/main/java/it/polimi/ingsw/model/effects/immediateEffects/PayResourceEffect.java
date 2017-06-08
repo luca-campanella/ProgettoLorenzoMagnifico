@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.resource.Resource;
  * This class is generally used for the cost
  */
 public class PayResourceEffect implements ImmediateEffectInterface {
-    Resource cost;
+    private Resource cost;
 
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
@@ -24,6 +24,13 @@ public class PayResourceEffect implements ImmediateEffectInterface {
     }
     public String descriptionShortOfEffect(){
         return cost.getResourceShortDescript();
+    }
+
+    /** i need this method here it.polimi.ingsw.model.excommunicationTiles.LoseVPonCostCards
+     * @return the resource payed
+     */
+    public Resource getCost() {
+        return cost;
     }
 }
 

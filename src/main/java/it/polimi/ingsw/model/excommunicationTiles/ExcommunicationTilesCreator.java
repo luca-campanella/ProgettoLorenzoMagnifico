@@ -3,6 +3,8 @@ package it.polimi.ingsw.model.excommunicationTiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 
 import java.io.IOException;
@@ -29,6 +31,10 @@ public class ExcommunicationTilesCreator {
         runtimeTypeAdapterFactory.registerSubtype(MalusOnMarketEffect.class, "MalusOnMarketEffect");
         runtimeTypeAdapterFactory.registerSubtype(PayMoreServantsEffect.class, "PayMoreServantsEffect");
         runtimeTypeAdapterFactory.registerSubtype(SkipRoundEffect.class, "SkipRoundEffect");
+        //3rd period card effects
+        runtimeTypeAdapterFactory.registerSubtype(NoVPOnColoredCard.class, "NoVPOnColoredCard");
+        runtimeTypeAdapterFactory.registerSubtype(NoVPOnResources.class, "NoVPOnResources");
+        runtimeTypeAdapterFactory.registerSubtype(LoseVPonCostCards.class, "LoseVPonCostCards");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
@@ -57,10 +63,18 @@ public class ExcommunicationTilesCreator {
         excommunicationTiles.add(excommunicationTileThree);
         */
         //Period 2 excommunication tile
-
+        /*period 3 excommunication tile
+        ExcommunicationTile excommunicationTile = new ExcommunicationTile();
+        NoVPOnResources noVPOnResources = new NoVPOnResources();
+        //noVPOnResources.setNumberOfVictoryPointLostPerResource(1);
+        ArrayList<Resource> arrayList = new ArrayList<>();
+        arrayList.add(new Resource(ResourceTypeEnum.COIN, 2));
+        noVPOnResources.setResourcesEffected(arrayList);
+        excommunicationTile.setEffect(noVPOnResources);
+        excommunicationTiles.add(excommunicationTile);
         String temp = gson.toJson(excommunicationTiles);
         System.out.println(temp);
-
+        */
         try (Reader reader = new InputStreamReader(ExcommunicationTilesCreator.class.getResourceAsStream("/ExcommunicationTiles.json"), "UTF-8")) {
             Type type = new TypeToken<ArrayList<ExcommunicationTile>>(){}.getType();
             ArrayList<ExcommunicationTile> excommunicationDeck = gson.fromJson(reader, type);

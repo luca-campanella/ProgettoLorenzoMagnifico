@@ -129,6 +129,81 @@
       "excommunicationTiles": "SkipRoundEffect",
       "maluseActivate": true
     }
+  },
+  {
+    "period": 3,
+    "effect": {
+      "excommunicationTiles": "NoVPOnColoredCard",
+      "colorExcomunnication": "GREEN"
+    }
+  },
+  {
+    "period": 3,
+    "effect": {
+      "excommunicationTiles": "NoVPOnColoredCard",
+      "colorExcomunnication": "BLUE"
+    }
+  },
+  {
+    "period": 3,
+    "effect": {
+      "excommunicationTiles": "NoVPOnColoredCard",
+      "colorExcomunnication": "PURPLE"
+    }
+  },{
+  "period": 3,
+  "effect": {
+    "excommunicationTiles": "NoVPOnResources",
+    "numberOfVictoryPointLostPerResource": 1,
+    "resourcesEffected": [
+      {
+        "type": "VICTORY_POINT",
+        "value": 5
+      }
+    ]
   }
-
+},
+  {
+    "period": 3,
+    "effect": {
+      "excommunicationTiles": "NoVPOnResources",
+      "resourcesEffected": [
+        {
+          "type": "MILITARY_POINT",
+          "value": 1
+        }
+      ]
+    }
+  },
+  {
+    "period": 3,
+    "effect": {
+      "excommunicationTiles": "LoseVPonCostCards",
+      "coloredCard": "YELLOW"
+    }
+  },
+  {
+    "period": 3,
+    "effect": {
+      "excommunicationTiles": "NoVPOnResources",
+      "resourcesEffected": [
+        {
+          "type": "WOOD",
+          "value": 1
+        },
+        {
+          "type": "STONE",
+          "value": 1
+        },
+        {
+          "type": "COIN",
+          "value": 1
+        },
+        {
+          "type": "SERVANT",
+          "value": 1
+        }
+      ]
+    }
+  }
 ]

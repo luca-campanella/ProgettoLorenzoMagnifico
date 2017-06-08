@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.excommunicationTiles;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
 
+import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
@@ -107,5 +109,11 @@ public abstract class AbstractExcommunicationTileEffect {
         return 0;
     }
 
+    /**
+     * this method let player lose VP for each resource costed resource on yellow cards
+     * @param cards is the list of yellow cards that a player owns
+     * @return
+     */
+    public int loseVPonCosts(ArrayList<BuildingCard> cards){ return 0;}
     public abstract String getShortEffectDescription();
 }
