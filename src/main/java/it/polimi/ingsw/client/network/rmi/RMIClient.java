@@ -6,6 +6,8 @@ import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.rmi.RMIPlayerInterface;
 import it.polimi.ingsw.server.network.rmi.RMIServerInterface;
@@ -16,6 +18,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -161,6 +164,26 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     @Override
     public void receiveHarvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws RemoteException {
+
+    }
+
+    @Override
+    public void receiveEndPhase(String nickname) throws RemoteException {
+
+    }
+
+    @Override
+    public void receiveDice(ArrayList<Dice> dices) throws RemoteException {
+
+    }
+
+    @Override
+    public void receiveBoard(Board gameBoard) throws RemoteException {
+
+    }
+
+    @Override
+    public void receiveStartOfTurn() throws RemoteException {
 
     }
 }

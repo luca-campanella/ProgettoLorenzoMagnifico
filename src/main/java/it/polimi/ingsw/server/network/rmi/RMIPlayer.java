@@ -41,14 +41,14 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
         try {
             RMIClientInterfaceInst.receiveChatMsg(senderNickname, msg);
         } catch (RemoteException e) {
-            Debug.printError("rmi: cannot send chat message to" + getNickname(), e);
-            throw new NetworkException("rmi: cannot send chat message to" + getNickname(), e);
+            Debug.printError("rmi: cannot send chat message to " + getNickname(), e);
+            throw new NetworkException("rmi: cannot send chat message to " + getNickname(), e);
         }
 
     }
 
     /**
-     * This method is called by the room to send a chat message arrived from another client. (Direction: server -> client)
+     * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
      * @param familyMember the family member placed on the tower
      * @param towerIndex the number of the tower
      * @param floorIndex the number of the floor on the tower
@@ -62,11 +62,18 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
             RMIClientInterfaceInst.receivePlaceOnTower(familyMember, towerIndex, floorIndex, playerChoices);
         }
         catch (RemoteException e){
-            Debug.printError("rmi: cannot send move on tower to" + getNickname(), e);
+            Debug.printError("rmi: cannot send move on tower to " + getNickname(), e);
             throw new NetworkException(e);
         }
     }
 
+    /**
+     * This method is called by the room to send a move on market arrived from another client. (Direction: server -> client)
+     * @param familyMember the family member placed on the tower
+     * @param marketIndex the number of the market
+     * @param playerChoices the choices of the player if the effects on the card had different alternatives
+     * @throws NetworkException if something went wrong on the network
+     */
     @Override
     public void receivePlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
 
@@ -74,12 +81,18 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
             RMIClientInterfaceInst.receivePlaceOnMarket(familyMember, marketIndex, playerChoices);
         }
         catch (RemoteException e){
-            Debug.printError("rmi: cannot send move on market to" + getNickname(), e);
+            Debug.printError("rmi: cannot send move on market to " + getNickname(), e);
             throw new NetworkException(e);
         }
     }
 
-
+    /**
+     * This method is called by the room to send a move on build arrived from another client. (Direction: server -> client)
+     * @param familyMember the family member placed on the tower
+     * @param servant the number of servant used to increase the value of the family member
+     * @param playerChoices the choices of the player if the effects on the card had different alternatives
+     * @throws NetworkException if something went wrong on the network
+     */
     @Override
     public void receiveBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException {
 
@@ -87,11 +100,18 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
             RMIClientInterfaceInst.receiveBuild(familyMember, servant, playerChoices);
         }
         catch (RemoteException e){
-            Debug.printError("rmi: cannot send move on tower to" + getNickname(), e);
+            Debug.printError("rmi: cannot send move on build to " + getNickname(), e);
             throw new NetworkException(e);
         }
     }
 
+    /**
+     * This method is called by the room to send a move on harvest arrived from another client. (Direction: server -> client)
+     * @param familyMember the family member placed on the tower
+     * @param servant the number of servant used to increase the value of the family member
+     * @param playerChoices the choices of the player if the effects on the card had different alternatives
+     * @throws NetworkException if something went wrong on the network
+     */
     @Override
     public void receiveHarvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException {
 
@@ -99,29 +119,71 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
             RMIClientInterfaceInst.receiveHarvest(familyMember, servant, playerChoices);
         }
         catch (RemoteException e){
-            Debug.printError("rmi: cannot send move on tower to" + getNickname(), e);
+            Debug.printError("rmi: cannot send move on harvest to " + getNickname(), e);
             throw new NetworkException(e);
         }
     }
 
+    /**
+     * This method is called by the room to send a end of phase arrived from another client. (Direction: server -> client)
+     * @param player the player that had ended the phase
+     * @throws NetworkException if something went wrong on the network
+     */
     @Override
     public void receiveEndPhase(AbstractConnectionPlayer player) throws NetworkException {
 
+        try{
+            RMIClientInterfaceInst.receiveEndPhase(player.getNickname());
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the end of turn of "+ player.getNickname()+ "to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
     }
 
+    /**
+     * This method is called by the room to send the new dice to load on the board. (Direction: server -> client)
+     * @throws NetworkException if something went wrong on the network
+     */
     @Override
     public void receiveDices(ArrayList<Dice> dices) throws NetworkException {
 
+        try{
+            RMIClientInterfaceInst.receiveDice(dices);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the dice to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
     }
 
+    /**
+     * This method is called by the room to send the board to the players. (Direction: server -> client)
+     * @param gameBoard the loaded board
+     */
     @Override
     public void receiveStartGameBoard(Board gameBoard) {
 
+        try{
+            RMIClientInterfaceInst.receiveBoard(gameBoard);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send move on harvest to" + getNickname(), e);
+        }
     }
 
+    /**
+     * this method is called by the room to inform the player that his turn is started
+     */
     @Override
     public void receiveStartOfTurn() {
 
+        try{
+            RMIClientInterfaceInst.receiveStartOfTurn();
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send move on harvest to" + getNickname(), e);
+        }
     }
 
     /**
