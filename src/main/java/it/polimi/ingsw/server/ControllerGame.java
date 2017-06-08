@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
@@ -26,6 +27,8 @@ public class ControllerGame  implements ControllerModelInterface {
     private Room room;
     private Deck deck;
     private Board boardGame;
+    private ArrayList<PersonalTile> personalTiles;
+    private ArrayList<ExcommunicationTile> excommunicationTiles;
     private ModelController modelController;
     private int numberOfPlayers;
     private int numberOfRound;
@@ -129,7 +132,9 @@ public class ControllerGame  implements ControllerModelInterface {
 
         JSONLoader jsonLoader = new JSONLoader();
         boardGame = jsonLoader.boardCreator();
+        personalTiles = jsonLoader.loadPersonalTiles();
         deck = jsonLoader.createNewDeck();
+        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
         numberOfPlayers = players.size();
         boardModifier(numberOfPlayers);
         this.room = room;
@@ -151,7 +156,8 @@ public class ControllerGame  implements ControllerModelInterface {
     public ControllerGame(int numberOfPlayers) throws Exception {
 
         JSONLoader jsonLoader = new JSONLoader();
-        ArrayList<PersonalTile> personalTiles = jsonLoader.loadTiles();
+        personalTiles = jsonLoader.loadPersonalTiles();
+        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
 
         boardGame = jsonLoader.boardCreator();
         deck = jsonLoader.createNewDeck();

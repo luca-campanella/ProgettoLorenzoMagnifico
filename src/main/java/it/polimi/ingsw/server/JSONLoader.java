@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.excommunicationTiles.*;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.effects.immediateEffects.*;
@@ -26,7 +27,7 @@ public class JSONLoader {
      * @return
      * @throws Exception
      */
-    public Deck createNewDeck() throws IOException {
+    protected Deck createNewDeck() throws IOException {
         Debug.instance(Debug.LEVEL_VERBOSE);
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -65,7 +66,7 @@ public class JSONLoader {
      * @return the4-players board
      * @throws Exception in case GSON isn't able to read the file
      */
-    public Board boardCreator() throws Exception
+    protected Board boardCreator() throws Exception
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -79,7 +80,12 @@ public class JSONLoader {
         try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
             Board board = gson.fromJson(reader, Board.class);
             return board;
-        }
+        }/*
+        catch(IOException e)
+        {
+            Debug.printError("File not found");
+            return null;
+        }*/
     }
 
     /**
@@ -87,7 +93,7 @@ public class JSONLoader {
      * @return an array list of tiles
      * @throws IOException
      */
-    public ArrayList<PersonalTile> loadTiles() throws IOException{
+    protected ArrayList<PersonalTile> loadPersonalTiles() throws IOException{
         GsonBuilder gsonBuilder = new GsonBuilder();
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
@@ -105,6 +111,36 @@ public class JSONLoader {
                 Debug.printDebug(i.toString());
             }*/
             return inList;
+        }
+
+    }
+
+    protected ArrayList<ExcommunicationTile> loadExcommunicationTiles() throws IOException{
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        ArrayList<ExcommunicationTile> excommunicationDeck;
+        RuntimeTypeAdapterFactory<AbstractExcommunicationTileEffect> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(AbstractExcommunicationTileEffect.class, "excommunicationTiles");
+        //1st period card effects
+        runtimeTypeAdapterFactory.registerSubtype(GainFewerResourceEffect.class, "GainFewerResourceEffect");
+        runtimeTypeAdapterFactory.registerSubtype(BuildMalusEffect.class, "BuildMalusEffect");
+        runtimeTypeAdapterFactory.registerSubtype(HarvestMalusEffect.class, "HarvestMalusEffect");
+        runtimeTypeAdapterFactory.registerSubtype(ReductionOnDiceEffect.class, "ReductionOnDiceEffect");
+        //2nd period card effects
+        runtimeTypeAdapterFactory.registerSubtype(MalusDiceOnTowerColorEffect.class, "MalusDiceOnTowerColorEffect");
+        runtimeTypeAdapterFactory.registerSubtype(MalusOnMarketEffect.class, "MalusOnMarketEffect");
+        runtimeTypeAdapterFactory.registerSubtype(PayMoreServantsEffect.class, "PayMoreServantsEffect");
+        runtimeTypeAdapterFactory.registerSubtype(SkipRoundEffect.class, "SkipRoundEffect");
+        //3rd period card effects
+        runtimeTypeAdapterFactory.registerSubtype(NoVPOnColoredCard.class, "NoVPOnColoredCard");
+        runtimeTypeAdapterFactory.registerSubtype(NoVPOnResources.class, "NoVPOnResources");
+        runtimeTypeAdapterFactory.registerSubtype(LoseVPonCostCards.class, "LoseVPonCostCards");
+
+        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
+
+
+        try (Reader reader = new InputStreamReader(ExcommunicationTilesCreator.class.getResourceAsStream("/ExcommunicationTiles.json"), "UTF-8")) {
+            Type type = new TypeToken<ArrayList<ExcommunicationTile>>(){}.getType();
+            excommunicationDeck = gson.fromJson(reader, type);
+            return excommunicationDeck;
         }
 
     }
