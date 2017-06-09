@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.excommunicationTiles;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.server.JSONLoader;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,13 +15,30 @@ import static org.junit.Assert.*;
  */
 public class LoseVPonCostCardsTest {
 
-    //testing the method with all building cards.
+    JSONLoader jsonLoader;
+    Deck deck;
+    ArrayList<ExcommunicationTile> excommunicationTiles;
+
+    /**
+     * we load the excommunication tiles necessary for the test
+     * @throws Exception
+     */
+    @Before
+    public void setUp() throws Exception {
+        jsonLoader = new JSONLoader();
+        deck = jsonLoader.createNewDeck();
+        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
+
+    }
+
+
+    /**
+     * This method tests if the effect returns the correct value
+     * @throws Exception
+     */
     @Test
     public void loseVPonCosts() throws Exception {
         int kalkulatedByFunctionTesting = 0;
-        JSONLoader jsonLoader = new JSONLoader();
-        Deck deck = jsonLoader.createNewDeck();
-        ArrayList<ExcommunicationTile> excommunicationTiles = jsonLoader.loadExcommunicationTiles();
         kalkulatedByFunctionTesting = excommunicationTiles.get(20).effect.loseVPonCosts(deck.getBuildingCards());
         int calculatedHandly = 0;
         for(int i = 0; i<deck.getBuildingCards().size();i++)
