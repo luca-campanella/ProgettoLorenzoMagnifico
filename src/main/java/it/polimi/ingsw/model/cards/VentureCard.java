@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.GainOrPayResourceConditionedEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
  */
 //todo: maybe victoryEndPoints are a resource and not a number -- Arto
 public class VentureCard extends AbstractCard{
+    private static CardColorEnum cardColor = CardColorEnum.PURPLE;
     //purple cards have 2 costs, one is on resources
     private ArrayList<GainResourceEffect> costChoiceResource;
     //the other on military points.
@@ -69,5 +71,8 @@ public class VentureCard extends AbstractCard{
      */
     public String secondEffect(){
         return "+V " + victoryEndPoints;
+    }
+    public CardColorEnum getColor(){
+        return cardColor;
     }
 }

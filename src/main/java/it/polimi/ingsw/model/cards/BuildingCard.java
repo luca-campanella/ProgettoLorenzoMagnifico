@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
+import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -18,6 +19,7 @@ public class BuildingCard extends AbstractCard{
      * The array list of the cost to pay when taking the card
      */
     private ArrayList<PayResourceEffect> cost;
+    private static CardColorEnum cardColor = CardColorEnum.YELLOW;
 
     /**
      * the array list of effects called when a Building action is perfomed.
@@ -96,5 +98,8 @@ public class BuildingCard extends AbstractCard{
         for(int i=0; i<effectsOnBuilding.size();i++)
             temp += effectsOnBuilding.get(i).descriptionShortOfEffect();
         return temp;
+    }
+    public CardColorEnum getColor(){
+        return cardColor;
     }
 }

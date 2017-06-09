@@ -12,10 +12,10 @@ import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.ArrayList;
 
-/**
+/**+
  * The main player class, no network
  */
-public abstract class Player implements Serializable{
+public class Player implements Serializable{
 
     private String nickname;
 
@@ -155,11 +155,9 @@ public abstract class Player implements Serializable{
         notUsedFamilyMembers.forEach(FamilyMember::alignValue);
 
     }
-
+    //todo: remove color here
     public void addCard(AbstractCard card, CardColorEnum color){
-
-        //personalBoard.addCard(card, color);
-
+        personalBoard.addCard(card);
     }
 
     /*public void addLeaderCard(LeaderCard leaderCard){

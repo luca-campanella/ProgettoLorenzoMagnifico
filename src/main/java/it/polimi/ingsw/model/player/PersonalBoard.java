@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.*;
 
+import javax.smartcardio.Card;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -31,6 +32,19 @@ public class PersonalBoard implements Serializable{
         ventureCards = new LinkedList<VentureCard>();
     }
 
+    public void addCard(AbstractCard card)
+    {
+        switch(card.getColor()) {
+            case GREEN: addGreenTerritoryCard((TerritoryCard)card);
+            break;
+            case BLUE: addBlueCharacterCard((CharacterCard) card);
+            break;
+            case YELLOW: addYellowBuildingCard((BuildingCard)card);
+            break;
+            case PURPLE: addPurpleVentureCard((VentureCard)card);
+            break;
+        }
+    }
     public void addGreenTerritoryCard(TerritoryCard card) {
         territoryCards.add(card);
     }

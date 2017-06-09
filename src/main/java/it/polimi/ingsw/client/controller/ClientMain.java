@@ -50,7 +50,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     /**
     this is Class Constructor
      */
-    private ClientMain()
+    public ClientMain()
     {
         temp = new LauncherClientFake(this);
         userInterface = temp.welcome();

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
+import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -19,7 +20,7 @@ public class TerritoryCard extends AbstractCard{
    */
     private int harvestEffectValue;
     ArrayList<ImmediateEffectInterface> effectsOnHarvest;
-
+    private static final CardColorEnum cardColor = CardColorEnum.GREEN;
 
     /**
      * This method should be called by {@link it.polimi.ingsw.model.controller.ModelController#harvest(FamilyMember, int)}
@@ -79,5 +80,8 @@ public class TerritoryCard extends AbstractCard{
         for(int i=0; i<effectsOnHarvest.size(); i++)
             temp += effectsOnHarvest.get(i).descriptionShortOfEffect();
         return temp;
+    }
+    public CardColorEnum getColor(){
+        return cardColor;
     }
 }
