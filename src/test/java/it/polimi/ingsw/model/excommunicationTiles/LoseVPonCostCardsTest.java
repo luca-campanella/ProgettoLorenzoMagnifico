@@ -27,6 +27,7 @@ public class LoseVPonCostCardsTest {
             for(PayResourceEffect iterator : deck.getBuildingCards().get(i).getCost())
                 calculatedHandly += iterator.getCost().getValue();
         assertEquals(calculatedHandly, kalkulatedByFunctionTesting);
+        assertEquals(109, kalkulatedByFunctionTesting);
     }
     //it works
 }
