@@ -68,6 +68,12 @@ public class BuildingCard extends AbstractCard{
     public ArrayList<PayResourceEffect> getCost() {
         return cost;
     }
+
+    @Override
+    public ArrayList<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
+        return cost;
+    }
+
     //todo: cancel
     public void setCost(ArrayList<PayResourceEffect> cost) {
         this.cost = cost;

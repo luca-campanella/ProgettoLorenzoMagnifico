@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.GainOrPayResourceConditionedEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
@@ -42,6 +43,12 @@ public class VentureCard extends AbstractCard{
         }
             return  costFusion;
     }
+
+    @Override
+    public ArrayList<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
+        return null;
+    }
+
     public ArrayList<GainResourceEffect> getCostChoiceResource() {
         return costChoiceResource;
     }

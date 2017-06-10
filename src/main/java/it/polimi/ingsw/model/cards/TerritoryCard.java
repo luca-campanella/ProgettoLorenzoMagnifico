@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -68,6 +69,11 @@ public class TerritoryCard extends AbstractCard{
         NoEffect noEffect = new NoEffect();
         noEffects.add(noEffect);
         return noEffects ;
+    }
+
+    @Override
+    public ArrayList<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
+        return null;
     }
 
     /**

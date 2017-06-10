@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
@@ -24,6 +25,11 @@ public class CharacterCard extends AbstractCard {
     }
 
     public ArrayList<PayResourceEffect> getCost() {
+        return cost;
+    }
+
+    @Override
+    public ArrayList<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
         return cost;
     }
 

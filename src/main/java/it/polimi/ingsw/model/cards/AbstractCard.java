@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.resource.Resource;
@@ -17,6 +18,8 @@ public abstract class AbstractCard implements Serializable{
     private CardColorEnum cardColor;
 
     public abstract ArrayList<Resource> getCost();
+
+    public abstract ArrayList<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController);
 
     public abstract String secondEffect();
     //abstract public int characteristicValue();
