@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.GainOrPayResourceConditionedEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
 
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 public class VentureCard extends AbstractCard{
     private static CardColorEnum cardColor = CardColorEnum.PURPLE;
     //purple cards have 2 costs, one is on resources
-    private ArrayList<GainResourceEffect> costChoiceResource;
+    private ArrayList<Resource> costChoiceResource;
     //the other on military points.
-    private ArrayList<GainOrPayResourceConditionedEffect> costChoiceMilitary;
+    private VentureCardMilitaryCost costChoiceMilitary;
 
     private int victoryEndPoints;
 

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
+import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  */
 public class CharacterCard extends AbstractCard {
     //blue cards have a cost (usually they cost coins)
-    private ArrayList<PayResourceEffect> cost;
+    private ArrayList<Resource> cost;
     private static CardColorEnum cardColor = CardColorEnum.BLUE;
     //and a permanent effect, that buffs players actions
     ArrayList<AbstractPermanentEffect> permanentEffect;
