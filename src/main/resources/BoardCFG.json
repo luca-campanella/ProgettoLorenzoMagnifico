@@ -236,7 +236,8 @@
       "diceRequirement": 1,
       "effects": [
         {
-          "effectName": "NoEffect"
+          "effectName": "GiveCouncilGiftEffect",
+          "numberOfCouncilGift": 2
         }
       ]
     }

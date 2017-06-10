@@ -199,7 +199,7 @@ public class Board implements Serializable {
 
     /**
      * This method performs the real action on the model when the player places a FM on a tower
-     * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Tower}, {@link it.polimi.ingsw.model.board.TowerFloorAS}
+     * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.MarketAS}
      * @param familyMember the family member to perform the action with
      * @param towerIndex the tower to place the family member to
      * @param floorIndex the floor to place the family member to
@@ -207,6 +207,18 @@ public class Board implements Serializable {
      */
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, ChoicesHandlerInterface choicesController) {
         towers[towerIndex].placeFamilyMember(familyMember, floorIndex, choicesController);
+        return;
+    }
+
+    /**
+     * This method performs the real action on the model when the player places a FM on a tower
+     * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Tower}, {@link it.polimi.ingsw.model.board.TowerFloorAS}
+     * @param familyMember the family member to perform the action with
+     * @param marketASIndex the marketAS to place the family member to
+     * @param choicesController needed because there can be some decisions tied to the action
+     */
+    public void placeOnMarket(FamilyMember familyMember, int marketASIndex, ChoicesHandlerInterface choicesController) {
+        market.get(marketASIndex).performAction(familyMember, choicesController);
         return;
     }
 }
