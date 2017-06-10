@@ -113,7 +113,11 @@ public abstract class AbstractActionSpace {
         return familyMembers.size();
     }
 
-    protected ArrayList<FamilyMember> getFamilyMembers() {
+    /**
+     * Returns the list of family members inside the action space, should be used with care
+     * @return the arrylist of family members
+     */
+    public ArrayList<FamilyMember> getFamilyMembers() {
         return familyMembers;
     }
 
