@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
@@ -65,7 +64,7 @@ public class TerritoryCard extends AbstractCard{
      * @return
      */
     public ArrayList<Resource> getCost() {
-        return return new ArrayList<>(0) ;
+        return new ArrayList<>(0) ;
     }
 
     @Override
