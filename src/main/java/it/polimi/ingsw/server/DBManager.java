@@ -154,6 +154,7 @@ public  class DBManager {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             pstmt.executeUpdate();
+            pstmt.close();
         } catch (SQLException e) {
             Debug.printError("Cannot add " + username + " to db", e);
         }
