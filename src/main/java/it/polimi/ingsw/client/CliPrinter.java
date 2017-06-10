@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
+import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
 
@@ -215,13 +216,13 @@ public class CliPrinter {
      */
     public void printGenericCostPillar(TowerFloorAS floor){
         int i = 0;
-        ArrayList<? extends ImmediateEffectInterface> costs;
+        ArrayList<Resource> costs;
         String tempCostsScene = "|Cost: ";
         costs = floor.getCard().getCost();
         //first i print the costs
         try {
             for (i = 0; i < costs.size(); i++)
-                tempCostsScene += costs.get(i).descriptionShortOfEffect() + " ";
+                tempCostsScene += costs.get(i).getResourceShortDescript() + " ";
         }
         catch(NullPointerException e){
             System.out.print(costs.get(i).toString());

@@ -23,11 +23,11 @@ public class CharacterCard extends AbstractCard {
         return true;
     }
 
-    public ArrayList<PayResourceEffect> getCost() {
+    public ArrayList<Resource> getCost() {
         return cost;
     }
 
-    public void setCost(ArrayList<PayResourceEffect> cost) {
+    public void setCost(ArrayList<Resource> cost) {
         this.cost = cost;
     }
 
