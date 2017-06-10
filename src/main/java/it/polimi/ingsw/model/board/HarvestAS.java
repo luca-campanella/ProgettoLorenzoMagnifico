@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * this class is the place where the player can place the family member to harvest
@@ -16,25 +15,17 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
     //it's the malus that family member has if it isn't the first
     private int valueMalus;
     //it's the list of family members on this place
-   // private ArrayList<FamilyMember> familyMembers;
 
+   // private ArrayList<FamilyMember> familyMembers;
+   private boolean first = true;
     public HarvestAS() {
         super();
     }
 
-    public void placeFamilyMember(FamilyMember familyMember){
-        familyMembers.add(familyMember);
-    }
-
-    public ArrayList<FamilyMember> getFamilyMembers(){
-        return  familyMembers;
-    }
-
-    public HarvestAS(int valueStandard, int valueMalus) {
-        super();
-        familyMembers = new ArrayList<>(8);
-        this.valueStandard = valueStandard;
+    public HarvestAS(int diceRequirement, int valueMalus, boolean first) {
+        super(diceRequirement);
         this.valueMalus = valueMalus;
+        this.first = first;
         this.twoPlayersOneSpace = false;
     }
 
@@ -62,14 +53,11 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
 
     public int getValueNeeded(){
 
-        if(familyMembers.size()>0)
+        if(getOccupyingFamilyMemberNumber() > 0)
             return valueMalus+valueStandard;
         return valueStandard;
     }
 
-    public void addFamilyMember(FamilyMember familyMember){
-        familyMembers.add(familyMember);
-    }
     public boolean isTwoPlayersOneSpace() {
         return twoPlayersOneSpace;
     }
@@ -78,13 +66,5 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
         this.twoPlayersOneSpace = twoPlayersOneSpace;
     }
 
-    /**
-     * deletes all the family member on the space
-     */
-    public void clearHarvest(){
-
-        familyMembers.clear();
-
-    }
 
 }

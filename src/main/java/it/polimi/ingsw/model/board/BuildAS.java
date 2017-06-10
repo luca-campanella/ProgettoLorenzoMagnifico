@@ -1,14 +1,11 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.model.player.FamilyMember;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * This action space is the build action space.
  */
-public class BuildAS extends AbstractActionSpace implements Serializable{
+public class BuildAS extends AbstractActionSpace implements Serializable {
     // this boolean checks ?
     private boolean twoPlayersOneSpace;
 
@@ -22,18 +19,16 @@ public class BuildAS extends AbstractActionSpace implements Serializable{
     }
 
     public BuildAS(int diceRequirement, int valueMalus, boolean first) {
-        super();
-        this.diceRequirement = diceRequirement;
+        super(diceRequirement);
         this.valueMalus = valueMalus;
         this.first = first;
-        familyMembers = new ArrayList<>(8);
         this.twoPlayersOneSpace = false;
     }
 
-    /**
+    /*
      * This methods updates all the resources player has giving his yellow cards
      */
-    @Override
+    /*@Override
     public void performAction(FamilyMember familyMember) {
         boolean trueIfMalus;
         trueIfMalus = checkIfFirst();
@@ -41,7 +36,7 @@ public class BuildAS extends AbstractActionSpace implements Serializable{
             //chiama l'effetto con il valore -3
         ;
         //altrimenti chiama la funzione con il valore +0
-    }
+    }*/
 
     /**
      * this method checks if the player that put here a family member is the first
@@ -56,14 +51,6 @@ public class BuildAS extends AbstractActionSpace implements Serializable{
         return false;
     }
 
-    public int getdiceRequirement() {
-        return diceRequirement;
-    }
-
-    public void setdiceRequirement(int diceRequirement) {
-        this.diceRequirement = diceRequirement;
-    }
-
     public int getValueMalus() {
         return valueMalus;
     }
@@ -72,23 +59,15 @@ public class BuildAS extends AbstractActionSpace implements Serializable{
         this.valueMalus = valueMalus;
     }
 
-    public ArrayList<FamilyMember> getFamilyMembers(){
-        return  familyMembers;
-    }
-
     /**
      * this method returns the right build value
      * @return
      */
     public int getValueNeeded(){
 
-        if(familyMembers.size()>0)
-            return valueMalus+diceRequirement;
-        return diceRequirement;
-    }
-
-    public void addFamilyMember(FamilyMember familyMember){
-        familyMembers.add(familyMember);
+        if(getOccupyingFamilyMemberNumber() > 0)
+            return valueMalus+getDiceRequirement();
+        return getDiceRequirement();
     }
 
     public boolean isTwoPlayersOneSpace() {
@@ -97,12 +76,6 @@ public class BuildAS extends AbstractActionSpace implements Serializable{
 
     public void setTwoPlayersOneSpace(boolean twoPlayersOneSpace) {
         this.twoPlayersOneSpace = twoPlayersOneSpace;
-    }
-
-    public void clearBuild(){
-
-        familyMembers.clear();
-
     }
 }
 

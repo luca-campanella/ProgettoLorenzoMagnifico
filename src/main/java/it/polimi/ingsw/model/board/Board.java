@@ -186,10 +186,10 @@ public class Board implements Serializable {
 
         for(int i = 0 ; i < NUMBER_OF_TOWERS ; i++ )
             towers[i].clearTower();
-        market.forEach(MarketAS::clearMarket);
-        build.clearBuild();
-        harvest.clearHarvest();
-        council.clearCouncil();
+        market.forEach(MarketAS::clearAS);
+        build.clearAS();
+        harvest.clearAS();
+        council.clearAS();
 
     }
 
