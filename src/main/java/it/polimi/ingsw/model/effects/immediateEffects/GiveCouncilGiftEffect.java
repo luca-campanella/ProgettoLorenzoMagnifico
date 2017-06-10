@@ -4,6 +4,7 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This effect gives a council gift to the player. example: 52
@@ -19,7 +20,8 @@ public class GiveCouncilGiftEffect implements ImmediateEffectInterface {
      */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName)
     {
-        ArrayList<GainResourceEffect> choices = choicesHandlerInterface.callbackOnCoucilGift(cardName + ":councilGift", numberOfCouncilGift);
+        //todo: again i modified ArrayList with List, is that right ?--Arto
+        List<GainResourceEffect> choices = choicesHandlerInterface.callbackOnCoucilGift(cardName + ":councilGift", numberOfCouncilGift);
 
         //we apply all the choices made by the user to the player
         for(GainResourceEffect effectIter : choices)

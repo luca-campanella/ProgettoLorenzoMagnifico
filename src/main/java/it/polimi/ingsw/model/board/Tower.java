@@ -65,7 +65,7 @@ public class Tower implements Serializable{
      */
     private boolean isFirstToPlaceOnTower() {
         for(int i = 0; i < NUMBER_OF_FLOORS; i++) {
-            if(floors[i].getFamilyMember() != null)
+            if(floors[i].getFamilyMembers() != null)
                 return false;
         }
 

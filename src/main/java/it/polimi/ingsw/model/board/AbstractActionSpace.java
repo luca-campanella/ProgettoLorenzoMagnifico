@@ -113,7 +113,7 @@ public abstract class AbstractActionSpace {
         return familyMembers.size();
     }
 
-    protected ArrayList<FamilyMember> getFamilyMembers() {
+    public ArrayList<FamilyMember> getFamilyMembers() {
         return familyMembers;
     }
 

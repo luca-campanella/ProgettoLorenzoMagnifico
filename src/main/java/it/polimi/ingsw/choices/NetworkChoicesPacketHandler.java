@@ -8,6 +8,7 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class is used to read choices arrived via network and to read them both in the server and in the client when it's not his turn
@@ -48,6 +49,7 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
         return choices;
     }
 
+
     /**
      * Callback from model to controller
      * The model uses this method when encounters a {@link BuildingCard} with more than one effects and wnats to make the user choose which one activate
@@ -56,8 +58,9 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
      * @param possibleEffectChoices
      * @return
      */
+    //todo: check if List<..> is right --Arto
     @Override
-    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, List<ImmediateEffectInterface> possibleEffectChoices) {
         ImmediateEffectInterface effect;
         int choice = choicesMap.get(cardNameChoiceCode);
         if(choice == -1)
