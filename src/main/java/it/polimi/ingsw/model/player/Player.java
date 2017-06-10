@@ -94,6 +94,15 @@ public class Player implements Serializable{
     }
 
     /**
+     * this method is used to subtract resources,
+     * {@link Resource#getValue()} should be positive to work as a subtractor
+     * @param resources the List of the resource, it contains the value and the type
+     */
+    public void subResources(ResourceCollector resources) {
+        resourcesMap.subResources(resources);
+    }
+
+    /**
      * this method is used to add an array of resources on the player
      * @param resources the object of the resource, it contains the value and the type
      */
@@ -155,8 +164,8 @@ public class Player implements Serializable{
         notUsedFamilyMembers.forEach(FamilyMember::alignValue);
 
     }
-    //todo: remove color here
-    public void addCard(AbstractCard card, CardColorEnum color){
+
+    public void addCard(AbstractCard card){
         personalBoard.addCard(card);
     }
 

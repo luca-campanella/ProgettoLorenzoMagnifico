@@ -5,11 +5,10 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.CharacterCardCollector;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 
 /**
  * This action space is the one placed on the tower, with a corresponding card to it
@@ -45,22 +44,21 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
         getFamilyMembers().add(familyMember);
         Player player = familyMember.getPlayer();
 
+        player.addCard(card);
+
         CharacterCardCollector blueCards = player.getPersonalBoard().getCharacterCardsCollector();
+        //we check if there is a discount on the tower coming from blue cards
 
-        //todo discount on card already checked in tower -> not ok! should be activated in the card because we are not sure we are gonna use it allabstra
-        //we check if there is a discount on the tower coming from blue cards, if there is we add this discount to the player
-        LinkedList<Resource> discount = blueCards.getDiscountOnTower(card.getColor());
-        player.addResources(discount);
+        ResourceCollector resToSubtractToPlayer = new ResourceCollector(card.getCost(choiceController));
+        resToSubtractToPlayer.subResources(blueCards.getDiscountOnTower(card.getColor()));
 
-        //TODO review this method to use the right parameters according to refactor of AS
+        player.subResources(resToSubtractToPlayer);
+
         //We check if the player has some blue card that disables immediate effects, otherwise we activate them
         if(!blueCards.isImmediateEffectDisabled(getDiceValue())){
             Debug.printVerbose("Immediate effects are not disabled for this tower level, activating them");
             getEffects().forEach(effect -> effect.applyToPlayer(player, choiceController, "TowerFloorAS"));
         }
-
-
-
     }
 
     public void setCard(AbstractCard card) {
