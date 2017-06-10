@@ -308,6 +308,18 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     }
 
     /**
+     * this method allows player to place a family member in the council action space
+     * @param familyMember
+     * @param servants
+     */
+    public void callbackPlacedFMOnCouncil(FamilyMember familyMember, int servants){
+
+        //TODO call this method with the real values, saved in the state of ClientMain, they are not passed from the view
+        modelController.placeOnCouncil(familyMemberCurrentAction, servants);
+
+    }
+
+    /**
      * Callback from model to controller
      * The model uses this method when encounters a council gift and should choose between the possible ones
      * The method also performs checks that all the chosen council gifts are different one another

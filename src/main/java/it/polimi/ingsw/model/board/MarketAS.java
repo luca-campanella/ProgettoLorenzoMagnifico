@@ -17,12 +17,13 @@ public class MarketAS extends AbstractActionSpace implements Serializable{
     /**
      * This method performs the real action on the model when the player places a FM on a market place
      * @param familyMember the family member to perform the action with
+     * @param choicesController needed because there can be some decisions tied to the action
      */
     //@Override
-    public void performAction(FamilyMember familyMember, ChoicesHandlerInterface choiceController)
+    public void performAction(FamilyMember familyMember, ChoicesHandlerInterface choicesController)
     {
         addFamilyMember(familyMember);
-        getEffects().forEach(effect -> effect.applyToPlayer(familyMember.getPlayer(), choiceController, "MarketAS"));
+        getEffects().forEach(effect -> effect.applyToPlayer(familyMember.getPlayer(), choicesController, "MarketAS"));
     }
 
 }

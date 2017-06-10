@@ -221,6 +221,16 @@ public class Board implements Serializable {
         market.get(marketASIndex).performAction(familyMember, choicesController);
         return;
     }
+
+    /**
+     * This method performs the real action on the model when the player places a FM int he council
+     * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.CouncilAS}
+     * @param familyMember the family member to perform the action with
+     * @param choicesController needed because there can be some decisions tied to the action
+     */
+    public void placeOnCouncil(FamilyMember familyMember, ChoicesHandlerInterface choicesController) {
+        council.performAction(familyMember, choicesController);
+    }
 }
 
 

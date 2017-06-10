@@ -264,7 +264,7 @@
   },
   "council": {
     "diceRequirement": 1,
-    "effectsOnPlacement": [
+    "effects": [
       {
         "effectName": "GainResourceEffect",
         "resource": {
@@ -273,7 +273,8 @@
         }
       },
       {
-        "effectName": "GiveCouncilGiftEffect"
+        "effectName": "GiveCouncilGiftEffect",
+        "numberOfCouncilGift": 2
       }
     ],
     "councilGiftChoices" : [

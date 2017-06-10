@@ -274,6 +274,21 @@ public class ModelController {
         gameBoard.placeOnMarket(familyMember, marketSpaceIndex, choicesController);
     }
 
+    /**
+     * This method performs the real action on the model when the player places a FM int he council
+     * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Board}, {@link it.polimi.ingsw.model.board.CouncilAS}
+     * @param familyMember
+     * @param servants
+     */
+    public void placeOnCouncil(FamilyMember familyMember, int servants) {
+        Player player = familyMember.getPlayer();
+
+        player.playFamilyMember(familyMember);
+        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
+
+        gameBoard.placeOnCouncil(familyMember, choicesController);
+    }
+
     public void discardLeaderCard(Player player, String nameLeader){
 
         //player.discardLeaderCard();
@@ -344,6 +359,7 @@ public class ModelController {
     public Board getBoard() {
         return gameBoard;
     }
+
 }
 
 
