@@ -1,9 +1,9 @@
 package it.polimi.ingsw.model.resource;
 
 import java.io.Serializable;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class contains an hashmap of all possible resources types,
@@ -26,7 +26,7 @@ public class ResourceCollector implements Serializable{
      * creates an object filled with the resources contained in the arraylist
      * @param resources the resources to inizialize the object to
      */
-    public ResourceCollector(ArrayList<Resource> resources) {
+    public ResourceCollector(List<Resource> resources) {
         this();
         addResources(resources);
     }
@@ -64,6 +64,16 @@ public class ResourceCollector implements Serializable{
     }
 
     /**
+     * this method is used to add an array of resources
+     * @param resources the list of the resources, it contains the value and the type
+     */
+    public void addResources(List<Resource> resources){
+        for(Resource resource : resources){
+            addResource(resource);
+        }
+    }
+
+    /**
      * this method is used to subtract a single resource,
      * {@link Resource#getValue()} should be positive to work as a subtractor
      * @param resource the object of the resource, it contains the value and the type
@@ -75,6 +85,50 @@ public class ResourceCollector implements Serializable{
     }
 
     /**
+     * this method is used to sub an array of resources
+     * @param resources the list of the resources, it contains the value and the type
+     */
+    public void subResources(List<Resource> resources){
+        for(Resource resource : resources){
+            subResource(resource);
+        }
+    }
+
+    /**
+     * this method is used to sub an multiple resources
+     * @param resources the list of the resources
+     */
+    public void subResources(ResourceCollector resources){
+        for(ResourceTypeEnum typeIter : ResourceTypeEnum.values())
+            resourcesMap.put(typeIter, resourcesMap.get(typeIter) - resources.getResource(typeIter));
+    }
+
+    /**
+     * this method is used to subtract a single resource,
+     * Differently form {@link ResourceCollector#subResource(Resource)} the result can never be lower than zero
+     * {@link Resource#getValue()} should be positive to work as a subtractor
+     * @param resource the object of the resource, it contains the value and the type
+     */
+    public void subResourceSafely(Resource resource){
+        int res = this.resourcesMap.get(resource.getType()) - resource.getValue();
+        if(res < 0)
+            res = 0;
+
+        this.resourcesMap.put(resource.getType(),res);
+    }
+
+    /**
+     * this method is used to sub an array of resources
+     * Differently form {@link ResourceCollector#subResources(List)} the result can never be lower than zero
+     * @param resources the list of the resources, it contains the value and the type
+     */
+    public void subResourcesSafely(List<Resource> resources){
+        for(Resource resource : resources){
+            subResourceSafely(resource);
+        }
+    }
+
+    /**
      * Resets the value corresponding to the resource to the passed one, it doesn't sum, resets
      * @param res the resource type and the value to reset to
      */
@@ -82,17 +136,6 @@ public class ResourceCollector implements Serializable{
         resourcesMap.put(res.getType(), res.getValue());
     }
 
-    /**
-     * this method is used to add an array of resources
-     * @param resources the arraylist of the resources, it contains the value and the type
-     */
-    public void addResources(AbstractList<Resource> resources){
-
-        for(Resource resource : resources){
-            this.resourcesMap.put(resource.getType(),this.resourcesMap.get(resource.getType())+resource.getValue());
-        }
-
-    }
 
     public int getResource(ResourceTypeEnum type){
 
@@ -132,12 +175,7 @@ public class ResourceCollector implements Serializable{
      * @param toBeAdded the {@link ResourceCollector} to be added to this
      */
     public void addResources(ResourceCollector toBeAdded) {
-        resourcesMap.put(ResourceTypeEnum.COIN, resourcesMap.get(ResourceTypeEnum.COIN) + toBeAdded.getResource(ResourceTypeEnum.COIN));
-        resourcesMap.put(ResourceTypeEnum.WOOD, resourcesMap.get(ResourceTypeEnum.WOOD) + toBeAdded.getResource(ResourceTypeEnum.WOOD));
-        resourcesMap.put(ResourceTypeEnum.STONE, resourcesMap.get(ResourceTypeEnum.STONE) + toBeAdded.getResource(ResourceTypeEnum.STONE));
-        resourcesMap.put(ResourceTypeEnum.SERVANT, resourcesMap.get(ResourceTypeEnum.SERVANT) + toBeAdded.getResource(ResourceTypeEnum.SERVANT));
-        resourcesMap.put(ResourceTypeEnum.FAITH_POINT, resourcesMap.get(ResourceTypeEnum.FAITH_POINT) + toBeAdded.getResource(ResourceTypeEnum.FAITH_POINT));
-        resourcesMap.put(ResourceTypeEnum.MILITARY_POINT, resourcesMap.get(ResourceTypeEnum.MILITARY_POINT) + toBeAdded.getResource(ResourceTypeEnum.MILITARY_POINT));
-        resourcesMap.put(ResourceTypeEnum.VICTORY_POINT, resourcesMap.get(ResourceTypeEnum.VICTORY_POINT) + toBeAdded.getResource(ResourceTypeEnum.VICTORY_POINT));
+        for(ResourceTypeEnum typeIter : ResourceTypeEnum.values())
+            resourcesMap.put(typeIter, resourcesMap.get(typeIter) + toBeAdded.getResource(typeIter));
     }
 }
