@@ -1,13 +1,12 @@
 package it.polimi.ingsw.model.excommunicationTiles;
 
-import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.server.JSONLoader;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Testing buildMalusEffect

@@ -112,7 +112,11 @@ public abstract class AbstractActionSpace {
     public int getOccupyingFamilyMemberNumber() {
         return familyMembers.size();
     }
-
+    
+    /**
+     * Returns the list of family members inside the action space, should be used with care
+     * @return the arrylist of family members
+     */
     public ArrayList<FamilyMember> getFamilyMembers() {
         return familyMembers;
     }

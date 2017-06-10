@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
