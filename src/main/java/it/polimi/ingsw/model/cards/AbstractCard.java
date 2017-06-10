@@ -2,8 +2,8 @@ package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.resource.Resource;
 
-import javax.smartcardio.Card;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -16,7 +16,8 @@ public abstract class AbstractCard implements Serializable{
     ArrayList<ImmediateEffectInterface> immediateEffect;
     private CardColorEnum cardColor;
 
-    public abstract ArrayList<? extends ImmediateEffectInterface> getCost();
+    public abstract ArrayList<Resource> getCost();
+
     public abstract String secondEffect();
     //abstract public int characteristicValue();
     public void addImmediateEffect(ImmediateEffectInterface effect){
