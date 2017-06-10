@@ -22,6 +22,7 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * TODO: implement launcher
@@ -284,7 +285,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      */
     public void callbackPlacedFMOnTower(FamilyMember familyMember, int servants, int towerIndex, int floorIndex){
 
-        //TODO call this method sith the real values, saved in the state of ClientMain, they are not passed from the view
+        //TODO call this method with the real values, saved in the state of ClientMain, they are not passed from the view
         modelController.placeOnTower(familyMemberCurrentAction, servants, towerIndex, floorIndex);
 
     }
@@ -327,7 +328,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * @return
      */
     @Override
-    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+    public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, List<ImmediateEffectInterface> possibleEffectChoices) {
 
         //We will make a copy of the arraylist beacuse we have to remove some objects that cannot be chosen from the user
         ArrayList<ImmediateEffectInterface> realPossibleEffectChoices = new ArrayList<>(possibleEffectChoices.size());
@@ -356,7 +357,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
             choice = possibleEffectChoices.indexOf(effectChosen);
         }
         else { //there are possible choices: let's ask the UI what to chose
-            int tmpChoice = userInterface.askYellowBuildingCardEffectChoice(possibleEffectChoices);
+            int tmpChoice = userInterface.askYellowBuildingCardEffectChoice(realPossibleEffectChoices);
             if(tmpChoice == -1) { // the player decided not to activate any effect
                 effectChosen = new NoEffect();
                 choice = -1;

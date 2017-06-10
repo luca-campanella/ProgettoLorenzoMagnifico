@@ -55,7 +55,7 @@ public class Tower implements Serializable{
     public void clearTower(){
 
         for(int i = 0 ; i < NUMBER_OF_FLOORS ; i++)
-            floors[i].clearFloor();
+            floors[i].clearAS();
     }
 
     /**

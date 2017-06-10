@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 
@@ -14,35 +13,33 @@ public abstract class AbstractActionSpace {
     /**
      *it's the list of family members on this place
      */
-    protected ArrayList<FamilyMember> familyMembers;
+    private ArrayList<FamilyMember> familyMembers;
     /**
      * the value the {@link FamilyMember} needs to be able to be put into the action space
      */
-    protected int diceRequirement;
+    private int diceRequirement;
 
     /**
      * The effects associated with the ActionSpace
      */
-    protected ArrayList<ImmediateEffectInterface> effects;
+    private ArrayList<ImmediateEffectInterface> effects;
 
     protected AbstractActionSpace() {
         effects = new ArrayList<>(1);
     }
 
+    public AbstractActionSpace(int diceRequirement) {
+        this();
+        this.diceRequirement = diceRequirement;
+    }
 
     /*
      * this method lets you perform the actions corresponding to the action space
      * @param familyMember the family member to perform the action with
      * @param choicesController the controller fo choices in case the action has choices the user should make
      */
-   public void performAction(FamilyMember familyMember, ChoicesHandlerInterface choicesController){
-       ;
-   }
-//todo decide either of this methods
-    public void performAction(FamilyMember familyMember) {
-        ;
-    }
-
+   /*public abstract void performAction(FamilyMember familyMember, ChoicesHandlerInterface choicesController);  */
+   //Implemented only int he AS that really perform actions
 
     public int getDiceValue() {
         return diceRequirement;
@@ -96,4 +93,31 @@ public abstract class AbstractActionSpace {
         return desc;
     }
 
+    public int getDiceRequirement() {
+        return diceRequirement;
+    }
+
+    public void setDiceRequirement(int diceRequirement) {
+        this.diceRequirement = diceRequirement;
+    }
+
+    public void addFamilyMember(FamilyMember familyMember){
+        familyMembers.add(familyMember);
+    }
+
+    /**
+     * This method returns the number of family members placed in the action space
+     * @return the number of family members placed in the action space
+     */
+    public int getOccupyingFamilyMemberNumber() {
+        return familyMembers.size();
+    }
+
+    protected ArrayList<FamilyMember> getFamilyMembers() {
+        return familyMembers;
+    }
+
+    public void clearAS(){
+        familyMembers.clear();
+    }
 }

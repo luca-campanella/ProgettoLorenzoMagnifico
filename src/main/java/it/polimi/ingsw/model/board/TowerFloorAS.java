@@ -5,9 +5,11 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.CharacterCardCollector;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 /**
  * This action space is the one placed on the tower, with a corresponding card to it
@@ -37,13 +39,18 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
      * This method performs the real action on the model when the player places a FM on a tower
      * @param familyMember the family member to perform the action with
      */
-    @Override
+    //@Override
     public void performAction(FamilyMember familyMember, ChoicesHandlerInterface choiceController) {
         Debug.printVerbose("Perform action called on TowerFloorAS, about to perform the action ");
-        familyMembers.add(familyMember);
+        getFamilyMembers().add(familyMember);
         Player player = familyMember.getPlayer();
 
         CharacterCardCollector blueCards = player.getPersonalBoard().getCharacterCardsCollector();
+
+        //todo discount on card already checked in tower -> not ok! should be activated in the card because we are not sure we are gonna use it allabstra
+        //we check if there is a discount on the tower coming from blue cards, if there is we add this discount to the player
+        LinkedList<Resource> discount = blueCards.getDiscountOnTower(card.getColor());
+        player.addResources(discount);
 
         //TODO review this method to use the right parameters according to refactor of AS
         //We check if the player has some blue card that disables immediate effects, otherwise we activate them
@@ -52,18 +59,8 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
             getEffects().forEach(effect -> effect.applyToPlayer(player, choiceController, "TowerFloorAS"));
         }
 
-        //todo discount on card already checked in tower -> not ok! should be activated in the card because we are not sure we are gonna use it allabstra
 
 
-    }
-
-    public void clearFloor(){
-        familyMembers = null;
-        this.card = null;
-    }
-
-    public FamilyMember getFamilyMember(){
-        return  familyMembers.get(0);
     }
 
     public void setCard(AbstractCard card) {
