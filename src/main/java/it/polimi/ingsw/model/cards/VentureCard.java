@@ -2,9 +2,6 @@ package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.effects.immediateEffects.GainOrPayResourceConditionedEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
@@ -31,17 +28,14 @@ public class VentureCard extends AbstractCard{
      * this method is generated to "merge" the 2 costs and allows the printer to print them all together.
      * @return a list with all costs
      */
-    public ArrayList<? extends ImmediateEffectInterface> getCost(){
-        ArrayList<GainResourceEffect> costFusion = new ArrayList<>();
+    @Override
+    public ArrayList<Resource> getCost(){
+        ArrayList<Resource> costFusion = new ArrayList<>();
         if(costChoiceResource != null)
             costFusion.addAll(costChoiceResource);
-        try {
-            costFusion.addAll(costChoiceMilitary);
-        }catch(NullPointerException e)
-        {
-            ;
-        }
-            return  costFusion;
+        if(costChoiceMilitary != null)
+            costFusion.add(costChoiceMilitary.getResourceCost());
+        return  costFusion;
     }
 
     @Override
@@ -49,21 +43,6 @@ public class VentureCard extends AbstractCard{
         return null;
     }
 
-    public ArrayList<GainResourceEffect> getCostChoiceResource() {
-        return costChoiceResource;
-    }
-
-    public void setCostChoiceResource(ArrayList<GainResourceEffect> costChoiceResource) {
-        this.costChoiceResource = costChoiceResource;
-    }
-
-    public ArrayList<GainOrPayResourceConditionedEffect> getCostChoiceMilitary() {
-        return costChoiceMilitary;
-    }
-
-    public void setCostChoiceMilitary(ArrayList<GainOrPayResourceConditionedEffect> costChoiceMilitary) {
-        this.costChoiceMilitary = costChoiceMilitary;
-    }
 
     public int getVictoryEndPoints() {
         return victoryEndPoints;

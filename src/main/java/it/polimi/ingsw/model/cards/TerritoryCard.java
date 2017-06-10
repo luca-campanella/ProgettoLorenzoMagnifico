@@ -64,16 +64,13 @@ public class TerritoryCard extends AbstractCard{
      * this method force to have no costs.
      * @return
      */
-    public ArrayList<ImmediateEffectInterface> getCost() {
-        ArrayList<ImmediateEffectInterface> noEffects = new ArrayList<>(0);
-        NoEffect noEffect = new NoEffect();
-        noEffects.add(noEffect);
-        return noEffects ;
+    public ArrayList<Resource> getCost() {
+        return return new ArrayList<>(0) ;
     }
 
     @Override
     public ArrayList<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
-        return null;
+        return new ArrayList<>(0);
     }
 
     /**
