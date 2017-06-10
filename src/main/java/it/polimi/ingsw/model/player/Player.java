@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.ArrayList;
 
-/**+
+/**
  * The main player class, no network
  */
 public class Player implements Serializable{
