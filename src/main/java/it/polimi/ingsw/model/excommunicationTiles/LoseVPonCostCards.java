@@ -21,9 +21,9 @@ public class LoseVPonCostCards extends AbstractExcommunicationTileEffect{
         //for each building cards i take the costs of that card
         for(BuildingCard costs : cards)
             //for each cost i take the resource effected
-            for(PayResourceEffect cost : costs.getCost())
+            for(Resource cost : costs.getCost())
                 //i sum all the resources values
-                numberOfVPLost += cost.getCost().getValue();
+                numberOfVPLost += cost.getValue();
         //then i return the number of VP lost.
         return numberOfVPLost;
     }

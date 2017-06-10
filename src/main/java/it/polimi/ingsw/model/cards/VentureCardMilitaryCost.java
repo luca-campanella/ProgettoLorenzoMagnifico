@@ -11,6 +11,11 @@ public class VentureCardMilitaryCost {
     //in order to spend:
     Resource resourceCost;
 
+    public VentureCardMilitaryCost(Resource resourceRequirement, Resource resourceCost) {
+        this.resourceRequirement = resourceRequirement;
+        this.resourceCost = resourceCost;
+    }
+
     public Resource getResourceRequirement() {
         return resourceRequirement;
     }

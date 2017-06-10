@@ -62,4 +62,8 @@ public class VentureCard extends AbstractCard{
     public CardColorEnum getColor(){
         return cardColor;
     }
+
+    public void setCostChoiceMilitary(VentureCardMilitaryCost costChoiceMilitary) {
+        this.costChoiceMilitary = costChoiceMilitary;
+    }
 }

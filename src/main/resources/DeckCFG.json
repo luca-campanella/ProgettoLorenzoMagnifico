@@ -2653,7 +2653,7 @@
   ,
 
     {
-      "costChoiceMilitary": [
+      "costChoiceMilitary":
         {
           "ventureMilitaryCost": "VentureCardMilitaryCost",
           "resourceRequirement": {
@@ -2665,7 +2665,7 @@
             "value": 2
           }
         }
-      ],
+    ,
       "victoryEndPoints": 5,
       "name": "Military Campaign",
       "period": 1,
@@ -2706,7 +2706,7 @@
   ,
 
     {
-      "costChoiceMilitary": [
+      "costChoiceMilitary":
         {
           "ventureMilitaryCost": "VentureCardMilitaryCost",
           "resourceRequirement": {
@@ -2718,7 +2718,7 @@
             "value": 3
           }
         }
-      ],
+      ,
       "victoryEndPoints": 5,
       "name": "Fighting Heresies",
       "period": 1,
@@ -2755,7 +2755,7 @@
           }
         }
       ],
-      "costChoiceMilitary": [
+      "costChoiceMilitary":
         {
           "ventureMilitaryCost": "VentureCardMilitaryCost",
           "resourceRequirement": {
@@ -2767,7 +2767,7 @@
             "value": 2
           }
         }
-      ],
+      ,
       "victoryEndPoints": 1,
       "name": "Support to the Bishop",
       "period": 1,
@@ -2872,7 +2872,7 @@
   ,
 
     {
-      "costChoiceMilitary": [
+      "costChoiceMilitary":
         {
           "ventureMilitaryCost": "VentureCardMilitaryCost",
           "resourceRequirement": {
@@ -2884,7 +2884,7 @@
             "value": 3
           }
         }
-      ],
+      ,
       "victoryEndPoints": 3,
       "name": "Support to the King",
       "period": 2,
@@ -2956,7 +2956,7 @@
   ,
 
     {
-      "costChoiceMilitary": [
+      "costChoiceMilitary":
         {
           "ventureMilitaryCost": "VentureCardMilitaryCost",
           "resourceRequirement": {
@@ -2968,7 +2968,7 @@
             "value": 4
           }
         }
-      ],
+      ,
       "victoryEndPoints": 5,
       "name": "Crusade",
       "period": 2,
@@ -3011,7 +3011,7 @@
           }
         }
       ],
-      "costChoiceMilitary": [
+      "costChoiceMilitary":
         {
           "ventureMilitaryCost": "VentureCardMilitaryCost",
           "resourceRequirement": {
@@ -3023,7 +3023,7 @@
             "value": 4
           }
         }
-      ],
+      ,
       "victoryEndPoints": 4,
       "name": "Support to the Cardinal",
       "period": 2,
@@ -3162,7 +3162,7 @@
   ,
 
     {
-      "costChoiceMilitary": [
+      "costChoiceMilitary":
         {
           "ventureMilitaryCost": "VentureCardMilitaryCost",
           "resourceRequirement": {
@@ -3174,7 +3174,7 @@
             "value": 6
           }
         }
-      ],
+      ,
       "victoryEndPoints": 7,
       "name": "Military Conquest",
       "period": 3,
@@ -3231,7 +3231,7 @@
   ,
 
     {
-      "costChoiceMilitary": [
+      "costChoiceMilitary":
         {
           "ventureMilitaryCost": "VentureCardMilitaryCost",
           "resourceRequirement": {
@@ -3243,7 +3243,7 @@
             "value": 8
           }
         }
-      ],
+      ,
       "victoryEndPoints": 8,
       "name": "Sacred War",
       "period": 3,
@@ -3280,7 +3280,7 @@
           }
         }
       ],
-      "costChoiceMilitary": [
+      "costChoiceMilitary":
         {
           "ventureMilitaryCost": "VentureCardMilitaryCost",
           "resourceRequirement": {
@@ -3292,7 +3292,7 @@
             "value": 5
           }
         }
-      ],
+      ,
       "victoryEndPoints": 10,
       "name": "Support to the pope",
       "period": 3,

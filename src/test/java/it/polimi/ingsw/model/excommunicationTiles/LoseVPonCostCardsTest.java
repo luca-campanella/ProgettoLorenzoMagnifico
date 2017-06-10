@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.excommunicationTiles;
 
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.server.JSONLoader;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,8 +43,8 @@ public class LoseVPonCostCardsTest {
         kalkulatedByFunctionTesting = excommunicationTiles.get(20).effect.loseVPonCosts(deck.getBuildingCards());
         int calculatedHandly = 0;
         for(int i = 0; i<deck.getBuildingCards().size();i++)
-            for(PayResourceEffect iterator : deck.getBuildingCards().get(i).getCost())
-                calculatedHandly += iterator.getCost().getValue();
+            for(Resource iterator : deck.getBuildingCards().get(i).getCost())
+                calculatedHandly += iterator.getValue();
         assertEquals(calculatedHandly, kalkulatedByFunctionTesting);
         assertEquals(109, kalkulatedByFunctionTesting);
     }
