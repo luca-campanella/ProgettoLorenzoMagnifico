@@ -86,14 +86,15 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         while(true){
             try{
-                System.out.println("sono qua");
+
                 packetType = (PacketType)inStream.readObject();
-                System.out.println("sono qua");
                 readPacket.doMethod(packetType);
+
             }
             catch(IOException | ClassNotFoundException e){
                 Debug.printError("network is not working",e);
                 closeEverything();
+                break;
             }
         }
     }
