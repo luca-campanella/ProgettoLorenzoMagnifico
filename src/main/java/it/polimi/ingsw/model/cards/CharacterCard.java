@@ -2,11 +2,11 @@ package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the class of all blue cards.
@@ -29,7 +29,7 @@ public class CharacterCard extends AbstractCard {
     }
 
     @Override
-    public ArrayList<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
+    public List<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
         return cost;
     }
 

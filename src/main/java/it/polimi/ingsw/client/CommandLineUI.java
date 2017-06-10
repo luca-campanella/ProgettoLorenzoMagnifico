@@ -9,13 +9,16 @@ import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 //TODO
 
@@ -291,6 +294,23 @@ public class CommandLineUI extends AbstractUIType {
         int choice = optionsHandler.askUserChoice();
         if(choice == possibleEffectChoices.size())
             return -1; // the player chose not to activate any effect
+        return choice;
+    }
+
+    @Override
+    public int askPurpleVentureCardCostChoice(List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary) {
+        CliOptionsHandler optionsHandler = new CliOptionsHandler(2);
+        StringBuilder optionResDescr = new StringBuilder();
+
+        optionResDescr.append("pay the card with this resources: ");
+
+        for(Resource resIter : costChoiceResource) {
+            optionResDescr.append(resIter.getResourceFullDescript() + " | ");
+        }
+
+        optionsHandler.addOption(optionResDescr.toString());
+        optionsHandler.addOption("Pay " + costChoiceMilitary.getResourceCost().getResourceFullDescript() + "(you fulfill the requirement of " + costChoiceMilitary.getResourceRequirement().getResourceFullDescript());
+        int choice = optionsHandler.askUserChoice();
         return choice;
     }
 

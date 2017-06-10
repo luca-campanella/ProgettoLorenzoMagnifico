@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the green card.
@@ -68,7 +69,7 @@ public class TerritoryCard extends AbstractCard{
     }
 
     @Override
-    public ArrayList<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
+    public List<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
         return new ArrayList<>(0);
     }
 

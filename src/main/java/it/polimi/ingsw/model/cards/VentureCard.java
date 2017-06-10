@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is fro purple cards.
@@ -39,8 +40,17 @@ public class VentureCard extends AbstractCard{
     }
 
     @Override
-    public ArrayList<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
-        return null;
+    public List<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
+        if(costChoiceResource == null && costChoiceMilitary == null)
+            return new ArrayList<Resource>(0);
+        if(costChoiceMilitary == null)
+            return costChoiceResource;
+        if(costChoiceResource == null) {
+            ArrayList<Resource> tmp = new ArrayList<Resource>(1);
+            tmp.add(costChoiceMilitary.getResourceCost());
+            return tmp;
+        }
+        return choicesController.callbackOnVentureCardCost(getName(), costChoiceResource, costChoiceMilitary);
     }
 
 

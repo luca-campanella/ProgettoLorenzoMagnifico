@@ -44,21 +44,23 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
         getFamilyMembers().add(familyMember);
         Player player = familyMember.getPlayer();
 
-        player.addCard(card);
 
         CharacterCardCollector blueCards = player.getPersonalBoard().getCharacterCardsCollector();
-        //we check if there is a discount on the tower coming from blue cards
-
-        ResourceCollector resToSubtractToPlayer = new ResourceCollector(card.getCost());
-        resToSubtractToPlayer.subResources(blueCards.getDiscountOnTower(card.getColor()));
-
-        player.subResources(resToSubtractToPlayer);
 
         //We check if the player has some blue card that disables immediate effects, otherwise we activate them
         if(!blueCards.isImmediateEffectDisabled(getDiceValue())){
             Debug.printVerbose("Immediate effects are not disabled for this tower level, activating them");
             getEffects().forEach(effect -> effect.applyToPlayer(player, choiceController, "TowerFloorAS"));
         }
+
+        //we check if there is a discount on the tower coming from blue cards
+
+        ResourceCollector resToSubtractToPlayer = new ResourceCollector(card.getCostAskChoice(choiceController));
+        resToSubtractToPlayer.subResources(blueCards.getDiscountOnTower(card.getColor()));
+
+        player.subResources(resToSubtractToPlayer);
+        player.addCard(card);
+        card.applyImmediateEffectsToPlayer(player, choiceController);
     }
 
     public void setCard(AbstractCard card) {
