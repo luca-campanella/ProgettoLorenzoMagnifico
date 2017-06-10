@@ -8,6 +8,7 @@ import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.cards.VentureCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -44,6 +45,17 @@ public class ControllerGame  implements ControllerModelInterface {
     private ArrayList<AbstractConnectionPlayer> orderOfPlayers;
 
     public static void main(String[] args) throws Exception {
+        /*GsonBuilder gsonBuilder = new GsonBuilder();
+        RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
+        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
+        Resource resource = new Resource(ResourceTypeEnum.COIN, 2);
+        BuildingCard asd = new BuildingCard();
+        //VentureCardMilitaryCost ventureCardMilitaryCost = new VentureCardMilitaryCost(resource, resource);
+        ArrayList<Resource> resources = new ArrayList<>();
+        resources.add(resource);
+        asd.setCost(resources);
+        System.out.println(gson.toJson(asd));*/
+
         ControllerGame controllerGame =  new ControllerGame(2);
         CliPrinter cli = new CliPrinter();
         //cli.printDeck(controllerGame.getDeck());

@@ -225,7 +225,8 @@ public class CliPrinter {
                 tempCostsScene += costs.get(i).getResourceShortDescript() + " ";
         }
         catch(NullPointerException e){
-            System.out.print(costs.get(i).toString());
+            printScene("|La risorsa è vuota " + costs.size() + " " + costs.get(0).getValue());
+            return;
         }
         printScene(tempCostsScene);
     }
