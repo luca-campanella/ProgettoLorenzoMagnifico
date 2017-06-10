@@ -24,8 +24,12 @@ public  class DBManager {
      */
     private DBManager() throws SQLException {
 
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
+            try { // create a connection to the database
+                conn = DriverManager.getConnection(url);
+            } catch (SQLException e) {
+                close();
+                throw e;
+            }
 
             Debug.printVerbose("Connection to SQLite has been established.");
 
@@ -35,10 +39,18 @@ public  class DBManager {
                     + "	password text NOT NULL\n"
                     + ");";
 
-            Statement stmt = conn.createStatement();
+        Statement stmt = conn.createStatement();;
+
+        try {
             // create a new table
             stmt.execute(sql);
+        } catch (SQLException e) {
+            close();
+            throw e;
+        } finally {
             stmt.close();
+        }
+
     }
 
     /**
@@ -91,25 +103,39 @@ public  class DBManager {
      * @param password password
      * @return true if present with the correct password
      */
-    private static boolean isPasswordCorrect(String username, String password)
+    private static boolean isPasswordCorrect(String username, String password) throws LoginException
     {
         String query =  "SELECT * FROM users WHERE username = ? AND password = ?";
-
+        Boolean result = false;
         //TODO insert encryption in query with MD5(), with password=MD5(?)
 
+        PreparedStatement pstmt;
         try {
-            PreparedStatement pstmt = conn.prepareStatement(query);
+             pstmt = conn.prepareStatement(query);
+        } catch (SQLException e) {
+            Debug.printError("Cannot prepare statement", e);
+            throw new LoginException(LoginErrorEnum.DATABASE_ERROR, e.getMessage());
+        }
+
+        try {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
-            pstmt.close();
-            return rs.next();
+            result = rs.next();
 
         } catch (SQLException e) {
             Debug.printError("Cannot execute query", e);
+            throw new LoginException(LoginErrorEnum.DATABASE_ERROR, e.getMessage());
+
+        } finally {
+            try {
+                pstmt.close();
+            } catch (SQLException e) {
+                Debug.printError("Cannot close statement", e);
+            }
         }
 
-        return false;
+        return result;
     }
 
     /**
@@ -117,21 +143,39 @@ public  class DBManager {
      * @param username nickname / username
      * @return true if present
      */
-    private static boolean isRegistered(String username)
+    private static boolean isRegistered(String username) throws LoginException
     {
         String query =  "SELECT * FROM users WHERE username = ?";
 
+        Boolean result = false;
+        //TODO insert encryption in query with MD5(), with password=MD5(?)
+
+        PreparedStatement pstmt;
         try {
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, username);
-            ResultSet rs = pstmt.executeQuery();
-            pstmt.close();
-            return rs.next();
+            pstmt = conn.prepareStatement(query);
         } catch (SQLException e) {
-            Debug.printError("Cannot execute query", e);
+            Debug.printError("Cannot prepare statement", e);
+            throw new LoginException(LoginErrorEnum.DATABASE_ERROR, e.getMessage());
         }
 
-        return false;
+        try {
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            result = rs.next();
+
+        } catch (SQLException e) {
+            Debug.printError("Cannot execute query", e);
+            throw new LoginException(LoginErrorEnum.DATABASE_ERROR, e.getMessage());
+
+        } finally {
+            try {
+                pstmt.close();
+            } catch (SQLException e) {
+                Debug.printError("Cannot close statement", e);
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -142,10 +186,16 @@ public  class DBManager {
      */
     public static void register(String username, String password) throws UsernameAlreadyInUseException {
 
-        if(isRegistered(username)) {
-            Debug.printDebug("Username " + username + "already in use, can't register to the db");
-            throw new UsernameAlreadyInUseException("Username " + username + "already in use, can't register to the db");
+        try {
+            if (isRegistered(username)) {
+                Debug.printDebug("Username " + username + "already in use, can't register to the db");
+                throw new UsernameAlreadyInUseException("Username " + username + "already in use, can't register to the db");
+            }
+        } catch (LoginException e) {
+            //TODO handle this
+            e.printStackTrace();
         }
+
 
         String sql = "INSERT INTO users(username,password) VALUES(?,?)";
 

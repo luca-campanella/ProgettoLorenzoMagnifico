@@ -10,5 +10,7 @@ public enum LoginErrorEnum {
     /**
      * The same player can play multiple games, but not in the same room
      */
-    ALREADY_LOGGED_TO_ROOM,NO_ERROR
+    ALREADY_LOGGED_TO_ROOM,
+    NO_ERROR,
+    DATABASE_ERROR
 }
