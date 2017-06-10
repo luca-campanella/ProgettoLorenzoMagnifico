@@ -792,11 +792,8 @@
         {
           "permanentEffect": "BonusOnTowerEffect",
           "towerColor": "PURPLE",
-          "discountOnResource": {
-            "type": "STONE",
-            "value": 0
-          },
-          "discountOnDice": 2
+
+          "bonusOnDice": 2
         }
       ],
       "name": "Knight",
@@ -858,7 +855,8 @@
       ],
       "permanentEffect": [
         {
-          "permanentEffect": "MalusDisabledImmediateEffectsEffect"
+          "permanentEffect": "MalusDisabledImmediateEffectsEffect",
+          "minDiceValueDisabled" : 5
         }
       ],
       "name": "Preacher",
@@ -945,2240 +943,2225 @@
           "type": "COIN",
           "value": 4
         }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "Architect",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "TakeCardNoFamilyMemberEffect",
-              "diceValueOnTower": 6,
-              "towerColorsAllowed":
-              [
-                "YELLOW"
-              ]
-            }
-          ,
-            {
-              "immediateEffect": "DiscountEffect",
-              "resources": [
-                {
-                  "type": "STONE",
-                  "value": 1
-                },
-                {
-                  "type": "WOOD",
-                  "value": 1
-                }
-              ]
-            }
-          ]
-        },
+      ],
+      "permanentEffect": [
         {
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 3
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "Patron",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "TakeCardNoFamilyMemberEffect",
-              "diceValueOnTower": 6,
-              "towerColorsAllowed":
-              [
-                "BLUE"
-              ]
-            }
-          ,
-            {
-              "immediateEffect": "DiscountEffect",
-              "resources": [
-                {
-                  "type": "COIN",
-                  "value": 2
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 4
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "Hero",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "TakeCardNoFamilyMemberEffect",
-              "diceValueOnTower": 6,
-              "towerColorsAllowed":
-              [
-                "PURPLE"
-              ]
-            }
-          ,
-            {
-              "immediateEffect": "GiveCouncilGiftEffect",
-              "numberOfCouncilGift" : 1
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 4
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "BonusOnHarvestEffect",
-              "bonus": 3
-            }
-          ],
-          "name": "Peasant",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "NoEffect"
-            }
-          ]
-        },
-        {
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 4
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "BonusOnBuildEffect",
-              "bonus": 3
-            }
-          ],
-          "name": "Scholar",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "NoEffect"
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 5
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "Papal Messanger",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 3
-              }
-            }
-          ]
-        },
-        {
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 5
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "RoyalMessanger",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GiveCouncilGiftEffect",
-              "numberOfCouncilGift" : 3
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 6
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "Noble",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceConditionedOnCardEffect",
-              "colorConditionedOnCardEffect": "GREEN",
-              "numberOfCards": 1,
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 2
-              }
-            }
-          ]
-        },
-        {
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 6
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "Governor",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceConditionedOnCardEffect",
-              "colorConditionedOnCardEffect": "YELLOW",
-              "numberOfCards": 1,
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 2
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 7
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }],
-          "name": "Paramour",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceConditionedOnCardEffect",
-              "colorConditionedOnCardEffect": "BLUE",
-              "numberOfCards": 3,
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 2
-              }
-            }
-          ]
-        },
-        {
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 6
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "Herald",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceConditionedOnCardEffect",
-              "colorConditionedOnCardEffect": "PURPLE",
-              "numberOfCards": 1,
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 2
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 4
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "Cardinal",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 4
-              }
-            },
-            {
-              "immediateEffect": "HarvestNoFamilyMembersEffect",
-              "diceValue": 4
-            }
-          ]
-        },
-        {
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 6
-
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "Bishop",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 4
-              }
-            },
-            {
-              "immediateEffect": "BuildNoFamilyMembersEffect",
-              "diceValue": 4
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 5
-
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "General",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainOrPayResourceConditionedEffect",
-              "condition": {
-                "type": "MILITARY_POINT",
-                "value": 2
-              },
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 1
-              }
-            }
-          ]
-        },
-        {
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 6
-            }
-          ],
-          "permanentEffect": [
-            {
-              "permanentEffect": "NoPermanentEffect"
-            }
-          ],
-          "name": "Ambassador",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "TakeCardNoFamilyMemberEffect",
-              "diceValueOnTower": 7,
-              "towerColorsAllowed":
-              [
-                "GREEN",
-                "BLUE",
-                "YELLOW",
-                "PURPLE"
-              ]
-            },
-            {
-              "immediateEffect": "GiveCouncilGiftEffect",
-              "numberOfCouncilGift" : 1
-            }
-          ]
+          "permanentEffect": "NoPermanentEffect"
         }
       ],
-      "buildingCards": [
+      "name": "Architect",
+      "period": 2,
+      "immediateEffect": [
         {
-          "cost": [
-            {
-              "type": "WOOD",
-              "value": 1
-            },
-            {
-              "type": "STONE",
-              "value": 3
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "GainResourceConditionedOnCardEffect",
-              "colorConditionedOnCardEffect": "YELLOW",
-              "numberOfCards": 1,
-              "resource": {
-                "type": "COIN",
-                "value": 1
-              }
-            }
-          ],
-          "buildEffectValue": 5,
-          "name": "Mint",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 5
-              }
-            }
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 6,
+          "towerColorsAllowed":
+          [
+            "YELLOW"
           ]
-        },
+        }
+      ,
         {
-          "cost": [
-            {
-              "type": "WOOD",
-              "value": 3
-            },
+          "immediateEffect": "DiscountEffect",
+          "resources": [
             {
               "type": "STONE",
               "value": 1
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "GainResourceConditionedOnCardEffect",
-              "colorConditionedOnCardEffect": "GREEN",
-              "numberOfCards": 1,
-              "resource": {
-                "type": "COIN",
-                "value": 1
-              }
-            }
-          ],
-          "buildEffectValue": 5,
-          "name": "Tax Office",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 5
-              }
-            }
-          ]
-        },
-        {
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 2
-            },
-            {
-              "type": "STONE",
-              "value": 2
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "GainResourceConditionedOnCardEffect",
-              "colorConditionedOnCardEffect": "PURPLE",
-              "numberOfCards": 1,
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 1
-              }
-            }
-          ],
-          "buildEffectValue": 6,
-          "name": "Triumphal Arch",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 6
-              }
-            }
-          ]
-        },
-        {
-          "cost": [
-            {
-              "type": "WOOD",
-              "value": 2
-
-            },
-            {
-
-              "type": "COIN",
-              "value": 2
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "GainResourceConditionedOnCardEffect",
-              "colorConditionedOnCardEffect": "BLUE",
-              "numberOfCards": 1,
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 1
-              }
-            }
-          ],
-          "buildEffectValue": 6,
-          "name": "Theater",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 6
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 1
-
-            },
-            {
-              "type": "WOOD",
-              "value": 2
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "WOOD",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "COIN",
-                  "value": 3
-                }
-              ]
-            },
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "WOOD",
-                  "value": -2
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "COIN",
-                  "value": 5
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 4,
-          "name": "Carpenter's Shop",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 3
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 1
-
-            },
-            {
-              "type": "STONE",
-              "value": 2
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "STONE",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "COIN",
-                  "value": 3
-                }
-              ]
-            },
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "STONE",
-                  "value": -2
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "COIN",
-                  "value": 5
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 3,
-          "name": "Stonemason's Shop",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 3
-              }
-            }
-          ]
-        },
-        {
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 1
-
-            },
-            {
-              "type": "WOOD",
-              "value": 2
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "STONE",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "COIN",
-                  "value": 3
-                }],
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "STONE",
-                  "value": -2
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "COIN",
-                  "value": 5
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 2,
-          "name": "Chapel",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 1
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "STONE",
-              "value": 2
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForCouncilGiftEffect",
-              "toPay": [
-                {
-                  "type": "COIN",
-                  "value": -1
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 1,
-          "name": "Residence",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 1
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "STONE",
-              "value": 1
-
-            },
-            {
-              "type": "WOOD",
-              "value": 2
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "COIN",
-                  "value": -3
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "STONE",
-                  "value": 2
-                },
-                {
-                  "type": "WOOD",
-                  "value": 2
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 4,
-          "name": "Marketplace",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 3
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "WOOD",
-              "value": 3
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "COIN",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "VICTORY_POINT",
-                  "value": 3
-                }
-              ]
-            },
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "COIN",
-                  "value": -2
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "VICTORY_POINT",
-                  "value": 5
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 3,
-          "name": "Treasury",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 4
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "WOOD",
-              "value": 4
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "WOOD",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "VICTORY_POINT",
-                  "value": 3
-                }
-              ]
-            },
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "WOOD",
-                  "value": -3
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "VICTORY_POINT",
-                  "value": 7
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 4,
-          "name": "Painter's Guild",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 5
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "STONE",
-              "value": 4
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "STONE",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "VICTORY_POINT",
-                  "value": 3
-                }
-              ]
-            },
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "STONE",
-                  "value": -3
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "VICTORY_POINT",
-                  "value": 7
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 5,
-          "name": "Sculptors' Guild",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 6
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "WOOD",
-              "value": 1
-            },
-            {
-              "type": "STONE",
-              "value": 2
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "WOOD",
-                  "value": -1
-                },
-                {
-                  "type": "STONE",
-                  "value": -1
-                },
-                {
-                  "type": "SERVANT",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "VICTORY_POINT",
-                  "value": 6
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 4,
-          "name": "Stonemasons' Guild",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 4
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-
-              "type": "STONE",
-              "value": 3
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "FAITH_POINT",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "COIN",
-                  "value": 2
-                },
-                {
-                  "type": "VICTORY_POINT",
-                  "value": 2
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 2,
-          "name": "Baptistery",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 2
-              }
-            },{
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 1
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "STONE",
-              "value": 1
-
             },
             {
               "type": "WOOD",
               "value": 1
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "SERVANT",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "MILITARY_POINT",
-                  "value": 3
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 1,
-          "name": "Barracks",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 3
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 2
-
-            },
-            {
-
-              "type": "WOOD",
-              "value": 2
-
-            },
-            {
-
-              "type": "STONE",
-              "value": 2
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 2
-              }
-            },
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "MILITARY_POINT",
-                "value": 2
-              }
-            }
-
-          ],
-          "buildEffectValue": 4,
-          "name": "Stronghold",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 8
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 3
-
-            },
-            {
-
-              "type": "WOOD",
-              "value": 1
-
-            },{
-              "type": "STONE",
-              "value": 3
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 5
-              }
-            }
-          ],
-          "buildEffectValue": 2,
-          "name": "Bank",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 7
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 4
-
-            },
-            {
-              "type": "WOOD",
-              "value": 3
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "COIN",
-                  "value": -4
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "STONE",
-                  "value": 3
-                },{
-                  "type": "WOOD",
-                  "value": 3
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 4,
-          "name": "Fair",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 8
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "SERVANT",
-              "value": 2
-
-            },
-            {
-              "type": "WOOD",
-              "value": 4
-
-            },
-            {
-              "type": "STONE",
-              "value": 2
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 10
-              }
-            }
-          ],
-          "buildEffectValue": 1,
-          "name": "Garden",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 10
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 2
-
-            },
-            {
-
-              "type": "WOOD",
-              "value": 2
-
-            },
-            {
-              "type": "WOOD",
-              "value": 2
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 2
-              }
-            },
-            {
-              "immediateEffect": "GiveCouncilGiftEffect",
-              "numberOfCouncilGift" : 1
-            }
-          ],
-          "buildEffectValue": 5,
-          "name": "Fortress",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 9
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "COIN",
-              "value": 3
-
-            },
-            {
-              "type": "WOOD",
-              "value": 3
-
-            },
-            {
-              "type": "WOOD",
-              "value": 3
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "COIN",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "SERVANT",
-                  "value": 2
-                },
-                {
-                  "type": "VICTORY_POINT",
-                  "value": 4
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 6,
-          "name": "Palace",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 9
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "STONE",
-              "value": 4
-
-            },
-            {
-
-              "type": "WOOD",
-              "value": 1
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "WOOD",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "FAITH_POINT",
-                  "value": 2
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 1,
-          "name": "Church",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 5
-              }
-            },
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 2
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "SERVANT",
-              "value": 1
-
-            },
-            {
-              "type": "WOOD",
-              "value": 2
-            },
-            {
-              "type": "STONE",
-              "value": 2
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "PayForSomethingEffect",
-              "toPay": [
-                {
-                  "type": "SERVANT",
-                  "value": -1
-                }
-              ],
-              "toGain": [
-                {
-                  "type": "VICTORY_POINT",
-                  "value": 1
-                },
-                {
-                  "type": "MILITARY_POINT",
-                  "value": 3
-                }
-              ]
-            }
-          ],
-          "buildEffectValue": 4,
-          "name": "Military Academy",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 7
-              }
-            }
-          ]
-        },{
-          "cost": [
-            {
-              "type": "STONE",
-              "value": 4
-
-            },
-            {
-              "type": "WOOD",
-              "value": 4
-
-            }
-          ],
-          "effectsOnBuilding": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 1
-              }
-            }
-          ],
-          "buildEffectValue": 2,
-          "name": "Cathedral",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "VICTORY_POINT",
-                "value": 7
-              }
-            },
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 3
-              }
-            }
-          ]
-        }
-      ],
-      "ventureCards": [
-        {
-          "costChoiceResource": [
-            {
-
-              "type": "COIN",
-              "value": 4
-
-            }
-          ],
-          "victoryEndPoints": 4,
-          "name": "Hiring Recruits",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "MILITARY_POINT",
-                "value": 5
-              }
-            }
-          ]
-        }
-      ,
-        {
-          "costChoiceResource": [
-            {
-
-              "type": "COIN",
-              "value": 1
-
-            },
-            {
-
-              "type": "STONE",
-              "value": 1
-
-            },
-            {
-
-              "type": "WOOD",
-              "value": 1
-
-            }
-          ],
-          "victoryEndPoints": 5,
-          "name": "Repairing the church",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 1
-              }
-            }
-          ]
-        },
-
-        {
-          "costChoiceResource": [
-            {
-
-              "type": "STONE",
-              "value": 3
-
-            }
-          ],
-          "victoryEndPoints": 3,
-          "name": "Building the Walls",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GiveCouncilGiftEffect",
-              "numberOfCouncilGift" : 1
-            },
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "MILITARY_POINT",
-                "value": 2
-              }
-            }
-          ]
-        },
-        {
-          "costChoiceResource": [
-            {
-
-              "type": "STONE",
-              "value": 2
-
-            },
-            {
-
-              "type": "WOOD",
-              "value": 2
-
-            }
-          ],
-          "victoryEndPoints": 4,
-          "name": "Raising a statue",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GiveCouncilGiftEffect",
-              "numberOfCouncilGift" : 2
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceMilitary":
-          {
-            "ventureMilitaryCost": "VentureCardMilitaryCost",
-            "resourceRequirement": {
-              "type": "MILITARY_POINT",
-              "value": 3
-            },
-            "resourceCost": {
-              "type": "MILITARY_POINT",
-              "value": 2
-            }
-          }
-        ,
-          "victoryEndPoints": 5,
-          "name": "Military Campaign",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 3
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "WOOD",
-              "value": 3
-
-            }
-          ],
-          "victoryEndPoints": 4,
-          "name": "Hosting Panhandler",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "SERVANT",
-                "value": 4
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceMilitary":
-          {
-            "ventureMilitaryCost": "VentureCardMilitaryCost",
-            "resourceRequirement": {
-              "type": "MILITARY_POINT",
-              "value": 5
-            },
-            "resourceCost": {
-              "type": "MILITARY_POINT",
-              "value": 3
-            }
-          }
-        ,
-          "victoryEndPoints": 5,
-          "name": "Fighting Heresies",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 2
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "COIN",
-              "value": 2
-
-            },
-            {
-              "type": "STONE",
-              "value": 1
-            }
-            ,
-            {
-              "type": "WOOD",
-              "value": 1
-
-            }
-          ],
-          "costChoiceMilitary":
-          {
-            "ventureMilitaryCost": "VentureCardMilitaryCost",
-            "resourceRequirement": {
-              "type": "MILITARY_POINT",
-              "value": 4
-            },
-            "resourceCost": {
-              "type": "MILITARY_POINT",
-              "value": 2
-            }
-          }
-        ,
-          "victoryEndPoints": 1,
-          "name": "Support to the Bishop",
-          "period": 1,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 3
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "COIN",
-              "value": 6
-
-            }
-          ],
-          "victoryEndPoints": 5,
-          "name": "Hiring Soldiers",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "MILITARY_POINT",
-                "value": 6
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-
-              "type": "COIN",
-              "value": 2
-
-            },
-            {
-              "type": "WOOD",
-              "value": 2
-
-            },
-            {
-
-              "type": "STONE",
-              "value": 2
-
-            }
-          ],
-          "victoryEndPoints": 6,
-          "name": "Repairing the Abbey",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 2
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "STONE",
-              "value": 4
-
-            }
-          ],
-          "victoryEndPoints": 2,
-          "name": "Building the bastions",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GiveCouncilGiftEffect",
-              "numberOfCouncilGift" : 1
-            },
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "MILITARY_POINT",
-                "value": 3
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceMilitary":
-          {
-            "ventureMilitaryCost": "VentureCardMilitaryCost",
-            "resourceRequirement": {
-              "type": "MILITARY_POINT",
-              "value": 6
-            },
-            "resourceCost": {
-              "type": "MILITARY_POINT",
-              "value": 3
-            }
-          }
-        ,
-          "victoryEndPoints": 3,
-          "name": "Support to the King",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GiveCouncilGiftEffect",
-              "numberOfCouncilGift" : 1
-            },
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 5
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "COIN",
-              "value": 3
-
-            },
-            {
-
-              "type": "SERVANT",
-              "value": 2
-
-            }
-          ],
-          "victoryEndPoints": 5,
-          "name": "Improving the canals",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "HarvestNoFamilyMembersEffect",
-              "diceValue": 4
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "WOOD",
-              "value": 4
-
-            }
-          ],
-          "victoryEndPoints": 4,
-          "name": "Hosting Foreigners",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "SERVANT",
-                "value": 5
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceMilitary":
-          {
-            "ventureMilitaryCost": "VentureCardMilitaryCost",
-            "resourceRequirement": {
-              "type": "MILITARY_POINT",
-              "value": 8
-            },
-            "resourceCost": {
-              "type": "MILITARY_POINT",
-              "value": 4
-            }
-          }
-        ,
-          "victoryEndPoints": 5,
-          "name": "Crusade",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 5
-              }
-            },
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 1
-              }}
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "COIN",
-              "value": 3
-
-            },
-            {
-              "type": "WOOD",
-              "value": 2
-
-            },
-            {
-              "type": "STONE",
-              "value": 2
-
-            }
-          ],
-          "costChoiceMilitary":
-          {
-            "ventureMilitaryCost": "VentureCardMilitaryCost",
-            "resourceRequirement": {
-              "type": "MILITARY_POINT",
-              "value": 7
-            },
-            "resourceCost": {
-              "type": "MILITARY_POINT",
-              "value": 4
-            }
-          }
-        ,
-          "victoryEndPoints": 4,
-          "name": "Support to the Cardinal",
-          "period": 2,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value":3
-              }
-            }
-
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "COIN",
-              "value": 8
-
-            }
-          ],
-          "victoryEndPoints": 6,
-          "name": "Hiring Mercenaries",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "MILITARY_POINT",
-                "value": 7
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "COIN",
-              "value": 3
-
-            },
-            {
-
-              "type": "WOOD",
-              "value": 3
-
-            },
-            {
-              "type": "STONE",
-              "value": 3
-            }
-          ],
-          "victoryEndPoints": 5,
-          "name": "Repairing the Cathedral",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 1
-              }
-            },
-            {
-              "immediateEffect": "TakeCardNoFamilyMemberEffect",
-              "diceValueOnTower": 7,
-              "towerColorsAllowed":
-              [
-                "GREEN",
-                "BLUE",
-                "YELLOW",
-                "PURPLE"
-              ]
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "STONE",
-              "value": 6
-            }
-          ],
-          "victoryEndPoints": 4,
-          "name": "Building the Towers",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GiveCouncilGiftEffect"},
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "MILITARY_POINT",
-                "value": 4
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "WOOD",
-              "value": 6
-
-            }
-          ],
-          "victoryEndPoints": 3,
-          "name": "Promoting Sacred Art",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 3
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceMilitary":
-          {
-            "ventureMilitaryCost": "VentureCardMilitaryCost",
-            "resourceRequirement": {
-              "type": "MILITARY_POINT",
-              "value": 12
-            },
-            "resourceCost": {
-              "type": "MILITARY_POINT",
-              "value": 6
-            }
-          }
-        ,
-          "victoryEndPoints": 7,
-          "name": "Military Conquest",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "COIN",
-                "value": 3
-              }
-            },
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "WOOD",
-                "value": 3
-              }
-            },
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "STONE",
-                "value": 3
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-
-              "type": "COIN",
-              "value": 4
-
-            },
-            {
-
-              "type": "SERVANT",
-              "value": 3
-
-            }
-          ],
-          "victoryEndPoints": 5,
-          "name": "Improving the Roads",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "BuildNoFamilyMembersEffect",
-              "diceValue": 3
-            }      ]
-        }
-      ,
-
-        {
-          "costChoiceMilitary":
-          {
-            "ventureMilitaryCost": "VentureCardMilitaryCost",
-            "resourceRequirement": {
-              "type": "MILITARY_POINT",
-              "value": 15
-            },
-            "resourceCost": {
-              "type": "MILITARY_POINT",
-              "value": 8
-            }
-          }
-        ,
-          "victoryEndPoints": 8,
-          "name": "Sacred War",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 4
-              }
-            }
-          ]
-        }
-      ,
-
-        {
-          "costChoiceResource": [
-            {
-              "type": "COIN",
-              "value": 4
-
-            },
-            {
-
-              "type": "WOOD",
-              "value": 3
-
-            },
-            {
-
-              "type": "STONE",
-              "value": 3
-
-            }
-          ],
-          "costChoiceMilitary":
-          {
-            "ventureMilitaryCost": "VentureCardMilitaryCost",
-            "resourceRequirement": {
-              "type": "MILITARY_POINT",
-              "value": 10
-            },
-            "resourceCost": {
-              "type": "MILITARY_POINT",
-              "value": 5
-            }
-          }
-        ,
-          "victoryEndPoints": 10,
-          "name": "Support to the pope",
-          "period": 3,
-          "immediateEffect": [
-            {
-              "immediateEffect": "GainResourceEffect",
-              "resource": {
-                "type": "FAITH_POINT",
-                "value": 2
-              }
             }
           ]
         }
       ]
+    },
+    {
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 3
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Patron",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 6,
+          "towerColorsAllowed":
+          [
+            "BLUE"
+          ]
+        }
+      ,
+        {
+          "immediateEffect": "DiscountEffect",
+          "resources": [
+            {
+              "type": "COIN",
+              "value": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 4
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Hero",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 6,
+          "towerColorsAllowed":
+          [
+            "PURPLE"
+          ]
+        }
+      ,
+        {
+          "immediateEffect": "GiveCouncilGiftEffect",
+          "numberOfCouncilGift" : 1
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 4
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnHarvestEffect",
+          "bonus": 3
+        }
+      ],
+      "name": "Paesant",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 4
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "BonusOnBuildEffect",
+          "bonus": 3
+        }
+      ],
+      "name": "Scholar",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "NoEffect"
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 5
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Papal Messanger",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 5
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "RoyalMessanger",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect",
+          "numberOfCouncilGift" : 3
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 6
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Noble",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "GREEN",
+          "numberOfCards": 1,
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 6
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Governor",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "YELLOW",
+          "numberOfCards": 1,
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 7
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }],
+      "name": "Paramour",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "BLUE",
+          "numberOfCards": 3,
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 6
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Herald",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "PURPLE",
+          "numberOfCards": 1,
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 4
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Cardinal",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 4
+          }
+        },
+        {
+          "immediateEffect": "HarvestNoFamilyMembersEffect",
+          "diceValue": 4
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 6
+
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Bishop",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 4
+          }
+        },
+        {
+          "immediateEffect": "BuildNoFamilyMembersEffect",
+          "diceValue": 4
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 5
+
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "General",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainOrPayResourceConditionedEffect",
+          "condition": {
+            "type": "MILITARY_POINT",
+            "value": 2
+          },
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 6
+        }
+      ],
+      "permanentEffect": [
+        {
+          "permanentEffect": "NoPermanentEffect"
+        }
+      ],
+      "name": "Ambassador",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 7,
+          "towerColorsAllowed":
+          [
+            "GREEN",
+            "BLUE",
+            "YELLOW",
+            "PURPLE"
+          ]
+        },
+        {
+          "immediateEffect": "GiveCouncilGiftEffect",
+          "numberOfCouncilGift" : 1
+        }
+      ]
     }
+  ],
+  "buildingCards": [
+    {
+      "cost": [
+        {
+          "type": "WOOD",
+          "value": 1
+        },
+        {
+          "type": "STONE",
+          "value": 3
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "YELLOW",
+          "numberOfCards": 1,
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        }
+      ],
+      "buildEffectValue": 5,
+      "name": "Mint",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 5
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "WOOD",
+          "value": 3
+        },
+        {
+          "type": "STONE",
+          "value": 1
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "GREEN",
+          "numberOfCards": 1,
+          "resource": {
+            "type": "COIN",
+            "value": 1
+          }
+        }
+      ],
+      "buildEffectValue": 5,
+      "name": "Tax Office",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 5
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 2
+        },
+        {
+          "type": "STONE",
+          "value": 2
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "PURPLE",
+          "numberOfCards": 1,
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        }
+      ],
+      "buildEffectValue": 6,
+      "name": "Triumphal Arch",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 6
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "WOOD",
+          "value": 2
+
+        },
+        {
+
+          "type": "COIN",
+          "value": 2
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "GainResourceConditionedOnCardEffect",
+          "colorConditionedOnCardEffect": "BLUE",
+          "numberOfCards": 1,
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        }
+      ],
+      "buildEffectValue": 6,
+      "name": "Theater",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 6
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 1
+
+        },
+        {
+          "type": "WOOD",
+          "value": 2
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": -2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Carpenter's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 1
+
+        },
+        {
+          "type": "STONE",
+          "value": 2
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "STONE",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "STONE",
+              "value": -2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 3,
+      "name": "Stonemason's Shop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "cost": [
+        {
+          "type": "WOOD",
+          "value": 2
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "COIN",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "FAITH_POINT",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 2,
+      "name": "Chapel",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "STONE",
+          "value": 2
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForCouncilGiftEffect",
+          "toPay": [
+            {
+              "type": "COIN",
+              "value": -1
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 1,
+      "name": "Residence",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "STONE",
+          "value": 1
+
+        },
+        {
+          "type": "WOOD",
+          "value": 2
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "COIN",
+              "value": -3
+            }
+          ],
+          "toGain": [
+            {
+              "type": "STONE",
+              "value": 2
+            },
+            {
+              "type": "WOOD",
+              "value": 2
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Marketplace",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "WOOD",
+          "value": 3
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "COIN",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "VICTORY_POINT",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "COIN",
+              "value": -2
+            }
+          ],
+          "toGain": [
+            {
+              "type": "VICTORY_POINT",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 3,
+      "name": "Treasury",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 4
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "WOOD",
+          "value": 4
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "VICTORY_POINT",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": -3
+            }
+          ],
+          "toGain": [
+            {
+              "type": "VICTORY_POINT",
+              "value": 7
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Painter's Guild",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 5
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "STONE",
+          "value": 4
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "STONE",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "VICTORY_POINT",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "STONE",
+              "value": -3
+            }
+          ],
+          "toGain": [
+            {
+              "type": "VICTORY_POINT",
+              "value": 7
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 5,
+      "name": "Sculptors' Guild",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 6
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "WOOD",
+          "value": 1
+        },
+        {
+          "type": "STONE",
+          "value": 2
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": -1
+            },
+            {
+              "type": "STONE",
+              "value": -1
+            },
+            {
+              "type": "SERVANT",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "VICTORY_POINT",
+              "value": 6
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Stonemasons' Guild",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 4
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+
+          "type": "STONE",
+          "value": 3
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "FAITH_POINT",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "COIN",
+              "value": 2
+            },
+            {
+              "type": "VICTORY_POINT",
+              "value": 2
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 2,
+      "name": "Baptistery",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        },{
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "STONE",
+          "value": 1
+
+        },
+        {
+          "type": "WOOD",
+          "value": 1
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "SERVANT",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "MILITARY_POINT",
+              "value": 3
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 1,
+      "name": "Barracks",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 2
+
+        },
+        {
+
+          "type": "WOOD",
+          "value": 2
+
+        },
+        {
+
+          "type": "STONE",
+          "value": 2
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 2
+          }
+        }
+
+      ],
+      "buildEffectValue": 4,
+      "name": "Stronghold",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 8
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 3
+
+        },
+        {
+
+          "type": "WOOD",
+          "value": 1
+
+        },{
+          "type": "STONE",
+          "value": 3
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 5
+          }
+        }
+      ],
+      "buildEffectValue": 2,
+      "name": "Bank",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 7
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 4
+
+        },
+        {
+          "type": "WOOD",
+          "value": 3
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "COIN",
+              "value": -4
+            }
+          ],
+          "toGain": [
+            {
+              "type": "STONE",
+              "value": 3
+            },{
+              "type": "WOOD",
+              "value": 3
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Fair",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 8
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "SERVANT",
+          "value": 2
+
+        },
+        {
+          "type": "WOOD",
+          "value": 4
+
+        },
+        {
+          "type": "STONE",
+          "value": 2
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 10
+          }
+        }
+      ],
+      "buildEffectValue": 1,
+      "name": "Garden",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 10
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 2
+
+        },
+        {
+
+          "type": "WOOD",
+          "value": 2
+
+        },
+        {
+          "type": "WOOD",
+          "value": 2
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 2
+          }
+        },
+        {
+          "immediateEffect": "GiveCouncilGiftEffect",
+          "numberOfCouncilGift" : 1
+        }
+      ],
+      "buildEffectValue": 5,
+      "name": "Fortress",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 9
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "COIN",
+          "value": 3
+
+        },
+        {
+          "type": "STONE",
+          "value": 1
+
+        },
+        {
+          "type": "WOOD",
+          "value": 3
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "COIN",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "SERVANT",
+              "value": 2
+            },
+            {
+              "type": "VICTORY_POINT",
+              "value": 4
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 6,
+      "name": "Palace",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 9
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "STONE",
+          "value": 4
+
+        },
+        {
+
+          "type": "WOOD",
+          "value": 1
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "WOOD",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "FAITH_POINT",
+              "value": 2
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 1,
+      "name": "Church",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 5
+          }
+        },
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 2
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "SERVANT",
+          "value": 1
+
+        },
+        {
+          "type": "WOOD",
+          "value": 2
+        },
+        {
+          "type": "STONE",
+          "value": 2
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "PayForSomethingEffect",
+          "toPay": [
+            {
+              "type": "SERVANT",
+              "value": -1
+            }
+          ],
+          "toGain": [
+            {
+              "type": "VICTORY_POINT",
+              "value": 1
+            },
+            {
+              "type": "MILITARY_POINT",
+              "value": 3
+            }
+          ]
+        }
+      ],
+      "buildEffectValue": 4,
+      "name": "Military Academy",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 7
+          }
+        }
+      ]
+    },{
+      "cost": [
+        {
+          "type": "STONE",
+          "value": 4
+
+        },
+        {
+          "type": "WOOD",
+          "value": 4
+
+        }
+      ],
+      "effectsOnBuilding": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        }
+      ],
+      "buildEffectValue": 2,
+      "name": "Cathedral",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "VICTORY_POINT",
+            "value": 7
+          }
+        },
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ],
+  "ventureCards": [
+    {
+      "costChoiceResource": [
+        {
+
+          "type": "COIN",
+          "value": 4
+
+        }
+      ],
+      "victoryEndPoints": 4,
+      "name": "Hiring Recruits",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 5
+          }
+        }
+      ]
+    }
+  ,
+    {
+      "costChoiceResource": [
+        {
+
+          "type": "COIN",
+          "value": 1
+
+        },
+        {
+
+          "type": "STONE",
+          "value": 1
+
+        },
+        {
+
+          "type": "WOOD",
+          "value": 1
+
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Repairing the church",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        }
+      ]
+    },
+
+    {
+      "costChoiceResource": [
+        {
+
+          "type": "STONE",
+          "value": 3
+
+        }
+      ],
+      "victoryEndPoints": 3,
+      "name": "Building the Walls",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect",
+          "numberOfCouncilGift" : 1
+        },
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 2
+          }
+        }
+      ]
+    },
+    {
+      "costChoiceResource": [
+        {
+
+          "type": "STONE",
+          "value": 2
+
+        },
+        {
+
+          "type": "WOOD",
+          "value": 2
+
+        }
+      ],
+      "victoryEndPoints": 4,
+      "name": "Raising a statue",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect",
+          "numberOfCouncilGift" : 2
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary":
+      {
+        "ventureMilitaryCost": "VentureCardMilitaryCost",
+        "resourceRequirement": {
+          "type": "MILITARY_POINT",
+          "value": 3
+        },
+        "resourceCost": {
+          "type": "MILITARY_POINT",
+          "value": 2
+        }
+      }
+    ,
+      "victoryEndPoints": 5,
+      "name": "Military Campaign",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "WOOD",
+          "value": 3
+
+        }
+      ],
+      "victoryEndPoints": 4,
+      "name": "Hosting Panhandler",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 4
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary":
+      {
+        "ventureMilitaryCost": "VentureCardMilitaryCost",
+        "resourceRequirement": {
+          "type": "MILITARY_POINT",
+          "value": 5
+        },
+        "resourceCost": {
+          "type": "MILITARY_POINT",
+          "value": 3
+        }
+      }
+    ,
+      "victoryEndPoints": 5,
+      "name": "Fighting Heresies",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 2
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "COIN",
+          "value": 2
+
+        },
+        {
+          "type": "STONE",
+          "value": 1
+        }
+      ,
+        {
+          "type": "WOOD",
+          "value": 1
+
+        }
+      ],
+      "costChoiceMilitary":
+      {
+        "ventureMilitaryCost": "VentureCardMilitaryCost",
+        "resourceRequirement": {
+          "type": "MILITARY_POINT",
+          "value": 4
+        },
+        "resourceCost": {
+          "type": "MILITARY_POINT",
+          "value": 2
+        }
+      }
+    ,
+      "victoryEndPoints": 1,
+      "name": "Support to the Bishop",
+      "period": 1,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "COIN",
+          "value": 6
+
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Hiring Soldiers",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 6
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+
+          "type": "COIN",
+          "value": 2
+
+        },
+        {
+          "type": "WOOD",
+          "value": 2
+
+        },
+        {
+
+          "type": "STONE",
+          "value": 2
+
+        }
+      ],
+      "victoryEndPoints": 6,
+      "name": "Repairing the Abbey",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 2
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "STONE",
+          "value": 4
+
+        }
+      ],
+      "victoryEndPoints": 2,
+      "name": "Building the bastions",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect",
+          "numberOfCouncilGift" : 1
+        },
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary":
+      {
+        "ventureMilitaryCost": "VentureCardMilitaryCost",
+        "resourceRequirement": {
+          "type": "MILITARY_POINT",
+          "value": 6
+        },
+        "resourceCost": {
+          "type": "MILITARY_POINT",
+          "value": 3
+        }
+      }
+    ,
+      "victoryEndPoints": 3,
+      "name": "Support to the King",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect",
+          "numberOfCouncilGift" : 1
+        },
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 5
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "COIN",
+          "value": 3
+
+        },
+        {
+
+          "type": "SERVANT",
+          "value": 2
+
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Improving the canals",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "HarvestNoFamilyMembersEffect",
+          "diceValue": 4
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "WOOD",
+          "value": 4
+
+        }
+      ],
+      "victoryEndPoints": 4,
+      "name": "Hosting Foreigners",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "SERVANT",
+            "value": 5
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary":
+      {
+        "ventureMilitaryCost": "VentureCardMilitaryCost",
+        "resourceRequirement": {
+          "type": "MILITARY_POINT",
+          "value": 8
+        },
+        "resourceCost": {
+          "type": "MILITARY_POINT",
+          "value": 4
+        }
+      }
+    ,
+      "victoryEndPoints": 5,
+      "name": "Crusade",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 5
+          }
+        },
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }}
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "COIN",
+          "value": 3
+
+        },
+        {
+          "type": "WOOD",
+          "value": 2
+
+        },
+        {
+          "type": "STONE",
+          "value": 2
+
+        }
+      ],
+      "costChoiceMilitary":
+      {
+        "ventureMilitaryCost": "VentureCardMilitaryCost",
+        "resourceRequirement": {
+          "type": "MILITARY_POINT",
+          "value": 7
+        },
+        "resourceCost": {
+          "type": "MILITARY_POINT",
+          "value": 4
+        }
+      }
+    ,
+      "victoryEndPoints": 4,
+      "name": "Support to the Cardinal",
+      "period": 2,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value":3
+          }
+        }
+
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "COIN",
+          "value": 8
+
+        }
+      ],
+      "victoryEndPoints": 6,
+      "name": "Hiring Mercenaries",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 7
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "COIN",
+          "value": 3
+
+        },
+        {
+
+          "type": "WOOD",
+          "value": 3
+
+        },
+        {
+          "type": "STONE",
+          "value": 3
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Repairing the Cathedral",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        },
+        {
+          "immediateEffect": "TakeCardNoFamilyMemberEffect",
+          "diceValueOnTower": 7,
+          "towerColorsAllowed":
+          [
+            "GREEN",
+            "BLUE",
+            "YELLOW",
+            "PURPLE"
+          ]
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "STONE",
+          "value": 6
+        }
+      ],
+      "victoryEndPoints": 4,
+      "name": "Building the Towers",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GiveCouncilGiftEffect",
+          "numberOfCouncilGift" : 1
+        },
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "MILITARY_POINT",
+            "value": 4
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "WOOD",
+          "value": 6
+
+        }
+      ],
+      "victoryEndPoints": 3,
+      "name": "Promoting Sacred Art",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary":
+      {
+        "ventureMilitaryCost": "VentureCardMilitaryCost",
+        "resourceRequirement": {
+          "type": "MILITARY_POINT",
+          "value": 12
+        },
+        "resourceCost": {
+          "type": "MILITARY_POINT",
+          "value": 6
+        }
+      }
+    ,
+      "victoryEndPoints": 7,
+      "name": "Military Conquest",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "COIN",
+            "value": 3
+          }
+        },
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "WOOD",
+            "value": 3
+          }
+        },
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "STONE",
+            "value": 3
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+
+          "type": "COIN",
+          "value": 4
+
+        },
+        {
+
+          "type": "SERVANT",
+          "value": 3
+
+        }
+      ],
+      "victoryEndPoints": 5,
+      "name": "Improving the Roads",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "BuildNoFamilyMembersEffect",
+          "diceValue": 3
+        }      ]
+    }
+  ,
+
+    {
+      "costChoiceMilitary":
+      {
+        "ventureMilitaryCost": "VentureCardMilitaryCost",
+        "resourceRequirement": {
+          "type": "MILITARY_POINT",
+          "value": 15
+        },
+        "resourceCost": {
+          "type": "MILITARY_POINT",
+          "value": 8
+        }
+      }
+    ,
+      "victoryEndPoints": 8,
+      "name": "Sacred War",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 4
+          }
+        }
+      ]
+    }
+  ,
+
+    {
+      "costChoiceResource": [
+        {
+          "type": "COIN",
+          "value": 4
+
+        },
+        {
+
+          "type": "WOOD",
+          "value": 3
+
+        },
+        {
+
+          "type": "STONE",
+          "value": 3
+
+        }
+      ],
+      "costChoiceMilitary":
+      {
+        "ventureMilitaryCost": "VentureCardMilitaryCost",
+        "resourceRequirement": {
+          "type": "MILITARY_POINT",
+          "value": 10
+        },
+        "resourceCost": {
+          "type": "MILITARY_POINT",
+          "value": 5
+        }
+      }
+    ,
+      "victoryEndPoints": 10,
+      "name": "Support to the pope",
+      "period": 3,
+      "immediateEffect": [
+        {
+          "immediateEffect": "GainResourceEffect",
+          "resource": {
+            "type": "FAITH_POINT",
+            "value": 2
+          }
+        }
+      ]
+    }
+  ]
+}
