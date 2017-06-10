@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.excommunicationTiles;
 
-import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.server.JSONLoader;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,9 +9,9 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 /**
- * Testing buildMalusEffect
+ * testing haverst malus
  */
-public class BuildMalusEffectTest {
+public class HarvestMalusEffectTest {
     JSONLoader jsonLoader;
     ArrayList<ExcommunicationTile> excommunicationTiles;
 
@@ -27,9 +26,9 @@ public class BuildMalusEffectTest {
 
     }
     @Test
-    public void buildMalusEffect() throws Exception {
+    public void harvestMalusEffect() throws Exception {
         int valueTest;
-        valueTest = excommunicationTiles.get(5).effect.buildMalusEffect();
+        valueTest = excommunicationTiles.get(6).effect.harvestMalusEffect();
         assertEquals(3, valueTest);
 
     }

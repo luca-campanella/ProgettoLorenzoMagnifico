@@ -35,6 +35,11 @@ public class ReductionOnDiceEffect extends AbstractExcommunicationTileEffect{
         return temp;
     }
 
+    public ReductionOnDiceEffect(ArrayList<DiceAndFamilyMemberColorEnum> colorsEffected, int malusValue) {
+        this.colorsEffected = colorsEffected;
+        this.malusValue = malusValue;
+    }
+
     public void setColorsEffected(ArrayList<DiceAndFamilyMemberColorEnum> colorsEffected) {
         this.colorsEffected = colorsEffected;
     }
