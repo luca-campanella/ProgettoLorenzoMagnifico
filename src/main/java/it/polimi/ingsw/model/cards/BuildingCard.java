@@ -65,7 +65,7 @@ public class BuildingCard extends AbstractCard{
         choice.applyToPlayer(player, choicesController, getName());
     }
 
-    public ArrayList<PayResourceEffect> getCost() {
+    public ArrayList<Resource> getCost() {
         return cost;
     }
 
@@ -75,7 +75,7 @@ public class BuildingCard extends AbstractCard{
     }
 
     //todo: cancel
-    public void setCost(ArrayList<PayResourceEffect> cost) {
+    public void setCost(ArrayList<Resource> cost) {
         this.cost = cost;
     }
 
