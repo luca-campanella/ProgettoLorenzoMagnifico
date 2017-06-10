@@ -336,7 +336,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         for(int i = 0; i < possibleEffectChoices.size(); i++) {
             effectIter = possibleEffectChoices.get(i);
             if(effectIter instanceof PayForSomethingEffect) {
-                if(!resourcesCheckMap.checkIfContainable(((PayForSomethingEffect) effectIter).getToPay()));
+                if(!resourcesCheckMap.checkIfContainable(((PayForSomethingEffect) effectIter).getToPay()))
                     continue; //we should not add the option because the player doesn't have enough resources
             }
             realPossibleEffectChoices.add(effectIter);
@@ -346,7 +346,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         ImmediateEffectInterface effectChosen;
 
         //if there's no possibility left or one possibility the choice is already made, no need to ask the user
-        if(possibleEffectChoices.size() == 0)
+        if(possibleEffectChoices.isEmpty())
         {
             choice = -1;
             effectChosen = new NoEffect();

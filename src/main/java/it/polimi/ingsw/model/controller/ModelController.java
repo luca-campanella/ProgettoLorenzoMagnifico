@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.controller;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
-import it.polimi.ingsw.model.board.MarketAS;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -250,7 +249,7 @@ public class ModelController {
 
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
 
-        MarketAS marketPlace = gameBoard.getMarketSpaceByIndex(marketSpaceIndex);
+        /*MarketAS marketPlace = gameBoard.getMarketSpaceByIndex(marketSpaceIndex);
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<marketPlace.getValueStandard()-familyMember.getValue()
                 || marketPlace == null)
@@ -259,7 +258,7 @@ public class ModelController {
         if(marketPlace.getFamilyMember() != null)
             // this means that the place on the market is not available
             return;
-        marketPlace.performAction(familyMember);
+        marketPlace.performAction(familyMember);*/
     }
 
     public void discardLeaderCard(Player player, String nameLeader){
