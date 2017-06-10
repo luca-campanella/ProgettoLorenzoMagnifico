@@ -252,8 +252,7 @@ public class ModelController {
 
         MarketAS marketPlace = gameBoard.getMarketSpaceByIndex(marketSpaceIndex);
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
-                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<marketPlace.getValueStandard()-familyMember.getValue()
-                || marketPlace == null)
+                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<marketPlace.getValueStandard()-familyMember.getValue())
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return;//TODO cheating or refresh board
         if(marketPlace.getFamilyMember() != null)

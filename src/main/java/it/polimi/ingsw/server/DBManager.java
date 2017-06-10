@@ -8,7 +8,7 @@ import it.polimi.ingsw.utils.Debug;
 import java.sql.*;
 
 /**
- * This is the singleton class that manages the database with usernames and passords
+ * This is the singleton class that manages the database with usernames and passwords
  */
 public  class DBManager {
 
@@ -102,7 +102,9 @@ public  class DBManager {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
+            pstmt.close();
             return rs.next();
+
         } catch (SQLException e) {
             Debug.printError("Cannot execute query", e);
         }
@@ -123,6 +125,7 @@ public  class DBManager {
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
+            pstmt.close();
             return rs.next();
         } catch (SQLException e) {
             Debug.printError("Cannot execute query", e);
