@@ -39,7 +39,7 @@ public  class DBManager {
                     + "	password text NOT NULL\n"
                     + ");";
 
-        Statement stmt = conn.createStatement();;
+        Statement stmt = conn.createStatement();
 
         try {
             // create a new table
