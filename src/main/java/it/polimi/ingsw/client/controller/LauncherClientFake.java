@@ -1,5 +1,5 @@
 package it.polimi.ingsw.client.controller;
-import it.polimi.ingsw.client.CommandLineUI;
+import it.polimi.ingsw.client.cli.CommandLineUI;
 import it.polimi.ingsw.client.gui.GraphicalUI;
 
 import java.util.* ;

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.controller;
 
+import it.polimi.ingsw.client.cli.CommandLineUI;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -12,7 +13,7 @@ import java.util.List;
 
 /**
  * This is the abstract representation of the user interface
- * It can either be implemented by {@link it.polimi.ingsw.client.CommandLineUI} or by {@link it.polimi.ingsw.client.gui.GraphicalUI}
+ * It can either be implemented by {@link CommandLineUI} or by {@link it.polimi.ingsw.client.gui.GraphicalUI}
  */
 abstract public class AbstractUIType {
 

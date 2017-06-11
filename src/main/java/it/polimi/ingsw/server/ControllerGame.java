@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.client.CliPrinter;
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;

@@ -2,7 +2,7 @@ package it.polimi.ingsw.testingGSON.boardLoader;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.polimi.ingsw.client.CliPrinter;
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.GiveCouncilGiftEffect;

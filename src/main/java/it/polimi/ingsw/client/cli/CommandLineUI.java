@@ -1,9 +1,10 @@
-package it.polimi.ingsw.client;
+package it.polimi.ingsw.client.cli;
 
 /**
  * to insert inputs on the cli
  */
 
+import it.polimi.ingsw.client.cli.CliOptionsHandler;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
