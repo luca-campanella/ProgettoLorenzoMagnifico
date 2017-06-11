@@ -37,11 +37,17 @@ public class ReductionOnDiceEffectTest {
     @Test
     public void reductionOnDice() throws Exception {
         int valueTest;
-        valueTest = excommunicationTiles.get(8).effect.reductionOnDice(DiceAndFamilyMemberColorEnum.WHITE);
-        int valueSecondTest = excommunicationTiles.get(8).effect.reductionOnDice(DiceAndFamilyMemberColorEnum.NEUTRAL);
+        //those 2 lines tests the card loaded
+        valueTest = excommunicationTiles.get(7).effect.reductionOnDice(DiceAndFamilyMemberColorEnum.WHITE);
+        int valueSecondTest = excommunicationTiles.get(7).effect.reductionOnDice(DiceAndFamilyMemberColorEnum.NEUTRAL);
+        //those 2 tests the effect itself
+        int valueThirdTest = cardEffect.reductionOnDice(DiceAndFamilyMemberColorEnum.BLACK);
+        int valueFourthTest = cardEffect.reductionOnDice(DiceAndFamilyMemberColorEnum.ORANGE);
 
         assertEquals(1, valueTest);
         assertEquals(0, valueSecondTest);
+        assertEquals(1, valueThirdTest);
+        assertEquals(0, valueFourthTest);
 
     }
 

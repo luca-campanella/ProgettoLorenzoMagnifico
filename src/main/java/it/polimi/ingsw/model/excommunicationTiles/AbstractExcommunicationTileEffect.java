@@ -55,7 +55,7 @@ public abstract class AbstractExcommunicationTileEffect {
      * @param colorOfTower
      * @return
      */
-    public int reductionOnDiceTowerColor(CardColorEnum colorOfTower)
+    public int malusDiceOnTowerColor(CardColorEnum colorOfTower)
     {
         return 0;
     }

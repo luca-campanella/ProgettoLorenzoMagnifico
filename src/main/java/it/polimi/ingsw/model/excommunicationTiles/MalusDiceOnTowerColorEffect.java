@@ -13,6 +13,17 @@ public class MalusDiceOnTowerColorEffect extends AbstractExcommunicationTileEffe
     //It's one color. We assume excommunication tiles aren't settable from file.
     private CardColorEnum towerColorsMalus;
 
+    public MalusDiceOnTowerColorEffect(int malusDice, CardColorEnum towerColorsMalus) {
+        this.malusDice = malusDice;
+        this.towerColorsMalus = towerColorsMalus;
+    }
+
+    public int malusDiceOnTowerColor(CardColorEnum colorOfTower)
+    {
+        if(towerColorsMalus == colorOfTower)
+            return malusDice;
+        return 0;
+    }
     public String getShortEffectDescription(){
         return "-"+ malusDice + " OnDice for towers with this color: " + towerColorsMalus;
     }

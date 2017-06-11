@@ -127,7 +127,7 @@
     "period": 2,
     "effect": {
       "excommunicationTiles": "SkipRoundEffect",
-      "maluseActivate": true
+      "skipRound": true
     }
   },
   {

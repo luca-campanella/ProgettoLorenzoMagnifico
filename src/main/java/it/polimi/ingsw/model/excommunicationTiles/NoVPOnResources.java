@@ -49,4 +49,8 @@ public class NoVPOnResources extends AbstractExcommunicationTileEffect{
     public void setResourcesEffected(ArrayList<Resource> resourcesEffected) {
         this.resourcesEffected = resourcesEffected;
     }
+
+    public NoVPOnResources(ArrayList<Resource> resourcesEffected) {
+        this.resourcesEffected = resourcesEffected;
+    }
 }
