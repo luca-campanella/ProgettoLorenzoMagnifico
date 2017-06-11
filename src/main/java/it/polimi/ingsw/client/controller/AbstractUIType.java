@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.cli.CommandLineUI;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
@@ -63,6 +64,14 @@ abstract public class AbstractUIType {
 
 
     public abstract int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer);
+
+    /**
+     * Used when it's the turn of the user and he has to choose which action he wants to perform
+     * This method will trigger either
+     * {@link ControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(DiceAndFamilyMemberColorEnum, int)} or
+     * //todo other methods triggered
+     */
+    public abstract void askInitialAction();
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui

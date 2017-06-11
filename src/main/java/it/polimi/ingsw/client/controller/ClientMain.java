@@ -148,7 +148,8 @@ public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerIn
 
         }
         Debug.printVerbose("Im going to call askChatMsg");
-        userInterface.askChatMsg(); //TODO this is a method just for testing chat
+        //userInterface.askChatMsg(); //TODO this is a method just for testing chat
+        userInterface.askInitialAction(); //TODO this is a method just for testing
     }
 
     /**
@@ -206,7 +207,7 @@ public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerIn
     @Override
     public void callbackFamilyMemberAndServantsSelected(DiceAndFamilyMemberColorEnum color, int servants)
     {
-        Debug.printDebug("Sono nel ClientMain.callbackFamilyMember");
+        Debug.printDebug("Sono nel ClientMain.callbackFamilyMember: color = " + color + ", servants = " + servants);
         //chiamo il server e gli dico che voglio usare quel family member.
         //il server mi dice quali azioni posso fare
         //chiamerò quindi il mio abstract UIType con un qualcosa riguardante...

@@ -4,16 +4,15 @@ package it.polimi.ingsw.client.cli;
  * to insert inputs on the cli
  */
 
-import it.polimi.ingsw.client.cli.CliOptionsHandler;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
-import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
-import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
@@ -22,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 //TODO
 
 /**
@@ -31,6 +32,7 @@ public class CommandLineUI extends AbstractUIType {
 
     String tmpInput;
     Scanner inputScanner = new Scanner(System.in);
+    private ExecutorService pool;
 
 
     /**
@@ -40,6 +42,7 @@ public class CommandLineUI extends AbstractUIType {
     public CommandLineUI(ControllerCallbackInterface controller)
     {
         super(controller);
+        pool = Executors.newFixedThreadPool(2);
     }
 
     /**
@@ -265,6 +268,19 @@ public class CommandLineUI extends AbstractUIType {
         } while (numChoice < 0 || numChoice>choices.size() );
 
         return numChoice;
+    }
+
+    /**
+     * Used when it's the turn of the user and he has to choose which action he wants to perform
+     * This method will trigger either
+     * {@link ControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
+     * //todo other methods triggered
+     */
+    @Override
+    public void askInitialAction() {
+        InitialActionMenu menu = new InitialActionMenu(getController());
+
+        pool.submit(menu);
     }
 
     /**

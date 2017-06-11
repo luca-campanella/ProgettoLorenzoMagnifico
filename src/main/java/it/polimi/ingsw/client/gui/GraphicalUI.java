@@ -6,6 +6,7 @@ package it.polimi.ingsw.client.gui;
 
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
+import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -34,7 +35,7 @@ public class GraphicalUI extends AbstractUIType {
             if(existingColors(familyColorID))
                 break;
         }
-        clientMain.callbackFamilyMemberSelected(familyColorID);
+        //clientMain.callbackFamilyMemberSelected(familyColorID);
     }
     /**
      * this method prints all allowed actions for the user.
@@ -47,6 +48,17 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer) {
         return 0;
+    }
+
+    /**
+     * Used when it's the turn of the user and he has to choose which action he wants to perform
+     * This method will trigger either
+     * {@link it.polimi.ingsw.client.controller.ControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
+     * //todo other methods triggered
+     */
+    @Override
+    public void askInitialAction() {
+
     }
 
     /**
@@ -143,9 +155,9 @@ public class GraphicalUI extends AbstractUIType {
      * This is the costructor of the class
      * @param x is the ClientMain
      */
-    public GraphicalUI(ClientMain x)
+    public GraphicalUI(ControllerCallbackInterface x)
     {
-        this.clientMain =  x;
+       super(x);
     }
     /**
      * Chiede all'utente con quale connessione si vuole connettere
