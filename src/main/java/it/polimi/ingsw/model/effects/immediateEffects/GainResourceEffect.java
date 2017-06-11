@@ -28,4 +28,6 @@ public class GainResourceEffect implements ImmediateEffectInterface {
     public String descriptionShortOfEffect(){
         return resource.getResourceShortDescript();
     }
+
+
 }
