@@ -1,18 +1,16 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.CliPrinter;
-import it.polimi.ingsw.client.controller.ControllerModelInterface;
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
-import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
-import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
+import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ import java.util.Random;
 /**
  * the controller of the game on the server
  */
-public class ControllerGame  implements ControllerModelInterface {
+public class ControllerGame {
 
     private Room room;
     private Deck deck;
@@ -327,12 +325,6 @@ public class ControllerGame  implements ControllerModelInterface {
 
         controlTurnPlayer(player.getNickname());
         modelController.activateLeaderCard(player, nameLeader);
-
-    }
-
-    public int choose(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer){
-
-        return playerChoices.get(nameCard);
 
     }
 

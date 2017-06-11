@@ -17,11 +17,11 @@ import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
-import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * TODO: implement launcher
  */
-public class ClientMain implements ControllerModelInterface, ChoicesHandlerInterface {
+public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerInterface {
     LauncherClientFake temp;
     AbstractUIType userInterface;
     AbstractClientType clientNetwork;
@@ -56,6 +56,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     private ResourceCollector resourcesCheckMap;
 
     private FamilyMember familyMemberCurrentAction;
+    private int servantsCurrentAction;
 
     /**
     this is Class Constructor
@@ -73,15 +74,19 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
 
         new ClientMain();
     }
-    /*
-    This method returns Client's userInterface
+    /**
+     * This method returns Client's userInterface
+     * @return Client's userInterface
      */
     public AbstractUIType getUserInterface() {
         return userInterface;
     }
+
     /**
-    * This method show user's network choice
+     * This method is used to make a callback from view to model when the user chooses the network type
+     * @param networkChoice the network type chosen by the user
      */
+    @Override
     public void callbackNetworkType(NetworkTypeEnum networkChoice){
         Debug.printDebug("I'm in ClientMain.callbackNetworkType, choice = " + networkChoice);
         if(networkChoice == NetworkTypeEnum.RMI) {
@@ -104,9 +109,13 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         }
         userInterface.askLoginOrCreate();
     }
+
     /**
-    * this method is called when a user is trying to login.
+     * this method is called when a user is trying to login.
+     * @param userID the username
+     * @param userPW the password
      */
+    @Override
     public void callbackLogin(String userID, String userPW){
         Debug.printDebug("Sono nel ClientMain.callbackLogin.");
         try {
@@ -141,10 +150,13 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
         Debug.printVerbose("Im going to call askChatMsg");
         userInterface.askChatMsg(); //TODO this is a method just for testing chat
     }
-    public void callbackLoginAsGuest(){
-        //devo settare il nome del player come Guest + ID
-        userInterface.readAction();
-    }
+
+    /**
+     * Called by the UI when the user wants to create a new account to connect to the server
+     * @param userID
+     * @param userPW
+     */
+    @Override
     public void callbackCreateAccount(String userID, String userPW){
         Debug.printDebug("I'm in ClientMain.callbackCreateAccount");
         try {
@@ -163,7 +175,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     }
 
     /**
-     * this method it's a callback method that is called from the AbstractyUIType when i want to play a Leader
+     * this method it's a callback method that is called from the {@link AbstractUIType} when i want to play a Leader
      */
     public void callbackPlayLeader(){
         initialActionsOnPlayerMove();
@@ -189,8 +201,10 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     /**
      * this method is a callback method called from abstractUiType when a family member is selected
      * @param color refers to the color of the family member selected.
+     * @param servants the number of servants the user wants to add to the fm
      */
-    public void callbackFamilyMemberSelected(String color)
+    @Override
+    public void callbackFamilyMemberAndServantsSelected(DiceAndFamilyMemberColorEnum color, int servants)
     {
         Debug.printDebug("Sono nel ClientMain.callbackFamilyMember");
         //chiamo il server e gli dico che voglio usare quel family member.
@@ -235,32 +249,19 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     }
 
     /**
-     * Questo metodo che fa? Non c'è nessuno che lo sa -- Arto todo: comment this method
-     * @param nameCard
-     * @param choices
-     * @param resourcePlayer
-     * @return
-     */
-    public int choose(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer){
-
-        return userInterface.askChoice(nameCard, choices, resourcePlayer);
-
-    }
-
-    /**
      * this method allows player to place a family member on a build action space
-     * @param familyMember
-     * @param servants
+     * No parameter needed, the {@link ClientMain} saves the parameters of the current move
      */
-    public void callbackPlacedFMOnBuild(FamilyMember familyMember, int servants){
+    @Override
+    public void callbackPlacedFMOnBuild() {
         /*We make a copy of the hashmap beacuse we have to perfom some checks on it and this checks should not affect
         the hashmap of the player. Even tough making a copy using the constructor makes just a shallow copy, this is sufficient
         since Integer types are immutable
          */
 
-        resourcesCheckMap = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
+        resourcesCheckMap = new ResourceCollector(familyMemberCurrentAction.getPlayer().getResourcesCollector());
         //TODO call this method sith the real values, saved in the state of ClientMain, they are not passed from the view
-        modelController.build(familyMemberCurrentAction, servants);
+        modelController.build(familyMemberCurrentAction, servantsCurrentAction);
         /*LinkedList<BuildingCard> buildingCards = modelController.getYellowBuildingCards(familyMember.getPlayer());
         ArrayList<ImmediateEffectInterface> effects;
 
@@ -272,56 +273,41 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
 
         }*/
 
-
     }
 
     /**
      * this method allows player to place a family member on a harvest action space
-     * @param familyMember
-     * @param servants
+     * No parameter needed, the {@link ClientMain} saves the parameters of the current move
      */
-    public void callbackPlacedFMOnHarvest(FamilyMember familyMember, int servants){
-
-        //TODO call this method sith the real values, saved in the state of ClientMain, they are not passed from the view
-        modelController.harvest(familyMemberCurrentAction, servants);
-
+    @Override
+    public void callbackPlacedFMOnHarvest(){
+        modelController.harvest(familyMemberCurrentAction, servantsCurrentAction);
     }
 
     /**
-     * this method allows player to place a family member on a harvest action space
-     * @param familyMember
-     * @param servants
+     * this method allows player to place a family member on a tower floor action space
+     * @param towerIndex the identifier of the tower
+     * @param floorIndex the identifier of the floor
      */
-    public void callbackPlacedFMOnTower(FamilyMember familyMember, int servants, int towerIndex, int floorIndex){
-
-        //TODO call this method with the real values, saved in the state of ClientMain, they are not passed from the view
-        modelController.placeOnTower(familyMemberCurrentAction, servants, towerIndex, floorIndex);
-
+    @Override
+    public void callbackPlacedFMOnTower(int towerIndex, int floorIndex){
+        modelController.placeOnTower(familyMemberCurrentAction, servantsCurrentAction, towerIndex, floorIndex);
     }
 
     /**
      * this method allows player to place a family member on a market action space
-     * @param familyMember
-     * @param servants
      * @param marketASIndex the selected market AS
      */
-    public void callbackPlacedFMOnMarket(FamilyMember familyMember, int servants, int marketASIndex){
-
-        //TODO call this method with the real values, saved in the state of ClientMain, they are not passed from the view
-        modelController.placeOnMarket(familyMemberCurrentAction, servants, marketASIndex);
-
+    @Override
+    public void callbackPlacedFMOnMarket(int marketASIndex){
+        modelController.placeOnMarket(familyMemberCurrentAction, servantsCurrentAction, marketASIndex);
     }
 
     /**
      * this method allows player to place a family member in the council action space
-     * @param familyMember
-     * @param servants
      */
-    public void callbackPlacedFMOnCouncil(FamilyMember familyMember, int servants){
-
-        //TODO call this method with the real values, saved in the state of ClientMain, they are not passed from the view
-        modelController.placeOnCouncil(familyMemberCurrentAction, servants);
-
+    public void callbackPlacedFMOnCouncil(){
+        modelController.placeOnCouncil(familyMemberCurrentAction, servantsCurrentAction);
     }
 
     /**
