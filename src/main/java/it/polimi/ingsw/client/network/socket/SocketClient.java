@@ -10,8 +10,10 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.utils.Debug;
 
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -458,10 +460,40 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    /**
+     * this method is called by the server to inform the client that can start his turn
+     */
     public void startTurn(){
 
         //TODO method to tell the client the turn is started
 
+    }
+
+    /**
+     * this method is called by the server to deliver the new order of players
+     */
+    public void receiveOrderPlayers(){
+
+        try {
+            ArrayList<String> orderPlayers = (ArrayList<String>)inStream.readObject();
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("Error: cannot receive the order of the players", e);
+        }
+    }
+
+    /**
+     * this method is called by the server to deliver to the client the nickname used to play the game
+     */
+    public void receiveClientNickname(){
+
+        try{
+            String nickname = (String)inStream.readObject();
+            returnNickname(nickname);
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("Error: cannot receive the nickname of the client", e);
+        }
     }
 
 }

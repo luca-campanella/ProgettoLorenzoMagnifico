@@ -3,13 +3,13 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Those are the yellow cards.
@@ -70,7 +70,7 @@ public class BuildingCard extends AbstractCard{
     }
 
     @Override
-    public ArrayList<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
+    public List<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
         return cost;
     }
 

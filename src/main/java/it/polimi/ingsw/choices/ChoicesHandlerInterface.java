@@ -1,7 +1,9 @@
 package it.polimi.ingsw.choices;
 
-import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.List;
 
@@ -18,6 +20,9 @@ import java.util.List;
  *
  * <b>Concil Gift</b>
  * choiceCode = choiceCallerCode:councilGiftNUM where NUM is the number of the different council gift
+ *
+ * <b>Purple venture card</b>
+ * choiceCode == card name -> the value of the hashmap is 0 if he chooses to pay with resources, 1 with military points
  */
 public interface ChoicesHandlerInterface {
 
@@ -38,4 +43,14 @@ public interface ChoicesHandlerInterface {
      * @return
      */
     public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, List<ImmediateEffectInterface> possibleEffectChoices);
+
+    /**
+     * Callback from model to controller
+     * The model uses this method inside {@link it.polimi.ingsw.model.cards.VentureCard#getCostAskChoice(ChoicesHandlerInterface)} to understand what cos he should subtract
+     * @param choiceCode
+     * @param costChoiceResource the list of resources the player will pay if he chooses this option
+     * @param costChoiceMilitary the cost he will pay on something conditioned
+     * @return The arraylist of resources the model has to take away from the player
+     */
+    public List<Resource> callbackOnVentureCardCost(String choiceCode, List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary);
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 
@@ -46,5 +47,17 @@ public class CouncilAS extends AbstractActionSpace implements Serializable{
 
     public void setCouncilGiftChoices(ArrayList<GainResourceEffect> councilGiftChoices) {
         this.councilGiftChoices = councilGiftChoices;
+    }
+
+    /**
+     * This method performs the real action on the model when the player places a FM in the council
+     * @param familyMember the family member to perform the action with
+     * @param choicesController needed because there can be some decisions tied to the action
+     */
+    //@Override
+    public void performAction(FamilyMember familyMember, ChoicesHandlerInterface choicesController)
+    {
+        addFamilyMember(familyMember);
+        getEffects().forEach(effect -> effect.applyToPlayer(familyMember.getPlayer(), choicesController, "CouncilAS"));
     }
 }

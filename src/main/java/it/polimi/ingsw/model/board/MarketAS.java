@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 import java.io.Serializable;
@@ -13,13 +14,16 @@ public class MarketAS extends AbstractActionSpace implements Serializable{
         super();
     }
 
-    //it's the list of family members on this place
-    //private FamilyMember familyMember;
-
-
-    public void performAction(FamilyMember familyMember){
-
-       //TODO
+    /**
+     * This method performs the real action on the model when the player places a FM on a market place
+     * @param familyMember the family member to perform the action with
+     * @param choicesController needed because there can be some decisions tied to the action
+     */
+    //@Override
+    public void performAction(FamilyMember familyMember, ChoicesHandlerInterface choicesController)
+    {
+        addFamilyMember(familyMember);
+        getEffects().forEach(effect -> effect.applyToPlayer(familyMember.getPlayer(), choicesController, "MarketAS"));
     }
 
 }

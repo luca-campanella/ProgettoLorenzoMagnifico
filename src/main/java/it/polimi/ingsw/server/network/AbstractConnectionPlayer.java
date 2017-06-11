@@ -62,21 +62,41 @@ public abstract class AbstractConnectionPlayer extends Player {
      */
     public abstract void receiveHarvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws NetworkException;
 
+    /**
+     * this method is called by the room to deliver a end phase of a different player
+     * @param player the player that had ended the phase
+     * @throws NetworkException if something goes  wrong with the network
+     */
     public abstract void receiveEndPhase(AbstractConnectionPlayer player) throws NetworkException;
 
     protected Room getRoom() {
         return room;
     }
 
-
     public void setRoom(Room room)
     {
         this.room = room;
     }
 
+    /**
+     * this method is called by the room to deliver the new dice loaded on the board
+     * @throws NetworkException if something goes wrong with the network
+     */
     public abstract void receiveDices(ArrayList<Dice> dices) throws NetworkException;
 
-    public abstract void receiveStartGameBoard(Board gameBoard);
+    /**
+     * this method is called by the room to deliver the gameboard to the different players
+     */
+    public abstract void receiveStartGameBoard(Board gameBoard) throws NetworkException;
 
-    public abstract void receiveStartOfTurn();
+    /**
+     * this method is called by the room to deliver the start of a new turn to the right player
+     */
+    public abstract void receiveStartOfTurn() throws NetworkException;
+
+    /**
+     * this method is used to deliver the nicknames of the player in order of turn
+     */
+    public abstract void deliverOrderPlayers(ArrayList<String> orderPlayers) throws NetworkException;
+
 }

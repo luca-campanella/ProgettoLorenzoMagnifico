@@ -230,7 +230,7 @@ public class ModelController {
     }
 
     /**
-     * This methos is called when the player harvests, it is the entry point to the model
+     * This method is called when the player harvests, it is the entry point to the model
      * @param familyMember the family member the player performed the action with
      * @param servants the number of servants the player performed the action with
      */
@@ -247,7 +247,14 @@ public class ModelController {
         player.harvest(familyMember.getValue() + servants, choicesController);
     }
 
-    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
+    /**
+     * This method performs the real action on the model when the player places a FM on a market space
+     * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Board}, {@link it.polimi.ingsw.model.board.MarketAS}
+     * @param familyMember
+     * @param servants
+     * @param marketSpaceIndex the selected market AS
+     */
+    public void placeOnMarket(FamilyMember familyMember, int servants, int marketSpaceIndex){
 
         /*MarketAS marketPlace = gameBoard.getMarketSpaceByIndex(marketSpaceIndex);
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
@@ -258,6 +265,28 @@ public class ModelController {
             // this means that the place on the market is not available
             return;
         marketPlace.performAction(familyMember);*/
+
+        Player player = familyMember.getPlayer();
+
+        player.playFamilyMember(familyMember);
+        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
+
+        gameBoard.placeOnMarket(familyMember, marketSpaceIndex, choicesController);
+    }
+
+    /**
+     * This method performs the real action on the model when the player places a FM int he council
+     * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Board}, {@link it.polimi.ingsw.model.board.CouncilAS}
+     * @param familyMember
+     * @param servants
+     */
+    public void placeOnCouncil(FamilyMember familyMember, int servants) {
+        Player player = familyMember.getPlayer();
+
+        player.playFamilyMember(familyMember);
+        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
+
+        gameBoard.placeOnCouncil(familyMember, choicesController);
     }
 
     public void discardLeaderCard(Player player, String nameLeader){
@@ -330,6 +359,7 @@ public class ModelController {
     public Board getBoard() {
         return gameBoard;
     }
+
 }
 
 

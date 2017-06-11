@@ -83,4 +83,14 @@ public abstract class AbstractClientType  {
         return port;
     }
 
+    /**
+     * this method is used to return to the controller main the nickname of the player on the game
+     * the controller represents this player
+     */
+    public void returnNickname(String nickname){
+
+        controllerMain.setNickname(nickname);
+
+    }
+
 }

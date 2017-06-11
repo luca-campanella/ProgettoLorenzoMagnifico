@@ -6,13 +6,16 @@ package it.polimi.ingsw.client.gui;
 
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
+import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class GraphicalUI extends AbstractUIType {
@@ -65,6 +68,19 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+        return 0;
+    }
+
+    /**
+     * This method is called when a choice on which cost to pay in a purple card should be perfomed by the ui
+     *
+     * @param costChoiceResource the list of resources the player will pay if he chooses this option
+     * @param costChoiceMilitary the cost he will pay on something conditioned
+     * @return 0 if he chooses to pay with resources, 1 with military points
+     */
+    @Override
+    public int askPurpleVentureCardCostChoice(List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary) {
+        //todo
         return 0;
     }
 

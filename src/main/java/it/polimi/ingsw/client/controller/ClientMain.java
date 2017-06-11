@@ -10,12 +10,16 @@ import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.network.rmi.RMIClient;
 import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.model.cards.BuildingCard;
+import it.polimi.ingsw.model.cards.VentureCard;
+import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
@@ -38,15 +42,20 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * it is filled by all the callback methods
      * it should be re-instantiated every time a new action is performed
      */
-    HashMap<String, Integer> choicesOnCurrentAction;
+    private HashMap<String, Integer> choicesOnCurrentAction;
+
+    /**
+     * the player of this controller
+     */
+    private String nickname;
 
     /**
      * this resource collector is used to check that the user has sufficient resources to make a build choice
      * it is initialized with the resources of the player at the beginning of the build action
      */
-    ResourceCollector resourcesCheckMap;
+    private ResourceCollector resourcesCheckMap;
 
-    FamilyMember familyMemberCurrentAction;
+    private FamilyMember familyMemberCurrentAction;
 
     /**
     this is Class Constructor
@@ -291,6 +300,31 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
     }
 
     /**
+     * this method allows player to place a family member on a market action space
+     * @param familyMember
+     * @param servants
+     * @param marketASIndex the selected market AS
+     */
+    public void callbackPlacedFMOnMarket(FamilyMember familyMember, int servants, int marketASIndex){
+
+        //TODO call this method with the real values, saved in the state of ClientMain, they are not passed from the view
+        modelController.placeOnMarket(familyMemberCurrentAction, servants, marketASIndex);
+
+    }
+
+    /**
+     * this method allows player to place a family member in the council action space
+     * @param familyMember
+     * @param servants
+     */
+    public void callbackPlacedFMOnCouncil(FamilyMember familyMember, int servants){
+
+        //TODO call this method with the real values, saved in the state of ClientMain, they are not passed from the view
+        modelController.placeOnCouncil(familyMemberCurrentAction, servants);
+
+    }
+
+    /**
      * Callback from model to controller
      * The model uses this method when encounters a council gift and should choose between the possible ones
      * The method also performs checks that all the chosen council gifts are different one another
@@ -320,7 +354,7 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * Callback from model to controller
      * The model uses this method when encounters a {@link BuildingCard} with more than one effects and wants to make the user choose which one activate
      * This callback should be called even if the user has no choices, because it also performs resource checks
-     * If in these chacks it understands no effect can be chosen then it returns a {@link NoEffect} class and puts the choice in the hashmap to -1
+     * If in these checks it understands no effect can be chosen then it returns a {@link NoEffect} class and puts the choice in the hashmap to -1
      * This implementation calls the view and asks what the user wants to choose
      * The UI should perform a <b>blocking</b> question to the user and return directly to this method
      * @param cardNameChoiceCode
@@ -375,6 +409,40 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
 
         choicesOnCurrentAction.put(cardNameChoiceCode, choice);
         return effectChosen;
+    }
+
+    /**
+     * Callback from model to controller
+     * The model uses this method inside {@link VentureCard#getCostAskChoice(ChoicesHandlerInterface)} to understand what cos he should subtract
+     *
+     * @param choiceCode
+     * @param costChoiceResource the list of resources the player will pay if he chooses this option
+     * @param costChoiceMilitary the cost he will pay on something conditioned
+     * @return The list of resources the model has to take away from the player
+     */
+    @Override
+    public List<Resource> callbackOnVentureCardCost(String choiceCode, List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary) {
+        Player player = familyMemberCurrentAction.getPlayer();
+
+        //first we check if the player has enough resources (military points) to cover the requirement, if he doesn't the choice is made and goes for paying with resources
+        if(costChoiceMilitary.getResourceRequirement().getValue() > player.getResource(costChoiceMilitary.getResourceRequirement().getType()))
+            return costChoiceResource;
+
+        int choice = userInterface.askPurpleVentureCardCostChoice(costChoiceResource, costChoiceMilitary);
+
+        choicesOnCurrentAction.put(choiceCode, choice);
+        if(choice==1) {
+            ArrayList<Resource> res = new ArrayList<>(1);
+            res.add(costChoiceMilitary.getResourceCost());
+            return res;
+        }
+        return costChoiceResource;
+    }
+
+    public void setNickname(String nickname){
+
+        this.nickname = nickname;
+
     }
 }
 

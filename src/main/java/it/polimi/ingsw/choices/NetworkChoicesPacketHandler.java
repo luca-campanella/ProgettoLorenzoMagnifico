@@ -1,9 +1,12 @@
 package it.polimi.ingsw.choices;
 
 import it.polimi.ingsw.model.cards.BuildingCard;
+import it.polimi.ingsw.model.cards.VentureCard;
+import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -70,5 +73,25 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
 
         Debug.printVerbose("Callback on yellowBuldingCardCalled, choice = " + choice + " corrisponding con to effect: " + effect.descriptionOfEffect());
         return effect;
+    }
+
+    /**
+     * Callback from model to controller
+     * The model uses this method inside {@link VentureCard#getCostAskChoice(ChoicesHandlerInterface)} to understand what cos he should subtract
+     *
+     * @param choiceCode
+     * @param costChoiceResource the list of resources the player will pay if he chooses this option
+     * @param costChoiceMilitary the cost he will pay on something conditioned
+     * @return The arraylist of resources the model has to take away from the player
+     */
+    @Override
+    public List<Resource> callbackOnVentureCardCost(String choiceCode, List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary) {
+        int choice = choicesMap.get(choiceCode);
+        if(choice==1) {
+            ArrayList<Resource> res = new ArrayList<>(1);
+            res.add(costChoiceMilitary.getResourceCost());
+            return res;
+        }
+        return costChoiceResource;
     }
 }
