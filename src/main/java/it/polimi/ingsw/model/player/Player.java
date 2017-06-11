@@ -64,6 +64,7 @@ public class Player implements Serializable{
 
     /**
      * you load all the resources needed by the player
+     * todo: need to add coins
      */
     private void loadInitialResources(){
         resourcesMap.addResource(new Resource(ResourceTypeEnum.WOOD, 2));
