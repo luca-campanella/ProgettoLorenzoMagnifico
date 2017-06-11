@@ -6,6 +6,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
+import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
@@ -29,18 +30,17 @@ public class CommandLineUI extends AbstractUIType {
 
     String tmpInput;
     Scanner inputScanner = new Scanner(System.in);
-    ClientMain clientMain;
-    // UIControllerUserInterface UIController = new UIControllerUserInterface();
 
 
     /**
      * This is the constructor of the class
-     * @param clientMain is the clientMain
+     * @param controller is used to make callbacks on the controller ({@link ClientMain}
      */
-    public CommandLineUI(ClientMain clientMain)
+    public CommandLineUI(ControllerCallbackInterface controller)
     {
-        this.clientMain =  clientMain;
+        super(controller);
     }
+
     /**
      * This method ask uses which network type wants to use.
      */
@@ -62,7 +62,7 @@ public class CommandLineUI extends AbstractUIType {
         }
 
         }
-        clientMain.callbackNetworkType(choice);
+        getController().callbackNetworkType(choice);
     }
 
     /**
@@ -70,24 +70,24 @@ public class CommandLineUI extends AbstractUIType {
      */
     public void readAction(){
         Debug.printDebug("I'm in CLI.readAction");
-        while(true)
+       /* while(true)
         {
             System.out.println("What action do you wanna make? Play a Leader, Discard a Leader, Place a family member? Write Play, Discard, Place");
             tmpInput = inputScanner.nextLine();
             if(tmpInput.equalsIgnoreCase("Play")){
-                clientMain.callbackPlayLeader();
+                getController().callbackPlayLeader();
                 break;
             }
             if(tmpInput.equalsIgnoreCase("Discard")){
-                clientMain.callbackDiscardLeader();
+                getController().callbackDiscardLeader();
                 break;
             }
             if(tmpInput.equalsIgnoreCase("Place")){
-                clientMain.callbackPerformPlacement();
+                getController().callbackPerformPlacement();
                 break;
             }
 
-        }
+        }*/
     }
 
     /**
@@ -95,12 +95,10 @@ public class CommandLineUI extends AbstractUIType {
      */
     public void selectFamilyMember()
     {
-        int i;
+        /*int i;
         String familyColorID;
         System.out.print("Select a family member. You can choose " );
-        /*for(i=0; i< familyMembers.size(); i++)
-            System.out.print(familyMembers.... + " ");
-        */
+
         System.out.print("Yellow, Red, Green, Neutral");
         System.out.println();
         while(true) {
@@ -108,7 +106,7 @@ public class CommandLineUI extends AbstractUIType {
             if(existingColors(familyColorID))
             break;
         }
-        clientMain.callbackFamilyMemberSelected(familyColorID);
+        getController().callbackFamilyMemberSelected(familyColorID);*/
     }
 
     /**
@@ -143,13 +141,13 @@ public class CommandLineUI extends AbstractUIType {
             tmpInput = inputScanner.nextLine();
             if(tmpInput.equalsIgnoreCase("Create")){
                 usrAndPwd = readUsrPwd();
-                clientMain.callbackCreateAccount(usrAndPwd.getNickname(), usrAndPwd.getPassword());
+                getController().callbackCreateAccount(usrAndPwd.getNickname(), usrAndPwd.getPassword());
                 break;
             }
 
             if(tmpInput.equalsIgnoreCase("LogIn")){
                 usrAndPwd = readUsrPwd();
-                clientMain.callbackLogin(usrAndPwd.getNickname(), usrAndPwd.getPassword());
+                getController().callbackLogin(usrAndPwd.getNickname(), usrAndPwd.getPassword());
                 break;
             }
             /*
@@ -238,7 +236,7 @@ public class CommandLineUI extends AbstractUIType {
         System.out.println("Please insert chat msg: ");
 
         try {
-            clientMain.callbackSendChatMsg(inputScanner.nextLine());
+            getController().callbackSendChatMsg(inputScanner.nextLine());
         } catch (NetworkException e) {
             Debug.printError("Cannot send chat message", e);
         }
@@ -297,6 +295,12 @@ public class CommandLineUI extends AbstractUIType {
         return choice;
     }
 
+    /**
+     * This method is called when a choice on which cost to pay in a purple card should be perfomed by the ui
+     * @param costChoiceResource the list of resources the player will pay if he chooses this option
+     * @param costChoiceMilitary the cost he will pay on something conditioned
+     * @return 0 if he chooses to pay with resources, 1 with military points
+     */
     @Override
     public int askPurpleVentureCardCostChoice(List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary) {
         CliOptionsHandler optionsHandler = new CliOptionsHandler(2);

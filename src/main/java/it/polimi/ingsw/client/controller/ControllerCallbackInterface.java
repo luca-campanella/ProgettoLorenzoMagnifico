@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.controller;
 
+import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 
@@ -64,5 +65,12 @@ public interface ControllerCallbackInterface {
      * this method allows player to place a family member in the council action space
      */
     public void callbackPlacedFMOnCouncil();
+
+    /**
+     * this is the call back method to send a message to all other players in the room (Direction: {@link AbstractUIType} -> {@link ClientMain}; general direction: Client -> server)
+     * @param msg
+     * @throws NetworkException
+     */
+    public void callbackSendChatMsg(String msg) throws NetworkException;
 
 }

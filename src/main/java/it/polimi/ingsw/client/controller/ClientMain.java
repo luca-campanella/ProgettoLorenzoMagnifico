@@ -244,6 +244,7 @@ public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerIn
      * @param msg
      * @throws NetworkException
      */
+    @Override
     public void callbackSendChatMsg(String msg) throws NetworkException {
         clientNetwork.sendChatMsg(msg);
     }

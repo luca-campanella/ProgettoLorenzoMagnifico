@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.controller;
 
-import it.polimi.ingsw.client.UIControllerUserInterface;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -12,12 +11,20 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by higla on 11/05/2017.
+ * This is the abstract representation of the user interface
+ * It can either be implemented by {@link it.polimi.ingsw.client.CommandLineUI} or by {@link it.polimi.ingsw.client.gui.GraphicalUI}
  */
-//TODO classe astratta che mi rende trasparente l'uso di CLI / gui
-
 abstract public class AbstractUIType {
-    UIControllerUserInterface UIController = new UIControllerUserInterface();
+
+    private ControllerCallbackInterface controller;
+
+    public AbstractUIType(ControllerCallbackInterface controller) {
+        this.controller = controller;
+    }
+
+    protected ControllerCallbackInterface getController() {
+        return controller;
+    }
 
     //This method read an action from the user
     abstract public void readAction();
