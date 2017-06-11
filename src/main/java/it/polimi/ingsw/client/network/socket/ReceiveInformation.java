@@ -13,6 +13,10 @@ import java.io.ObjectInputStream;
 public class ReceiveInformation extends Thread {
 
     ObjectInputStream inStream;
+
+    /**
+     * the protocol to read the packet received by the server
+     */
     ReadServerPacketProtocol readPacket;
 
     public ReceiveInformation(ObjectInputStream inStream, ReadServerPacketProtocol readPacket){

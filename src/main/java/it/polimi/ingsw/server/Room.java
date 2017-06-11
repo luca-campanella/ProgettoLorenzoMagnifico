@@ -299,8 +299,13 @@ public class Room {
      */
     public void receiveStartGameBoard(Board gameBoard){
 
-        for(AbstractConnectionPlayer player : players)
-            player.receiveStartGameBoard(gameBoard);
+        try {
+            for (AbstractConnectionPlayer player : players)
+                player.receiveStartGameBoard(gameBoard);
+        }
+        catch (NetworkException e){
+            Debug.printError("ERROR on the deliver of the board ",e);
+        }
 
     }
 
@@ -309,7 +314,26 @@ public class Room {
      */
     public void playersTurn(AbstractConnectionPlayer player) {
 
-        player.receiveStartOfTurn();
+        try {
+            player.receiveStartOfTurn();
+        }
+        catch (NetworkException e){
+            Debug.printError("ERROR on the deliver of the token ",e);
+        }
 
+    }
+
+    /**
+     * this method is called by the controller game to deliver all the players to the different players
+     */
+    public void deliverOrderPlayers(ArrayList<String> orderPlayers){
+
+        try{
+            for(AbstractConnectionPlayer player : this.players)
+                player.deliverOrderPlayers(orderPlayers);
+        }
+        catch (NetworkException e){
+            Debug.printError("ERROR on the deliver of the players ",e);
+        }
     }
 }

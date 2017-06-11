@@ -42,15 +42,20 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
      * it is filled by all the callback methods
      * it should be re-instantiated every time a new action is performed
      */
-    HashMap<String, Integer> choicesOnCurrentAction;
+    private HashMap<String, Integer> choicesOnCurrentAction;
+
+    /**
+     * the player of this controller
+     */
+    private String nickname;
 
     /**
      * this resource collector is used to check that the user has sufficient resources to make a build choice
      * it is initialized with the resources of the player at the beginning of the build action
      */
-    ResourceCollector resourcesCheckMap;
+    private ResourceCollector resourcesCheckMap;
 
-    FamilyMember familyMemberCurrentAction;
+    private FamilyMember familyMemberCurrentAction;
 
     /**
     this is Class Constructor
@@ -432,6 +437,12 @@ public class ClientMain implements ControllerModelInterface, ChoicesHandlerInter
             return res;
         }
         return costChoiceResource;
+    }
+
+    public void setNickname(String nickname){
+
+        this.nickname = nickname;
+
     }
 }
 

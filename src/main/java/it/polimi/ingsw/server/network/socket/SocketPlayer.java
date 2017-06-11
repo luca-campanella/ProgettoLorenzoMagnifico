@@ -9,6 +9,7 @@ import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.socket.packet.*;
 import it.polimi.ingsw.server.network.socket.protocol.ReadClientPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
+import sun.util.cldr.CLDRLocaleDataMetaInfo;
 
 import java.io.*;
 import java.net.Socket;
@@ -455,9 +456,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     /**
      * deliver to the socket client the initial board
+     * @throws NetworkException if the connection goes wrong
      */
     @Override
-    public void receiveStartGameBoard(Board gameBoard) {
+    public void receiveStartGameBoard(Board gameBoard) throws NetworkException{
 
         try{
 
@@ -470,15 +472,17 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         catch (IOException e){
 
             Debug.printError("Cannot deliver the board to the server", e);
+            throw new NetworkException(e);
         }
 
     }
 
     /**
      * this method is used to inform the player that his turn is started
+     * @throws NetworkException if the connection goes wrong
      */
     @Override
-    public void receiveStartOfTurn() {
+    public void receiveStartOfTurn() throws NetworkException{
 
         try{
             outStream.writeObject(PacketType.START_TURN);
@@ -486,9 +490,43 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch (IOException e){
             Debug.printError("Cannot deliver the token to start the turn");
+            throw new NetworkException(e);
         }
     }
 
+    /**
+     * this method is used to deliver the players in order of turn
+     * @throws NetworkException if the connection goes wrong
+     */
+    @Override
+    public void deliverOrderPlayers(ArrayList<String> orderPlayers) throws NetworkException{
+
+        try{
+            outStream.writeObject(PacketType.ORDER_PLAYERS);
+            outStream.writeObject(orderPlayers);
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Cannot deliver the order of the players");
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is used to deliver the nickname of the player to the client
+     */
+    private void deliverNicknamePlayer(String nickname){
+
+        try{
+            outStream.writeObject(PacketType.NICKNAME);
+            outStream.writeObject(nickname);
+            outStream.flush();
+        }
+
+        catch (IOException e){
+            Debug.printError("Cannot deliver the nickname of the player");
+        }
+    }
 
 }
 

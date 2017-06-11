@@ -160,30 +160,43 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
     /**
      * This method is called by the room to send the board to the players. (Direction: server -> client)
      * @param gameBoard the loaded board
+     * @throws NetworkException if the connection goes wrong
      */
     @Override
-    public void receiveStartGameBoard(Board gameBoard) {
+    public void receiveStartGameBoard(Board gameBoard) throws NetworkException{
 
         try{
             RMIClientInterfaceInst.receiveBoard(gameBoard);
         }
         catch (RemoteException e){
             Debug.printError("rmi: cannot send move on harvest to" + getNickname(), e);
+            throw new NetworkException(e);
         }
     }
 
     /**
      * this method is called by the room to inform the player that his turn is started
+     * @throws NetworkException if the connection goes wrong
      */
     @Override
-    public void receiveStartOfTurn() {
+    public void receiveStartOfTurn() throws NetworkException{
 
         try{
             RMIClientInterfaceInst.receiveStartOfTurn();
         }
         catch (RemoteException e){
             Debug.printError("rmi: cannot send move on harvest to" + getNickname(), e);
+            throw new NetworkException(e);
         }
+    }
+
+    /**
+     * this method is called by the room to deliver the order of player to the client
+     * @throws NetworkException if the connection goes wrong
+     */
+    @Override
+    public void deliverOrderPlayers(ArrayList<String> orderPlayers) throws NetworkException {
+
     }
 
     /**

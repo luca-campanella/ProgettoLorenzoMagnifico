@@ -222,6 +222,8 @@ public class ControllerGame  implements ControllerModelInterface {
 
         chooseOrderRandomly();
 
+        deliverOrderPlayers();
+
         //add the coins to the orderOfPlayers based on the order of turn
         modelController.addCoinsStartGame(orderOfPlayers);
 
@@ -353,6 +355,19 @@ public class ControllerGame  implements ControllerModelInterface {
         room.deliverDices(dices);
 
     }
+
+    /**
+     * this methos is used to deliver to the room the nickname in order of turn, then the room will deliver this nickname to the client
+     */
+    private void deliverOrderPlayers(){
+
+        ArrayList<String> orderPlayers = new ArrayList<>(numberOfPlayers);
+        for(AbstractConnectionPlayer player : orderOfPlayers)
+            orderPlayers.add(player.getNickname());
+        room.deliverOrderPlayers(orderPlayers);
+    }
+
+
 
 }
 
