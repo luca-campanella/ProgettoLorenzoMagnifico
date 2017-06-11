@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
+import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.BuildingCard;
@@ -355,6 +356,29 @@ public class ModelController {
     public ArrayList<Dice> getDices() {
         return dices;
     }
+
+    /**
+     * this method is called by the client to set the value of the dice with the value of the dice delivered by the server
+     */
+    public void setDice(ArrayList<Dice> dice){
+
+        for(Dice dieToSet : this.dices){
+            for(Dice die :dice){
+                if(dieToSet.getColor() == die.getColor()){
+                    dieToSet.setValue(die.getValue());
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * this method is used by the client to understand the move available with a defined family member
+     * @return the space where the family member can be placed
+     */
+    /*public ArrayList<AbstractActionSpace> getAvailableMove(Player player, FamilyMember familyMember){
+
+    }*/
 
     public Board getBoard() {
         return gameBoard;

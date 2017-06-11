@@ -28,6 +28,7 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
     {
         super(nickname);
         this.RMIClientInterfaceInst = RMIClientInterfaceInst;
+        deliverNickname();
     }
 
     /**
@@ -197,6 +198,13 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
     @Override
     public void deliverOrderPlayers(ArrayList<String> orderPlayers) throws NetworkException {
 
+        try{
+            RMIClientInterfaceInst.receiveOrderPlayer(orderPlayers);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the order of the player to" + getNickname(), e);
+            throw new NetworkException(e);
+        }
     }
 
     /**
@@ -207,5 +215,17 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
     @Override
     public void sendChatMsg(String msg) throws RemoteException {
         getRoom().floodChatMsg(this, msg);
+    }
+
+    /**
+     * this method is used to deliver to the client his nickname
+     */
+    private void deliverNickname(){
+        try{
+            RMIClientInterfaceInst.receiveNicknamePlayer(getNickname());
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the nickname to" + getNickname(), e);
+        }
     }
 }

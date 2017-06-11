@@ -50,4 +50,11 @@ public class Dice implements Serializable{
     public int getValue(){
         return  value;
     }
+
+    /**
+     * this method is called by the client to set the value of the dice delivered by the server
+     */
+    public void setValue(int value){
+        this.value = value;
+    }
 }

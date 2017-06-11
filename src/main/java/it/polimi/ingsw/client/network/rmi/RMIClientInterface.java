@@ -35,4 +35,8 @@ public interface RMIClientInterface extends Remote {
     public void receiveBoard(Board gameBoard) throws RemoteException;
 
     public void receiveStartOfTurn() throws RemoteException;
+
+    public void receiveOrderPlayer(ArrayList<String> orderPlayer) throws RemoteException;
+
+    public void receiveNicknamePlayer(String nicknamePlayer) throws RemoteException;
 }

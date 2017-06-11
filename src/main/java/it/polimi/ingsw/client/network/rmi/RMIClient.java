@@ -186,4 +186,14 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     public void receiveStartOfTurn() throws RemoteException {
 
     }
+
+    @Override
+    public void receiveOrderPlayer(ArrayList<String> orderPlayer) throws RemoteException {
+
+    }
+
+    @Override
+    public void receiveNicknamePlayer(String nicknamePlayer) throws RemoteException {
+
+    }
 }
