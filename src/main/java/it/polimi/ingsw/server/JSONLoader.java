@@ -25,7 +25,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.lang.reflect.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by higla on 30/05/2017.
@@ -190,5 +189,15 @@ public class JSONLoader {
             return  leadersDeck;
         }
 
+    }
+
+    public RoomConfigurator loadTimeoutInSec() throws IOException
+    {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+        try (Reader reader = new InputStreamReader(RoomConfigurator.class.getResourceAsStream("/RoomCFG.json"), "UTF-8")) {
+            RoomConfigurator roomConfigurator = gson.fromJson(reader, RoomConfigurator.class);
+            return  roomConfigurator;
+        }
     }
 }
