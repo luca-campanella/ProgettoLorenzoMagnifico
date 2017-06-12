@@ -155,6 +155,8 @@ public class ControllerGame {
         numberOfTurn = 0;
         numberOfRound = 1;
         playerChoices = new HashMap<>(10);
+
+        room.playersTurn(orderOfPlayers.get(0));
     }
 
     /**
