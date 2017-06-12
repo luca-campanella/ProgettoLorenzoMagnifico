@@ -498,6 +498,7 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      */
     public void receivedDices(ArrayList<Dice> dices) {
         Debug.printVerbose("receivedDices called");
+
         modelController.setDice(dices);
 
         modelController.setFamilyMemberDices();
