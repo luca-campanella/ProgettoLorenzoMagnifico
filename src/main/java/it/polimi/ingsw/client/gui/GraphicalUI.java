@@ -51,6 +51,14 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     /**
+     * This method is called when the player has joined a room, but the game isn't started yet
+     */
+    @Override
+    public void showWaitingForGameStart() {
+        
+    }
+
+    /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * {@link it.polimi.ingsw.client.controller.ControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
