@@ -1,10 +1,10 @@
-package it.polimi.ingsw.model.leaders.leadersabilities;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
 
 /**
  * This ability lets you place a family member in an occupied tower without having to spend the additional 3 coins
  * This ability will usually be implemented by "Filippo Bunelleschi"
  */
-public class NotToSpendForOccupiedTowerLeaderAbility extends AbstractLeaderAbility {
+public class NotToSpendForOccupiedTowerLeaderAbility extends AbstractPermanentLeaderAbility {
 
     public NotToSpendForOccupiedTowerLeaderAbility() {
         super();

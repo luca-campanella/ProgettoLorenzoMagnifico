@@ -1,0 +1,344 @@
+{
+  "leaders": [
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 5,
+          "reqCardColor": "BLUE"
+        }
+      ],
+      "name": "Ludovico Ariosto",
+      "description": "Io desidero intendere da voi Alessandro fratel, compar mio Bagno, S’in la Cort’è memoria più di noi; Se più il Signor m’accusa; se compagno Per me si lieva.",
+      "ability": {
+        "abilityType": "CanPlaceFMInOccupiedASLeaderAbility"
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 5,
+          "reqCardColor": "YELLOW"
+        }
+      ],
+      "name": "Filippo Brunelleschi",
+      "description": "[...] sparuto de la persona [...], ma di ingegno tanto elevato che ben si può dire che e’ci fu donato dal cielo per dar nuova forma alla architettura.",
+      "ability": {
+        "abilityType": "NotToSpendForOccupiedTowerLeaderAbility"
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "MILITARY_POINT",
+            "value": 7
+          }
+        },
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "FAITH_POINT",
+            "value": 3
+          }
+        }
+      ],
+      "name": "Sigismondo Malatesta",
+      "description": "Era a campo la maistà del re de Ragona. [...] el fé levare de campo cum la soe gente ecum lo altre di fiorentini, cum gram danno e poco onore del re.",
+      "ability": {
+        "abilityType": "BonusNeutralFMLeaderAbility",
+        "bonusValue": 3
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "STONE",
+            "value": 10
+          }
+        }
+      ],
+      "name": "Girolamo Savonarola",
+      "description": "Dai quali tutti Michelagnolo molto era accarezzato, et acceso al honorato suo studio, ma sopra tutti dal Magni co, il quale spesse volte il giorno lo faceva chiamare monstrandogli sue gioie [...].",
+      "ability": {
+        "abilityType": "OncePerRoundResourceLeaderAbility",
+        "bonuses": [
+          {
+            "type": "COIN",
+            "value": 3
+          }
+        ]
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "MILITARY_POINT",
+            "value": 12
+          }
+        }
+      ],
+      "name": "Giovanni dalle Bande Nere",
+      "description": "Egli apprezzava più gli huomini prodi che le ricchezze le quai desiderava per donar a loro.",
+      "ability": {
+        "abilityType": "OncePerRoundResourceLeaderAbility",
+        "bonuses": [
+          {
+            "type": "WOOD",
+            "value": 1
+          },
+          {
+            "type": "STONE",
+            "value": 1
+          },
+          {
+            "type": "COIN",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 4,
+          "reqCardColor": "BLUE"
+        },
+        {
+          "reqType": "CardRequirement",
+          "numReq": 2,
+          "reqCardColor": "GREEN"
+        }
+      ],
+      "name": "Leonardo Da Vinci",
+      "description": "Ogniomo senpre si trova nel mezo del mondo en essotto il mezo del suo emisperio e sopra il cientro desso mondo.",
+      "ability": {
+        "abilityType": "OncePerRoundProductionLeaderAbility",
+        "diceValue": 0
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "WOOD",
+            "value": 10
+          }
+        }
+      ],
+      "name": "Sandro Botticelli",
+      "description": "[...] ancora che agevolmente apprendesse tutto quello che e’ voleva, era nientedimanco inquieto sempre, né si contentava di scuola alcuna [...].",
+      "ability": {
+        "abilityType": "OncePerRoundResourceLeaderAbility",
+        "bonuses": [
+          {
+            "type": "MILITARY_POINT",
+            "value": 2
+          },
+          {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 2,
+          "reqCardColor": "GREEN"
+        },
+        {
+          "reqType": "CardRequirement",
+          "numReq": 2,
+          "reqCardColor": "YELLOW"
+        },
+        {
+          "reqType": "CardRequirement",
+          "numReq": 2,
+          "reqCardColor": "BLUE"
+        },
+        {
+          "reqType": "CardRequirement",
+          "numReq": 2,
+          "reqCardColor": "PURPLE"
+        }
+      ],
+      "name": "Ludovico il Moro",
+      "description": "Ludovicum Sfortiam Mediolanensium principem, cui Moro cognomen fuit, nequaquam a suscedine oris, quod esset aequo pallidior ita vocatum ferunt, quod pro insigni gestabat Mori arboris.",
+      "ability": {
+        "abilityType": "FixedFamilyMembersValueLeaderAbility",
+        "diceValue": 5
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 6,
+          "reqCardColor": "YELLOW"
+        }
+      ],
+      "name": "Lucrezia Borgia",
+      "description": "Donna Lucretia, benché avvezza homai a mutar mariti secondo il capriccio et interesse dei suoi, [...] si trattenne  n che il tempo unico medico di queste passioni le fece volger l’animo a più soavi pensieri.",
+      "ability": {
+        "abilityType": "BonusColoredFamilyMembersLeaderAbility",
+        "bonusValue": 2
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 5,
+          "reqCardColor": "GREEN"
+        }
+      ],
+      "name": "Federico da Montefeltro",
+      "description": "[...] la gloriosa memoria del Duca Federico, il quale a dì suoi fu lume della Italia. Né quivi [Urbino] cosa alcuna volse, se non rarissima et eccellente.",
+      "ability": {
+        "abilityType": "BonusOneColoredFamilyMemberLeaderAbility",
+        "bonusValue": 6,
+        "used": false
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "VICTORY_POINT",
+            "value": 35
+          }
+        }
+      ],
+      "name": "Lorenzo de\u0027 Medici",
+      "description": "Copy the ability of another Leader Card already played by another player. Once you decide the ability to copy, it can’t be changed.",
+      "ability": {
+        "abilityType": "CopyAnotherLeaderAbility"
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "FAITH_POINT",
+            "value": 8
+          }
+        }
+      ],
+      "name": "Santa Rita",
+      "description": "Fu talmente abbracciata la santa astinenza, e l’aspro vestire dalla nostra Beata Rita,\nche chi la mirava, restava meravigliato, e quasi fuor di se stesso rimaneva.",
+      "ability": {
+        "abilityType": "DoubleResourcesOnImmediateCardEffectAbility",
+        "doubleResource": 1
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 4,
+          "reqCardColor": "YELLOW"
+        },
+        {
+          "reqType": "CardRequirement",
+          "numReq": 2,
+          "reqCardColor": "BLUE"
+        }
+      ],
+      "name": "Cosimo de\u0027 Medici",
+      "description": "Debebunt igitur Medici magno Cosmo omnis Medicea, et Florentina posteritas.",
+      "ability": {
+        "abilityType": "OncePerRoundResourceLeaderAbility",
+        "bonuses": [
+          {
+            "type": "SERVANT",
+            "value": 3
+          },
+          {
+            "type": "VICTORY_POINT",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 2,
+          "reqCardColor": "PURPLE"
+        },
+        {
+          "reqType": "CardRequirement",
+          "numReq": 4,
+          "reqCardColor": "GREEN"
+        }
+      ],
+      "name": "Bartolomeo Colleoni",
+      "description": "Et era allhor frequente per le bocche del volgo un sì fatto motto: «Havere il Coglione\nallo Sforza, il gioco di maniera in man concio, che non facendo ei torto alle carte più\nnon potea perdere».",
+      "ability": {
+        "abilityType": "OncePerRoundResourceLeaderAbility",
+        "bonuses": [
+          {
+            "type": "VICTORY_POINT",
+            "value": 4
+          }
+        ]
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "SERVANT",
+            "value": 15
+          }
+        }
+      ],
+      "name": "Ludovico III Gonzaga",
+      "description": "[…] la qual cosa sopportava con sdegno Lodovico, parendogli che nota infame gli fosse\nl’essergli preposto dal padre il fratello, il quale veramente odiava.",
+      "ability": {
+        "abilityType": "OncePerRoundCouncilGiftAbility",
+        "numberOfDiffrentCouncilGift": 1
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 4,
+          "reqCardColor": "PURPLE"
+        },
+        {
+          "reqType": "CardRequirement",
+          "numReq": 2,
+          "reqCardColor": "YELLOW"
+        }
+      ],
+      "name": "Pico della Mirandola",
+      "description": "Ioannes Picus Mirandula merito cognomine phoenix appellatus est, quod in eum,\nDii superi, supra familiae claritatem, omnis corporis, ac animi vel rarissima dona\ncontulerint.",
+      "ability": {
+        "abilityType": "OncePerRoundResourceLeaderAbility",
+        "bonuses": [
+          {
+            "type": "VICTORY_POINT",
+            "value": 4
+          }
+        ]
+      }
+    }
+  ]
+}

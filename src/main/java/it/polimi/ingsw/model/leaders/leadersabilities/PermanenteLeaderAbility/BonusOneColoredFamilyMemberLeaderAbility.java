@@ -1,4 +1,6 @@
-package it.polimi.ingsw.model.leaders.leadersabilities;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
+
+import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.AbstractOncePerRoundLeaderAbility;
 
 import java.util.Optional;
 
@@ -6,7 +8,7 @@ import java.util.Optional;
  * This leader ability gives you a bonus on one of your colored family members
  * This ability is usually implemented by "Federico da Montefeltro"
  */
-public class BonusOneColoredFamilyMemberLeaderAbility extends AbstractLeaderAbility {
+public class BonusOneColoredFamilyMemberLeaderAbility extends AbstractPermanentLeaderAbility {
 
     private int bonusValue;
     private boolean used = false;

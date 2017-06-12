@@ -3,15 +3,21 @@ package it.polimi.ingsw.model.leaders;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.leaders.leadersabilities.*;
+import it.polimi.ingsw.model.cards.Deck;
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.*;
+import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.*;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 import it.polimi.ingsw.model.leaders.requirements.CardRequirement;
 import it.polimi.ingsw.model.leaders.requirements.ResourceRequirement;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.testingGSON.boardLoader.BoardCreator;
 import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 import it.polimi.ingsw.utils.Debug;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -23,10 +29,10 @@ public class LeaderCreator {
     private static ArrayList<LeaderCard> creteLeadersForTesting() {
         ArrayList<LeaderCard> leaders = new ArrayList<LeaderCard>(20);
 
-
+/*
         leaders.add(new LeaderCard(createOneReqArray(new CardRequirement(5, CardColorEnum.PURPLE)), "Francesco Sforza",
                 "E per dirlo ad un tratto non ci fu guerra famosa nell’Italia, che Francesco Sforza non vi si trovasse, e le Repubbliche, Prencipi, Re e Papi andavano a gara per haverlo al suo sevigio.", new OncePerRoundHarvestLeaderAbility(1)));
-
+*/
         leaders.add(new LeaderCard(createOneReqArray(new CardRequirement(5, CardColorEnum.BLUE)), "Ludovico Ariosto", "Io desidero intendere da voi Alessandro fratel, compar mio Bagno, S’in la Cort’è memoria " +
                 "più di noi; Se più il Signor m’accusa; se compagno Per me si lieva.", new CanPlaceFMInOccupiedASLeaderAbility()));
 
@@ -44,13 +50,13 @@ public class LeaderCreator {
                 "Girolamo Savonarola",
                 "Dai quali tutti Michelagnolo molto era accarezzato, et acceso al honorato suo studio, ma sopra" +
                         " tutti dal Magni co, il quale spesse volte il giorno lo faceva chiamare monstrandogli sue gioie [...].",
-                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(new Resource(ResourceTypeEnum.COIN, 3)))));
+                new OncePerRoundResourceLeaderAbility(createOneResourceBonusArray(new Resource(ResourceTypeEnum.COIN, 3)))));
 
         leaders.add(new LeaderCard(createOneReqArray(new ResourceRequirement(new Resource(ResourceTypeEnum.MILITARY_POINT, 12))),
                 "Giovanni dalle Bande Nere",
                 "Egli apprezzava più gli huomini prodi che le ricchezze le quai desiderava per donar a " +
                         "loro.",
-                new OncePerRoundBonusLeaderAbility(createThreeResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createThreeResourceBonusArray(
                         new Resource(ResourceTypeEnum.WOOD, 1),
                         new Resource(ResourceTypeEnum.STONE, 1),
                         new Resource(ResourceTypeEnum.COIN, 1)))));
@@ -65,7 +71,7 @@ public class LeaderCreator {
                 "Sandro Botticelli",
                 "[...] ancora che agevolmente apprendesse tutto quello che e’ voleva, era nientedimanco " +
                         "inquieto sempre, né si contentava di scuola alcuna [...].",
-                new OncePerRoundBonusLeaderAbility(createTwoResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createTwoResourceBonusArray(
                         new Resource(ResourceTypeEnum.MILITARY_POINT, 2),
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 1)))));
 
@@ -89,21 +95,26 @@ public class LeaderCreator {
                 "Federico da Montefeltro",
             "[...] la gloriosa memoria del Duca Federico, il quale a dì suoi fu lume della Italia. Né quivi [Urbino] cosa alcuna volse, se non rarissima et eccellente.",
                 new BonusOneColoredFamilyMemberLeaderAbility(6)));
-        //todo lorenzo de' Medici
-        //todo: permanent effect on Santa Rita
+
+        leaders.add(new LeaderCard(createOneReqArray(
+                new ResourceRequirement(new Resource(ResourceTypeEnum.VICTORY_POINT, 35))),
+                "Lorenzo de' Medici",
+                "Copy the ability of another Leader Card already played by another player. Once you decide the ability to copy, it can’t be changed.",
+                new CopyAnotherLeaderAbility()));
+
         leaders.add(new LeaderCard(createOneReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.FAITH_POINT, 8))),
                 "Santa Rita",
                 "Fu talmente abbracciata la santa astinenza, e l’aspro vestire dalla nostra Beata Rita,\n" +
                         "che chi la mirava, restava meravigliato, e quasi fuor di se stesso rimaneva.",
-                new FixedFamilyMembersValueLeaderAbility(5)));
+                new DoubleResourcesOnImmediateCardEffectAbility(1)));
 
         leaders.add(new LeaderCard(createTwoReqArray(
                 new CardRequirement(4, CardColorEnum.YELLOW),
                 new CardRequirement(2, CardColorEnum.BLUE)),
                 "Cosimo de' Medici",
                 "Debebunt igitur Medici magno Cosmo omnis Medicea, et Florentina posteritas.",
-                new OncePerRoundBonusLeaderAbility(createTwoResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createTwoResourceBonusArray(
                         new Resource(ResourceTypeEnum.SERVANT, 3),
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 1)))));
 
@@ -114,16 +125,16 @@ public class LeaderCreator {
                 "Et era allhor frequente per le bocche del volgo un sì fatto motto: «Havere il Coglione\n" +
                         "allo Sforza, il gioco di maniera in man concio, che non facendo ei torto alle carte più\n" +
                         "non potea perdere».",
-                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createOneResourceBonusArray(
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 4)))));
-        //todo: council gift
+
         leaders.add(new LeaderCard(createOneReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.SERVANT, 15))),
                 "Ludovico III Gonzaga",
                 "[…] la qual cosa sopportava con sdegno Lodovico, parendogli che nota infame gli fosse\n" +
                         "l’essergli preposto dal padre il fratello, il quale veramente odiava.",
-                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(
-                        new Resource(ResourceTypeEnum.VICTORY_POINT, 4)))));
+                        new OncePerRoundCouncilGiftAbility(1)));
+
         //todo: second effect, discount of 3 coins
         leaders.add(new LeaderCard(createTwoReqArray(
                 new CardRequirement(4, CardColorEnum.PURPLE),
@@ -132,7 +143,7 @@ public class LeaderCreator {
                 "Ioannes Picus Mirandula merito cognomine phoenix appellatus est, quod in eum,\n" +
                         "Dii superi, supra familiae claritatem, omnis corporis, ac animi vel rarissima dona\n" +
                         "contulerint.",
-                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createOneResourceBonusArray(
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 4)))));
 
 
@@ -190,7 +201,7 @@ public class LeaderCreator {
         return resArr;
     }
 
-    private static void writeJsonExampleOnOutput() {
+    private static void writeJsonExampleOnOutput() throws Exception{
         Debug.instance(Debug.LEVEL_VERBOSE);
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -199,19 +210,29 @@ public class LeaderCreator {
         runtimeAdapterFactoryReq.registerSubtype(ResourceRequirement.class, "ResourceRequirement");
 
         RuntimeTypeAdapterFactory<AbstractLeaderAbility> runtimeAdapterFactoryAbility = RuntimeTypeAdapterFactory.of(AbstractLeaderAbility.class, "abilityType");
+        runtimeAdapterFactoryAbility.registerSubtype(AbstractPermanentLeaderAbility.class, "AbstractPermanentLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(AbstractImmediateLeaderAbility.class, "AbstractImmediateLeaderAbility");
+
+
+//        RuntimeTypeAdapterFactory<AbstractPermanentLeaderAbility> runtimeAdapterFactoryPermanentAbility = RuntimeTypeAdapterFactory.of(AbstractPermanentLeaderAbility.class, "abilityType");
         runtimeAdapterFactoryAbility.registerSubtype(CanPlaceFMInOccupiedASLeaderAbility.class, "CanPlaceFMInOccupiedASLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(NotToSpendForOccupiedTowerLeaderAbility.class, "NotToSpendForOccupiedTowerLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundHarvestLeaderAbility.class, "OncePerRoundHarvestLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundBonusLeaderAbility.class, "OncePerRoundBonusLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(BonusNeutralFMLeaderAbility.class, "BonusNeutralFMLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundProductionLeaderAbility.class, "OncePerRoundProductionLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(FixedFamilyMembersValueLeaderAbility.class, "FixedFamilyMembersValueLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(BonusColoredFamilyMembersLeaderAbility.class, "BonusColoredFamilyMembersLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(BonusOneColoredFamilyMemberLeaderAbility.class, "BonusOneColoredFamilyMemberLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(DoubleResourcesOnImmediateCardEffectAbility.class, "DoubleResourcesOnImmediateCardEffectAbility");
+
+        // RuntimeTypeAdapterFactory<AbstractImmediateLeaderAbility> runtimeAdapterFactoryImmediateAbility = RuntimeTypeAdapterFactory.of(AbstractImmediateLeaderAbility.class, "abilityType");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundResourceLeaderAbility.class, "OncePerRoundResourceLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundProductionLeaderAbility.class, "OncePerRoundProductionLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundHarvestLeaderAbility.class, "OncePerRoundHarvestLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundCouncilGiftAbility.class, "OncePerRoundCouncilGiftAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(CopyAnotherLeaderAbility.class, "CopyAnotherLeaderAbility");
 
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeAdapterFactoryReq).registerTypeAdapterFactory(runtimeAdapterFactoryAbility).create();
-
+        /*
         LeadersDeck leadersDeck = new LeadersDeck(creteLeadersForTesting());
         String leadersInJson = gson.toJson(leadersDeck);
         System.out.println(leadersInJson);
@@ -219,15 +240,28 @@ public class LeaderCreator {
         LeadersDeck leadersFormJson = gson.fromJson(leadersInJson, LeadersDeck.class);
 
         System.out.println(leadersFormJson.toString());
-
+        */
         //Prints the description of all leader fields with functional java
-        leadersFormJson.getLeaders().forEach(leader -> System.out.println("**" + leader.getName() + "**" + "\n"
+        /*
+        .getLeaders().forEach(leader -> System.out.println("**" + leader.getName() + "**" + "\n"
                 + leader.getDescription() + "\n"
                 + "Requirement: " + leader.getRequirements().stream().map(req -> req.getDescription()).collect(Collectors.joining()) + "\n"
                 + "Ability: "+ leader.getAbility().getAbilityDescription() + "\n"));
+    */
+
+
+        try (Reader reader = new InputStreamReader(LeadersDeck.class.getResourceAsStream("/LeadersCFG.json"), "UTF-8")) {
+            LeadersDeck leadersDeck = gson.fromJson(reader, LeadersDeck.class);
+            leadersDeck.getLeaders().forEach(leader -> System.out.println("**" + leader.getName() + "**" + "\n"
+                    + leader.getDescription() + "\n"
+                    + "Requirement: " + leader.getRequirements().stream().map(req -> req.getDescription()).collect(Collectors.joining()) + "\n"
+                    + "Ability: "+ leader.getAbility().getAbilityDescription() + "\n"));
+        }
+
+
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         writeJsonExampleOnOutput();
     }
 }
