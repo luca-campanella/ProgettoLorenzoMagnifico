@@ -195,7 +195,7 @@ public class CliPrinter {
             tempLength += name.length();
             for (int i = 0; i < (INSIDE_TOWER_LENGHT) - tempLength; i++)
                 System.out.print(" ");
-            System.out.print("| *" + temp[k].getDiceValue() + "* " + temp[k].getEffectShortDescription() + " ");
+            System.out.print("| *" + temp[k].getDiceRequirement() + "* " + temp[k].getEffectShortDescription() + " ");
         }
     }
 
@@ -355,7 +355,7 @@ public class CliPrinter {
         System.out.println("This is the market: ");
         for (i = 0; i < board.getMarket().size(); i++) {
             MarketAS market = board.getMarketSpaceByIndex(i);
-            System.out.print("|" + i + "| *" + market.getDiceValue() + "* " + market.getEffectShortDescription() + " ");
+            System.out.print("|" + i + "| *" + market.getDiceRequirement() + "* " + market.getEffectShortDescription() + " ");
         }
         System.out.println(" ");
     }
@@ -368,7 +368,7 @@ public class CliPrinter {
      */
     private void printBuildAS(Board board) {
         System.out.println("This is Build Action Space: ");
-        System.out.println("Standard " + board.getBuild().getDiceValue() + ". Malus " + board.getBuild().getValueMalus());
+        System.out.println("Standard " + board.getBuild().getDiceRequirement() + ". Malus " + board.getBuild().getValueMalus());
     }
 
     /**
