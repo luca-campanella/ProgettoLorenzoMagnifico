@@ -26,7 +26,6 @@ public class PayForCouncilGiftEffect extends AbstractPerformActionEffect {
      * @param choicesHandlerInterface not used in this case, no choice inside the effect
      */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName){
-        //todo: idem as previously. It was an ArrayList i modified into a List -- Arto
         List<GainResourceEffect> choice = choicesHandlerInterface.callbackOnCoucilGift(cardName + ":councilGift", 1);
         player.addResources(toPay);
         choice.get(0).applyToPlayer(player, choicesHandlerInterface, cardName);
@@ -49,4 +48,5 @@ public class PayForCouncilGiftEffect extends AbstractPerformActionEffect {
             temp += "-"+this.toPay.get(k).getResourceShortDescript();
         return temp;
     }
+
 }
