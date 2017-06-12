@@ -8,4 +8,12 @@ public class RoomConfigurator {
     int timeoutSec;
     //time for a turn
     int timeToPass;
+
+    public int getTimeoutSec() {
+        return timeoutSec;
+    }
+
+    public int getTimeToPass() {
+        return timeToPass;
+    }
 }

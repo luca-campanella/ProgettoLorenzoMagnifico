@@ -14,19 +14,18 @@ import static org.junit.Assert.*;
  */
 public class PayMoreServantsEffectTest {
 
-    JSONLoader jsonLoader;
     Deck deck;
     ArrayList<ExcommunicationTile> excommunicationTiles;
 
     /**
      * we load the excommunication tiles necessary for the test
-     * @throws Exception
+     * @throws Exception in case json can't access the file
      */
     @Before
     public void setUp() throws Exception {
-        jsonLoader = new JSONLoader();
-        deck = jsonLoader.createNewDeck();
-        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
+        JSONLoader.instance();
+        deck = JSONLoader.createNewDeck();
+        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
 
     }
     @Test

@@ -9,6 +9,7 @@ import it.polimi.ingsw.client.exceptions.ServerException;
 import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.utils.Debug;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -74,8 +75,18 @@ public class ServerMain {
 	 */
 	private void startServer() throws ServerException
 	{
-		//creates the first Room so that it doesn't work much when the first player connects
-		room = new Room(4, 3000); //TODO implement creation of room (in another class)
+		JSONLoader.instance();
+		RoomConfigurator roomConfigurator;
+		try {
+			roomConfigurator = JSONLoader.loadTimeoutInSec();
+			//creates the first Room so that it doesn't work much when the first player connects
+			room = new Room(4, roomConfigurator.getTimeoutSec());
+		}
+		catch(IOException e)
+		{
+			Debug.instance(2);
+			Debug.printError("Json not loaded properly. Restart server");
+		}
 
 		try {
 			DBManager.instance();
@@ -92,8 +103,8 @@ public class ServerMain {
 
 	/**
 	 * this method is called by the AbstractServerType (either rmi or socket) to check if a player can be logged in
-	 * @param nickname
-	 * @param password
+	 * @param nickname it is the nick of the player
+	 * @param password it is the pw of the player
 	 * @throws LoginException  if username doesn't exist or if password is wrong, here it would only throw NOT_EXISTING_USERNAME, WRONG_PASSWORD
 	 */
 	public void loginPlayer(String nickname, String password) throws LoginException
@@ -111,14 +122,20 @@ public class ServerMain {
 
 	/**
 	 * Makes the player join the first available room, if such a room is not present it creates one
-	 * @param player
+	 * @param player it's the class of the player
 	 * @throws LoginException here it throws only ALREADY_LOGGED_TO_ROOM
 	 */
 	public void makeJoinRoomLogin(AbstractConnectionPlayer player) throws LoginException
 	{
 		if(room.isGameStarted()) {
-			room = new Room(4, 3000);
-			Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
+			try {
+				room = new Room(4, JSONLoader.loadTimeoutInSec().getTimeoutSec());
+				Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
+			}
+			catch(IOException inputJsonError)
+			{
+				Debug.printError("Couln't load JSON properly");
+			}
 		}
 		else if(room.canJoin(player))
 			//it's woth checking if the layer can join only if we haven't just created a new room. If we just created the room there is no way the player is already inside
@@ -148,8 +165,14 @@ public class ServerMain {
 	public void makeJoinRoomRegister(AbstractConnectionPlayer player)
 	{
 		if(room.isGameStarted()) {
-			room = new Room(4, 10000);
-			Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
+			try {
+				room = new Room(4, JSONLoader.loadTimeoutInSec().getTimeoutSec());
+				Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
+			}
+			catch(IOException jsonError)
+			{
+				Debug.printError("Room didn't load properly");
+			}
 		}
 		room.addNewPlayer(player);
 

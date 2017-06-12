@@ -13,18 +13,18 @@ import static org.junit.Assert.*;
  * This class tests noVPonColoredCard excommunication
  */
 public class NoVPOnColoredCardTest {
-    JSONLoader jsonLoader;
+
     ArrayList<ExcommunicationTile> excommunicationTiles;
     AbstractExcommunicationTileEffect cardEffect;
     /**
      * we load the excommunication tiles necessary for the test
-     * @throws Exception
+     * @throws Exception in case json doesn't load properly
      */
     @Before
     public void setUp() throws Exception {
         //setting up test for our specific card
-        jsonLoader = new JSONLoader();
-        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
+        JSONLoader.instance();
+        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
     }
     @Test
     public void noVPColoredCard() throws Exception {

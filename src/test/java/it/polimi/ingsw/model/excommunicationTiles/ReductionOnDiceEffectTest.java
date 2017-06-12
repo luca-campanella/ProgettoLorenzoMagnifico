@@ -15,7 +15,6 @@ import static org.junit.Assert.*;
  * This class tests reductionOnDiceEffect
  */
 public class ReductionOnDiceEffectTest {
-    JSONLoader jsonLoader;
     ArrayList<ExcommunicationTile> excommunicationTiles;
     AbstractExcommunicationTileEffect cardEffect;
     /**
@@ -25,8 +24,8 @@ public class ReductionOnDiceEffectTest {
     @Before
     public void setUp() throws Exception {
         //setting up test for our specific card
-        jsonLoader = new JSONLoader();
-        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
+        JSONLoader.instance();
+        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
         //setting up test for the specific method
         ArrayList<DiceAndFamilyMemberColorEnum> colors = new ArrayList<>();
         colors.add(DiceAndFamilyMemberColorEnum.BLACK);

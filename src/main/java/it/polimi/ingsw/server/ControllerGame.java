@@ -13,6 +13,7 @@ import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -139,11 +140,11 @@ public class ControllerGame {
      */
     public ControllerGame(ArrayList<AbstractConnectionPlayer> players, Room room) throws Exception {
 
-        JSONLoader jsonLoader = new JSONLoader();
-        boardGame = jsonLoader.boardCreator();
-        personalTiles = jsonLoader.loadPersonalTiles();
-        deck = jsonLoader.createNewDeck();
-        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
+        JSONLoader.instance() ;
+        boardGame = JSONLoader.boardCreator();
+        personalTiles = JSONLoader.loadPersonalTiles();
+        deck = JSONLoader.createNewDeck();
+        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
         numberOfPlayers = players.size();
         boardModifier(numberOfPlayers);
         this.room = room;
@@ -159,17 +160,16 @@ public class ControllerGame {
 
     /**
      * costructor for controllerGame. This is just a temp constructor to test the class
-     * @param numberOfPlayers
-     * @throws Exception
+     * @param numberOfPlayers is the number of players currently playing this game.
+     * @throws IOException in case JSON loading fails
      */
-    public ControllerGame(int numberOfPlayers) throws Exception {
+    public ControllerGame(int numberOfPlayers) throws IOException {
 
-        JSONLoader jsonLoader = new JSONLoader();
-        personalTiles = jsonLoader.loadPersonalTiles();
-        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
-
-        boardGame = jsonLoader.boardCreator();
-        deck = jsonLoader.createNewDeck();
+        JSONLoader.instance();
+        personalTiles = JSONLoader.loadPersonalTiles();
+        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
+        boardGame = JSONLoader.boardCreator();
+        deck = JSONLoader.createNewDeck();
         int period = 1;
         boardGame = deck.fillBoard(boardGame, period);
         boardModifier(numberOfPlayers);
