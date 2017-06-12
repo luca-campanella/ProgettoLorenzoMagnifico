@@ -18,17 +18,17 @@ import static org.junit.Assert.*;
  *                   case 1 resource only effected (FirstTest)
  */
 public class NoVPOnResourcesTest {
-    JSONLoader jsonLoader;
+
     ArrayList<ExcommunicationTile> excommunicationTiles;
-    NoVPOnResources cardEffect;
+    private NoVPOnResources cardEffect;
     /**
      * we load the excommunication tiles necessary for the test
-     * @throws Exception
+     * @throws Exception in case JSON doesn't properly load cards
      */
     @Before
     public void setUp() throws Exception {
-        jsonLoader = new JSONLoader();
-        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
+        JSONLoader.instance();
+        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
         //creating a resource test
         Resource resource = new Resource(ResourceTypeEnum.COIN, 1);
         ArrayList<Resource> resources = new ArrayList<>();
