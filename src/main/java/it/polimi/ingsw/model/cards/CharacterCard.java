@@ -4,6 +4,7 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceCollector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,5 +58,12 @@ public class CharacterCard extends AbstractCard {
     }
     public CardColorEnum getColor(){
         return cardColor;
+    }
+
+    @Override
+    public boolean canBuy(ResourceCollector resource) {
+        if(resource.checkIfContainable(getCost()))
+            return true;
+        return false;
     }
 }
