@@ -10,7 +10,7 @@ import java.util.Optional;
  * This ability gives the possibility to product once per round with a certain dice value,
  * This ability will usually be used by "Leonardo Da Vinci"
  */
-public class OncePerRoundProductionLeaderAbility extends AbstractPermanentLeaderAbility {
+public class OncePerRoundProductionLeaderAbility extends AbstractImmediateLeaderAbility {
 
     private int diceValue = 0;
 

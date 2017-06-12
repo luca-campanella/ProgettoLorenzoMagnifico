@@ -70,7 +70,10 @@ public abstract class AbstractPermanentLeaderAbility extends AbstractLeaderAbili
         return Optional.empty();
     }
 
-
+    /**
+     * Santa Rita's Effect. It tells how many times more we need to give resources to the player
+     */
+    public int doubleResourcesOnImmediateCardEffectAbility(){return 0;}
     /*
      * This method will be overridden only by abilities that can be activated once per round
      * in the class {@link AbstractOncePerRoundLeaderAbility}

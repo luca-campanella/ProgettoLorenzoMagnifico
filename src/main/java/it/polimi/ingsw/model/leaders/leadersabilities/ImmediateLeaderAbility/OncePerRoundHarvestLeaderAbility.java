@@ -10,7 +10,7 @@ import java.util.Optional;
  * This ability gives the possibility to harvest once per round with a certain dice value,
  * This ability will usually be used by "Francesco Sforza"
  */
-public class OncePerRoundHarvestLeaderAbility extends AbstractPermanentLeaderAbility {
+public class OncePerRoundHarvestLeaderAbility extends AbstractImmediateLeaderAbility {
 
     private int diceValue = 0;
 
