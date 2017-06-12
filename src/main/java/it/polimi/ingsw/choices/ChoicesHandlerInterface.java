@@ -20,6 +20,7 @@ import java.util.List;
  *
  * <b>Concil Gift</b>
  * choiceCode = choiceCallerCode:councilGiftNUM where NUM is the number of the different council gift
+ * count starts from 0.
  *
  * <b>Purple venture card</b>
  * choiceCode == card name -> the value of the hashmap is 0 if he chooses to pay with resources, 1 with military points
@@ -33,7 +34,7 @@ public interface ChoicesHandlerInterface {
      * @param numberDiffGifts the number of different council gifts to ask for
      * @return The arraylist of effect chosen
      */
-    public List<GainResourceEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts);
+    public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts);
 
     /**
      * Callback from model to controller
