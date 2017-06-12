@@ -1,10 +1,10 @@
-package it.polimi.ingsw.model.leaders.leadersabilities;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
 
 /**
  * This leader ability gives you a bonus on your neutral / uncolored family member
  * This ability is usually implemented by "Sigismondo Malatesta"
  */
-public class BonusNeutralFMLeaderAbility extends AbstractLeaderAbility {
+public class BonusNeutralFMLeaderAbility extends AbstractPermanentLeaderAbility {
 
     private int bonusValue;
 

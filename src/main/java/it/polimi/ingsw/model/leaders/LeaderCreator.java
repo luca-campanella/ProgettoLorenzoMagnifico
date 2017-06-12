@@ -3,7 +3,10 @@ package it.polimi.ingsw.model.leaders;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.leaders.leadersabilities.*;
+import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.OncePerRoundResourceLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.OncePerRoundHarvestLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.OncePerRoundProductionLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.*;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 import it.polimi.ingsw.model.leaders.requirements.CardRequirement;
 import it.polimi.ingsw.model.leaders.requirements.ResourceRequirement;
@@ -44,13 +47,13 @@ public class LeaderCreator {
                 "Girolamo Savonarola",
                 "Dai quali tutti Michelagnolo molto era accarezzato, et acceso al honorato suo studio, ma sopra" +
                         " tutti dal Magni co, il quale spesse volte il giorno lo faceva chiamare monstrandogli sue gioie [...].",
-                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(new Resource(ResourceTypeEnum.COIN, 3)))));
+                new OncePerRoundResourceLeaderAbility(createOneResourceBonusArray(new Resource(ResourceTypeEnum.COIN, 3)))));
 
         leaders.add(new LeaderCard(createOneReqArray(new ResourceRequirement(new Resource(ResourceTypeEnum.MILITARY_POINT, 12))),
                 "Giovanni dalle Bande Nere",
                 "Egli apprezzava più gli huomini prodi che le ricchezze le quai desiderava per donar a " +
                         "loro.",
-                new OncePerRoundBonusLeaderAbility(createThreeResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createThreeResourceBonusArray(
                         new Resource(ResourceTypeEnum.WOOD, 1),
                         new Resource(ResourceTypeEnum.STONE, 1),
                         new Resource(ResourceTypeEnum.COIN, 1)))));
@@ -65,7 +68,7 @@ public class LeaderCreator {
                 "Sandro Botticelli",
                 "[...] ancora che agevolmente apprendesse tutto quello che e’ voleva, era nientedimanco " +
                         "inquieto sempre, né si contentava di scuola alcuna [...].",
-                new OncePerRoundBonusLeaderAbility(createTwoResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createTwoResourceBonusArray(
                         new Resource(ResourceTypeEnum.MILITARY_POINT, 2),
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 1)))));
 
@@ -90,6 +93,7 @@ public class LeaderCreator {
             "[...] la gloriosa memoria del Duca Federico, il quale a dì suoi fu lume della Italia. Né quivi [Urbino] cosa alcuna volse, se non rarissima et eccellente.",
                 new BonusOneColoredFamilyMemberLeaderAbility(6)));
         //todo lorenzo de' Medici
+
         //todo: permanent effect on Santa Rita
         leaders.add(new LeaderCard(createOneReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.FAITH_POINT, 8))),
@@ -103,7 +107,7 @@ public class LeaderCreator {
                 new CardRequirement(2, CardColorEnum.BLUE)),
                 "Cosimo de' Medici",
                 "Debebunt igitur Medici magno Cosmo omnis Medicea, et Florentina posteritas.",
-                new OncePerRoundBonusLeaderAbility(createTwoResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createTwoResourceBonusArray(
                         new Resource(ResourceTypeEnum.SERVANT, 3),
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 1)))));
 
@@ -114,7 +118,7 @@ public class LeaderCreator {
                 "Et era allhor frequente per le bocche del volgo un sì fatto motto: «Havere il Coglione\n" +
                         "allo Sforza, il gioco di maniera in man concio, che non facendo ei torto alle carte più\n" +
                         "non potea perdere».",
-                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createOneResourceBonusArray(
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 4)))));
         //todo: council gift
         leaders.add(new LeaderCard(createOneReqArray(
@@ -122,7 +126,7 @@ public class LeaderCreator {
                 "Ludovico III Gonzaga",
                 "[…] la qual cosa sopportava con sdegno Lodovico, parendogli che nota infame gli fosse\n" +
                         "l’essergli preposto dal padre il fratello, il quale veramente odiava.",
-                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createOneResourceBonusArray(
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 4)))));
         //todo: second effect, discount of 3 coins
         leaders.add(new LeaderCard(createTwoReqArray(
@@ -132,7 +136,7 @@ public class LeaderCreator {
                 "Ioannes Picus Mirandula merito cognomine phoenix appellatus est, quod in eum,\n" +
                         "Dii superi, supra familiae claritatem, omnis corporis, ac animi vel rarissima dona\n" +
                         "contulerint.",
-                new OncePerRoundBonusLeaderAbility(createOneResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createOneResourceBonusArray(
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 4)))));
 
 
@@ -198,11 +202,11 @@ public class LeaderCreator {
         runtimeAdapterFactoryReq.registerSubtype(CardRequirement.class, "CardRequirement");
         runtimeAdapterFactoryReq.registerSubtype(ResourceRequirement.class, "ResourceRequirement");
 
-        RuntimeTypeAdapterFactory<AbstractLeaderAbility> runtimeAdapterFactoryAbility = RuntimeTypeAdapterFactory.of(AbstractLeaderAbility.class, "abilityType");
+        RuntimeTypeAdapterFactory<AbstractPermanentLeaderAbility> runtimeAdapterFactoryAbility = RuntimeTypeAdapterFactory.of(AbstractPermanentLeaderAbility.class, "abilityType");
         runtimeAdapterFactoryAbility.registerSubtype(CanPlaceFMInOccupiedASLeaderAbility.class, "CanPlaceFMInOccupiedASLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(NotToSpendForOccupiedTowerLeaderAbility.class, "NotToSpendForOccupiedTowerLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundHarvestLeaderAbility.class, "OncePerRoundHarvestLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundBonusLeaderAbility.class, "OncePerRoundBonusLeaderAbility");
+        //runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundResourceLeaderAbility.class, "OncePerRoundResourceLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(BonusNeutralFMLeaderAbility.class, "BonusNeutralFMLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundProductionLeaderAbility.class, "OncePerRoundProductionLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(FixedFamilyMembersValueLeaderAbility.class, "FixedFamilyMembersValueLeaderAbility");

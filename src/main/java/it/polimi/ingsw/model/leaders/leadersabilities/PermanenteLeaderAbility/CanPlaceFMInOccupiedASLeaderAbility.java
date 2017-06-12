@@ -1,10 +1,10 @@
-package it.polimi.ingsw.model.leaders.leadersabilities;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
 
 /**
  * this ability lets the player place a family member in an already occupied action space
  * This ability usually be implemented by "Ludovico Ariosto"
  */
-public class CanPlaceFMInOccupiedASLeaderAbility extends AbstractLeaderAbility {
+public class CanPlaceFMInOccupiedASLeaderAbility extends AbstractPermanentLeaderAbility {
 
     public CanPlaceFMInOccupiedASLeaderAbility() {
         super();

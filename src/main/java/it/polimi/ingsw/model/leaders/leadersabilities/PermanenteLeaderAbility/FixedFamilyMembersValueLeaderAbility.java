@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.leaders.leadersabilities;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
 
 import java.util.Optional;
 
@@ -6,7 +6,7 @@ import java.util.Optional;
  * All the family members acquire the specified value
  * This ability is usually implemented by "Ludovico il Moro" leader card
  */
-public class FixedFamilyMembersValueLeaderAbility extends AbstractLeaderAbility {
+public class FixedFamilyMembersValueLeaderAbility extends AbstractPermanentLeaderAbility {
 
     /**
      * the fixed value all the colored family members acquire

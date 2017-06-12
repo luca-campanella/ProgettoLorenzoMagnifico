@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.leaders;
 
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.AbstractPermanentLeaderAbility;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 
 import java.util.ArrayList;
