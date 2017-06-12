@@ -151,6 +151,7 @@ public class ControllerGame {
         modelController = new ModelController(players, boardGame);
         startNewGame();
         room.receiveStartGameBoard(boardGame);
+        room.deliverDices(modelController.getDices());
         numberOfTurn = 0;
         numberOfRound = 1;
         playerChoices = new HashMap<>(10);
