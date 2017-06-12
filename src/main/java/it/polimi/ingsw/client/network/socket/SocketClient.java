@@ -463,9 +463,7 @@ public class SocketClient extends AbstractClientType {
      * this method is called by the server to inform the client that can start his turn
      */
     public void startTurn(){
-
-        //TODO method to tell the client the turn is started
-
+        getControllerMain().receivedStartTurnNotification();
     }
 
     /**

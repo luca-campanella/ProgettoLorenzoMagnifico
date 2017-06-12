@@ -174,17 +174,17 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     @Override
     public void receiveDice(ArrayList<Dice> dices) throws RemoteException {
-
+        getControllerMain().receivedDices(dices);
     }
 
     @Override
     public void receiveBoard(Board gameBoard) throws RemoteException {
-
+        getControllerMain().receivedStartGameBoard(gameBoard);
     }
 
     @Override
     public void receiveStartOfTurn() throws RemoteException {
-
+        getControllerMain().receivedStartTurnNotification();    
     }
 
     @Override

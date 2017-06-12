@@ -493,6 +493,14 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
 
         modelController.setFamilyMemberDices();
     }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that the player is in turn and should move
+     */
+    public void receivedStartTurnNotification() {
+        userInterface.askInitialAction();
+    }
 }
 
 

@@ -41,4 +41,9 @@ public interface ClientInterface {
      */
     public void receivedDices(ArrayList<Dice> dices);
 
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that the player is in turn and should move
+     */
+    public void receivedStartTurnNotification();
 }
