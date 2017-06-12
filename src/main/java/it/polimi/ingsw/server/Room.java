@@ -21,9 +21,9 @@ public class Room {
     /**
      * Array of order of the players in the room, its dimension is set in the constructor
      */
-    ArrayList<AbstractConnectionPlayer> players;
+    private ArrayList<AbstractConnectionPlayer> players;
 
-    ControllerGame controllerGame;
+    private ControllerGame controllerGame;
 
     /**
      * timeout that starts when the second player joins the room. When time is up game starts. Set by the constructor
@@ -44,8 +44,9 @@ public class Room {
         this.maxNOfPlayers = maxNOfPlayers;
         currNOfPlayers = 0;
         isGameStarted = false;
-        players = new ArrayList<AbstractConnectionPlayer>(maxNOfPlayers);
+        players = new ArrayList<>(maxNOfPlayers);
     }
+
 
     public boolean isGameStarted() {
         return isGameStarted;
@@ -78,7 +79,7 @@ public class Room {
             System.out.println("sono");
             Debug.printVerbose("Room capacity reached, returned from start function");
         }
-        else if(currNOfPlayers == 2) //TODO good idea to load this from file
+        else if(currNOfPlayers == 2)
         {
             Debug.printVerbose("2 players reached ");
             Timer timer = new Timer();
