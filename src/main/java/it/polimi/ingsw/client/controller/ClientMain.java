@@ -323,7 +323,7 @@ public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerIn
      * @return The arraylist of effect chosen
      */
     @Override
-    public ArrayList<GainResourceEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
+    public ArrayList<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
         ArrayList<GainResourceEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
         ArrayList<GainResourceEffect> choices = new ArrayList<>(numberDiffGifts);
         int choice;

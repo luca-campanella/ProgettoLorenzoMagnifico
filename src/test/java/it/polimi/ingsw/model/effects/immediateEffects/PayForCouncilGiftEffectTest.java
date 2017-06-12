@@ -23,7 +23,7 @@ public class PayForCouncilGiftEffectTest {
     Player player = new Player();
     ChoicesHandlerInterface choicesHandlerInterface = new ChoicesHandlerInterface() {
         @Override
-        public List<GainResourceEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts) {
+        public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
             return null;
         }
 

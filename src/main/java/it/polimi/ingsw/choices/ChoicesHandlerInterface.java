@@ -33,7 +33,7 @@ public interface ChoicesHandlerInterface {
      * @param numberDiffGifts the number of different council gifts to ask for
      * @return The arraylist of effect chosen
      */
-    public List<GainResourceEffect> callbackOnCoucilGift(String choiceCode, int numberDiffGifts);
+    public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts);
 
     /**
      * Callback from model to controller

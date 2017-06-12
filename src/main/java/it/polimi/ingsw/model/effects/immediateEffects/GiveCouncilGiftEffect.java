@@ -20,7 +20,7 @@ public class GiveCouncilGiftEffect implements ImmediateEffectInterface {
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName)
     {
         //todo: again i modified ArrayList with List, is that right ?--Arto
-        List<GainResourceEffect> choices = choicesHandlerInterface.callbackOnCoucilGift(cardName + ":councilGift", numberOfCouncilGift);
+        List<GainResourceEffect> choices = choicesHandlerInterface.callbackOnCouncilGift(cardName + ":councilGift", numberOfCouncilGift);
 
         //we apply all the choices made by the user to the player
         for(GainResourceEffect effectIter : choices)
