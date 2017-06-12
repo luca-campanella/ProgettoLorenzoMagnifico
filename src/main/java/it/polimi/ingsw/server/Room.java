@@ -65,7 +65,7 @@ public class Room {
      * adds new player to the room, it also binds the player with the instance of the room
      * @param player the istance of the player to add
      */
-    private void addNewPlayer(AbstractConnectionPlayer player)
+    public void addNewPlayer(AbstractConnectionPlayer player)
     {
         players.add(player);
         player.setRoom(this);
@@ -118,7 +118,7 @@ public class Room {
      * reload the order of player when it changes
      * @param orderPlayers the order of players
      */
-    private void updateOrderPlayer(ArrayList<AbstractConnectionPlayer> orderPlayers){
+    public void updateOrderPlayer(ArrayList<AbstractConnectionPlayer> orderPlayers){
 
         this.players = orderPlayers;
 
