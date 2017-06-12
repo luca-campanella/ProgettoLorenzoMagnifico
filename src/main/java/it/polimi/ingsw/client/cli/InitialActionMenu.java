@@ -14,7 +14,6 @@ public class InitialActionMenu extends BasicCLIMenu {
         addOption("DL", "Discard a Leader", () -> this.discardLeader());
         addOption("PL", "Play a Leader card", () -> this.playLeader());
         addOption("AL", "Activate a Leader ability", () -> this.activateLeaderAbility());
-
     }
 
     private void placeFamilyMember() {

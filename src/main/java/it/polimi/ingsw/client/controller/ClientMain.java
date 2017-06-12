@@ -9,6 +9,8 @@ import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.network.rmi.RMIClient;
 import it.polimi.ingsw.client.network.socket.SocketClient;
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.cards.VentureCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
@@ -31,11 +33,21 @@ import java.util.List;
 /**
  * TODO: implement launcher
  */
-public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerInterface {
-    LauncherClientFake temp;
-    AbstractUIType userInterface;
-    AbstractClientType clientNetwork;
-    ModelController modelController;
+public class ClientMain implements ClientInterface, ControllerCallbackInterface, ChoicesHandlerInterface {
+    private LauncherClientFake temp;
+    private AbstractUIType userInterface;
+    private AbstractClientType clientNetwork;
+    private ModelController modelController;
+
+    /**
+     * The list of players in the room, used just to initialize ModelController
+     */
+    private ArrayList<Player> players;
+
+    /**
+     * The player connected with this client, useful to perform the actions the user chooses
+     */
+    private Player thisPlayer;
 
     /**
      * this hashmap is filled with all the choices the user made regarding the move he's currently performed
@@ -147,9 +159,12 @@ public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerIn
             }
 
         }
+        this.nickname = userID;
+        userInterface.showWaitingForGameStart();
+
         Debug.printVerbose("Im going to call askChatMsg");
         //userInterface.askChatMsg(); //TODO this is a method just for testing chat
-        userInterface.askInitialAction(); //TODO this is a method just for testing
+        //userInterface.askInitialAction(); //TODO this is a method just for testing
     }
 
     /**
@@ -172,7 +187,8 @@ public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerIn
             userInterface.printError("The username you inserted is already in use, please insert a new one");
             userInterface.askLoginOrCreate();
         }
-        userInterface.askLoginOrCreate();
+        this.nickname = userID;
+        userInterface.showWaitingForGameStart();
     }
 
     /**
@@ -231,10 +247,11 @@ public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerIn
     }
 
     /**
-     * This method is called by AbstractClientType to display an incoming chat message (Direction: AbstractClientType -> ClientMain; general direction: Server -> Client)
+     * This method is called by {@link AbstractClientType} to display an incoming chat message (Direction: AbstractClientType -> ClientMain; general direction: Server -> Client)
      * @param senderNick
      * @param msg
      */
+    @Override
     public void receiveChatMsg(String senderNick, String msg) {
         userInterface.displayChatMsg(senderNick, msg);
     }
@@ -427,10 +444,62 @@ public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerIn
         return costChoiceResource;
     }
 
+    @Override
+    @Deprecated
     public void setNickname(String nickname){
 
         this.nickname = nickname;
 
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType} to signal that the game has started
+     * and to pass to every client the order of players
+     * Here we create the localArrayList of Players
+     * @param orderPlayers the nicknames of the players, in order
+     */
+    @Override
+    public void receivedOrderPlayers(ArrayList<String> orderPlayers) {
+        players = new ArrayList<Player>(orderPlayers.size());
+
+        for(String nicknameIter : orderPlayers) {
+            players.add(new Player(nicknameIter));
+        }
+
+        thisPlayer = players.get(players.indexOf(nickname));
+    }
+
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType} to signal that the game has started
+     * and to pass the board the server has created
+     * @param board the board from the server
+     */
+    @Override
+    public void receivedStartGameBoard(Board board){
+        modelController = new ModelController(players, board);
+
+        //add the coins to the orderOfPlayers based on the order of turn
+        modelController.addCoinsStartGame(players);
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType} to signal that the game has started
+     * and the dices already thrown
+     * @param dices the board from the server
+     */
+    public void receivedDices(ArrayList<Dice> dices) {
+        modelController.setDice(dices);
+
+        modelController.setFamilyMemberDices();
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that the player is in turn and should move
+     */
+    public void receivedStartTurnNotification() {
+        userInterface.askInitialAction();
     }
 }
 

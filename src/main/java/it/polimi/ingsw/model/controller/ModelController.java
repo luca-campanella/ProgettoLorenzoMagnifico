@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.BuildingCard;
@@ -65,15 +64,33 @@ public class ModelController {
 
     /**
      * this method prepare all the resources to prepare for the game
+     * this method should be called only at the beginning of the game both by client and server
      */
-    public void startNewGame()
+    public void setFamilyMemberDices()
     {
-        //throws the dices to change the value
-        dices.forEach(Dice::throwDice);
-
         //initialize all the family member on the players
         for(Player i : players){
-            i.setFamilyMembers(dices);
+            i.setFamilyMembers(this.dices);
+        }
+    }
+
+    public ArrayList<Dice> getDices() {
+        return dices;
+    }
+
+    /**
+     * this method is called by the client to set the value of the dice with the value of the dice delivered by the server
+     * This method should be called every new round
+     */
+    public void setDice(ArrayList<Dice> dice){
+
+        for(Dice dieToSet : this.dices){
+            for(Dice die :dice){
+                if(dieToSet.getColor() == die.getColor()){
+                    dieToSet.setValue(die.getValue());
+                    break;
+                }
+            }
         }
     }
 
@@ -353,24 +370,6 @@ public class ModelController {
         return player.getPersonalBoard().getYellowBuildingCards();
     }
 
-    public ArrayList<Dice> getDices() {
-        return dices;
-    }
-
-    /**
-     * this method is called by the client to set the value of the dice with the value of the dice delivered by the server
-     */
-    public void setDice(ArrayList<Dice> dice){
-
-        for(Dice dieToSet : this.dices){
-            for(Dice die :dice){
-                if(dieToSet.getColor() == die.getColor()){
-                    dieToSet.setValue(die.getValue());
-                    break;
-                }
-            }
-        }
-    }
 
     /**
      * this method is used by the client to understand the move available with a defined family member
