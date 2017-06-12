@@ -26,11 +26,13 @@ public abstract class AbstractActionSpace {
 
     protected AbstractActionSpace() {
         effects = new ArrayList<>(1);
+        familyMembers = new ArrayList<>(8);
     }
 
     public AbstractActionSpace(int diceRequirement) {
         this();
         this.diceRequirement = diceRequirement;
+        familyMembers = new ArrayList<>(8);
     }
 
     /*
@@ -40,14 +42,6 @@ public abstract class AbstractActionSpace {
      */
    /*public abstract void performAction(FamilyMember familyMember, ChoicesHandlerInterface choicesController);  */
    //Implemented only int he AS that really perform actions
-
-    public int getDiceValue() {
-        return diceRequirement;
-    }
-
-    public void setDiceValue(int diceValue) {
-        this.diceRequirement = diceValue;
-    }
 
     /**
      * this method returns all immediate effects of a card

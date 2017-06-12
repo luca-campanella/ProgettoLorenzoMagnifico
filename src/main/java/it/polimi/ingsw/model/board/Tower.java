@@ -90,7 +90,7 @@ public class Tower implements Serializable{
        CharacterCardCollector blueCards = player.getPersonalBoard().getCharacterCardsCollector();
 
         LinkedList<Resource> discount = blueCards.getDiscountOnTower(colorTower);
-        player.addResources(discount);*/
+        player.addResource(discount);*/
 
         floors[floorIndex].performAction(familyMember, choicesController);
     }

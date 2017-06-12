@@ -9,8 +9,8 @@ import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.io.Serializable;
-import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The main player class, no network
@@ -100,16 +100,24 @@ public class Player implements Serializable{
      * @param resources the List of the resource, it contains the value and the type
      */
     public void subResources(ResourceCollector resources) {
-        resourcesMap.subResources(resources);
+        resourcesMap.subResource(resources);
+    }
+
+    /**
+     * this method is used to subtract resources
+     * @param resources the resources the player has to pay
+     */
+    public void subResources(List<Resource> resources) {
+        resourcesMap.subResource(resources);
     }
 
     /**
      * this method is used to add an array of resources on the player
      * @param resources the object of the resource, it contains the value and the type
      */
-    public void addResources(AbstractList<Resource> resources) {
+    public void addResources(List<Resource> resources) {
 
-        resourcesMap.addResources(resources);
+        resourcesMap.addResource(resources);
     }
 
     public int getResource(ResourceTypeEnum type){

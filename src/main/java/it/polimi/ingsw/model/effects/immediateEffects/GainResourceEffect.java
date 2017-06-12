@@ -29,5 +29,8 @@ public class GainResourceEffect implements ImmediateEffectInterface {
         return resource.getResourceShortDescript();
     }
 
+    public Resource getResource(){
 
+        return resource;
+    }
 }

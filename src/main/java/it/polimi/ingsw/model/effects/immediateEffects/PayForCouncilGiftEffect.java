@@ -12,7 +12,7 @@ import java.util.List;
  * example: 32
  */
 public class PayForCouncilGiftEffect extends AbstractPerformActionEffect {
-    //toPay value is < 0 by default.
+    //toPay value is > 0 by default.
     ArrayList<Resource> toPay;
     public PayForCouncilGiftEffect(ArrayList<Resource> temp){
         toPay = temp;
@@ -27,7 +27,7 @@ public class PayForCouncilGiftEffect extends AbstractPerformActionEffect {
      */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName){
         List<GainResourceEffect> choice = choicesHandlerInterface.callbackOnCouncilGift(cardName + ":councilGift", 1);
-        player.addResources(toPay);
+        player.subResources(toPay);
         choice.get(0).applyToPlayer(player, choicesHandlerInterface, cardName);
     }
 

@@ -392,7 +392,7 @@ public class ClientMain implements ControllerCallbackInterface, ChoicesHandlerIn
 
         //we need to subtract the resources he payed from the copy of the hashmap in order to be sure next checks are correct
         if(effectChosen instanceof PayForSomethingEffect) {
-            resourcesCheckMap.addResources(((PayForSomethingEffect) effectChosen).getToGain());
+            resourcesCheckMap.addResource(((PayForSomethingEffect) effectChosen).getToGain());
         }
 
         choicesOnCurrentAction.put(cardNameChoiceCode, choice);

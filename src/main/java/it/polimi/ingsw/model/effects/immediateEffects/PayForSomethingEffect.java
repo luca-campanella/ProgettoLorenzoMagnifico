@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Pay some resources to get some resources. An example is yellow card 30
  */
 public class PayForSomethingEffect implements ImmediateEffectInterface {
-    // toPay value is < 0 by default
+    // toPay value is > 0 by default
     ArrayList<Resource> toPay;
     //toPay value is > 0 by default
     ArrayList<Resource> toGain;
@@ -26,12 +26,15 @@ public class PayForSomethingEffect implements ImmediateEffectInterface {
      * @param choicesHandlerInterface not used in this case, no choice inside the effect
      */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName){
-        //to pay is by default < 0
-        player.addResources(toPay);
+        //to pay is by default > 0
+        player.subResources(toPay);
         //to gain is by default > 0
         player.addResources(toGain);
     }
 
+    /**
+     * this method is used to describe with words what the card do
+     */
     public String descriptionOfEffect()
     {
         return "Pay "+ toPay.toString() + " to gain some advantage " + toGain.toString();

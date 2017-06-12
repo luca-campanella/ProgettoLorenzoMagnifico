@@ -1,14 +1,15 @@
 package it.polimi.ingsw.model.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.board.AbstractActionSpace;
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.BuildingCard;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
@@ -132,6 +133,66 @@ public class ModelController {
         period = period + 1;
     }
 
+    /**
+     * this method is used to deliver all the spaces available to the player
+     * @return all the spaces available for this family member
+     */
+    /*public ArrayList<AbstractActionSpace> spaceAvailable(FamilyMember familyMember){
+
+        ArrayList<AbstractActionSpace> space = new ArrayList<>(22);
+
+        if(isHarvestActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)))
+            space.add(gameBoard.getHarvest());
+
+        if(isBuildActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)))
+            space.add(gameBoard.getBuild());
+
+        if(isCouncilActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)))
+            space.add(gameBoard.getBuild());
+
+        for(MarketAS market : gameBoard.getMarket())
+            if(isMarketActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT),market))
+                space.add(market);
+
+        for(Tower tower : gameBoard.getTowers())
+            for(TowerFloorAS towerFloorAS : tower.getFloors())
+
+
+        return space;
+
+    }*/
+    /**
+     * this method is used to control if the family member can be placed on the floor of a defined tower
+     * @param familyMember the family member tht the player wants to place
+     * @return the answer of the method, if true the family member can be placed, if false it cannot be placed
+     */
+    private boolean isPlaceOnTowerFloorLegal(FamilyMember familyMember, int servant, TowerFloorAS towerFloorAS,ArrayList<FamilyMember> familyMembersOnTheTower){
+
+        //control on the input, if the player has that resources and if the place is not available
+        if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
+                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
+            //this means that the player doesn't has the resources that claimed to have, this is cheating
+            return false;
+        //control on the action space, if the player already has a family member
+        if(findFamilyMemberNotNeutral(familyMember.getPlayer(), familyMembersOnTheTower)
+                && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
+            //this means that the player has already placed a family member on that action space
+            return false;
+        //control if the family member has a right value to harvest
+        if(servant+familyMember.getValue() +
+                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())< towerFloorAS.getDiceRequirement())
+            //cannot place this family members because the value is too low
+            return false;
+        ResourceCollector resource = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
+        resource.addResource(familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(towerFloorAS.getCard().getColor()));
+        ArrayList<ImmediateEffectInterface>effectInterfaces = towerFloorAS.getEffects();
+        for(ImmediateEffectInterface effectIter : effectInterfaces){
+            if(effectIter instanceof GainResourceEffect)
+                 resource.addResource(((GainResourceEffect) effectIter).getResource());
+        }
+
+            return false;
+    }
 
     /**
      * This method performs the real action on the model when the player places a FM on a tower
@@ -156,30 +217,32 @@ public class ModelController {
      * @param familyMember the family member used to harvest
      * @param servant the number of servant used to increase the value of the family member
      */
-   /* public void isHarvestActionLegal(FamilyMember familyMember, int servant){
+   private boolean isHarvestActionLegal(FamilyMember familyMember, int servant){
 
         //control on the input, if the player has that resources
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
-            return;//TODO cheating or refresh board
+            return false;
         HarvestAS harvestPlace = gameBoard.getHarvest();
         //control on the action space, if the player already has a family member
-        if(findFamilyMember(familyMember.getPlayer(), harvestPlace.getFamilyMembers())
+        if(findFamilyMemberNotNeutral(familyMember.getPlayer(), harvestPlace.getFamilyMembers())
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
             //this means that the player has already placed a family member on that action space
-            return;
-        //TODO control of the blue effect
+            return false;
         //control if the family member has a right value to harvest
-        if(servant+familyMember.getValue() < harvestPlace.getValueNeeded())
-            //cannot place this familymembers because the value is too low
-            return;
-        gameBoard.harvest(familyMember);
-        familyMember.getPlayer().harvest(servant+familyMember.getValue()+harvestPlace.getValueMalus());
+        if(servant+familyMember.getValue() +
+                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest() < harvestPlace.getValueNeeded())
+            //cannot place this family members because the value is too low
+            return false;
+        return true;
 
-    }*/
+    }
 
-    private boolean findFamilyMember(Player player, ArrayList<FamilyMember> familyMembers){
+    /**
+     * this method is used to coltrol if the player has another family member on the space, the neutral family member doesn't count
+     */
+    private boolean findFamilyMemberNotNeutral(Player player, ArrayList<FamilyMember> familyMembers){
         for(FamilyMember i : familyMembers){
             if(i.getPlayer() == player && i.getColor()!= DiceAndFamilyMemberColorEnum.NEUTRAL)
                 return true;
@@ -187,30 +250,38 @@ public class ModelController {
         return false;
     }
 
-    /*public boolean isBuildLegalAction(FamilyMember familyMember, int servant){
+    /**
+     * this method is used to coltrol if the player has another family member on the space
+     */
+    private boolean findFamilyMember(Player player, ArrayList<FamilyMember> familyMembers){
+        for(FamilyMember i : familyMembers){
+            if(i.getPlayer() == player)
+                return true;
+        }
+        return false;
+    }
 
-        //control on the input, if the player reall has that resources
+    private boolean isBuildActionLegal(FamilyMember familyMember, int servant){
+
+        //control on the input, if the player really has that resources
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
-            return false;//TODO cheating or refresh board
+            return false;
         BuildAS buildPlace = gameBoard.getBuild();
         //control on the action space, if the player already has a family member
-        if(findFamilyMember(familyMember.getPlayer(), buildPlace.getFamilyMembers())
+        if(findFamilyMemberNotNeutral(familyMember.getPlayer(), buildPlace.getFamilyMembers())
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
             //this means that the player has already placed a family member on that action space
             return false;
-        //TODO control of the blue effect
         //control if the family member has a right value to build
-        if(servant+familyMember.getValue() < buildPlace.getValueNeeded())
+        if(servant+familyMember.getValue() +
+                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild() < buildPlace.getValueNeeded())
             //cannot place this familymembers because the value is too low
             return false;
-        gameBoard.build(familyMember);
-        familyMember.getPlayer().build(servant+familyMember.getValue()+ buildPlace.getValueMalus());
-        //TODO add control of the move and code on the board
 
         return true;
-    }*/
+    }
 
     /**
      * This methos is called when the player builds, it is the entry point to the model
@@ -248,6 +319,27 @@ public class ModelController {
         player.harvest(familyMember.getValue() + servants, choicesController);
     }
 
+    private boolean isMarketActionLegal(FamilyMember familyMember, int servant,MarketAS spaceMarket){
+
+        //control on the input, if the player really has that resources
+        if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
+                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
+            //this means that the player doesn't has the resources that claimed to have, this is cheating
+            return false;
+
+        //control on the action space, if the player already has a family member
+        if(findFamilyMemberNotNeutral(familyMember.getPlayer(), spaceMarket.getFamilyMembers())
+                && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
+            //this means that the player has already placed a family member on that action space
+            return false;
+        //control if the family member has a right value to build
+        if(servant+familyMember.getValue() +
+                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild() < spaceMarket.getDiceRequirement())
+            //cannot place this familymembers because the value is too low
+            return false;
+
+        return true;
+    }
     /**
      * This method performs the real action on the model when the player places a FM on a market space
      * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Board}, {@link it.polimi.ingsw.model.board.MarketAS}
@@ -275,6 +367,31 @@ public class ModelController {
         gameBoard.placeOnMarket(familyMember, marketSpaceIndex, choicesController);
     }
 
+    /**
+     * this method is used to control if the move on the council can be done with the following famil member
+     * @param familyMember that the player wants to place
+     * @param servant the number of servant used to increase the value of the family member
+     * @return false if the move is not legal, true otherwise
+     */
+    private boolean isCouncilActionLegal(FamilyMember familyMember, int servant){
+
+        //control on the input, if the player really has that resources
+        if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
+                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
+            //this means that the player doesn't has the resources that claimed to have, this is cheating
+            return false;
+        CouncilAS councilPlace = gameBoard.getCouncil();
+        //control on the action space, if the player already has a family member
+        if(findFamilyMember(familyMember.getPlayer(), councilPlace.getFamilyMembers()))
+            //this means that the player has already placed a family member on that action space
+            return false;
+        //control if the family member has a right value to build
+        if(servant+familyMember.getValue() < councilPlace.getDiceRequirement())
+            //cannot place this family members because the value is too low
+            return false;
+
+        return true;
+    }
     /**
      * This method performs the real action on the model when the player places a FM int he council
      * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Board}, {@link it.polimi.ingsw.model.board.CouncilAS}

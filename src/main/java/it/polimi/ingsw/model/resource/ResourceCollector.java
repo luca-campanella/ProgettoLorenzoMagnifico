@@ -28,7 +28,7 @@ public class ResourceCollector implements Serializable{
      */
     public ResourceCollector(List<Resource> resources) {
         this();
-        addResources(resources);
+        addResource(resources);
     }
 
     /**
@@ -37,7 +37,7 @@ public class ResourceCollector implements Serializable{
      */
     public ResourceCollector(ResourceCollector toBeCopied) {
         this();
-        addResources(toBeCopied);
+        addResource(toBeCopied);
     }
 
     /**
@@ -67,7 +67,7 @@ public class ResourceCollector implements Serializable{
      * this method is used to add an array of resources
      * @param resources the list of the resources, it contains the value and the type
      */
-    public void addResources(List<Resource> resources){
+    public void addResource(List<Resource> resources){
         for(Resource resource : resources){
             addResource(resource);
         }
@@ -88,7 +88,7 @@ public class ResourceCollector implements Serializable{
      * this method is used to sub an array of resources
      * @param resources the list of the resources, it contains the value and the type
      */
-    public void subResources(List<Resource> resources){
+    public void subResource(List<Resource> resources){
         for(Resource resource : resources){
             subResource(resource);
         }
@@ -98,7 +98,7 @@ public class ResourceCollector implements Serializable{
      * this method is used to sub an multiple resources
      * @param resources the list of the resources
      */
-    public void subResources(ResourceCollector resources){
+    public void subResource(ResourceCollector resources){
         for(ResourceTypeEnum typeIter : ResourceTypeEnum.values())
             resourcesMap.put(typeIter, resourcesMap.get(typeIter) - resources.getResource(typeIter));
     }
@@ -119,7 +119,7 @@ public class ResourceCollector implements Serializable{
 
     /**
      * this method is used to sub an array of resources
-     * Differently form {@link ResourceCollector#subResources(List)} the result can never be lower than zero
+     * Differently form {@link ResourceCollector#subResource(List)} the result can never be lower than zero
      * @param resources the list of the resources, it contains the value and the type
      */
     public void subResourcesSafely(List<Resource> resources){
@@ -174,7 +174,7 @@ public class ResourceCollector implements Serializable{
      * sum the {@link ResourceCollector} to this
      * @param toBeAdded the {@link ResourceCollector} to be added to this
      */
-    public void addResources(ResourceCollector toBeAdded) {
+    public void addResource(ResourceCollector toBeAdded) {
         for(ResourceTypeEnum typeIter : ResourceTypeEnum.values())
             resourcesMap.put(typeIter, resourcesMap.get(typeIter) + toBeAdded.getResource(typeIter));
     }
