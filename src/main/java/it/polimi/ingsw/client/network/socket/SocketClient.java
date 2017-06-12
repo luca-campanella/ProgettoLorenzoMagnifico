@@ -429,13 +429,14 @@ public class SocketClient extends AbstractClientType {
      * this method is used to receive the new dices loaded by the server
      */
     public void receiveDices(){
-
+        Debug.printVerbose("receiveDices called");
         try{
 
             DicesPacket packet = (DicesPacket)inStream.readObject();
+            Debug.printVerbose("receivedDices packet");
             getControllerMain().receivedDices(packet.getDices());
+            Debug.printVerbose("called");
         }
-
         catch (IOException | ClassNotFoundException e){
 
             Debug.printError("Error: cannot receive the dices loaded by the server", e);

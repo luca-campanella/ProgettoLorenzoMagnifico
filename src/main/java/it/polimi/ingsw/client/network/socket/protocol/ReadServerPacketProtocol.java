@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.socket.packet.PacketType;
 import it.polimi.ingsw.server.network.socket.protocol.FunctionResponse;
+import it.polimi.ingsw.utils.Debug;
 
 import java.util.HashMap;
 
@@ -54,7 +55,7 @@ public class ReadServerPacketProtocol {
      * @param packetType is like a header of the true packet, is used to understand how deserialize the follow packet
      */
     public void doMethod(PacketType packetType) throws NetworkException{
-
+        Debug.printVerbose("Inside do method called:, packetType = " + packetType);
         response=instruction.get(packetType);
         response.chooseMethod();
 
