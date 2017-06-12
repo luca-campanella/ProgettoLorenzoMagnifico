@@ -461,12 +461,18 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
     @Override
     public void receivedOrderPlayers(ArrayList<String> orderPlayers) {
         players = new ArrayList<Player>(orderPlayers.size());
+        Debug.printVerbose("receivedOrderPlayers called, nickname = " + nickname);
 
+        Player playerTmp;
         for(String nicknameIter : orderPlayers) {
+            playerTmp = new Player(nicknameIter);
+            if(nicknameIter.equals(nickname))
+                thisPlayer = playerTmp;
             players.add(new Player(nicknameIter));
+            Debug.printVerbose("Created new player " + nicknameIter);
         }
-
-        thisPlayer = players.get(players.indexOf(nickname));
+        Debug.printVerbose("thisPlayerInitialized with value = " + thisPlayer.getNickname());
+        //thisPlayer = players.get(players.indexOf(nickname));
     }
 
 
@@ -477,6 +483,8 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      */
     @Override
     public void receivedStartGameBoard(Board board){
+        Debug.printVerbose("receivedStartgameBoard called");
+
         modelController = new ModelController(players, board);
 
         //add the coins to the orderOfPlayers based on the order of turn
@@ -489,6 +497,7 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      * @param dices the board from the server
      */
     public void receivedDices(ArrayList<Dice> dices) {
+        Debug.printVerbose("receivedDices called");
         modelController.setDice(dices);
 
         modelController.setFamilyMemberDices();
@@ -499,6 +508,7 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      * to notify that the player is in turn and should move
      */
     public void receivedStartTurnNotification() {
+        Debug.printVerbose("receivedStartTurnNotification called");
         userInterface.askInitialAction();
     }
 }

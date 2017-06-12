@@ -184,7 +184,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     @Override
     public void receiveStartOfTurn() throws RemoteException {
-        getControllerMain().receivedStartTurnNotification();    
+        getControllerMain().receivedStartTurnNotification();
     }
 
     @Override
