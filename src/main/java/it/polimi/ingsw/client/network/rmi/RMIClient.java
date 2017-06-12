@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.network.rmi;
 
+import it.polimi.ingsw.client.controller.ClientInterface;
 import it.polimi.ingsw.client.network.AbstractClientType;
-import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
@@ -36,7 +36,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @param serverAddress the address to connect to
      * @param port the port to connect to
      */
-    public RMIClient(ClientMain controllerMain, String serverAddress, int port) {
+    public RMIClient(ClientInterface controllerMain, String serverAddress, int port) {
         super(controllerMain, serverAddress, port);
     }
 
@@ -174,21 +174,22 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     @Override
     public void receiveDice(ArrayList<Dice> dices) throws RemoteException {
-
+        getControllerMain().receivedDices(dices);
     }
 
     @Override
     public void receiveBoard(Board gameBoard) throws RemoteException {
-
+        getControllerMain().receivedStartGameBoard(gameBoard);
     }
 
     @Override
     public void receiveStartOfTurn() throws RemoteException {
-
+        getControllerMain().receivedStartTurnNotification();    
     }
 
     @Override
-    public void receiveOrderPlayer(ArrayList<String> orderPlayer) throws RemoteException {
+    public void receiveOrderPlayer(ArrayList<String> orderPlayers) throws RemoteException {
+        getControllerMain().receivedOrderPlayers(orderPlayers);
 
     }
 

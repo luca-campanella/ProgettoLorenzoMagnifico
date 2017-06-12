@@ -1,10 +1,12 @@
-package it.polimi.ingsw.model.leaders.leadersabilities;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
+
+import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.AbstractOncePerRoundLeaderAbility;
 
 /**
  * This leader ability gives you a bonus on all your colored family members
  * This ability is usually implemented by "Lucreazia Borgia"
  */
-public class BonusColoredFamilyMembersLeaderAbility extends AbstractLeaderAbility {
+public class BonusColoredFamilyMembersLeaderAbility extends AbstractPermanentLeaderAbility {
 
     private int bonusValue;
 

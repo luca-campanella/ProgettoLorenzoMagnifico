@@ -1,5 +1,8 @@
-package it.polimi.ingsw.model.leaders.leadersabilities;
+package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
+import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.AbstractPermanentLeaderAbility;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
@@ -7,10 +10,11 @@ import java.util.ArrayList;
 /**
  * this ability will be implemented by all Leaders having a once per round bonus which is a resource
  */
-public class OncePerRoundBonusLeaderAbility extends AbstractLeaderAbility {
+
+public class OncePerRoundResourceLeaderAbility extends AbstractImmediateLeaderAbility {
     private ArrayList<Resource> bonuses;
 
-    public OncePerRoundBonusLeaderAbility(ArrayList<Resource> bonuses) {
+    public OncePerRoundResourceLeaderAbility(ArrayList<Resource> bonuses) {
         super();
         this.bonuses = bonuses;
     }
@@ -19,12 +23,11 @@ public class OncePerRoundBonusLeaderAbility extends AbstractLeaderAbility {
      * Override of the method to return the correct value of this particular ability
      * @return the array of bonuses
      */
-    @Override
-    public ArrayList<Resource> getOncePerRoundBonus() {
-        return bonuses;
+    public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface, String cardName)
+    {
+        player.addResources(bonuses);
     }
 
-    @Override
     public String getAbilityDescription() {
         StringBuilder tmpDescipt = new StringBuilder();
         for(Resource i : bonuses)

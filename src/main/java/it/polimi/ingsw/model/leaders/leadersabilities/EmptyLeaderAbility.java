@@ -1,11 +1,11 @@
 package it.polimi.ingsw.model.leaders.leadersabilities;
 
-import java.util.Optional;
+import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.AbstractPermanentLeaderAbility;
 
 /**
- * This in an empty ability, is used in particular in the concatenation of the method {@link AbstractLeaderAbility#getIfNotUsedThisRound()}
+ * This in an empty ability, is used in particular in the concatenation of the method {@link AbstractPermanentLeaderAbility#getIfNotUsedThisRound()}
  */
-public class EmptyLeaderAbility extends AbstractLeaderAbility {
+public class EmptyLeaderAbility extends AbstractPermanentLeaderAbility {
 
 
     @Override

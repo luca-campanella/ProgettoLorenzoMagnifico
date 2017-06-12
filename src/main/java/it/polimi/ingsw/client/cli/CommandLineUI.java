@@ -271,6 +271,14 @@ public class CommandLineUI extends AbstractUIType {
     }
 
     /**
+     * This method is called when the player has joined a room, but the game isn't started yet
+     */
+    @Override
+    public void showWaitingForGameStart() {
+        System.out.println("Room joined, please wait for game to start...");
+    }
+
+    /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * {@link ControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or

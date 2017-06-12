@@ -154,7 +154,6 @@ public class ControllerGame {
         numberOfTurn = 0;
         numberOfRound = 1;
         playerChoices = new HashMap<>(10);
-
     }
 
     /**
@@ -216,7 +215,10 @@ public class ControllerGame {
      */
     private void startNewGame(){
 
-        modelController.startNewGame();
+        //throws the dices to change the value
+        modelController.getDices().forEach(Dice::throwDice);
+
+        modelController.setFamilyMemberDices();
 
         chooseOrderRandomly();
 
@@ -349,7 +351,7 @@ public class ControllerGame {
     }
 
     /**
-     * this methos is used to deliver to the room the nickname in order of turn, then the room will deliver this nickname to the client
+     * this method is used to deliver to the room the nickname in order of turn, then the room will deliver this nickname to the client
      */
     private void deliverOrderPlayers(){
 

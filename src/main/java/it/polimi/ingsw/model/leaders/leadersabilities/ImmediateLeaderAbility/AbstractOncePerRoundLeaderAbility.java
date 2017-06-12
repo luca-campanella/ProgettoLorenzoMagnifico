@@ -1,9 +1,12 @@
-package it.polimi.ingsw.model.leaders.leadersabilities;
+package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
+
+import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.AbstractPermanentLeaderAbility;
 
 /**
  * For now this class is not used, still to decide how to implement once per round bonuses. my suggestion: two different arrays in player
  */
-public abstract class AbstractOncePerRoundLeaderAbility extends AbstractLeaderAbility {
+//todo: probably delete this class --Arto
+public abstract class AbstractOncePerRoundLeaderAbility extends AbstractPermanentLeaderAbility {
     private boolean wasUsedThisRound = false;
 
     @Override

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.client.network.socket;
 
 
+import it.polimi.ingsw.client.controller.ClientInterface;
 import it.polimi.ingsw.client.network.AbstractClientType;
-import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.socket.packet.*;
 import it.polimi.ingsw.client.network.socket.protocol.ReadServerPacketProtocol;
@@ -10,7 +10,6 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.utils.Debug;
 
-import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class SocketClient extends AbstractClientType {
     /**
      *Initialization of the attributes on the superclass
      */
-    public SocketClient (ClientMain controllerMain, String serverAddress, int port) {
+    public SocketClient (ClientInterface controllerMain, String serverAddress, int port) {
         super(controllerMain, serverAddress, port);
         Debug.printVerbose("New SocketClient created");
     }
@@ -434,7 +433,7 @@ public class SocketClient extends AbstractClientType {
         try{
 
             DicesPacket packet = (DicesPacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedDices(packet.getDices());
         }
 
         catch (IOException | ClassNotFoundException e){
@@ -451,7 +450,7 @@ public class SocketClient extends AbstractClientType {
         try{
 
             Board board = (Board)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedStartGameBoard(board);
         }
 
         catch (IOException | ClassNotFoundException e){
@@ -464,9 +463,7 @@ public class SocketClient extends AbstractClientType {
      * this method is called by the server to inform the client that can start his turn
      */
     public void startTurn(){
-
-        //TODO method to tell the client the turn is started
-
+        getControllerMain().receivedStartTurnNotification();
     }
 
     /**
@@ -476,6 +473,7 @@ public class SocketClient extends AbstractClientType {
 
         try {
             ArrayList<String> orderPlayers = (ArrayList<String>)inStream.readObject();
+            getControllerMain().receivedOrderPlayers(orderPlayers);
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("Error: cannot receive the order of the players", e);

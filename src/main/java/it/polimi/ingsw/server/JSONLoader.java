@@ -5,6 +5,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.excommunicationTiles.*;
+import it.polimi.ingsw.model.leaders.LeadersDeck;
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.*;
+import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.*;
+import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
+import it.polimi.ingsw.model.leaders.requirements.CardRequirement;
+import it.polimi.ingsw.model.leaders.requirements.ResourceRequirement;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.effects.immediateEffects.*;
@@ -18,6 +25,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.lang.reflect.*;
+import java.util.stream.Collectors;
+
 /**
  * Created by higla on 30/05/2017.
  */
@@ -66,7 +75,7 @@ public class JSONLoader {
      * @return the4-players board
      * @throws Exception in case GSON isn't able to read the file
      */
-    protected Board boardCreator() throws Exception
+    protected Board boardCreator() throws IOException
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -141,6 +150,44 @@ public class JSONLoader {
             Type type = new TypeToken<ArrayList<ExcommunicationTile>>(){}.getType();
             excommunicationDeck = gson.fromJson(reader, type);
             return excommunicationDeck;
+        }
+
+    }
+
+    public LeadersDeck loadLeaders() throws IOException{
+        Debug.instance(Debug.LEVEL_VERBOSE);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        RuntimeTypeAdapterFactory<AbstractRequirement> runtimeAdapterFactoryReq = RuntimeTypeAdapterFactory.of(AbstractRequirement.class, "reqType");
+        runtimeAdapterFactoryReq.registerSubtype(CardRequirement.class, "CardRequirement");
+        runtimeAdapterFactoryReq.registerSubtype(ResourceRequirement.class, "ResourceRequirement");
+
+        RuntimeTypeAdapterFactory<AbstractLeaderAbility> runtimeAdapterFactoryAbility = RuntimeTypeAdapterFactory.of(AbstractLeaderAbility.class, "abilityType");
+        runtimeAdapterFactoryAbility.registerSubtype(AbstractPermanentLeaderAbility.class, "AbstractPermanentLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(AbstractImmediateLeaderAbility.class, "AbstractImmediateLeaderAbility");
+
+
+//        RuntimeTypeAdapterFactory<AbstractPermanentLeaderAbility> runtimeAdapterFactoryPermanentAbility = RuntimeTypeAdapterFactory.of(AbstractPermanentLeaderAbility.class, "abilityType");
+        runtimeAdapterFactoryAbility.registerSubtype(CanPlaceFMInOccupiedASLeaderAbility.class, "CanPlaceFMInOccupiedASLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(NotToSpendForOccupiedTowerLeaderAbility.class, "NotToSpendForOccupiedTowerLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(BonusNeutralFMLeaderAbility.class, "BonusNeutralFMLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(FixedFamilyMembersValueLeaderAbility.class, "FixedFamilyMembersValueLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(BonusColoredFamilyMembersLeaderAbility.class, "BonusColoredFamilyMembersLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(BonusOneColoredFamilyMemberLeaderAbility.class, "BonusOneColoredFamilyMemberLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(DoubleResourcesOnImmediateCardEffectAbility.class, "DoubleResourcesOnImmediateCardEffectAbility");
+
+        // RuntimeTypeAdapterFactory<AbstractImmediateLeaderAbility> runtimeAdapterFactoryImmediateAbility = RuntimeTypeAdapterFactory.of(AbstractImmediateLeaderAbility.class, "abilityType");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundResourceLeaderAbility.class, "OncePerRoundResourceLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundProductionLeaderAbility.class, "OncePerRoundProductionLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundHarvestLeaderAbility.class, "OncePerRoundHarvestLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundCouncilGiftAbility.class, "OncePerRoundCouncilGiftAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(CopyAnotherLeaderAbility.class, "CopyAnotherLeaderAbility");
+
+        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeAdapterFactoryReq).registerTypeAdapterFactory(runtimeAdapterFactoryAbility).create();
+
+        try (Reader reader = new InputStreamReader(LeadersDeck.class.getResourceAsStream("/LeadersCFG.json"), "UTF-8")) {
+            LeadersDeck leadersDeck = gson.fromJson(reader, LeadersDeck.class);
+            return  leadersDeck;
         }
 
     }

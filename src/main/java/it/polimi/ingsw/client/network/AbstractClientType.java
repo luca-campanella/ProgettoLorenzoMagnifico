@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.network;
 
-import it.polimi.ingsw.client.controller.ClientMain;
+import it.polimi.ingsw.client.controller.ClientInterface;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
@@ -14,7 +14,7 @@ public abstract class AbstractClientType  {
     /**
      * the instance of the server to call the callback functions and communicate from server to client
      */
-    private ClientMain controllerMain;
+    private ClientInterface controllerMain;
 
     /**
      * The address of the server to connect to
@@ -29,7 +29,7 @@ public abstract class AbstractClientType  {
 
     public abstract void connect() throws ClientConnectionException;
 
-    public AbstractClientType(ClientMain controllerMain, String serverAddress, int port) {
+    public AbstractClientType(ClientInterface controllerMain, String serverAddress, int port) {
         this.controllerMain = controllerMain;
         this.serverAddress = serverAddress;
         this.port = port;
@@ -71,7 +71,7 @@ public abstract class AbstractClientType  {
      */
     public abstract void sendChatMsg(String msg) throws NetworkException;
 
-    protected ClientMain getControllerMain() {
+    protected ClientInterface getControllerMain() {
         return controllerMain;
     }
 
