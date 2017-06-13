@@ -24,7 +24,7 @@ public class PayForSomethingEffectTest {
     ArrayList<Resource> toPay = new ArrayList<>();
     ArrayList<Resource> toGain = new ArrayList<>();
     Resource resource = new Resource(ResourceTypeEnum.COIN, 1);
-    Resource resource2 = new Resource(ResourceTypeEnum.WOOD , -1);
+    Resource resource2 = new Resource(ResourceTypeEnum.WOOD , 1);
     PayForSomethingEffect payForSomethingEffect = new PayForSomethingEffect(toPay, toGain);
     Player player = new Player();
 
