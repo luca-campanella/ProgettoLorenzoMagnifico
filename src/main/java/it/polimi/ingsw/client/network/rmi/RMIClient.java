@@ -225,4 +225,9 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     public void receiveNicknamePlayer(String nicknamePlayer) throws RemoteException {
 
     }
+
+    @Override
+    public void receiveLeaderCardChoice(ArrayList<LeaderCard> cardToPlayer) throws RemoteException {
+
+    }
 }

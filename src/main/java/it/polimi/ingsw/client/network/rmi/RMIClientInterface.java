@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.network.rmi;
 import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 import java.rmi.Remote;
@@ -39,4 +40,6 @@ public interface RMIClientInterface extends Remote {
     public void receiveOrderPlayer(ArrayList<String> orderPlayer) throws RemoteException;
 
     public void receiveNicknamePlayer(String nicknamePlayer) throws RemoteException;
+
+    public void receiveLeaderCardChoice(ArrayList<LeaderCard> cardToPlayer) throws RemoteException;
 }

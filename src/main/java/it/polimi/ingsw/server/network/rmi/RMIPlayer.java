@@ -208,9 +208,20 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
         }
     }
 
+    /**
+     * this method is used to deliver to the client the different leader card recived by the room
+     * @throws NetworkException
+     */
     @Override
     public void receiveLeaderCards(ArrayList<LeaderCard> cardToPlayer) throws NetworkException {
 
+        try{
+            RMIClientInterfaceInst.receiveLeaderCardChoice(cardToPlayer);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the leader cards to" + getNickname(), e);
+            throw new NetworkException(e);
+        }
     }
 
     /**
