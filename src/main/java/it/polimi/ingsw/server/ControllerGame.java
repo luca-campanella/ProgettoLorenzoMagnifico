@@ -171,7 +171,6 @@ public class ControllerGame {
 
         JSONLoader.instance();
         personalTiles = JSONLoader.loadPersonalTiles();
-       // excommunicationTiles = JSONLoader.loadExcommunicationTiles();
         boardGame = JSONLoader.boardCreator();
         deck = JSONLoader.createNewDeck();
         leadersDeck = JSONLoader.loadLeaders();
