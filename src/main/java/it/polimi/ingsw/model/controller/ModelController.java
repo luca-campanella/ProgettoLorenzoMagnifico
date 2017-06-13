@@ -157,7 +157,7 @@ public class ModelController {
      * this method is used to deliver all the spaces available to the player
      * @return all the spaces available for this family member
      */
-    /*public ArrayList<AbstractActionSpace> spaceAvailable(FamilyMember familyMember){
+    public ArrayList<AbstractActionSpace> spaceAvailable(FamilyMember familyMember){
 
         ArrayList<AbstractActionSpace> space = new ArrayList<>(22);
 
@@ -174,13 +174,19 @@ public class ModelController {
             if(isMarketActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT),market))
                 space.add(market);
 
-        for(Tower tower : gameBoard.getTowers())
+        for(Tower tower : gameBoard.getTowers()){
+            ArrayList<FamilyMember> familyMembers = new ArrayList<>(4);
+            for(TowerFloorAS towerFloor : tower.getFloors())
+                familyMembers.addAll(towerFloor.getFamilyMembers());
             for(TowerFloorAS towerFloorAS : tower.getFloors())
+                if(isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT),towerFloorAS, familyMembers))
+                    space.add(towerFloorAS);
+        }
 
 
         return space;
 
-    }*/
+    }
     /**
      * this method is used to control if the family member can be placed on the floor of a defined tower
      * @param familyMember the family member tht the player wants to place
@@ -205,13 +211,19 @@ public class ModelController {
             return false;
         ResourceCollector resource = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
         resource.addResource(familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(towerFloorAS.getCard().getColor()));
+        resource.subResource(towerFloorAS.getCard().getCost());
         ArrayList<ImmediateEffectInterface>effectInterfaces = towerFloorAS.getEffects();
         for(ImmediateEffectInterface effectIter : effectInterfaces){
-            if(effectIter instanceof GainResourceEffect)
+            if(effectIter instanceof GainResourceEffect){
                  resource.addResource(((GainResourceEffect) effectIter).getResource());
+            }
         }
 
-            return false;
+        //it asks the card if the player can buy it with this resources
+        if(towerFloorAS.getCard().canBuy(resource))
+            return true;
+        return false;
+
     }
 
     /**

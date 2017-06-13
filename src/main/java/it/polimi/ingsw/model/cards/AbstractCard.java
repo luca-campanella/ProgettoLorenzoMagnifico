@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceCollector;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -66,4 +67,11 @@ public abstract class AbstractCard implements Serializable{
             effectIter.applyToPlayer(player, choiceController, name);
         }
     }
+
+    /**
+     * this method is used by the cad to understand if the player can buy this card with the following resources
+     * @param resource are the resources of the player
+     * @return is true if you can buy the card, false otherwise
+     */
+    public abstract boolean canBuy(ResourceCollector resource);
 }
