@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
@@ -24,6 +25,8 @@ public class Room {
     private ArrayList<AbstractConnectionPlayer> players;
 
     private ControllerGame controllerGame;
+
+    private ArrayList<LeaderCard> cardToPlayer;
 
     /**
      * timeout that starts when the second player joins the room. When time is up game starts. Set by the constructor
@@ -336,5 +339,46 @@ public class Room {
         catch (NetworkException e){
             Debug.printError("ERROR on the deliver of the players ",e);
         }
+    }
+
+    /**
+     * this method is used to deliver the leader cards to the different players
+     */
+    public void initiateLeaderChoice(ArrayList<LeaderCard> leaderCards) {
+
+        cardToPlayer = leaderCards;
+        deliverLeaderCardsToPlayer(leaderCards);
+    }
+
+    private void deliverLeaderCardsToPlayer(ArrayList<LeaderCard> leaderCards){
+
+        if(leaderCards.size() == 0)
+            return;
+        if(leaderCards.size()%players.size() != 0)
+            return;
+        int index = 0;
+
+       // ArrayList<LeaderCard> cardToDeliver = new
+        for(AbstractConnectionPlayer player : players){
+            int numberCardToDeliver = leaderCards.size()/players.size();
+            for(int i = 0 ; i < numberCardToDeliver ; i++){
+
+                cardToPlayer.add(leaderCards.get(index));
+
+            }
+            try{
+                player.receiveLeaderCards(cardToPlayer);
+                cardToPlayer.clear();
+            }
+            catch (NetworkException e){
+                Debug.printError("ERROR: cannot deliver the leader cards to " + player);
+            }
+
+        }
+    }
+
+    public void receiveLeaderCards(ArrayList<LeaderCard> leaderCards, AbstractConnectionPlayer player) {
+        controllerGame.choiseLeaderCard(leaderCards,player);
+
     }
 }
