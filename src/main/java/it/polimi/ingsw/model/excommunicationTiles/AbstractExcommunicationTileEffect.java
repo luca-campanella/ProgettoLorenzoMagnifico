@@ -1,20 +1,18 @@
 package it.polimi.ingsw.model.excommunicationTiles;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
-
-import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * this class contains all the excommunication effects
  *
  */
-public abstract class AbstractExcommunicationTileEffect {
+public abstract class AbstractExcommunicationTileEffect implements Serializable {
     //The following list is a list all of the first period malus effects
     //it returns a POSITIVE resource. Then it will be subbed from Player
     int gainFewResource(Resource resource){
