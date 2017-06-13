@@ -16,19 +16,19 @@ import static org.junit.Assert.*;
  */
 public class LoseVPonCostCardsTest {
 
-    JSONLoader jsonLoader;
-    Deck deck;
+
+    private Deck deck;
     ArrayList<ExcommunicationTile> excommunicationTiles;
 
     /**
      * we load the excommunication tiles necessary for the test
-     * @throws Exception
+     * @throws Exception in case json doesn't load properly
      */
     @Before
     public void setUp() throws Exception {
-        jsonLoader = new JSONLoader();
-        deck = jsonLoader.createNewDeck();
-        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
+        JSONLoader.instance();
+        deck = JSONLoader.createNewDeck();
+        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
 
     }
 

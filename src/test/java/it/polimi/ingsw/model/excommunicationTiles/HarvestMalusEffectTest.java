@@ -12,17 +12,16 @@ import static org.junit.Assert.*;
  * testing haverst malus
  */
 public class HarvestMalusEffectTest {
-    JSONLoader jsonLoader;
     ArrayList<ExcommunicationTile> excommunicationTiles;
 
     /**
      * we load the excommunication tiles necessary for the test
-     * @throws Exception
+     * @throws Exception in case JSON doesn't load cards properly
      */
     @Before
     public void setUp() throws Exception {
-        jsonLoader = new JSONLoader();
-        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
+        JSONLoader.instance();
+        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
 
     }
     @Test

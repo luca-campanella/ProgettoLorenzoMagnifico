@@ -23,8 +23,8 @@ public class GainFewerResourceEffectTest {
      */
     @Before
     public void setUp() throws Exception {
-        jsonLoader = new JSONLoader();
-        excommunicationTiles = jsonLoader.loadExcommunicationTiles();
+        JSONLoader.instance();
+        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
         //creating a resource test
         Resource resource = new Resource(ResourceTypeEnum.COIN, 1);
         cardEffect = new GainFewerResourceEffect(resource);

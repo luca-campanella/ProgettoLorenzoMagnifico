@@ -27,15 +27,31 @@ import java.util.ArrayList;
 import java.lang.reflect.*;
 
 /**
- * Created by higla on 30/05/2017.
+ * This class is a singleton that handles all the classes loaded from file
  */
 public class JSONLoader {
+    private static JSONLoader  internalInstance = null;
+
+    private JSONLoader() {
+    }
+
+    /**
+     * this method allows to create an instance of JSONLoader
+     * @return the instantiated JSONLoader
+     */
+    public static JSONLoader instance()
+    {
+        if(internalInstance == null)
+            internalInstance = new JSONLoader();
+        return internalInstance;
+    }
+
     /**
      * Reads deck from json and loads that on the board.
-     * @return
-     * @throws Exception
+     * @return a deck full of development card
+     * @throws IOException in case of file can't be opened
      */
-    public Deck createNewDeck() throws IOException {
+    public static Deck createNewDeck() throws IOException {
         Debug.instance(Debug.LEVEL_VERBOSE);
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -63,8 +79,7 @@ public class JSONLoader {
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).registerTypeAdapterFactory(permanentEffectAdapter).create();
 
         try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/DeckCFG.json"), "UTF-8")) {
-            Deck deck = gson.fromJson(reader, Deck.class);
-            return deck;
+            return gson.fromJson(reader, Deck.class);
         }
 
     }
@@ -74,7 +89,7 @@ public class JSONLoader {
      * @return the4-players board
      * @throws Exception in case GSON isn't able to read the file
      */
-    protected Board boardCreator() throws IOException
+    public static Board boardCreator() throws IOException
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -86,8 +101,8 @@ public class JSONLoader {
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
         try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
-            Board board = gson.fromJson(reader, Board.class);
-            return board;
+            return gson.fromJson(reader, Board.class);
+
         }/*
         catch(IOException e)
         {
@@ -99,9 +114,9 @@ public class JSONLoader {
     /**
      * this loads an arrayList of tiles. The first element of the array list is the standard tile
      * @return an array list of tiles
-     * @throws IOException
+     * @throws IOException in case file can't be opened
      */
-    protected ArrayList<PersonalTile> loadPersonalTiles() throws IOException{
+    public static ArrayList<PersonalTile> loadPersonalTiles() throws IOException{
         GsonBuilder gsonBuilder = new GsonBuilder();
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
@@ -123,7 +138,7 @@ public class JSONLoader {
 
     }
 
-    public ArrayList<ExcommunicationTile> loadExcommunicationTiles() throws IOException{
+    public static ArrayList<ExcommunicationTile> loadExcommunicationTiles() throws IOException{
         GsonBuilder gsonBuilder = new GsonBuilder();
         ArrayList<ExcommunicationTile> excommunicationDeck;
         RuntimeTypeAdapterFactory<AbstractExcommunicationTileEffect> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(AbstractExcommunicationTileEffect.class, "excommunicationTiles");
@@ -153,7 +168,7 @@ public class JSONLoader {
 
     }
 
-    public LeadersDeck loadLeaders() throws IOException{
+    public static LeadersDeck loadLeaders() throws IOException{
         Debug.instance(Debug.LEVEL_VERBOSE);
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -191,7 +206,7 @@ public class JSONLoader {
 
     }
 
-    public RoomConfigurator loadTimeoutInSec() throws IOException
+    public static RoomConfigurator loadTimeoutInSec() throws IOException
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
