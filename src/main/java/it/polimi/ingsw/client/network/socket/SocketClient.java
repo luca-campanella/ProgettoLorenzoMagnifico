@@ -1,12 +1,14 @@
 package it.polimi.ingsw.client.network.socket;
 
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import it.polimi.ingsw.client.controller.ClientInterface;
 import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.socket.packet.*;
 import it.polimi.ingsw.client.network.socket.protocol.ReadServerPacketProtocol;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.utils.Debug;
 
@@ -134,7 +136,13 @@ public class SocketClient extends AbstractClientType {
         // start the thread to read the packet delivered by the server
         receiveInformation.start();
     }
-    public void playCard(String nameLeader) throws NetworkException{
+
+    /**
+     * this method is used to deliver a leader card that the client wants to play
+     * @throws NetworkException
+     */
+    @Override
+    public void playLeaderCard(String nameLeader) throws NetworkException{
         try{
             outStream.writeObject(PacketType.PLAY_LEADER);
             outStream.writeObject(new PlayCardPacket(nameLeader));
@@ -175,6 +183,7 @@ public class SocketClient extends AbstractClientType {
      * @param numberTower number of the tower
      * @param floorTower floor of the tower
      */
+    @Override
     public void moveInTower(FamilyMember familyMember,
                             int numberTower, int floorTower, HashMap<String, Integer> playerChoices)
             throws NetworkException,IllegalMoveException {
@@ -198,6 +207,7 @@ public class SocketClient extends AbstractClientType {
     /**
      * this method is used when the family member in moved on a generic market space
      */
+    @Override
     public void moveInMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices)
             throws NetworkException,IllegalMoveException{
         MoveErrorEnum moveErrorEnum;
@@ -220,7 +230,8 @@ public class SocketClient extends AbstractClientType {
     /**
      * this method is called when the family member is moved on the harvest space
      */
-    public void harvesting (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+    @Override
+    public void harvest (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
 
         MoveErrorEnum moveErrorEnum;
 
@@ -247,7 +258,15 @@ public class SocketClient extends AbstractClientType {
         }
 
     }
-    public void building (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices)
+
+    /**
+     * this method is called when a player want to place a family member on the build
+     * @param playerChoices this is a map that contains all the choices of the client when an effect asks
+     * @throws NetworkException
+     * @throws IllegalMoveException
+     */
+    @Override
+    public void build (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices)
             throws NetworkException, IllegalMoveException {
 
         MoveErrorEnum moveErrorEnum;
@@ -492,6 +511,37 @@ public class SocketClient extends AbstractClientType {
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("Error: cannot receive the nickname of the client", e);
+        }
+    }
+
+    /**
+     * this method is used to receive the leader cards at the beginning of the game, and the client has to choose one of them
+     */
+    public void receiveLeaderCards(){
+
+        try{
+            LeaderChoicePacket packet = (LeaderChoicePacket)inStream.readObject();
+            //TODO method
+        }
+        catch(IOException | ClassNotFoundException e){
+            Debug.printError("ERROR: client can not receive the leader cards",e);
+        }
+    }
+
+    /**
+     * this method is used by the client to deliver to the server the leader that wants to have
+     */
+    @Override
+    public void deliverLeaderChose(LeaderCard leaderCard) throws NetworkException{
+
+        try{
+            outStream.writeObject(PacketType.LEADER_CHOICES);
+            outStream.writeObject(new ReceiveLeaderCardChosePacket(leaderCard));
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("the client cannot deliver the leader he has chosen",e);
+            throw new NetworkException(e);
         }
     }
 
