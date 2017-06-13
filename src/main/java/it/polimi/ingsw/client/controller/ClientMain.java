@@ -466,7 +466,7 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
             playerTmp = new Player(nicknameIter);
             if(nicknameIter.equals(nickname))
                 thisPlayer = playerTmp;
-            players.add(new Player(nicknameIter));
+            players.add(playerTmp);
             Debug.printVerbose("Created new player " + nicknameIter);
         }
         Debug.printVerbose("thisPlayerInitialized with value = " + thisPlayer.getNickname());
