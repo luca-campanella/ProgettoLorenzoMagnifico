@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
+import it.polimi.ingsw.model.leaders.LeadersDeck;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
@@ -29,6 +30,7 @@ public class ControllerGame {
     private ArrayList<PersonalTile> personalTiles;
     private ArrayList<ExcommunicationTile> excommunicationTiles;
     private ModelController modelController;
+    private LeadersDeck leadersDeck;
     private int numberOfPlayers;
     private int numberOfRound;
     private int numberOfTurn;
@@ -46,7 +48,6 @@ public class ControllerGame {
         resources.add(resource);
         asd.setCost(resources);
         System.out.println(gson.toJson(asd));*/
-
         ControllerGame controllerGame =  new ControllerGame(2);
         CliPrinter cli = new CliPrinter();
         //cli.printDeck(controllerGame.getDeck());
@@ -138,13 +139,14 @@ public class ControllerGame {
      * @param room the room where the game is located
      * @throws Exception if file where Board configuration is
      */
-    public ControllerGame(ArrayList<AbstractConnectionPlayer> players, Room room) throws Exception {
+    public ControllerGame(ArrayList<AbstractConnectionPlayer> players, Room room) throws IOException {
 
         JSONLoader.instance() ;
         boardGame = JSONLoader.boardCreator();
         personalTiles = JSONLoader.loadPersonalTiles();
         deck = JSONLoader.createNewDeck();
         excommunicationTiles = JSONLoader.loadExcommunicationTiles();
+        leadersDeck = JSONLoader.loadLeaders();
         numberOfPlayers = players.size();
         boardModifier(numberOfPlayers);
         this.room = room;
@@ -169,14 +171,17 @@ public class ControllerGame {
 
         JSONLoader.instance();
         personalTiles = JSONLoader.loadPersonalTiles();
-        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
+       // excommunicationTiles = JSONLoader.loadExcommunicationTiles();
         boardGame = JSONLoader.boardCreator();
         deck = JSONLoader.createNewDeck();
+        leadersDeck = JSONLoader.loadLeaders();
         int period = 1;
         boardGame = deck.fillBoard(boardGame, period);
         boardModifier(numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
 
+        numberOfTurn = 0;
+        numberOfRound = 1;
     }
 
     /**
@@ -185,6 +190,7 @@ public class ControllerGame {
      */
     private void boardModifier(int numberOfPlayers)
     {
+        boardGame.loadExcommunicationCards();
         if(numberOfPlayers == 4)
             return;
         boardThreePlayers();
