@@ -3,10 +3,15 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
+import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.server.JSONLoader;
+import it.polimi.ingsw.utils.Debug;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class is the board where the game develops
@@ -27,7 +32,8 @@ public class Board implements Serializable {
     private HarvestAS harvest = new HarvestAS();
     private CouncilAS council;
     private VaticanReport vaticanReport = new VaticanReport();
-
+    private ArrayList<ExcommunicationTile> excommunicationDeck;
+    private ArrayList<ExcommunicationTile> excommunicationTiles = new ArrayList<>(3);
     // this is the constructor
     public void createNewBoard(Tower[] towers, ArrayList<MarketAS> market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport) {
         this.towers = towers;
@@ -36,8 +42,61 @@ public class Board implements Serializable {
         this.harvest = harvest;
         this.vaticanReport = vaticanReport;
         this.council = councilAS;
+        /*
+        JSONLoader.instance();
+        try {
+            excommunicationDeck = JSONLoader.loadExcommunicationTiles();
+            this.getExcommunicationTilesForGame(excommunicationDeck);
+        }catch(IOException e)
+        {
+            Debug.instance(2);
+            Debug.printError("Json couldn't load excommunication cards");
+        }
+        */
     }
+    public void loadExcommunicationCards()
+    {
+        JSONLoader.instance();
+        try {
+            excommunicationDeck = JSONLoader.loadExcommunicationTiles();
+            this.getExcommunicationTilesForGame(excommunicationDeck);
+        }catch(IOException e)
+        {
+            Debug.instance(2);
+            Debug.printError("Json couldn't load excommunication cards");
+        }
+    }
+    /**
+     * this method loads 3 excommunication cards on board
+     * @param excommunicationDeck is a list of excommunication cards loaded from JSON
+     */
+    private void getExcommunicationTilesForGame(ArrayList<ExcommunicationTile> excommunicationDeck)
+    {
+        Random random = new Random();
+        int valueIndex;
+        final int numberOfPeriods = 3;
+        //this cicle looks for 3 excommunication tiles
+        for(int i=numberOfPeriods; i>0; i--){
+            //i look for a random number between 0 and 8
+            valueIndex = random.nextInt(excommunicationDeck.size()/i);
+            //then i pick the corrispective card and i check if it is the same period.
+            if(excommunicationDeck.get(valueIndex).getPeriod() == (numberOfPeriods-i+1)) {
+                //if it is i add that to ecommunicationTiles
+                excommunicationTiles.add(excommunicationDeck.get(valueIndex));
+                //and i remove all the others
+                for(int k= 0; k < excommunicationDeck.size()/i; k++)
+                    if(excommunicationDeck.get(k).getPeriod() == (numberOfPeriods-i+1))
+                        excommunicationDeck.remove(k);
+                //then i look for another card
+            }
+            //If i don't find it, i make another cicle
+            else
+            {
+                i++;
+            }
+        }
 
+    }
 
     public int getNUMBER_OF_TOWERS() {
         return NUMBER_OF_TOWERS;
@@ -230,6 +289,10 @@ public class Board implements Serializable {
      */
     public void placeOnCouncil(FamilyMember familyMember, ChoicesHandlerInterface choicesController) {
         council.performAction(familyMember, choicesController);
+    }
+
+    public ArrayList<ExcommunicationTile> getExcommunicationTiles() {
+        return excommunicationTiles;
     }
 }
 
