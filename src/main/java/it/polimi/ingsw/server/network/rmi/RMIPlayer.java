@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.network.rmi;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.client.network.rmi.RMIClientInterface;
@@ -205,6 +206,11 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
             Debug.printError("rmi: cannot send the order of the player to" + getNickname(), e);
             throw new NetworkException(e);
         }
+    }
+
+    @Override
+    public void receiveLeaderCards(ArrayList<LeaderCard> cardToPlayer) throws NetworkException {
+
     }
 
     /**

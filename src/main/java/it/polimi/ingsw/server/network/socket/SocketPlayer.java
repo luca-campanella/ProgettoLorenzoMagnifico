@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.network.socket;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.server.ServerMain;
@@ -9,7 +10,6 @@ import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.socket.packet.*;
 import it.polimi.ingsw.server.network.socket.protocol.ReadClientPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
-import sun.util.cldr.CLDRLocaleDataMetaInfo;
 
 import java.io.*;
 import java.net.Socket;
@@ -509,6 +509,39 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         catch (IOException e){
             Debug.printError("Cannot deliver the order of the players");
             throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is used to deliver the leader card to the player (server -> client)
+     * @param cardToPlayer card that the player receives
+     * @throws NetworkException if the connection goes wrong
+     */
+    @Override
+    public void receiveLeaderCards(ArrayList<LeaderCard> cardToPlayer) throws NetworkException {
+
+        try{
+            outStream.writeObject(PacketType.LEADER_CHOICES);
+            outStream.writeObject(new LeaderChoicePacket(cardToPlayer));
+            outStream.flush();
+        }
+        catch (IOException e) {
+            Debug.printError("Cannot deliver the choice of the leader cards to the players");
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is used to deliver the leader card to the room (client -> server)
+     */
+    public void deliverLeaderCards(){
+
+        try{
+            ReceiveLeaderCardChosePacket packet = (ReceiveLeaderCardChosePacket) inStream.readObject();
+            getRoom().receiveLeaderCards(packet.getLeaderCard().getName(), this);
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("ERROR: cannot receive the leader cards from " + getNickname());
         }
     }
 

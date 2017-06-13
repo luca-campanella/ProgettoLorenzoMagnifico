@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.LeadersDeck;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
@@ -369,7 +370,15 @@ public class ControllerGame {
         room.deliverOrderPlayers(orderPlayers);
     }
 
+    /**
+     * this method is used to deliver the leader cards to the players
+     * @param leaderCards
+     */
+    private void initiateLeaderChoice(ArrayList<LeaderCard> leaderCards){
+        room.initiateLeaderChoice(leaderCards);
+    }
 
-
+    public void choiceLeaderCard(String nameLeader, AbstractConnectionPlayer player) {
+    }
 }
 

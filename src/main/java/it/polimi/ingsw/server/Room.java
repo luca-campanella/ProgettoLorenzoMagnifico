@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
@@ -24,6 +25,8 @@ public class Room {
     private ArrayList<AbstractConnectionPlayer> players;
 
     private ControllerGame controllerGame;
+
+    private ArrayList<LeaderCard> cardToPlayer;
 
     /**
      * timeout that starts when the second player joins the room. When time is up game starts. Set by the constructor
@@ -336,5 +339,51 @@ public class Room {
         catch (NetworkException e){
             Debug.printError("ERROR on the deliver of the players ",e);
         }
+    }
+
+    /**
+     * this method is used to deliver the leader cards to the different players
+     */
+    public void initiateLeaderChoice(ArrayList<LeaderCard> leaderCards) {
+
+        cardToPlayer = leaderCards;
+        deliverLeaderCardsToPlayers();
+    }
+
+    private void deliverLeaderCardsToPlayers(){
+
+        if(cardToPlayer.size() == 0)
+            return;
+        if(cardToPlayer.size()%players.size() != 0)
+            return;
+        int index = 0;
+
+       // numberOfTimesTheChoiceIsDone is the number of times the round of choices of the leaders
+        for(int numberOfTimesTheChoiceIsDone = players.size()-(cardToPlayer.size()/players.size()) ; index < cardToPlayer.size() ; numberOfTimesTheChoiceIsDone++ ){
+            AbstractConnectionPlayer player = players.get(numberOfTimesTheChoiceIsDone%players.size());
+            int numberCardToDeliver = cardToPlayer.size()/players.size();
+            ArrayList<LeaderCard> cardToDeliver = new ArrayList<>(4);
+            for(int i = 0 ; i < numberCardToDeliver ; i++){
+
+                cardToDeliver.add(cardToPlayer.get(index++));
+
+            }
+            try{
+                player.receiveLeaderCards(cardToPlayer);
+                cardToDeliver.clear();
+            }
+            catch (NetworkException e){
+                Debug.printError("ERROR: cannot deliver the leader cards to " + player);
+            }
+
+        }
+    }
+
+    public void receiveLeaderCards(String nameLeader, AbstractConnectionPlayer player) {
+
+        controllerGame.choiceLeaderCard(nameLeader,player);
+        //cardToPlayer.remove(leaderCard);
+        deliverLeaderCardsToPlayers();
+
     }
 }

@@ -1,10 +1,11 @@
 package it.polimi.ingsw.client.network;
 
 import it.polimi.ingsw.client.controller.ClientInterface;
-import it.polimi.ingsw.client.exceptions.ClientConnectionException;
-import it.polimi.ingsw.client.exceptions.LoginException;
-import it.polimi.ingsw.client.exceptions.NetworkException;
-import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
+import it.polimi.ingsw.client.exceptions.*;
+import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.player.FamilyMember;
+
+import java.util.HashMap;
 
 /**
  * This is the abstract class that represent the network part of the client, can be extended by RMIClient or SocketClient, depending on which connection the user chooses
@@ -92,5 +93,52 @@ public abstract class AbstractClientType  {
         controllerMain.setNickname(nickname);
 
     }
+
+    /**
+     * this method is used to deliver the leader the client has choose tho keep
+     * @throws NetworkException
+     */
+    public abstract void deliverLeaderChose(LeaderCard leaderCard) throws NetworkException;
+
+    /**
+     * this method is used to deliver the name of the leader the player wants to discard
+     * @throws NetworkException
+     */
+    public abstract void playLeaderCard(String nameLeader) throws NetworkException;
+
+    /**
+     * this method is used to deliver the move of a family member on a tower
+     * @param playerChoices this is a map that contains all the choices of the client when an effect asks
+     * @throws NetworkException
+     * @throws IllegalMoveException
+     */
+    public abstract void moveInTower(FamilyMember familyMember, int numberTower, int floorTower, HashMap<String, Integer> playerChoices)
+            throws NetworkException,IllegalMoveException;
+
+    /**
+     * this method is used to deliver the move of a family member on a space market
+     * @param playerChoices this is a map that contains all the choices of the client when an effect asks
+     * @throws NetworkException
+     * @throws IllegalMoveException
+     */
+    public abstract void moveInMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices)
+            throws NetworkException,IllegalMoveException;
+
+    /**
+     * this method is used to deliver the move of a family member on harvest
+     * @param playerChoices this is a map that contains all the choices of the client when an effect asks
+     * @throws NetworkException
+     * @throws IllegalMoveException
+     */
+    public abstract void harvest (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException,IllegalMoveException;
+
+    /**
+     * this method is used to deliver the move of a family member on build
+     * @param playerChoices this is a map that contains all the choices of the client when an effect asks
+     * @throws NetworkException
+     * @throws IllegalMoveException
+     */
+    public abstract void build (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices)
+            throws NetworkException, IllegalMoveException;
 
 }

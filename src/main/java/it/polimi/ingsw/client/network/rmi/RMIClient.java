@@ -1,13 +1,11 @@
 package it.polimi.ingsw.client.network.rmi;
 
 import it.polimi.ingsw.client.controller.ClientInterface;
+import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.AbstractClientType;
-import it.polimi.ingsw.client.exceptions.ClientConnectionException;
-import it.polimi.ingsw.client.exceptions.LoginException;
-import it.polimi.ingsw.client.exceptions.NetworkException;
-import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.rmi.RMIPlayerInterface;
 import it.polimi.ingsw.server.network.rmi.RMIServerInterface;
@@ -58,7 +56,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         }
 
         try {
-            Debug.printVerbose("Got the remote object to controll the player " + RMIPlayerInterfaceInst.getNickname());
+            Debug.printVerbose("Got the remote object to control the player " + RMIPlayerInterfaceInst.getNickname());
         } catch (RemoteException e) {
             Debug.printError("Cannot use the passed interface");
             throw new NetworkException(e);
@@ -115,6 +113,36 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         } catch (RemoteException e) {
             throw new NetworkException("rmi problem with chat message", e);
         }
+    }
+
+    @Override
+    public void deliverLeaderChose(LeaderCard leaderCard) throws NetworkException {
+
+    }
+
+    @Override
+    public void playLeaderCard(String nameLeader) throws NetworkException {
+
+    }
+
+    @Override
+    public void moveInTower(FamilyMember familyMember, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+
+    }
+
+    @Override
+    public void moveInMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+
+    }
+
+    @Override
+    public void harvest(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+
+    }
+
+    @Override
+    public void build(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+
     }
 
     /**

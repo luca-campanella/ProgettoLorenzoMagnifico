@@ -4,6 +4,7 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;

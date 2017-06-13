@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.network;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.client.exceptions.NetworkException;
@@ -99,4 +100,8 @@ public abstract class AbstractConnectionPlayer extends Player {
      */
     public abstract void deliverOrderPlayers(ArrayList<String> orderPlayers) throws NetworkException;
 
+    /**
+     * this method is used to receive the leader cards from the room
+     */
+    public abstract void receiveLeaderCards(ArrayList<LeaderCard> cardToPlayer) throws NetworkException;
 }
