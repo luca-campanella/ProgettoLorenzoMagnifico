@@ -13,7 +13,7 @@ public class DicesPacket implements Serializable {
     private ArrayList<Dice> dices;
 
     public DicesPacket(ArrayList<Dice> dices){
-        dices = new ArrayList<>(dices);
+        this.dices = new ArrayList<>(dices);
         dices.forEach(dice -> System.out.println("Dice color " + dice.getColor() + "value: " + dice.getValue()));
     }
 
