@@ -347,28 +347,30 @@ public class Room {
     public void initiateLeaderChoice(ArrayList<LeaderCard> leaderCards) {
 
         cardToPlayer = leaderCards;
-        deliverLeaderCardsToPlayer(leaderCards);
+        deliverLeaderCardsToPlayers();
     }
 
-    private void deliverLeaderCardsToPlayer(ArrayList<LeaderCard> leaderCards){
+    private void deliverLeaderCardsToPlayers(){
 
-        if(leaderCards.size() == 0)
+        if(cardToPlayer.size() == 0)
             return;
-        if(leaderCards.size()%players.size() != 0)
+        if(cardToPlayer.size()%players.size() != 0)
             return;
         int index = 0;
 
-       // ArrayList<LeaderCard> cardToDeliver = new
-        for(AbstractConnectionPlayer player : players){
-            int numberCardToDeliver = leaderCards.size()/players.size();
+       // numberOfTimesTheChoiceIsDone is the number of times the round of choices of the leaders
+        for(int numberOfTimesTheChoiceIsDone = players.size()-(cardToPlayer.size()/players.size()) ; index < cardToPlayer.size() ; numberOfTimesTheChoiceIsDone++ ){
+            AbstractConnectionPlayer player = players.get(numberOfTimesTheChoiceIsDone%players.size());
+            int numberCardToDeliver = cardToPlayer.size()/players.size();
+            ArrayList<LeaderCard> cardToDeliver = new ArrayList<>(4);
             for(int i = 0 ; i < numberCardToDeliver ; i++){
 
-                cardToPlayer.add(leaderCards.get(index));
+                cardToDeliver.add(cardToPlayer.get(index++));
 
             }
             try{
                 player.receiveLeaderCards(cardToPlayer);
-                cardToPlayer.clear();
+                cardToDeliver.clear();
             }
             catch (NetworkException e){
                 Debug.printError("ERROR: cannot deliver the leader cards to " + player);
@@ -377,8 +379,11 @@ public class Room {
         }
     }
 
-    public void receiveLeaderCards(ArrayList<LeaderCard> leaderCards, AbstractConnectionPlayer player) {
-        controllerGame.choiseLeaderCard(leaderCards,player);
+    public void receiveLeaderCards(String nameLeader, AbstractConnectionPlayer player) {
+
+        controllerGame.choiceLeaderCard(nameLeader,player);
+        //cardToPlayer.remove(leaderCard);
+        deliverLeaderCardsToPlayers();
 
     }
 }

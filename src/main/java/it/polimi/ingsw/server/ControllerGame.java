@@ -378,7 +378,7 @@ public class ControllerGame {
         room.initiateLeaderChoice(leaderCards);
     }
 
-    public void choiseLeaderCard(ArrayList<LeaderCard> leaderCards, AbstractConnectionPlayer player) {
+    public void choiceLeaderCard(String nameLeader, AbstractConnectionPlayer player) {
     }
 }
 

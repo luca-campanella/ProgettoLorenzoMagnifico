@@ -537,8 +537,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void deliverLeaderCards(){
 
         try{
-            LeaderChoicePacket packet = (LeaderChoicePacket)inStream.readObject();
-            getRoom().receiveLeaderCards(packet.getLeaderCards(), this);
+            ReceiveLeaderCardChosePacket packet = (ReceiveLeaderCardChosePacket) inStream.readObject();
+            getRoom().receiveLeaderCards(packet.getLeaderCard().getName(), this);
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("ERROR: cannot receive the leader cards from " + getNickname());
