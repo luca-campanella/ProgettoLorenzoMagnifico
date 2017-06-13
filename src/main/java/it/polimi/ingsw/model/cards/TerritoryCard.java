@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -86,5 +87,14 @@ public class TerritoryCard extends AbstractCard{
     }
     public CardColorEnum getColor(){
         return cardColor;
+    }
+
+    /**
+     * this method will return always true, infact the green card doesn't have a cost to be bought
+     * @param resource are the resources of the player
+     */
+    @Override
+    public boolean canBuy(ResourceCollector resource) {
+        return true;
     }
 }

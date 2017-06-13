@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.cli;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
+import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.leaders.LeadersDeck;
 import it.polimi.ingsw.model.resource.Resource;
 
@@ -16,16 +17,16 @@ import java.util.stream.Collectors;
 public class CliPrinter {
     //all the next attributes are used to pretty print the board
     //length of tower + action space next to that tower -> total sceneLength
-    static final int sceneLenght = 49;
+    static final int SCENE_LENGHT = 49;
     //length of a tower
-    static final int INSIDE_TOWER_LENGHT = 35;
-    static final int LINELENGTH = 200;
-    static final int MAX_LENGHT_SHORT_EFFECTS = 12;
+    private static final int INSIDE_TOWER_LENGHT = 35;
+    private static final int LINELENGTH = 200;
+    private static final int MAX_LENGHT_SHORT_EFFECTS = 12;
 
     /**
      * this method prints the board
      *
-     * @param board
+     * @param board is the gameBoard
      */
     public static void printBoard(Board board) {
         //printing the towers
@@ -56,7 +57,7 @@ public class CliPrinter {
      */
     public static void printTowers(Board board) {
         int i;
-        TowerFloorAS[] floorOfAllTowers; // = new TowerFloorAS[board.getNUMBER_OF_TOWERS()];
+        TowerFloorAS[] floorOfAllTowers;
         printTowersName(board);
         printTowerCeiling(board, "_");
         for (i = 0; i < board.getNUMBER_OF_FLOORS(); i++) {
@@ -69,8 +70,8 @@ public class CliPrinter {
     /**
      * this method prints a single tower floor level (ex. territory lvl 1, character lvl 1.....)
      *
-     * @param board
-     * @param floorOfAllTowers
+     * @param board is the game board
+     * @param floorOfAllTowers is a single floor
      */
     private static void printTower(Board board, TowerFloorAS[] floorOfAllTowers) {
         System.out.println();
@@ -89,7 +90,7 @@ public class CliPrinter {
     /**
      * this method prints the tower name at the top of the towers.
      *
-     * @param board
+     * @param board is the gameBoard
      */
     private static void printTowersName(Board board) {
         int k;
@@ -114,14 +115,14 @@ public class CliPrinter {
      * @param floors
      */
     private static void printSecondEffectPillar(TowerFloorAS[] floors) {
-        for (int i = 0; i < floors.length; i++)
+        for(int i = 0; i < floors.length; i++)
             printCardSecondEffectOnFloor(floors[i]);
     }
 
     /**
      * this method prints a string inside a scene (consideringa scene a tower | to the start of the other |
      *
-     * @param toPrint
+     * @param toPrint is the string to print
      */
     private static void printStringOnPillar(String toPrint) {
         int i;
@@ -132,7 +133,7 @@ public class CliPrinter {
         printColorTower(toPrint);
         for (i = 0; i < tempLength; i++)
             System.out.print(" ");
-        for (i = 0; i < sceneLenght - INSIDE_TOWER_LENGHT - 3; i++)
+        for (i = 0; i < SCENE_LENGHT - INSIDE_TOWER_LENGHT - 3; i++)
             System.out.print(" ");
     }
 
@@ -168,7 +169,7 @@ public class CliPrinter {
             tempCostsScene.append(" ");
         tempCostsScene.append("|");
         //then i prepare the scene for the next pillar. Middle tower lenght is 26 not 29
-        for (int i = 0; i < sceneLenght - INSIDE_TOWER_LENGHT - 3; i++)
+        for (int i = 0; i < SCENE_LENGHT - INSIDE_TOWER_LENGHT - 3; i++)
             tempCostsScene.append(" ");
 
         System.out.print(tempCostsScene.toString());
@@ -217,7 +218,7 @@ public class CliPrinter {
         for (int i = 0; i < INSIDE_TOWER_LENGHT; i++)
             System.out.print(" ");
         System.out.print("|");
-        for (int j = 0; j < sceneLenght - INSIDE_TOWER_LENGHT - 3; j++) {
+        for (int j = 0; j < SCENE_LENGHT - INSIDE_TOWER_LENGHT - 3; j++) {
             System.out.print(" ");
         }
     }
@@ -251,7 +252,7 @@ public class CliPrinter {
             toPrint.append(" ");
         toPrint.append("|");
         //then i prepare the scene for the next pillar. Middle tower lenght is 26 not 29
-        for (i = 0; i < sceneLenght - INSIDE_TOWER_LENGHT - 3; i++)
+        for (i = 0; i < SCENE_LENGHT - INSIDE_TOWER_LENGHT - 3; i++)
             toPrint.append(" ");
         System.out.print(toPrint.toString());
     }
@@ -266,7 +267,7 @@ public class CliPrinter {
             for (int i = 0; i < INSIDE_TOWER_LENGHT; i++)
                 System.out.print(" ");
             System.out.print("|");
-            for (int j = 0; j < sceneLenght - INSIDE_TOWER_LENGHT - 3; j++) {
+            for (int j = 0; j < SCENE_LENGHT - INSIDE_TOWER_LENGHT - 3; j++) {
                 System.out.print(" ");
             }
         }
@@ -291,7 +292,7 @@ public class CliPrinter {
                 System.out.print("_");
             }
             System.out.print(c);
-            for (j = 0; j < sceneLenght - numberOfUnderscore - 3; j++)
+            for (j = 0; j < SCENE_LENGHT - numberOfUnderscore - 3; j++)
                 System.out.print(" ");
             if (c.equalsIgnoreCase(("|")))
                 numberOfUnderscore--;
@@ -395,10 +396,11 @@ public class CliPrinter {
     /**
      * this method prints the VaticanReport on board
      *
-     * @param board
+     * @param board is game Board
      */
     private static void printVaticanReport(Board board) {
         int i;
+        printExcommunicationCards(board);
         System.out.print(" | ");
         for (i = 0; i < board.getVaticanFaithAge().length; i++) {
             System.out.print(board.getVaticanFaithAgeIndex(i));
@@ -412,7 +414,14 @@ public class CliPrinter {
             System.out.print(" | ");
         }
     }
-
+    private static void printExcommunicationCards(Board board)
+    {
+        ArrayList<ExcommunicationTile> excommunicationTiles = board.getExcommunicationTiles();
+        System.out.println("Entro qui");
+        for(ExcommunicationTile iterator : excommunicationTiles)
+            System.out.println("After " + iterator.getPeriod() + " you need to have n faith points to avoid " + iterator.getEffect().getShortEffectDescription());
+        return;
+    }
     /**
      * this method prints a line
      *

@@ -3,6 +3,8 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceCollector;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +31,17 @@ public class VentureCard extends AbstractCard{
      * this method is generated to "merge" the 2 costs and allows the printer to print them all together.
      * @return a list with all costs
      */
+    //TODO
     @Override
     public ArrayList<Resource> getCost(){
-        ArrayList<Resource> costFusion = new ArrayList<>();
-        if(costChoiceResource != null)
-            costFusion.addAll(costChoiceResource);
-        if(costChoiceMilitary != null)
-            costFusion.add(costChoiceMilitary.getResourceCost());
-        return  costFusion;
+
+        return costChoiceResource;
+
+    }
+
+    public VentureCardMilitaryCost getCostChoiceMilitary(){
+
+        return costChoiceMilitary;
     }
 
     @Override
@@ -71,6 +76,20 @@ public class VentureCard extends AbstractCard{
     }
     public CardColorEnum getColor(){
         return cardColor;
+    }
+
+    /**
+     * this method is used to control if the player can buy the card
+     * @param resource are the resources of the player
+     * @return true if the player can buy the card, false otherwise
+     */
+    @Override
+    public boolean canBuy(ResourceCollector resource) {
+        if(resource.checkIfContainable(costChoiceResource))
+            return true;
+        if(resource.getResource(costChoiceMilitary.getResourceRequirement().getType())>costChoiceMilitary.getResourceRequirement().getValue())
+            return true;
+        return false;
     }
 
     public void setCostChoiceMilitary(VentureCardMilitaryCost costChoiceMilitary) {

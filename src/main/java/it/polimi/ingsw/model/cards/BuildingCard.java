@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -108,5 +109,17 @@ public class BuildingCard extends AbstractCard{
     }
     public CardColorEnum getColor(){
         return cardColor;
+    }
+
+    /**
+     * this method is used to control if the player can buy the following cards with the available resources
+     * @param resource are the resources of the player
+     * @return true if the player can buy it , false otherwise
+     */
+    @Override
+    public boolean canBuy(ResourceCollector resource) {
+        if(resource.checkIfContainable(cost))
+            return true;
+        return false;
     }
 }

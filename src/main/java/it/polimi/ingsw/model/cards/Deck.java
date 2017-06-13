@@ -40,6 +40,41 @@ public class Deck implements Serializable{
         board = fillTower(board, period, ventureCards, CardColorEnum.PURPLE);
         return board;
     }
+
+    public ArrayList<AbstractCard> getRandomCards(int period)
+    {
+        int i;
+        ArrayList<AbstractCard> listOfCards = new ArrayList<>(24);
+        listOfCards.addAll(fillListOfRandomCards(territoryCards, period));
+        listOfCards.addAll(fillListOfRandomCards(characterCards, period));
+        listOfCards.addAll(fillListOfRandomCards(buildingCards, period));
+        listOfCards.addAll(fillListOfRandomCards(ventureCards, period));
+
+        return listOfCards;
+    }
+    private ArrayList<? extends AbstractCard> fillListOfRandomCards(ArrayList<? extends AbstractCard> developmentCard, int period)
+    {
+        ArrayList<AbstractCard> listOfCards = new ArrayList<>(4);
+        //k goes from 8 to 4 again and again, depending on round
+        final int numberOfCardsPicked = 4;
+        int k = ((developmentCard.size()+4)%8)+4;
+        int temp;
+        for (int i = 0; i < numberOfCardsPicked; i++) {
+            temp =  (int)(Math.random()*k);
+            //i take a random number - 0 to 7
+            //Debug.printDebug("K vale " + k + " temp invece " +temp );
+            //then in base of the period, i choose the right card
+            while (developmentCard.get(temp).getPeriod() != period)
+                temp = (int) (Math.random() * k);
+            //Debug.printDebug("temp vale " + temp + " period vale " + period);
+            listOfCards.add(developmentCard.get(temp));
+            //  Debug.printDebug(developmentCard.get(temp).getName());
+            //then i remove the card from all territory card, and decrease the card count
+            developmentCard.remove(temp);
+            k--;
+        }
+        return listOfCards;
+    }
     //This method needs to be changed.. It isn't really working probably
     /**
      * this method fills towers with correct cards
@@ -64,7 +99,7 @@ public class Deck implements Serializable{
                 temp = (int) (Math.random() * k);
             //Debug.printDebug("temp vale " + temp + " period vale " + period);
             board.setCardsOnTower(developmentCard.get(temp), colorTower, i);
-          //  Debug.printDebug(developmentCard.get(temp).getName());
+            //  Debug.printDebug(developmentCard.get(temp).getName());
             //then i remove the card from all territory card, and decrease the card count
             developmentCard.remove(temp);
             k--;
