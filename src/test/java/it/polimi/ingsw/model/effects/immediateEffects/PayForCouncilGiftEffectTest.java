@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  */
 public class PayForCouncilGiftEffectTest {
     //it is pay -> it is negative
-    Resource resource = new Resource(ResourceTypeEnum.WOOD, -1);
+    Resource resource = new Resource(ResourceTypeEnum.WOOD, 1);
     ArrayList<Resource> resources = new ArrayList<>();
     PayForCouncilGiftEffect effect;
     Player player = new Player();
