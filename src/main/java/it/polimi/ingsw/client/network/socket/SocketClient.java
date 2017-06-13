@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.network.socket;
 
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import it.polimi.ingsw.client.controller.ClientInterface;
 import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.exceptions.*;
