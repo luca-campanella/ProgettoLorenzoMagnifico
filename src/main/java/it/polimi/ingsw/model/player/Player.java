@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -149,8 +150,10 @@ public class Player implements Serializable{
 
     public void setFamilyMembers(ArrayList<Dice> dices){
 
-        for(Dice i : dices)
-            this.notUsedFamilyMembers.add(new FamilyMember(i,this));
+        for(Dice i : dices) {
+            Debug.printVerbose("Adding fm with value" + i.getValue());
+            this.notUsedFamilyMembers.add(new FamilyMember(i, this));
+        }
 
     }
 

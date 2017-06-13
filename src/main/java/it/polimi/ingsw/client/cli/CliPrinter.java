@@ -27,7 +27,7 @@ public class CliPrinter {
      *
      * @param board
      */
-    public void printBoard(Board board) {
+    public static void printBoard(Board board) {
         //printing the towers
         printTowers(board);
         //printing the market
@@ -54,7 +54,7 @@ public class CliPrinter {
      *
      * @param board
      */
-    public void printTowers(Board board) {
+    public static void printTowers(Board board) {
         int i;
         TowerFloorAS[] floorOfAllTowers; // = new TowerFloorAS[board.getNUMBER_OF_TOWERS()];
         printTowersName(board);
@@ -72,7 +72,7 @@ public class CliPrinter {
      * @param board
      * @param floorOfAllTowers
      */
-    private void printTower(Board board, TowerFloorAS[] floorOfAllTowers) {
+    private static void printTower(Board board, TowerFloorAS[] floorOfAllTowers) {
         System.out.println();
         printCostCards(floorOfAllTowers);
         System.out.println();
@@ -91,7 +91,7 @@ public class CliPrinter {
      *
      * @param board
      */
-    private void printTowersName(Board board) {
+    private static void printTowersName(Board board) {
         int k;
         for (k = 0; k < board.getNUMBER_OF_TOWERS(); k++) {
             printStringOnPillar(board.getTowerColor(board.getTower(k)).toString());
@@ -103,7 +103,7 @@ public class CliPrinter {
      *
      * @param floors
      */
-    private void printImmediateEffectPillar(TowerFloorAS[] floors) {
+    private static void printImmediateEffectPillar(TowerFloorAS[] floors) {
         for (int i = 0; i < floors.length; i++)
             printCardImmediateEffectOnFloor(floors[i]);
     }
@@ -113,7 +113,7 @@ public class CliPrinter {
      *
      * @param floors
      */
-    private void printSecondEffectPillar(TowerFloorAS[] floors) {
+    private static void printSecondEffectPillar(TowerFloorAS[] floors) {
         for (int i = 0; i < floors.length; i++)
             printCardSecondEffectOnFloor(floors[i]);
     }
@@ -123,7 +123,7 @@ public class CliPrinter {
      *
      * @param toPrint
      */
-    private void printStringOnPillar(String toPrint) {
+    private static void printStringOnPillar(String toPrint) {
         int i;
         int tempLength;
         tempLength = (INSIDE_TOWER_LENGHT - toPrint.length()) / 2 - 1;
@@ -141,7 +141,7 @@ public class CliPrinter {
      *
      * @param floor
      */
-    private void printCardImmediateEffectOnFloor(TowerFloorAS floor) {
+    private static void printCardImmediateEffectOnFloor(TowerFloorAS floor) {
         ArrayList<? extends ImmediateEffectInterface> costs;
         StringBuilder immediateEffects = new StringBuilder("| Instantly: ");
 
@@ -160,7 +160,7 @@ public class CliPrinter {
      *
      * @param floor
      */
-    private void printCardSecondEffectOnFloor(TowerFloorAS floor) {
+    private static void printCardSecondEffectOnFloor(TowerFloorAS floor) {
         StringBuilder tempCostsScene = new StringBuilder("| Second: ");
         tempCostsScene.append(floor.getCard().secondEffect());
         //Here i fit my string to the scene.. |
@@ -180,7 +180,7 @@ public class CliPrinter {
      * @param board
      * @param temp
      */
-    private void printCardNameActionSpace(Board board, TowerFloorAS[] temp) {
+    private static void printCardNameActionSpace(Board board, TowerFloorAS[] temp) {
         int tempLength = 0;
         String name;
         for (int k = 0; k < board.getNUMBER_OF_TOWERS(); k++) {
@@ -202,7 +202,7 @@ public class CliPrinter {
     /**
      * this class prints all costs cards in a level
      */
-    private void printCostCards(TowerFloorAS[] floors) {
+    private static void printCostCards(TowerFloorAS[] floors) {
         printOneEmptyPillar();
         printGenericCostPillar(floors[1]);
         printGenericCostPillar(floors[2]);
@@ -212,7 +212,7 @@ public class CliPrinter {
     /**
      * this method prints pillars for just one tower
      */
-    private void printOneEmptyPillar() {
+    private static void printOneEmptyPillar() {
         System.out.print("|");
         for (int i = 0; i < INSIDE_TOWER_LENGHT; i++)
             System.out.print(" ");
@@ -225,7 +225,7 @@ public class CliPrinter {
     /**
      * This method prints a generic card cost pillar
      */
-    public void printGenericCostPillar(TowerFloorAS floor) {
+    public static void printGenericCostPillar(TowerFloorAS floor) {
         int i = 0;
         ArrayList<Resource> costs;
         StringBuilder tempCostsScene = new StringBuilder("|Cost: ");
@@ -243,7 +243,7 @@ public class CliPrinter {
         printScene(tempCostsScene.toString());
     }
 
-    private void printScene(String toPrintString) {
+    private static void printScene(String toPrintString) {
         int i;
         StringBuilder toPrint = new StringBuilder(toPrintString);
         //then i print the remaining space from cost to .. |
@@ -259,7 +259,7 @@ public class CliPrinter {
     /**
      * this class prints a pillar
      */
-    private void printPillar() {
+    private static void printPillar() {
 
         for (int k = 0; k < 4; k++) {
             System.out.print("|");
@@ -278,7 +278,7 @@ public class CliPrinter {
      * @param board
      * @param c     it's a character that will be printed if we're printing a roof or a ceiling
      */
-    private void printTowerCeiling(Board board, String c) {
+    private static void printTowerCeiling(Board board, String c) {
         int i, k, j;
         int numberOfUnderscore = 34;
         System.out.println();
@@ -303,7 +303,7 @@ public class CliPrinter {
      *
      * @param printed
      */
-    public void printColorTower(String printed) {
+    public static void printColorTower(String printed) {
         int i;
         int temp = 10 - printed.length();
         StringBuilder toPrint = new StringBuilder(printed);
@@ -318,7 +318,7 @@ public class CliPrinter {
      *
      * @param effect is the effect we are
      */
-    public void printImmediateShortEffects(ArrayList<ImmediateEffectInterface> effect) {
+    public static void printImmediateShortEffects(ArrayList<ImmediateEffectInterface> effect) {
         int i, lenght;
         StringBuilder temp = new StringBuilder();
 
@@ -338,7 +338,7 @@ public class CliPrinter {
      *
      * @param effect are the effects that will be printed
      */
-    public void printPermanentEffects(List<AbstractPermanentEffect> effect) {
+    public static void printPermanentEffects(List<AbstractPermanentEffect> effect) {
         int i;
         for (i = 0; i < effect.size(); i++) {
             System.out.print(effect.get(i).getShortDescription());
@@ -350,7 +350,7 @@ public class CliPrinter {
      *
      * @param board it's the game board
      */
-    private void printMarket(Board board) {
+    private static void printMarket(Board board) {
         int i;
         System.out.println("This is the market: ");
         for (i = 0; i < board.getMarket().size(); i++) {
@@ -366,7 +366,7 @@ public class CliPrinter {
      *
      * @param board of the gameBoard
      */
-    private void printBuildAS(Board board) {
+    private static void printBuildAS(Board board) {
         System.out.println("This is Build Action Space: ");
         System.out.println("Standard " + board.getBuild().getDiceRequirement() + ". Malus " + board.getBuild().getValueMalus());
     }
@@ -376,7 +376,7 @@ public class CliPrinter {
      *
      * @param board of the gameBoard
      */
-    private void printHarvestAS(Board board) {
+    private static void printHarvestAS(Board board) {
         System.out.println("This is Harvest Action Space: ");
         System.out.println("Standard " + board.getHarvest().getValueStandard() + ". Malus " + board.getHarvest().getValueMalus());
     }
@@ -386,7 +386,7 @@ public class CliPrinter {
      *
      * @param board is the gameBoard
      */
-    private void printCouncil(Board board) {
+    private static void printCouncil(Board board) {
         System.out.print("This is Council Hall: ");
         System.out.println("Effect " + board.getCouncil().getSpaceDescription());
 
@@ -397,7 +397,7 @@ public class CliPrinter {
      *
      * @param board
      */
-    private void printVaticanReport(Board board) {
+    private static void printVaticanReport(Board board) {
         int i;
         System.out.print(" | ");
         for (i = 0; i < board.getVaticanFaithAge().length; i++) {
@@ -418,14 +418,14 @@ public class CliPrinter {
      *
      * @param lineLenght is the lenght of the line
      */
-    private void printLine(int lineLenght) {
+    private static void printLine(int lineLenght) {
         int i;
         for (i = 0; i < lineLenght; i++)
             System.out.print("-");
         System.out.println("");
     }
 
-    public void printLeadersDeck(LeadersDeck leadersDeck){
+    public static void printLeadersDeck(LeadersDeck leadersDeck){
         leadersDeck.getLeaders().forEach(leader ->System.out.println("**"+leader.getName()+"**"+"\n"
                         +leader.getDescription()+"\n"
                         +"Requirement: "+leader.getRequirements().stream().map(req ->req.getDescription()). collect(Collectors.joining())+"\n"

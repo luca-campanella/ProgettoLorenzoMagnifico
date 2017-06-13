@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
+import it.polimi.ingsw.model.player.FamilyMember;
 
 /**
  * This class is the interface of ModelController on the client
@@ -31,10 +31,9 @@ public interface ControllerCallbackInterface {
 
     /**
      * this method is a callback method called from abstractUiType when a family member is selected
-     * @param color refers to the color of the family member selected.
-     * @param servants the number of servants the user wants to add to the fm
+     * @param selectdFM the family member selected.
      */
-    public void callbackFamilyMemberAndServantsSelected(DiceAndFamilyMemberColorEnum color, int servants);
+    public void callbackFamilyMemberAndServantsSelected(FamilyMember selectdFM);
 
     /**
      * this method allows player to place a family member on a build action space

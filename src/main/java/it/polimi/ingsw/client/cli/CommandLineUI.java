@@ -13,6 +13,7 @@ import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
@@ -283,10 +284,11 @@ public class CommandLineUI extends AbstractUIType {
      * This method will trigger either
      * {@link ControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
+     * @param playableFMs the list of playable family members to make the user choose
      */
     @Override
-    public void askInitialAction() {
-        InitialActionMenu menu = new InitialActionMenu(getController());
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs) {
+        InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs);
 
         pool.submit(menu);
     }

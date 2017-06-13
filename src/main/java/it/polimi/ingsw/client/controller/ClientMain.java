@@ -19,7 +19,6 @@ import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
@@ -217,13 +216,12 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
 
     /**
      * this method is a callback method called from abstractUiType when a family member is selected
-     * @param color refers to the color of the family member selected.
-     * @param servants the number of servants the user wants to add to the fm
+     * @param selectdFM the family member selected.
      */
     @Override
-    public void callbackFamilyMemberAndServantsSelected(DiceAndFamilyMemberColorEnum color, int servants)
+    public void callbackFamilyMemberAndServantsSelected(FamilyMember selectdFM)
     {
-        Debug.printDebug("Sono nel ClientMain.callbackFamilyMember: color = " + color + ", servants = " + servants);
+        Debug.printDebug("Sono nel ClientMain.callbackFamilyMember: color = " + selectdFM.getColor());
         //chiamo il server e gli dico che voglio usare quel family member.
         //il server mi dice quali azioni posso fare
         //chiamerò quindi il mio abstract UIType con un qualcosa riguardante...
@@ -489,6 +487,9 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
 
         //add the coins to the orderOfPlayers based on the order of turn
         modelController.addCoinsStartGame(players);
+
+        //todo this is just for testing
+        //CliPrinter.printBoard(board);
     }
 
     /**
@@ -499,9 +500,15 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
     public void receivedDices(ArrayList<Dice> dices) {
         Debug.printVerbose("receivedDices called");
 
+        dices.forEach(dice -> Debug.printVerbose("Dice " + dice.getValue() + " " + dice.getColor() ));
         modelController.setDice(dices);
 
         modelController.setFamilyMemberDices();
+
+        ArrayList<FamilyMember> playableFMs = thisPlayer.getNotUsedFamilyMembers();
+        for(FamilyMember fmIter : playableFMs) {
+            Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
+        }
     }
 
     /**
@@ -510,7 +517,11 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      */
     public void receivedStartTurnNotification() {
         Debug.printVerbose("receivedStartTurnNotification called");
-        userInterface.askInitialAction();
+        ArrayList<FamilyMember> playableFMs = thisPlayer.getNotUsedFamilyMembers();
+        for(FamilyMember fmIter : playableFMs) {
+            Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
+        }
+        userInterface.askInitialAction(playableFMs);
     }
 }
 

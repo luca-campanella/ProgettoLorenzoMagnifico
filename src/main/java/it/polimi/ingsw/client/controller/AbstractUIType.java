@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
@@ -75,8 +76,9 @@ abstract public class AbstractUIType {
      * This method will trigger either
      * {@link ControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
+     * @param playableFMs the list of playable family members to make the user choose
      */
-    public abstract void askInitialAction();
+    public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs);
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui

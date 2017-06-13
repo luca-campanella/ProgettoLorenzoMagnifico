@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
 
@@ -35,7 +36,7 @@ public class FamilyMember implements Serializable{
         this.dice=dice;
         valueFamilyMember = dice.getValue();
         color= dice.getColor();
-
+        Debug.printVerbose("New family member created" + color + valueFamilyMember + dice.toString());
     }
 
     /**
