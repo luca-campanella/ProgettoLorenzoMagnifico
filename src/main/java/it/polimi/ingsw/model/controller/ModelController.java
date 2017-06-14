@@ -10,12 +10,12 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.model.resource.ResourceCollector;
-import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.model.resource.*;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Optional;
 
 /**
  * This is the controller of one game
@@ -154,61 +154,68 @@ public class ModelController {
     }
 
     /**
-     * this method is used to deliver all the spaces available to the player
-     * @return all the spaces available for this family member
+     * this method is used to deliver all the tower spaces available to the player
+     * @return the coordinates of the tower spaces available for this family member and the servant needed
      */
-    public ArrayList<AbstractActionSpace> spaceAvailable(FamilyMember familyMember){
+    public ArrayList<TowerWrapper> spaceTowerAvailable(FamilyMember familyMember){
+        ArrayList<TowerWrapper> towerWrappers = new ArrayList<>(16);
+        for(int towerIndex = 0 ; towerIndex<4 ; towerIndex++) {
 
-        ArrayList<AbstractActionSpace> space = new ArrayList<>(22);
-
-        if(isHarvestActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)))
-            space.add(gameBoard.getHarvest());
-
-        if(isBuildActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)))
-            space.add(gameBoard.getBuild());
-
-        if(isCouncilActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)))
-            space.add(gameBoard.getBuild());
-
-        for(MarketAS market : gameBoard.getMarket())
-            if(isMarketActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT),market))
-                space.add(market);
-
-        for(Tower tower : gameBoard.getTowers()){
+            Tower tower = gameBoard.getTowers()[towerIndex];
             ArrayList<FamilyMember> familyMembers = new ArrayList<>(4);
-            for(TowerFloorAS towerFloor : tower.getFloors())
-                familyMembers.addAll(towerFloor.getFamilyMembers());
-            for(TowerFloorAS towerFloorAS : tower.getFloors())
-                if(isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT),towerFloorAS, familyMembers))
-                    space.add(towerFloorAS);
+            for (int towerFloor = 0; towerFloor < 4; towerFloor++) {
+                TowerFloorAS towerFloorAs = tower.getFloors()[towerFloor];
+                familyMembers.addAll(towerFloorAs.getFamilyMembers());
+
+                for (TowerFloorAS towerFloorAS : tower.getFloors()) {
+                    Optional<Integer> servantNeeded = isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), towerFloorAS, familyMembers);
+                    if (servantNeeded.isPresent())
+                        towerWrappers.add(new TowerWrapper(towerIndex, towerFloor, servantNeeded.get()));
+                }
+            }
         }
 
-
-        return space;
-
+        return towerWrappers;
     }
+
     /**
-     * this method is used to control if the family member can be placed on the floor of a defined tower
-     * @param familyMember the family member tht the player wants to place
-     * @return the answer of the method, if true the family member can be placed, if false it cannot be placed
+     * this method is used to deliver all the market spaces available to the player
+     * @return the index of the market spaces available for this family member and the servant needed
      */
-    private boolean isPlaceOnTowerFloorLegal(FamilyMember familyMember, int servant, TowerFloorAS towerFloorAS,ArrayList<FamilyMember> familyMembersOnTheTower){
+    public ArrayList<MarketWrapper> spaceMarketAvailable(FamilyMember familyMember) {
+
+        ArrayList<MarketWrapper> marketWrappers = new ArrayList<>(8);
+        for (int marketIndex = 0; marketIndex < gameBoard.getMarket().size(); marketIndex++) {
+            MarketAS market = gameBoard.getMarket().get(marketIndex);
+            Optional<Integer> servantNeeded = isMarketActionLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), market);
+            if (servantNeeded.isPresent())
+                marketWrappers.add(new MarketWrapper(marketIndex, servantNeeded.get()));
+        }
+        return marketWrappers;
+    }
+
+    /**
+     * this method is used to control if the family member can be placed on the floor of a defined tower and the servant needed
+     * @param familyMember the family member tht the player wants to place
+     * @return the index of the space, and the servant needed
+     */
+    private Optional<Integer> isPlaceOnTowerFloorLegal(FamilyMember familyMember, int servant, TowerFloorAS towerFloorAS,ArrayList<FamilyMember> familyMembersOnTheTower){
 
         //control on the input, if the player has that resources and if the place is not available
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
-            return false;
+            return Optional.empty();
         //control on the action space, if the player already has a family member
         if(findFamilyMemberNotNeutral(familyMember.getPlayer(), familyMembersOnTheTower)
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
             //this means that the player has already placed a family member on that action space
-            return false;
+            return Optional.empty();
         //control if the family member has a right value to harvest
         if(servant+familyMember.getValue() +
                 familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())< towerFloorAS.getDiceRequirement())
             //cannot place this family members because the value is too low
-            return false;
+            return Optional.empty();
         ResourceCollector resource = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
         resource.addResource(familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(towerFloorAS.getCard().getColor()));
         resource.subResource(towerFloorAS.getCard().getCost());
@@ -220,9 +227,14 @@ public class ModelController {
         }
 
         //it asks the card if the player can buy it with this resources
-        if(towerFloorAS.getCard().canBuy(resource))
-            return true;
-        return false;
+        if(towerFloorAS.getCard().canBuy(resource)){
+
+            //the result are the servant the player needs to add to put the family member on the space
+            int servantNeeded = familyMember.getValue() + familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor()) - towerFloorAS.getDiceRequirement();
+            if(servantNeeded < 0)
+                servantNeeded = 0;
+            return Optional.of(servantNeeded);}
+        return Optional.empty();
 
     }
 
@@ -242,6 +254,25 @@ public class ModelController {
         player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
         //just adds the family member to the BuildAS
         gameBoard.placeOnTower(familyMember, towerIndex, floorIndex, choicesController);
+    }
+
+    /**
+     * this method is used to control if the family member can move on the harvest and, if possible, the servant needed
+     * @return the servant needed or empty if the move is not valid
+     */
+    public Optional<Integer> spaceHarvestAvailable(FamilyMember familyMember){
+
+        if(isHarvestActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT))){
+            HarvestAS harvestPlace = gameBoard.getHarvest();
+            int servantNeeded = harvestPlace.getValueNeeded() - familyMember.getValue() -
+                    familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest();
+            if(servantNeeded < 0)
+                servantNeeded = 0;
+            return Optional.of(servantNeeded);
+        }
+
+        return Optional.empty();
+
     }
 
     /*
@@ -293,6 +324,30 @@ public class ModelController {
         return false;
     }
 
+    /**
+     * this method is used to control if the family member can move on the build and, if possible, the servant needed
+     * @return the servant needed or empty if the move is not valid
+     */
+    public Optional<Integer> spaceBuildAvailable(FamilyMember familyMember){
+
+        if(isBuildActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT))){
+            BuildAS buildPlace = gameBoard.getBuild();
+            int servantNeeded = buildPlace.getValueNeeded() - familyMember.getValue() -
+                    familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild();
+            if(servantNeeded < 0)
+                servantNeeded = 0;
+            return Optional.of(servantNeeded);
+        }
+
+        return Optional.empty();
+
+    }
+
+    /**
+     * this method is used to control if the move on the build is possible
+     * @param servant the servant the player owns
+     * @return true if the move is possible, false otherwise
+     */
     private boolean isBuildActionLegal(FamilyMember familyMember, int servant){
 
         //control on the input, if the player really has that resources
@@ -351,26 +406,35 @@ public class ModelController {
         player.harvest(familyMember.getValue() + servants, choicesController);
     }
 
-    private boolean isMarketActionLegal(FamilyMember familyMember, int servant,MarketAS spaceMarket){
+    /**
+     * this method is used to control if the family member can be placed on the space merket
+     * @param servant number of servants the player owns
+     * @return the index of the space, and the servant needed
+     */
+    private Optional<Integer> isMarketActionLegal(FamilyMember familyMember, int servant, MarketAS spaceMarket){
 
         //control on the input, if the player really has that resources
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
-            return false;
+            return Optional.empty();
 
         //control on the action space, if the player already has a family member
         if(findFamilyMemberNotNeutral(familyMember.getPlayer(), spaceMarket.getFamilyMembers())
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
             //this means that the player has already placed a family member on that action space
-            return false;
+            return Optional.empty();
         //control if the family member has a right value to build
         if(servant+familyMember.getValue() +
                 familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild() < spaceMarket.getDiceRequirement())
             //cannot place this familymembers because the value is too low
-            return false;
+            return Optional.empty();
+        int servantNeeded = spaceMarket.getDiceRequirement() - familyMember.getValue() -
+                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild();
 
-        return true;
+        if(servantNeeded < 0)
+            servantNeeded = 0;
+        return Optional.of(servantNeeded);
     }
     /**
      * This method performs the real action on the model when the player places a FM on a market space
@@ -397,6 +461,24 @@ public class ModelController {
         player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
 
         gameBoard.placeOnMarket(familyMember, marketSpaceIndex, choicesController);
+    }
+
+    /**
+     * this method is used to control if the family member can move on the harvest and, if possible, the servant needed
+     * @return the servant needed or empty if the move is not valid
+     */
+    public Optional<Integer> spaceCouncilAvailable(FamilyMember familyMember){
+
+        if(isCouncilActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT))){
+            CouncilAS councilPlace = gameBoard.getCouncil();
+            int servantNeeded = councilPlace.getDiceRequirement()- familyMember.getValue();
+            if(servantNeeded < 0)
+                servantNeeded = 0;
+            return Optional.of(servantNeeded);
+        }
+
+        return Optional.empty();
+
     }
 
     /**
