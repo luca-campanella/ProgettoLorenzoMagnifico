@@ -10,6 +10,7 @@ import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
+import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -116,10 +117,12 @@ public class CommandLineUI extends AbstractUIType {
 
     /**
      * this method prints all allowed actions for the user.
+     * @param legalActionSpaces
      */
-    public void printAllowedActions(){
-        Debug.printDebug("Sono in CLI.printAllowedActions()");
-        System.out.println("I wanna print all the actions available");
+    public void askWhichActionSpace(List<AbstractActionSpace> legalActionSpaces){
+        Debug.printDebug("I'm in CLI.printAllowedActions()");
+
+
     }
     /**
      * this method helps selectFamilyMember()'s method return if the color user wrote is right or not

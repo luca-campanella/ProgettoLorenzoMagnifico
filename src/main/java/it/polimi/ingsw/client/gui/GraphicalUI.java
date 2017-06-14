@@ -7,6 +7,7 @@ package it.polimi.ingsw.client.gui;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
+import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -40,8 +41,9 @@ public class GraphicalUI extends AbstractUIType {
     }
     /**
      * this method prints all allowed actions for the user.
+     * @param legalActionSpaces
      */
-    public void printAllowedActions(){
+    public void askWhichActionSpace(List<AbstractActionSpace> legalActionSpaces){
         Debug.printDebug("Sono in CLI.printAllowedActions()");
         System.out.println("Stampo tutte le azioni disponibili dell'utente");
     }
@@ -62,7 +64,7 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
-     * {@link ControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
+     * {@link ControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
      *
      * @param playableFMs the list of playable family members to make the user choose

@@ -219,13 +219,13 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      * @param selectdFM the family member selected.
      */
     @Override
-    public void callbackFamilyMemberAndServantsSelected(FamilyMember selectdFM)
+    public void callbackFamilyMemberSelected(FamilyMember selectdFM)
     {
         Debug.printDebug("Sono nel ClientMain.callbackFamilyMember: color = " + selectdFM.getColor());
-        //chiamo il server e gli dico che voglio usare quel family member.
-        //il server mi dice quali azioni posso fare
-        //chiamerò quindi il mio abstract UIType con un qualcosa riguardante...
-        userInterface.printAllowedActions();
+
+        familyMemberCurrentAction = selectdFM;
+
+        userInterface.askWhichActionSpace(modelController.spaceAvailable(familyMemberCurrentAction));
     }
 
     /**
