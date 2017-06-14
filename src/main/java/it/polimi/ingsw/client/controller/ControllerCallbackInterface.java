@@ -33,7 +33,7 @@ public interface ControllerCallbackInterface {
      * this method is a callback method called from abstractUiType when a family member is selected
      * @param selectdFM the family member selected.
      */
-    public void callbackFamilyMemberAndServantsSelected(FamilyMember selectdFM);
+    public void callbackFamilyMemberSelected(FamilyMember selectdFM);
 
     /**
      * this method allows player to place a family member on a build action space

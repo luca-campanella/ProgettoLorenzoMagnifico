@@ -26,13 +26,10 @@ public class InitialActionMenu extends BasicCLIMenu {
         CliOptionsHandler leaderChooser = new CliOptionsHandler(playableFMs.size());
 
         for(FamilyMember fmIter : playableFMs) {
-            Debug.printVerbose("Adding option" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
             leaderChooser.addOption("Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
         }
 
-        //Todo coherently with leaders available
-
-        getController().callbackFamilyMemberAndServantsSelected(playableFMs.get(leaderChooser.askUserChoice()));
+        getController().callbackFamilyMemberSelected(playableFMs.get(leaderChooser.askUserChoice()));
     }
 
     private void discardLeader() {

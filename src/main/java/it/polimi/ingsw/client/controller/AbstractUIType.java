@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.cli.CommandLineUI;
+import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -45,8 +46,14 @@ abstract public class AbstractUIType {
     abstract public void loginFailure(String failureReason);
     //Selects a family member
     abstract public void selectFamilyMember();
-    //This method prints allowed actions
-    abstract public void printAllowedActions();
+
+
+    /**
+     * This method asks the user to pick one of the action spaces to put his family member in
+     * Direction: {@link ClientMain} -> {@link AbstractUIType}
+     * @param legalActionSpaces the list of the legal action spaces
+     */
+    abstract public void askWhichActionSpace(List<AbstractActionSpace> legalActionSpaces);
 
     /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error
