@@ -168,9 +168,13 @@ public class ModelController {
                 familyMembers.addAll(towerFloorAs.getFamilyMembers());
 
                 for (TowerFloorAS towerFloorAS : tower.getFloors()) {
-                    Optional<Integer> servantNeeded = isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), towerFloorAS, familyMembers);
-                    if (servantNeeded.isPresent())
-                        towerWrappers.add(new TowerWrapper(towerIndex, towerFloor, servantNeeded.get()));
+                    if(isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), towerFloorAS, familyMembers)){
+                        int servantNeeded = towerFloorAS.getDiceRequirement() - familyMember.getValue() -
+                            familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor()) ;
+                        if (servantNeeded < 0)
+                            servantNeeded = 0;
+
+                        towerWrappers.add(new TowerWrapper(towerIndex, towerFloor, servantNeeded));}
                 }
             }
         }
@@ -187,35 +191,40 @@ public class ModelController {
         ArrayList<MarketWrapper> marketWrappers = new ArrayList<>(8);
         for (int marketIndex = 0; marketIndex < gameBoard.getMarket().size(); marketIndex++) {
             MarketAS market = gameBoard.getMarket().get(marketIndex);
-            Optional<Integer> servantNeeded = isMarketActionLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), market);
-            if (servantNeeded.isPresent())
-                marketWrappers.add(new MarketWrapper(marketIndex, servantNeeded.get()));
+            if(isMarketActionLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), market)){
+            int servantNeeded = market.getDiceRequirement() - familyMember.getValue() -
+                    familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild();
+            if (servantNeeded < 0)
+                servantNeeded = 0;
+
+            marketWrappers.add(new MarketWrapper(marketIndex, servantNeeded));
+            }
         }
         return marketWrappers;
     }
 
     /**
-     * this method is used to control if the family member can be placed on the floor of a defined tower and the servant needed
+     * this method is used to control if the family member can be placed on the floor of a defined tower
      * @param familyMember the family member tht the player wants to place
-     * @return the index of the space, and the servant needed
+     * @return true if the move is available, false otherwise
      */
-    private Optional<Integer> isPlaceOnTowerFloorLegal(FamilyMember familyMember, int servant, TowerFloorAS towerFloorAS,ArrayList<FamilyMember> familyMembersOnTheTower){
+    private boolean isPlaceOnTowerFloorLegal(FamilyMember familyMember, int servant, TowerFloorAS towerFloorAS,ArrayList<FamilyMember> familyMembersOnTheTower){
 
         //control on the input, if the player has that resources and if the place is not available
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
-            return Optional.empty();
+            return false;
         //control on the action space, if the player already has a family member
         if(findFamilyMemberNotNeutral(familyMember.getPlayer(), familyMembersOnTheTower)
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
             //this means that the player has already placed a family member on that action space
-            return Optional.empty();
+            return false;
         //control if the family member has a right value to harvest
         if(servant+familyMember.getValue() +
                 familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())< towerFloorAS.getDiceRequirement())
             //cannot place this family members because the value is too low
-            return Optional.empty();
+            return false;
         ResourceCollector resource = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
         resource.addResource(familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(towerFloorAS.getCard().getColor()));
         resource.subResource(towerFloorAS.getCard().getCost());
@@ -227,14 +236,9 @@ public class ModelController {
         }
 
         //it asks the card if the player can buy it with this resources
-        if(towerFloorAS.getCard().canBuy(resource)){
-
-            //the result are the servant the player needs to add to put the family member on the space
-            int servantNeeded = familyMember.getValue() + familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor()) - towerFloorAS.getDiceRequirement();
-            if(servantNeeded < 0)
-                servantNeeded = 0;
-            return Optional.of(servantNeeded);}
-        return Optional.empty();
+        if(towerFloorAS.getCard().canBuy(resource))
+            return true;
+        return false;
 
     }
 
@@ -411,30 +415,25 @@ public class ModelController {
      * @param servant number of servants the player owns
      * @return the index of the space, and the servant needed
      */
-    private Optional<Integer> isMarketActionLegal(FamilyMember familyMember, int servant, MarketAS spaceMarket){
+    private boolean isMarketActionLegal(FamilyMember familyMember, int servant, MarketAS spaceMarket){
 
         //control on the input, if the player really has that resources
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
             //this means that the player doesn't has the resources that claimed to have, this is cheating
-            return Optional.empty();
+            return false;
 
         //control on the action space, if the player already has a family member
         if(findFamilyMemberNotNeutral(familyMember.getPlayer(), spaceMarket.getFamilyMembers())
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
             //this means that the player has already placed a family member on that action space
-            return Optional.empty();
+            return false;
         //control if the family member has a right value to build
         if(servant+familyMember.getValue() +
                 familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild() < spaceMarket.getDiceRequirement())
             //cannot place this familymembers because the value is too low
-            return Optional.empty();
-        int servantNeeded = spaceMarket.getDiceRequirement() - familyMember.getValue() -
-                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild();
-
-        if(servantNeeded < 0)
-            servantNeeded = 0;
-        return Optional.of(servantNeeded);
+            return false;
+        return true;
     }
     /**
      * This method performs the real action on the model when the player places a FM on a market space
