@@ -33,9 +33,9 @@ public class Player implements Serializable{
 
     //private PersonalTile personalTile = null; MOVED TO PERSONALBOARD
 
-    //private ArrayList<LeaderCard> leaderCard;
+    private ArrayList<LeaderCard> leaderCard;
 
-    //private ArrayList<LeaderCard> playedLeaderCard;
+    private ArrayList<LeaderCard> playedLeaderCard;
 
     //private ArrayList<ExcommuncationCard> excommuncationCard;
 
@@ -182,16 +182,16 @@ public class Player implements Serializable{
         personalBoard.addCard(card);
     }
 
-    /*public void addLeaderCard(LeaderCard leaderCard){
+    public void addLeaderCard(LeaderCard leaderCard){
 
         this.leaderCard.add(leaderCard);
     }
 
-    public ArrayList<LeaderCard> viewLeaderCard(){
+    public ArrayList<LeaderCard> getLeaderCard(){
 
         return leaderCard;
     }
-
+/*
     public void activateLeaderCard(LeaderCard leaderCard){
 
         this.leaderCard.remove(leaderCard);

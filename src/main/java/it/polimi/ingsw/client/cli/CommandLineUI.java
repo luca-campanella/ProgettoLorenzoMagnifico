@@ -52,7 +52,7 @@ public class CommandLineUI extends AbstractUIType {
     {
         Debug.printDebug("I am in CLI. Select NetworkType");
         NetworkTypeEnum choice;
-        while(true)
+        /*while(true)
         {
             System.out.println("Choose rmi or socket.");
             tmpInput = inputScanner.nextLine();
@@ -65,7 +65,9 @@ public class CommandLineUI extends AbstractUIType {
             break;
         }
 
-        }
+        }*/
+        //TODO delete this
+        choice = NetworkTypeEnum.SOCKET;
         getController().callbackNetworkType(choice);
     }
 
@@ -163,7 +165,8 @@ public class CommandLineUI extends AbstractUIType {
         while(true)
         {
             System.out.println("Do you want to Create a new account, or LogIn into an old one? Write Create, or Login");
-            tmpInput = inputScanner.nextLine();
+            //tmpInput = inputScanner.nextLine();
+            tmpInput = "login";
             if(tmpInput.equalsIgnoreCase("Create")){
                 usrAndPwd = readUsrPwd();
                 getController().callbackCreateAccount(usrAndPwd.getNickname(), usrAndPwd.getPassword());
@@ -302,7 +305,6 @@ public class CommandLineUI extends AbstractUIType {
     /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
-     * {@link ControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
      * @param playableFMs the list of playable family members to make the user choose
      */

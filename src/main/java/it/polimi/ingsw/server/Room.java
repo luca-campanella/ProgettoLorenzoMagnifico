@@ -379,10 +379,16 @@ public class Room {
         }
     }
 
-    public void receiveLeaderCards(String nameLeader, AbstractConnectionPlayer player) {
+    public void receiveLeaderCards(LeaderCard leaderCard, AbstractConnectionPlayer player) {
 
-        controllerGame.choiceLeaderCard(nameLeader,player);
-        //cardToPlayer.remove(leaderCard);
+        controllerGame.choiceLeaderCard(leaderCard,player);
+        for(LeaderCard card : cardToPlayer){
+            if(card.getName().equals(leaderCard.getName())) {
+                cardToPlayer.remove(card);
+                break;
+            }
+        }
+
         deliverLeaderCardsToPlayers();
 
     }

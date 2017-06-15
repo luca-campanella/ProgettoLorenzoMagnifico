@@ -156,6 +156,7 @@ public class ControllerGame {
         startNewGame();
         room.receiveStartGameBoard(boardGame);
         deliverDices(modelController.getDices());
+        initiateLeaderChoice();
         numberOfTurn = 0;
         numberOfRound = 1;
         playerChoices = new HashMap<>(10);
@@ -372,13 +373,30 @@ public class ControllerGame {
 
     /**
      * this method is used to deliver the leader cards to the players
-     * @param leaderCards
      */
-    private void initiateLeaderChoice(ArrayList<LeaderCard> leaderCards){
+    private void initiateLeaderChoice(){
+
+        ArrayList<LeaderCard> cardsInTheDeck = leadersDeck.getLeaders();
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>(4*numberOfPlayers);
+        Random random = new Random();
+        for(int i = 0 ; i< 4*numberOfPlayers ; i++){
+            int index = random.nextInt(cardsInTheDeck.size());
+            leaderCards.add(cardsInTheDeck.get(index));
+            cardsInTheDeck.remove(index);
+        }
+
         room.initiateLeaderChoice(leaderCards);
     }
 
-    public void choiceLeaderCard(String nameLeader, AbstractConnectionPlayer player) {
+    /**
+     * this method is called by the room to deliver the leader card the player had chosen
+     * @param leaderCard the leade card chose
+     * @param player the player that had done the choice
+     */
+    public void choiceLeaderCard(LeaderCard leaderCard, AbstractConnectionPlayer player) {
+
+        modelController.addLeaderCardToPlayer(leaderCard, player);
+
     }
 }
 
