@@ -161,7 +161,6 @@ public class ControllerGame {
         numberOfRound = 1;
         playerChoices = new HashMap<>(10);
 
-        room.playersTurn(orderOfPlayers.get(0));
     }
 
     /**
@@ -397,6 +396,13 @@ public class ControllerGame {
 
         modelController.addLeaderCardToPlayer(leaderCard, player);
 
+    }
+
+    /**
+     * this method is called by the room when all the leader cards are chosen by the player
+     */
+    public void choseAllTheLeadersCards() {
+        room.playersTurn(orderOfPlayers.get(0));
     }
 }
 

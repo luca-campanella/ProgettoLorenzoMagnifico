@@ -352,8 +352,9 @@ public class Room {
 
     private void deliverLeaderCardsToPlayers(){
 
-        if(cardToPlayer.size() == 0)
-            return;
+        if(cardToPlayer.size() == 0){
+            controllerGame.choseAllTheLeadersCards();
+            return;}
         if(cardToPlayer.size()%players.size() != 0)
             return;
         int index = 0;
