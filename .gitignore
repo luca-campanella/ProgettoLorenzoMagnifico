@@ -16,3 +16,4 @@ bin/
 #ignore javadoc folder
 /Javadoc
 /javadoc
+users.db

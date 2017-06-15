@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.cli;
 import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.TowerWrapper;
+import it.polimi.ingsw.utils.Debug;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,22 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
     }
 
     private void placeFMOnMarket() {
+
+        Debug.printVerbose("placeFMOnMarket");
+        int indexRes = 0;
+        if(activeMarketSpaces.size() == 1) {
+            System.out.println("You can only place on space n " + activeMarketSpaces.get(0).getMarketIndex() + "with " + activeMarketSpaces.get(0).getServantNeeded() + "servants needed");
+            System.out.println("I'm placing it over there");
+            indexRes = activeMarketSpaces.get(0).getMarketIndex();
+        } else { //we have to ask the user for a choice
+            CliOptionsHandler marketSpaceChooser = new CliOptionsHandler(activeMarketSpaces.size());
+
+            for (MarketWrapper maketIter : activeMarketSpaces) {
+                marketSpaceChooser.addOption("Place on market action space n " + maketIter.getMarketIndex() + "with " + maketIter.getServantNeeded() + "servants needed");
+            }
+            indexRes = activeMarketSpaces.get(marketSpaceChooser.askUserChoice()).getMarketIndex();
+        }
+        getController().callbackPlacedFMOnMarket(indexRes);
 
     }
 

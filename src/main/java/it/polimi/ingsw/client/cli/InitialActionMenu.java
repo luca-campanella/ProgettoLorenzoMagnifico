@@ -13,7 +13,7 @@ public class InitialActionMenu extends BasicCLIMenu {
     ArrayList<FamilyMember> playableFMs;
 
     public InitialActionMenu(ControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs) {
-        super("it's your turn, please select the action you want to perform by tiping the corresponding abbreviation", controller);
+        super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
         this.playableFMs = playableFMs;
         addOption("FM", "Place a Family Member on an action space", () -> this.placeFamilyMember());
         addOption("DL", "Discard a Leader", () -> this.discardLeader());
@@ -22,14 +22,22 @@ public class InitialActionMenu extends BasicCLIMenu {
     }
 
     private void placeFamilyMember() {
-        Debug.printVerbose("placeFamilyMember called");
-        CliOptionsHandler leaderChooser = new CliOptionsHandler(playableFMs.size());
 
-        for(FamilyMember fmIter : playableFMs) {
-            leaderChooser.addOption("Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
+        int indexRes = 0;
+        if(playableFMs.size() == 1) {
+            System.out.println("You can only place family member " + playableFMs.get(0).getColor() + " with value " + playableFMs.get(0).getValue());
+            System.out.println("I'm placing this family member");
+            indexRes = 0;
+        } else {
+            Debug.printVerbose("placeFamilyMember called");
+            CliOptionsHandler familyMemberChooser = new CliOptionsHandler(playableFMs.size());
+
+            for (FamilyMember fmIter : playableFMs) {
+                familyMemberChooser.addOption("Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
+            }
+            indexRes = familyMemberChooser.askUserChoice();
         }
-
-        getController().callbackFamilyMemberSelected(playableFMs.get(leaderChooser.askUserChoice()));
+        getController().callbackFamilyMemberSelected(playableFMs.get(indexRes));
     }
 
     private void discardLeader() {

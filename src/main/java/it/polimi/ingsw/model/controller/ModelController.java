@@ -156,30 +156,36 @@ public class ModelController {
      * this method is used to deliver all the tower spaces available to the player
      * @return the coordinates of the tower spaces available for this family member and the servant needed
      */
-    public List<TowerWrapper> spaceTowerAvailable(FamilyMember familyMember){
-        Debug.printDebug("spaceTowerAvailable");
+    public ArrayList<TowerWrapper> spaceTowerAvailable(FamilyMember familyMember){
+        Debug.printDebug("spaceTowerCalled");
 
-        LinkedList<TowerWrapper> towerWrappers = new LinkedList<TowerWrapper>();
+        ArrayList<TowerWrapper> towerWrappers = new ArrayList<>(16);
         for(int towerIndex = 0 ; towerIndex<4 ; towerIndex++) {
 
             Tower tower = gameBoard.getTowers()[towerIndex];
             ArrayList<FamilyMember> familyMembers = new ArrayList<>(4);
-            for (int towerFloor = 0; towerFloor < 4; towerFloor++) {
-                TowerFloorAS towerFloorAs = tower.getFloors()[towerFloor];
-                familyMembers.addAll(towerFloorAs.getFamilyMembers());
+            for (TowerFloorAS towerFloorAS : tower.getFloors()) {
 
-                for (TowerFloorAS towerFloorAS : tower.getFloors()) {
-                    if(isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), towerFloorAS, familyMembers)){
-                        int servantNeeded = towerFloorAS.getDiceRequirement() - familyMember.getValue() -
-                            familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor()) ;
-                        if (servantNeeded < 0)
-                            servantNeeded = 0;
-
-                        towerWrappers.add(new TowerWrapper(towerIndex, towerFloor, servantNeeded));}
-                }
+                familyMembers.addAll(towerFloorAS.getFamilyMembers());
             }
+
+            for (int towerFloor = 0; towerFloor < 4; towerFloor++) {
+
+                TowerFloorAS towerFloorAs = tower.getFloors()[towerFloor];
+                if(isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), towerFloorAs, familyMembers)){
+                    int servantNeeded = towerFloorAs.getDiceRequirement() - familyMember.getValue() -
+                            familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAs.getCard().getColor()) ;
+                    if (servantNeeded < 0)
+                        servantNeeded = 0;
+
+                    towerWrappers.add(new TowerWrapper(towerIndex, towerFloor, servantNeeded));}
+            }
+
+            familyMembers.clear();
+
         }
-        Debug.printDebug("spaceTowerAvailableRETURNED");
+        Debug.printDebug("spaceTowerRETURNED");
+
         return towerWrappers;
     }
 
