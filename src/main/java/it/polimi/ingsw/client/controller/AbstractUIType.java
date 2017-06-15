@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.cli.CommandLineUI;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.MarketWrapper;
@@ -119,5 +120,11 @@ abstract public class AbstractUIType {
      */
     public abstract int askPurpleVentureCardCostChoice(List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary);
 
+    /**
+     * This method is called at the beginning of the game to choose one leader card
+     * This method should be non-blocking
+     * @param leaderCards the list of resources the player will pay if he chooses this option
+     */
+    public abstract void askLeaderCards(ArrayList<LeaderCard> leaderCards);
 }
 

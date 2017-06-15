@@ -520,7 +520,7 @@ public class SocketClient extends AbstractClientType {
 
         try{
             LeaderChoicePacket packet = (LeaderChoicePacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedLeaderCards(packet.getLeaderCards());
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("ERROR: client can not receive the leader cards",e);
