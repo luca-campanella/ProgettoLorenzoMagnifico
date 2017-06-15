@@ -225,7 +225,13 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
 
         familyMemberCurrentAction = selectdFM;
 
-        //userInterface.askWhichActionSpace(modelController.spaceAvailable(familyMemberCurrentAction));
+        userInterface.askWhichActionSpace(modelController.spaceHarvestAvailable(familyMemberCurrentAction),
+                modelController.spaceBuildAvailable(familyMemberCurrentAction),
+                modelController.spaceCouncilAvailable(familyMemberCurrentAction),
+                modelController.spaceMarketAvailable(familyMemberCurrentAction),
+                modelController.spaceTowerAvailable(familyMemberCurrentAction));
+        Debug.printDebug("Chiamata ritorna a callbackFM");
+
     }
 
     /**

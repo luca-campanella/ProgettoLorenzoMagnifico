@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.cli;
 
 import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
+import it.polimi.ingsw.utils.Debug;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 /**
  * Created by campus on 11/06/2017.
  */
-public class BasicCLIMenu implements Runnable {
+public abstract class BasicCLIMenu implements Runnable {
 
     private HashMap<String, DescrCallbackContainer> optionsMap;
 
@@ -20,6 +21,7 @@ public class BasicCLIMenu implements Runnable {
         this.initialMenu = initialMenu;
         this.controller = controller;
         optionsMap = new HashMap<String, DescrCallbackContainer>();
+        Debug.printDebug("BasicCLIMenu constructor");
     }
 
     public void addOption(String abbrev, String descr, CallbackFunction callbackFunction) {
@@ -31,6 +33,7 @@ public class BasicCLIMenu implements Runnable {
      */
     @Override
     public void run() {
+        Debug.printVerbose("Process Started");
         //TODO make a singleton fot the input stream, bad practice to open multiple scanner on the same stream
         Scanner cin = new Scanner(System.in);
         printMenu();

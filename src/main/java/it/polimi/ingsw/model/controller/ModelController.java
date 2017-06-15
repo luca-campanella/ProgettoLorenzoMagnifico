@@ -2,8 +2,6 @@ package it.polimi.ingsw.model.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.*;
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -11,10 +9,11 @@ import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.*;
+import it.polimi.ingsw.utils.Debug;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -158,6 +157,8 @@ public class ModelController {
      * @return the coordinates of the tower spaces available for this family member and the servant needed
      */
     public ArrayList<TowerWrapper> spaceTowerAvailable(FamilyMember familyMember){
+        Debug.printDebug("spaceTowerCalled");
+
         ArrayList<TowerWrapper> towerWrappers = new ArrayList<>(16);
         for(int towerIndex = 0 ; towerIndex<4 ; towerIndex++) {
 
@@ -183,6 +184,7 @@ public class ModelController {
             familyMembers.clear();
 
         }
+        Debug.printDebug("spaceTowerRETURNED");
 
         return towerWrappers;
     }
@@ -191,9 +193,10 @@ public class ModelController {
      * this method is used to deliver all the market spaces available to the player
      * @return the index of the market spaces available for this family member and the servant needed
      */
-    public ArrayList<MarketWrapper> spaceMarketAvailable(FamilyMember familyMember) {
+    public List<MarketWrapper> spaceMarketAvailable(FamilyMember familyMember) {
+        Debug.printDebug("spaceMarketAvailable");
 
-        ArrayList<MarketWrapper> marketWrappers = new ArrayList<>(8);
+        LinkedList<MarketWrapper> marketWrappers = new LinkedList<MarketWrapper>();
         for (int marketIndex = 0; marketIndex < gameBoard.getMarket().size(); marketIndex++) {
             MarketAS market = gameBoard.getMarket().get(marketIndex);
             if(isMarketActionLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), market)){
@@ -205,6 +208,8 @@ public class ModelController {
             marketWrappers.add(new MarketWrapper(marketIndex, servantNeeded));
             }
         }
+        Debug.printDebug("spaceMarketRETURNED");
+
         return marketWrappers;
     }
 
@@ -256,6 +261,7 @@ public class ModelController {
      * @param floorIndex the floor to place the family member to
      */
     public void placeOnTower(FamilyMember familyMember, int servants, int towerIndex, int floorIndex){
+
         Player player = familyMember.getPlayer();
 
         //set the family member as used in the player
@@ -270,16 +276,18 @@ public class ModelController {
      * @return the servant needed or empty if the move is not valid
      */
     public Optional<Integer> spaceHarvestAvailable(FamilyMember familyMember){
-
+        Debug.printDebug("spaceHarvestAvailable");
         if(isHarvestActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT))){
             HarvestAS harvestPlace = gameBoard.getHarvest();
             int servantNeeded = harvestPlace.getValueNeeded() - familyMember.getValue() -
                     familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest();
             if(servantNeeded < 0)
                 servantNeeded = 0;
+            Debug.printDebug("spaceHarvestAvailableRETURNED");
             return Optional.of(servantNeeded);
         }
 
+        Debug.printDebug("spaceHarvestAvailableRETURNED");
         return Optional.empty();
 
     }
@@ -338,6 +346,7 @@ public class ModelController {
      * @return the servant needed or empty if the move is not valid
      */
     public Optional<Integer> spaceBuildAvailable(FamilyMember familyMember){
+        Debug.printDebug("spaceBuildAvailable");
 
         if(isBuildActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT))){
             BuildAS buildPlace = gameBoard.getBuild();
@@ -345,8 +354,12 @@ public class ModelController {
                     familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild();
             if(servantNeeded < 0)
                 servantNeeded = 0;
+            Debug.printDebug("spaceBuildAvailableRETURNED");
+
             return Optional.of(servantNeeded);
         }
+
+        Debug.printDebug("spaceBuildAvailableRETURNED");
 
         return Optional.empty();
 
@@ -472,15 +485,16 @@ public class ModelController {
      * @return the servant needed or empty if the move is not valid
      */
     public Optional<Integer> spaceCouncilAvailable(FamilyMember familyMember){
-
+        Debug.printDebug("spaceCouncilAvailable");
         if(isCouncilActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT))){
             CouncilAS councilPlace = gameBoard.getCouncil();
             int servantNeeded = councilPlace.getDiceRequirement()- familyMember.getValue();
             if(servantNeeded < 0)
                 servantNeeded = 0;
+            Debug.printDebug("spaceCouncilAvailableRETURNED");
             return Optional.of(servantNeeded);
         }
-
+        Debug.printDebug("spaceCouncilAvailableRETURNED");
         return Optional.empty();
 
     }

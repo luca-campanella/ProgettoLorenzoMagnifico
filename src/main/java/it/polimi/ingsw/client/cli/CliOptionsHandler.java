@@ -80,6 +80,10 @@ public class CliOptionsHandler {
      */
     public int askUserChoice(){
         int numberPicked;
+
+        if(options.size() == 1) //if the user has no choices we return immediately
+            return 0;
+
         System.out.println("Select an option typing the corresponding number");
         for(int i = 0; i< options.size(); i++)
             System.out.println(i + "--- " + options.get(i));

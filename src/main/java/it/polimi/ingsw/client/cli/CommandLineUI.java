@@ -10,19 +10,17 @@ import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
-import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 //TODO
@@ -116,14 +114,33 @@ public class CommandLineUI extends AbstractUIType {
     }
 
     /**
-     * this method prints all allowed actions for the user.
-     * @param legalActionSpaces
+     * This method asks the user to pick one of the action spaces to put his family member in
+     * Direction: {@link ClientMain} -> {@link AbstractUIType}
+     * @param servantsNeededHarvest The servants needed by the user to harvest, Optional.empty() if the action is not valid
+     * @param servantsNeededBuild The servants needed by the user to build, Optional.empty() if the action is not valid
+     * @param servantsNeededCouncil The servants needed by the user to place on cuincil, Optional.empty() if the action is not valid
+     * @param activeMarketSpaces The list of legal action spaces in the market
+     * @param activeTowerSpaces the list of legal action spaces on the towers
      */
-    public void askWhichActionSpace(List<AbstractActionSpace> legalActionSpaces){
-        Debug.printDebug("I'm in CLI.printAllowedActions()");
+    @Override
+    public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest,
+                                             Optional<Integer> servantsNeededBuild,
+                                             Optional<Integer> servantsNeededCouncil,
+                                             List<MarketWrapper> activeMarketSpaces,
+                                             List<TowerWrapper> activeTowerSpaces) {
+        System.err.println("AskWhichAction space called");
+        ActionSpacePickerMenu menu = new ActionSpacePickerMenu(getController(),
+                                                                 servantsNeededHarvest,
+                                                                 servantsNeededBuild,
+                                                                 servantsNeededCouncil,
+                                                                 activeMarketSpaces,
+                                                                 activeTowerSpaces);
 
+        Debug.printVerbose("Right before submit");
+        pool.submit(menu);
 
     }
+
     /**
      * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
      * this method should also receive the familyMembers list to match the input.
