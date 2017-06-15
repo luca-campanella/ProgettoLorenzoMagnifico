@@ -375,7 +375,9 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void askLeaderCards(ArrayList<LeaderCard> leaderCards){
-        //todo aske user for choice
+        LeaderPickerMenu menu = new LeaderPickerMenu(getController(), leaderCards);
+
+        pool.submit(menu);
     }
 
 }

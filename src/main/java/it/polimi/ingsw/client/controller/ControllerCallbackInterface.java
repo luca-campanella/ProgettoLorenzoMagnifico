@@ -73,5 +73,5 @@ public interface ControllerCallbackInterface {
      */
     public void callbackSendChatMsg(String msg) throws NetworkException;
 
-    void callbackOnLeaderCardChosen(LeaderCard leaderCardChoice);
+    public void callbackOnLeaderCardChosen(LeaderCard leaderCardChoice);
 }
