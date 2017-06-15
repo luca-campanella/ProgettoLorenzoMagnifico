@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 
 /**
@@ -72,4 +73,5 @@ public interface ControllerCallbackInterface {
      */
     public void callbackSendChatMsg(String msg) throws NetworkException;
 
+    void callbackOnLeaderCardChosen(LeaderCard leaderCardChoice);
 }

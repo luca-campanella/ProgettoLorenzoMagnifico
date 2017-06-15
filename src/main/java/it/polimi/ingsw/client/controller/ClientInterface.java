@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 
 import java.util.ArrayList;
 
@@ -46,4 +47,12 @@ public interface ClientInterface {
      * to notify that the player is in turn and should move
      */
     public void receivedStartTurnNotification();
+
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that the has to pick a leader card between the ones proposed
+     * @param leaderCards options
+     */
+    void receivedLeaderCards(ArrayList<LeaderCard> leaderCards);
 }

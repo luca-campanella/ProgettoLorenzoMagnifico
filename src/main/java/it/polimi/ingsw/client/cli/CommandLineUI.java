@@ -13,6 +13,7 @@ import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
@@ -365,6 +366,16 @@ public class CommandLineUI extends AbstractUIType {
         optionsHandler.addOption("Pay " + costChoiceMilitary.getResourceCost().getResourceFullDescript() + "(you fulfill the requirement of " + costChoiceMilitary.getResourceRequirement().getResourceFullDescript());
         int choice = optionsHandler.askUserChoice();
         return choice;
+    }
+
+    /**
+     * This method is called at the beginning of the game to choose one leader card
+     * This method should be non-blocking
+     * @param leaderCards the list of resources the player will pay if he chooses this option
+     */
+    @Override
+    public void askLeaderCards(ArrayList<LeaderCard> leaderCards){
+        //todo aske user for choice
     }
 
 }
