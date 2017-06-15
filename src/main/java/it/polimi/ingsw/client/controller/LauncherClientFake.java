@@ -35,6 +35,7 @@ public class LauncherClientFake {
         while(true){
             System.out.println("Do you want to use CLI or gui?");
             //input = inputScanner.nextLine();
+            //TODO delete this
             input ="cli";
 
             //inputScanner.close();

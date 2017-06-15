@@ -359,7 +359,7 @@ public class Room {
         int index = 0;
 
        // numberOfTimesTheChoiceIsDone is the number of times the round of choices of the leaders
-        for(int numberOfTimesTheChoiceIsDone = players.size()-(cardToPlayer.size()/players.size()) ; index < cardToPlayer.size() ; numberOfTimesTheChoiceIsDone++ ){
+        for(int numberOfTimesTheChoiceIsDone = 4*players.size()-(cardToPlayer.size()/players.size()) ; index < cardToPlayer.size() ; numberOfTimesTheChoiceIsDone++ ){
             AbstractConnectionPlayer player = players.get(numberOfTimesTheChoiceIsDone%players.size());
             int numberCardToDeliver = cardToPlayer.size()/players.size();
             ArrayList<LeaderCard> cardToDeliver = new ArrayList<>(4);
@@ -369,7 +369,7 @@ public class Room {
 
             }
             try{
-                player.receiveLeaderCards(cardToPlayer);
+                player.receiveLeaderCards(cardToDeliver);
                 cardToDeliver.clear();
             }
             catch (NetworkException e){

@@ -48,6 +48,7 @@ public class ReadServerPacketProtocol {
         instruction.put(PacketType.START_TURN, ()-> client.startTurn());
         instruction.put(PacketType.ORDER_PLAYERS, ()-> client.receiveOrderPlayers());
         instruction.put(PacketType.NICKNAME, ()-> client.receiveClientNickname());
+        instruction.put(PacketType.LEADER_CHOICES, ()-> client.receiveLeaderCards());
     }
 
     /**

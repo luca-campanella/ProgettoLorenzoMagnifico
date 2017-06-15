@@ -4,12 +4,13 @@ import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.AbstractPermanentLeaderAbility;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class is the Abstract class for leaders
  */
-public class LeaderCard {
+public class LeaderCard implements Serializable {
     private ArrayList<AbstractRequirement> requirements;
     private String name;
     private String description;
