@@ -4,6 +4,9 @@ package it.polimi.ingsw.client.cli;
  * to insert inputs on the cli
  */
 
+import it.polimi.ingsw.client.cli.notblockingmenus.ActionSpacePickerMenu;
+import it.polimi.ingsw.client.cli.notblockingmenus.InitialActionMenu;
+import it.polimi.ingsw.client.cli.notblockingmenus.LeaderPickerMenu;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ControllerCallbackInterface;

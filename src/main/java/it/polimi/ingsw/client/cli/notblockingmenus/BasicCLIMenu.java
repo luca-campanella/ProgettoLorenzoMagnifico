@@ -1,5 +1,6 @@
-package it.polimi.ingsw.client.cli;
+package it.polimi.ingsw.client.cli.notblockingmenus;
 
+import it.polimi.ingsw.client.cli.CallbackFunction;
 import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
 import it.polimi.ingsw.utils.Debug;
 

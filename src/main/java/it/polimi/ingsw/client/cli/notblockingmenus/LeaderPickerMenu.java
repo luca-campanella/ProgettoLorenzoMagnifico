@@ -1,5 +1,6 @@
-package it.polimi.ingsw.client.cli;
+package it.polimi.ingsw.client.cli.notblockingmenus;
 
+import it.polimi.ingsw.client.cli.notblockingmenus.BasicCLIMenu;
 import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
