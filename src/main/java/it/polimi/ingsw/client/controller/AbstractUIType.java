@@ -1,18 +1,20 @@
 package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.cli.CommandLineUI;
-import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This is the abstract representation of the user interface
@@ -51,9 +53,17 @@ abstract public class AbstractUIType {
     /**
      * This method asks the user to pick one of the action spaces to put his family member in
      * Direction: {@link ClientMain} -> {@link AbstractUIType}
-     * @param legalActionSpaces the list of the legal action spaces
+     * @param servantsNeededHarvest The servants needed by the user to harvest, Optional.empty() if the action is not valid
+     * @param servantsNeededBuild The servants needed by the user to build, Optional.empty() if the action is not valid
+     * @param servantsNeededCouncil The servants needed by the user to place on cuincil, Optional.empty() if the action is not valid
+     * @param activeMarketSpaces The list of legal action spaces in the market
+     * @param activeTowerSpaces the list of legal action spaces on the towers
      */
-    abstract public void askWhichActionSpace(List<AbstractActionSpace> legalActionSpaces);
+    abstract public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest,
+                                             Optional<Integer> servantsNeededBuild,
+                                             Optional<Integer> servantsNeededCouncil,
+                                             List<MarketWrapper> activeMarketSpaces,
+                                             List<TowerWrapper> activeTowerSpaces);
 
     /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error

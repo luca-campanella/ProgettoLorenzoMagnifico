@@ -1,8 +1,7 @@
 package it.polimi.ingsw.client.controller;
 import it.polimi.ingsw.client.cli.CommandLineUI;
-import it.polimi.ingsw.client.gui.GraphicalUI;
 
-import java.util.* ;
+import java.util.Scanner;
 
 /**
  * todo: implement a proper launcher
@@ -42,7 +41,7 @@ public class LauncherClientFake {
                 return new CommandLineUI(this.clientMain);
             }
             if(input.equalsIgnoreCase("gui")){
-                return new GraphicalUI(this.clientMain);
+                //return new GraphicalUI(this.clientMain);
 
             }
         }

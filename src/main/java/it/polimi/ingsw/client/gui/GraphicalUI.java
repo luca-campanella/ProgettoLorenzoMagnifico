@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class GraphicalUI extends AbstractUIType {
+public abstract class GraphicalUI extends AbstractUIType {
     //TODO gui -- I copied CLI here because absUIType wouldn't let me run the program and test it
     public void selectFamilyMember()
     {
