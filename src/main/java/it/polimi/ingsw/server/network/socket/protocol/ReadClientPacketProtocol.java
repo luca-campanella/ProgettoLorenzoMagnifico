@@ -42,6 +42,7 @@ public class ReadClientPacketProtocol {
         instruction.put(PacketType.PLAY_LEADER, ()-> player.playCard());
         instruction.put(PacketType.CHAT, ()-> player.floodChatMsg());
         instruction.put(PacketType.END_PHASE, ()-> player.endPhase());
+        instruction.put(PacketType.LEADER_CHOICES, ()-> player.deliverLeaderCards());
     }
 
     /**
