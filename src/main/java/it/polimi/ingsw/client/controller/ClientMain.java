@@ -21,6 +21,8 @@ import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
@@ -537,13 +539,12 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      * @param leaderCards options
      */
     @Override
-    public void receivedLeaderCards(ArrayList<LeaderCard> leaderCards) {
+    public void receivedLeaderCards(List<LeaderCard> leaderCards) {
         userInterface.askLeaderCards(leaderCards);
     }
 
     /**
      * this method is called by the view to communicate the leader choice
-     * to notify that the has to pick a leader card between the ones proposed
      * @param leaderCardChoice the choice made
      */
     @Override
@@ -556,6 +557,34 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
             userInterface.printError("Cannot contact the server, exiting the program");
             System.exit(0);
         }
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that the has to pick a personal tile between the ones proposed
+     * @param standardTile option1
+     * @param specialTile option2
+     */
+    @Override
+    public void receivedPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
+        userInterface.askPersonalTiles(standardTile, specialTile);
+    }
+
+    /**
+     * this method is called by the view to communicate the personal tile choice
+     * @param tileType the choice made
+     */
+    @Override
+    public void callbackOnPersonalTileChosen(PersonalTileEnum tileType) {
+        /*try {
+            //todo methods for netword
+            clientNetwork.deliverLeaderChose(leaderCardChoice);
+        } catch (NetworkException e) {
+            //todo handle better
+            Debug.printError("Cannot send leader choice", e);
+            userInterface.printError("Cannot contact the server, exiting the program");
+            System.exit(0);
+        }*/
     }
 }
 

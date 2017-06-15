@@ -374,7 +374,7 @@ public class CommandLineUI extends AbstractUIType {
      * @param leaderCards the list of resources the player will pay if he chooses this option
      */
     @Override
-    public void askLeaderCards(ArrayList<LeaderCard> leaderCards){
+    public void askLeaderCards(List<LeaderCard> leaderCards){
         LeaderPickerMenu menu = new LeaderPickerMenu(getController(), leaderCards);
 
         pool.submit(menu);

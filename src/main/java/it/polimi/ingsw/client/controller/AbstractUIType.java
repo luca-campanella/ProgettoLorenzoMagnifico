@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -125,6 +126,14 @@ abstract public class AbstractUIType {
      * This method should be non-blocking
      * @param leaderCards the list of resources the player will pay if he chooses this option
      */
-    public abstract void askLeaderCards(ArrayList<LeaderCard> leaderCards);
+    public abstract void askLeaderCards(List<LeaderCard> leaderCards);
+
+    /**
+     * This method is called at the beginning of the game to choose one personal tile
+     * This method should be non-blocking
+     * @param standardTile option1
+     * @param specialTile option2
+     */
+    public abstract void askPersonalTiles(PersonalTile standardTile, PersonalTile specialTile);
 }
 
