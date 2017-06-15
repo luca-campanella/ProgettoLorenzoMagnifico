@@ -14,7 +14,7 @@ public class LeaderPickerMenu extends BasicCLIMenu {
     ArrayList<FamilyMember> playableFMs;
 
     public LeaderPickerMenu(ControllerCallbackInterface controller, List<LeaderCard> options) {
-        super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
+        super("Please select one of the leaders below by typing his name", controller);
         this.playableFMs = playableFMs;
         for(LeaderCard leaderIter : options) {
             addOption(leaderIter.getName(), "Take the leader " + leaderIter.getName() + " who has ability: " + leaderIter.getAbility().getAbilityDescription(), () -> controller.callbackOnLeaderCardChosen(leaderIter));

@@ -3,8 +3,10 @@ package it.polimi.ingsw.client.controller;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.player.PersonalTile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *   This interface is implemented by {@link ClientMain} to let {@link it.polimi.ingsw.client.network.AbstractClientType} make calls on controller
@@ -54,5 +56,14 @@ public interface ClientInterface {
      * to notify that the has to pick a leader card between the ones proposed
      * @param leaderCards options
      */
-    void receivedLeaderCards(ArrayList<LeaderCard> leaderCards);
+    public void receivedLeaderCards(List<LeaderCard> leaderCards);
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that the has to pick a personal tile between the ones proposed
+     * Corresponding callback: {@link ControllerCallbackInterface#callbackOnPersonalTileChosen}
+     * @param standardTile option1
+     * @param specialTile option2
+     */
+    public void receivedPersonalTiles(PersonalTile standardTile, PersonalTile specialTile);
 }

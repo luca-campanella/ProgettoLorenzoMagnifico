@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTileEnum;
 
 /**
  * This class is the interface of ModelController on the client
@@ -73,5 +74,15 @@ public interface ControllerCallbackInterface {
      */
     public void callbackSendChatMsg(String msg) throws NetworkException;
 
+    /**
+     * This callback is used to call from view to controller to communicate the user choice
+     * @param leaderCardChoice the choice the user has made
+     */
     public void callbackOnLeaderCardChosen(LeaderCard leaderCardChoice);
+
+    /**
+     * this method is called by the view to communicate the personal tile choice
+     * @param tileType the choice made
+     */
+    void callbackOnPersonalTileChosen(PersonalTileEnum tileType);
 }

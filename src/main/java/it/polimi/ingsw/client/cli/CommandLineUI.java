@@ -15,6 +15,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -374,10 +375,22 @@ public class CommandLineUI extends AbstractUIType {
      * @param leaderCards the list of resources the player will pay if he chooses this option
      */
     @Override
-    public void askLeaderCards(ArrayList<LeaderCard> leaderCards){
+    public void askLeaderCards(List<LeaderCard> leaderCards){
         LeaderPickerMenu menu = new LeaderPickerMenu(getController(), leaderCards);
 
         pool.submit(menu);
+    }
+
+    /**
+     * This method is called at the beginning of the game to choose one personal tile
+     * This method should be non-blocking
+     *
+     * @param standardTile option1
+     * @param specialTile  option2
+     */
+    @Override
+    public void askPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
+        //todo
     }
 
 }
