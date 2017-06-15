@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -615,6 +616,16 @@ public class ModelController {
         return gameBoard;
     }
 
+    /**
+     * this method is called by the controller
+     * @param leaderCard the card to add to the player
+     * @param player the player tha had chosen the card
+     */
+    public void addLeaderCardToPlayer(LeaderCard leaderCard, Player player){
+
+        player.addLeaderCard(leaderCard);
+
+    }
 }
 
 

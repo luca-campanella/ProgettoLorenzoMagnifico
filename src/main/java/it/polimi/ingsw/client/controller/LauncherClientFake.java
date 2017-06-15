@@ -34,7 +34,8 @@ public class LauncherClientFake {
         Scanner inputScanner = new Scanner(System.in);
         while(true){
             System.out.println("Do you want to use CLI or gui?");
-            input = inputScanner.nextLine();
+            //input = inputScanner.nextLine();
+            input ="cli";
 
             //inputScanner.close();
             if(input.equalsIgnoreCase("cli")){
