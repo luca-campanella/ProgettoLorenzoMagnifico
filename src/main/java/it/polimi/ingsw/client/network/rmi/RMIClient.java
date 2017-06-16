@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.rmi.RMIPlayerInterface;
 import it.polimi.ingsw.server.network.rmi.RMIServerInterface;
@@ -176,24 +177,67 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         getControllerMain().receiveChatMsg(senderNick, msg);
     }
 
+    /**
+     * this method is called by the server to notify that another player has moved on a tower
+     *
+     * @param playerNickname    the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param towerIndex        the index of the tower he placed the family member in
+     * @param floorIndex        the index of the floor he placed the family member in
+     * @param playerChoices     the hashmao with his choices correlated with this action
+     */
     @Override
-    public void receivePlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws RemoteException {
+    public void receivePlaceOnTower(String playerNickname, DiceAndFamilyMemberColorEnum familyMemberColor, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws RemoteException {
+        getControllerMain().receivedPlaceOnTower(playerNickname, familyMemberColor, towerIndex, floorIndex, playerChoices);
+    }
+
+    /**
+     * this method is called by the server to notify that another player has moved in a market action space
+     *
+     * @param playerNickname    the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param marketIndex       the index of the market action space he placed the family member in
+     * @param playerChoices     the hashmao with his choices correlated with this action
+     */
+    @Override
+    public void receivePlaceOnMarket(String playerNickname,
+                                     DiceAndFamilyMemberColorEnum familyMemberColor,
+                                     int marketIndex,
+                                     HashMap<String, Integer> playerChoices) throws RemoteException {
+        getControllerMain().receivedPlaceOnMarket(playerNickname, familyMemberColor, marketIndex, playerChoices);
 
     }
 
+    /**
+     * this method is called by the server to notify that another player has moved in the harvest action space
+     *
+     * @param playerNickname    the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param servantsUsed      the number of servants used to perform the action
+     * @param playerChoices     the hashmao with his choices correlated with this action
+     */
     @Override
-    public void receivePlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws RemoteException {
-
+    public void receiveHarvest(String playerNickname,
+                               DiceAndFamilyMemberColorEnum familyMemberColor,
+                               int servantsUsed,
+                               HashMap<String, Integer> playerChoices) throws RemoteException {
+        getControllerMain().receivedHarvest(playerNickname, familyMemberColor, servantsUsed, playerChoices);
     }
 
+    /**
+     * this method is called by the server to notify that another player has moved in the build action space
+     *
+     * @param playerNickname    the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param servantsUsed      the number of servants used to perform the action
+     * @param playerChoices     the hashmao with his choices correlated with this action
+     */
     @Override
-    public void receiveBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws RemoteException {
-
-    }
-
-    @Override
-    public void receiveHarvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws RemoteException {
-
+    public void receiveBuild(String playerNickname,
+                               DiceAndFamilyMemberColorEnum familyMemberColor,
+                               int servantsUsed,
+                               HashMap<String, Integer> playerChoices) throws RemoteException {
+        getControllerMain().receivedBuild(playerNickname, familyMemberColor, servantsUsed, playerChoices);
     }
 
     @Override

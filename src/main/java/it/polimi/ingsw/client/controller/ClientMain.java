@@ -23,10 +23,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.leaders.LeaderCard;
-import it.polimi.ingsw.model.player.FamilyMember;
-import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.PersonalTileEnum;
-import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.*;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.utils.Debug;
@@ -50,7 +47,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     private NetworkChoicesPacketHandler otherPlayerChoicesHandler;
 
     /**
-     * The list of players in the room, used just to initialize ModelController
+     * The list of players in the room
      */
     private ArrayList<Player> players;
 
@@ -594,6 +591,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         userInterface.askPersonalTiles(standardTile, specialTile);
     }
 
+
     /**
      * this method is called by the view to communicate the personal tile choice
      * @param tileType the choice made
@@ -609,6 +607,99 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             userInterface.printError("Cannot contact the server, exiting the program");
             System.exit(0);
         }*/
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that another player has moved on a tower
+     *
+     * @param nickname          the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param towerIndex        the index of the tower he placed the family member in
+     * @param floorIndex        the index of the floor he placed the family member in
+     * @param playerChoices     the hashmao with his choices correlated with this action
+     */
+    @Override
+    public void receivedPlaceOnTower(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) {
+        Player player = modelController.getPlayerByNickname(nickname);
+        otherPlayerChoicesHandler.setChoicesMap(playerChoices);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        //todo correct number of fm
+        modelController.placeOnTower(player.getFamilyMemberByColor(familyMemberColor), 4, towerIndex, floorIndex);
+        //todo show something in the view
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that another player has moved inside the market
+     *
+     * @param nickname          the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param marketIndex       the index of the market action space he placed the family member in
+     * @param playerChoices     the hashmao with his choices correlated with this action
+     */
+    @Override
+    public void receivedPlaceOnMarket(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int marketIndex, HashMap<String, Integer> playerChoices) {
+        Player player = modelController.getPlayerByNickname(nickname);
+        otherPlayerChoicesHandler.setChoicesMap(playerChoices);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        //todo correct number of fm
+        modelController.placeOnMarket(player.getFamilyMemberByColor(familyMemberColor), 4, marketIndex);
+        //todo show something in the view
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that another player has moved inside the harvest action space
+     *
+     * @param nickname          the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param servantsUsed the number of the servants used to perform this action
+     * @param playerChoices     the hashmap with his choices correlated with this action
+     */
+    @Override
+    public void receivedHarvest(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int servantsUsed, HashMap<String, Integer> playerChoices) {
+        Player player = modelController.getPlayerByNickname(nickname);
+        otherPlayerChoicesHandler.setChoicesMap(playerChoices);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        modelController.harvest(player.getFamilyMemberByColor(familyMemberColor), servantsUsed);
+        //todo show something in the view
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that another player has moved inside the build action space
+     *
+     * @param nickname          the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param servantsUsed the number of the servants used to perform this action
+     * @param playerChoices     the hashmap with his choices correlated with this action
+     */
+    @Override
+    public void receivedBuild(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int servantsUsed, HashMap<String, Integer> playerChoices) {
+        Player player = modelController.getPlayerByNickname(nickname);
+        otherPlayerChoicesHandler.setChoicesMap(playerChoices);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        modelController.build(player.getFamilyMemberByColor(familyMemberColor), servantsUsed);
+        //todo show something in the view
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that another player has moved inside the council
+     *
+     * @param nickname          the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param playerChoices     the hashmap with his choices correlated with this action
+     */
+    @Override
+    public void receivedCouncil(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) {
+        Player player = modelController.getPlayerByNickname(nickname);
+        otherPlayerChoicesHandler.setChoicesMap(playerChoices);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        //todo right number of servants
+        modelController.placeOnCouncil(player.getFamilyMemberByColor(familyMemberColor), 4);
+        //todo show something in the view
     }
 }
 

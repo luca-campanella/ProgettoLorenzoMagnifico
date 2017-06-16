@@ -359,7 +359,11 @@ public class SocketClient extends AbstractClientType {
         try {
 
             ReceivePlaceOnTowerPacket packet = (ReceivePlaceOnTowerPacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedPlaceOnTower(packet.getNickname(),
+                    packet.getFamilyMemberColor(),
+                    packet.getTowerIndex(),
+                    packet.getFloorIndex(),
+                    packet.getPlayersChoices());
 
         }
 
@@ -378,7 +382,10 @@ public class SocketClient extends AbstractClientType {
         try {
 
             ReceivePlaceOnMarketPacket packet = (ReceivePlaceOnMarketPacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedPlaceOnMarket(packet.getNickname(),
+                    packet.getFamilyMemberColor(),
+                    packet.getMarketIndex(),
+                    packet.getPlayerChoices());
 
         }
 
@@ -396,7 +403,10 @@ public class SocketClient extends AbstractClientType {
         try {
 
             ReceiveBuildOrHarvestPacket packet = (ReceiveBuildOrHarvestPacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedHarvest(packet.getNickname(),
+                    packet.getFamilyMemberColor(),
+                    packet.getServantUsed(),
+                    packet.getPlayerChoices());
 
         }
 
@@ -415,7 +425,10 @@ public class SocketClient extends AbstractClientType {
         try {
 
             ReceiveBuildOrHarvestPacket packet = (ReceiveBuildOrHarvestPacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedBuild(packet.getNickname(),
+                    packet.getFamilyMemberColor(),
+                    packet.getServantUsed(),
+                    packet.getPlayerChoices());
 
         }
 
