@@ -126,20 +126,23 @@ public class CommandLineUI extends AbstractUIType {
      * @param servantsNeededCouncil The servants needed by the user to place on cuincil, Optional.empty() if the action is not valid
      * @param activeMarketSpaces The list of legal action spaces in the market
      * @param activeTowerSpaces the list of legal action spaces on the towers
+     * @param availableServants the number of servants the user can spend to perform the action
      */
     @Override
     public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest,
                                              Optional<Integer> servantsNeededBuild,
                                              Optional<Integer> servantsNeededCouncil,
                                              List<MarketWrapper> activeMarketSpaces,
-                                             List<TowerWrapper> activeTowerSpaces) {
+                                             List<TowerWrapper> activeTowerSpaces,
+                                            int availableServants) {
         System.err.println("AskWhichAction space called");
         ActionSpacePickerMenu menu = new ActionSpacePickerMenu(getController(),
                                                                  servantsNeededHarvest,
                                                                  servantsNeededBuild,
                                                                  servantsNeededCouncil,
                                                                  activeMarketSpaces,
-                                                                 activeTowerSpaces);
+                                                                 activeTowerSpaces,
+                                                                    availableServants);
 
         Debug.printVerbose("Right before submit");
         pool.submit(menu);
