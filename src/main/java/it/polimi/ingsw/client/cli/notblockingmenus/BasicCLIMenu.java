@@ -35,7 +35,7 @@ public abstract class BasicCLIMenu implements Runnable {
     @Override
     public void run() {
         Debug.printVerbose("Process Started");
-        //TODO make a singleton fot the input stream, bad practice to open multiple scanner on the same stream
+        //TODO make a singleton for the input stream, bad practice to open multiple scanner on the same stream
         Scanner cin = new Scanner(System.in);
         printMenu();
 

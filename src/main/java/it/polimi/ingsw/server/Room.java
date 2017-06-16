@@ -77,9 +77,7 @@ public class Room {
         if(currNOfPlayers == maxNOfPlayers) //ModelController should start
         {
             Debug.printVerbose("Room capacity reached, starting new game");
-            System.out.println("io");
             startGame();
-            System.out.println("sono");
             Debug.printVerbose("Room capacity reached, returned from start function");
         }
         else if(currNOfPlayers == 2)
