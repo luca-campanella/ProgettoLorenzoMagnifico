@@ -90,12 +90,10 @@ public class Room {
                 @Override
                 public void run() {
                     Debug.printVerbose("Timeout reached, starting new game");
-                    System.out.println("io");
                     startGame();
-                    System.out.println("sono");
                     Debug.printVerbose("Timeout reached, returned from start function");
                 }
-            }, timeoutInSec);
+            }, timeoutInSec*1000);
         }
     }
 
@@ -107,10 +105,11 @@ public class Room {
         Debug.printVerbose("Game on room started");
             isGameStarted = true;
             try{
-                System.out.println("just before constructor");
+                Debug.printVerbose("just before constructor");
                 controllerGame = new ControllerGame(players, this);
-                System.out.println("after constructor");
-                System.out.println("after after constructor");
+                Debug.printVerbose("after constructor");
+                controllerGame.startNewGame();
+                Debug.printDebug("New game started, waiting for first player to move");
             }
             catch (Exception e) {
                 Debug.printError("Connection Error", e);
@@ -354,7 +353,8 @@ public class Room {
 
         if(cardToPlayer.size() == 0){
             controllerGame.choseAllTheLeadersCards();
-            return;}
+            return;
+        }
         if(cardToPlayer.size()%players.size() != 0)
             return;
         int index = 0;
@@ -381,7 +381,7 @@ public class Room {
     }
 
     public void receiveLeaderCards(LeaderCard leaderCard, AbstractConnectionPlayer player) {
-
+        Debug.printVerbose("[Room] receiveLeaderCards called");
         controllerGame.choiceLeaderCard(leaderCard,player);
         for(LeaderCard card : cardToPlayer){
             if(card.getName().equals(leaderCard.getName())) {

@@ -517,7 +517,7 @@ public class SocketClient extends AbstractClientType {
      * this method is used to receive the leader cards at the beginning of the game, and the client has to choose one of them
      */
     public void receiveLeaderCards(){
-
+        Debug.printVerbose("receiveLeaderCards() called");
         try{
             LeaderChoicePacket packet = (LeaderChoicePacket)inStream.readObject();
             getControllerMain().receivedLeaderCards(packet.getLeaderCards());
@@ -537,6 +537,7 @@ public class SocketClient extends AbstractClientType {
             outStream.writeObject(PacketType.LEADER_CHOICES);
             outStream.writeObject(new ReceiveLeaderCardChosePacket(leaderCard));
             outStream.flush();
+            Debug.printVerbose("Packet on leader choice sent");
         }
         catch (IOException e){
             Debug.printError("the client cannot deliver the leader he has chosen",e);

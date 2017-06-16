@@ -549,6 +549,7 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      */
     @Override
     public void callbackOnLeaderCardChosen(LeaderCard leaderCardChoice) {
+        Debug.printVerbose("callbackOnLeaderCardChosen Called");
         try {
             clientNetwork.deliverLeaderChose(leaderCardChoice);
         } catch (NetworkException e) {

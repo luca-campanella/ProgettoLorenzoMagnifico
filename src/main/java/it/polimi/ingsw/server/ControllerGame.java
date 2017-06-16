@@ -142,7 +142,9 @@ public class ControllerGame {
      */
     public ControllerGame(ArrayList<AbstractConnectionPlayer> players, Room room) throws IOException {
 
-        JSONLoader.instance() ;
+        this.room = room;
+        this.orderOfPlayers = players;
+        JSONLoader.instance();
         boardGame = JSONLoader.boardCreator();
         personalTiles = JSONLoader.loadPersonalTiles();
         deck = JSONLoader.createNewDeck();
@@ -150,16 +152,11 @@ public class ControllerGame {
         leadersDeck = JSONLoader.loadLeaders();
         numberOfPlayers = players.size();
         boardModifier(numberOfPlayers);
-        this.room = room;
-        this.orderOfPlayers = players;
         modelController = new ModelController(players, boardGame);
-        startNewGame();
-        room.receiveStartGameBoard(boardGame);
-        deliverDices(modelController.getDices());
-        initiateLeaderChoice();
         numberOfTurn = 0;
         numberOfRound = 1;
         playerChoices = new HashMap<>(10);
+        startNewGame();
 
     }
 
@@ -179,7 +176,6 @@ public class ControllerGame {
         boardGame = deck.fillBoard(boardGame, period);
         boardModifier(numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
-
         numberOfTurn = 0;
         numberOfRound = 1;
     }
@@ -221,8 +217,10 @@ public class ControllerGame {
 
     /**
      * call the method on the controller of the model to start a new game
+     * This method also delivers all the necessary informations to the clients
+     * and performs the leader draft phase and personal tile choice
      */
-    private void startNewGame(){
+    public void startNewGame(){
 
         //throws the dices to change the value
         modelController.getDices().forEach(Dice::throwDice);
@@ -236,6 +234,9 @@ public class ControllerGame {
         //add the coins to the orderOfPlayers based on the order of turn
         modelController.addCoinsStartGame(orderOfPlayers);
 
+        room.receiveStartGameBoard(boardGame);
+        deliverDices(modelController.getDices());
+        initiateLeaderChoice();
     }
 
     /**
