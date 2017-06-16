@@ -538,7 +538,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         Debug.printVerbose("deliverLeaderCards called");
         try{
             ReceiveLeaderCardChosePacket packet = (ReceiveLeaderCardChosePacket) inStream.readObject();
-            Debug.printVerbose("leader card received");
+            Debug.printVerbose("leader card received " + packet.getLeaderCard().getName());
             getRoom().receiveLeaderCards(packet.getLeaderCard(), this);
         }
         catch (IOException | ClassNotFoundException e){
