@@ -36,9 +36,7 @@ import java.util.concurrent.Executors;
 public class CommandLineUI extends AbstractUIType {
 
     String tmpInput;
-    Scanner inputScanner = new Scanner(System.in);
     private ExecutorService pool;
-
 
     /**
      * This is the constructor of the class
@@ -201,9 +199,9 @@ public class CommandLineUI extends AbstractUIType {
         String nickname, password;
 
         System.out.println("Insert UserId");
-        nickname = inputScanner.nextLine();
+        nickname = StdinSingleton.getScanner().nextLine();
         System.out.println("Insert PassWord");
-        password = inputScanner.nextLine();
+        password = StdinSingleton.getScanner().nextLine();
 
         return new UsrPwdContainer(nickname, password);
     }
@@ -269,7 +267,7 @@ public class CommandLineUI extends AbstractUIType {
         System.out.println("Please insert chat msg: ");
 
         try {
-            getController().callbackSendChatMsg(inputScanner.nextLine());
+            getController().callbackSendChatMsg(StdinSingleton.getScanner().nextLine());
         } catch (NetworkException e) {
             Debug.printError("Cannot send chat message", e);
         }
@@ -293,7 +291,7 @@ public class CommandLineUI extends AbstractUIType {
         Debug.printDebug("chose the effect to activate:");
         int numChoice;
         do{
-            numChoice = inputScanner.nextInt();
+            numChoice = StdinSingleton.getScanner().nextInt();
         } while (numChoice < 0 || numChoice>choices.size() );
 
         return numChoice;
