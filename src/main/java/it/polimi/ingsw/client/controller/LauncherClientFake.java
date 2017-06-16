@@ -1,8 +1,6 @@
 package it.polimi.ingsw.client.controller;
 import it.polimi.ingsw.client.cli.CommandLineUI;
 
-import java.util.Scanner;
-
 /**
  * todo: implement a proper launcher
  * This class is the temporary launcher of Lorenzo's il magnifico
@@ -11,7 +9,7 @@ public class LauncherClientFake {
     ClientMain clientMain;
     /**
      * This method welcomes the user and asks him if he wants CLI or gui.
-     * @return the correct object choosen by the player
+     * @return the correct object chosen by the player
      */
     public AbstractUIType welcome()
     {
@@ -31,14 +29,12 @@ public class LauncherClientFake {
     private AbstractUIType inputCliOrGui()
     {
         String input;
-        Scanner inputScanner = new Scanner(System.in);
         while(true){
             System.out.println("Do you want to use CLI or gui?");
-            //input = inputScanner.nextLine();
+            //input = StdinSingleton.getScanner().nextLine();
             //TODO delete this
             input ="cli";
 
-            //inputScanner.close();
             if(input.equalsIgnoreCase("cli")){
                 return new CommandLineUI(this.clientMain);
             }

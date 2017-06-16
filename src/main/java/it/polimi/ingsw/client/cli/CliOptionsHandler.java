@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * This class is used to ask the user a choice between multiple options, described in a String
@@ -13,7 +12,6 @@ import java.util.Scanner;
 public class CliOptionsHandler {
 
     private ArrayList<String> options;
-    private Scanner scanner = new Scanner(System.in);
 
     /**
      * this is the constructor of the class used to ask choices between effects.
@@ -103,7 +101,7 @@ public class CliOptionsHandler {
      * @return the integer read or -1 if error
      */
     private int readAndParseInt(){
-        String line = scanner.nextLine();
+        String line = StdinSingleton.getScanner().nextLine();
         try{
             return Integer.parseInt(line);
         } catch (NumberFormatException e) {
