@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.network.socket;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
@@ -527,6 +528,25 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch (IOException e) {
             Debug.printError("Cannot deliver the choice of the leader cards to the players");
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is called by the room to deliver to the client the cards to place on the board
+     * @param cards the cards to place on the board this turn
+     * @throws NetworkException if the connection goes wrong
+     */
+    @Override
+    public void deliverCardToPlace(ArrayList<AbstractCard> cards) throws NetworkException {
+
+        try{
+            outStream.writeObject(PacketType.CARD_TO_PLACE);
+            outStream.writeObject(new CardToPlacePacket(cards));
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Cannot deliver the card to place on the board to " + getNickname());
             throw new NetworkException(e);
         }
     }

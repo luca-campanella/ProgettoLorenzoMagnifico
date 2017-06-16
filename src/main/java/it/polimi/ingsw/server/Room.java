@@ -4,11 +4,13 @@ import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
@@ -391,5 +393,20 @@ public class Room {
 
         deliverLeaderCardsToPlayers();
 
+    }
+
+    /**
+     * this method is called by controllerGame and deliver to all the clients on the room the cards to place on the board
+     */
+    public void deliverCardToPlace(ArrayList<AbstractCard> cards){
+        for(AbstractConnectionPlayer player : players){
+            try {
+                player.deliverCardToPlace(cards);
+            }
+            catch (IOException e){
+                Debug.printError("tried to deliver the cards to " + player.getNickname());
+            }
+
+        }
     }
 }

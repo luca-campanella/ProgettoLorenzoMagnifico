@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.controller.ModelController;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
@@ -18,6 +19,7 @@ import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -92,9 +94,13 @@ public class ControllerGame {
         if(numberOfTurn >= numberOfPlayers*4){
             modelController.prepareForNewRound();
             deliverDices(modelController.getDices());
+            numberOfRound++;
+            ArrayList<AbstractCard> cardsToPlace = deck.getRandomCards(numberOfRound);
+            room.deliverCardToPlace(cardsToPlace);
+            modelController.placeCardOnBoard(cardsToPlace);
             reDoOrderPlayer(modelController.getFamilyMemberCouncil());
             numberOfTurn = 0;
-            numberOfRound++;
+
 
         }
 
@@ -172,8 +178,6 @@ public class ControllerGame {
         boardGame = JSONLoader.boardCreator();
         deck = JSONLoader.createNewDeck();
         leadersDeck = JSONLoader.loadLeaders();
-        int period = 1;
-        boardGame = deck.fillBoard(boardGame, period);
         boardModifier(numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
         numberOfTurn = 0;
@@ -403,6 +407,9 @@ public class ControllerGame {
      * this method is called by the room when all the leader cards are chosen by the player
      */
     public void choseAllTheLeadersCards() {
+        ArrayList<AbstractCard> cardsToPlace = deck.getRandomCards(numberOfRound);
+        room.deliverCardToPlace(cardsToPlace);
+        modelController.placeCardOnBoard(cardsToPlace);
         room.playersTurn(orderOfPlayers.get(0));
     }
 }

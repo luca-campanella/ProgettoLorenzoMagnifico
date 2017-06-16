@@ -42,7 +42,7 @@ public class Deck implements Serializable{
         return board;
     }
 
-    public List<AbstractCard> getRandomCards(int period)
+    public ArrayList<AbstractCard> getRandomCards(int period)
     {
         ArrayList<AbstractCard> listOfCards = new ArrayList<>(16);
         listOfCards.addAll(fillListOfRandomCards(territoryCards, period));

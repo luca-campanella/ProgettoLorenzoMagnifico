@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.network.rmi;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
@@ -220,6 +221,22 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
         }
         catch (RemoteException e){
             Debug.printError("rmi: cannot send the leader cards to" + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is called by the room and is used to deliver the cards to place on the board to the client
+     */
+    @Override
+    public void deliverCardToPlace(ArrayList<AbstractCard> cards) throws NetworkException {
+
+        try{
+            RMIClientInterfaceInst.receiveCardToPlace(cards);
+        }
+
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the cards to place to" + getNickname(), e);
             throw new NetworkException(e);
         }
     }

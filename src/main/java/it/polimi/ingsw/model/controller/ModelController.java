@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.*;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -625,6 +626,19 @@ public class ModelController {
 
         player.addLeaderCard(leaderCard);
 
+    }
+
+    public void placeCardOnBoard(ArrayList<AbstractCard> cardsToPlace) {
+
+        for(CardColorEnum colorEnum : CardColorEnum.values()) {
+            int floor = 0;
+            for (AbstractCard card : cardsToPlace) {
+                if (card.getColor() == colorEnum) {
+                    gameBoard.setCardsOnTower(card, colorEnum, floor++);
+                    cardsToPlace.remove(card);
+                }
+            }
+        }
     }
 }
 

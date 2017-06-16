@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.rmi.RMIPlayerInterface;
@@ -228,6 +229,11 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     @Override
     public void receiveLeaderCardChoice(ArrayList<LeaderCard> cardToPlayer) throws RemoteException {
+
+    }
+
+    @Override
+    public void receiveCardToPlace(ArrayList<AbstractCard> cardsToPlace) throws RemoteException {
 
     }
 }

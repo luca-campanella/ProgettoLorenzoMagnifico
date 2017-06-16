@@ -11,6 +11,7 @@ import it.polimi.ingsw.client.network.rmi.RMIClient;
 import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.cards.VentureCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
@@ -541,6 +542,15 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
     @Override
     public void receivedLeaderCards(List<LeaderCard> leaderCards) {
         userInterface.askLeaderCards(leaderCards);
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * @param cards the cards the client had to place
+     */
+    @Override
+    public void receiveCardsToPlace(ArrayList<AbstractCard> cards) {
+        //TODO
     }
 
     /**
