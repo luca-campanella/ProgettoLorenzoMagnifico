@@ -156,8 +156,6 @@ public class ControllerGame {
         numberOfTurn = 0;
         numberOfRound = 1;
         playerChoices = new HashMap<>(10);
-        startNewGame();
-
     }
 
     /**
@@ -166,7 +164,6 @@ public class ControllerGame {
      * @throws IOException in case JSON loading fails
      */
     public ControllerGame(int numberOfPlayers) throws IOException {
-
         JSONLoader.instance();
         personalTiles = JSONLoader.loadPersonalTiles();
         boardGame = JSONLoader.boardCreator();

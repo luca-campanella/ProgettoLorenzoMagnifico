@@ -36,15 +36,15 @@ public abstract class BasicCLIMenu implements Runnable {
     public void run() {
         Debug.printVerbose("Process Started");
 
-        while(StdinSingleton.getScanner().hasNext())
-            StdinSingleton.getScanner().nextLine();
-
         printMenu();
 
-        DescrCallbackContainer callbackContainer = optionsMap.get(StdinSingleton.getScanner().nextLine());
+        String choice = StdinSingleton.getScanner().nextLine();
+        DescrCallbackContainer callbackContainer = optionsMap.get(choice);
+
         while(callbackContainer == null) {
-            System.out.println("Not a recognised option, please choose a correct one");
-            callbackContainer = optionsMap.get(StdinSingleton.getScanner().nextLine());
+            System.out.println(choice + " is not a recognised option, please choose a correct one");
+            choice = StdinSingleton.getScanner().nextLine();
+            callbackContainer = optionsMap.get(choice);
         }
         callbackContainer.getFunction().callback();
     }
