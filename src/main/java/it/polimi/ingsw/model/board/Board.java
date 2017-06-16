@@ -5,13 +5,10 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.FamilyMember;
-import it.polimi.ingsw.server.JSONLoader;
-import it.polimi.ingsw.utils.Debug;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
 
 /**
  * This class is the board where the game develops
@@ -32,8 +29,8 @@ public class Board implements Serializable {
     private HarvestAS harvest = new HarvestAS();
     private CouncilAS council;
     private VaticanReport vaticanReport = new VaticanReport();
-    private ArrayList<ExcommunicationTile> excommunicationDeck;
-    private ArrayList<ExcommunicationTile> excommunicationTiles = new ArrayList<>(3);
+    //private ArrayList<ExcommunicationTile> excommunicationDeck;
+    private List<ExcommunicationTile> excommunicationTiles = new ArrayList<>(3);
     // this is the constructor
     public void createNewBoard(Tower[] towers, ArrayList<MarketAS> market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport) {
         this.towers = towers;
@@ -54,7 +51,7 @@ public class Board implements Serializable {
         }
         */
     }
-    public void loadExcommunicationCards()
+    /*public void loadExcommunicationCards()
     {
         JSONLoader.instance();
         try {
@@ -65,12 +62,12 @@ public class Board implements Serializable {
             Debug.instance(2);
             Debug.printError("Json couldn't load excommunication cards");
         }
-    }
-    /**
+    }*/
+    /*
      * this method loads 3 excommunication cards on board
      * @param excommunicationDeck is a list of excommunication cards loaded from JSON
      */
-    private void getExcommunicationTilesForGame(ArrayList<ExcommunicationTile> excommunicationDeck)
+    /*private void getExcommunicationTilesForGame(ArrayList<ExcommunicationTile> excommunicationDeck)
     {
         Random random = new Random();
         int valueIndex;
@@ -96,6 +93,10 @@ public class Board implements Serializable {
             }
         }
 
+    }*/
+
+    public void setExcommunicationTiles(List<ExcommunicationTile> excommunicationTiles) {
+        this.excommunicationTiles = excommunicationTiles;
     }
 
     public int getNUMBER_OF_TOWERS() {
@@ -291,7 +292,7 @@ public class Board implements Serializable {
         council.performAction(familyMember, choicesController);
     }
 
-    public ArrayList<ExcommunicationTile> getExcommunicationTiles() {
+    public List<ExcommunicationTile> getExcommunicationTiles() {
         return excommunicationTiles;
     }
 }

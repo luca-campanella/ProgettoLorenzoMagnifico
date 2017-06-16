@@ -48,16 +48,16 @@ public class ControllerGame {
      * @throws Exception if file where Board configuration is
      */
     public ControllerGame(ArrayList<AbstractConnectionPlayer> players, Room room) throws IOException {
-
         this.room = room;
         this.orderOfPlayers = players;
         JSONLoader.instance();
         boardGame = JSONLoader.boardCreator();
+        //boardGame.loadExcommunicationCards(); no need, done in the method boardCreator()
+        //excommunicationTiles = JSONLoader.loadExcommunicationTiles();
         personalTiles = JSONLoader.loadPersonalTiles();
         deck = JSONLoader.createNewDeck();
-        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
         leadersDeck = JSONLoader.loadLeaders();
-        numberOfPlayers = players.size();
+        this.numberOfPlayers = players.size();
         boardModifier(numberOfPlayers);
         modelController = new ModelController(players, boardGame);
         numberOfTurn = 0;
@@ -194,7 +194,6 @@ public class ControllerGame {
      */
     private void boardModifier(int numberOfPlayers)
     {
-        boardGame.loadExcommunicationCards();
         if(numberOfPlayers == 4)
             return;
         boardThreePlayers();
