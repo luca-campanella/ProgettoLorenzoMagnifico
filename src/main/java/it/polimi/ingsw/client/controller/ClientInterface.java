@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.PersonalTile;
 
@@ -57,6 +58,12 @@ public interface ClientInterface {
      * @param leaderCards options
      */
     public void receivedLeaderCards(List<LeaderCard> leaderCards);
+
+    /**
+     * this method is used to receive the card to place on the board
+     * @param cards the cards the client had to place
+     */
+    public void receiveCardsToPlace(ArrayList<AbstractCard> cards);
 
     /**
      * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}

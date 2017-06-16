@@ -545,4 +545,15 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    public void receiveCardToPlace(){
+
+        try{
+            CardToPlacePacket packet = (CardToPlacePacket)inStream.readObject();
+            getControllerMain().receiveCardsToPlace(packet.getCards());
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the cards delivered by the server",e);
+        }
+    }
+
 }
