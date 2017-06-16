@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
+import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
 import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
@@ -41,6 +42,11 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
     private AbstractUIType userInterface;
     private AbstractClientType clientNetwork;
     private ModelController modelController;
+
+    /**
+     * this object is used to handle the choices made by another player that need to reply to the callback from model
+     */
+    private NetworkChoicesPacketHandler otherPlayerChoicesHandler;
 
     /**
      * The list of players in the room, used just to initialize ModelController
@@ -300,7 +306,7 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
             }
 
         }*/
-
+        //todo send the action to the server
     }
 
     /**
@@ -499,6 +505,9 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
         //add the coins to the orderOfPlayers based on the order of turn
         modelController.addCoinsStartGame(players);
 
+        //now that we have the board we can give the object the possibile options for a council gift
+        otherPlayerChoicesHandler = new NetworkChoicesPacketHandler(modelController.getBoard().getCouncilAS().getCouncilGiftChoices());
+
         //todo this is just for testing
         //CliPrinter.printBoard(board);
     }
@@ -532,6 +541,8 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
         for(FamilyMember fmIter : playableFMs) {
             Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
         }
+        //it's this player's turn, he should answer callbacks from model
+        modelController.setChoicesController(this);
         userInterface.askInitialAction(playableFMs);
     }
 
