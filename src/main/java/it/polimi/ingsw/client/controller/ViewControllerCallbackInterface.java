@@ -40,15 +40,15 @@ public interface ViewControllerCallbackInterface {
 
     /**
      * this method allows player to place a family member on a build action space
-     * No parameter needed, the {@link ClientMain} saves the parameters of the current move
+     * @param servantsUsed the number of servants the user decided to use
      */
-    public void callbackPlacedFMOnBuild();
+    public void callbackPlacedFMOnBuild(int servantsUsed);
 
     /**
      * this method allows player to place a family member on a harvest action space
-     * No parameter needed, the {@link ClientMain} saves the parameters of the current move
+     * @param servantsUsed the number of servants the user decided to use
      */
-    public void callbackPlacedFMOnHarvest();
+    public void callbackPlacedFMOnHarvest(int servantsUsed);
 
     /**
      * this method allows player to place a family member on a tower floor action space

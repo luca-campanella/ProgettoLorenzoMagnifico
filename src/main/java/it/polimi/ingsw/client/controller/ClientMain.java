@@ -26,6 +26,7 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.*;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -238,7 +239,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
                 modelController.spaceBuildAvailable(familyMemberCurrentAction),
                 modelController.spaceCouncilAvailable(familyMemberCurrentAction),
                 modelController.spaceMarketAvailable(familyMemberCurrentAction),
-                modelController.spaceTowerAvailable(familyMemberCurrentAction));
+                modelController.spaceTowerAvailable(familyMemberCurrentAction),
+                familyMemberCurrentAction.getPlayer().getResource(ResourceTypeEnum.SERVANT));
         Debug.printDebug("Chiamata ritorna a callbackFM");
 
     }
@@ -282,10 +284,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
     /**
      * this method allows player to place a family member on a build action space
-     * No parameter needed, the {@link ClientMain} saves the parameters of the current move
+     * @param servantsUsed the number of servants the user decided to use
      */
     @Override
-    public void callbackPlacedFMOnBuild() {
+    public void callbackPlacedFMOnBuild(int servantsUsed) {
         /*We make a copy of the hashmap beacuse we have to perfom some checks on it and this checks should not affect
         the hashmap of the player. Even tough making a copy using the constructor makes just a shallow copy, this is sufficient
         since Integer types are immutable
@@ -309,10 +311,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
     /**
      * this method allows player to place a family member on a harvest action space
-     * No parameter needed, the {@link ClientMain} saves the parameters of the current move
+     * @param servantsUsed the number of servants the user decided to use
      */
     @Override
-    public void callbackPlacedFMOnHarvest(){
+    public void callbackPlacedFMOnHarvest(int servantsUsed){
         modelController.harvest(familyMemberCurrentAction, servantsCurrentAction);
     }
 

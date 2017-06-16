@@ -60,12 +60,14 @@ abstract public class AbstractUIType {
      * @param servantsNeededCouncil The servants needed by the user to place on cuincil, Optional.empty() if the action is not valid
      * @param activeMarketSpaces The list of legal action spaces in the market
      * @param activeTowerSpaces the list of legal action spaces on the towers
+     * @param availableServants the number of servants the user can spend to perform the action
      */
     abstract public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest,
                                              Optional<Integer> servantsNeededBuild,
                                              Optional<Integer> servantsNeededCouncil,
                                              List<MarketWrapper> activeMarketSpaces,
-                                             List<TowerWrapper> activeTowerSpaces);
+                                             List<TowerWrapper> activeTowerSpaces,
+                                             int availableServants);
 
     /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error

@@ -295,7 +295,7 @@ public class ControllerGame {
 
         choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
-        //modelController.harvest(familyMember, servant);
+        modelController.harvest(familyMember, servant);
 
 
     }
