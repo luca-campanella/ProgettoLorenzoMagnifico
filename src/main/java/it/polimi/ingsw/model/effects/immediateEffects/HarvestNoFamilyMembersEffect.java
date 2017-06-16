@@ -14,6 +14,7 @@ public class HarvestNoFamilyMembersEffect extends AbstractPerformActionEffect {
     }
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName){
+        //todo: ask servants
         player.harvest(diceValue, choicesHandlerInterface);
     }
 

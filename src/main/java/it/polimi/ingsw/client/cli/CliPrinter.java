@@ -243,7 +243,7 @@ public class CliPrinter {
         }
         printScene(tempCostsScene.toString());
     }
-
+    
     private static void printScene(String toPrintString) {
         int i;
         StringBuilder toPrint = new StringBuilder(toPrintString);
