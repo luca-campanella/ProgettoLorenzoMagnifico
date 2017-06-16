@@ -1,4 +1,4 @@
 {
-  "timeoutSec": 5000,
-  "timeToPass": 20000
+  "timeoutSec": 5,
+  "timeToPass": 20
 }

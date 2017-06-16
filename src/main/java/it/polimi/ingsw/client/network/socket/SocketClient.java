@@ -537,7 +537,7 @@ public class SocketClient extends AbstractClientType {
             outStream.writeObject(PacketType.LEADER_CHOICES);
             outStream.writeObject(new ReceiveLeaderCardChosePacket(leaderCard));
             outStream.flush();
-            Debug.printVerbose("Packet on leader choice sent");
+            Debug.printVerbose("Packet on leader choice sent " + leaderCard.getName());
         }
         catch (IOException e){
             Debug.printError("the client cannot deliver the leader he has chosen",e);

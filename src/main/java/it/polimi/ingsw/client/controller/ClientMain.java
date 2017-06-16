@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
+import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
@@ -77,6 +78,8 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      */
     public ClientMain()
     {
+        Debug.instance(Debug.LEVEL_VERBOSE);
+        StdinSingleton.instance();
         temp = new LauncherClientFake(this);
         userInterface = temp.welcome();
         userInterface.askNetworkType();
@@ -84,7 +87,6 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
 
     }
     public static void main(String args[]) {
-        Debug.instance(Debug.LEVEL_VERBOSE);
 
         new ClientMain();
     }

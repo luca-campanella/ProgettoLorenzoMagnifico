@@ -1,11 +1,11 @@
 package it.polimi.ingsw.client.cli.notblockingmenus;
 
 import it.polimi.ingsw.client.cli.CallbackFunction;
+import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * Created by campus on 11/06/2017.
@@ -35,14 +35,16 @@ public abstract class BasicCLIMenu implements Runnable {
     @Override
     public void run() {
         Debug.printVerbose("Process Started");
-        //TODO make a singleton fot the input stream, bad practice to open multiple scanner on the same stream
-        Scanner cin = new Scanner(System.in);
+
+        while(StdinSingleton.getScanner().hasNext())
+            StdinSingleton.getScanner().nextLine();
+
         printMenu();
 
-        DescrCallbackContainer callbackContainer = optionsMap.get(cin.nextLine());
+        DescrCallbackContainer callbackContainer = optionsMap.get(StdinSingleton.getScanner().nextLine());
         while(callbackContainer == null) {
             System.out.println("Not a recognised option, please choose a correct one");
-            callbackContainer = optionsMap.get(cin.nextLine());
+            callbackContainer = optionsMap.get(StdinSingleton.getScanner().nextLine());
         }
         callbackContainer.getFunction().callback();
     }
