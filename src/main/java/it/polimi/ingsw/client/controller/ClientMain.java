@@ -323,7 +323,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackPlacedFMOnTower(int towerIndex, int floorIndex){
-        modelController.placeOnTower(familyMemberCurrentAction, servantsCurrentAction, towerIndex, floorIndex);
+        modelController.placeOnTower(familyMemberCurrentAction, towerIndex, floorIndex);
     }
 
     /**
@@ -332,14 +332,14 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackPlacedFMOnMarket(int marketASIndex){
-        modelController.placeOnMarket(familyMemberCurrentAction, servantsCurrentAction, marketASIndex);
+        modelController.placeOnMarket(familyMemberCurrentAction, marketASIndex);
     }
 
     /**
      * this method allows player to place a family member in the council action space
      */
     public void callbackPlacedFMOnCouncil(){
-        modelController.placeOnCouncil(familyMemberCurrentAction, servantsCurrentAction);
+        modelController.placeOnCouncil(familyMemberCurrentAction);
     }
 
     /**
@@ -624,8 +624,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Player player = modelController.getPlayerByNickname(nickname);
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
-        //todo correct number of fm
-        modelController.placeOnTower(player.getFamilyMemberByColor(familyMemberColor), 4, towerIndex, floorIndex);
+        modelController.placeOnTower(player.getFamilyMemberByColor(familyMemberColor), towerIndex, floorIndex);
         //todo show something in the view
     }
 
@@ -643,8 +642,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Player player = modelController.getPlayerByNickname(nickname);
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
-        //todo correct number of fm
-        modelController.placeOnMarket(player.getFamilyMemberByColor(familyMemberColor), 4, marketIndex);
+        modelController.placeOnMarket(player.getFamilyMemberByColor(familyMemberColor), marketIndex);
         //todo show something in the view
     }
 
@@ -697,8 +695,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Player player = modelController.getPlayerByNickname(nickname);
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
-        //todo right number of servants
-        modelController.placeOnCouncil(player.getFamilyMemberByColor(familyMemberColor), 4);
+        modelController.placeOnCouncil(player.getFamilyMemberByColor(familyMemberColor));
         //todo show something in the view
     }
 }

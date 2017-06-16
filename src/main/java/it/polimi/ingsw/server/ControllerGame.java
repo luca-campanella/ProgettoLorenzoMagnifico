@@ -20,7 +20,6 @@ import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -283,8 +282,7 @@ public class ControllerGame {
         controlTurnPlayer(familyMember.getPlayer().getNickname());
 
         choicesController.setChoicesMap(playerChoices);
-        //todo: put the right value of servants
-        modelController.placeOnTower(familyMember, 2,towerIndex, floorIndex);
+        modelController.placeOnTower(familyMember, towerIndex, floorIndex);
 
     }
 
@@ -325,8 +323,7 @@ public class ControllerGame {
 
         choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
-        //todo: put the right value of servants
-        modelController.placeOnMarket(familyMember, 2, marketSpaceIndex);
+        modelController.placeOnMarket(familyMember, marketSpaceIndex);
 
     }
 

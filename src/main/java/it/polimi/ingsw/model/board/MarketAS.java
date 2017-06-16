@@ -23,6 +23,7 @@ public class MarketAS extends AbstractActionSpace implements Serializable{
     public void performAction(FamilyMember familyMember, ChoicesHandlerInterface choicesController)
     {
         addFamilyMember(familyMember);
+        playFMandSubServantsToPlayer(familyMember);
         getEffects().forEach(effect -> effect.applyToPlayer(familyMember.getPlayer(), choicesController, "MarketAS"));
     }
 

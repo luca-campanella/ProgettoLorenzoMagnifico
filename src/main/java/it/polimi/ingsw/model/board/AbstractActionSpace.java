@@ -2,6 +2,9 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
 
@@ -117,5 +120,21 @@ public abstract class AbstractActionSpace {
 
     public void clearAS(){
         familyMembers.clear();
+    }
+
+    /**
+     * This method is used by subclasses inside perform action in order to set the family member as played and
+     * subtract the servants needed to perform that action
+     * @param familyMember the family member on current action
+     */
+    protected void playFMandSubServantsToPlayer(FamilyMember familyMember) {
+        Player player = familyMember.getPlayer();
+        //set the family member as used in the player
+        player.playFamilyMember(familyMember);
+        //subtract corresponding family members needed
+        int servantsNeeded = getDiceRequirement() - familyMember.getValue();
+        if(servantsNeeded<0)
+            servantsNeeded=0;
+        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servantsNeeded));
     }
 }

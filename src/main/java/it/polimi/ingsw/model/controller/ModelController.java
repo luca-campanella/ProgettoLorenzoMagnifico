@@ -258,19 +258,11 @@ public class ModelController {
      * This method performs the real action on the model when the player places a FM on a tower
      * This method goes down on the model to perform the action calling {@link Board}, {@link it.polimi.ingsw.model.board.Tower}, {@link it.polimi.ingsw.model.board.TowerFloorAS}
      * @param familyMember the family member to perform the action with
-     * @param servants the number of servants to perform the action with
      * @param towerIndex the tower to place the family member to
      * @param floorIndex the floor to place the family member to
      */
-    public void placeOnTower(FamilyMember familyMember, int servants, int towerIndex, int floorIndex){
-
-        Player player = familyMember.getPlayer();
-
-        //set the family member as used in the player
-        player.playFamilyMember(familyMember);
-        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
-        //just adds the family member to the BuildAS
-        gameBoard.placeOnTower(familyMember, towerIndex, floorIndex, choicesController);
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
+         gameBoard.placeOnTower(familyMember, towerIndex, floorIndex, choicesController);
     }
 
     /**
@@ -459,10 +451,9 @@ public class ModelController {
      * This method performs the real action on the model when the player places a FM on a market space
      * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Board}, {@link it.polimi.ingsw.model.board.MarketAS}
      * @param familyMember
-     * @param servants
      * @param marketSpaceIndex the selected market AS
      */
-    public void placeOnMarket(FamilyMember familyMember, int servants, int marketSpaceIndex){
+    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
 
         /*MarketAS marketPlace = gameBoard.getMarketSpaceByIndex(marketSpaceIndex);
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
@@ -474,12 +465,7 @@ public class ModelController {
             return;
         marketPlace.performAction(familyMember);*/
 
-        Player player = familyMember.getPlayer();
-
-        player.playFamilyMember(familyMember);
-        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
-
-        gameBoard.placeOnMarket(familyMember, marketSpaceIndex, choicesController);
+       gameBoard.placeOnMarket(familyMember, marketSpaceIndex, choicesController);
     }
 
     /**
@@ -530,15 +516,10 @@ public class ModelController {
      * This method performs the real action on the model when the player places a FM int he council
      * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Board}, {@link it.polimi.ingsw.model.board.CouncilAS}
      * @param familyMember
-     * @param servants
+     *
      */
-    public void placeOnCouncil(FamilyMember familyMember, int servants) {
-        Player player = familyMember.getPlayer();
-
-        player.playFamilyMember(familyMember);
-        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
-
-        gameBoard.placeOnCouncil(familyMember, choicesController);
+    public void placeOnCouncil(FamilyMember familyMember) {
+         gameBoard.placeOnCouncil(familyMember, choicesController);
     }
 
     public void discardLeaderCard(Player player, String nameLeader){
