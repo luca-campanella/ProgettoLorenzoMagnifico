@@ -21,10 +21,11 @@ public class TakeCardNoFamilyMemberEffect extends AbstractPerformActionEffect {
     @Override
     public String descriptionOfEffect() {
         int i;
-        String tmp = new String();
+        StringBuilder tmp = new StringBuilder();
+        tmp.append("This method allows player to place one dice on ")
         for(i=0; i<towerColorsAllowed.size(); i++)
-            tmp += " " + towerColorsAllowed.get(i).toString();
-        return "This method allows player to place one dice on " + tmp;
+            tmp.append(" " + towerColorsAllowed.get(i).toString());
+        return tmp.toString();
     }
     @Override
     public String descriptionShortOfEffect() {

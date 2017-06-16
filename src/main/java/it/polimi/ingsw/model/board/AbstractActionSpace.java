@@ -68,12 +68,12 @@ public abstract class AbstractActionSpace {
      */
     public String getEffectShortDescription()
     {
-        String desc = new String();
+        StringBuilder desc = new StringBuilder();
 
         for(ImmediateEffectInterface i : effects)
-            desc += i.descriptionShortOfEffect() + " ";
+            desc.append(i.descriptionShortOfEffect() + " ");
 
-        return desc;
+        return desc.toString();
     }
 
     /**
@@ -82,12 +82,12 @@ public abstract class AbstractActionSpace {
      */
     public String getEffectDescription()
     {
-        String desc = new String();
+        StringBuilder desc = new StringBuilder();
 
         for(ImmediateEffectInterface i : effects)
-            desc += i.descriptionOfEffect() + " | ";
+            desc.append(i.descriptionOfEffect() + " ");
 
-        return desc;
+        return desc.toString();
     }
 
     public int getDiceRequirement() {

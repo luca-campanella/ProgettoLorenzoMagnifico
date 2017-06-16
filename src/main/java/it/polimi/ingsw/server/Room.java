@@ -93,7 +93,7 @@ public class Room {
                     startGame();
                     Debug.printVerbose("Timeout reached, returned from start function");
                 }
-            }, timeoutInSec*1000);
+            }, (long)(timeoutInSec)*1000);
         }
     }
 

@@ -58,7 +58,7 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
     private void placeFMOnMarket() {
 
         Debug.printVerbose("placeFMOnMarket");
-        int indexRes = 0;
+        int indexRes;
         if(activeMarketSpaces.size() == 1) {
             System.out.println("You can only place on space n " + activeMarketSpaces.get(0).getMarketIndex() + "with " + activeMarketSpaces.get(0).getServantNeeded() + "servants needed");
             System.out.println("I'm placing it over there");
@@ -80,12 +80,16 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
     }
 
     private void placeFMOnBuild() {
-        int servantsAdded = readServants(servantsNeededBuild.get());
+        int servantsAdded = 0;
+        if(servantsNeededHarvest.isPresent())
+             servantsAdded = readServants(servantsNeededBuild.get());
         getController().callbackPlacedFMOnBuild(servantsAdded);
     }
 
     private void placeFMOnHarvest() {
-        int servantsAdded = readServants(servantsNeededHarvest.get());
+        int servantsAdded = 0;
+        if(servantsNeededHarvest.isPresent())
+            servantsAdded = readServants(servantsNeededHarvest.get());
         getController().callbackPlacedFMOnHarvest(servantsAdded);
     }
 

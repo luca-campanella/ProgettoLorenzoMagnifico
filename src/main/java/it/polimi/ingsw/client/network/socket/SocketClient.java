@@ -174,7 +174,7 @@ public class SocketClient extends AbstractClientType {
             throw new NetworkException("Cannot write object to output on socket stream", e);
         }
 
-    };
+    }
 
     /**
      * this method is used to move the family member on the towers
