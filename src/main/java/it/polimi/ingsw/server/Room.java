@@ -384,6 +384,7 @@ public class Room {
         for(LeaderCard card : cardToPlayer){
             if(card.getName().equals(leaderCard.getName())) {
                 cardToPlayer.remove(card);
+                Debug.printVerbose("eliminated " + leaderCard.getName());
                 break;
             }
         }

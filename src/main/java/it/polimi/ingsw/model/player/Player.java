@@ -43,6 +43,8 @@ public class Player implements Serializable{
     {
         super();
         loadPlayer();
+        leaderCard = new ArrayList<>(4);
+        playedLeaderCard = new ArrayList<>(4);
     }
 
     public Player(String nickname)
