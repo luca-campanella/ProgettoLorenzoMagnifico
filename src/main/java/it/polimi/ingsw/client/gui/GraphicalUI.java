@@ -6,7 +6,7 @@ package it.polimi.ingsw.client.gui;
 
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
-import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
+import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
@@ -64,7 +64,7 @@ public abstract class GraphicalUI extends AbstractUIType {
     /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
-     * {@link ControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
+     * {@link ViewControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
      *
      * @param playableFMs the list of playable family members to make the user choose
@@ -168,7 +168,7 @@ public abstract class GraphicalUI extends AbstractUIType {
      * This is the costructor of the class
      * @param x is the ClientMain
      */
-    public GraphicalUI(ControllerCallbackInterface x)
+    public GraphicalUI(ViewControllerCallbackInterface x)
     {
        super(x);
     }

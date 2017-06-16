@@ -7,9 +7,10 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTileEnum;
 
 /**
- * This class is the interface of ModelController on the client
+ * This interface is used for callbacks from view to controller
+ * Direction: {@link AbstractUIType} to {@link ClientMain}
  */
-public interface ControllerCallbackInterface {
+public interface ViewControllerCallbackInterface {
 
     /**
      * This method is used to make a callback from view to model when the user chooses the network type

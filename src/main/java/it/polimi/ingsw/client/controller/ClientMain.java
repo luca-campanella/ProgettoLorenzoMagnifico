@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * TODO: implement launcher
  */
-public class ClientMain implements ClientInterface, ControllerCallbackInterface, ChoicesHandlerInterface {
+public class ClientMain implements NetworkControllerClientInterface, ViewControllerCallbackInterface, ChoicesHandlerInterface {
     private LauncherClientFake temp;
     private AbstractUIType userInterface;
     private AbstractClientType clientNetwork;

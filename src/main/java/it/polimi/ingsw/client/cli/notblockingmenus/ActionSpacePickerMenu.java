@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.cli.notblockingmenus;
 
 import it.polimi.ingsw.client.cli.CliOptionsHandler;
-import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
+import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
@@ -20,7 +20,7 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
     List<MarketWrapper> activeMarketSpaces;
     List<TowerWrapper> activeTowerSpaces;
 
-    public ActionSpacePickerMenu(ControllerCallbackInterface controller,
+    public ActionSpacePickerMenu(ViewControllerCallbackInterface controller,
                                  Optional<Integer> servantsNeededHarvest,
                                  Optional<Integer> servantsNeededBuild,
                                  Optional<Integer> servantsNeededCouncil,

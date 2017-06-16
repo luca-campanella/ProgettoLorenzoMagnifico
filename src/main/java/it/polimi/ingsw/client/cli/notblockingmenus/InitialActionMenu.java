@@ -1,8 +1,7 @@
 package it.polimi.ingsw.client.cli.notblockingmenus;
 
 import it.polimi.ingsw.client.cli.CliOptionsHandler;
-import it.polimi.ingsw.client.cli.notblockingmenus.BasicCLIMenu;
-import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
+import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.utils.Debug;
 
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 public class InitialActionMenu extends BasicCLIMenu {
     ArrayList<FamilyMember> playableFMs;
 
-    public InitialActionMenu(ControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs) {
+    public InitialActionMenu(ViewControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs) {
         super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
         this.playableFMs = playableFMs;
         addOption("FM", "Place a Family Member on an action space", () -> this.placeFamilyMember());

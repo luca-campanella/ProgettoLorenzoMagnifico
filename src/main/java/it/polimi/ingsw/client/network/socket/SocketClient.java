@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.network.socket;
 
 
-import it.polimi.ingsw.client.controller.ClientInterface;
+import it.polimi.ingsw.client.controller.NetworkControllerClientInterface;
 import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.socket.packet.*;
@@ -46,7 +46,7 @@ public class SocketClient extends AbstractClientType {
     /**
      *Initialization of the attributes on the superclass
      */
-    public SocketClient (ClientInterface controllerMain, String serverAddress, int port) {
+    public SocketClient (NetworkControllerClientInterface controllerMain, String serverAddress, int port) {
         super(controllerMain, serverAddress, port);
         Debug.printVerbose("New SocketClient created");
     }

@@ -9,7 +9,7 @@ import it.polimi.ingsw.client.cli.notblockingmenus.InitialActionMenu;
 import it.polimi.ingsw.client.cli.notblockingmenus.LeaderPickerMenu;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
-import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
+import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
@@ -42,7 +42,7 @@ public class CommandLineUI extends AbstractUIType {
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
      */
-    public CommandLineUI(ControllerCallbackInterface controller)
+    public CommandLineUI(ViewControllerCallbackInterface controller)
     {
         super(controller);
         pool = Executors.newFixedThreadPool(2);

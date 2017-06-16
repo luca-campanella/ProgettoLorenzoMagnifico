@@ -12,7 +12,7 @@ import java.util.List;
 /**
  *   This interface is implemented by {@link ClientMain} to let {@link it.polimi.ingsw.client.network.AbstractClientType} make calls on controller
  */
-public interface ClientInterface {
+public interface NetworkControllerClientInterface {
 
     /**
      * This method is called by {@link it.polimi.ingsw.client.network.AbstractClientType} to display an incoming chat message (Direction: AbstractClientType -> ClientMain; general direction: Server -> Client)
@@ -68,7 +68,7 @@ public interface ClientInterface {
     /**
      * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
      * to notify that the has to pick a personal tile between the ones proposed
-     * Corresponding callback: {@link ControllerCallbackInterface#callbackOnPersonalTileChosen}
+     * Corresponding callback: {@link ViewControllerCallbackInterface#callbackOnPersonalTileChosen}
      * @param standardTile option1
      * @param specialTile option2
      */

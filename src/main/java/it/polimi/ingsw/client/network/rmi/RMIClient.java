@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.network.rmi;
 
-import it.polimi.ingsw.client.controller.ClientInterface;
+import it.polimi.ingsw.client.controller.NetworkControllerClientInterface;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.model.board.Board;
@@ -35,7 +35,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @param serverAddress the address to connect to
      * @param port the port to connect to
      */
-    public RMIClient(ClientInterface controllerMain, String serverAddress, int port) {
+    public RMIClient(NetworkControllerClientInterface controllerMain, String serverAddress, int port) {
         super(controllerMain, serverAddress, port);
     }
 
