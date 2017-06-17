@@ -195,7 +195,7 @@ public class JSONLoader {
 
         // RuntimeTypeAdapterFactory<AbstractImmediateLeaderAbility> runtimeAdapterFactoryImmediateAbility = RuntimeTypeAdapterFactory.of(AbstractImmediateLeaderAbility.class, "abilityType");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundResourceLeaderAbility.class, "OncePerRoundResourceLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundProductionLeaderAbility.class, "OncePerRoundProductionLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundBuildLeaderAbility.class, "OncePerRoundBuildLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundHarvestLeaderAbility.class, "OncePerRoundHarvestLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundCouncilGiftAbility.class, "OncePerRoundCouncilGiftAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundBonusOneColoredFamilyMemberLeaderAbility.class, "OncePerRoundBonusOneColoredFamilyMemberLeaderAbility");

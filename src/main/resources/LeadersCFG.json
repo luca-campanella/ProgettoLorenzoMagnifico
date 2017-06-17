@@ -157,7 +157,7 @@
       "name": "Leonardo Da Vinci",
       "description": "Ogniomo senpre si trova nel mezo del mondo en essotto il mezo del suo emisperio e sopra il cientro desso mondo.",
       "ability": {
-        "abilityType": "OncePerRoundProductionLeaderAbility",
+        "abilityType": "OncePerRoundBuildLeaderAbility",
         "diceValue": 0
       }
     },
@@ -342,8 +342,9 @@
       "name": "Santa Rita",
       "description": "Fu talmente abbracciata la santa astinenza, e l’aspro vestire dalla nostra Beata Rita,\nche chi la mirava, restava meravigliato, e quasi fuor di se stesso rimaneva.",
       "ability": {
-        "abilityType": "DoubleResourcesOnImmediateCardEffectAbility",
-        "doubleResource": 1
+        "abilityType": "AddMoreTimesResourcesOnImmediateCardEffectAbility",
+        "timesToAddMore": 1,
+        "cardColor": "YELLOW"
       }
     },
     {
