@@ -1,15 +1,13 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
-import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
-
 /**
  * this class handles Santa Rita's ability.
  */
 public class DoubleResourcesOnImmediateCardEffectAbility extends AbstractPermanentLeaderAbility {
     int doubleResource;
 
-    public DoubleResourcesOnImmediateCardEffectAbility(LeaderAbilityTypeEnum abilityType, int doubleResource) {
-        super(abilityType);
+    public DoubleResourcesOnImmediateCardEffectAbility(int doubleResource) {
+        super();
         this.doubleResource = doubleResource;
     }
 

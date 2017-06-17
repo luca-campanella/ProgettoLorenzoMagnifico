@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.resource.Resource;
 
 /**
@@ -22,8 +21,8 @@ public class DiscountOnCardCostLeaderAbility extends AbstractPermanentLeaderAbil
      */
     private Resource discount;
 
-    public DiscountOnCardCostLeaderAbility(LeaderAbilityTypeEnum leaderAbilityType, CardColorEnum cardColor, Resource discount) {
-        super(leaderAbilityType);
+    public DiscountOnCardCostLeaderAbility(CardColorEnum cardColor, Resource discount) {
+        super();
         this.cardColor = cardColor;
         this.discount = discount;
     }

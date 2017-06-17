@@ -15,8 +15,13 @@ import java.util.Optional;
 public abstract class AbstractPermanentLeaderAbility extends AbstractLeaderAbility{
 
 
-    public AbstractPermanentLeaderAbility(LeaderAbilityTypeEnum abilityType) {
-        super(abilityType);
+    public AbstractPermanentLeaderAbility() {
+        super();
+    }
+
+    @Override
+    public LeaderAbilityTypeEnum getAbilityType() {
+        return LeaderAbilityTypeEnum.PERMANENT;
     }
 
     /**

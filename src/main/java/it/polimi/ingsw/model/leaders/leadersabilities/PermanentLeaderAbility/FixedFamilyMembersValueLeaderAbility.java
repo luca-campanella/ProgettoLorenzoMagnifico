@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
-import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
-
 import java.util.Optional;
 
 /**
@@ -15,8 +13,8 @@ public class FixedFamilyMembersValueLeaderAbility extends AbstractPermanentLeade
      */
     private int diceValue;
 
-    public FixedFamilyMembersValueLeaderAbility(LeaderAbilityTypeEnum leaderAbilityType, int diceValue) {
-        super(leaderAbilityType);
+    public FixedFamilyMembersValueLeaderAbility(int diceValue) {
+        super();
         this.diceValue = diceValue;
     }
 

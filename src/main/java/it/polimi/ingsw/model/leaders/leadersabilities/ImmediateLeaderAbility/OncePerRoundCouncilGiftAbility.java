@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.player.Player;
 
 /**
@@ -11,8 +10,8 @@ import it.polimi.ingsw.model.player.Player;
 public class OncePerRoundCouncilGiftAbility extends AbstractImmediateLeaderAbility {
     int numberOfDifferentCouncilGift;
 
-    public OncePerRoundCouncilGiftAbility(LeaderAbilityTypeEnum leaderAbilityType, int numberOfDifferentCouncilGift){
-        super(leaderAbilityType);
+    public OncePerRoundCouncilGiftAbility(int numberOfDifferentCouncilGift){
+        super();
         this.numberOfDifferentCouncilGift = numberOfDifferentCouncilGift;
     }
 

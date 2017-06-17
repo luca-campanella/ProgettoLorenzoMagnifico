@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.player.Player;
 
 /**
@@ -12,8 +11,8 @@ public class OncePerRoundProductionLeaderAbility extends AbstractImmediateLeader
 
     private int diceValue = 0;
 
-    public OncePerRoundProductionLeaderAbility(LeaderAbilityTypeEnum leaderAbilityType, int diceValue) {
-        super(leaderAbilityType);
+    public OncePerRoundProductionLeaderAbility(int diceValue) {
+        super();
         this.diceValue = diceValue;
     }
      /**

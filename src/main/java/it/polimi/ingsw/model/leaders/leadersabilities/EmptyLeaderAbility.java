@@ -9,7 +9,7 @@ public class EmptyLeaderAbility extends AbstractPermanentLeaderAbility {
 
 
     public EmptyLeaderAbility(LeaderAbilityTypeEnum abilityType) {
-        super(abilityType);
+        super();
     }
 
     @Override

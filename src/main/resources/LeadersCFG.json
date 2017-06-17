@@ -5,6 +5,21 @@
         {
           "reqType": "CardRequirement",
           "numReq": 5,
+          "reqCardColor": "PURPLE"
+        }
+      ],
+      "name": "Francesco Sforza",
+      "description": "E per dirlo ad un tratto non ci fu guerra famosa nell’Italia, che Francesco Sforza non vi si trovasse, e le Repubbliche, Prencipi, Re e Papi andavano a gara per haverlo al suo sevigio.",
+      "ability": {
+        "abilityType": "OncePerRoundHarvestLeaderAbility",
+        "diceValue": 1
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 5,
           "reqCardColor": "BLUE"
         }
       ],
@@ -57,12 +72,34 @@
         {
           "reqType": "ResourceRequirement",
           "resReq": {
+            "type": "COIN",
+            "value": 18
+          }
+        }
+      ],
+      "name": "Girolamo Savonarola",
+      "description": "Che se possibile sempre ruminate qualche cosa divota, et quando mangiate, et quando lavorate, et quando camminate; [..] et sentirete nel core uno continuo ardore di fiamma di charità.",
+      "ability": {
+        "abilityType": "OncePerRoundResourceLeaderAbility",
+        "bonuses": [
+          {
+            "type": "FAITH_POINT",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
             "type": "STONE",
             "value": 10
           }
         }
       ],
-      "name": "Girolamo Savonarola",
+      "name": "Michelangelo Buonarroti",
       "description": "Dai quali tutti Michelagnolo molto era accarezzato, et acceso al honorato suo studio, ma sopra tutti dal Magni co, il quale spesse volte il giorno lo faceva chiamare monstrandogli sue gioie [...].",
       "ability": {
         "abilityType": "OncePerRoundResourceLeaderAbility",
@@ -204,11 +241,10 @@
         }
       ],
       "name": "Federico da Montefeltro",
-      "description": "[...] la gloriosa memoria del Duca Federico, il quale a dì suoi fu lume della Italia. Né quivi [Urbino] cosa alcuna volse, se non rarissima et eccellente.",
+      "description": "[...] la gloriosa memoria del Duca Federico, il quale a di\u0027 suoi fu lume della Italia. Ne\u0027 quivi [Urbino] cosa alcuna volse, se non rarissima et eccellente.",
       "ability": {
-        "abilityType": "BonusOneColoredFamilyMemberLeaderAbility",
-        "bonusValue": 6,
-        "used": false
+        "abilityType": "OncePerRoundBonusOneColoredFamilyMemberLeaderAbility",
+        "bonusValue": 6
       }
     },
     {
@@ -222,9 +258,75 @@
         }
       ],
       "name": "Lorenzo de\u0027 Medici",
-      "description": "Copy the ability of another Leader Card already played by another player. Once you decide the ability to copy, it can’t be changed.",
+      "description": "Vir ad omnia summa natus, et qui  antem re antemque totiens fortunam usque adeo sit alterna veli catione moderatus.",
       "ability": {
         "abilityType": "CopyAnotherLeaderAbility"
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "WOOD",
+            "value": 6
+          }
+        },
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "STONE",
+            "value": 6
+          }
+        },
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "COIN",
+            "value": 6
+          }
+        },
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "SERVANT",
+            "value": 6
+          }
+        }
+      ],
+      "name": "Sisto IV",
+      "description": "[...] secretamente tratto\u0027, che per mezzo di una congiura fussero ammazzati Lorenzoe Giuliano de’ Medici fratelli, e si riordinasse poi quella Repubblica a sua volonta\u0027.",
+      "ability": {
+        "abilityType": "GainFaithPointsSupportingChurchLeaderAbility",
+        "additionalFaithPoints": 5
+      }
+    },
+    {
+      "requirements": [
+        {
+          "reqType": "CardRequirement",
+          "numReq": 3,
+          "reqCardColor": "YELLOW"
+        },
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "COIN",
+            "value": 12
+          }
+        },
+        {
+          "reqType": "ResourceRequirement",
+          "resReq": {
+            "type": "FAITH_POINT",
+            "value": 2
+          }
+        }
+      ],
+      "name": "Cesare Borgia",
+      "description": "Cesarem Borgiam, qui sanguinario ingenio, immanique saevitia veteres tyrannos aequasse censeri potest, viroso sanguine, execrabile semine progenitum ferunt.",
+      "ability": {
+        "abilityType": "NoMilitaryPointsNeededForTerritoryCardsLeaderAbility"
       }
     },
     {
@@ -287,7 +389,7 @@
         }
       ],
       "name": "Bartolomeo Colleoni",
-      "description": "Et era allhor frequente per le bocche del volgo un sì fatto motto: «Havere il Coglione\nallo Sforza, il gioco di maniera in man concio, che non facendo ei torto alle carte più\nnon potea perdere».",
+      "description": "Et era allhor frequente per le bocche del volgo un si\u0027 fatto motto: «Havere il Coglione allo Sforza, il gioco di maniera in man concio, che non facendo ei torto alle carte piu\u0027 non potea perdere».",
       "ability": {
         "abilityType": "OncePerRoundResourceLeaderAbility",
         "bonuses": [
@@ -309,10 +411,10 @@
         }
       ],
       "name": "Ludovico III Gonzaga",
-      "description": "[…] la qual cosa sopportava con sdegno Lodovico, parendogli che nota infame gli fosse\nl’essergli preposto dal padre il fratello, il quale veramente odiava.",
+      "description": "[…] la qual cosa sopportava con sdegno Lodovico, parendogli che nota infame gli fosse l’essergli preposto dal padre il fratello, il quale veramente odiava.",
       "ability": {
         "abilityType": "OncePerRoundCouncilGiftAbility",
-        "numberOfDiffrentCouncilGift": 1
+        "numberOfDifferentCouncilGift": 1
       }
     },
     {
@@ -331,13 +433,12 @@
       "name": "Pico della Mirandola",
       "description": "Ioannes Picus Mirandula merito cognomine phoenix appellatus est, quod in eum,\nDii superi, supra familiae claritatem, omnis corporis, ac animi vel rarissima dona\ncontulerint.",
       "ability": {
-        "abilityType": "OncePerRoundResourceLeaderAbility",
-        "bonuses": [
-          {
-            "type": "VICTORY_POINT",
-            "value": 4
-          }
-        ]
+        "abilityType": "DiscountOnCardCostLeaderAbility",
+        "cardColor": "YELLOW",
+        "discount": {
+          "type": "COIN",
+          "value": 3
+        }
       }
     }
   ]

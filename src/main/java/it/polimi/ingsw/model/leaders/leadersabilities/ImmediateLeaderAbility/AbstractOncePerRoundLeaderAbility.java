@@ -11,7 +11,7 @@ public abstract class AbstractOncePerRoundLeaderAbility extends AbstractPermanen
     private boolean wasUsedThisRound = false;
 
     public AbstractOncePerRoundLeaderAbility(LeaderAbilityTypeEnum abilityType) {
-        super(abilityType);
+        super();
     }
 
     @Override

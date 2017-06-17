@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.*;
-import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility.*;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 import it.polimi.ingsw.model.leaders.requirements.CardRequirement;
@@ -31,19 +30,19 @@ public class LeaderCreator {
                 "Francesco Sforza",
                 "E per dirlo ad un tratto non ci fu guerra famosa nell’Italia, che Francesco Sforza non vi " +
                         "si trovasse, e le Repubbliche, Prencipi, Re e Papi andavano a gara per haverlo al suo sevigio.",
-                new OncePerRoundHarvestLeaderAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND, 1)));
+                new OncePerRoundHarvestLeaderAbility(1)));
 
         leaders.add(new LeaderCard(createOneReqArray(new CardRequirement(5, CardColorEnum.BLUE)),
                 "Ludovico Ariosto",
                 "Io desidero intendere da voi Alessandro fratel, compar mio Bagno, S’in la Cort’è memoria " +
                 "più di noi; Se più il Signor m’accusa; se compagno Per me si lieva.",
-                new CanPlaceFMInOccupiedASLeaderAbility(LeaderAbilityTypeEnum.PERMANENT)));
+                new CanPlaceFMInOccupiedASLeaderAbility()));
 
         leaders.add(new LeaderCard(createOneReqArray(new CardRequirement(5, CardColorEnum.YELLOW)),
                 "Filippo Brunelleschi",
                 "[...] sparuto de la persona [...], ma di ingegno tanto elevato che ben si può dire che e’" +
                         "ci fu donato dal cielo per dar nuova forma alla architettura.",
-                new NotToSpendForOccupiedTowerLeaderAbility(LeaderAbilityTypeEnum.PERMANENT)));
+                new NotToSpendForOccupiedTowerLeaderAbility()));
 
         leaders.add(new LeaderCard(createTwoReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.MILITARY_POINT, 7)),
@@ -51,14 +50,14 @@ public class LeaderCreator {
                 "Sigismondo Malatesta",
                 "Era a campo la maistà del re de Ragona. [...] el fé levare de campo cum la soe gente e" +
         "cum lo altre di fiorentini, cum gram danno e poco onore del re.",
-                new BonusNeutralFMLeaderAbility(LeaderAbilityTypeEnum.PERMANENT, 3)));
+                new BonusNeutralFMLeaderAbility(3)));
 
         leaders.add(new LeaderCard(createOneReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.COIN, 18))),
                 "Girolamo Savonarola",
                 "Che se possibile sempre ruminate qualche cosa divota, et quando mangiate, et quando lavorate," +
                         " et quando camminate; [..] et sentirete nel core uno continuo ardore di fiamma di charità.",
-                new OncePerRoundResourceLeaderAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND, createOneResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createOneResourceBonusArray(
                         new Resource(ResourceTypeEnum.FAITH_POINT,1)))));
 
         leaders.add(new LeaderCard(createOneReqArray(
@@ -66,7 +65,7 @@ public class LeaderCreator {
                 "Michelangelo Buonarroti",
                 "Dai quali tutti Michelagnolo molto era accarezzato, et acceso al honorato suo studio, ma sopra" +
                         " tutti dal Magni co, il quale spesse volte il giorno lo faceva chiamare monstrandogli sue gioie [...].",
-                new OncePerRoundResourceLeaderAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND, createOneResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createOneResourceBonusArray(
                         new Resource(ResourceTypeEnum.COIN, 3)))));
 
         leaders.add(new LeaderCard(createOneReqArray(new ResourceRequirement(
@@ -74,7 +73,7 @@ public class LeaderCreator {
                 "Giovanni dalle Bande Nere",
                 "Egli apprezzava più gli huomini prodi che le ricchezze le quai desiderava per donar a " +
                         "loro.",
-                new OncePerRoundResourceLeaderAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND, createThreeResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createThreeResourceBonusArray(
                         new Resource(ResourceTypeEnum.WOOD, 1),
                         new Resource(ResourceTypeEnum.STONE, 1),
                         new Resource(ResourceTypeEnum.COIN, 1)))));
@@ -84,14 +83,14 @@ public class LeaderCreator {
                 "Leonardo Da Vinci",
                 "Ogniomo senpre si trova nel mezo del mondo en essotto il mezo del suo emisperio e sopra " +
                         "il cientro desso mondo.",
-                new OncePerRoundProductionLeaderAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND, 0)));
+                new OncePerRoundProductionLeaderAbility(0)));
 
         leaders.add(new LeaderCard(createOneReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.WOOD, 10))),
                 "Sandro Botticelli",
                 "[...] ancora che agevolmente apprendesse tutto quello che e’ voleva, era nientedimanco " +
                         "inquieto sempre, né si contentava di scuola alcuna [...].",
-                new OncePerRoundResourceLeaderAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND, createTwoResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createTwoResourceBonusArray(
                         new Resource(ResourceTypeEnum.MILITARY_POINT, 2),
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 1)))));
 
@@ -104,7 +103,7 @@ public class LeaderCreator {
                 "Ludovicum Sfortiam Mediolanensium principem, cui Moro cognomen fuit, nequaquam a " +
                         "suscedine oris, quod esset aequo pallidior ita vocatum ferunt, quod pro insigni " +
                         "gestabat Mori arboris.",
-                new FixedFamilyMembersValueLeaderAbility(LeaderAbilityTypeEnum.PERMANENT, 5)));
+                new FixedFamilyMembersValueLeaderAbility(5)));
 
         leaders.add(new LeaderCard(createOneReqArray(
                 new CardRequirement(6, CardColorEnum.YELLOW)),
@@ -112,21 +111,21 @@ public class LeaderCreator {
                 "Donna Lucretia, benché avvezza homai a mutar mariti secondo il capriccio et interesse " +
                         "dei suoi, [...] si trattenne  n che il tempo unico medico di queste passioni le fece volger" +
                         " l’animo a più soavi pensieri.",
-                new BonusColoredFamilyMembersLeaderAbility(LeaderAbilityTypeEnum.PERMANENT, 2)));
+                new BonusColoredFamilyMembersLeaderAbility(2)));
 
         leaders.add(new LeaderCard(createOneReqArray(
                 new CardRequirement(5, CardColorEnum.GREEN)),
                 "Federico da Montefeltro",
             "[...] la gloriosa memoria del Duca Federico, il quale a di' suoi fu lume della Italia. " +
                     "Ne' quivi [Urbino] cosa alcuna volse, se non rarissima et eccellente.",
-                new OncePerRoundBonusOneColoredFamilyMemberLeaderAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND, 6)));
+                new OncePerRoundBonusOneColoredFamilyMemberLeaderAbility(6)));
 
         leaders.add(new LeaderCard(createOneReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.VICTORY_POINT, 35))),
                 "Lorenzo de' Medici",
                 "Vir ad omnia summa natus, et qui  antem re antemque totiens fortunam usque adeo " +
                         "sit alterna veli catione moderatus.",
-                new CopyAnotherLeaderAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND)));
+                new CopyAnotherLeaderAbility()));
 
         leaders.add(new LeaderCard(createFourReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.WOOD, 6)),
@@ -136,7 +135,7 @@ public class LeaderCreator {
                 "Sisto IV",
                 "[...] secretamente tratto', che per mezzo di una congiura fussero ammazzati Lorenzo" +
                         "e Giuliano de’ Medici fratelli, e si riordinasse poi quella Repubblica a sua volonta'.",
-                new GainFaithPointsSupportingChurchLeaderAbility(LeaderAbilityTypeEnum.PERMANENT, 5)));
+                new GainFaithPointsSupportingChurchLeaderAbility(5)));
 
         leaders.add(new LeaderCard(createThreeReqArray(
                 new CardRequirement(3, CardColorEnum.YELLOW),
@@ -145,21 +144,21 @@ public class LeaderCreator {
                 "Cesare Borgia",
                 "Cesarem Borgiam, qui sanguinario ingenio, immanique saevitia veteres tyrannos " +
                         "aequasse censeri potest, viroso sanguine, execrabile semine progenitum ferunt.",
-                new NoMilitaryPointsNeededForTerritoryCardsLeaderAbility(LeaderAbilityTypeEnum.PERMANENT)));
+                new NoMilitaryPointsNeededForTerritoryCardsLeaderAbility()));
 
         leaders.add(new LeaderCard(createOneReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.FAITH_POINT, 8))),
                 "Santa Rita",
                 "Fu talmente abbracciata la santa astinenza, e l’aspro vestire dalla nostra Beata Rita,\n" +
                         "che chi la mirava, restava meravigliato, e quasi fuor di se stesso rimaneva.",
-                new DoubleResourcesOnImmediateCardEffectAbility(LeaderAbilityTypeEnum.PERMANENT, 1)));
+                new DoubleResourcesOnImmediateCardEffectAbility(1)));
 
         leaders.add(new LeaderCard(createTwoReqArray(
                 new CardRequirement(4, CardColorEnum.YELLOW),
                 new CardRequirement(2, CardColorEnum.BLUE)),
                 "Cosimo de' Medici",
                 "Debebunt igitur Medici magno Cosmo omnis Medicea, et Florentina posteritas.",
-                new OncePerRoundResourceLeaderAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND, createTwoResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createTwoResourceBonusArray(
                         new Resource(ResourceTypeEnum.SERVANT, 3),
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 1)))));
 
@@ -170,7 +169,7 @@ public class LeaderCreator {
                 "Et era allhor frequente per le bocche del volgo un si' fatto motto: «Havere il Coglione " +
                         "allo Sforza, il gioco di maniera in man concio, che non facendo ei torto alle carte piu' " +
                         "non potea perdere».",
-                new OncePerRoundResourceLeaderAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND, createOneResourceBonusArray(
+                new OncePerRoundResourceLeaderAbility(createOneResourceBonusArray(
                         new Resource(ResourceTypeEnum.VICTORY_POINT, 4)))));
 
         leaders.add(new LeaderCard(createOneReqArray(
@@ -178,7 +177,7 @@ public class LeaderCreator {
                 "Ludovico III Gonzaga",
                 "[…] la qual cosa sopportava con sdegno Lodovico, parendogli che nota infame gli fosse " +
                         "l’essergli preposto dal padre il fratello, il quale veramente odiava.",
-                        new OncePerRoundCouncilGiftAbility(LeaderAbilityTypeEnum.ONCE_PER_ROUND, 1)));
+                        new OncePerRoundCouncilGiftAbility(1)));
 
         leaders.add(new LeaderCard(createTwoReqArray(
                 new CardRequirement(4, CardColorEnum.PURPLE),
@@ -187,7 +186,7 @@ public class LeaderCreator {
                 "Ioannes Picus Mirandula merito cognomine phoenix appellatus est, quod in eum,\n" +
                         "Dii superi, supra familiae claritatem, omnis corporis, ac animi vel rarissima dona\n" +
                         "contulerint.",
-                new DiscountOnCardCostLeaderAbility(LeaderAbilityTypeEnum.PERMANENT, CardColorEnum.YELLOW,
+                new DiscountOnCardCostLeaderAbility(CardColorEnum.YELLOW,
                         new Resource(ResourceTypeEnum.COIN, 3))));
 
 

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.player.Player;
 
 /**
@@ -12,8 +11,8 @@ public class OncePerRoundBonusOneColoredFamilyMemberLeaderAbility extends Abstra
 
     private int bonusValue;
 
-    public OncePerRoundBonusOneColoredFamilyMemberLeaderAbility(LeaderAbilityTypeEnum leaderAbilityType, int bonusValue){
-        super(leaderAbilityType);
+    public OncePerRoundBonusOneColoredFamilyMemberLeaderAbility(int bonusValue){
+        super();
         this.bonusValue = bonusValue;
     }
 

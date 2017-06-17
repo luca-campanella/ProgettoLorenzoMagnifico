@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
-import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
-
 /**
  * This leader ability gives you a bonus on all your colored family members
  * This ability is usually implemented by "Lucreazia Borgia"
@@ -10,8 +8,8 @@ public class BonusColoredFamilyMembersLeaderAbility extends AbstractPermanentLea
 
     private int bonusValue;
 
-    public BonusColoredFamilyMembersLeaderAbility(LeaderAbilityTypeEnum leaderType, int bonusValue){
-        super(leaderType);
+    public BonusColoredFamilyMembersLeaderAbility(int bonusValue){
+        super();
         this.bonusValue = bonusValue;
     }
 

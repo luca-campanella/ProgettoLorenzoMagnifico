@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
-import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
-
 /**
  * This leader ability tells that you gain n faith point more when you decide to support the vatican
  * This ability is usually implemented by "Sisto IV" leader
@@ -9,8 +7,8 @@ import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 public class GainFaithPointsSupportingChurchLeaderAbility extends AbstractPermanentLeaderAbility {
     private int additionalFaithPoints;
 
-    public GainFaithPointsSupportingChurchLeaderAbility(LeaderAbilityTypeEnum leaderAbilityType, int additionalFaithPoints) {
-        super(leaderAbilityType);
+    public GainFaithPointsSupportingChurchLeaderAbility(int additionalFaithPoints) {
+        super();
         this.additionalFaithPoints = additionalFaithPoints;
     }
 
