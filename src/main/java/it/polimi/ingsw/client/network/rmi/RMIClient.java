@@ -121,15 +121,33 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     public void deliverLeaderChose(LeaderCard leaderCard) throws NetworkException {
 
     }
-
+    /**
+     * this method is used to deliver a leader card that the client wants to play
+     * @param nameLeader the name of the chosen leader
+     * @throws NetworkException if something goes wrong during the connection
+     */
     @Override
     public void playLeaderCard(String nameLeader) throws NetworkException {
-
+        try {
+            RMIPlayerInterfaceInst.playLeaderCard(nameLeader);
+        } catch (RemoteException e) {
+            Debug.printError("RMI: Cannot deliver the leader card chosen to the server", e);
+            throw new NetworkException("RMI: Cannot deliver the leader card chosen to the server", e);
+        }
     }
 
+    /**
+     * this method is used to deliver the move of a family member on a tower
+     * @param familyMember the chosen family member
+     * @param numberTower the tower index (from left to right)
+     * @param floorTower the number of the floor (from top to bottom)
+     * @param playerChoices this is a map that contains all the choices of the client when an effect asks
+     * @throws NetworkException if something goes wrong during the connection
+     * @throws IllegalMoveException //todo remove or implement server side
+     */
     @Override
     public void placeOnTower(FamilyMember familyMember, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
-
+        RMIPlayerInterfaceInst.placeOnTower(familyMember.getColor(), numberTower, floorTower, playerChoices);
     }
 
     @Override

@@ -233,7 +233,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     /**
      * receives the packet from socket of the playing of a leader card and deliver the move to the room
      */
-    public void playCard(){
+    public void playLeaderCard(){
         try{
             PlayCardPacket packet=(PlayCardPacket)inStream.readObject();
             //TODO method
@@ -250,7 +250,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     /**
      * receives the packet from socket of the discarding of a leader card and deliver the move to the room
      */
-    public void discardCard(){
+    public void discardLeaderCard(){
         try{
             DiscardCardPacket packet=(DiscardCardPacket)inStream.readObject();
             //TODO method

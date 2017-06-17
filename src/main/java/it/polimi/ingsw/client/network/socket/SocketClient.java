@@ -138,7 +138,7 @@ public class SocketClient extends AbstractClientType {
 
     /**
      * this method is used to deliver a leader card that the client wants to play
-     * @throws NetworkException
+     * @throws NetworkException if something goes wrong during the connection
      */
     @Override
     public void playLeaderCard(String nameLeader) throws NetworkException{
