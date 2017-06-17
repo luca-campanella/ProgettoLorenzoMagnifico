@@ -150,24 +150,55 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         RMIPlayerInterfaceInst.placeOnTower(familyMember.getColor(), numberTower, floorTower, playerChoices);
     }
 
+    /**
+     * this method is used to deliver the move of a family member on a marketplace
+     * @param familyMember is the family member chosen
+     * @param marketIndex is the index of the merket (from left to right) todo: check this assertion --Arto
+     * @param playerChoices this is a map that contains all the choices of the client when an effect asks
+     * @throws NetworkException if something goes wrong during the connection
+     * @throws IllegalMoveException //todo remove or implement server side
+     */
     @Override
     public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
-
+        RMIPlayerInterfaceInst.placeOnMarket(familyMember.getColor(), marketIndex, playerChoices);
     }
 
+    /**
+     * this method is used to deliver the placement a family member on council
+     * @param familyMember is the family member chosen
+     * @param playerChoices is a map that contains all the choices of the client when af effect is asked
+     * @throws NetworkException if something goes wrong during the connection
+     * @throws IllegalMoveException //todo
+     */
     @Override
-    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException {
-
+    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+        RMIPlayerInterfaceInst.placeOnCouncil(familyMember.getColor(), playerChoices);
     }
 
+    /**
+     * this method is used to deliver the information about the harvest of a player
+     * @param familyMember is the family member chosen
+     * @param servantUsed is the number of family member used to increase the power of the action
+     * @param playerChoices this is a map that contains all the choices of the client when an effect asks
+     * @throws NetworkException if something foes wrong with the connection
+     * @throws IllegalMoveException //todo
+     */
     @Override
     public void harvest(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
-
+        RMIPlayerInterfaceInst.harvest(familyMember.getColor(), servantUsed, playerChoices);
     }
 
+    /**
+     * this method is used to deliver the information that a player has built
+     * @param familyMember is the family member used to build
+     * @param servantUsed is the number of family member used to increase the power of the action
+     * @param playerChoices this is a map that contains all the choices of the client when an effect asks
+     * @throws NetworkException if something goes wrong with the connection
+     * @throws IllegalMoveException //todo
+     */
     @Override
     public void build(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
-
+        RMIPlayerInterfaceInst.build(familyMember.getColor(), servantUsed, playerChoices);
     }
 
     /**
