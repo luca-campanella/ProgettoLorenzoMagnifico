@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.cli.notblockingmenus;
 
 import it.polimi.ingsw.client.cli.CallbackFunction;
 import it.polimi.ingsw.client.cli.StdinSingleton;
-import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
+import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.HashMap;
@@ -16,9 +16,9 @@ public abstract class BasicCLIMenu implements Runnable {
 
     private String initialMenu;
 
-    private ControllerCallbackInterface controller;
+    private ViewControllerCallbackInterface controller;
 
-    public BasicCLIMenu(String initialMenu, ControllerCallbackInterface controller) {
+    public BasicCLIMenu(String initialMenu, ViewControllerCallbackInterface controller) {
         this.initialMenu = initialMenu;
         this.controller = controller;
         optionsMap = new HashMap<String, DescrCallbackContainer>();
@@ -72,7 +72,7 @@ public abstract class BasicCLIMenu implements Runnable {
         }
     }
 
-    protected ControllerCallbackInterface getController() {
+    protected ViewControllerCallbackInterface getController() {
         return controller;
     }
 }

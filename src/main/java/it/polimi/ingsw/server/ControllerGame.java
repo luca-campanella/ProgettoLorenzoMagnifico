@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
 import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
@@ -19,7 +20,6 @@ import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -39,6 +39,36 @@ public class ControllerGame {
     private int numberOfTurn;
     private HashMap<String, Integer> playerChoices;
     private ArrayList<AbstractConnectionPlayer> orderOfPlayers;
+    private NetworkChoicesPacketHandler choicesController;
+
+    /**
+     * This method creates a new board and modifies it considering the number of players
+     * @param players the payers that are on the game
+     * @param room the room where the game is located
+     * @throws Exception if file where Board configuration is
+     */
+    public ControllerGame(ArrayList<AbstractConnectionPlayer> players, Room room) throws IOException {
+        this.room = room;
+        this.orderOfPlayers = players;
+        JSONLoader.instance();
+        boardGame = JSONLoader.boardCreator();
+        //boardGame.loadExcommunicationCards(); no need, done in the method boardCreator()
+        //excommunicationTiles = JSONLoader.loadExcommunicationTiles();
+        personalTiles = JSONLoader.loadPersonalTiles();
+        deck = JSONLoader.createNewDeck();
+        leadersDeck = JSONLoader.loadLeaders();
+        this.numberOfPlayers = players.size();
+        boardModifier(numberOfPlayers);
+        modelController = new ModelController(players, boardGame);
+        numberOfTurn = 0;
+        numberOfRound = 1;
+        playerChoices = new HashMap<>(10);
+        /*on the server we will only need to read choices from hashmap so we set the controller for choices just
+        once and the we modify the hashmap on it
+         */
+        choicesController = new NetworkChoicesPacketHandler(modelController.getBoard().getCouncilAS().getCouncilGiftChoices());
+        modelController.setChoicesController(choicesController);
+    }
 
     public static void main(String[] args) throws Exception {
         /*GsonBuilder gsonBuilder = new GsonBuilder();
@@ -140,29 +170,6 @@ public class ControllerGame {
         return boardGame;
     }
 
-    /**
-     * This method creates a new board and modifies it considering the number of players
-     * @param players the payers that are on the game
-     * @param room the room where the game is located
-     * @throws Exception if file where Board configuration is
-     */
-    public ControllerGame(ArrayList<AbstractConnectionPlayer> players, Room room) throws IOException {
-
-        this.room = room;
-        this.orderOfPlayers = players;
-        JSONLoader.instance();
-        boardGame = JSONLoader.boardCreator();
-        personalTiles = JSONLoader.loadPersonalTiles();
-        deck = JSONLoader.createNewDeck();
-        excommunicationTiles = JSONLoader.loadExcommunicationTiles();
-        leadersDeck = JSONLoader.loadLeaders();
-        numberOfPlayers = players.size();
-        boardModifier(numberOfPlayers);
-        modelController = new ModelController(players, boardGame);
-        numberOfTurn = 0;
-        numberOfRound = 1;
-        playerChoices = new HashMap<>(10);
-    }
 
     /**
      * costructor for controllerGame. This is just a temp constructor to test the class
@@ -187,7 +194,6 @@ public class ControllerGame {
      */
     private void boardModifier(int numberOfPlayers)
     {
-        boardGame.loadExcommunicationCards();
         if(numberOfPlayers == 4)
             return;
         boardThreePlayers();
@@ -273,8 +279,9 @@ public class ControllerGame {
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
-        //todo: put the right value of servants
-        modelController.placeOnTower(familyMember, 2,towerIndex, floorIndex);
+
+        choicesController.setChoicesMap(playerChoices);
+        modelController.placeOnTower(familyMember, towerIndex, floorIndex);
 
     }
 
@@ -286,8 +293,9 @@ public class ControllerGame {
      */
     public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
 
+        choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
-        //modelController.harvest(familyMember, servant);
+        modelController.harvest(familyMember, servant);
 
 
     }
@@ -299,6 +307,7 @@ public class ControllerGame {
      */
     public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
 
+        choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.build(familyMember, servant);
 
@@ -323,9 +332,9 @@ public class ControllerGame {
      */
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
 
+        choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
-        //todo: put the right value of servants
-        modelController.placeOnMarket(familyMember, 2, marketSpaceIndex);
+        modelController.placeOnMarket(familyMember, marketSpaceIndex);
 
     }
 

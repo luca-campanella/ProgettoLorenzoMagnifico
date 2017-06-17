@@ -57,6 +57,7 @@ public class CouncilAS extends AbstractActionSpace implements Serializable{
     //@Override
     public void performAction(FamilyMember familyMember, ChoicesHandlerInterface choicesController)
     {
+        playFMandSubServantsToPlayer(familyMember);
         addFamilyMember(familyMember);
         getEffects().forEach(effect -> effect.applyToPlayer(familyMember.getPlayer(), choicesController, "CouncilAS"));
     }

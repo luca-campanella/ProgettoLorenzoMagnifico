@@ -9,7 +9,7 @@ import it.polimi.ingsw.client.cli.notblockingmenus.InitialActionMenu;
 import it.polimi.ingsw.client.cli.notblockingmenus.LeaderPickerMenu;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
-import it.polimi.ingsw.client.controller.ControllerCallbackInterface;
+import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
@@ -42,7 +42,7 @@ public class CommandLineUI extends AbstractUIType {
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
      */
-    public CommandLineUI(ControllerCallbackInterface controller)
+    public CommandLineUI(ViewControllerCallbackInterface controller)
     {
         super(controller);
         pool = Executors.newFixedThreadPool(2);
@@ -126,20 +126,23 @@ public class CommandLineUI extends AbstractUIType {
      * @param servantsNeededCouncil The servants needed by the user to place on cuincil, Optional.empty() if the action is not valid
      * @param activeMarketSpaces The list of legal action spaces in the market
      * @param activeTowerSpaces the list of legal action spaces on the towers
+     * @param availableServants the number of servants the user can spend to perform the action
      */
     @Override
     public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest,
                                              Optional<Integer> servantsNeededBuild,
                                              Optional<Integer> servantsNeededCouncil,
                                              List<MarketWrapper> activeMarketSpaces,
-                                             List<TowerWrapper> activeTowerSpaces) {
+                                             List<TowerWrapper> activeTowerSpaces,
+                                            int availableServants) {
         System.err.println("AskWhichAction space called");
         ActionSpacePickerMenu menu = new ActionSpacePickerMenu(getController(),
                                                                  servantsNeededHarvest,
                                                                  servantsNeededBuild,
                                                                  servantsNeededCouncil,
                                                                  activeMarketSpaces,
-                                                                 activeTowerSpaces);
+                                                                 activeTowerSpaces,
+                                                                    availableServants);
 
         Debug.printVerbose("Right before submit");
         pool.submit(menu);

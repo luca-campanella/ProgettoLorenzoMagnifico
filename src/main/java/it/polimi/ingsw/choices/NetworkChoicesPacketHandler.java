@@ -30,6 +30,10 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
         this.possibleCouncilGifts = possibleCouncilGifts;
     }
 
+    public NetworkChoicesPacketHandler(ArrayList<GainResourceEffect> possibleCouncilGifts) {
+        this.possibleCouncilGifts = possibleCouncilGifts;
+    }
+
     /**
      * Callback from model to controller
      * The model uses this method when encounters a council gift and should choose between the possible ones
@@ -93,5 +97,9 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
             return res;
         }
         return costChoiceResource;
+    }
+
+    public void setChoicesMap(HashMap<String, Integer> choicesMap) {
+        this.choicesMap = choicesMap;
     }
 }

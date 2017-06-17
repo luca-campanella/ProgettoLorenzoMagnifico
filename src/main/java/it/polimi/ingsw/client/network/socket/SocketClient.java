@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.network.socket;
 
 
-import it.polimi.ingsw.client.controller.ClientInterface;
+import it.polimi.ingsw.client.controller.NetworkControllerClientInterface;
 import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.socket.packet.*;
@@ -46,7 +46,7 @@ public class SocketClient extends AbstractClientType {
     /**
      *Initialization of the attributes on the superclass
      */
-    public SocketClient (ClientInterface controllerMain, String serverAddress, int port) {
+    public SocketClient (NetworkControllerClientInterface controllerMain, String serverAddress, int port) {
         super(controllerMain, serverAddress, port);
         Debug.printVerbose("New SocketClient created");
     }
@@ -174,7 +174,7 @@ public class SocketClient extends AbstractClientType {
             throw new NetworkException("Cannot write object to output on socket stream", e);
         }
 
-    };
+    }
 
     /**
      * this method is used to move the family member on the towers
@@ -374,7 +374,11 @@ public class SocketClient extends AbstractClientType {
         try {
 
             ReceivePlaceOnTowerPacket packet = (ReceivePlaceOnTowerPacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedPlaceOnTower(packet.getNickname(),
+                    packet.getFamilyMemberColor(),
+                    packet.getTowerIndex(),
+                    packet.getFloorIndex(),
+                    packet.getPlayersChoices());
 
         }
 
@@ -393,7 +397,10 @@ public class SocketClient extends AbstractClientType {
         try {
 
             ReceivePlaceOnMarketPacket packet = (ReceivePlaceOnMarketPacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedPlaceOnMarket(packet.getNickname(),
+                    packet.getFamilyMemberColor(),
+                    packet.getMarketIndex(),
+                    packet.getPlayerChoices());
 
         }
 
@@ -411,7 +418,10 @@ public class SocketClient extends AbstractClientType {
         try {
 
             ReceiveBuildOrHarvestPacket packet = (ReceiveBuildOrHarvestPacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedHarvest(packet.getNickname(),
+                    packet.getFamilyMemberColor(),
+                    packet.getServantUsed(),
+                    packet.getPlayerChoices());
 
         }
 
@@ -430,7 +440,10 @@ public class SocketClient extends AbstractClientType {
         try {
 
             ReceiveBuildOrHarvestPacket packet = (ReceiveBuildOrHarvestPacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receivedBuild(packet.getNickname(),
+                    packet.getFamilyMemberColor(),
+                    packet.getServantUsed(),
+                    packet.getPlayerChoices());
 
         }
 

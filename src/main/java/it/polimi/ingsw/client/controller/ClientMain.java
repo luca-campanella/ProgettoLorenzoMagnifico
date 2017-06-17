@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
+import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
 import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
@@ -22,12 +23,10 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.leaders.LeaderCard;
-import it.polimi.ingsw.model.player.FamilyMember;
-import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.PersonalTileEnum;
-import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.*;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -37,14 +36,19 @@ import java.util.List;
 /**
  * TODO: implement launcher
  */
-public class ClientMain implements ClientInterface, ControllerCallbackInterface, ChoicesHandlerInterface {
+public class ClientMain implements NetworkControllerClientInterface, ViewControllerCallbackInterface, ChoicesHandlerInterface {
     private LauncherClientFake temp;
     private AbstractUIType userInterface;
     private AbstractClientType clientNetwork;
     private ModelController modelController;
 
     /**
-     * The list of players in the room, used just to initialize ModelController
+     * this object is used to handle the choices made by another player that need to reply to the callback from model
+     */
+    private NetworkChoicesPacketHandler otherPlayerChoicesHandler;
+
+    /**
+     * The list of players in the room
      */
     private ArrayList<Player> players;
 
@@ -235,7 +239,8 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
                 modelController.spaceBuildAvailable(familyMemberCurrentAction),
                 modelController.spaceCouncilAvailable(familyMemberCurrentAction),
                 modelController.spaceMarketAvailable(familyMemberCurrentAction),
-                modelController.spaceTowerAvailable(familyMemberCurrentAction));
+                modelController.spaceTowerAvailable(familyMemberCurrentAction),
+                familyMemberCurrentAction.getPlayer().getResource(ResourceTypeEnum.SERVANT));
         Debug.printDebug("Chiamata ritorna a callbackFM");
 
     }
@@ -279,10 +284,10 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
 
     /**
      * this method allows player to place a family member on a build action space
-     * No parameter needed, the {@link ClientMain} saves the parameters of the current move
+     * @param servantsUsed the number of servants the user decided to use
      */
     @Override
-    public void callbackPlacedFMOnBuild() {
+    public void callbackPlacedFMOnBuild(int servantsUsed) {
         /*We make a copy of the hashmap beacuse we have to perfom some checks on it and this checks should not affect
         the hashmap of the player. Even tough making a copy using the constructor makes just a shallow copy, this is sufficient
         since Integer types are immutable
@@ -301,15 +306,15 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
             }
 
         }*/
-
+        //todo send the action to the server
     }
 
     /**
      * this method allows player to place a family member on a harvest action space
-     * No parameter needed, the {@link ClientMain} saves the parameters of the current move
+     * @param servantsUsed the number of servants the user decided to use
      */
     @Override
-    public void callbackPlacedFMOnHarvest(){
+    public void callbackPlacedFMOnHarvest(int servantsUsed){
         modelController.harvest(familyMemberCurrentAction, servantsCurrentAction);
     }
 
@@ -320,7 +325,7 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      */
     @Override
     public void callbackPlacedFMOnTower(int towerIndex, int floorIndex){
-        modelController.placeOnTower(familyMemberCurrentAction, servantsCurrentAction, towerIndex, floorIndex);
+        modelController.placeOnTower(familyMemberCurrentAction, towerIndex, floorIndex);
     }
 
     /**
@@ -329,14 +334,14 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
      */
     @Override
     public void callbackPlacedFMOnMarket(int marketASIndex){
-        modelController.placeOnMarket(familyMemberCurrentAction, servantsCurrentAction, marketASIndex);
+        modelController.placeOnMarket(familyMemberCurrentAction, marketASIndex);
     }
 
     /**
      * this method allows player to place a family member in the council action space
      */
     public void callbackPlacedFMOnCouncil(){
-        modelController.placeOnCouncil(familyMemberCurrentAction, servantsCurrentAction);
+        modelController.placeOnCouncil(familyMemberCurrentAction);
     }
 
     /**
@@ -500,6 +505,9 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
         //add the coins to the orderOfPlayers based on the order of turn
         modelController.addCoinsStartGame(players);
 
+        //now that we have the board we can give the object the possibile options for a council gift
+        otherPlayerChoicesHandler = new NetworkChoicesPacketHandler(modelController.getBoard().getCouncilAS().getCouncilGiftChoices());
+
         //todo this is just for testing
         //CliPrinter.printBoard(board);
     }
@@ -533,6 +541,8 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
         for(FamilyMember fmIter : playableFMs) {
             Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
         }
+        //it's this player's turn, he should answer callbacks from model
+        modelController.setChoicesController(this);
         userInterface.askInitialAction(playableFMs);
     }
 
@@ -583,6 +593,7 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
         userInterface.askPersonalTiles(standardTile, specialTile);
     }
 
+
     /**
      * this method is called by the view to communicate the personal tile choice
      * @param tileType the choice made
@@ -598,6 +609,96 @@ public class ClientMain implements ClientInterface, ControllerCallbackInterface,
             userInterface.printError("Cannot contact the server, exiting the program");
             System.exit(0);
         }*/
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that another player has moved on a tower
+     *
+     * @param nickname          the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param towerIndex        the index of the tower he placed the family member in
+     * @param floorIndex        the index of the floor he placed the family member in
+     * @param playerChoices     the hashmao with his choices correlated with this action
+     */
+    @Override
+    public void receivedPlaceOnTower(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) {
+        Player player = modelController.getPlayerByNickname(nickname);
+        otherPlayerChoicesHandler.setChoicesMap(playerChoices);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        modelController.placeOnTower(player.getFamilyMemberByColor(familyMemberColor), towerIndex, floorIndex);
+        //todo show something in the view
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that another player has moved inside the market
+     *
+     * @param nickname          the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param marketIndex       the index of the market action space he placed the family member in
+     * @param playerChoices     the hashmao with his choices correlated with this action
+     */
+    @Override
+    public void receivedPlaceOnMarket(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int marketIndex, HashMap<String, Integer> playerChoices) {
+        Player player = modelController.getPlayerByNickname(nickname);
+        otherPlayerChoicesHandler.setChoicesMap(playerChoices);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        modelController.placeOnMarket(player.getFamilyMemberByColor(familyMemberColor), marketIndex);
+        //todo show something in the view
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that another player has moved inside the harvest action space
+     *
+     * @param nickname          the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param servantsUsed the number of the servants used to perform this action
+     * @param playerChoices     the hashmap with his choices correlated with this action
+     */
+    @Override
+    public void receivedHarvest(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int servantsUsed, HashMap<String, Integer> playerChoices) {
+        Player player = modelController.getPlayerByNickname(nickname);
+        otherPlayerChoicesHandler.setChoicesMap(playerChoices);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        modelController.harvest(player.getFamilyMemberByColor(familyMemberColor), servantsUsed);
+        //todo show something in the view
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that another player has moved inside the build action space
+     *
+     * @param nickname          the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param servantsUsed the number of the servants used to perform this action
+     * @param playerChoices     the hashmap with his choices correlated with this action
+     */
+    @Override
+    public void receivedBuild(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int servantsUsed, HashMap<String, Integer> playerChoices) {
+        Player player = modelController.getPlayerByNickname(nickname);
+        otherPlayerChoicesHandler.setChoicesMap(playerChoices);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        modelController.build(player.getFamilyMemberByColor(familyMemberColor), servantsUsed);
+        //todo show something in the view
+    }
+
+    /**
+     * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
+     * to notify that another player has moved inside the council
+     *
+     * @param nickname          the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param playerChoices     the hashmap with his choices correlated with this action
+     */
+    @Override
+    public void receivedCouncil(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) {
+        Player player = modelController.getPlayerByNickname(nickname);
+        otherPlayerChoicesHandler.setChoicesMap(playerChoices);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        modelController.placeOnCouncil(player.getFamilyMemberByColor(familyMemberColor));
+        //todo show something in the view
     }
 }
 

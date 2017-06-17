@@ -44,6 +44,7 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
         getFamilyMembers().add(familyMember);
         Player player = familyMember.getPlayer();
 
+        playFMandSubServantsToPlayer(familyMember);
 
         CharacterCardCollector blueCards = player.getPersonalBoard().getCharacterCardsCollector();
 

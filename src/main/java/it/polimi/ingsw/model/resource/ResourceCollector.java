@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.resource;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 
 /**
@@ -12,13 +12,13 @@ import java.util.List;
  */
 public class ResourceCollector implements Serializable{
 
-    private HashMap<ResourceTypeEnum, Integer> resourcesMap;
+    private EnumMap<ResourceTypeEnum, Integer> resourcesMap;
 
     /**
      * creates an empty object with all resources set to 0
      */
     public ResourceCollector() {
-        resourcesMap = new HashMap<>(7);
+        resourcesMap = new EnumMap<ResourceTypeEnum, Integer>(ResourceTypeEnum.class);
         loadResource();
     }
 

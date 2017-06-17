@@ -24,13 +24,13 @@ import java.util.Optional;
  */
 abstract public class AbstractUIType {
 
-    private ControllerCallbackInterface controller;
+    private ViewControllerCallbackInterface controller;
 
-    public AbstractUIType(ControllerCallbackInterface controller) {
+    public AbstractUIType(ViewControllerCallbackInterface controller) {
         this.controller = controller;
     }
 
-    protected ControllerCallbackInterface getController() {
+    protected ViewControllerCallbackInterface getController() {
         return controller;
     }
 
@@ -60,12 +60,14 @@ abstract public class AbstractUIType {
      * @param servantsNeededCouncil The servants needed by the user to place on cuincil, Optional.empty() if the action is not valid
      * @param activeMarketSpaces The list of legal action spaces in the market
      * @param activeTowerSpaces the list of legal action spaces on the towers
+     * @param availableServants the number of servants the user can spend to perform the action
      */
     abstract public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest,
                                              Optional<Integer> servantsNeededBuild,
                                              Optional<Integer> servantsNeededCouncil,
                                              List<MarketWrapper> activeMarketSpaces,
-                                             List<TowerWrapper> activeTowerSpaces);
+                                             List<TowerWrapper> activeTowerSpaces,
+                                             int availableServants);
 
     /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error
@@ -93,7 +95,7 @@ abstract public class AbstractUIType {
     /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
-     * {@link ControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(DiceAndFamilyMemberColorEnum, int)} or
+     * {@link ViewControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
      * @param playableFMs the list of playable family members to make the user choose
      */

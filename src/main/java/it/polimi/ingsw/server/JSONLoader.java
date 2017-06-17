@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.lang.reflect.*;
+import java.util.Collections;
 
 /**
  * This class is a singleton that handles all the classes loaded from file
@@ -78,9 +79,9 @@ public class JSONLoader {
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(immediateEffectAdapter).registerTypeAdapterFactory(permanentEffectAdapter).create();
 
-        try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/DeckCFG.json"), "UTF-8")) {
+        Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/DeckCFG.json"), "UTF-8");
             return gson.fromJson(reader, Deck.class);
-        }
+
 
     }
 
@@ -91,6 +92,7 @@ public class JSONLoader {
      */
     public static Board boardCreator() throws IOException
     {
+        Board board;
         GsonBuilder gsonBuilder = new GsonBuilder();
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
@@ -100,15 +102,15 @@ public class JSONLoader {
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
-        try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
-            return gson.fromJson(reader, Board.class);
+        Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8");
+        board = gson.fromJson(reader, Board.class);
 
-        }/*
-        catch(IOException e)
-        {
-            Debug.printError("File not found");
-            return null;
-        }*/
+        //we insert excommunication tiles inside the board
+        ArrayList<ExcommunicationTile> excomTiles = loadExcommunicationTiles();
+        Collections.shuffle(excomTiles);
+        board.setExcommunicationTiles(excomTiles.subList(0,3));
+
+        return board;
     }
 
     /**
@@ -126,7 +128,7 @@ public class JSONLoader {
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
 
-        try (Reader reader = new InputStreamReader(PersonalTile.class.getResourceAsStream("/PersonalTiles.json"), "UTF-8")) {
+        Reader reader = new InputStreamReader(PersonalTile.class.getResourceAsStream("/PersonalTiles.json"), "UTF-8");
 
             Type type = new TypeToken<ArrayList<PersonalTile>>(){}.getType();
             ArrayList<PersonalTile> inList = gson.fromJson(reader, type);
@@ -134,8 +136,6 @@ public class JSONLoader {
                 Debug.printDebug(i.toString());
             }*/
             return inList;
-        }
-
     }
 
     public static ArrayList<ExcommunicationTile> loadExcommunicationTiles() throws IOException{
@@ -160,11 +160,10 @@ public class JSONLoader {
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
 
-        try (Reader reader = new InputStreamReader(ExcommunicationTilesCreator.class.getResourceAsStream("/ExcommunicationTiles.json"), "UTF-8")) {
+        Reader reader = new InputStreamReader(ExcommunicationTilesCreator.class.getResourceAsStream("/ExcommunicationTiles.json"), "UTF-8");
             Type type = new TypeToken<ArrayList<ExcommunicationTile>>(){}.getType();
             excommunicationDeck = gson.fromJson(reader, type);
             return excommunicationDeck;
-        }
 
     }
 
@@ -199,20 +198,17 @@ public class JSONLoader {
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeAdapterFactoryReq).registerTypeAdapterFactory(runtimeAdapterFactoryAbility).create();
 
-        try (Reader reader = new InputStreamReader(LeadersDeck.class.getResourceAsStream("/LeadersCFG.json"), "UTF-8")) {
-            LeadersDeck leadersDeck = gson.fromJson(reader, LeadersDeck.class);
-            return  leadersDeck;
-        }
+        Reader reader = new InputStreamReader(LeadersDeck.class.getResourceAsStream("/LeadersCFG.json"), "UTF-8");
 
+        return  gson.fromJson(reader, LeadersDeck.class);
     }
 
     public static RoomConfigurator loadTimeoutInSec() throws IOException
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
-        try (Reader reader = new InputStreamReader(RoomConfigurator.class.getResourceAsStream("/RoomCFG.json"), "UTF-8")) {
+        Reader reader = new InputStreamReader(RoomConfigurator.class.getResourceAsStream("/RoomCFG.json"), "UTF-8");
             RoomConfigurator roomConfigurator = gson.fromJson(reader, RoomConfigurator.class);
             return  roomConfigurator;
-        }
     }
 }
