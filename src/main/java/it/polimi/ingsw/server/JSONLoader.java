@@ -188,7 +188,7 @@ public class JSONLoader {
         runtimeAdapterFactoryAbility.registerSubtype(BonusNeutralFMLeaderAbility.class, "BonusNeutralFMLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(FixedFamilyMembersValueLeaderAbility.class, "FixedFamilyMembersValueLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(BonusColoredFamilyMembersLeaderAbility.class, "BonusColoredFamilyMembersLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(DoubleResourcesOnImmediateCardEffectAbility.class, "DoubleResourcesOnImmediateCardEffectAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(AddMoreTimesResourcesOnImmediateCardEffectAbility.class, "AddMoreTimesResourcesOnImmediateCardEffectAbility");
         runtimeAdapterFactoryAbility.registerSubtype(NoMilitaryPointsNeededForTerritoryCardsLeaderAbility.class, "NoMilitaryPointsNeededForTerritoryCardsLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(GainFaithPointsSupportingChurchLeaderAbility.class, "GainFaithPointsSupportingChurchLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(DiscountOnCardCostLeaderAbility.class, "DiscountOnCardCostLeaderAbility");

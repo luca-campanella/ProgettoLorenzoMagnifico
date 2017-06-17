@@ -83,7 +83,7 @@ public class LeaderCreator {
                 "Leonardo Da Vinci",
                 "Ogniomo senpre si trova nel mezo del mondo en essotto il mezo del suo emisperio e sopra " +
                         "il cientro desso mondo.",
-                new OncePerRoundProductionLeaderAbility(0)));
+                new OncePerRoundBuildLeaderAbility(0)));
 
         leaders.add(new LeaderCard(createOneReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.WOOD, 10))),
@@ -151,7 +151,7 @@ public class LeaderCreator {
                 "Santa Rita",
                 "Fu talmente abbracciata la santa astinenza, e l’aspro vestire dalla nostra Beata Rita,\n" +
                         "che chi la mirava, restava meravigliato, e quasi fuor di se stesso rimaneva.",
-                new DoubleResourcesOnImmediateCardEffectAbility(1)));
+                new AddMoreTimesResourcesOnImmediateCardEffectAbility(CardColorEnum.YELLOW, 1)));
 
         leaders.add(new LeaderCard(createTwoReqArray(
                 new CardRequirement(4, CardColorEnum.YELLOW),
@@ -270,14 +270,14 @@ public class LeaderCreator {
         runtimeAdapterFactoryAbility.registerSubtype(BonusNeutralFMLeaderAbility.class, "BonusNeutralFMLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(FixedFamilyMembersValueLeaderAbility.class, "FixedFamilyMembersValueLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(BonusColoredFamilyMembersLeaderAbility.class, "BonusColoredFamilyMembersLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(DoubleResourcesOnImmediateCardEffectAbility.class, "DoubleResourcesOnImmediateCardEffectAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(AddMoreTimesResourcesOnImmediateCardEffectAbility.class, "AddMoreTimesResourcesOnImmediateCardEffectAbility");
         runtimeAdapterFactoryAbility.registerSubtype(NoMilitaryPointsNeededForTerritoryCardsLeaderAbility.class, "NoMilitaryPointsNeededForTerritoryCardsLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(GainFaithPointsSupportingChurchLeaderAbility.class, "GainFaithPointsSupportingChurchLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(DiscountOnCardCostLeaderAbility.class, "DiscountOnCardCostLeaderAbility");
 
         // RuntimeTypeAdapterFactory<AbstractImmediateLeaderAbility> runtimeAdapterFactoryImmediateAbility = RuntimeTypeAdapterFactory.of(AbstractImmediateLeaderAbility.class, "abilityType");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundResourceLeaderAbility.class, "OncePerRoundResourceLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundProductionLeaderAbility.class, "OncePerRoundProductionLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundBuildLeaderAbility.class, "OncePerRoundBuildLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundHarvestLeaderAbility.class, "OncePerRoundHarvestLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundCouncilGiftAbility.class, "OncePerRoundCouncilGiftAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundBonusOneColoredFamilyMemberLeaderAbility.class, "OncePerRoundBonusOneColoredFamilyMemberLeaderAbility");
