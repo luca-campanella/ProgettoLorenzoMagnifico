@@ -322,7 +322,7 @@ public class ControllerGame {
     public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
-        modelController.placeOnCouncil(familyMember,playerChoices);
+        modelController.placeOnCouncil(familyMember);
     }
 
     /**

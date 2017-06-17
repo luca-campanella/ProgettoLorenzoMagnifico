@@ -137,5 +137,5 @@ public interface NetworkControllerClientInterface {
      * @param familyMemberColor the color of the family member he performed the action with
      * @param playerChoices     the hashmap with his choices correlated with this action
      */
-    public void receivedCouncil(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices);
+    public void receivedPlaceOnCouncil(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices);
 }

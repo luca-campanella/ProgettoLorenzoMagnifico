@@ -1,13 +1,13 @@
 package it.polimi.ingsw.server.network.rmi;
 
+import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.client.network.rmi.RMIClientInterface;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.client.network.rmi.RMIClientInterface;
-import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.utils.Debug;
 
 import java.rmi.RemoteException;
@@ -48,6 +48,23 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
             throw new NetworkException("rmi: cannot send chat message to " + getNickname(), e);
         }
 
+    }
+
+    /**
+     * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
+     *
+     * @param familyMember the family member placed in the market
+     * @param playerChoices the choices of the player if the effects on the card had different alternatives
+     */
+    @Override
+    public void receivePlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException {
+        try{
+            RMIClientInterfaceInst.receivePlaceOnCouncil(familyMember.getPlayer().getNickname(), familyMember.getColor(), playerChoices);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send move on council to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
     }
 
     /**
@@ -241,6 +258,7 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
             throw new NetworkException(e);
         }
     }
+
 
     /**
      * This method is used by the client to send chat message to all other players in the room (Direction: client -> sever)

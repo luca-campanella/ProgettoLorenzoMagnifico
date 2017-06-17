@@ -22,7 +22,7 @@ public class TakeCardNoFamilyMemberEffect extends AbstractPerformActionEffect {
     public String descriptionOfEffect() {
         int i;
         StringBuilder tmp = new StringBuilder();
-        tmp.append("This method allows player to place one dice on ")
+        tmp.append("This method allows player to place one dice on ");
         for(i=0; i<towerColorsAllowed.size(); i++)
             tmp.append(" " + towerColorsAllowed.get(i).toString());
         return tmp.toString();

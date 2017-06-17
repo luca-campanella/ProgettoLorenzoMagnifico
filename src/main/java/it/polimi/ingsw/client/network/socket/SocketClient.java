@@ -2,8 +2,8 @@ package it.polimi.ingsw.client.network.socket;
 
 
 import it.polimi.ingsw.client.controller.NetworkControllerClientInterface;
-import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.exceptions.*;
+import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.network.socket.packet.*;
 import it.polimi.ingsw.client.network.socket.protocol.ReadServerPacketProtocol;
 import it.polimi.ingsw.model.board.Board;
@@ -590,7 +590,9 @@ public class SocketClient extends AbstractClientType {
     public void receivePlaceOnCouncil(){
         try{
             ReceivePlaceOnCouncilPacket packet = (ReceivePlaceOnCouncilPacket)inStream.readObject();
-            //TODO call client method
+            getControllerMain().receivedPlaceOnCouncil(packet.getNicknamePlayer(),
+                    packet.getFamilyMemberColor(),
+                    packet.getPlayerChoices());
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("the client cannot receives place on council from the server",e);

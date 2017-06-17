@@ -112,7 +112,10 @@ public abstract class AbstractConnectionPlayer extends Player {
     public abstract void deliverCardToPlace(ArrayList<AbstractCard> cards) throws NetworkException;
 
     /**
-     * this method is called by room to deliver to the other clients the move on council of a player
+     * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
+     *
+     * @param familyMember the family member placed in the market
+     * @param playerChoices the choices of the player if the effects on the card had different alternatives
      */
-    public abstract void floodPlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices);
+    public abstract void receivePlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException;
 }

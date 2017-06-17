@@ -74,6 +74,17 @@ public interface RMIClientInterface extends Remote {
                              int servantsUsed,
                              HashMap<String, Integer> playerChoices) throws RemoteException;
 
+    /**
+     * this method is called by the server to notify that another player has moved in the council
+     *
+     * @param playerNickname    the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param playerChoices     the hashmap with his choices correlated with this action
+     */
+    public void receivePlaceOnCouncil(String playerNickname,
+                                      DiceAndFamilyMemberColorEnum familyMemberColor,
+                                      HashMap<String, Integer> playerChoices) throws RemoteException;
+
     public void receiveEndPhase(String nickname) throws RemoteException;
 
     public void receiveDice(ArrayList<Dice> dices) throws RemoteException;

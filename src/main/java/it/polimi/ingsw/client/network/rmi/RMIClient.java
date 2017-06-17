@@ -235,7 +235,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @param playerNickname    the nickname of the player performing the action
      * @param familyMemberColor the color of the family member he performed the action with
      * @param servantsUsed      the number of servants used to perform the action
-     * @param playerChoices     the hashmao with his choices correlated with this action
+     * @param playerChoices     the hashmap with his choices correlated with this action
      */
     @Override
     public void receiveBuild(String playerNickname,
@@ -243,6 +243,20 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
                                int servantsUsed,
                                HashMap<String, Integer> playerChoices) throws RemoteException {
         getControllerMain().receivedBuild(playerNickname, familyMemberColor, servantsUsed, playerChoices);
+    }
+
+    /**
+     * this method is called by the server to notify that another player has moved in the council
+     *
+     * @param playerNickname    the nickname of the player performing the action
+     * @param familyMemberColor the color of the family member he performed the action with
+     * @param playerChoices     the hashmap with his choices correlated with this action
+     */
+    @Override
+    public void receivePlaceOnCouncil(String playerNickname,
+                             DiceAndFamilyMemberColorEnum familyMemberColor,
+                             HashMap<String, Integer> playerChoices) throws RemoteException {
+        getControllerMain().receivedPlaceOnCouncil(playerNickname, familyMemberColor, playerChoices);
     }
 
     @Override

@@ -430,8 +430,14 @@ public class Room {
     private void floodPlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices){
 
         for(AbstractConnectionPlayer player : players){
-            if (!familyMember.getPlayer().getNickname().equals(player.getNickname()))
-                player.floodPlaceOnCouncil(familyMember,playerChoices);
+            if (!familyMember.getPlayer().getNickname().equals(player.getNickname())) {
+                try {
+                    player.receivePlaceOnCouncil(familyMember,playerChoices);
+                } catch (NetworkException e) {
+                    Debug.printError("tried to deliver move on council to " + player.getNickname());
+                }
+
+            }
         }
     }
 }

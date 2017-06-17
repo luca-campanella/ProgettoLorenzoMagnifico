@@ -514,7 +514,7 @@ public class ModelController {
      * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Board}, {@link it.polimi.ingsw.model.board.CouncilAS}
      * @param familyMember
      */
-    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) {
+    public void placeOnCouncil(FamilyMember familyMember) {
         Player player = familyMember.getPlayer();
 
         player.playFamilyMember(familyMember);

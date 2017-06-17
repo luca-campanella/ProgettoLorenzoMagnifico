@@ -340,6 +340,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     /**
      * this method allows player to place a family member in the council action space
      */
+    @Override
     public void callbackPlacedFMOnCouncil(){
         modelController.placeOnCouncil(familyMemberCurrentAction);
     }
@@ -693,7 +694,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param playerChoices     the hashmap with his choices correlated with this action
      */
     @Override
-    public void receivedCouncil(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) {
+    public void receivedPlaceOnCouncil(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) {
         Player player = modelController.getPlayerByNickname(nickname);
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);

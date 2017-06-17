@@ -551,15 +551,22 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
+    /**
+     * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
+     *
+     * @param familyMember the family member placed in the market
+     * @param playerChoices the choices of the player if the effects on the card had different alternatives
+     */
     @Override
-    public void floodPlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) {
+    public void receivePlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException {
         try{
             outStream.writeObject(PacketType.MOVE_IN_COUNCIL);
             outStream.writeObject(new ReceivePlaceOnCouncilPacket(familyMember.getColor(),playerChoices,familyMember.getPlayer().getNickname()));
             outStream.flush();
         }
         catch (IOException e){
-            Debug.printError("Cannot deliver the card to place on the board to " + getNickname());
+            Debug.printError("Socket: Cannot deliver the move on the council to " + getNickname());
+            throw new NetworkException(e);
         }
     }
 
