@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
 /**
  * This ability lets you place a family member in an occupied tower without having to spend the additional 3 coins
@@ -14,6 +14,7 @@ public class NotToSpendForOccupiedTowerLeaderAbility extends AbstractPermanentLe
      * Override of the method to return the correct value of this particular ability
      * @return true
      */
+    @Override
     public boolean hasNotToSpendForOccupiedTower() {
         return true;
     }

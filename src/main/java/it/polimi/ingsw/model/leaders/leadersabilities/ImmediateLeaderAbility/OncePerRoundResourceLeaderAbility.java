@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.AbstractPermanentLeaderAbility;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
@@ -23,6 +22,7 @@ public class OncePerRoundResourceLeaderAbility extends AbstractImmediateLeaderAb
      * Override of the method to return the correct value of this particular ability
      * @return the array of bonuses
      */
+    @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface, String cardName)
     {
         player.addResources(bonuses);

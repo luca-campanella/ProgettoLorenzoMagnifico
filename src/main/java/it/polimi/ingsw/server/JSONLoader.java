@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.excommunicationTiles.*;
 import it.polimi.ingsw.model.leaders.LeadersDeck;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.*;
-import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.*;
+import it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility.*;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 import it.polimi.ingsw.model.leaders.requirements.CardRequirement;
 import it.polimi.ingsw.model.leaders.requirements.ResourceRequirement;
@@ -188,14 +188,17 @@ public class JSONLoader {
         runtimeAdapterFactoryAbility.registerSubtype(BonusNeutralFMLeaderAbility.class, "BonusNeutralFMLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(FixedFamilyMembersValueLeaderAbility.class, "FixedFamilyMembersValueLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(BonusColoredFamilyMembersLeaderAbility.class, "BonusColoredFamilyMembersLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(BonusOneColoredFamilyMemberLeaderAbility.class, "BonusOneColoredFamilyMemberLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(DoubleResourcesOnImmediateCardEffectAbility.class, "DoubleResourcesOnImmediateCardEffectAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(AddMoreTimesResourcesOnImmediateCardEffectAbility.class, "AddMoreTimesResourcesOnImmediateCardEffectAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(NoMilitaryPointsNeededForTerritoryCardsLeaderAbility.class, "NoMilitaryPointsNeededForTerritoryCardsLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(GainFaithPointsSupportingChurchLeaderAbility.class, "GainFaithPointsSupportingChurchLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(DiscountOnCardCostLeaderAbility.class, "DiscountOnCardCostLeaderAbility");
 
         // RuntimeTypeAdapterFactory<AbstractImmediateLeaderAbility> runtimeAdapterFactoryImmediateAbility = RuntimeTypeAdapterFactory.of(AbstractImmediateLeaderAbility.class, "abilityType");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundResourceLeaderAbility.class, "OncePerRoundResourceLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundProductionLeaderAbility.class, "OncePerRoundProductionLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundBuildLeaderAbility.class, "OncePerRoundBuildLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundHarvestLeaderAbility.class, "OncePerRoundHarvestLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundCouncilGiftAbility.class, "OncePerRoundCouncilGiftAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundBonusOneColoredFamilyMemberLeaderAbility.class, "OncePerRoundBonusOneColoredFamilyMemberLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(CopyAnotherLeaderAbility.class, "CopyAnotherLeaderAbility");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeAdapterFactoryReq).registerTypeAdapterFactory(runtimeAdapterFactoryAbility).create();

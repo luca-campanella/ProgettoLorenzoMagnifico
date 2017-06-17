@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.leaders;
 
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
-import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.AbstractPermanentLeaderAbility;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 
 import java.io.Serializable;
@@ -15,7 +14,6 @@ public class LeaderCard implements Serializable {
     private String name;
     private String description;
     private AbstractLeaderAbility ability;
-    //private boolean hasOncePerRoundAbility;
 
     /**
      * This constructor should be called when you can already set all parameters

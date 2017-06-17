@@ -1,12 +1,10 @@
-package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
+import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
-import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.OncePerRoundResourceLeaderAbility;
-import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.OncePerRoundHarvestLeaderAbility;
-import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.OncePerRoundProductionLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.resource.Resource;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -21,6 +19,10 @@ public abstract class AbstractPermanentLeaderAbility extends AbstractLeaderAbili
         super();
     }
 
+    @Override
+    public LeaderAbilityTypeEnum getAbilityType() {
+        return LeaderAbilityTypeEnum.PERMANENT;
+    }
 
     /**
      * This method will usually be overridden by "Ludovico Ariosto" ability, in {@link CanPlaceFMInOccupiedASLeaderAbility}
@@ -55,7 +57,7 @@ public abstract class AbstractPermanentLeaderAbility extends AbstractLeaderAbili
     }
 
     /**
-     * This method will usually be overridden by "Lucreazia Borgia" ability to return the right bonus value, in {@link BonusNeutralFMLeaderAbility}
+     * This method will usually be overridden by "Lucrezia Borgia" ability to return the right bonus value, in {@link BonusColoredFamilyMembersLeaderAbility}
      * @return 0
      */
     public int getBonusColoredFamilyMembers() {
@@ -63,17 +65,40 @@ public abstract class AbstractPermanentLeaderAbility extends AbstractLeaderAbili
     }
 
     /**
-     * This method will usually be overridden by "Federico da Montefeltro" ability, in {@link BonusOneColoredFamilyMemberLeaderAbility}
-     * @return empty Optional
+     * This method will usually be overridden by "Sisto IV" ability, in {@link GainFaithPointsSupportingChurchLeaderAbility}
+     * @return 0
      */
-    public Optional<Integer> getBonusOneColoredFamilyMembers() {
-        return Optional.empty();
+    public int getAdditionalFaithPointsForSupportingChurch() {
+        return 0;
     }
 
     /**
-     * Santa Rita's Effect. It tells how many times more we need to give resources to the player
+     * This method will usually be overridden by "Cesare Borgia" ability, in {@link NoMilitaryPointsNeededForTerritoryCardsLeaderAbility}
+     * @return false
      */
-    public int doubleResourcesOnImmediateCardEffectAbility(){return 0;}
+    public boolean noMilitaryPointsNeededForTerritoryCards() {
+        return false;
+    }
+
+    /**
+     * This method will usually be overridden by "Santa Rita" ability, in {@link AddMoreTimesResourcesOnImmediateCardEffectAbility}
+     * It tells how many times more we need to give resources to the player
+     * @param cardColor
+     */
+    public int getMoreTimesResourcesOnImmediateEffects(CardColorEnum cardColor){return 0;}
+
+
+    /**
+     * This method will usually be overridden by "Pico della Mirandola" ability,
+     * in {@link DiscountOnCardCostLeaderAbility}
+     * It tells if the user has a discount on a certain cost of a certain card
+     * @param cardColor the color of the card we should check if there's a discount on
+     * @return null
+     */
+    public Resource getDiscountOnCardCost(CardColorEnum cardColor) {
+        return null;
+    }
+
     /*
      * This method will be overridden only by abilities that can be activated once per round
      * in the class {@link AbstractOncePerRoundLeaderAbility}

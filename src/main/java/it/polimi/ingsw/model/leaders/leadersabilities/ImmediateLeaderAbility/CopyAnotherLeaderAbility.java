@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.player.Player;
 
 /**
@@ -9,9 +8,14 @@ import it.polimi.ingsw.model.player.Player;
  */
 public class CopyAnotherLeaderAbility extends AbstractImmediateLeaderAbility {
 
+    public CopyAnotherLeaderAbility() {
+        super();
+    }
+
     @Override
     public String getAbilityDescription() {
-        return "Copy another leader ability.";
+        return "Copy the ability of another Leader Card already played by another player. Once you " +
+                "decide the ability to copy, it can’t be changed.";
     }
 
     @Override

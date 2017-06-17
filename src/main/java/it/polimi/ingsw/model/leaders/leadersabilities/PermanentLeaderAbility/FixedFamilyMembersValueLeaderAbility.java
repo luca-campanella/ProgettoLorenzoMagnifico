@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
 import java.util.Optional;
 

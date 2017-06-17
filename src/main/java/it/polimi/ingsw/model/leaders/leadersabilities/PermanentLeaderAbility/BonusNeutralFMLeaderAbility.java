@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
 /**
  * This leader ability gives you a bonus on your neutral / uncolored family member
@@ -9,9 +9,9 @@ public class BonusNeutralFMLeaderAbility extends AbstractPermanentLeaderAbility 
     private int bonusValue;
 
     public BonusNeutralFMLeaderAbility(int bonusValue){
+        super();
         this.bonusValue = bonusValue;
     }
-
 
     /**
      * Override of the method to return the correct value of this particular ability

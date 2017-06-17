@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
 /**
  * this ability lets the player place a family member in an already occupied action space

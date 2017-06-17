@@ -8,7 +8,12 @@ import it.polimi.ingsw.model.player.Player;
  * a council gift each round.
  */
 public class OncePerRoundCouncilGiftAbility extends AbstractImmediateLeaderAbility {
-    int numberOfDiffrentCouncilGift;
+    int numberOfDifferentCouncilGift;
+
+    public OncePerRoundCouncilGiftAbility(int numberOfDifferentCouncilGift){
+        super();
+        this.numberOfDifferentCouncilGift = numberOfDifferentCouncilGift;
+    }
 
     @Override
     public String getAbilityDescription() {
@@ -18,9 +23,5 @@ public class OncePerRoundCouncilGiftAbility extends AbstractImmediateLeaderAbili
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface, String cardName) {
         //todo give council gift to a player;
-    }
-
-    public OncePerRoundCouncilGiftAbility(int numberOfDiffrentCouncilGift) {
-        this.numberOfDiffrentCouncilGift = numberOfDiffrentCouncilGift;
     }
 }
