@@ -128,7 +128,7 @@ public abstract class AbstractClientType  {
             throws NetworkException,IllegalMoveException;
 
     public abstract void placeOnCouncil(FamilyMember familyMember,HashMap<String, Integer> playerChoices)
-        throws NetworkException;
+        throws NetworkException,IllegalMoveException;
     /**
      * this method is used to deliver the move of a family member on harvest
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks

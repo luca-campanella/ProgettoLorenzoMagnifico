@@ -15,6 +15,7 @@ import it.polimi.ingsw.utils.Debug;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class is the player via rmi
@@ -296,6 +297,30 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
     public void placeOnTower(DiceAndFamilyMemberColorEnum familyMemberColor, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
         getRoom().placeOnTower(getFamilyMemberByColor(familyMemberColor), numberTower, floorTower, playerChoices);
     }
+
+    @Override
+    public void placeOnMarket(DiceAndFamilyMemberColorEnum familyMemberColor, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+        getRoom().placeOnMarket(getFamilyMemberByColor(familyMemberColor),marketIndex,playerChoices);
+    }
+
+    @Override
+    public void placeOnCouncil(DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) throws  NetworkException, IllegalMoveException
+    {
+        getRoom().placeOnCouncil(getFamilyMemberByColor(familyMemberColor),playerChoices);
+    }
+
+    @Override
+    public void harvest(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  NetworkException, IllegalMoveException
+    {
+        getRoom().harvest(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices);
+    }
+
+    @Override
+    public void build(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  NetworkException, IllegalMoveException
+    {
+        getRoom().build(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices);
+    }
+
 
     /**
      * this method is used to deliver to the client his nickname
