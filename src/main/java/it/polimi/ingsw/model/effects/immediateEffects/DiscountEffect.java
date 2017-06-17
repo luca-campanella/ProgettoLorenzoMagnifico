@@ -25,7 +25,9 @@ public class DiscountEffect implements ImmediateEffectInterface{
      */
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
-        ;
+        //todo
+        //imo: next player.nextMoveOn(CardColorEnum)
+
     }
     @Override
     public String descriptionOfEffect() {

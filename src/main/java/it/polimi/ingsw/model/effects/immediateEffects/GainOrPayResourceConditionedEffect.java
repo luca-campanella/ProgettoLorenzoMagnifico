@@ -23,15 +23,14 @@ public class GainOrPayResourceConditionedEffect extends GainResourceEffect {
      */
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
-        int conditionPlayer = player.getResource(condition.getType());
-        int conditionValueCard = condition.getValue();
+        int playerResourcesOfCondition = player.getResource(condition.getType());
+        int cardResourceCondition = condition.getValue();
         //If condition is OK i give resources to the player
-        if(conditionValueCard <= conditionPlayer){
+        while(playerResourcesOfCondition >= cardResourceCondition){
             super.applyToPlayer(player, choicesHandlerInterface, cardName);
-            return;
+            playerResourcesOfCondition -= cardResourceCondition;
         }
-        //else either i use a invalid action or i return simply and controller recognize something went wrong
-        //posso chiamare il suo super?
+        return;
     }
     public String descriptionOfEffect(){
         return "You can take " + super.resource.toString() + " if you have " + this.condition.toString();
