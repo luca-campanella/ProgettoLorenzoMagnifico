@@ -70,6 +70,30 @@ public class ControllerGame {
         modelController.setChoicesController(choicesController);
     }
 
+    /**
+     * call the method on the controller of the model to start a new game
+     * This method also delivers all the necessary informations to the clients
+     * and performs the leader draft phase and personal tile choice
+     */
+    public void startNewGame(){
+
+        //throws the dices to change the value
+        modelController.getDices().forEach(Dice::throwDice);
+
+        modelController.setFamilyMemberDices();
+
+        chooseOrderRandomly();
+
+        deliverOrderPlayers();
+
+        //add the coins to the orderOfPlayers based on the order of turn
+        modelController.addCoinsStartGame(orderOfPlayers);
+
+        room.receiveStartGameBoard(boardGame);
+        deliverDices(modelController.getDices());
+        initiateLeaderChoice();
+    }
+
     public static void main(String[] args) throws Exception {
         /*GsonBuilder gsonBuilder = new GsonBuilder();
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
@@ -222,29 +246,6 @@ public class ControllerGame {
     }
 
 
-    /**
-     * call the method on the controller of the model to start a new game
-     * This method also delivers all the necessary informations to the clients
-     * and performs the leader draft phase and personal tile choice
-     */
-    public void startNewGame(){
-
-        //throws the dices to change the value
-        modelController.getDices().forEach(Dice::throwDice);
-
-        modelController.setFamilyMemberDices();
-
-        chooseOrderRandomly();
-
-        deliverOrderPlayers();
-
-        //add the coins to the orderOfPlayers based on the order of turn
-        modelController.addCoinsStartGame(orderOfPlayers);
-
-        room.receiveStartGameBoard(boardGame);
-        deliverDices(modelController.getDices());
-        initiateLeaderChoice();
-    }
 
     /**
      * choose the order of the orderOfPlayers at the beginning of the game
@@ -423,6 +424,7 @@ public class ControllerGame {
 
     /**
      * this method is called by the room when all the leader cards are chosen by the player
+     * It delivers also the cards to be placed on the board
      */
     public void choseAllTheLeadersCards() {
         ArrayList<AbstractCard> cardsToPlace = deck.getRandomCards(numberOfRound);

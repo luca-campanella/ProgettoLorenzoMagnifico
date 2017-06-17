@@ -55,22 +55,18 @@ public class CommandLineUI extends AbstractUIType {
     {
         Debug.printDebug("I am in CLI. Select NetworkType");
         NetworkTypeEnum choice;
-        /*while(true)
-        {
+        while(true) {
             System.out.println("Choose rmi or socket.");
-            tmpInput = inputScanner.nextLine();
-            if(tmpInput.equalsIgnoreCase("rmi")) {
-            choice = NetworkTypeEnum.RMI;
-            break;
+            tmpInput = StdinSingleton.getScanner().nextLine();
+            if (tmpInput.equalsIgnoreCase("rmi")) {
+                choice = NetworkTypeEnum.RMI;
+                break;
+            }
+            if (tmpInput.equalsIgnoreCase("SOCKET")) {
+                choice = NetworkTypeEnum.SOCKET;
+                break;
+            }
         }
-            if(tmpInput.equalsIgnoreCase("SOCKET")) {
-            choice = NetworkTypeEnum.SOCKET;
-            break;
-        }
-
-        }*/
-        //TODO delete this
-        choice = NetworkTypeEnum.SOCKET;
         getController().callbackNetworkType(choice);
     }
 

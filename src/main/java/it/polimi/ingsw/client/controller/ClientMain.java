@@ -563,7 +563,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receiveCardsToPlace(ArrayList<AbstractCard> cards) {
-        //TODO
+        Debug.printDebug("Cards received, placing on board");
+        cards.forEach((card) -> Debug.printVerbose(card.getName()));
+        modelController.placeCardOnBoard(cards);
     }
 
     /**

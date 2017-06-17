@@ -99,5 +99,10 @@ public interface RMIClientInterface extends Remote {
 
     public void receiveLeaderCardChoice(ArrayList<LeaderCard> cardToPlayer) throws RemoteException;
 
+    /**
+     * This method is called to deliver the cards to the player, order should be consistent
+     * @param cardsToPlace the list of cards to place
+     * @throws RemoteException if something goaes wrong during RMI communication
+     */
     public void receiveCardToPlace(ArrayList<AbstractCard> cardsToPlace) throws RemoteException;
 }

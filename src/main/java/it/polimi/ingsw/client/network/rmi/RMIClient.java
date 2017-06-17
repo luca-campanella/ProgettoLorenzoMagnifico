@@ -295,8 +295,13 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     }
 
+    /**
+     * This method is called to deliver the cards to the player, order should be consistent
+     * @param cardsToPlace the list of cards to place
+     * @throws RemoteException if something goaes wrong during RMI communication
+     */
     @Override
     public void receiveCardToPlace(ArrayList<AbstractCard> cardsToPlace) throws RemoteException {
-
+            getControllerMain().receiveCardsToPlace(cardsToPlace);
     }
 }
