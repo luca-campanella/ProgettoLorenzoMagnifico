@@ -183,8 +183,8 @@ public class SocketClient extends AbstractClientType {
      * @param floorTower floor of the tower
      */
     @Override
-    public void moveInTower(FamilyMember familyMember,
-                            int numberTower, int floorTower, HashMap<String, Integer> playerChoices)
+    public void placeOnTower(FamilyMember familyMember,
+                             int numberTower, int floorTower, HashMap<String, Integer> playerChoices)
             throws NetworkException,IllegalMoveException {
         MoveErrorEnum moveErrorEnum;
         try{
@@ -207,7 +207,7 @@ public class SocketClient extends AbstractClientType {
      * this method is used when the family member in moved on a generic market space
      */
     @Override
-    public void moveInMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices)
+    public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices)
             throws NetworkException,IllegalMoveException{
         MoveErrorEnum moveErrorEnum;
         try{
@@ -223,6 +223,21 @@ public class SocketClient extends AbstractClientType {
         if(moveErrorEnum==MoveErrorEnum.LOW_RESOURCES || moveErrorEnum== MoveErrorEnum.LOW_VALUE_DICE
                 || moveErrorEnum== MoveErrorEnum.NOT_PLAYER_TURN){
             throw new IllegalMoveException(moveErrorEnum);
+        }
+    }
+
+    @Override
+    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException {
+
+        try{
+            outStream.writeObject(PacketType.MOVE_IN_COUNCIL);
+            outStream.writeObject(new PlaceOnCouncilPacket(familyMember.getColor(), playerChoices));
+            outStream.flush();
+        }
+
+        catch (IOException e){
+            Debug.printError("network is not available",e);
+            throw new NetworkException(e);
         }
     }
 
@@ -545,6 +560,9 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    /**
+     * this method is called by the server to place the cards on the board
+     */
     public void receiveCardToPlace(){
 
         try{
@@ -554,6 +572,23 @@ public class SocketClient extends AbstractClientType {
         catch (IOException | ClassNotFoundException e){
             Debug.printError("the client cannot receives the cards delivered by the server",e);
         }
+    }
+
+    public void receivePlaceOnCouncil(){
+        try{
+            ReceivePlaceOnCouncilPacket packet = (ReceivePlaceOnCouncilPacket)inStream.readObject();
+            //TODO call client method
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives place on council from the server",e);
+        }
+    }
+
+    /**
+     * this method is called when the move delivered to the server caused errors
+     */
+    public void receiveError(){
+        //TODO
     }
 
 }

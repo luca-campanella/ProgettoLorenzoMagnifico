@@ -148,6 +148,19 @@ public class Room {
     }
 
     /**
+     * call the method on controller game to place a family member on the council
+     * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
+     */
+    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
+
+            controllerGame.placeOnCouncil(familyMember,playerChoices);
+            floodPlaceOnCouncil(familyMember,playerChoices);
+
+
+
+    }
+
+    /**
      * call the method on controller game to place a family member on the tower
      * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
@@ -407,6 +420,18 @@ public class Room {
                 Debug.printError("tried to deliver the cards to " + player.getNickname());
             }
 
+        }
+    }
+
+    /**
+     *
+     * @param familyMember
+     */
+    private void floodPlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices){
+
+        for(AbstractConnectionPlayer player : players){
+            if (!familyMember.getPlayer().getNickname().equals(player.getNickname()))
+                player.floodPlaceOnCouncil(familyMember,playerChoices);
         }
     }
 }

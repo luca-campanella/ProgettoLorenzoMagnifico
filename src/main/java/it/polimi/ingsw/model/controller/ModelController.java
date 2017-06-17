@@ -13,10 +13,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.*;
 import it.polimi.ingsw.utils.Debug;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * This is the controller of one game
@@ -530,13 +527,11 @@ public class ModelController {
      * This method performs the real action on the model when the player places a FM int he council
      * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Board}, {@link it.polimi.ingsw.model.board.CouncilAS}
      * @param familyMember
-     * @param servants
      */
-    public void placeOnCouncil(FamilyMember familyMember, int servants) {
+    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) {
         Player player = familyMember.getPlayer();
 
         player.playFamilyMember(familyMember);
-        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
 
         gameBoard.placeOnCouncil(familyMember, choicesController);
     }

@@ -305,6 +305,18 @@ public class ControllerGame {
     }
 
     /**
+     * this method is called by the room to deliver the move on council from a player
+     * @param familyMember the family member the player wants to place on the council
+     * @param playerChoices the chioces taken from the player when an effect have different choices
+     * @throws IllegalMoveException in the move is not legal
+     */
+    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
+
+        controlTurnPlayer(familyMember.getPlayer().getNickname());
+        modelController.placeOnCouncil(familyMember,playerChoices);
+    }
+
+    /**
      * call the method on the controller of the model to place on the market
      * @param familyMember the familymember the player places
      * @param marketSpaceIndex the number of servant you add on the family member to increase the value
@@ -409,5 +421,6 @@ public class ControllerGame {
         modelController.placeCardOnBoard(cardsToPlace);
         room.playersTurn(orderOfPlayers.get(0));
     }
+
 }
 

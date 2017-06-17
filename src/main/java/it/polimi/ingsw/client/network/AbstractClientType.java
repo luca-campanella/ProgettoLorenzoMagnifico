@@ -112,7 +112,7 @@ public abstract class AbstractClientType  {
      * @throws NetworkException
      * @throws IllegalMoveException
      */
-    public abstract void moveInTower(FamilyMember familyMember, int numberTower, int floorTower, HashMap<String, Integer> playerChoices)
+    public abstract void placeOnTower(FamilyMember familyMember, int numberTower, int floorTower, HashMap<String, Integer> playerChoices)
             throws NetworkException,IllegalMoveException;
 
     /**
@@ -121,9 +121,11 @@ public abstract class AbstractClientType  {
      * @throws NetworkException
      * @throws IllegalMoveException
      */
-    public abstract void moveInMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices)
+    public abstract void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices)
             throws NetworkException,IllegalMoveException;
 
+    public abstract void placeOnCouncil(FamilyMember familyMember,HashMap<String, Integer> playerChoices)
+        throws NetworkException;
     /**
      * this method is used to deliver the move of a family member on harvest
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks

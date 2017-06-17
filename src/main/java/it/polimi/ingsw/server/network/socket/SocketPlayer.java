@@ -551,6 +551,18 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
+    @Override
+    public void floodPlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) {
+        try{
+            outStream.writeObject(PacketType.MOVE_IN_COUNCIL);
+            outStream.writeObject(new ReceivePlaceOnCouncilPacket(familyMember.getColor(),playerChoices,familyMember.getPlayer().getNickname()));
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Cannot deliver the card to place on the board to " + getNickname());
+        }
+    }
+
     /**
      * this method is used to deliver the leader card to the room (client -> server)
      */
@@ -579,6 +591,28 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         catch (IOException e){
             Debug.printError("Cannot deliver the nickname of the player");
+        }
+    }
+
+    /**
+     * this method is used to receive the information from the client when it moves a family member on council
+     */
+    public void placeOnCouncil(){
+
+        try {
+            PlaceOnCouncilPacket packet = (PlaceOnCouncilPacket)inStream.readObject();
+            getRoom().placeOnCouncil(getFamilyMemberByColor(packet.getFamilyMemberColor()),packet.getPlayerChoices());
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("Cannot receive the move on council from player: " + getNickname());
+            try{
+                outStream.writeObject(PacketType.ERROR_MOVE);
+                outStream.flush();
+            }
+            catch (IOException c){
+                Debug.printError("Cannot deliver error to " + getNickname());
+            }
+
         }
     }
 
