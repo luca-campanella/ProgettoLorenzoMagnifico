@@ -1,4 +1,6 @@
-package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
+
+import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 
 /**
  * this ability lets the player place a family member in an already occupied action space
@@ -6,8 +8,8 @@ package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
  */
 public class CanPlaceFMInOccupiedASLeaderAbility extends AbstractPermanentLeaderAbility {
 
-    public CanPlaceFMInOccupiedASLeaderAbility() {
-        super();
+    public CanPlaceFMInOccupiedASLeaderAbility(LeaderAbilityTypeEnum leaderAbilityType) {
+        super(leaderAbilityType);
     }
 
     /**

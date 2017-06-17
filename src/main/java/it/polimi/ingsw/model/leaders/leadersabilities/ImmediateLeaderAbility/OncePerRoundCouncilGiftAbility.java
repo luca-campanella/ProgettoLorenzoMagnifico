@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
+import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.player.Player;
 
 /**
@@ -8,7 +9,12 @@ import it.polimi.ingsw.model.player.Player;
  * a council gift each round.
  */
 public class OncePerRoundCouncilGiftAbility extends AbstractImmediateLeaderAbility {
-    int numberOfDiffrentCouncilGift;
+    int numberOfDifferentCouncilGift;
+
+    public OncePerRoundCouncilGiftAbility(LeaderAbilityTypeEnum leaderAbilityType, int numberOfDifferentCouncilGift){
+        super(leaderAbilityType);
+        this.numberOfDifferentCouncilGift = numberOfDifferentCouncilGift;
+    }
 
     @Override
     public String getAbilityDescription() {
@@ -18,9 +24,5 @@ public class OncePerRoundCouncilGiftAbility extends AbstractImmediateLeaderAbili
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface, String cardName) {
         //todo give council gift to a player;
-    }
-
-    public OncePerRoundCouncilGiftAbility(int numberOfDiffrentCouncilGift) {
-        this.numberOfDiffrentCouncilGift = numberOfDiffrentCouncilGift;
     }
 }

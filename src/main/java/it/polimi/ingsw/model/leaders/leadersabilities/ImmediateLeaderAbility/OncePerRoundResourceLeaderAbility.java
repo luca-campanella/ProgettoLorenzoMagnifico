@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.AbstractPermanentLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class OncePerRoundResourceLeaderAbility extends AbstractImmediateLeaderAbility {
     private ArrayList<Resource> bonuses;
 
-    public OncePerRoundResourceLeaderAbility(ArrayList<Resource> bonuses) {
-        super();
+    public OncePerRoundResourceLeaderAbility(LeaderAbilityTypeEnum leaderAbilityType, ArrayList<Resource> bonuses) {
+        super(leaderAbilityType);
         this.bonuses = bonuses;
     }
 
@@ -23,6 +23,7 @@ public class OncePerRoundResourceLeaderAbility extends AbstractImmediateLeaderAb
      * Override of the method to return the correct value of this particular ability
      * @return the array of bonuses
      */
+    @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface, String cardName)
     {
         player.addResources(bonuses);

@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.excommunicationTiles.*;
 import it.polimi.ingsw.model.leaders.LeadersDeck;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.*;
-import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.*;
+import it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility.*;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 import it.polimi.ingsw.model.leaders.requirements.CardRequirement;
 import it.polimi.ingsw.model.leaders.requirements.ResourceRequirement;
@@ -188,7 +188,7 @@ public class JSONLoader {
         runtimeAdapterFactoryAbility.registerSubtype(BonusNeutralFMLeaderAbility.class, "BonusNeutralFMLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(FixedFamilyMembersValueLeaderAbility.class, "FixedFamilyMembersValueLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(BonusColoredFamilyMembersLeaderAbility.class, "BonusColoredFamilyMembersLeaderAbility");
-        runtimeAdapterFactoryAbility.registerSubtype(BonusOneColoredFamilyMemberLeaderAbility.class, "BonusOneColoredFamilyMemberLeaderAbility");
+        runtimeAdapterFactoryAbility.registerSubtype(OncePerRoundBonusOneColoredFamilyMemberLeaderAbility.class, "OncePerRoundBonusOneColoredFamilyMemberLeaderAbility");
         runtimeAdapterFactoryAbility.registerSubtype(DoubleResourcesOnImmediateCardEffectAbility.class, "DoubleResourcesOnImmediateCardEffectAbility");
 
         // RuntimeTypeAdapterFactory<AbstractImmediateLeaderAbility> runtimeAdapterFactoryImmediateAbility = RuntimeTypeAdapterFactory.of(AbstractImmediateLeaderAbility.class, "abilityType");

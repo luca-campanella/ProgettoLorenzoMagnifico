@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility;
+package it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility;
 
-import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.AbstractOncePerRoundLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 
 /**
  * This leader ability gives you a bonus on all your colored family members
@@ -10,15 +10,13 @@ public class BonusColoredFamilyMembersLeaderAbility extends AbstractPermanentLea
 
     private int bonusValue;
 
-    public BonusColoredFamilyMembersLeaderAbility(int bonusValue){
+    public BonusColoredFamilyMembersLeaderAbility(LeaderAbilityTypeEnum leaderType, int bonusValue){
+        super(leaderType);
         this.bonusValue = bonusValue;
     }
 
-
     /**
      * Override of the method to return the correct value of this particular ability
-     * Before using this method it should be checked if the bonus was not already used this round
-     * by calling the method {@link AbstractOncePerRoundLeaderAbility#wasUsedThisRound()}
      * @return the value of the bonus on the neutral / uncolored family member
      */
     @Override

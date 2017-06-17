@@ -39,7 +39,7 @@ public class CharacterCardCollector implements Serializable{
      * This method is used to get the discount when placing a family member on a certain tower
      * It passes all the cards and returns the corresponding LinkedList of resources
      * @param color the color of the tower / card
-     * @return the LinkedList of resources discounted
+     * @return the LinkedList of resources discounted, empty if there's no discount
      */
     public LinkedList<Resource> getDiscountOnTower(CardColorEnum color)
     {

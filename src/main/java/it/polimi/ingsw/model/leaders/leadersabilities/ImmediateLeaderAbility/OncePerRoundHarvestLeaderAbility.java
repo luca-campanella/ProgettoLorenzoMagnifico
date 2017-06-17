@@ -1,10 +1,8 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.leaders.leadersabilities.PermanenteLeaderAbility.AbstractPermanentLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.player.Player;
-
-import java.util.Optional;
 
 /**
  * This ability gives the possibility to harvest once per round with a certain dice value,
@@ -14,8 +12,8 @@ public class OncePerRoundHarvestLeaderAbility extends AbstractImmediateLeaderAbi
 
     private int diceValue = 0;
 
-    public OncePerRoundHarvestLeaderAbility(int diceValue) {
-        super();
+    public OncePerRoundHarvestLeaderAbility(LeaderAbilityTypeEnum leaderAbilityType, int diceValue) {
+        super(leaderAbilityType);
         this.diceValue = diceValue;
     }
 
@@ -31,7 +29,8 @@ public class OncePerRoundHarvestLeaderAbility extends AbstractImmediateLeaderAbi
     }
 
     public String getAbilityDescription() {
-        return "Perform a Harvest action at value " + diceValue + ". (You can increase this action value only by spending servants; you can’t increase it with Farmer or Peasant Development Cards.)";
+        return "Perform a Harvest action at value " + diceValue + ". (You can increase this action value only by " +
+                "spending servants; you can’t increase it with Farmer or Peasant Development Cards.)";
     }
 
     public int getDiceValue() {
