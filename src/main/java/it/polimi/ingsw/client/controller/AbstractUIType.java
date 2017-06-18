@@ -139,6 +139,22 @@ abstract public class AbstractUIType {
     public abstract void askPersonalTiles(PersonalTile standardTile, PersonalTile specialTile);
 
     /**
+     * This method is called when a player chooses to play a ledear with a COPY ability and he should be asked to choose
+     * This method should be blocking
+     * @param possibleLeaders the possibilites to choose from
+     * @return the index of the choice
+     */
+    public abstract int askWhichLeaderabilityToCopy(List<LeaderCard> possibleLeaders);
+
+    /**
+     * This method is called when the player it is playing a leader who has a ONCE_PER_ROUND ability
+     * to ask the user if he also wants to activate the ability
+     * This method should be blocking
+     * @return true if he also wants to activate, false otherwise
+     */
+    public abstract int askAlsoActivateLeaderCard();
+
+    /**
      * this method is called when a player pass the phase
      * @param nickname the player that had pass the phase
      */

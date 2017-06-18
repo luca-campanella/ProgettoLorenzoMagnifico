@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
-import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -11,7 +10,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -44,7 +42,7 @@ public class GiveCouncilGiftEffectTest {
         choichesAvailable.put(code, 0);
         choichesAvailable.put(code2, 1);
         //choichesAvailable.
-        choicesHandlerInterface = new NetworkChoicesPacketHandler(choichesAvailable, possibleGifts);
+        choicesHandlerInterface = new NetworkChoicesPacketHandler(choichesAvailable, new HashMap<String, String>(), possibleGifts);
 
     }
 

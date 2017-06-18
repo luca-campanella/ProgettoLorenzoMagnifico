@@ -3,6 +3,8 @@ package it.polimi.ingsw.choices;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.List;
@@ -20,10 +22,13 @@ import java.util.List;
  *
  * <b>Concil Gift</b>
  * choiceCode = choiceCallerCode:councilGiftNUM where NUM is the number of the different council gift
- * count starts from 0.
+ * count starts from 0. -> the value of the hashmap represents the index of the arraylist of gifts
  *
  * <b>Purple venture card</b>
  * choiceCode == card name -> the value of the hashmap is 0 if he chooses to pay with resources, 1 with military points
+ *
+ * <b>Leaders</b>
+ * choiceCode == card name //todo
  */
 public interface ChoicesHandlerInterface {
 
@@ -54,4 +59,22 @@ public interface ChoicesHandlerInterface {
      * @return The arraylist of resources the model has to take away from the player
      */
     public List<Resource> callbackOnVentureCardCost(String choiceCode, List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary);
+
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when it is playing a leader who has a COPY ability, such as "Lorenzo de' Medici"
+     * to ask which choice the user wants or has done
+     * @param possibleLeaders possible leader abilities to choose from
+     * @return the chosen leader ability
+     */
+    public AbstractLeaderAbility callbackOnWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders);
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when it is playing a leader who has a ONCE_PER_ROUND ability
+     * to ask the user if he also wants to activate the ability
+     * @return true if he also wants to activate, false otherwise
+     */
+    public boolean callbackOnAlsoActivateLeaderCard();
 }

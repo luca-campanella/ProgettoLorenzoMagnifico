@@ -159,4 +159,7 @@ public class PermanentLeaderCardCollector {
         return discount;
     }
 
+    public List<LeaderCard> getPermanentLeaders() {
+        return permanentLeaders;
+    }
 }

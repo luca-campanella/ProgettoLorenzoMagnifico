@@ -23,6 +23,8 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.EmptyLeaderAbility;
 import it.polimi.ingsw.model.player.*;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
@@ -64,6 +66,14 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * it should be re-instantiated every time a new action is performed
      */
     private HashMap<String, Integer> choicesOnCurrentAction;
+
+    /**
+     * this hashmap is filled with all the choices the user made regarding the move he's currently performed
+     * it is filled by all the callback methods
+     * it should be re-instantiated every time a new action is performed
+     * This second hashmap is used when order is not sure and a more reliable way of passing information is useful
+     */
+    private HashMap<String, String> choicesOnCurrentActionString;
 
     /**
      * the player of this controller
@@ -252,6 +262,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     private void initialActionsOnPlayerMove() {
         choicesOnCurrentAction = new HashMap<>();
+        choicesOnCurrentActionString = new HashMap<>();
 
     }
 
@@ -713,6 +724,41 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.placeOnCouncil(player.getFamilyMemberByColor(familyMemberColor));
         //todo show something in the view
+    }
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when it is playing a leader who has a COPY ability, such as "Lorenzo de' Medici"
+     * to ask which choice the user wants or has done
+     * @param possibleLeaders possible leader abilities to choose from
+     * @return the chosen leader ability
+     */
+    public AbstractLeaderAbility callbackOnWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
+        if(possibleLeaders.isEmpty())
+            return new EmptyLeaderAbility();
+
+        int choice = userInterface.askWhichLeaderabilityToCopy(possibleLeaders);
+
+        LeaderCard chosenLeader = possibleLeaders.get(choice);
+        choicesOnCurrentActionString.put("COPY_ABILITY", chosenLeader.getName());
+
+        return chosenLeader.getAbility();
+    }
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when it is playing a leader who has a ONCE_PER_ROUND ability
+     * to ask the user if he also wants to activate the ability
+     * @return true if he also wants to activate, false otherwise
+     */
+    public boolean callbackOnAlsoActivateLeaderCard() {
+        int choice = userInterface.askAlsoActivateLeaderCard();
+
+        choicesOnCurrentAction.put("AlsoActivateLeader", choice);
+
+        if (choice == 0)
+            return true;
+        return false;
     }
 
     /**

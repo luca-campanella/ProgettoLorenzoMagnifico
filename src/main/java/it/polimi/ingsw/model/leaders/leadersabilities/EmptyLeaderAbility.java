@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility.Abs
 public class EmptyLeaderAbility extends AbstractPermanentLeaderAbility {
 
 
-    public EmptyLeaderAbility(LeaderAbilityTypeEnum abilityType) {
+    public EmptyLeaderAbility() {
         super();
     }
 

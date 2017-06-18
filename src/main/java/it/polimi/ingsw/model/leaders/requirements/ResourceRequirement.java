@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.leaders.requirements;
 
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
 /**
@@ -20,5 +21,18 @@ public class ResourceRequirement extends AbstractRequirement {
     @Override
     public String getDescription() {
         return resReq.getResourceFullDescript();
+    }
+
+    /**
+     * This method return true if the player meets the requirement
+     * @param player the player to perform the check on
+     * @return true if the requirement is met, false otherwise
+     */
+    @Override
+    public boolean isMet(Player player) {
+        if(player.getResource(resReq.getType()) >= resReq.getValue())
+            return true;
+
+        return false;
     }
 }

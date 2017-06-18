@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
+import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -31,6 +33,16 @@ public class NoEffectTest {
         @Override
         public List<Resource> callbackOnVentureCardCost(String choiceCode, List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary) {
             return null;
+        }
+
+        @Override
+        public AbstractLeaderAbility callbackOnWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
+            return null;
+        }
+
+        @Override
+        public boolean callbackOnAlsoActivateLeaderCard() {
+            return false;
         }
     };
 
