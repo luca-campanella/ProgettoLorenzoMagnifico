@@ -358,6 +358,9 @@ public class Room {
      */
     public void initiateLeaderChoice(ArrayList<LeaderCard> leaderCards) {
 
+        for(LeaderCard card : leaderCards){
+            Debug.printVerbose(card.getName());
+        }
         cardToPlayer = leaderCards;
         deliverLeaderCardsToPlayers();
     }

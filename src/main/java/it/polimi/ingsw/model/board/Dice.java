@@ -39,7 +39,7 @@ public class Dice implements Serializable{
         if(color == DiceAndFamilyMemberColorEnum.NEUTRAL)
             value=0;
         else
-            value = random.nextInt(5)+1;
+            value = random.nextInt(6)+1;
 
     }
 

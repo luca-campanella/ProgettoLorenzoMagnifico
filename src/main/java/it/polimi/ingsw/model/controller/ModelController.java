@@ -4,6 +4,7 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
+import it.polimi.ingsw.model.cards.VentureCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
@@ -177,7 +178,8 @@ public class ModelController {
                     if (servantNeeded < 0)
                         servantNeeded = 0;
 
-                    towerWrappers.add(new TowerWrapper(towerIndex, towerFloor, servantNeeded));}
+                    towerWrappers.add(new TowerWrapper(towerIndex, towerFloor, servantNeeded));
+                    Debug.printVerbose("Added to wrapper: indice " + towerIndex + "piano " + towerFloor);}
             }
 
             familyMembers.clear();
@@ -221,35 +223,41 @@ public class ModelController {
 
         //control on the input, if the player has that resources and if the place is not available
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
-                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
+                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant){
             //this means that the player doesn't has the resources that claimed to have, this is cheating
+            Debug.printVerbose("the player doesn t have the family member");
             return false;
+        }
         //control on the action space, if the player already has a family member
         if(findFamilyMemberNotNeutral(familyMember.getPlayer(), familyMembersOnTheTower)
-                && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
+                && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL){
+            Debug.printVerbose("there are already another one");
             //this means that the player has already placed a family member on that action space
-            return false;
+            return false;}
         //control if the family member has a right value to harvest
         if(servant+familyMember.getValue() +
-                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())< towerFloorAS.getDiceRequirement())
-            //cannot place this family members because the value is too low
+                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())< towerFloorAS.getDiceRequirement()){
+            Debug.printVerbose("doesnt have the resources");
             return false;
+        }
+            //cannot place this family members because the value is too low
+
         ResourceCollector resource = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
         resource.addResource(familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(towerFloorAS.getCard().getColor()));
-        resource.subResource(towerFloorAS.getCard().getCost());
         ArrayList<ImmediateEffectInterface>effectInterfaces = towerFloorAS.getEffects();
         for(ImmediateEffectInterface effectIter : effectInterfaces){
             if(effectIter instanceof GainResourceEffect){
-                 resource.addResource(((GainResourceEffect) effectIter).getResource());
+                resource.addResource(((GainResourceEffect) effectIter).getResource());
             }
         }
-
-        //it asks the card if the player can buy it with this resources
-        if(towerFloorAS.getCard().canBuy(resource))
-            return true;
-        return false;
-
+            //it asks the card if the player can buy it with this resources
+             if(towerFloorAS.getCard().canBuy(resource))
+              return true;
+            Debug.printVerbose("cannot buy the card");
+            return false;
     }
+
+
 
     /**
      * This method performs the real action on the model when the player places a FM on a tower

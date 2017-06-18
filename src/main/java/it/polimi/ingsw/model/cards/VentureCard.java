@@ -95,4 +95,8 @@ public class VentureCard extends AbstractCard{
     public void setCostChoiceMilitary(VentureCardMilitaryCost costChoiceMilitary) {
         this.costChoiceMilitary = costChoiceMilitary;
     }
+
+    public void setCostChoiceResource(ArrayList<Resource> costChoiceResource) {
+        this.costChoiceResource = costChoiceResource;
+    }
 }
