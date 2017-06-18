@@ -147,7 +147,12 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void placeOnTower(FamilyMember familyMember, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
-        RMIPlayerInterfaceInst.placeOnTower(familyMember.getColor(), numberTower, floorTower, playerChoices);
+        try {
+            RMIPlayerInterfaceInst.placeOnTower(familyMember.getColor(), numberTower, floorTower, playerChoices);
+        } catch (RemoteException e) {
+            Debug.printError("RMI: cannot place on tower, throwing new network exception up", e);
+            throw new NetworkException("RMI: cannot place on tower", e);
+        }
     }
 
     /**
@@ -160,7 +165,12 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+        try {
         RMIPlayerInterfaceInst.placeOnMarket(familyMember.getColor(), marketIndex, playerChoices);
+        } catch (RemoteException e) {
+            Debug.printError("RMI: cannot place on market, throwing new network exception up", e);
+            throw new NetworkException("RMI: cannot place on market", e);
+        }
     }
 
     /**
@@ -172,7 +182,12 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+        try {
         RMIPlayerInterfaceInst.placeOnCouncil(familyMember.getColor(), playerChoices);
+        } catch (RemoteException e) {
+            Debug.printError("RMI: cannot place on council, throwing new network exception up", e);
+            throw new NetworkException("RMI: cannot place on council", e);
+        }
     }
 
     /**
@@ -185,7 +200,12 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void harvest(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+        try {
         RMIPlayerInterfaceInst.harvest(familyMember.getColor(), servantUsed, playerChoices);
+        } catch (RemoteException e) {
+            Debug.printError("RMI: cannot place on harvest, throwing new network exception up", e);
+            throw new NetworkException("RMI: cannot place on harvest", e);
+        }
     }
 
     /**
@@ -198,7 +218,12 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void build(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
-        RMIPlayerInterfaceInst.build(familyMember.getColor(), servantUsed, playerChoices);
+        try {
+            RMIPlayerInterfaceInst.build(familyMember.getColor(), servantUsed, playerChoices);
+        } catch (RemoteException e) {
+            Debug.printError("RMI: cannot place on build, throwing new network exception up", e);
+            throw new NetworkException("RMI: cannot place on build", e);
+        }
     }
 
     /**

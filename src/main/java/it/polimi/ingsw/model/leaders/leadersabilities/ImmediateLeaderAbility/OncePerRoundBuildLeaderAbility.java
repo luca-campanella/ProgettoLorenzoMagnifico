@@ -7,11 +7,11 @@ import it.polimi.ingsw.model.player.Player;
  * This ability gives the possibility to build once per round with a certain dice value,
  * This ability will usually be used by "Leonardo Da Vinci"
  */
-public class OncePerRoundProductionLeaderAbility extends AbstractImmediateLeaderAbility {
+public class OncePerRoundBuildLeaderAbility extends AbstractImmediateLeaderAbility {
 
     private int diceValue = 0;
 
-    public OncePerRoundProductionLeaderAbility(int diceValue) {
+    public OncePerRoundBuildLeaderAbility(int diceValue) {
         super();
         this.diceValue = diceValue;
     }

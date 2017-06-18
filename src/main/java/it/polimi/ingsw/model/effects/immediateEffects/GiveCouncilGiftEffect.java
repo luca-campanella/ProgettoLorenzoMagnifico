@@ -9,7 +9,11 @@ import java.util.List;
  * This effect gives a council gift to the player. example: 52
  */
 public class GiveCouncilGiftEffect implements ImmediateEffectInterface {
-    int numberOfCouncilGift;
+    private int numberOfCouncilGift;
+
+    public GiveCouncilGiftEffect(int numberOfCouncilGift) {
+        this.numberOfCouncilGift = numberOfCouncilGift;
+    }
 
     /**
      * this method uses callback to determine which give give the user
@@ -19,15 +23,21 @@ public class GiveCouncilGiftEffect implements ImmediateEffectInterface {
      */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName)
     {
-        //todo: again i modified ArrayList with List, is that right ?--Arto
         List<GainResourceEffect> choices = choicesHandlerInterface.callbackOnCouncilGift(cardName + ":councilGift", numberOfCouncilGift);
 
         //we apply all the choices made by the user to the player
-        for(GainResourceEffect effectIter : choices)
-            effectIter.applyToPlayer(player, choicesHandlerInterface, cardName);
+        for(GainResourceEffect effectIterator : choices)
+            effectIterator.applyToPlayer(player, choicesHandlerInterface, cardName);
     }
     public String descriptionOfEffect(){
         return "Gives a Council Gift to a player.";
     }
     public String descriptionShortOfEffect(){return "Gift " + numberOfCouncilGift;}
+    public int getNumberOfCouncilGift() {
+        return numberOfCouncilGift;
+    }
+
+    public void setNumberOfCouncilGift(int numberOfCouncilGift) {
+        this.numberOfCouncilGift = numberOfCouncilGift;
+    }
 }

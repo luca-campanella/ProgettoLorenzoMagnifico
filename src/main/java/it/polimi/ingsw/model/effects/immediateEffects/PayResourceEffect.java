@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.resource.Resource;
 
 /**
  * This class is generally used for the cost
+ * todo: this class is no longer used. We should eliminate this
  */
 public class PayResourceEffect implements ImmediateEffectInterface {
     private Resource cost;

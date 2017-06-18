@@ -29,6 +29,7 @@ public class PayForCouncilGiftEffectTest {
     HashMap<String, Integer> hashMap = new HashMap<String, Integer>(1);
 
     ChoicesHandlerInterface choicesHandlerInterface;
+
     @Before
     public void setUp() throws Exception {
         hashMap.put(code, 0);

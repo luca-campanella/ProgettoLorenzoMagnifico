@@ -57,7 +57,7 @@ public abstract class AbstractPermanentLeaderAbility extends AbstractLeaderAbili
     }
 
     /**
-     * This method will usually be overridden by "Lucrezia Borgia" ability to return the right bonus value, in {@link BonusNeutralFMLeaderAbility}
+     * This method will usually be overridden by "Lucrezia Borgia" ability to return the right bonus value, in {@link BonusColoredFamilyMembersLeaderAbility}
      * @return 0
      */
     public int getBonusColoredFamilyMembers() {
@@ -73,7 +73,7 @@ public abstract class AbstractPermanentLeaderAbility extends AbstractLeaderAbili
     }
 
     /**
-     * This method will usually be overridden by "Cesare Borgia" ability, in {@link GainFaithPointsSupportingChurchLeaderAbility}
+     * This method will usually be overridden by "Cesare Borgia" ability, in {@link NoMilitaryPointsNeededForTerritoryCardsLeaderAbility}
      * @return false
      */
     public boolean noMilitaryPointsNeededForTerritoryCards() {
@@ -81,10 +81,11 @@ public abstract class AbstractPermanentLeaderAbility extends AbstractLeaderAbili
     }
 
     /**
-     * This method will usually be overridden by "Santa Rita" ability, in {@link DoubleResourcesOnImmediateCardEffectAbility}
+     * This method will usually be overridden by "Santa Rita" ability, in {@link AddMoreTimesResourcesOnImmediateCardEffectAbility}
      * It tells how many times more we need to give resources to the player
+     * @param cardColor
      */
-    public int doubleResourcesOnImmediateEffects(){return 0;}
+    public int getMoreTimesResourcesOnImmediateEffects(CardColorEnum cardColor){return 0;}
 
 
     /**

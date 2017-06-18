@@ -61,11 +61,10 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
      * Callback from model to controller
      * The model uses this method when encounters a {@link BuildingCard} with more than one effects and wnats to make the user choose which one activate
      *
-     * @param cardNameChoiceCode
-     * @param possibleEffectChoices
-     * @return
+     * @param cardNameChoiceCode it's the string of the card
+     * @param possibleEffectChoices are all effect available
+     * @return all the immedate effects available from yellow cards where player needs to make a decision
      */
-    //todo: check if List<..> is right --Arto
     @Override
     public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, List<ImmediateEffectInterface> possibleEffectChoices) {
         ImmediateEffectInterface effect;
@@ -83,7 +82,7 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
      * Callback from model to controller
      * The model uses this method inside {@link VentureCard#getCostAskChoice(ChoicesHandlerInterface)} to understand what cos he should subtract
      *
-     * @param choiceCode
+     * @param choiceCode it's the choice descrpipted in {}@link ChoichesHandlerInterface}
      * @param costChoiceResource the list of resources the player will pay if he chooses this option
      * @param costChoiceMilitary the cost he will pay on something conditioned
      * @return The arraylist of resources the model has to take away from the player
