@@ -138,4 +138,10 @@ public interface NetworkControllerClientInterface {
      * @param playerChoices     the hashmap with his choices correlated with this action
      */
     public void receivedPlaceOnCouncil(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices);
+
+    /**
+     * this method is used to receive the end phase of other players
+     * @param nickname
+     */
+    public void receiveEndPhase(String nickname);
 }

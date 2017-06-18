@@ -95,7 +95,7 @@ abstract public class AbstractUIType {
     /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
-     * {@link ViewControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(DiceAndFamilyMemberColorEnum, int)} or
+     * {@link ViewControllerCallbackInterface(DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
      * @param playableFMs the list of playable family members to make the user choose
      */
@@ -137,5 +137,11 @@ abstract public class AbstractUIType {
      * @param specialTile option2
      */
     public abstract void askPersonalTiles(PersonalTile standardTile, PersonalTile specialTile);
+
+    /**
+     * this method is called when a player pass the phase
+     * @param nickname the player that had pass the phase
+     */
+    public abstract void showEndOfPhaseOfPlayer(String nickname);
 }
 

@@ -29,6 +29,7 @@ import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -604,7 +605,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void callbackOnPersonalTileChosen(PersonalTileEnum tileType) {
         /*try {
-            //todo methods for netword
+            //todo methods for network
             clientNetwork.deliverLeaderChose(leaderCardChoice);
         } catch (NetworkException e) {
             //todo handle better
@@ -612,6 +613,16 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             userInterface.printError("Cannot contact the server, exiting the program");
             System.exit(0);
         }*/
+    }
+
+    @Override
+    public void callBackPassTheTurn() {
+        try{
+            clientNetwork.endPhase();
+        }
+        catch (IOException e){
+            Debug.printError("Can deliver the end of the phase",e);
+        }
     }
 
     /**
@@ -702,6 +713,17 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.placeOnCouncil(player.getFamilyMemberByColor(familyMemberColor));
         //todo show something in the view
+    }
+
+    /**
+     * this method is used to receive the end phase of other players
+     * @param nickname the player that had pass
+     */
+    @Override
+    public void receiveEndPhase(String nickname) {
+
+        userInterface.showEndOfPhaseOfPlayer(nickname);
+
     }
 }
 

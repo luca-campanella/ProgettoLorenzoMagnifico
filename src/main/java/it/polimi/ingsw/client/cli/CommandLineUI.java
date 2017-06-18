@@ -393,5 +393,10 @@ public class CommandLineUI extends AbstractUIType {
         //todo
     }
 
+    @Override
+    public void showEndOfPhaseOfPlayer(String nickname) {
+        Debug.printVerbose("The player " + nickname + " had passed the turn.");
+    }
+
 }
 
