@@ -95,7 +95,7 @@ abstract public class AbstractUIType {
     /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
-     * {@link ViewControllerCallbackInterface#callbackFamilyMemberAndServantsSelected(DiceAndFamilyMemberColorEnum, int)} or
+     * {@link ViewControllerCallbackInterface(DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
      * @param playableFMs the list of playable family members to make the user choose
      */
@@ -153,5 +153,11 @@ abstract public class AbstractUIType {
      * @return true if he also wants to activate, false otherwise
      */
     public abstract int askAlsoActivateLeaderCard();
+
+    /**
+     * this method is called when a player pass the phase
+     * @param nickname the player that had pass the phase
+     */
+    public abstract void showEndOfPhaseOfPlayer(String nickname);
 }
 

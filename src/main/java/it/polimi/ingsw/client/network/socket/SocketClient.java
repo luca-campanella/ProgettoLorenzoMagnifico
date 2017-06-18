@@ -320,6 +320,7 @@ public class SocketClient extends AbstractClientType {
 
             outStream.writeObject(PacketType.END_PHASE);
             outStream.flush();
+            Debug.printVerbose("delivered the end phase");
 
         }
 
@@ -462,7 +463,7 @@ public class SocketClient extends AbstractClientType {
         try {
 
             EndPhasePacket packet = (EndPhasePacket)inStream.readObject();
-            //TODO method
+            getControllerMain().receiveEndPhase(packet.getNickname());
 
         }
 

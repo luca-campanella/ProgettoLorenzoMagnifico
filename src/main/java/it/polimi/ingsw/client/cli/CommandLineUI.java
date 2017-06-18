@@ -422,5 +422,10 @@ public class CommandLineUI extends AbstractUIType {
 
         return optionsHandler.askUserChoice();
     }
+
+    @Override
+    public void showEndOfPhaseOfPlayer(String nickname) {
+        Debug.printVerbose("The player " + nickname + " had passed the turn.");
+    }
 }
 

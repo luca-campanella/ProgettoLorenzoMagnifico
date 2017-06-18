@@ -639,15 +639,19 @@ public class ModelController {
 
     public void placeCardOnBoard(ArrayList<AbstractCard> cardsToPlace) {
 
+        int cardPlaced = 0;
+
         for(CardColorEnum colorEnum : CardColorEnum.values()) {
             int floor = 0;
+
             for (AbstractCard card : cardsToPlace) {
                 if (card.getColor() == colorEnum) {
                     gameBoard.setCardsOnTower(card, colorEnum, floor++);
-                    cardsToPlace.remove(card);
+                    cardPlaced++;
                 }
             }
         }
+        Debug.printVerbose("Carte Posizionate : " +cardPlaced);
     }
 }
 

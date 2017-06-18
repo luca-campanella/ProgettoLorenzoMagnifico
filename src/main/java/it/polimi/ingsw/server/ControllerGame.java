@@ -16,6 +16,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -158,8 +159,13 @@ public class ControllerGame {
 
         }
 
+        Debug.printVerbose("deliver start of phase to " +orderOfPlayers.get(numberOfTurn%numberOfPlayers).getNickname());
         //call the method to inform the player that is his turn
-        room.playersTurn(orderOfPlayers.get(numberOfRound%numberOfPlayers));
+        for(Player player1 : orderOfPlayers)
+            Debug.printVerbose(player1.getNickname());
+        room.playersTurn(orderOfPlayers.get(numberOfTurn%numberOfPlayers));
+        for(Player player1 : orderOfPlayers)
+            Debug.printVerbose(player1.getNickname());
 
     }
 

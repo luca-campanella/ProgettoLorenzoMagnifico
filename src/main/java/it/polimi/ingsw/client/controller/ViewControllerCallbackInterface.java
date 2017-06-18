@@ -86,4 +86,9 @@ public interface ViewControllerCallbackInterface {
      * @param tileType the choice made
      */
     void callbackOnPersonalTileChosen(PersonalTileEnum tileType);
+
+    /**
+     * this method is called by the view and used to pass the turn
+     */
+    void callBackPassTheTurn();
 }
