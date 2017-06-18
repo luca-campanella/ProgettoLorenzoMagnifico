@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.CopyAnotherLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.*;
 import it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility.*;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;

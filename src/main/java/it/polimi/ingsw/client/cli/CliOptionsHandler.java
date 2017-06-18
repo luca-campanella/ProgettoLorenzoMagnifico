@@ -13,6 +13,8 @@ public class CliOptionsHandler {
 
     private ArrayList<String> options;
 
+    private String initialMessage = null;
+
     /**
      * this is the constructor of the class used to ask choices between effects.
      * @param effectOptions so when a list of effects comes, it translates that in strings
@@ -36,6 +38,17 @@ public class CliOptionsHandler {
      * @param numberOfOptions
      */
     public CliOptionsHandler(int numberOfOptions) {
+        options = new ArrayList<>(numberOfOptions);
+    }
+
+    /**
+     * this constructor should be called when we already know how many options we'll add later on
+     * and we want to add an initial message, such as the question
+     * @param numberOfOptions
+     * @param initialMessage the initial message, such as the question
+     */
+    public CliOptionsHandler(String initialMessage, int numberOfOptions) {
+        this.initialMessage = initialMessage;
         options = new ArrayList<>(numberOfOptions);
     }
 
@@ -81,7 +94,8 @@ public class CliOptionsHandler {
 
         if(options.size() == 1) //if the user has no choices we return immediately
             return 0;
-
+        if(initialMessage != null)
+            System.out.println(initialMessage);
         System.out.println("Select an option typing the corresponding number");
         for(int i = 0; i< options.size(); i++)
             System.out.println(i + "--- " + options.get(i));

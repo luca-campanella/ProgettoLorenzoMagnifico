@@ -4,7 +4,12 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.leaders.PermanentLeaderCardCollector;
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.AbstractImmediateLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -12,6 +17,7 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -33,9 +39,30 @@ public class Player implements Serializable{
 
     //private PersonalTile personalTile = null; MOVED TO PERSONALBOARD
 
-    private ArrayList<LeaderCard> leaderCard;
+    /**
+     * These are the leader cards the user chose at the beginning of the game and hasn't played yet
+     * Players should be moved out of this list once played
+     */
+    private ArrayList<LeaderCard> leaderCards;
 
-    private ArrayList<LeaderCard> playedLeaderCard;
+    /**
+     * These are the leader cards the user decided to play,
+     * but of which he still hasn't activated the once per round ability
+     * only once per round leaders should fit in this list
+     */
+    private LinkedList<LeaderCard> playedOncePerRoundLeaderCards;
+
+    /**
+     * There are the leader cards the user has played and activated this round,
+     * only once per round leaders should fit in this list
+     */
+    private LinkedList<LeaderCard> playedAndActivatedOncePerRoundLeaderCards;
+
+    /**
+     * This is the collector of leader cards who have a permanent ability and are played by the user
+     * This collector is used during checks inside the model for bonuses and discounts
+     */
+    private PermanentLeaderCardCollector permanentLeaderCardCollector;
 
     //private ArrayList<ExcommuncationCard> excommuncationCard;
 
@@ -43,8 +70,9 @@ public class Player implements Serializable{
     {
         super();
         loadPlayer();
-        leaderCard = new ArrayList<>(4);
-        playedLeaderCard = new ArrayList<>(4);
+        leaderCards = new ArrayList<LeaderCard>(4);
+        playedOncePerRoundLeaderCards = new LinkedList<LeaderCard>();
+        playedAndActivatedOncePerRoundLeaderCards = new LinkedList<LeaderCard>();
     }
 
     public Player(String nickname)
@@ -62,7 +90,7 @@ public class Player implements Serializable{
         notUsedFamilyMembers = new ArrayList<>(4);
         usedFamilyMembers = new ArrayList<>(4);
         //excommunicanionCard = new ArrayList<>(3);
-        //leaderCard = new ArrayList<>(3);
+        //leaderCards = new ArrayList<>(3);
 
     }
 
@@ -185,24 +213,24 @@ public class Player implements Serializable{
 
     public void addLeaderCard(LeaderCard leaderCard){
 
-        this.leaderCard.add(leaderCard);
+        this.leaderCards.add(leaderCard);
     }
 
-    public ArrayList<LeaderCard> getLeaderCard(){
+    public ArrayList<LeaderCard> getLeaderCards(){
 
-        return leaderCard;
+        return leaderCards;
     }
 /*
-    public void activateLeaderCard(LeaderCard leaderCard){
+    public void activateLeaderCard(LeaderCard leaderCards){
 
-        this.leaderCard.remove(leaderCard);
-        playedLeaderCard.add(leaderCard);
+        this.leaderCards.remove(leaderCards);
+        playedLeaderCard.add(leaderCards);
 
     }
 
-    public void discardLeaderCard(LeaderCard leaderCard){
+    public void discardLeaderCard(LeaderCard leaderCards){
 
-        this.leaderCard.remove(leaderCard);
+        this.leaderCards.remove(leaderCards);
         //TODO get bonus
     }*/
 
@@ -258,4 +286,98 @@ public class Player implements Serializable{
         return null;
     }
 
+    /**
+     * This method performs all the actions needed to prepare the player class for a new round
+     */
+    public void prepareForNewRound() {
+        reloadFamilyMember();
+
+        //make once per round leaders able to be activated again
+        playedOncePerRoundLeaderCards.addAll(playedAndActivatedOncePerRoundLeaderCards);
+        playedOncePerRoundLeaderCards.clear();
+    }
+
+    /**
+     * This method returns a list of LeaderCards not yet played, but playable,
+     * i.e. they player meets their the requirements to be played
+     * @return a list of playable LeaderCards, epty if none is playable (yet)
+     */
+    public List<LeaderCard> getPlayableLeaders() {
+        ArrayList<LeaderCard> playableLeaders = new ArrayList<LeaderCard>(1);
+
+        for(LeaderCard leaderIter : leaderCards) {
+            if(leaderIter.isPlayable(this))
+                playableLeaders.add(leaderIter);
+        }
+
+        return playableLeaders;
+    }
+
+    /**
+     * getter for a list of all played leader, regardless of their ability type
+     * @return a list of all played leader, regardless of their ability type
+     */
+    public List<LeaderCard> getPlayedLeaders(){
+        ArrayList<LeaderCard> immediateAndPermanentPlayedLeaders = new ArrayList<>(
+                playedAndActivatedOncePerRoundLeaderCards.size() +
+                            playedOncePerRoundLeaderCards.size() +
+                            permanentLeaderCardCollector.getPermanentLeaders().size());
+
+        immediateAndPermanentPlayedLeaders.addAll(playedAndActivatedOncePerRoundLeaderCards);
+        immediateAndPermanentPlayedLeaders.addAll(playedOncePerRoundLeaderCards);
+        immediateAndPermanentPlayedLeaders.addAll(permanentLeaderCardCollector.getPermanentLeaders());
+
+        return immediateAndPermanentPlayedLeaders;
+    }
+
+    /**
+     * This method is called when the user wants to play a leader card,
+     * if the card has a permanent ability it is automatically activated
+     * if the card has a once per round ability the user is asked if he wants to activate it now or leave it for later
+     * @param leaderToBePlayed the leader card to be played
+     * @param choicesHandler for callbacks on activation
+     */
+    public void playLeader(LeaderCard leaderToBePlayed, ChoicesHandlerInterface choicesHandler) {
+
+        //We assume that as long as the player decided to play this leader
+        // he also wants to activate his permanent ability
+        if(leaderToBePlayed.getAbility().getAbilityType() == LeaderAbilityTypeEnum.PERMANENT) {
+            permanentLeaderCardCollector.addLeaderCard(leaderToBePlayed);
+        }
+        else { //we should ask the user if he also wants to activate the leader ability
+            if(choicesHandler.callbackOnAlsoActivateLeaderCard()) { //we should activate the leader ability
+                ((AbstractImmediateLeaderAbility) (leaderToBePlayed.getAbility())).applyToPlayer(this, choicesHandler, leaderToBePlayed.getName());
+                playedAndActivatedOncePerRoundLeaderCards.add(leaderToBePlayed);
+            } else {
+                playedOncePerRoundLeaderCards.add(leaderToBePlayed);
+            }
+        }
+    }
+
+    /**
+     * This method is called when the user wants to activate the ability of a leader card he's already played,
+     * @param leaderCardToBeActivated the leader card to be activated
+     * @param choicesHandler for callbacks on activation
+     */
+    public void activateLeaderCardAbility(LeaderCard leaderCardToBeActivated, ChoicesHandlerInterface choicesHandler) {
+        playedOncePerRoundLeaderCards.remove(leaderCardToBeActivated);
+        playedAndActivatedOncePerRoundLeaderCards.add(leaderCardToBeActivated);
+        AbstractLeaderAbility leaderAbility = leaderCardToBeActivated.getAbility();
+        if(leaderAbility.getAbilityType() == LeaderAbilityTypeEnum.ONCE_PER_ROUND) {
+            ((AbstractImmediateLeaderAbility) (leaderAbility)).applyToPlayer(this, choicesHandler, leaderCardToBeActivated.getName());
+        } else
+            Debug.printError("activateLeaderCardAbility called with a PERMANENT ability (?)");
+    }
+
+    /**
+     * This method allows to discard a leader card, the leader card passed as an argument should no be alredy played,
+     * thet's against the rules
+     * @param leaderCardToBeDiscarded the card to be discarded
+     */
+    public void discardLeader(LeaderCard leaderCardToBeDiscarded, ChoicesHandlerInterface choicesHandler) {
+        leaderCards.remove(leaderCardToBeDiscarded);
+        List<GainResourceEffect> resourceChoice = choicesHandler.callbackOnCouncilGift("discardLeader", 1);
+        for(GainResourceEffect effectIter : resourceChoice)
+            effectIter.applyToPlayer(this, choicesHandler, "discardLeaderInside");
+    }
 }

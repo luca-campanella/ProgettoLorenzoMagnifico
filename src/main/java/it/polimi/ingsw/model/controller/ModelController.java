@@ -7,13 +7,18 @@ import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.*;
 import it.polimi.ingsw.utils.Debug;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This is the controller of one game
@@ -130,7 +135,7 @@ public class ModelController {
         dices.forEach(Dice::throwDice);
 
         //reload the family member
-        players.forEach(Player::reloadFamilyMember);
+        players.forEach(Player::prepareForNewRound);
 
         gameBoard.clearBoard();
 
@@ -599,7 +604,7 @@ public class ModelController {
     }
 
     /**
-     * this method is called by the controller
+     * this method is called by the controller when a player chooses a leader in the initial phase
      * @param leaderCard the card to add to the player
      * @param player the player tha had chosen the card
      */
@@ -608,6 +613,29 @@ public class ModelController {
         player.addLeaderCard(leaderCard);
 
     }
+
+    /**
+     * this method is called by the controller when a player plays a leader
+     * @param leaderCard the card that should be set as played inside the player
+     * @param player the player that had chosen to play the card
+     */
+    public void playLeaderCard(LeaderCard leaderCard, Player player){
+        //if the leader he's chosen has the ability to copy another leader ability we should ask which one he wants to copy
+        if(leaderCard.getAbility().getAbilityType() == LeaderAbilityTypeEnum.COPY_ABILITY) {
+            //Let's retreive all the played leaders of other players
+            ArrayList<LeaderCard> playedLeaders = new ArrayList<LeaderCard>(2);
+            for(Player playerIter : players) {
+                if(playerIter != player) //only leaders from other players can be copied
+                    playedLeaders.addAll(playerIter.getPlayedLeaders());
+            }
+            AbstractLeaderAbility choice = choicesController.callbackOnWhichLeaderAbilityToCopy(playedLeaders);
+            leaderCard.setAbility(choice);
+        }
+
+        //we deldegate the rest of the action to the player itself
+        player.playLeader(leaderCard, choicesController);
+    }
+
 
     public void placeCardOnBoard(ArrayList<AbstractCard> cardsToPlace) {
 

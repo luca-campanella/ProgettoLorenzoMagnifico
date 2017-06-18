@@ -393,5 +393,34 @@ public class CommandLineUI extends AbstractUIType {
         //todo
     }
 
+    /**
+     * This method is called when a player chooses to play a ledear with a COPY ability and he should be asked to choose
+     * This method should be blocking
+     * @param possibleLeaders the possibilites to choose from
+     * @return the index of the choice
+     */
+    public int askWhichLeaderabilityToCopy(List<LeaderCard> possibleLeaders) {
+        CliOptionsHandler optionsHandler = new CliOptionsHandler(possibleLeaders.size());
+        for(LeaderCard leaderIter : possibleLeaders)
+            optionsHandler.addOption(leaderIter.getName() + " - ability: " + leaderIter.getAbility().getAbilityDescription());
+
+        int choice = optionsHandler.askUserChoice();
+        return choice;
+    }
+
+    /**
+     * This method is called when the player it is playing a leader who has a ONCE_PER_ROUND ability
+     * to ask the user if he also wants to activate the ability
+     * This method should be blocking
+     * @return true if he also wants to activate, false otherwise
+     */
+    public int askAlsoActivateLeaderCard() {
+        CliOptionsHandler optionsHandler = new CliOptionsHandler("The leader you chose has a once per round ability\n" +
+                "Do you want to activate it now or keep it for later on?", 2);
+        optionsHandler.addOption("yes - also activate his once per round effect");
+        optionsHandler.addOption("no - do not activate his once per round effect");
+
+        return optionsHandler.askUserChoice();
+    }
 }
 

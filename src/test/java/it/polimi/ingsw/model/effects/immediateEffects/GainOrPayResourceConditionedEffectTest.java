@@ -1,21 +1,20 @@
 package it.polimi.ingsw.model.effects.immediateEffects;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
+import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.server.JSONLoader;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Testing gainOrPayResourceConditionedEffect
@@ -39,6 +38,16 @@ public class GainOrPayResourceConditionedEffectTest {
         @Override
         public List<Resource> callbackOnVentureCardCost(String choiceCode, List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary) {
             return null;
+        }
+
+        @Override
+        public AbstractLeaderAbility callbackOnWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
+            return null;
+        }
+
+        @Override
+        public boolean callbackOnAlsoActivateLeaderCard() {
+            return false;
         }
     };
 

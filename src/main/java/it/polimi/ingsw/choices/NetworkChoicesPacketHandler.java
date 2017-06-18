@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
+import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.leaders.leadersabilities.EmptyLeaderAbility;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.utils.Debug;
 
@@ -23,15 +26,24 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
      */
     HashMap<String, Integer> choicesMap;
 
+    /**
+     * This map should only be set when a choice involving it is performed:
+     * - leaders
+     */
+    HashMap<String, String> choicesMapString;
+
     ArrayList<GainResourceEffect> possibleCouncilGifts;
 
-    public NetworkChoicesPacketHandler(HashMap<String, Integer> choicesMap, ArrayList<GainResourceEffect> possibleCouncilGifts) {
+    public NetworkChoicesPacketHandler(HashMap<String, Integer> choicesMap, HashMap<String, String> choicesMapString, ArrayList<GainResourceEffect> possibleCouncilGifts) {
         this.choicesMap = choicesMap;
         this.possibleCouncilGifts = possibleCouncilGifts;
+        this.choicesMapString = choicesMapString;
     }
 
     public NetworkChoicesPacketHandler(ArrayList<GainResourceEffect> possibleCouncilGifts) {
         this.possibleCouncilGifts = possibleCouncilGifts;
+        choicesMap = new HashMap<>();
+        choicesMapString = new HashMap<>();
     }
 
     /**
@@ -100,5 +112,54 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
 
     public void setChoicesMap(HashMap<String, Integer> choicesMap) {
         this.choicesMap = choicesMap;
+    }
+
+    public void setChoicesMapString(HashMap<String, String> choicesMapString) {
+        this.choicesMapString = choicesMapString;
+    }
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when it is playing a leader who has a COPY ability, such as "Lorenzo de' Medici"
+     * to ask which choice the user wants or has done
+     * @param possibleLeaders possible leader abilities to choose from
+     * @return the chosen leader ability
+     */
+    public AbstractLeaderAbility callbackOnWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
+        if(possibleLeaders.isEmpty())
+            return new EmptyLeaderAbility();
+
+        String leaderName = choicesMapString.get("COPY_ABILITY");
+        if(leaderName == null) //nothing found inside the map
+            return new EmptyLeaderAbility();
+
+        LeaderCard chosenLeader = null;
+
+        for(LeaderCard leaderIter : possibleLeaders) {
+            if (leaderIter.getName().equals(leaderName)) {
+                chosenLeader = leaderIter;
+                break;
+            }
+        }
+
+        if(chosenLeader == null)
+            return new EmptyLeaderAbility();
+
+        return chosenLeader.getAbility();
+    }
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when it is playing a leader who has a ONCE_PER_ROUND ability
+     * to ask the user if he also wants to activate the ability
+     * @return true if he also wants to activate, false otherwise
+     */
+    public boolean callbackOnAlsoActivateLeaderCard() {
+
+        int choice = choicesMap.get("AlsoActivateLeader");
+
+        if(choice == 0)
+            return true;
+        return false;
     }
 }

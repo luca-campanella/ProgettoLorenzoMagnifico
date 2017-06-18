@@ -2,8 +2,6 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
-import it.polimi.ingsw.client.controller.ClientMain;
-import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -12,7 +10,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -39,7 +36,7 @@ public class PayForCouncilGiftEffectTest {
         GainResourceEffect effect1 = new GainResourceEffect(temp);
         ArrayList<GainResourceEffect> effects = new ArrayList<>();
         effects.add(effect1);
-        choicesHandlerInterface = new NetworkChoicesPacketHandler(hashMap, effects);
+        choicesHandlerInterface = new NetworkChoicesPacketHandler(hashMap, new HashMap<String, String>(), effects);
 
         resources.add(resource);
         effect = new PayForCouncilGiftEffect(resources);

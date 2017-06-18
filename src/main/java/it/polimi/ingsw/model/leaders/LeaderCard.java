@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.leaders;
 
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
+import it.polimi.ingsw.model.player.Player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -64,5 +65,22 @@ public class LeaderCard implements Serializable {
 
     public AbstractLeaderAbility getAbility() {
         return ability;
+    }
+
+    public void setAbility(AbstractLeaderAbility ability) {
+        this.ability = ability;
+    }
+
+    /**
+     * This method returns true if the player has enough resources or cards to play the leader
+     * @param player the playe to perform the check on
+     * @return true if the leader card is playable, false otherwise
+     */
+    public boolean isPlayable(Player player) {
+        for(AbstractRequirement reqIter : requirements)
+            if(!reqIter.isMet(player))
+                return false;
+
+        return true;
     }
 }
