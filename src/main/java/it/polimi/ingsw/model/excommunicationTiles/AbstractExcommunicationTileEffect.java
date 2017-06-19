@@ -128,5 +128,9 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
      * @return
      */
     public int loseVPonCosts(ArrayList<BuildingCard> cards){ return 0;}
+
+
+
+
     public abstract String getShortEffectDescription();
 }

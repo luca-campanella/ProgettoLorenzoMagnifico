@@ -4,8 +4,8 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.*;
+import it.polimi.ingsw.utils.Debug;
 
-import javax.smartcardio.Card;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -81,6 +81,7 @@ public class PersonalBoard implements Serializable{
         final int realDiceValueBlue = realDiceValueNoBlueBonus + characterCardsCollector.getBonusOnBuild();
 
         buildingCards.forEach(card -> card.applyEffectsFromBuildToPlayer(player, realDiceValueBlue, choicesController));
+        Debug.printVerbose("after foreach on build");
 
         //We add bonus tiles afterwards because the resources got from the bonus tiles should not count on the checks for the yellow cards
         personalTile.activateEffectsOnBuild(player, choicesController);

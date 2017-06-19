@@ -110,14 +110,15 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
 
     private int readServants(int baseValue) {
         int addableServants = availableServants - baseValue;
-        if(addableServants != 0) //if he can't add any fm we return immediately
+        if(addableServants == 0) //if he can't add any servant we return immediately
             return 0;
-        System.out.println("Choose how many family member you want to add to the base action:\n" +
+        System.out.println("Choose how many servants you want to add to the base action:\n" +
                             "Base number of servants needed: " + baseValue + "\n" +
                             "You can add up to " + addableServants + " servants");
         int choice = readAndParseInt();
         while(choice < 0 || choice > addableServants) {
             System.out.println("Please insert a number between 0 and " + addableServants);
+            choice = readAndParseInt();
         }
 
         return choice;
