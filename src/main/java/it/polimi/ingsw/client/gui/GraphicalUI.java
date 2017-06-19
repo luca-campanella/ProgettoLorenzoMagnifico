@@ -8,6 +8,7 @@ import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -68,9 +69,10 @@ public abstract class GraphicalUI extends AbstractUIType {
      * //todo other methods triggered
      *
      * @param playableFMs the list of playable family members to make the user choose
+     * @param board
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs) {
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board) {
 
     }
 

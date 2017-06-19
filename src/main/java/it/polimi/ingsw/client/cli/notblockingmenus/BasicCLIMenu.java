@@ -8,7 +8,8 @@ import it.polimi.ingsw.utils.Debug;
 import java.util.HashMap;
 
 /**
- * Created by campus on 11/06/2017.
+ * This is the base menu class for all the menus of the cli when the user has choices
+ * and the cli should call callbacks accordingly
  */
 public abstract class BasicCLIMenu implements Runnable {
 
@@ -36,6 +37,10 @@ public abstract class BasicCLIMenu implements Runnable {
     public void run() {
         Debug.printVerbose("Process Started");
 
+        showMenuAndAsk();
+    }
+
+    protected void showMenuAndAsk() {
         printMenu();
 
         String choice = StdinSingleton.getScanner().nextLine();
