@@ -85,9 +85,9 @@ public class VentureCard extends AbstractCard{
      */
     @Override
     public boolean canBuy(ResourceCollector resource) {
-        if(resource.checkIfContainable(costChoiceResource))
+        if(costChoiceResource!=null && resource.checkIfContainable(costChoiceResource))
             return true;
-        if(resource.getResource(costChoiceMilitary.getResourceRequirement().getType())>costChoiceMilitary.getResourceRequirement().getValue())
+        if(costChoiceMilitary!=null && resource.getResource(costChoiceMilitary.getResourceRequirement().getType())>costChoiceMilitary.getResourceRequirement().getValue())
             return true;
         return false;
     }

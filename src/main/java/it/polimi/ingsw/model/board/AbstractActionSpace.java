@@ -6,12 +6,13 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class is the abstract generalization of an Action Space, a place were a family member can be placed
  */
-public abstract class AbstractActionSpace {
+public abstract class AbstractActionSpace implements Serializable{
 
     /**
      *it's the list of family members on this place
