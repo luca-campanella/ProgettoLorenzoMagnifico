@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.excommunicationTiles;
 
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 /**
  * this class models the first period excommunications tile that gives you fewer resources each time you take some resources.
@@ -11,11 +12,12 @@ public class GainFewerResourceEffect extends AbstractExcommunicationTileEffect{
 
     /**
      * this method returns the value of the excommunication. Controller will then
-     * @param resource
-     * @return
+     *
+     * @param resourceType@return
      */
-    int gainFewResource(Resource resource){
-        if(resource.getType().equals(resourceExcommunication.getType()))
+    @Override
+    public int gainFewResource(ResourceTypeEnum resourceType){
+        if(resourceType == resourceExcommunication.getType())
             //resource.setValue(resource.getValue()- resourceExcommunication.getValue());
         return resourceExcommunication.getValue();
         //in case resources type doesn't match, it returns 0

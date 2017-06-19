@@ -77,6 +77,21 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
 
     private void placeFMOnTower() {
 
+        Debug.printVerbose("placeFMOnTower");
+        int indexRes;
+        if(activeTowerSpaces.size() == 1) {
+            System.out.println("You can only place on space of tower number " + activeMarketSpaces.get(0).getMarketIndex() + "with " + activeMarketSpaces.get(0).getServantNeeded() + "servants needed");
+            System.out.println("I'm placing it over there");
+            indexRes = activeMarketSpaces.get(0).getMarketIndex();
+        } else { //we have to ask the user for a choice
+            CliOptionsHandler marketSpaceChooser = new CliOptionsHandler(activeMarketSpaces.size());
+
+            for (MarketWrapper maketIter : activeMarketSpaces) {
+                marketSpaceChooser.addOption("Place on market action space n " + maketIter.getMarketIndex() + "with " + maketIter.getServantNeeded() + "servants needed");
+            }
+            indexRes = activeMarketSpaces.get(marketSpaceChooser.askUserChoice()).getMarketIndex();
+        }
+        getController().callbackPlacedFMOnMarket(indexRes);
     }
 
     private void placeFMOnBuild() {

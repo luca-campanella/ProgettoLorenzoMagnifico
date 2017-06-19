@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,9 +14,18 @@ import java.util.ArrayList;
  *
  */
 public abstract class AbstractExcommunicationTileEffect implements Serializable {
+
     //The following list is a list all of the first period malus effects
     //it returns a POSITIVE resource. Then it will be subbed from Player
-    int gainFewResource(Resource resource){
+
+    /**
+     * This method returns if the resource of thhis ttype has a malus
+     * For example <i>Each time you receive coins (from action spaces or from your Cards), you receive 1 fewer coin. (If you have more Cards that give you coins, consider each Card a single source, so you receive -1 coin for each card.)</i>
+     *
+     * @param resourceType the resource to check on
+     * @return the resource malus, positive, should be subtracted
+     */
+    public int gainFewResource(ResourceTypeEnum resourceType){
         return 0;
     }
 
