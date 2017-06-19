@@ -104,7 +104,7 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
      * @param color ed card
      * @return s true if you don't get VP. False if you get VP
      */
-    public boolean noVPColporedCard(CardColorEnum color)
+    public boolean noVPColoredCard(CardColorEnum color)
     {
         return false;
     }
