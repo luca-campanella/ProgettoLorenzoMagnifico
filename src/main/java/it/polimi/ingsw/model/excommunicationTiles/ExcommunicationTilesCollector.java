@@ -9,7 +9,9 @@ import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import java.util.ArrayList;
 
 /**
- * Created by campus on 19/06/2017.
+ * This class is created as a collector of tiles inside the player
+ * In this way it is sufficient to call methods on this class to get the mali,
+ * instead of looping on all tiles the user has
  */
 public class ExcommunicationTilesCollector {
 
@@ -157,4 +159,8 @@ public class ExcommunicationTilesCollector {
      * @return
      */
     public int loseVPonCosts(ArrayList<BuildingCard> cards){ return 0;}
+
+    public void addExcommunicationTile(ExcommunicationTile tile) {
+        tiles.add(tile);
+    }
 }

@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
+import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTilesCollector;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.PermanentLeaderCardCollector;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
@@ -29,13 +31,13 @@ public class Player implements Serializable{
 
     private PersonalBoard personalBoard;
 
-    //private HashMap<ResourceTypeEnum, Integer> resourcesMap;
-
     private ResourceCollector resourcesMap;
 
     private ArrayList<FamilyMember> notUsedFamilyMembers;
 
     private ArrayList<FamilyMember> usedFamilyMembers;
+
+    private ExcommunicationTilesCollector excommunicationTilesCollector;
 
     //private PersonalTile personalTile = null; MOVED TO PERSONALBOARD
 
@@ -155,6 +157,23 @@ public class Player implements Serializable{
 
         return resourcesMap.getResource(type);
 
+    }
+
+    /**
+     * Used to perfroms checks on excommunications mali
+     * @return the collector to call methods on
+     */
+    public ExcommunicationTilesCollector getExcommunicationTilesCollector() {
+        return excommunicationTilesCollector;
+    }
+
+    /**
+     * Adds one excommunication tile to the player, should be called at the end of a period
+     * if the player is excommunicated
+     * @param tile
+     */
+    public void addExcommunicationTile(ExcommunicationTile tile) {
+        excommunicationTilesCollector.addExcommunicationTile(tile);
     }
 
     //TODO: we need to put Cards Containers in Player and then implement this method.
