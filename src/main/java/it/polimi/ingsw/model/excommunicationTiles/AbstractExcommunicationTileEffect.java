@@ -33,7 +33,7 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
      * whenever you harvest, you harvest with a malus on the dice.
      * @return the malusValue
      */
-    public int harvestMalusEffect()
+    public int harvestDiceMalusEffect()
     {
         return 0;
     }
@@ -42,26 +42,28 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
      * whenever you build, you build with a malus on the dice.
      * @return the malusValue
      */
-    public int buildMalusEffect()
+    public int buildDiceMalusEffect()
     {
         return 0;
     }
 
     /**
-     * whenever you take a card using a certain
-     * @param familyMemberColor you dice has a
-     * @return malusValue
+     * whenever you take a card using a certain family member
+     * @param familyMemberColor you dice has a malus
+     * @return the value of the malus
      */
     public int reductionOnDice(DiceAndFamilyMemberColorEnum familyMemberColor)
     {
         return 0;
     }
+
+
     //The following list is a list all of the second period malus effects
 
     /**
      * this method returns the malusValue of the dice on a certain
-     * @param colorOfTower
-     * @return
+     * @param colorOfTower the color of the tower to check on
+     * @return the malus
      */
     public int malusDiceOnTowerColor(CardColorEnum colorOfTower)
     {
@@ -88,16 +90,17 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
 
     /**
      * this method signals that player has to skip the round.
+     * <i>Each round, you skip your  rst turn. (When you have to place your first Family Member, you have to pass.) You start taking actions from the second turn (in the appropriate turn order.) When all players have taken all their turns, you may still place your last Family Member.</i>
      * @return
      */
-    public boolean skipRound(){
+    public boolean skipFirstTurn(){
         return false;
     }
 
     //3rd period excommunication
 
     /**
-     * this method returns true if you don't score any point for a certain
+     * this method returns true if you don't score any point for a certain color of cards
      * @param color ed card
      * @return s true if you don't get VP. False if you get VP
      */
@@ -109,16 +112,18 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
     /**
      * this method returns a value different from 0 when a player has an excommunication Tile that let lose
      * victory points to the player.
+     * <i>At the end of the game, you lose 1 Victory Point for every resource (wood, stone, coin, servant) in your supply on your Personal Board. (For example, if you end the game with 3 wood, 1 stone, 4 coins, and 2 servants, you lose 10 Victory Points.)</i>
      * @param resource are the resource of the player
      * @return the number of victory points lost
      */
-    public int noVPonResource(ArrayList<Resource> resource)
+    public int loseVPonResource(ArrayList<Resource> resource)
     {
         return 0;
     }
 
     /**
      * this method let player lose VP for each resource costed resource on yellow cards
+     * <i>At the end of the game, you lose 1 Victory Point for every wood and stone on your Building Cards’ costs. (For example, if all your Building Cards cost 7 wood and 6 stone, you lose 13 Victory Points.)</i>
      * @param cards is the list of yellow cards that a player owns
      * @return
      */

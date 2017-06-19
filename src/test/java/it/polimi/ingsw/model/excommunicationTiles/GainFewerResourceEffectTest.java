@@ -37,7 +37,7 @@ public class GainFewerResourceEffectTest {
         Resource resourceTestOne = new Resource(ResourceTypeEnum.COIN, 5);
         Resource resourceTestZero = new Resource(ResourceTypeEnum.WOOD, 5);
 
-        valueTestOnBuild = excommunicationTiles.get(1).effect.buildMalusEffect();
+        valueTestOnBuild = excommunicationTiles.get(1).effect.buildDiceMalusEffect();
 
         int valueTestOnTileZero = excommunicationTiles.get(1).effect.gainFewResource(resourceTestZero);
         int valueTestOnTiletOne = excommunicationTiles.get(1).effect.gainFewResource(resourceTestOne);

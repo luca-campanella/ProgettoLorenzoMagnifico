@@ -18,7 +18,7 @@ public class NoVPOnResources extends AbstractExcommunicationTileEffect{
      * @param resources
      * @return the number of victory points to sub
      */
-    public int noVPonResource(ArrayList<Resource> resources)
+    public int loseVPonResource(ArrayList<Resource> resources)
     {
         int countNumberOfResources = 0;
         int numberOfVPLost = 0;

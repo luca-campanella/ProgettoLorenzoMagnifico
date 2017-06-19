@@ -13,7 +13,7 @@ public class SkipRoundEffect extends AbstractExcommunicationTileEffect{
      * this method signals that player has to skip the round.
      * @return
      */
-    public boolean skipRound(){
+    public boolean skipFirstTurn(){
         return skipRound;
     }
 
