@@ -315,8 +315,8 @@ public class CommandLineUI extends AbstractUIType {
      * @param board
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board) {
-        InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs, board);
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember) {
+        InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs, board, playedFamilyMember);
 
         pool.submit(menu);
     }

@@ -43,6 +43,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     private AbstractUIType userInterface;
     private AbstractClientType clientNetwork;
     private ModelController modelController;
+    private boolean playedFamilyMember = false;
 
     /**
      * this object is used to handle the choices made by another player that need to reply to the callback from model
@@ -310,6 +311,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
         try{
             clientNetwork.build(familyMemberCurrentAction, servantsUsed, choicesOnCurrentAction);
+            playedFamilyMember = true;
+            clientChoices();
         }
         catch (NetworkException | IllegalMoveException e){
             Debug.printError("cannot deliver the move build to the server");
@@ -545,13 +548,21 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     public void receivedStartTurnNotification() {
         Debug.printVerbose("receivedStartTurnNotification called");
+        playedFamilyMember = false;
+        clientChoices();
+    }
+
+    private void clientChoices(){
         ArrayList<FamilyMember> playableFMs = thisPlayer.getNotUsedFamilyMembers();
-        for(FamilyMember fmIter : playableFMs) {
-            Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
+        if(playedFamilyMember!=false){
+
+            for(FamilyMember fmIter : playableFMs) {
+                Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
+            }
         }
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
-        userInterface.askInitialAction(playableFMs, modelController.getBoard());
+        userInterface.askInitialAction(playableFMs, modelController.getBoard(), playedFamilyMember);
     }
 
     /**

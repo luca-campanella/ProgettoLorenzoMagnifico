@@ -101,7 +101,7 @@ abstract public class AbstractUIType {
      * @param playableFMs the list of playable family members to make the user choose
      * @param board
      */
-    public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board);
+    public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember);
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui

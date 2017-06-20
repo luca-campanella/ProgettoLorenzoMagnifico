@@ -72,7 +72,7 @@ public abstract class GraphicalUI extends AbstractUIType {
      * @param board
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board) {
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember) {
 
     }
 
