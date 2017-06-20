@@ -13,6 +13,7 @@ import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -309,10 +310,11 @@ public class CommandLineUI extends AbstractUIType {
      * This method will trigger either
      * //todo other methods triggered
      * @param playableFMs the list of playable family members to make the user choose
+     * @param board
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs) {
-        InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs);
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board) {
+        InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs, board);
 
         pool.submit(menu);
     }

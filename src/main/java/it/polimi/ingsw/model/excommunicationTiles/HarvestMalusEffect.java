@@ -7,10 +7,10 @@ public class HarvestMalusEffect extends AbstractExcommunicationTileEffect{
     private int malusOnDice;
 
     /**
-     * this method
+     * this method returns the malus on the dice value when the user havests
      * @return the malus on the dice
      */
-    public int harvestMalusEffect()
+    public int harvestDiceMalusEffect()
     {
         return malusOnDice;
     }

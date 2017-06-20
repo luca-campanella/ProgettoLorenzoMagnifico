@@ -11,6 +11,8 @@ import java.util.ArrayList;
  * This class is the personal tile a player can choose at the start of the game
  */
 public class PersonalTile implements Serializable{
+    //if it is the default tile this var is true
+    private boolean defaultTile;
     //for game balancing, we don't allow players to customize their own dice tile
     private static final int DICEONHARVEST = 1;
     private static final int DICEONBUILD = 1;

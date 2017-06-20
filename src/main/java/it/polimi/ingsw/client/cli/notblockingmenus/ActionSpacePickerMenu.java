@@ -77,11 +77,26 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
 
     private void placeFMOnTower() {
 
+        Debug.printVerbose("placeFMOnTower");
+        int indexRes;
+        if(activeTowerSpaces.size() == 1) {
+            System.out.println("You can only place on space of tower number " + activeMarketSpaces.get(0).getMarketIndex() + "with " + activeMarketSpaces.get(0).getServantNeeded() + "servants needed");
+            System.out.println("I'm placing it over there");
+            indexRes = activeMarketSpaces.get(0).getMarketIndex();
+        } else { //we have to ask the user for a choice
+            CliOptionsHandler marketSpaceChooser = new CliOptionsHandler(activeMarketSpaces.size());
+
+            for (MarketWrapper maketIter : activeMarketSpaces) {
+                marketSpaceChooser.addOption("Place on market action space n " + maketIter.getMarketIndex() + "with " + maketIter.getServantNeeded() + "servants needed");
+            }
+            indexRes = activeMarketSpaces.get(marketSpaceChooser.askUserChoice()).getMarketIndex();
+        }
+        getController().callbackPlacedFMOnMarket(indexRes);
     }
 
     private void placeFMOnBuild() {
         int servantsAdded = 0;
-        if(servantsNeededBuild.isPresent())
+        if(servantsNeededHarvest.isPresent())
              servantsAdded = readServants(servantsNeededBuild.get());
         getController().callbackPlacedFMOnBuild(servantsAdded);
     }
@@ -95,14 +110,15 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
 
     private int readServants(int baseValue) {
         int addableServants = availableServants - baseValue;
-        if(addableServants != 0) //if he can't add any servants we return immediately
+        if(addableServants == 0) //if he can't add any servant we return immediately
             return 0;
         System.out.println("Choose how many servants you want to add to the base action:\n" +
                             "Base number of servants needed: " + baseValue + "\n" +
                             "You can add up to " + addableServants + " servants");
         int choice = readAndParseInt();
-        while(choice < baseValue || choice > addableServants) {
-            System.out.println("Please insert a number between "+ baseValue +" and " + addableServants);
+        while(choice < 0 || choice > addableServants) {
+            System.out.println("Please insert a number between 0 and " + addableServants);
+            choice = readAndParseInt();
         }
 
         return choice;

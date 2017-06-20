@@ -42,18 +42,18 @@ public class NoVPOnResourcesTest {
         ArrayList<Resource> resourcesNoExcommunicationTest = new ArrayList<>();
 
         resourcesTest.add(resourceTest);
-        int valueTest = cardEffect.noVPonResource(resourcesTest);
+        int valueTest = cardEffect.loseVPonResource(resourcesTest);
         //making second test. Same excommunication effect, resources not effected added
         Resource resourceSecondTest = new Resource(ResourceTypeEnum.WOOD, 5);
         resourcesTest.add(resourceSecondTest);
-        int valueSecondTest = cardEffect.noVPonResource(resourcesTest);
+        int valueSecondTest = cardEffect.loseVPonResource(resourcesTest);
         //third test, 0
         resourcesNoExcommunicationTest.add(resourceSecondTest);
-        int valueThirdTest = cardEffect.noVPonResource(resourcesNoExcommunicationTest);
+        int valueThirdTest = cardEffect.loseVPonResource(resourcesNoExcommunicationTest);
 
         //adding same resource. It will never happen. BUT in case...
         resourcesTest.add(resourceTest);
-        int valueFourthTest = cardEffect.noVPonResource(resourcesTest);
+        int valueFourthTest = cardEffect.loseVPonResource(resourcesTest);
 
         assertEquals(5, valueTest);
         assertEquals(5, valueSecondTest);

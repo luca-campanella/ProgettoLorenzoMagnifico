@@ -6,17 +6,27 @@ import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * this class contains all the excommunication effects
- *
+ * This class is created as a collector of tiles inside the player
+ * In this way it is sufficient to call methods on this class to get the mali,
+ * instead of looping on all tiles the user has
  */
-public abstract class AbstractExcommunicationTileEffect implements Serializable {
+public class ExcommunicationTilesCollector {
+
+    ArrayList<ExcommunicationTile> tiles;
 
     //The following list is a list all of the first period malus effects
-    //it returns a POSITIVE resource. Then it will be subbed from Player
+
+    public ExcommunicationTilesCollector(ArrayList<ExcommunicationTile> tiles) {
+        this();
+        this.tiles = tiles;
+    }
+
+    public ExcommunicationTilesCollector() {
+        tiles = new ArrayList<ExcommunicationTile>(3);
+    }
 
     /**
      * This method returns if the resource of thhis ttype has a malus
@@ -26,7 +36,10 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
      * @return the resource malus, positive, should be subtracted
      */
     public int gainFewResource(ResourceTypeEnum resourceType){
-        return 0;
+        int malus = 0;
+        for(ExcommunicationTile tileIter : tiles)
+            malus += tileIter.getEffect().gainFewResource(resourceType);
+        return malus;
     }
 
     /**
@@ -35,7 +48,10 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
      */
     public int harvestDiceMalusEffect()
     {
-        return 0;
+        int malus = 0;
+        for(ExcommunicationTile tileIter : tiles)
+            malus += tileIter.getEffect().harvestDiceMalusEffect();
+        return malus;
     }
 
     /**
@@ -44,7 +60,10 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
      */
     public int buildDiceMalusEffect()
     {
-        return 0;
+        int malus = 0;
+        for(ExcommunicationTile tileIter : tiles)
+            malus += tileIter.getEffect().buildDiceMalusEffect();
+        return malus;
     }
 
     /**
@@ -54,9 +73,11 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
      */
     public int reductionOnDice(DiceAndFamilyMemberColorEnum familyMemberColor)
     {
-        return 0;
+        int malus = 0;
+        for(ExcommunicationTile tileIter : tiles)
+            malus += tileIter.getEffect().reductionOnDice(familyMemberColor);
+        return malus;
     }
-
 
     //The following list is a list all of the second period malus effects
 
@@ -67,7 +88,10 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
      */
     public int malusDiceOnTowerColor(CardColorEnum colorOfTower)
     {
-        return 0;
+        int malus = 0;
+        for(ExcommunicationTile tileIter : tiles)
+            malus += tileIter.getEffect().malusDiceOnTowerColor(colorOfTower);
+        return malus;
     }
 
     /**
@@ -76,31 +100,40 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
      */
     public boolean marketNotAvailable()
     {
+        for(ExcommunicationTile tileIter : tiles)
+            if(tileIter.getEffect().marketNotAvailable())
+                return true;
         return false;
     }
 
     /**
      * this method indicates how many more servants a player has to pay to have +1 on action value
-     * @return
+     * @return the exchange rate >> return value : 1 family member
      */
     public int payMoreServant()
     {
-        return 0;
+        int malus = 0;
+        for(ExcommunicationTile tileIter : tiles)
+            malus += tileIter.getEffect().payMoreServant();
+        return malus;
     }
 
     /**
      * this method signals that player has to skip the round.
      * <i>Each round, you skip your  rst turn. (When you have to place your first Family Member, you have to pass.) You start taking actions from the second turn (in the appropriate turn order.) When all players have taken all their turns, you may still place your last Family Member.</i>
-     * @return
+     * @return true if he has to skip
      */
     public boolean skipFirstTurn(){
+        for(ExcommunicationTile tileIter : tiles)
+            if(tileIter.getEffect().skipFirstTurn())
+                return true;
         return false;
     }
 
     //3rd period excommunication
 
     /**
-     * this method returns true if you don't score any point for a certain color of cards
+     * this method returns true if you don't score any point for a certain
      * @param color ed card
      * @return s true if you don't get VP. False if you get VP
      */
@@ -112,25 +145,22 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
     /**
      * this method returns a value different from 0 when a player has an excommunication Tile that let lose
      * victory points to the player.
-     * <i>At the end of the game, you lose 1 Victory Point for every resource (wood, stone, coin, servant) in your supply on your Personal Board. (For example, if you end the game with 3 wood, 1 stone, 4 coins, and 2 servants, you lose 10 Victory Points.)</i>
      * @param resource are the resource of the player
      * @return the number of victory points lost
      */
-    public int loseVPonResource(ArrayList<Resource> resource)
+    public int noVPonResource(ArrayList<Resource> resource)
     {
         return 0;
     }
 
     /**
      * this method let player lose VP for each resource costed resource on yellow cards
-     * <i>At the end of the game, you lose 1 Victory Point for every wood and stone on your Building Cards’ costs. (For example, if all your Building Cards cost 7 wood and 6 stone, you lose 13 Victory Points.)</i>
      * @param cards is the list of yellow cards that a player owns
      * @return
      */
     public int loseVPonCosts(ArrayList<BuildingCard> cards){ return 0;}
 
-
-
-
-    public abstract String getShortEffectDescription();
+    public void addExcommunicationTile(ExcommunicationTile tile) {
+        tiles.add(tile);
+    }
 }

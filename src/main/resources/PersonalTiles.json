@@ -2,6 +2,7 @@
   {
     "DICEONHARVEST": 1,
     "DICEONBUILD": 1,
+    "defaultTile":true,
     "effectOnBuild": [
       {
         "resource": {
@@ -40,6 +41,7 @@
   {
     "DICEONHARVEST": 1,
     "DICEONBUILD": 1,
+    "defaultTile":false,
     "effectOnBuild": [
       {
         "resource": {
@@ -77,6 +79,7 @@
   },{
   "DICEONHARVEST": 1,
   "DICEONBUILD": 1,
+  "defaultTile":false,
   "effectOnBuild": [
     {
       "resource": {
@@ -114,6 +117,7 @@
 },{
   "DICEONHARVEST": 1,
   "DICEONBUILD": 1,
+  "defaultTile":false,
   "effectOnBuild": [
     {
       "resource": {
@@ -151,6 +155,7 @@
 },{
   "DICEONHARVEST": 1,
   "DICEONBUILD": 1,
+  "defaultTile":false,
   "effectOnBuild": [
     {
       "resource": {

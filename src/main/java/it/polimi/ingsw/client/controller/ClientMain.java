@@ -87,7 +87,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     private ResourceCollector resourcesCheckMap;
 
     private FamilyMember familyMemberCurrentAction;
-    private int servantsCurrentAction;
 
     /**
     this is Class Constructor
@@ -300,17 +299,18 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackPlacedFMOnBuild(int servantsUsed) {
-        /*We make a copy of the hashmap beacuse we have to perfom some checks on it and this checks should not affect
+        /*We make a copy of the hashmap because we have to perform some checks on it and this checks should not affect
         the hashmap of the player. Even tough making a copy using the constructor makes just a shallow copy, this is sufficient
-        since Integer types are immutable
+        since Integer types are immutable. This copy will be modified inside the callbacks
          */
 
+        Debug.printVerbose("before calling build");
         resourcesCheckMap = new ResourceCollector(familyMemberCurrentAction.getPlayer().getResourcesCollector());
-        //TODO call this method with the real values, saved in the state of ClientMain, they are not passed from the view
-        Debug.printVerbose("Before method build on model");
-        modelController.build(familyMemberCurrentAction, servantsCurrentAction);
-        Debug.printVerbose("After method build on model");
+        modelController.build(familyMemberCurrentAction, servantsUsed);
+        Debug.printVerbose("build succeded");
+
         /*LinkedList<BuildingCard> buildingCards = modelController.getYellowBuildingCards(familyMember.getPlayer());
+
         ArrayList<ImmediateEffectInterface> effects;
 
         for(BuildingCard cardIter : buildingCards) {
@@ -329,7 +329,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackPlacedFMOnHarvest(int servantsUsed){
-        modelController.harvest(familyMemberCurrentAction, servantsCurrentAction);
+        modelController.harvest(familyMemberCurrentAction, servantsUsed);
     }
 
     /**
@@ -558,7 +558,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
-        userInterface.askInitialAction(playableFMs);
+        userInterface.askInitialAction(playableFMs, modelController.getBoard());
     }
 
     /**
@@ -568,7 +568,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receivedLeaderCards(List<LeaderCard> leaderCards) {
-        userInterface.askLeaderCards(leaderCards);
+        Debug.printDebug("Automatically chose leader " + leaderCards.get(0).getName());
+        callbackOnLeaderCardChosen(leaderCards.get(0)); //todo remove these two statements
+        //todo commented to skip leader chosing phase, not to lose time
+        //userInterface.askLeaderCards(leaderCards);
     }
 
     /**

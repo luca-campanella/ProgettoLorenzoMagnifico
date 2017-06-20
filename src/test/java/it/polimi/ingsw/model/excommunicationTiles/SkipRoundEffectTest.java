@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 /**
- * Testing skipRound excommunication
+ * Testing skipFirstTurn excommunication
  */
 public class SkipRoundEffectTest {
 
@@ -28,7 +28,7 @@ public class SkipRoundEffectTest {
 
     @Test
     public void skipRound() throws Exception {
-        boolean valueTest = excommunicationTiles.get(14).effect.skipRound();
+        boolean valueTest = excommunicationTiles.get(14).effect.skipFirstTurn();
         assertTrue(valueTest);
 
     }

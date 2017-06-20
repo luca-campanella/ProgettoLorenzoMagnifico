@@ -10,7 +10,7 @@ public class BuildMalusEffect extends AbstractExcommunicationTileEffect{
      * this method
      * @return the malus on the dice
      */
-    public int buildMalusEffect()
+    public int buildDiceMalusEffect()
     {
         return malusOnDice;
     }

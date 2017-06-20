@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Testing buildMalusEffect
+ * Testing buildDiceMalusEffect
  */
 public class BuildMalusEffectTest {
 
@@ -28,7 +28,7 @@ public class BuildMalusEffectTest {
     @Test
     public void buildMalusEffect() throws Exception {
         int valueTest;
-        valueTest = excommunicationTiles.get(5).effect.buildMalusEffect();
+        valueTest = excommunicationTiles.get(5).effect.buildDiceMalusEffect();
         assertEquals(3, valueTest);
 
     }

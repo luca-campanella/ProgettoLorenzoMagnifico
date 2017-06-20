@@ -4,7 +4,6 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
-import it.polimi.ingsw.model.cards.VentureCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
@@ -412,8 +411,11 @@ public class ModelController {
         player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
         //just adds the family member to the BuildAS
         gameBoard.build(familyMember);
+        Debug.printVerbose("before calling player.build");
 
         player.build(familyMember.getValue() + servants, choicesController);
+        Debug.printVerbose("afterd calling player.build");
+
     }
 
     /**

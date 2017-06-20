@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.cli.CommandLineUI;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -98,8 +99,9 @@ abstract public class AbstractUIType {
      * {@link ViewControllerCallbackInterface(DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
      * @param playableFMs the list of playable family members to make the user choose
+     * @param board
      */
-    public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs);
+    public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board);
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui

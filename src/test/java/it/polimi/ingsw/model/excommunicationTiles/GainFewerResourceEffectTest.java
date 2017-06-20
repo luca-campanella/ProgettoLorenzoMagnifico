@@ -37,13 +37,13 @@ public class GainFewerResourceEffectTest {
         Resource resourceTestOne = new Resource(ResourceTypeEnum.COIN, 5);
         Resource resourceTestZero = new Resource(ResourceTypeEnum.WOOD, 5);
 
-        valueTestOnBuild = excommunicationTiles.get(1).effect.buildMalusEffect();
+        valueTestOnBuild = excommunicationTiles.get(1).effect.buildDiceMalusEffect();
 
-        int valueTestOnTileZero = excommunicationTiles.get(1).effect.gainFewResource(resourceTestZero);
-        int valueTestOnTiletOne = excommunicationTiles.get(1).effect.gainFewResource(resourceTestOne);
+        int valueTestOnTileZero = excommunicationTiles.get(1).effect.gainFewResource(resourceTestZero.getType());
+        int valueTestOnTiletOne = excommunicationTiles.get(1).effect.gainFewResource(resourceTestOne.getType());
 
-        int valueTestOnEffectZero = cardEffect.gainFewResource(resourceTestZero);
-        int valueTestOnEffectOne = cardEffect.gainFewResource(resourceTestOne);
+        int valueTestOnEffectZero = cardEffect.gainFewResource(resourceTestZero.getType());
+        int valueTestOnEffectOne = cardEffect.gainFewResource(resourceTestOne.getType());
 
 
         assertEquals(0, valueTestOnBuild);
