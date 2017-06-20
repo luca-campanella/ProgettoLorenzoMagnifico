@@ -220,6 +220,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
     }
 
+    /**
+     * this method is called by the client to deliver a move on the build space
+     */
     public void build(){
         try{
             BuildOrHarvest packet=(BuildOrHarvest) inStream.readObject();
@@ -300,8 +303,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         ReceiveChatPacket chatPacket= new ReceiveChatPacket(senderNickname , msg);
         try{
-            outStream.writeObject(PacketType.CHAT);
-            outStream.writeObject(chatPacket);
+            synchronized (this){
+                outStream.writeObject(PacketType.CHAT);
+                outStream.writeObject(chatPacket);
+            }
             outStream.flush();
         }
         catch(IOException e){
@@ -317,8 +322,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         try{
 
-            outStream.writeObject(PacketType.MOVE_IN_TOWER);
-            outStream.writeObject(new ReceivePlaceOnTowerPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),towerIndex,floorIndex, playerChoices));
+            synchronized (this){
+                outStream.writeObject(PacketType.MOVE_IN_TOWER);
+                outStream.writeObject(new ReceivePlaceOnTowerPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),towerIndex,floorIndex, playerChoices));outStream.flush();
+            }
             outStream.flush();
 
         }
@@ -339,8 +346,11 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         try{
 
-            outStream.writeObject(PacketType.MOVE_IN_MARKET);
-            outStream.writeObject(new ReceivePlaceOnMarketPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(), marketIndex, playerChoices));
+            synchronized (this){
+                outStream.writeObject(PacketType.MOVE_IN_MARKET);
+                outStream.writeObject(new ReceivePlaceOnMarketPacket(familyMember.getPlayer().
+                    getNickname(),familyMember.getColor(), marketIndex, playerChoices));
+            }
             outStream.flush();
 
         }
@@ -362,8 +372,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         try{
 
-            outStream.writeObject(PacketType.BUILD);
-            outStream.writeObject(new ReceiveBuildOrHarvestPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),servant,playerChoices));
+            synchronized (this){
+                outStream.writeObject(PacketType.BUILD);
+                outStream.writeObject(new ReceiveBuildOrHarvestPacket(familyMember.getPlayer()
+                    .getNickname(),familyMember.getColor(),servant,playerChoices));}
             outStream.flush();
 
         }
@@ -383,8 +395,11 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         try{
 
-            outStream.writeObject(PacketType.HARVEST);
-            outStream.writeObject(new ReceiveBuildOrHarvestPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),servant, playerChoices));
+            synchronized (this){
+                outStream.writeObject(PacketType.HARVEST);
+                outStream.writeObject(new ReceiveBuildOrHarvestPacket(familyMember
+                    .getPlayer().getNickname(),familyMember.getColor(),servant, playerChoices));
+            }
             outStream.flush();
 
         }
@@ -420,8 +435,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         try{
 
-            outStream.writeObject(PacketType.END_PHASE);
-            outStream.writeObject(new EndPhasePacket(player.getNickname()));
+            synchronized (this){
+                outStream.writeObject(PacketType.END_PHASE);
+                outStream.writeObject(new EndPhasePacket(player.getNickname()));
+            }
             outStream.flush();
 
         }
@@ -443,8 +460,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         try{
 
-            outStream.writeObject(PacketType.DICE);
-            outStream.writeObject(new DicesPacket(dices));
+            synchronized (this){
+                outStream.writeObject(PacketType.DICE);
+                outStream.writeObject(new DicesPacket(dices));
+            }
             outStream.flush();
 
         }
@@ -465,8 +484,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         try{
 
-            outStream.writeObject(PacketType.GAME_BOARD);
-            outStream.writeObject(gameBoard);
+            synchronized (this){
+                outStream.writeObject(PacketType.GAME_BOARD);
+                outStream.writeObject(gameBoard);
+            }
             outStream.flush();
 
         }
@@ -487,7 +508,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void receiveStartOfTurn() throws NetworkException{
 
         try{
-            outStream.writeObject(PacketType.START_TURN);
+            synchronized (this){
+                outStream.writeObject(PacketType.START_TURN);
+            }
             outStream.flush();
         }
         catch (IOException e){
@@ -504,8 +527,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void deliverOrderPlayers(ArrayList<String> orderPlayers) throws NetworkException{
 
         try{
-            outStream.writeObject(PacketType.ORDER_PLAYERS);
-            outStream.writeObject(orderPlayers);
+            synchronized (this){
+                outStream.writeObject(PacketType.ORDER_PLAYERS);
+                outStream.writeObject(orderPlayers);
+            }
             outStream.flush();
         }
         catch (IOException e){
@@ -523,8 +548,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void receiveLeaderCards(ArrayList<LeaderCard> cardToPlayer) throws NetworkException {
 
         try{
-            outStream.writeObject(PacketType.LEADER_CHOICES);
-            outStream.writeObject(new LeaderChoicePacket(cardToPlayer));
+            synchronized (this){
+                outStream.writeObject(PacketType.LEADER_CHOICES);
+                outStream.writeObject(new LeaderChoicePacket(cardToPlayer));
+            }
             outStream.flush();
         }
         catch (IOException e) {
@@ -542,8 +569,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void deliverCardToPlace(ArrayList<AbstractCard> cards) throws NetworkException {
 
         try{
-            outStream.writeObject(PacketType.CARD_TO_PLACE);
-            outStream.writeObject(new CardToPlacePacket(cards));
+            synchronized (this){
+                outStream.writeObject(PacketType.CARD_TO_PLACE);
+                outStream.writeObject(new CardToPlacePacket(cards));
+            }
             outStream.flush();
         }
         catch (IOException e){
@@ -561,8 +590,11 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     @Override
     public void receivePlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException {
         try{
-            outStream.writeObject(PacketType.MOVE_IN_COUNCIL);
-            outStream.writeObject(new ReceivePlaceOnCouncilPacket(familyMember.getColor(),playerChoices,familyMember.getPlayer().getNickname()));
+            synchronized (this){
+                outStream.writeObject(PacketType.MOVE_IN_COUNCIL);
+                outStream.writeObject(new ReceivePlaceOnCouncilPacket(familyMember
+                    .getColor(),playerChoices,familyMember.getPlayer().getNickname()));
+            }
             outStream.flush();
         }
         catch (IOException e){
@@ -579,8 +611,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     @Override
     public void deliverPersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws NetworkException {
         try{
-            outStream.writeObject(PacketType.CHOSE_TILES);
-            outStream.writeObject(personalTilesToDeliver);
+            synchronized (this){
+                outStream.writeObject(PacketType.CHOSE_TILES);
+                outStream.writeObject(personalTilesToDeliver);}
             outStream.flush();
             Debug.printVerbose("Delivered personal tile to " + getNickname());
         }
@@ -598,8 +631,11 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     @Override
     public void otherPlayerPersonalTile(String nickname, PersonalTile personalTile) throws NetworkException {
         try{
-            outStream.writeObject(PacketType.FLOOD_PERSONAL_TILE);
-            outStream.writeObject(new ReceiveChosenPersonalTilePacket(nickname, personalTile));
+            synchronized (this){
+                outStream.writeObject(PacketType.FLOOD_PERSONAL_TILE);
+                outStream.writeObject(new ReceiveChosenPersonalTilePacket(nickname, personalTile));
+            }
+            outStream.flush();
         }
         catch (IOException e){
             Debug.printError("cannot deliver the personal tile of " + nickname + " to " + getNickname());
@@ -628,8 +664,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     private void deliverNicknamePlayer(String nickname){
 
         try{
-            outStream.writeObject(PacketType.NICKNAME);
-            outStream.writeObject(nickname);
+            synchronized (this){
+                outStream.writeObject(PacketType.NICKNAME);
+                outStream.writeObject(nickname);
+            }
             outStream.flush();
         }
 
@@ -650,7 +688,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         catch (IOException | ClassNotFoundException e){
             Debug.printError("Cannot receive the move on council from player: " + getNickname());
             try{
-                outStream.writeObject(PacketType.ERROR_MOVE);
+                synchronized (this){
+                    outStream.writeObject(PacketType.ERROR_MOVE);
+                }
                 outStream.flush();
             }
             catch (IOException c){
@@ -660,6 +700,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
+    /**
+     * receives the personal tile chosen by the client
+     */
     public void receivedPersonalTile(){
 
         try{
@@ -669,6 +712,25 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         catch (IOException | ClassNotFoundException e){
 
             Debug.printError("Cannot receive the personal tile chosen by the client" + getNickname(),e);
+        }
+    }
+
+    /**
+     * this method is called by room when a player cheats on a move
+     * @throws NetworkException
+     */
+    @Override
+    public void deliverErrorMove() throws NetworkException{
+
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.ERROR_MOVE);
+            }
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Cannot receive the personal tile chosen by the client" + getNickname(),e);
+            throw new NetworkException(e);
         }
     }
 

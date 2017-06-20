@@ -132,4 +132,6 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @param personalTile the personal tile chosen by the client
      */
     public abstract void otherPlayerPersonalTile(String nickname, PersonalTile personalTile) throws NetworkException;
+
+    public abstract void deliverErrorMove() throws NetworkException;
 }

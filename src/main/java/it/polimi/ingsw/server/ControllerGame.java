@@ -319,7 +319,7 @@ public class ControllerGame {
      * @param servant the number of servant you add on the family member to increase the value
      * @param playerChoices
      */
-    public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
+    public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 
         choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
@@ -333,7 +333,7 @@ public class ControllerGame {
      * @param familyMember the familymember the player places
      * @param servant the number of servant you add on the family member to increase the value
      */
-    public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
+    public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 
         choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
@@ -344,10 +344,9 @@ public class ControllerGame {
     /**
      * this method is called by the room to deliver the move on council from a player
      * @param familyMember the family member the player wants to place on the council
-     * @param playerChoices the chioces taken from the player when an effect have different choices
-     * @throws IllegalMoveException in the move is not legal
+     * @param playerChoices the choices taken from the player when an effect have different choices
      */
-    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
+    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices){
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.placeOnCouncil(familyMember);
@@ -394,10 +393,10 @@ public class ControllerGame {
      * control if is the turn of the player that had delivered a move
      * @throws IllegalMoveException
      */
-    private void controlTurnPlayer(String playerName) throws IllegalMoveException{
+    private void controlTurnPlayer(String playerName){
 
         if(!playerName.equals(orderOfPlayers.get(numberOfTurn%numberOfPlayers).getNickname()))
-            throw new IllegalMoveException(MoveErrorEnum.NOT_PLAYER_TURN);
+            room.deliverError(playerName);
 
     }
 

@@ -307,14 +307,15 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printVerbose("before calling build");
         resourcesCheckMap = new ResourceCollector(familyMemberCurrentAction.getPlayer().getResourcesCollector());
         modelController.build(familyMemberCurrentAction, servantsUsed);
-        Debug.printVerbose("build succeded");
+        Debug.printVerbose("build succeeded");
 
         try{
             clientNetwork.build(familyMemberCurrentAction, servantsUsed, choicesOnCurrentAction);
+            Debug.printVerbose("delivered build to server");
             playedFamilyMember = true;
             clientChoices();
         }
-        catch (NetworkException | IllegalMoveException e){
+        catch (NetworkException e){
             Debug.printError("cannot deliver the move build to the server");
         }
     }
@@ -325,7 +326,20 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackPlacedFMOnHarvest(int servantsUsed){
+
+        Debug.printVerbose("before calling harvest");
         modelController.harvest(familyMemberCurrentAction, servantsUsed);
+        Debug.printVerbose("harvest succeeded");
+
+        try{
+            clientNetwork.harvest(familyMemberCurrentAction, servantsUsed, choicesOnCurrentAction);
+            Debug.printVerbose("delivered harvest to server");
+            playedFamilyMember = true;
+            clientChoices();
+        }
+        catch (NetworkException e){
+            Debug.printError("cannot deliver the move harvest to the server");
+        }
     }
 
     /**
@@ -352,7 +366,19 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackPlacedFMOnCouncil(){
+
+        Debug.printVerbose("before calling council");
         modelController.placeOnCouncil(familyMemberCurrentAction);
+        Debug.printVerbose("place on council succeeded");
+        try{
+            clientNetwork.placeOnCouncil(familyMemberCurrentAction, choicesOnCurrentAction);
+            Debug.printVerbose("delivered place on council to server");
+            playedFamilyMember = true;
+            clientChoices();
+        }
+        catch (NetworkException e){
+            Debug.printError("cannot deliver the move on council to the server");
+        }
     }
 
     /**
@@ -373,6 +399,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
         for(int i = 0; i < numberDiffGifts; i++) {
             choice = userInterface.askCouncilGift(options);
+            Debug.printVerbose("after taken choice");
             choices.add(options.get(choice));
             options.remove(choice);
             choicesOnCurrentAction.put(choiceCode + i, choice);
@@ -554,7 +581,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
     private void clientChoices(){
         ArrayList<FamilyMember> playableFMs = thisPlayer.getNotUsedFamilyMembers();
-        if(playedFamilyMember!=false){
+        if(!playedFamilyMember){
 
             for(FamilyMember fmIter : playableFMs) {
                 Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
@@ -562,6 +589,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
+        initialActionsOnPlayerMove();
         userInterface.askInitialAction(playableFMs, modelController.getBoard(), playedFamilyMember);
 
     }

@@ -152,7 +152,7 @@ public class Room {
      *
      * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
-    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
+    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices){
 
         controllerGame.placeOnCouncil(familyMember, playerChoices);
         floodPlaceOnCouncil(familyMember, playerChoices);
@@ -186,10 +186,8 @@ public class Room {
 
     /**
      * call the method on controller game to build
-     *
-     * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
-    public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
+    public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 
         controllerGame.build(familyMember, servant, playerChoices);
         floodBuild(familyMember, servant, playerChoices);
@@ -201,7 +199,7 @@ public class Room {
      *
      * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
-    public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
+    public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 
         controllerGame.harvest(familyMember, servant, playerChoices);
         floodHarvest(familyMember, servant, playerChoices);
@@ -494,10 +492,28 @@ public class Room {
         for(AbstractConnectionPlayer player1 : players){
             if(!player.getNickname().equals(player1.getNickname())){
                 try{
-                    player1.otherPlayerPersonalTile(player1.getNickname(), personalTile);
+                    player1.otherPlayerPersonalTile(player.getNickname(), personalTile);
                 }
                 catch (NetworkException e){
                     Debug.printError(e);
+                }
+            }
+        }
+    }
+
+    /**
+     * this method is called by the controller game to deliver to the client of an error on a move
+     * @param playerName
+     */
+    public void deliverError(String playerName) {
+
+        for(AbstractConnectionPlayer player : players){
+            if(player.getNickname().equals(playerName)){
+                try{
+                    player.deliverErrorMove();
+                }
+                catch (NetworkException e){
+                    Debug.printError("cannot deliver the error move to " + playerName);
                 }
             }
         }

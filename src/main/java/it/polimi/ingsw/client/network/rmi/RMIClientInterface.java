@@ -150,4 +150,6 @@ public interface RMIClientInterface extends Remote {
      * @param personalTile the personal tile chosen
      */
     public void floodPersonalTileChosen(String nickname, PersonalTile personalTile) throws RemoteException;
+
+    public void receiveError() throws RemoteException;
 }
