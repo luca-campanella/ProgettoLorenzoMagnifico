@@ -1,13 +1,19 @@
 package it.polimi.ingsw.client.cli;
 
 import it.polimi.ingsw.model.board.*;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.leaders.LeadersDeck;
+import it.polimi.ingsw.model.player.PersonalBoard;
+import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,8 +58,7 @@ public class CliPrinter {
 
     /**
      * print towers with no overhead
-     *
-     * @param board
+     * @param board this is the gameBoard
      */
     public static void printTowers(Board board) {
         int i;
@@ -431,6 +436,92 @@ public class CliPrinter {
         for (i = 0; i < lineLenght; i++)
             System.out.print("-");
         System.out.println("");
+    }
+
+    /**
+     * this method simply cicles a list given from personal Board and calls a printGenericCard for all cards
+     * @param cardsToPrint is the List to print
+     */
+    private static void printGenericCards(LinkedList<? extends AbstractCard> cardsToPrint)
+    {
+        if((cardsToPrint.isEmpty())) {
+            System.out.println("NoCards");
+            return;
+        }
+        for(AbstractCard cardIterator : cardsToPrint)
+            printGenericCard(cardIterator);
+    }
+
+    /**
+     * this method prints a generiCard for personalBoard
+     * @param card is the generic card we print
+     */
+    private static void printGenericCard(AbstractCard card)
+    {
+        StringBuilder stringToPrint = new StringBuilder();
+        stringToPrint.append("Cardname: ");
+        stringToPrint.append(card.getName());
+
+        /*no need to print costs cause in personal board they won't be used
+        stringToPrint.append("Cardcost: ");
+        for(Resource iterator : card.getCost()){
+            stringToPrint.append(iterator.getResourceShortDescript());
+        }*/
+
+        //i won't print immediate effect because in personal board they are no longer used
+        stringToPrint.append(" second effect: ");
+        stringToPrint.append(card.secondEffect());
+        System.out.println(stringToPrint);
+    }
+    private static void printPersonalTile(PersonalTile personalTile){
+        System.out.println(personalTile.getDescription());
+    }
+
+    /**
+     * this method prints the
+     * @param player's resources @ personalBoard
+     */
+    private static void printPersonalBoardResources (Player player){
+        StringBuilder resourcesStatus = new StringBuilder();
+        resourcesStatus.append(player.getResource(ResourceTypeEnum.COIN));
+        resourcesStatus.append("COINS");
+        resourcesStatus.append(player.getResource(ResourceTypeEnum.WOOD));
+        resourcesStatus.append("WOOD");
+        resourcesStatus.append(player.getResource(ResourceTypeEnum.STONE));
+        resourcesStatus.append("STONE");
+        resourcesStatus.append(player.getResource(ResourceTypeEnum.SERVANT));
+        resourcesStatus.append("SERVANT");
+        resourcesStatus.append(player.getResource(ResourceTypeEnum.MILITARY_POINT));
+        resourcesStatus.append("MILITARY_POINT");
+        resourcesStatus.append(player.getResource(ResourceTypeEnum.VICTORY_POINT));
+        resourcesStatus.append("VICTORY_POINT");
+        System.out.println(resourcesStatus);
+    }
+
+    /**
+     * this class prints the personalBoard
+     * @param personalBoard is the board where players put their own cards
+     * @param player is the user of the game
+     */
+    public static void printPersonalBoard(PersonalBoard personalBoard, Player player)
+    {
+        System.out.println("");
+        System.out.print("Printing Territory Cards: ");
+        printGenericCards(personalBoard.getCardListByColor(CardColorEnum.GREEN));
+        System.out.print("Printing Character Cards: ");
+        printGenericCards(personalBoard.getCardListByColor(CardColorEnum.BLUE));
+        System.out.print("Printing Building Cards: ");
+        printGenericCards(personalBoard.getCardListByColor(CardColorEnum.YELLOW));
+        System.out.print("Printing Venture Cards: ");
+        printGenericCards(personalBoard.getCardListByColor(CardColorEnum.PURPLE));
+        /*printPersonalBoardTerritoryCards(personalBoard.getCardListByColor());
+        printPersonalBoardCharacterCards(personalBoard.getCharacterCards());
+        printPersonalBoardBuildingCards(personalBoard.getBuildingCards());
+        printPersonalBoardVentureCards(personalBoard.getVentureCards());*/
+        System.out.print("Printing personal tile: ");
+        printPersonalTile(personalBoard.getPersonalTile());
+        printPersonalBoardResources(player);
+
     }
 
     public static void printLeadersDeck(LeadersDeck leadersDeck){

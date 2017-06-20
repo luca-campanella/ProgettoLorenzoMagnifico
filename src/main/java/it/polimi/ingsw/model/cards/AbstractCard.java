@@ -2,10 +2,12 @@ package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public abstract class AbstractCard implements Serializable{
     public abstract List<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController);
 
     public abstract String secondEffect();
+
     //abstract public int characteristicValue();
     public void addImmediateEffect(ImmediateEffectInterface effect){
         immediateEffect.add(effect);
@@ -65,7 +68,22 @@ public abstract class AbstractCard implements Serializable{
     public void applyImmediateEffectsToPlayer(Player player, ChoicesHandlerInterface choiceController) {
         for(ImmediateEffectInterface effectIter : immediateEffect) {
             effectIter.applyToPlayer(player, choiceController, name);
+
+            //we need to check if a leader says the immediate effect has to be applied more than once
+            int multipleTimes = player.getPermanentLeaderCardCollector().getMoreTimesResourcesOnImmediateEffects(cardColor);
+            if(multipleTimes > 0) {
+                if (effectIter instanceof GainResourceEffect) {
+                    ResourceTypeEnum resourceType = ((GainResourceEffect) effectIter).getResource().getType();
+                    if ((resourceType == ResourceTypeEnum.WOOD) ||
+                            (resourceType == ResourceTypeEnum.STONE) || (resourceType == ResourceTypeEnum.COIN)
+                            || (resourceType == ResourceTypeEnum.SERVANT)) {
+                        for(int i = 0; i < multipleTimes; i++)
+                            effectIter.applyToPlayer(player, choiceController, name+i);
+                    }
+                }
+            }
         }
+
     }
 
     /**

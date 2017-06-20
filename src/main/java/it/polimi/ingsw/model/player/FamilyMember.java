@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * the family member owned by a player
@@ -28,15 +29,15 @@ public class FamilyMember implements Serializable{
     /**
      * this is the value of the family member, it can be the same of the linked dice or can be different if an effect changes it
      */
-    private int valueFamilyMember;
+    //private int valueFamilyMember;
 
     public FamilyMember(Dice dice, Player player){
 
         this.player= player;
         this.dice=dice;
-        valueFamilyMember = dice.getValue();
+        //valueFamilyMember = dice.getValue();
         color= dice.getColor();
-        Debug.printVerbose("New family member created" + color + valueFamilyMember + dice.toString());
+        Debug.printVerbose("New family member created" + color + dice.getValue() + dice.toString());
     }
 
     /**
@@ -44,15 +45,25 @@ public class FamilyMember implements Serializable{
      * @return the value of the dice
      */
     public int getValue(){
+        int realValue = dice.getValue();
+        if(color == DiceAndFamilyMemberColorEnum.NEUTRAL)
+            realValue += player.getPermanentLeaderCardCollector().getBonusNeutralFM();
+        else {
+            Optional<Integer> fixedValue = player.getPermanentLeaderCardCollector().getFixedFamilyMembersValue();
+            if(fixedValue.isPresent()) {
+                realValue = fixedValue.get();
+            }
+            realValue +=  player.getPermanentLeaderCardCollector().getBonusColoredFamilyMembers();
+        }
 
-        return valueFamilyMember;
+        return realValue;
 
     }
 
     /**
      * it align the value of the family member with the value of the linked dice
      */
-    public void alignValue(){
+    /*public void alignValue(){
 
         valueFamilyMember = dice.getValue();
 
@@ -62,7 +73,7 @@ public class FamilyMember implements Serializable{
 
         this.valueFamilyMember = valueFamilyMember;
 
-    }
+    }*/
 
     public DiceAndFamilyMemberColorEnum getColor(){
 

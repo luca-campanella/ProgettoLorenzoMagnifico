@@ -82,7 +82,7 @@ public class Tower implements Serializable{
     public void placeFamilyMember(FamilyMember familyMember, int floorIndex, ChoicesHandlerInterface choicesController) {
         Player player = familyMember.getPlayer();
 
-        if(!isFirstToPlaceOnTower())
+        if(!isFirstToPlaceOnTower() && !player.getPermanentLeaderCardCollector().hasNotToSpendForOccupiedTower())
             player.subResource(new Resource(ResourceTypeEnum.COIN, 3));
 
         //we check if there is a discount on the tower coming from blue cards, if there is we add this discount to the player

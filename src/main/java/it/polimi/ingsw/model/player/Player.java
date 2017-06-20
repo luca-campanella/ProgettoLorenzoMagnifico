@@ -72,9 +72,6 @@ public class Player implements Serializable{
     {
         super();
         loadPlayer();
-        leaderCards = new ArrayList<LeaderCard>(4);
-        playedOncePerRoundLeaderCards = new LinkedList<LeaderCard>();
-        playedAndActivatedOncePerRoundLeaderCards = new LinkedList<LeaderCard>();
     }
 
     public Player(String nickname)
@@ -85,6 +82,12 @@ public class Player implements Serializable{
 
     private void loadPlayer(){
 
+        playedOncePerRoundLeaderCards = new LinkedList<LeaderCard>();
+        playedAndActivatedOncePerRoundLeaderCards = new LinkedList<LeaderCard>();
+        leaderCards = new ArrayList<LeaderCard>(4);
+        permanentLeaderCardCollector = new PermanentLeaderCardCollector();
+        excommunicationTilesCollector = new ExcommunicationTilesCollector();
+
         personalBoard = new PersonalBoard();
         //TODO CHOOSE TILES OF PERSONAL BOARD
         resourcesMap = new ResourceCollector();
@@ -93,7 +96,6 @@ public class Player implements Serializable{
         usedFamilyMembers = new ArrayList<>(4);
         //excommunicanionCard = new ArrayList<>(3);
         //leaderCards = new ArrayList<>(3);
-
     }
 
     /**
@@ -222,7 +224,7 @@ public class Player implements Serializable{
         usedFamilyMembers.clear();
 
         //align th family member with the value of the linked dice, to delete any changes of the family members' values
-        notUsedFamilyMembers.forEach(FamilyMember::alignValue);
+        //notUsedFamilyMembers.forEach(FamilyMember::alignValue);
 
     }
 
@@ -402,5 +404,9 @@ public class Player implements Serializable{
 
     public void setPersonalTile(PersonalTile personalTile){
         personalBoard.setPersonalTile(personalTile);
+    }
+
+    public PermanentLeaderCardCollector getPermanentLeaderCardCollector() {
+        return permanentLeaderCardCollector;
     }
 }
