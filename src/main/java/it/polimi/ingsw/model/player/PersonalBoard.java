@@ -153,10 +153,13 @@ public class PersonalBoard implements Serializable{
      * This method checks that there is enough space on the personal board to take a territory card and plus
      * checks if the requirement on military points is met
      * @param currentMilitaryPoints the number of actual military points the player has right now
+     * @param noMilitaryPointsNeededForTerritoryCardsLeaderAbility should be true if the player has a leader with this ability
      * @return true if he can take the card
      */
-    public boolean canAddTerritoryCard(int currentMilitaryPoints) {
-        if(territoryCards.size() < 6 && militaryPointsTerritoryRequirements[territoryCards.size()] <= currentMilitaryPoints)
+    public boolean canAddTerritoryCard(int currentMilitaryPoints, boolean noMilitaryPointsNeededForTerritoryCardsLeaderAbility) {
+        if(territoryCards.size() < 6 &&
+                ((militaryPointsTerritoryRequirements[territoryCards.size()] <= currentMilitaryPoints) ||
+                        (noMilitaryPointsNeededForTerritoryCardsLeaderAbility)))
             return true;
         return false;
     }

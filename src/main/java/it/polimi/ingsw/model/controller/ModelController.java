@@ -226,46 +226,51 @@ public class ModelController {
      */
     private boolean isPlaceOnTowerFloorLegal(FamilyMember familyMember, int servant, TowerFloorAS towerFloorAS,ArrayList<FamilyMember> familyMembersOnTheTower){
 
+        Player player = familyMember.getPlayer();
+
         //if it's a territory card we have to check if the requirement on military points is met
-        if(!familyMember.getPlayer().getPersonalBoard().canAddTerritoryCard(familyMember.getPlayer().getResource(ResourceTypeEnum.COIN)))
+        if(towerFloorAS.getCard().getColor() == CardColorEnum.GREEN
+                && !player.getPersonalBoard().
+                canAddTerritoryCard(player.getResource(ResourceTypeEnum.COIN),
+                        player.getPermanentLeaderCardCollector().noMilitaryPointsNeededForTerritoryCards()))
             return false;
 
             //control on the input, if the player has that resources and if the place is not available
-        if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
-                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant){
+        if(!player.getNotUsedFamilyMembers().contains(familyMember)
+                || player.getResource(ResourceTypeEnum.SERVANT)<servant){
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             Debug.printVerbose("the player doesn t have the family member");
             return false;
         }
         //control on the action space, if the player already has a family member
-        if(findFamilyMemberNotNeutral(familyMember.getPlayer(), familyMembersOnTheTower)
+        if(findFamilyMemberNotNeutral(player, familyMembersOnTheTower)
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL){
             Debug.printVerbose("there are already another one");
             //this means that the player has already placed a family member on that action space
             return false;}
         //control if the family member has a right value to place here
         if(servant+familyMember.getValue() +
-                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())< towerFloorAS.getDiceRequirement()){
+                player.getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())< towerFloorAS.getDiceRequirement()){
             Debug.printVerbose("doesnt have the family member value");
             //cannot place this family members because the value is too low
             return false;
         }
         //we check if the action space is not occupied and if the user has a leader that lets him place the fm there anyway
-        if(towerFloorAS.getOccupyingFamilyMemberNumber() >= 1 && !familyMember.getPlayer().getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
+        if(towerFloorAS.getOccupyingFamilyMemberNumber() >= 1 && !player.getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
             return false;
 
         ResourceCollector resource = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
 
         //if he's not the first to place a family member on the tower we subtract three coins
-        if(!familyMembersOnTheTower.isEmpty() && !familyMember.getPlayer().getPermanentLeaderCardCollector().hasNotToSpendForOccupiedTower()) {
+        if(!familyMembersOnTheTower.isEmpty() && !player.getPermanentLeaderCardCollector().hasNotToSpendForOccupiedTower()) {
             resource.subResource(new Resource(ResourceTypeEnum.COIN, 3));
             if(resource.getResource(ResourceTypeEnum.COIN) < 0)
                 return false;
         }
 
         //we add the bonuses that come from blu cards and leader cards
-        resource.addResource(familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(towerFloorAS.getCard().getColor()));
-        resource.addResource(familyMember.getPlayer().getPermanentLeaderCardCollector().getDiscountOnCardCost(towerFloorAS.getCard().getColor()));
+        resource.addResource(player.getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(towerFloorAS.getCard().getColor()));
+        resource.addResource(player.getPermanentLeaderCardCollector().getDiscountOnCardCost(towerFloorAS.getCard().getColor()));
         ArrayList<ImmediateEffectInterface>effectInterfaces = towerFloorAS.getEffects();
         for(ImmediateEffectInterface effectIter : effectInterfaces){
             if(effectIter instanceof GainResourceEffect){
