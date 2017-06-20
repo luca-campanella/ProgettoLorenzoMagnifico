@@ -41,6 +41,7 @@ public class ControllerGame {
     private HashMap<String, Integer> playerChoices;
     private ArrayList<AbstractConnectionPlayer> orderOfPlayers;
     private NetworkChoicesPacketHandler choicesController;
+    private int numPersonalTiles;
 
     /**
      * This method creates a new board and modifies it considering the number of players
@@ -51,6 +52,7 @@ public class ControllerGame {
     public ControllerGame(ArrayList<AbstractConnectionPlayer> players, Room room) throws IOException {
         this.room = room;
         this.orderOfPlayers = players;
+        numPersonalTiles = 0;
         JSONLoader.instance();
         boardGame = JSONLoader.boardCreator();
         //boardGame.loadExcommunicationCards(); no need, done in the method boardCreator()
@@ -92,7 +94,23 @@ public class ControllerGame {
 
         room.receiveStartGameBoard(boardGame);
         deliverDices(modelController.getDices());
-        initiateLeaderChoice();
+        initiatePersonalTileChoice();
+    }
+
+    /**
+     * this method is used at the start of the game to deliver to the clients the personal tiles to choose
+     */
+    private void initiatePersonalTileChoice() {
+
+        room.deliverPersonalTiles(personalTiles);
+
+    }
+
+    public void choosePersonalTile(PersonalTile personalTile, AbstractConnectionPlayer player){
+        modelController.setPersonalTile(personalTile, player.getNickname());
+        numPersonalTiles++;
+        if(numPersonalTiles == orderOfPlayers.size())
+            initiateLeaderChoice();
     }
 
     public static void main(String[] args) throws Exception {

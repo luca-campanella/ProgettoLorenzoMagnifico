@@ -380,4 +380,8 @@ public class Player implements Serializable{
         for(GainResourceEffect effectIter : resourceChoice)
             effectIter.applyToPlayer(this, choicesHandler, "discardLeaderInside");
     }
+
+    public void setPersonalTile(PersonalTile personalTile){
+        personalBoard.setPersonalTile(personalTile);
+    }
 }

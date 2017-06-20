@@ -306,8 +306,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
          */
 
         resourcesCheckMap = new ResourceCollector(familyMemberCurrentAction.getPlayer().getResourcesCollector());
-        //TODO call this method sith the real values, saved in the state of ClientMain, they are not passed from the view
+        //TODO call this method with the real values, saved in the state of ClientMain, they are not passed from the view
+        Debug.printVerbose("Before method build on model");
         modelController.build(familyMemberCurrentAction, servantsCurrentAction);
+        Debug.printVerbose("After method build on model");
         /*LinkedList<BuildingCard> buildingCards = modelController.getYellowBuildingCards(familyMember.getPlayer());
         ArrayList<ImmediateEffectInterface> effects;
 
@@ -771,6 +773,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         userInterface.showEndOfPhaseOfPlayer(nickname);
 
     }
+
 }
 
 

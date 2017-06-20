@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.server.network.rmi.RMIPlayerInterface;
 import it.polimi.ingsw.server.network.rmi.RMIServerInterface;
 import it.polimi.ingsw.utils.Debug;
@@ -364,8 +366,15 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     }
 
+    /**
+     * this method is called by the remote server to receive the leader cards the client can choice
+     * @param cardToPlayer
+     * @throws RemoteException
+     */
     @Override
     public void receiveLeaderCardChoice(ArrayList<LeaderCard> cardToPlayer) throws RemoteException {
+
+        getControllerMain().receivedLeaderCards(cardToPlayer);
 
     }
 
@@ -377,5 +386,18 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receiveCardToPlace(ArrayList<AbstractCard> cardsToPlace) throws RemoteException {
             getControllerMain().receiveCardsToPlace(cardsToPlace);
+    }
+
+    @Override
+    public void receivePersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws RemoteException {
+        PersonalTile standardPersonalTile = null;
+        PersonalTile specialPersonalTile = null;
+        for(PersonalTile personalTile : personalTilesToDeliver){
+            if(personalTile.getPersonalTileEnum() == PersonalTileEnum.STANDARD)
+                standardPersonalTile = personalTile;
+            else
+                specialPersonalTile = personalTile;
+        }
+        getControllerMain().receivedPersonalTiles(standardPersonalTile,specialPersonalTile);
     }
 }

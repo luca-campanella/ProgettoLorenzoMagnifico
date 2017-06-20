@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import java.util.List;
 
 /**
- * this is the class used to create and menage the leader cards delivered by the server
+ * this is the class used to choose the leader cards delivered by the server
  */
 public class LeaderPickerMenu extends BasicCLIMenu {
 

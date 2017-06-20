@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
@@ -65,6 +66,23 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
         }
         catch (RemoteException e){
             Debug.printError("rmi: cannot send move on council to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is called by room to deliver the personal tiles to the player
+     * @param personalTilesToDeliver the personal tiles the player can receive
+     * @throws NetworkException
+     */
+    @Override
+    public void deliverPersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws NetworkException {
+
+        try{
+            RMIClientInterfaceInst.receivePersonalTiles(personalTilesToDeliver);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot deliver the personal tiles to " + getNickname(), e);
             throw new NetworkException(e);
         }
     }

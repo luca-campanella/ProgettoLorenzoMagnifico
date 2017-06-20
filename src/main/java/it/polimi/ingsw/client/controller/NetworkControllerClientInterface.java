@@ -144,4 +144,5 @@ public interface NetworkControllerClientInterface {
      * @param nickname
      */
     public void receiveEndPhase(String nickname);
+
 }

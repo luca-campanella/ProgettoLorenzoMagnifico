@@ -9,6 +9,8 @@ import it.polimi.ingsw.client.network.socket.protocol.ReadServerPacketProtocol;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.*;
@@ -588,6 +590,9 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    /**
+     * this method is called by the server to inform the client that anothe player had placed a family member on the council
+     */
     public void receivePlaceOnCouncil(){
         try{
             ReceivePlaceOnCouncilPacket packet = (ReceivePlaceOnCouncilPacket)inStream.readObject();
@@ -607,4 +612,25 @@ public class SocketClient extends AbstractClientType {
         //TODO
     }
 
+    /**
+     * this method is called by the server, receives the personal tiles the client can choose
+     */
+    public void receivePersonalTiles(){
+        try{
+            ArrayList<PersonalTile> personalTiles = (ArrayList<PersonalTile>)inStream.readObject();
+            PersonalTile standardPersonalTile = null;
+            PersonalTile specialPersonalTile = null;
+            for(PersonalTile personalTile : personalTiles){
+                if(personalTile.getPersonalTileEnum() == PersonalTileEnum.STANDARD)
+                    standardPersonalTile = personalTile;
+                else
+                    specialPersonalTile = personalTile;
+            }
+            getControllerMain().receivedPersonalTiles(standardPersonalTile, specialPersonalTile);
+        }
+
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the personal tiles delivered from the server",e);
+        }
+    }
 }

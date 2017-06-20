@@ -22,7 +22,7 @@ public class PersonalBoard implements Serializable{
     /**
      * It represent the bonuses of the tiles near the personal board
      */
-    private PersonalTile personalTile = null;
+    private PersonalTile personalTile;
 
 
     public PersonalBoard() {
@@ -117,6 +117,10 @@ public class PersonalBoard implements Serializable{
         }
 
         return null;
+    }
+
+    public void setPersonalTile(PersonalTile personalTile){
+        this.personalTile = personalTile;
     }
 
     public PersonalTile getPersonalTile() {

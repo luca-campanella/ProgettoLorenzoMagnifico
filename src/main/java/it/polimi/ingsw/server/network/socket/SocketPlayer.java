@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.server.ServerMain;
 import it.polimi.ingsw.client.exceptions.*;
@@ -571,6 +572,24 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     }
 
     /**
+     * this method is called by room to deliver the personal tiles to the client
+     * @param personalTilesToDeliver the personal tiles the player can receive
+     * @throws NetworkException if the network goes wrong
+     */
+    @Override
+    public void deliverPersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws NetworkException {
+        try{
+            outStream.writeObject(PacketType.CHOSE_TILES);
+            outStream.writeObject(personalTilesToDeliver);
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("Socket: Cannot deliver the personal tiles to " + getNickname());
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * this method is used to deliver the leader card to the room (client -> server)
      */
     public void deliverLeaderCards(){
@@ -619,6 +638,17 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             catch (IOException c){
                 Debug.printError("Cannot deliver error to " + getNickname());
             }
+
+        }
+    }
+
+    public void receivedPersonalTile(){
+
+        try{
+            PersonalTile personalTile = (PersonalTile) inStream.readObject();
+            getRoom().chosePersonalTile(personalTile,this);
+        }
+        catch (IOException | ClassNotFoundException e){
 
         }
     }

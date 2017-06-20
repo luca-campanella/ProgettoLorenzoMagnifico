@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
+import it.polimi.ingsw.model.player.PersonalTile;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -85,18 +86,48 @@ public interface RMIClientInterface extends Remote {
                                       DiceAndFamilyMemberColorEnum familyMemberColor,
                                       HashMap<String, Integer> playerChoices) throws RemoteException;
 
+    /**
+     * receive from the server when a player ends his turn
+     * @param nickname the nickname of the player that had ended the turn
+     * @throws RemoteException if something goaes wrong during RMI communication
+     */
     public void receiveEndPhase(String nickname) throws RemoteException;
 
+    /**
+     * receive at the start of every turn the dice throws by the controller of the game
+     * @param dices the dice to save on the client board
+     * @throws RemoteException if something goaes wrong during RMI communication
+     */
     public void receiveDice(ArrayList<Dice> dices) throws RemoteException;
 
+    /**
+     * receive all the board at the start of the game
+     * @param gameBoard clean, with only the excommunication tiles, without cards or dice
+     * @throws RemoteException if something goaes wrong during RMI communication
+     */
     public void receiveBoard(Board gameBoard) throws RemoteException;
 
+    /**
+     * receive the information when is the phase of this client
+     * @throws RemoteException if something goaes wrong during RMI communication
+     */
     public void receiveStartOfTurn() throws RemoteException;
 
+    /**
+     * receive the order of the player in this turn
+     * @param orderPlayer all the players in order of turn
+     * @throws RemoteException if something goaes wrong during RMI communication
+     */
     public void receiveOrderPlayer(ArrayList<String> orderPlayer) throws RemoteException;
 
     public void receiveNicknamePlayer(String nicknamePlayer) throws RemoteException;
 
+    /**
+     * this method is calle by the server to deliver the leader card at the start of the game
+     * then the player can chose one of them to keep
+     * @param cardToPlayer the different leader the client receives
+     * @throws RemoteException if something goaes wrong during RMI communication
+     */
     public void receiveLeaderCardChoice(ArrayList<LeaderCard> cardToPlayer) throws RemoteException;
 
     /**
@@ -105,4 +136,11 @@ public interface RMIClientInterface extends Remote {
      * @throws RemoteException if something goaes wrong during RMI communication
      */
     public void receiveCardToPlace(ArrayList<AbstractCard> cardsToPlace) throws RemoteException;
+
+    /**
+     * this method is called by the server to deliver the peronal tiles the client can choose
+     * @param personalTilesToDeliver the different personal tiles
+     * @throws RemoteException if something goaes wrong during RMI communication
+     */
+    public void receivePersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws RemoteException;
 }

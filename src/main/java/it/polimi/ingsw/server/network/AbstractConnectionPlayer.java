@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.player.Player;
@@ -118,4 +119,10 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @param playerChoices the choices of the player if the effects on the card had different alternatives
      */
     public abstract void receivePlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException;
+
+    /**
+     * this method is called to deliver the personal tiles to the different players
+     * @param personalTilesToDeliver the personal tiles the player can receive
+     */
+    public abstract void deliverPersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws NetworkException;
 }

@@ -12,8 +12,10 @@ import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.*;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -660,6 +662,15 @@ public class ModelController {
             }
         }
         Debug.printVerbose("Carte Posizionate : " +cardPlaced);
+    }
+
+    public void setPersonalTile(PersonalTile personalTile, String nicknamePlayer) {
+
+        for(Player player : players){
+            if(player.getNickname().equals(nicknamePlayer))
+                player.setPersonalTile(personalTile);
+        }
+
     }
 }
 

@@ -66,8 +66,8 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
         } else { //we have to ask the user for a choice
             CliOptionsHandler marketSpaceChooser = new CliOptionsHandler(activeMarketSpaces.size());
 
-            for (MarketWrapper maketIter : activeMarketSpaces) {
-                marketSpaceChooser.addOption("Place on market action space n " + maketIter.getMarketIndex() + "with " + maketIter.getServantNeeded() + "servants needed");
+            for (MarketWrapper marketIter : activeMarketSpaces) {
+                marketSpaceChooser.addOption("Place on market action space n " + marketIter.getMarketIndex() + "with " + marketIter.getServantNeeded() + "servants needed");
             }
             indexRes = activeMarketSpaces.get(marketSpaceChooser.askUserChoice()).getMarketIndex();
         }
@@ -81,7 +81,7 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
 
     private void placeFMOnBuild() {
         int servantsAdded = 0;
-        if(servantsNeededHarvest.isPresent())
+        if(servantsNeededBuild.isPresent())
              servantsAdded = readServants(servantsNeededBuild.get());
         getController().callbackPlacedFMOnBuild(servantsAdded);
     }
@@ -95,14 +95,14 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
 
     private int readServants(int baseValue) {
         int addableServants = availableServants - baseValue;
-        if(addableServants != 0) //if he can't add any fm we return immediately
+        if(addableServants != 0) //if he can't add any servants we return immediately
             return 0;
-        System.out.println("Choose how many family member you want to add to the base action:\n" +
+        System.out.println("Choose how many servants you want to add to the base action:\n" +
                             "Base number of servants needed: " + baseValue + "\n" +
                             "You can add up to " + addableServants + " servants");
         int choice = readAndParseInt();
-        while(choice < 0 || choice > addableServants) {
-            System.out.println("Please insert a number between 0 and " + addableServants);
+        while(choice < baseValue || choice > addableServants) {
+            System.out.println("Please insert a number between "+ baseValue +" and " + addableServants);
         }
 
         return choice;

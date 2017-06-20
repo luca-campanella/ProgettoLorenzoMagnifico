@@ -52,6 +52,7 @@ public class ReadServerPacketProtocol {
         instruction.put(PacketType.CARD_TO_PLACE, ()-> client.receiveCardToPlace());
         instruction.put(PacketType.ERROR_MOVE, ()-> client.receiveError());
         instruction.put(PacketType.MOVE_IN_COUNCIL, ()-> client.receivePlaceOnCouncil());
+        instruction.put(PacketType.CHOSE_TILES, ()-> client.receivePersonalTiles());
     }
 
     /**
