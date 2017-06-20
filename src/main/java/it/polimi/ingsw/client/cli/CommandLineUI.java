@@ -7,6 +7,7 @@ package it.polimi.ingsw.client.cli;
 import it.polimi.ingsw.client.cli.notblockingmenus.ActionSpacePickerMenu;
 import it.polimi.ingsw.client.cli.notblockingmenus.InitialActionMenu;
 import it.polimi.ingsw.client.cli.notblockingmenus.LeaderPickerMenu;
+import it.polimi.ingsw.client.cli.notblockingmenus.PersonalTilePickerMenu;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
@@ -392,7 +393,9 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void askPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
-        //todo
+        PersonalTilePickerMenu menu = new PersonalTilePickerMenu(getController(), standardTile, specialTile);
+
+        pool.submit(menu);
     }
 
     /**

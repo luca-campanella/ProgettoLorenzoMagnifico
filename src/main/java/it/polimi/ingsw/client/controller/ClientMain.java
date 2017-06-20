@@ -25,13 +25,15 @@ import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.EmptyLeaderAbility;
-import it.polimi.ingsw.model.player.*;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
+import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -632,6 +634,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackOnTileChosen(PersonalTile tileChosen) {
+        modelController.setPersonalTile(tileChosen, thisPlayer.getNickname());
         try{
             clientNetwork.deliverTileChosen(tileChosen);
         }
