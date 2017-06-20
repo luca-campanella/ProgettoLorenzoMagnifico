@@ -27,6 +27,7 @@ public abstract class AbstractCard implements Serializable{
     public abstract List<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController);
 
     public abstract String secondEffect();
+
     //abstract public int characteristicValue();
     public void addImmediateEffect(ImmediateEffectInterface effect){
         immediateEffect.add(effect);
