@@ -650,6 +650,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch (IOException | ClassNotFoundException e){
 
+            Debug.printError("Cannot receive the personal tile chosen by the client" + getNickname(),e);
         }
     }
 

@@ -58,4 +58,17 @@ public class PersonalTile implements Serializable{
     public PersonalTileEnum getPersonalTileEnum(){
         return personalTileEnum;
     }
+
+    public String getDescription(){
+        String description;
+        description = "Bonuses on Harvest :\nDice : +" + DICEONHARVEST ;
+        for(GainResourceEffect effect : effectOnHarvest){
+            description.concat(effect.getResource().getType().getFullName() + " : +" + effect.getResource().getValue() + "\n");
+        }
+        description.concat("\n\nBonuses on Build :\nDice :" + DICEONBUILD + "\n");
+        for(GainResourceEffect effect : effectOnBuild){
+            description.concat(effect.getResource().getType().getFullName() + " : +" + effect.getResource().getValue() + "\n");
+        }
+        return  description;
+    }
 }

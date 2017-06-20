@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.controller.NetworkControllerClientInterface;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
 
 import java.util.HashMap;
 
@@ -146,4 +147,9 @@ public abstract class AbstractClientType  {
     public abstract void build (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices)
             throws NetworkException, IllegalMoveException;
 
+    /**
+     * this method is called by the client to deliver to the server the tile chosen by the player
+     * @param tileChosen
+     */
+    public abstract void deliverTileChosen(PersonalTile tileChosen) throws NetworkException;
 }

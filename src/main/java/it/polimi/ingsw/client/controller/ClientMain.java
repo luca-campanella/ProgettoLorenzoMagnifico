@@ -613,31 +613,30 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         userInterface.askPersonalTiles(standardTile, specialTile);
     }
 
-
     /**
-     * this method is called by the view to communicate the personal tile choice
-     * @param tileType the choice made
+     * this method is used to deliver to the server that thi player had ended the phase
      */
-    @Override
-    public void callbackOnPersonalTileChosen(PersonalTileEnum tileType) {
-        /*try {
-            //todo methods for network
-            clientNetwork.deliverLeaderChose(leaderCardChoice);
-        } catch (NetworkException e) {
-            //todo handle better
-            Debug.printError("Cannot send leader choice", e);
-            userInterface.printError("Cannot contact the server, exiting the program");
-            System.exit(0);
-        }*/
-    }
-
     @Override
     public void callBackPassTheTurn() {
         try{
             clientNetwork.endPhase();
         }
-        catch (IOException e){
-            Debug.printError("Can deliver the end of the phase",e);
+        catch (NetworkException e){
+            Debug.printError("Cannot deliver the end of the phase",e);
+        }
+    }
+
+    /**
+     * this method is used to deliver to the connection the personal tile chosen by the client at the start of the game
+     * @param tileChosen the personal tile chosen by the player to use in this game
+     */
+    @Override
+    public void callbackOnTileChosen(PersonalTile tileChosen) {
+        try{
+            clientNetwork.deliverTileChosen(tileChosen);
+        }
+        catch (NetworkException e){
+            Debug.printError("Cannot deliver the personal tile chosen",e);
         }
     }
 

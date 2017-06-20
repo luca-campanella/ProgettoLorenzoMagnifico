@@ -222,9 +222,21 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     public void build(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
         try {
             RMIPlayerInterfaceInst.build(familyMember.getColor(), servantUsed, playerChoices);
-        } catch (RemoteException e) {
+        }
+        catch (RemoteException e) {
             Debug.printError("RMI: cannot place on build, throwing new network exception up", e);
             throw new NetworkException("RMI: cannot place on build", e);
+        }
+    }
+
+    @Override
+    public void deliverTileChosen(PersonalTile tileChosen) throws NetworkException {
+        try{
+            RMIPlayerInterfaceInst.receivePersonalTile(tileChosen);
+        }
+        catch (RemoteException e){
+            Debug.printError("RMI: cannot deliver the personal tile chosen by the client", e);
+            throw new NetworkException("RMI: cannot deliver the personal tile", e);
         }
     }
 

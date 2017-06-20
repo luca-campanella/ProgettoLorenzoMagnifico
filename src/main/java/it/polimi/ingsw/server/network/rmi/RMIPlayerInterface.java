@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.network.rmi;
 
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
+import it.polimi.ingsw.model.player.PersonalTile;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -76,6 +77,12 @@ public interface RMIPlayerInterface extends Remote {
      * @throws IllegalMoveException //todo remove or implement server side
      */
     public void build(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException, IllegalMoveException;
+
+    /**
+     * this method is called by the client to deliver the personal tile chosen by the player
+     * @param tileChosen the personal tile hosen by the client
+     */
+    public void receivePersonalTile(PersonalTile tileChosen) throws RemoteException;
 
 }
 

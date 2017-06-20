@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.PersonalTileEnum;
 
 /**
@@ -82,13 +83,13 @@ public interface ViewControllerCallbackInterface {
     public void callbackOnLeaderCardChosen(LeaderCard leaderCardChoice);
 
     /**
-     * this method is called by the view to communicate the personal tile choice
-     * @param tileType the choice made
-     */
-    void callbackOnPersonalTileChosen(PersonalTileEnum tileType);
-
-    /**
      * this method is called by the view and used to pass the turn
      */
     void callBackPassTheTurn();
+
+    /**
+     * this method is called by the view to deliver the special tile chosen to the server
+     * @param tileChosen
+     */
+    void callbackOnTileChosen(PersonalTile tileChosen);
 }

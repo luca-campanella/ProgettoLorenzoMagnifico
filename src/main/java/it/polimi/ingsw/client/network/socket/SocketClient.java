@@ -311,6 +311,18 @@ public class SocketClient extends AbstractClientType {
 
     }
 
+    @Override
+    public void deliverTileChosen(PersonalTile tileChosen) throws NetworkException {
+        try{
+            outStream.writeObject(PacketType.CHOSE_TILES);
+            outStream.writeObject(tileChosen);
+            outStream.flush();
+        }
+        catch (IOException e){
+            throw new NetworkException(e);
+        }
+    }
+
 
     /**
      * this method is used to inform the room that the player had ended his phase

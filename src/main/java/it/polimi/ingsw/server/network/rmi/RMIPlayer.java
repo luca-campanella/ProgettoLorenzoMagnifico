@@ -369,6 +369,18 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
         getRoom().build(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices);
     }
 
+    /**
+     * this metthod is called bu the client to deliver to the server the personal tile kept by the client
+     * @param tileChosen the personal tile chosen by the client
+     * @throws RemoteException if something goes wrong with the connection
+     */
+    @Override
+    public void receivePersonalTile(PersonalTile tileChosen) throws RemoteException {
+
+        getRoom().chosePersonalTile(tileChosen, this);
+
+    }
+
 
     /**
      * this method is used to deliver to the client his nickname
