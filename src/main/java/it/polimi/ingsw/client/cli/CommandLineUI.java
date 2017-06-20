@@ -60,7 +60,7 @@ public class CommandLineUI extends AbstractUIType {
         NetworkTypeEnum choice;
         while(true) {
             System.out.println("Choose rmi or socket.");
-            tmpInput = StdinSingleton.getScanner().nextLine();
+            tmpInput = StdinSingleton.nextLine();
             if (tmpInput.equalsIgnoreCase("rmi")) {
                 choice = NetworkTypeEnum.RMI;
                 break;
@@ -201,9 +201,9 @@ public class CommandLineUI extends AbstractUIType {
         String nickname, password;
 
         System.out.println("Insert UserId");
-        nickname = StdinSingleton.getScanner().nextLine();
+        nickname = StdinSingleton.nextLine();
         System.out.println("Insert PassWord");
-        password = StdinSingleton.getScanner().nextLine();
+        password = StdinSingleton.nextLine();
 
         return new UsrPwdContainer(nickname, password);
     }
@@ -269,7 +269,7 @@ public class CommandLineUI extends AbstractUIType {
         System.out.println("Please insert chat msg: ");
 
         try {
-            getController().callbackSendChatMsg(StdinSingleton.getScanner().nextLine());
+            getController().callbackSendChatMsg(StdinSingleton.nextLine());
         } catch (NetworkException e) {
             Debug.printError("Cannot send chat message", e);
         }
@@ -281,6 +281,7 @@ public class CommandLineUI extends AbstractUIType {
      * @param choices the choices available
      * @return the number of the choice the player want
      */
+    @Deprecated
     public int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer){
 
         Debug.printDebug("you can choose different effect on the card " + nameCard);

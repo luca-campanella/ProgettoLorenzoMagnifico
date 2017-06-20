@@ -43,12 +43,12 @@ public abstract class BasicCLIMenu implements Runnable {
     protected void showMenuAndAsk() {
         printMenu();
 
-        String choice = StdinSingleton.getScanner().nextLine();
+        String choice = StdinSingleton.nextLine();
         DescrCallbackContainer callbackContainer = optionsMap.get(choice.toUpperCase());
 
         while(callbackContainer == null) {
             System.out.println(choice + " is not a recognised option, please choose a correct one");
-            choice = StdinSingleton.getScanner().nextLine();
+            choice = StdinSingleton.nextLine();
             callbackContainer = optionsMap.get(choice.toUpperCase());
         }
         callbackContainer.getFunction().callback();

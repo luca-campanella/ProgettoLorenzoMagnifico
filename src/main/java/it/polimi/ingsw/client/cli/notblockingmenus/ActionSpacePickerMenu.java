@@ -129,7 +129,7 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
      * @return the integer read or -1 if error
      */
     private int readAndParseInt(){
-        String line = StdinSingleton.getScanner().nextLine();
+        String line = StdinSingleton.nextLine();
         try{
             return Integer.parseInt(line);
         } catch (NumberFormatException e) {

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is used to ask the user a choice between multiple options, described in a String
@@ -64,7 +65,7 @@ public class CliOptionsHandler {
      * This method is called create choices between effects
      * @param effectOptions the effect options
      */
-    public void addEffectsArrayList(ArrayList<? extends ImmediateEffectInterface> effectOptions) {
+    public void addEffectsArrayList(List<? extends ImmediateEffectInterface> effectOptions) {
         for (ImmediateEffectInterface effectIter : effectOptions)
             this.addOption(effectIter.descriptionShortOfEffect());
     }
@@ -115,7 +116,7 @@ public class CliOptionsHandler {
      * @return the integer read or -1 if error
      */
     private int readAndParseInt(){
-        String line = StdinSingleton.getScanner().nextLine();
+        String line = StdinSingleton.nextLine();
         try{
             return Integer.parseInt(line);
         } catch (NumberFormatException e) {
@@ -127,6 +128,7 @@ public class CliOptionsHandler {
     //Just for testing
     public static void main(String[] args)
     {
+        StdinSingleton.instance();
         CliOptionsHandler cliOptionsHandler = new CliOptionsHandler(4);
 
         for(int i = 0; i < 4; i++)

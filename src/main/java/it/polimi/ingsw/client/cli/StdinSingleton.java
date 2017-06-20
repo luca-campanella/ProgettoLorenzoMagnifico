@@ -44,4 +44,8 @@ public class StdinSingleton
     public static Scanner getScanner() {
         return stdinScanner;
     }
+
+    public static String nextLine() {
+        return stdinScanner.nextLine();
+    }
 }

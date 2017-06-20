@@ -123,7 +123,7 @@ public class Player implements Serializable{
             if (value <= 0)
                 return; // the malus made the addition useless
         }
-        resourcesMap.addResource(new Resource(resource.getType(), value    ));
+        resourcesMap.addResource(new Resource(resource.getType(), value));
     }
 
     /**
@@ -131,7 +131,7 @@ public class Player implements Serializable{
      * @param resources the object of the resource, it contains the value and the type
      */
     public void addResources(List<Resource> resources) {
-        resources.forEach(resource -> addResource(resource));
+        resources.forEach(this::addResource);
     }
 
     /**
