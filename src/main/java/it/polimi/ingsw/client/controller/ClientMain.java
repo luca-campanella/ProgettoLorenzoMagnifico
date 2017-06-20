@@ -31,7 +31,6 @@ import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -741,7 +740,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         if(possibleLeaders.isEmpty())
             return new EmptyLeaderAbility();
 
-        int choice = userInterface.askWhichLeaderabilityToCopy(possibleLeaders);
+        int choice = userInterface.askWhichLeaderAbilityToCopy(possibleLeaders);
 
         LeaderCard chosenLeader = possibleLeaders.get(choice);
         choicesOnCurrentActionString.put("COPY_ABILITY", chosenLeader.getName());

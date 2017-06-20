@@ -448,6 +448,7 @@ public class Room {
         ArrayList<PersonalTile> personalTilesToDeliver = new ArrayList<>(2);
         int takeStandard = 0;
         int takeSpecial = 0;
+        PersonalTile specialTile = null;
         for (AbstractConnectionPlayer player : players) {
             for (PersonalTile personalTile : personalTiles) {
 
@@ -457,16 +458,17 @@ public class Room {
                 }
                 else if (personalTile.getPersonalTileEnum() == PersonalTileEnum.SPECIAL && takeSpecial == 0) {
                     personalTilesToDeliver.add(personalTile);
-                    personalTiles.remove(personalTile);
+                    specialTile = personalTile;
                     takeSpecial = 1;
                 }
             }
-
+            personalTiles.remove(specialTile);
             try{
 
                 player.deliverPersonalTiles(personalTilesToDeliver);
                 takeSpecial = 0;
                 takeStandard = 0;
+                personalTilesToDeliver.clear();
 
             }
             catch (NetworkException e){

@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.LeadersDeck;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
@@ -102,6 +103,9 @@ public class ControllerGame {
      */
     private void initiatePersonalTileChoice() {
 
+        personalTiles.get(0).setPersonalTileEnum(PersonalTileEnum.STANDARD);
+        for(int i = 1 ; i < personalTiles.size() ; i++)
+            personalTiles.get(i).setPersonalTileEnum(PersonalTileEnum.SPECIAL);
         room.deliverPersonalTiles(personalTiles);
 
     }

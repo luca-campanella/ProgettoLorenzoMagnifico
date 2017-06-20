@@ -582,6 +582,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             outStream.writeObject(PacketType.CHOSE_TILES);
             outStream.writeObject(personalTilesToDeliver);
             outStream.flush();
+            Debug.printVerbose("Delivered personal tile to " + getNickname());
         }
         catch (IOException e){
             Debug.printError("Socket: Cannot deliver the personal tiles to " + getNickname());

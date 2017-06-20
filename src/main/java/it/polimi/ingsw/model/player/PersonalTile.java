@@ -61,13 +61,13 @@ public class PersonalTile implements Serializable{
 
     public String getDescription(){
         String description;
-        description = "Bonuses on Harvest :\nDice : +" + DICEONHARVEST ;
+        description = "\nBONUSES ON HARVEST :\nDice : +" + DICEONHARVEST + "\n" ;
         for(GainResourceEffect effect : effectOnHarvest){
-            description.concat(effect.getResource().getType().getFullName() + " : +" + effect.getResource().getValue() + "\n");
+            description = description.concat(effect.getResource().getType().getFullName() + " : +" + effect.getResource().getValue() + "\n");
         }
-        description.concat("\n\nBonuses on Build :\nDice :" + DICEONBUILD + "\n");
+        description = description.concat("\nBONUSES ON BUILD :\nDice :" + DICEONBUILD + "\n");
         for(GainResourceEffect effect : effectOnBuild){
-            description.concat(effect.getResource().getType().getFullName() + " : +" + effect.getResource().getValue() + "\n");
+            description = description.concat(effect.getResource().getType().getFullName() + " : +" + effect.getResource().getValue() + "\n");
         }
         return  description;
     }

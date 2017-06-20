@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * this is the class used to choose the leader cards delivered by the server
  */
-public class PersonalTilesPicketMenu extends BasicCLIMenu {
+public class PersonalTilesPickerMenu extends BasicCLIMenu {
 
-    public PersonalTilesPicketMenu(ViewControllerCallbackInterface controller, PersonalTile standardTile, PersonalTile specialTile) {
+    public PersonalTilesPickerMenu(ViewControllerCallbackInterface controller, PersonalTile standardTile, PersonalTile specialTile) {
         super("Please select which tiles you want to use", controller);
         addOption("STANDARD", "Take the standard tile which has the bonuses: " + standardTile.getDescription(),
                             () -> controller.callbackOnTileChosen(standardTile));
