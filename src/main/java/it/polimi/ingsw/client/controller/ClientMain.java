@@ -563,6 +563,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
         userInterface.askInitialAction(playableFMs, modelController.getBoard(), playedFamilyMember);
+
     }
 
     /**

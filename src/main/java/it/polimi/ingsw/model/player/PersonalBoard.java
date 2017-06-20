@@ -79,7 +79,6 @@ public class PersonalBoard implements Serializable{
 
         //we check if there is some blue card that has a bonus on build, in this case we should modify the value of the dice
         final int realDiceValueBlue = realDiceValueNoBlueBonus + characterCardsCollector.getBonusOnBuild();
-
         buildingCards.forEach(card -> card.applyEffectsFromBuildToPlayer(player, realDiceValueBlue, choicesController));
         Debug.printVerbose("after foreach on build");
 

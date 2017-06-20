@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.model.player.FamilyMember;
-
 import java.io.Serializable;
 
 /**
@@ -17,23 +15,31 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
     //it's the list of family members on this place
 
    // private ArrayList<FamilyMember> familyMembers;
-   private boolean first = true;
+   //private boolean first = true;
     public HarvestAS() {
         super();
     }
 
-    public HarvestAS(int diceRequirement, int valueMalus, boolean first) {
+    public HarvestAS(int diceRequirement, int valueMalus) {
         super(diceRequirement);
         this.valueMalus = valueMalus;
-        this.first = first;
         this.twoPlayersOneSpace = false;
     }
 
-    public void performAction(FamilyMember familyMember)
+    /*public void performAction(FamilyMember familyMember)
     {
         //TODO
-    }
+    }*/
 
+    /**
+     * this method checks if the player that put here a family member is the first
+     * @return
+     */
+    public boolean checkIfFirst(){
+        if(getOccupyingFamilyMemberNumber() == 0)
+            return true;
+        return false;
+    }
 
     public int getValueStandard() {
         return valueStandard;
@@ -51,11 +57,20 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
         this.valueMalus = valueMalus;
     }
 
-    public int getValueNeeded(){
+    /**
+     * this method returns the right build value
+     * With the parameter checks also the bonus on leaders
+     * @param canPlaceOccupiedSpace to check if the player has a leader with this type of ability
+     * @return
+     */
+    public int getValueNeeded(boolean canPlaceOccupiedSpace){
 
-        if(getOccupyingFamilyMemberNumber() > 0)
-            return valueMalus+valueStandard;
-        return valueStandard;
+        if(checkIfFirst())
+            return getDiceRequirement();
+        if(canPlaceOccupiedSpace)
+            return getDiceRequirement();
+
+        return valueMalus+getDiceRequirement();
     }
 
     public boolean isTwoPlayersOneSpace() {
