@@ -46,6 +46,10 @@ public class FamilyMember implements Serializable{
      */
     public int getValue(){
         int realValue = dice.getValue();
+
+        //malus coming from excommunication cards
+        realValue -= player.getExcommunicationTilesCollector().reductionOnDice(color);
+
         if(color == DiceAndFamilyMemberColorEnum.NEUTRAL)
             realValue += player.getPermanentLeaderCardCollector().getBonusNeutralFM();
         else {

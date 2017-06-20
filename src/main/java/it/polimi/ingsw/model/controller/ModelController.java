@@ -250,7 +250,11 @@ public class ModelController {
             return false;}
         //control if the family member has a right value to place here
         if(servant+familyMember.getValue() +
-                player.getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())< towerFloorAS.getDiceRequirement()){
+                //bonus from blue cards
+                player.getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())
+                //malus from excomm tiles
+                - player.getExcommunicationTilesCollector().malusDiceOnTowerColor(towerFloorAS.getCard().getColor())
+                < towerFloorAS.getDiceRequirement()){
             Debug.printVerbose("doesnt have the family member value");
             //cannot place this family members because the value is too low
             return false;
@@ -343,7 +347,9 @@ public class ModelController {
                getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace();
         //control if the family member has a right value to harvest
         if(servant+familyMember.getValue() +
-                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest() < harvestPlace.getValueNeeded(canPlaceOccupiedActionSpace))
+                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest() //blue cards bonus
+                - familyMember.getPlayer().getExcommunicationTilesCollector().harvestDiceMalusEffect() //excomm tiles malus
+                < harvestPlace.getValueNeeded(canPlaceOccupiedActionSpace))
             //cannot place this family members because the value is too low
             return false;
 
@@ -422,9 +428,10 @@ public class ModelController {
                 getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace();
         //control if the family member has a right value to build
         if(servant+familyMember.getValue() +
-                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild()
+                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild() //blue cards bonus
+                - familyMember.getPlayer().getExcommunicationTilesCollector().buildDiceMalusEffect() //excomm tiles malus
                 < buildPlace.getValueNeeded(canPlaceOccupiedActionSpace))
-            //cannot place this familymembers because the value is too low
+            //cannot place this family members because the value is too low
             return false;
 
         return true;
@@ -446,12 +453,15 @@ public class ModelController {
         gameBoard.build(familyMember);
         Debug.printVerbose("before calling player.build");
 
-        int realDiceValueNoBlueBonusYesLeaders = familyMember.getValue() + servants;
+        int realDiceValueNoBlueBonusYesLeadersYesExcomm = familyMember.getValue() + servants;
         //we check if he's not the first inside the action space
         if(!gameBoard.getBuild().checkIfFirst() && !player.getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
-            realDiceValueNoBlueBonusYesLeaders -=  gameBoard.getBuild().getValueMalus();
+            realDiceValueNoBlueBonusYesLeadersYesExcomm -=  gameBoard.getBuild().getValueMalus();
 
-        player.build(realDiceValueNoBlueBonusYesLeaders, choicesController);
+        realDiceValueNoBlueBonusYesLeadersYesExcomm -= player.getExcommunicationTilesCollector().buildDiceMalusEffect();
+
+
+        player.build(realDiceValueNoBlueBonusYesLeadersYesExcomm, choicesController);
         Debug.printVerbose("afterd calling player.build");
 
     }
@@ -471,12 +481,14 @@ public class ModelController {
         //just adds the family member to the harvestAS
         gameBoard.harvest(familyMember);
 
-        int realDiceValueNoBlueBonusYesLeaders = familyMember.getValue() + servants;
+        int realDiceValueNoBlueBonusYesLeadersYesExcomm = familyMember.getValue() + servants;
         //we check if he's not the first inside the action space
         if(!gameBoard.getHarvest().checkIfFirst() && !player.getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
-            realDiceValueNoBlueBonusYesLeaders -=  gameBoard.getHarvest().getValueMalus();
+            realDiceValueNoBlueBonusYesLeadersYesExcomm -=  gameBoard.getHarvest().getValueMalus();
+        //excommunication tiles malus
+        realDiceValueNoBlueBonusYesLeadersYesExcomm -= player.getExcommunicationTilesCollector().harvestDiceMalusEffect();
 
-        player.harvest(realDiceValueNoBlueBonusYesLeaders, choicesController);
+        player.harvest(realDiceValueNoBlueBonusYesLeadersYesExcomm, choicesController);
     }
 
     /**

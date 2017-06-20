@@ -29,11 +29,14 @@ public class ExcommunicationTilesCollector {
     }
 
     /**
-     * This method returns if the resource of thhis ttype has a malus
-     * For example <i>Each time you receive coins (from action spaces or from your Cards), you receive 1 fewer coin. (If you have more Cards that give you coins, consider each Card a single source, so you receive -1 coin for each card.)</i>
+     * This method returns the malus on the resource of that type
+     * For example
+     * <i>Each time you receive coins (from action spaces or from your Cards), you receive 1 fewer coin. (If you
+     * have more Cards that give you coins, consider each Card a single source, so you receive -1 coin for each card.)</i>
      *
      * @param resourceType the resource to check on
      * @return the resource malus, positive, should be subtracted
+     * //todo inject in model
      */
     public int gainFewResource(ResourceTypeEnum resourceType){
         int malus = 0;
@@ -67,8 +70,12 @@ public class ExcommunicationTilesCollector {
     }
 
     /**
-     * whenever you take a card using a certain family member
-     * @param familyMemberColor you dice has a malus
+     * whenever are using a certain family member its value is reduced by the value returned
+     * For example:
+     * <i>All your colored Family Members receive a -1 reduction of their value each time you place them. (For example,
+     * if you roll a 5 on the black die, your Family Member with the black die symbol has a value of 4.)
+     * You may still spend servants to increase their value and you must apply your Card’s effects.</i>
+     * @param familyMemberColor you dice has a malus if the family member color is affected
      * @return the value of the malus
      */
     public int reductionOnDice(DiceAndFamilyMemberColorEnum familyMemberColor)
@@ -82,7 +89,11 @@ public class ExcommunicationTilesCollector {
     //The following list is a list all of the second period malus effects
 
     /**
-     * this method returns the malusValue of the dice on a certain
+     * this method returns the malusValue of the dice on a certain tower / card color
+     * For example:
+     * <i>Each time you take a Territory Card (through the action space or as a Card effect), your action receives
+     * a -4 reduction of its value. You may still spend servants to increase the action value and you must apply
+     * your Card’s effects.</i>
      * @param colorOfTower the color of the tower to check on
      * @return the malus
      */
@@ -93,6 +104,9 @@ public class ExcommunicationTilesCollector {
             malus += tileIter.getEffect().malusDiceOnTowerColor(colorOfTower);
         return malus;
     }
+
+    //99999999 arrived here implementing, check placing legal with one space two players true
+
 
     /**
      * this method doesn't allow a player to place an action player on market
