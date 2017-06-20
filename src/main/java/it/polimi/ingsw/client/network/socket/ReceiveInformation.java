@@ -37,8 +37,10 @@ public class ReceiveInformation extends Thread {
                 System.out.println("do method");
             }
             catch(IOException | ClassNotFoundException e){
-                Debug.printError("ERROR : server had failed to deliver new information");
+                Debug.printError("server had failed to deliver new information",e);
+                break;
             }
         }
+
     }
 }

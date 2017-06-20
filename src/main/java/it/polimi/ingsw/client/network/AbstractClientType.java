@@ -129,23 +129,21 @@ public abstract class AbstractClientType  {
             throws NetworkException,IllegalMoveException;
 
     public abstract void placeOnCouncil(FamilyMember familyMember,HashMap<String, Integer> playerChoices)
-        throws NetworkException,IllegalMoveException;
+        throws NetworkException;
     /**
      * this method is used to deliver the move of a family member on harvest
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws NetworkException if something goes wrong during the connection
-     * @throws IllegalMoveException
      */
-    public abstract void harvest (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException,IllegalMoveException;
+    public abstract void harvest (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException;
 
     /**
      * this method is used to deliver the move of a family member on build
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws NetworkException if something goes wrong during the connection
-     * @throws IllegalMoveException
      */
     public abstract void build (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices)
-            throws NetworkException, IllegalMoveException;
+            throws NetworkException;
 
     /**
      * this method is called by the client to deliver to the server the tile chosen by the player

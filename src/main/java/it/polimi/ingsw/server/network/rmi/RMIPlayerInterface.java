@@ -56,7 +56,7 @@ public interface RMIPlayerInterface extends Remote {
      * @throws RemoteException if something goes wrong during the connection
      * @throws IllegalMoveException //todo remove or implement server side
      */
-    public void placeOnCouncil(DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) throws  RemoteException, IllegalMoveException;
+    public void placeOnCouncil(DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) throws  RemoteException;
 
     /**
      * this method is used to harvest
@@ -66,7 +66,7 @@ public interface RMIPlayerInterface extends Remote {
      * @throws RemoteException if something goes wrong during the connection
      * @throws IllegalMoveException //todo remove or implement server side
      */
-    public void harvest(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException, IllegalMoveException;
+    public void harvest(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException;
 
     /**
      * this method is used to build
@@ -76,7 +76,7 @@ public interface RMIPlayerInterface extends Remote {
      * @throws RemoteException if something goes wrong during the connection
      * @throws IllegalMoveException //todo remove or implement server side
      */
-    public void build(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException, IllegalMoveException;
+    public void build(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException;
 
     /**
      * this method is called by the client to deliver the personal tile chosen by the player
