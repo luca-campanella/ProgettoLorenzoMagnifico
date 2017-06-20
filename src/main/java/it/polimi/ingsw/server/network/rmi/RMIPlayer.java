@@ -20,7 +20,7 @@ import java.util.HashMap;
 /**
  * This class is the player via rmi
  */
-public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInterface {
+ class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInterface {
 
     RMIClientInterface RMIClientInterfaceInst;
 
@@ -100,6 +100,21 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
         }
         catch (RemoteException e){
             Debug.printError("rmi: cannot deliver the personal tiles of " + nickname +" to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is called by room to inform the client of a error of the move
+     * @throws NetworkException
+     */
+    @Override
+    public void deliverErrorMove() throws NetworkException {
+        try{
+            RMIClientInterfaceInst.receiveError();
+        }
+        catch (RemoteException e){
+            Debug.printError("cannot deliver the error to the server");
             throw new NetworkException(e);
         }
     }
@@ -353,7 +368,7 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
      * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
-    public void placeOnCouncil(DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) throws  RemoteException, IllegalMoveException
+    public void placeOnCouncil(DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) throws  RemoteException
     {
         getRoom().placeOnCouncil(getFamilyMemberByColor(familyMemberColor),playerChoices);
     }
@@ -367,7 +382,7 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
      * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
-    public void harvest(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException, IllegalMoveException
+    public void harvest(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException
     {
         getRoom().harvest(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices);
     }
@@ -378,10 +393,9 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
      * @param servantsUsed is the numberof additional servants used to increase value of the dice
      * @param playerChoices is the map that cointains all the choices of the client when an effect asks
      * @throws RemoteException if something goes wrong during the connection
-     * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
-    public void build(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException, IllegalMoveException
+    public void build(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException
     {
         getRoom().build(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices);
     }

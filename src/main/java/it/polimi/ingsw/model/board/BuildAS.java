@@ -13,15 +13,15 @@ public class BuildAS extends AbstractActionSpace implements Serializable {
     int valueMalus = 0;
     //this boolean check if the player that puts there the family member is the first
     //todo Non lo dovrebbe fare il controller? -- Arto
-    private boolean first = true;
+    //private boolean first = true;
     public BuildAS() {
         super();
     }
 
-    public BuildAS(int diceRequirement, int valueMalus, boolean first) {
+    public BuildAS(int diceRequirement, int valueMalus) {
         super(diceRequirement);
         this.valueMalus = valueMalus;
-        this.first = first;
+        //this.first = first;
         this.twoPlayersOneSpace = false;
     }
 
@@ -42,12 +42,9 @@ public class BuildAS extends AbstractActionSpace implements Serializable {
      * this method checks if the player that put here a family member is the first
      * @return
      */
-    private boolean checkIfFirst(){
-        if(first == true)
-        {
-            first = false;
+    public boolean checkIfFirst(){
+        if(getOccupyingFamilyMemberNumber() == 0)
             return true;
-        }
         return false;
     }
 
@@ -61,13 +58,18 @@ public class BuildAS extends AbstractActionSpace implements Serializable {
 
     /**
      * this method returns the right build value
+     * With the parameter checks also the bonus on leaders
+     * @param canPlaceOccupiedSpace to check if the player has a leader with this type of ability
      * @return
      */
-    public int getValueNeeded(){
+    public int getValueNeeded(boolean canPlaceOccupiedSpace){
 
-        if(getOccupyingFamilyMemberNumber() > 0)
-            return valueMalus+getDiceRequirement();
-        return getDiceRequirement();
+        if(checkIfFirst())
+            return getDiceRequirement();
+        if(canPlaceOccupiedSpace)
+            return getDiceRequirement();
+
+        return valueMalus+getDiceRequirement();
     }
 
     public boolean isTwoPlayersOneSpace() {
@@ -77,5 +79,6 @@ public class BuildAS extends AbstractActionSpace implements Serializable {
     public void setTwoPlayersOneSpace(boolean twoPlayersOneSpace) {
         this.twoPlayersOneSpace = twoPlayersOneSpace;
     }
+
 }
 

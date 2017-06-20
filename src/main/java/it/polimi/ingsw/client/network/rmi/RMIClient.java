@@ -183,7 +183,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @throws IllegalMoveException //todo
      */
     @Override
-    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException {
         try {
         RMIPlayerInterfaceInst.placeOnCouncil(familyMember.getColor(), playerChoices);
         } catch (RemoteException e) {
@@ -201,7 +201,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @throws IllegalMoveException //todo
      */
     @Override
-    public void harvest(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+    public void harvest(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException {
         try {
         RMIPlayerInterfaceInst.harvest(familyMember.getColor(), servantUsed, playerChoices);
         } catch (RemoteException e) {
@@ -219,7 +219,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @throws IllegalMoveException //todo
      */
     @Override
-    public void build(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+    public void build(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException {
         try {
             RMIPlayerInterfaceInst.build(familyMember.getColor(), servantUsed, playerChoices);
         }
@@ -428,6 +428,11 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     public void floodPersonalTileChosen(String nickname, PersonalTile personalTile) throws RemoteException {
 
         getControllerMain().receiveFloodPersonalTile(nickname, personalTile);
+
+    }
+
+    @Override
+    public void receiveError() throws RemoteException {
 
     }
 }

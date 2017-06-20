@@ -35,7 +35,7 @@ public class CouncilAS extends AbstractActionSpace implements Serializable{
      */
     public String getSpaceDescription(){
         int i;
-        String temp = new String();
+        String temp = "";
         for(i=0; i<super.getEffects().size(); i++)
             temp += " " + super.getEffects().get(i).descriptionShortOfEffect();
     return temp;

@@ -93,8 +93,10 @@ public class SocketClient extends AbstractClientType {
         LoginErrorEnum loginResponse;
 
         try {
-            outStream.writeObject(PacketType.LOGIN);
-            outStream.writeObject(new LoginOrRegisterPacket(nickname, password));
+            synchronized (this){
+                outStream.writeObject(PacketType.LOGIN);
+                outStream.writeObject(new LoginOrRegisterPacket(nickname, password));
+            }
             outStream.flush();
             loginResponse = (LoginErrorEnum) inStream.readObject();
         }
@@ -122,8 +124,10 @@ public class SocketClient extends AbstractClientType {
     public void registerPlayer(String nickname, String password) throws NetworkException,UsernameAlreadyInUseException {
         RegisterErrorEnum response;
         try{
-            outStream.writeObject(PacketType.REGISTER);
-            outStream.writeObject(new LoginOrRegisterPacket(nickname,password));
+            synchronized (this){
+                outStream.writeObject(PacketType.REGISTER);
+                outStream.writeObject(new LoginOrRegisterPacket(nickname,password));
+            }
             outStream.flush();
             response =(RegisterErrorEnum)inStream.readObject();
         }
@@ -145,8 +149,10 @@ public class SocketClient extends AbstractClientType {
     @Override
     public void playLeaderCard(String nameLeader) throws NetworkException{
         try{
-            outStream.writeObject(PacketType.PLAY_LEADER);
-            outStream.writeObject(new PlayCardPacket(nameLeader));
+            synchronized (this){
+                outStream.writeObject(PacketType.PLAY_LEADER);
+                outStream.writeObject(new PlayCardPacket(nameLeader));
+            }
             outStream.flush();
         }
         catch(IOException e){
@@ -167,8 +173,10 @@ public class SocketClient extends AbstractClientType {
     public void discardCard(String nameLeader, String resourceChoose) throws NetworkException{
 
         try {
-            outStream.writeObject(PacketType.DISCARD_LEADER);
-            outStream.writeObject(new DiscardCardPacket(nameLeader, resourceChoose));
+            synchronized (this){
+                outStream.writeObject(PacketType.DISCARD_LEADER);
+                outStream.writeObject(new DiscardCardPacket(nameLeader, resourceChoose));
+            }
             outStream.flush();
         }
         catch (IOException e) {
@@ -190,8 +198,10 @@ public class SocketClient extends AbstractClientType {
             throws NetworkException,IllegalMoveException {
         MoveErrorEnum moveErrorEnum;
         try{
-            outStream.writeObject(PacketType.MOVE_IN_TOWER);
-            outStream.writeObject(new PlaceOnTowerPacket(familyMember.getColor(),numberTower,floorTower, playerChoices));
+            synchronized (this){
+                outStream.writeObject(PacketType.MOVE_IN_TOWER);
+                outStream.writeObject(new PlaceOnTowerPacket(familyMember.getColor(),numberTower,floorTower, playerChoices));
+            }
             outStream.flush();
             moveErrorEnum=(MoveErrorEnum) inStream.readObject();
         }
@@ -213,8 +223,10 @@ public class SocketClient extends AbstractClientType {
             throws NetworkException,IllegalMoveException{
         MoveErrorEnum moveErrorEnum;
         try{
-            outStream.writeObject(PacketType.MOVE_IN_MARKET);
-            outStream.writeObject(new PlaceOnMarketPacket(familyMember.getColor(), marketIndex, playerChoices));
+            synchronized (this){
+                outStream.writeObject(PacketType.MOVE_IN_MARKET);
+                outStream.writeObject(new PlaceOnMarketPacket(familyMember.getColor(), marketIndex, playerChoices));
+            }
             outStream.flush();
             moveErrorEnum=(MoveErrorEnum)inStream.readObject();
         }
@@ -228,12 +240,20 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    /**
+     * this method is called by the client to deliver a move on a council place
+     * @param familyMember the family member moved
+     * @param playerChoices the choices of the resource to get
+     * @throws NetworkException if something goes wrong with the connection
+     */
     @Override
     public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException {
 
         try{
-            outStream.writeObject(PacketType.MOVE_IN_COUNCIL);
-            outStream.writeObject(new PlaceOnCouncilPacket(familyMember.getColor(), playerChoices));
+            synchronized (this){
+                outStream.writeObject(PacketType.MOVE_IN_COUNCIL);
+                outStream.writeObject(new PlaceOnCouncilPacket(familyMember.getColor(), playerChoices));
+            }
             outStream.flush();
         }
 
@@ -247,29 +267,22 @@ public class SocketClient extends AbstractClientType {
      * this method is called when the family member is moved on the harvest space
      */
     @Override
-    public void harvest (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
-
-        MoveErrorEnum moveErrorEnum;
+    public void harvest (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException {
 
         try{
 
-            outStream.writeObject(PacketType.HARVEST);
-            outStream.writeObject(new BuildOrHarvest(familyMember.getColor(),servantUsed,playerChoices));
+            synchronized (this){
+                outStream.writeObject(PacketType.HARVEST);
+                outStream.writeObject(new BuildOrHarvest(familyMember.getColor(),servantUsed,playerChoices));
+            }
             outStream.flush();
-            moveErrorEnum=(MoveErrorEnum)inStream.readObject();
 
         }
 
-        catch (IOException | ClassNotFoundException e){
+        catch (IOException e){
 
             Debug.printError("network is not available", e);
             throw new NetworkException(e);
-
-        }
-
-        if(moveErrorEnum == MoveErrorEnum.NOT_PLAYER_TURN){
-
-            throw new IllegalMoveException(moveErrorEnum);
 
         }
 
@@ -279,33 +292,25 @@ public class SocketClient extends AbstractClientType {
      * this method is called when a player want to place a family member on the build
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws NetworkException
-     * @throws IllegalMoveException
      */
     @Override
     public void build (FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices)
-            throws NetworkException, IllegalMoveException {
-
-        MoveErrorEnum moveErrorEnum;
+            throws NetworkException{
 
         try{
 
-            outStream.writeObject(PacketType.BUILD);
-            outStream.writeObject(new BuildOrHarvest(familyMember.getColor(),servantUsed,playerChoices));
+            synchronized (this){
+                outStream.writeObject(PacketType.BUILD);
+                outStream.writeObject(new BuildOrHarvest(familyMember.getColor(),servantUsed,playerChoices));
+            }
             outStream.flush();
-            moveErrorEnum=(MoveErrorEnum)inStream.readObject();
 
         }
 
-        catch (IOException | ClassNotFoundException e){
+        catch (IOException  e){
 
             Debug.printError("network is not available", e);
             throw new NetworkException(e);
-
-        }
-
-        if(moveErrorEnum == MoveErrorEnum.NOT_PLAYER_TURN){
-
-            throw new IllegalMoveException(moveErrorEnum);
 
         }
 
@@ -314,8 +319,9 @@ public class SocketClient extends AbstractClientType {
     @Override
     public void deliverTileChosen(PersonalTile tileChosen) throws NetworkException {
         try{
-            outStream.writeObject(PacketType.CHOSE_TILES);
-            outStream.writeObject(tileChosen);
+            synchronized (this){
+                outStream.writeObject(PacketType.CHOSE_TILES);
+                outStream.writeObject(tileChosen);}
             outStream.flush();
         }
         catch (IOException e){
@@ -332,7 +338,9 @@ public class SocketClient extends AbstractClientType {
 
         try{
 
-            outStream.writeObject(PacketType.END_PHASE);
+            synchronized (this){
+                outStream.writeObject(PacketType.END_PHASE);
+            }
             outStream.flush();
             Debug.printVerbose("delivered the end phase");
 
@@ -353,8 +361,10 @@ public class SocketClient extends AbstractClientType {
     @Override
     public void sendChatMsg(String msg) throws NetworkException {
         try{
-            outStream.writeObject(PacketType.CHAT);
-            outStream.writeObject(msg);
+            synchronized (this){
+                outStream.writeObject(PacketType.CHAT);
+                outStream.writeObject(msg);
+            }
             outStream.flush();
         }
         catch (IOException e){
@@ -577,8 +587,10 @@ public class SocketClient extends AbstractClientType {
     public void deliverLeaderChose(LeaderCard leaderCard) throws NetworkException{
 
         try{
-            outStream.writeObject(PacketType.LEADER_CHOICES);
-            outStream.writeObject(new ReceiveLeaderCardChosePacket(leaderCard));
+            synchronized (this){
+                outStream.writeObject(PacketType.LEADER_CHOICES);
+                outStream.writeObject(new ReceiveLeaderCardChosePacket(leaderCard));
+            }
             outStream.flush();
             Debug.printVerbose("Packet on leader choice sent " + leaderCard.getName());
         }

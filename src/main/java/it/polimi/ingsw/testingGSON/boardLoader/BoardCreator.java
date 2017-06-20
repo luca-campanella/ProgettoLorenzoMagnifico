@@ -103,9 +103,9 @@ public class BoardCreator {
             marketASArray[i] = getMarketASForTest();
         }
 
-        BuildAS buildAS = new BuildAS(4,5,false);
+        BuildAS buildAS = new BuildAS(4,5);
         buildAS.addEffect(new NoEffect());
-        HarvestAS harvestAS = new HarvestAS(3,5, false);
+        HarvestAS harvestAS = new HarvestAS(3,5);
         harvestAS.addEffect(new NoEffect());
 
         CouncilAS councilAS = new CouncilAS();

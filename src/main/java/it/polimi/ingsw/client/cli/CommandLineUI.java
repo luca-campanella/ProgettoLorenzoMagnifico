@@ -134,7 +134,7 @@ public class CommandLineUI extends AbstractUIType {
                                              List<MarketWrapper> activeMarketSpaces,
                                              List<TowerWrapper> activeTowerSpaces,
                                             int availableServants) {
-        System.err.println("AskWhichAction space called");
+        Debug.printVerbose("AskWhichAction space called");
         ActionSpacePickerMenu menu = new ActionSpacePickerMenu(getController(),
                                                                  servantsNeededHarvest,
                                                                  servantsNeededBuild,

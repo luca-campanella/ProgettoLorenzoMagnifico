@@ -14,7 +14,6 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.*;
-import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -227,7 +226,11 @@ public class ModelController {
      */
     private boolean isPlaceOnTowerFloorLegal(FamilyMember familyMember, int servant, TowerFloorAS towerFloorAS,ArrayList<FamilyMember> familyMembersOnTheTower){
 
-        //control on the input, if the player has that resources and if the place is not available
+        //if it's a territory card we have to check if the requirement on military points is met
+        if(!familyMember.getPlayer().getPersonalBoard().canAddTerritoryCard(familyMember.getPlayer().getResource(ResourceTypeEnum.COIN)))
+            return false;
+
+            //control on the input, if the player has that resources and if the place is not available
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant){
             //this means that the player doesn't has the resources that claimed to have, this is cheating
@@ -240,22 +243,36 @@ public class ModelController {
             Debug.printVerbose("there are already another one");
             //this means that the player has already placed a family member on that action space
             return false;}
-        //control if the family member has a right value to harvest
+        //control if the family member has a right value to place here
         if(servant+familyMember.getValue() +
                 familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())< towerFloorAS.getDiceRequirement()){
-            Debug.printVerbose("doesnt have the resources");
+            Debug.printVerbose("doesnt have the family member value");
+            //cannot place this family members because the value is too low
             return false;
         }
-            //cannot place this family members because the value is too low
+        //we check if the action space is not occupied and if the user has a leader that lets him place the fm there anyway
+        if(towerFloorAS.getOccupyingFamilyMemberNumber() >= 1 && !familyMember.getPlayer().getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
+            return false;
 
         ResourceCollector resource = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
+
+        //if he's not the first to place a family member on the tower we subtract three coins
+        if(!familyMembersOnTheTower.isEmpty() && !familyMember.getPlayer().getPermanentLeaderCardCollector().hasNotToSpendForOccupiedTower()) {
+            resource.subResource(new Resource(ResourceTypeEnum.COIN, 3));
+            if(resource.getResource(ResourceTypeEnum.COIN) < 0)
+                return false;
+        }
+
+        //we add the bonuses that come from blu cards and leader cards
         resource.addResource(familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(towerFloorAS.getCard().getColor()));
+        resource.addResource(familyMember.getPlayer().getPermanentLeaderCardCollector().getDiscountOnCardCost(towerFloorAS.getCard().getColor()));
         ArrayList<ImmediateEffectInterface>effectInterfaces = towerFloorAS.getEffects();
         for(ImmediateEffectInterface effectIter : effectInterfaces){
             if(effectIter instanceof GainResourceEffect){
                 resource.addResource(((GainResourceEffect) effectIter).getResource());
             }
         }
+
             //it asks the card if the player can buy it with this resources
              if(towerFloorAS.getCard().canBuy(resource))
               return true;
@@ -284,7 +301,9 @@ public class ModelController {
         Debug.printDebug("spaceHarvestAvailable");
         if(isHarvestActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT))){
             HarvestAS harvestPlace = gameBoard.getHarvest();
-            int servantNeeded = harvestPlace.getValueNeeded() - familyMember.getValue() -
+            boolean canPlaceOccupiedActionSpace = familyMember.getPlayer().
+                    getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace();
+            int servantNeeded = harvestPlace.getValueNeeded(canPlaceOccupiedActionSpace) - familyMember.getValue() -
                     familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest();
             if(servantNeeded < 0)
                 servantNeeded = 0;
@@ -315,11 +334,14 @@ public class ModelController {
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
             //this means that the player has already placed a family member on that action space
             return false;
+       boolean canPlaceOccupiedActionSpace = familyMember.getPlayer().
+               getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace();
         //control if the family member has a right value to harvest
         if(servant+familyMember.getValue() +
-                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest() < harvestPlace.getValueNeeded())
+                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest() < harvestPlace.getValueNeeded(canPlaceOccupiedActionSpace))
             //cannot place this family members because the value is too low
             return false;
+
         return true;
 
     }
@@ -355,7 +377,10 @@ public class ModelController {
 
         if(isBuildActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT))){
             BuildAS buildPlace = gameBoard.getBuild();
-            int servantNeeded = buildPlace.getValueNeeded() - familyMember.getValue() -
+            boolean canPlaceOccupiedActionSpace = familyMember.getPlayer().
+                    getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace();
+            int servantNeeded = buildPlace.getValueNeeded(canPlaceOccupiedActionSpace)
+                    - familyMember.getValue() -
                     familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild();
             if(servantNeeded < 0)
                 servantNeeded = 0;
@@ -388,9 +413,12 @@ public class ModelController {
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
             //this means that the player has already placed a family member on that action space
             return false;
+        boolean canPlaceOccupiedActionSpace = familyMember.getPlayer().
+                getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace();
         //control if the family member has a right value to build
         if(servant+familyMember.getValue() +
-                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild() < buildPlace.getValueNeeded())
+                familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild()
+                < buildPlace.getValueNeeded(canPlaceOccupiedActionSpace))
             //cannot place this familymembers because the value is too low
             return false;
 
@@ -413,7 +441,12 @@ public class ModelController {
         gameBoard.build(familyMember);
         Debug.printVerbose("before calling player.build");
 
-        player.build(familyMember.getValue() + servants, choicesController);
+        int realDiceValueNoBlueBonusYesLeaders = familyMember.getValue() + servants;
+        //we check if he's not the first inside the action space
+        if(!gameBoard.getBuild().checkIfFirst() && !player.getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
+            realDiceValueNoBlueBonusYesLeaders -=  gameBoard.getBuild().getValueMalus();
+
+        player.build(realDiceValueNoBlueBonusYesLeaders, choicesController);
         Debug.printVerbose("afterd calling player.build");
 
     }
@@ -430,10 +463,15 @@ public class ModelController {
         //set the family member as used in the player
         player.playFamilyMember(familyMember);
         player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
-        //just adds the family member to the BuildAS
+        //just adds the family member to the harvestAS
         gameBoard.harvest(familyMember);
 
-        player.harvest(familyMember.getValue() + servants, choicesController);
+        int realDiceValueNoBlueBonusYesLeaders = familyMember.getValue() + servants;
+        //we check if he's not the first inside the action space
+        if(!gameBoard.getHarvest().checkIfFirst() && !player.getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
+            realDiceValueNoBlueBonusYesLeaders -=  gameBoard.getHarvest().getValueMalus();
+
+        player.harvest(realDiceValueNoBlueBonusYesLeaders, choicesController);
     }
 
     /**
@@ -459,6 +497,11 @@ public class ModelController {
                 familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild() < spaceMarket.getDiceRequirement())
             //cannot place this familymembers because the value is too low
             return false;
+
+        //we check if the action space is not occupied and if the user has a leader that lets him place the fm there anyway
+        if(spaceMarket.getOccupyingFamilyMemberNumber() >= 1 && !familyMember.getPlayer().getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
+            return false;
+
         return true;
     }
     /**
@@ -468,17 +511,6 @@ public class ModelController {
      * @param marketSpaceIndex the selected market AS
      */
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){
-
-        /*MarketAS marketPlace = gameBoard.getMarketSpaceByIndex(marketSpaceIndex);
-        if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
-                || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<marketPlace.getValueStandard()-familyMember.getValue())
-            //this means that the player doesn't has the resources that claimed to have, this is cheating
-            return;//TODO cheating or refresh board
-        if(marketPlace.getFamilyMember() != null)
-            // this means that the place on the market is not available
-            return;
-        marketPlace.performAction(familyMember);*/
-
        gameBoard.placeOnMarket(familyMember, marketSpaceIndex, choicesController);
     }
 

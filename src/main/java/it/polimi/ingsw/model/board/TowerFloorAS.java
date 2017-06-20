@@ -57,7 +57,8 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
         //we check if there is a discount on the tower coming from blue cards
 
         ResourceCollector resToSubtractToPlayer = new ResourceCollector(card.getCostAskChoice(choiceController));
-        resToSubtractToPlayer.subResource(blueCards.getDiscountOnTower(card.getColor()));
+        resToSubtractToPlayer.subResourcesSafely(blueCards.getDiscountOnTower(card.getColor()));
+        resToSubtractToPlayer.subResourcesSafely(player.getPermanentLeaderCardCollector().getDiscountOnCardCost(card.getColor()));
 
         player.subResources(resToSubtractToPlayer);
         player.addCard(card);
