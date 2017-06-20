@@ -122,6 +122,7 @@ public class PersonalBoard implements Serializable{
 
     public void setPersonalTile(PersonalTile personalTile){
         this.personalTile = personalTile;
+        Debug.printVerbose("setted personal tile");
     }
 
     public PersonalTile getPersonalTile() {

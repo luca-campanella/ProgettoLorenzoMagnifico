@@ -10,16 +10,17 @@ import it.polimi.ingsw.utils.Debug;
 import java.util.ArrayList;
 
 /**
- * Created by campus on 11/06/2017.
+ * this class is the base menu, where you cann see all the possible option during your phase
  */
 public class InitialActionMenu extends BasicCLIMenu {
     ArrayList<FamilyMember> playableFMs;
 
-    public InitialActionMenu(ViewControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs, Board board) {
+    public InitialActionMenu(ViewControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilMembery) {
         super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
         this.playableFMs = playableFMs;
         addOption("BOARD", "Show me the board", () -> this.printBoard(board));
-        addOption("FM", "Place a Family Member on an action space", () -> this.placeFamilyMember());
+        if(!playedFamilMembery)
+            addOption("FM", "Place a Family Member on an action space", () -> this.placeFamilyMember());
         addOption("DL", "Discard a Leader", () -> this.discardLeader());
         addOption("PL", "Play a Leader card", () -> this.playLeader());
         addOption("AL", "Activate a Leader ability", () -> this.activateLeaderAbility());
