@@ -251,13 +251,24 @@ public class ModelController {
             return false;
 
         ResourceCollector resource = new ResourceCollector(familyMember.getPlayer().getResourcesCollector());
+
+        //if he's not the first to place a family member on the tower we subtract three coins
+        if(!familyMembersOnTheTower.isEmpty() && !familyMember.getPlayer().getPermanentLeaderCardCollector().hasNotToSpendForOccupiedTower()) {
+            resource.subResource(new Resource(ResourceTypeEnum.COIN, 3));
+            if(resource.getResource(ResourceTypeEnum.COIN) < 0)
+                return false;
+        }
+
+        //we add the bonuses that come from blu cards and leader cards
         resource.addResource(familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(towerFloorAS.getCard().getColor()));
+        resource.addResource(familyMember.getPlayer().getPermanentLeaderCardCollector().getDiscountOnCardCost(towerFloorAS.getCard().getColor()));
         ArrayList<ImmediateEffectInterface>effectInterfaces = towerFloorAS.getEffects();
         for(ImmediateEffectInterface effectIter : effectInterfaces){
             if(effectIter instanceof GainResourceEffect){
                 resource.addResource(((GainResourceEffect) effectIter).getResource());
             }
         }
+
             //it asks the card if the player can buy it with this resources
              if(towerFloorAS.getCard().canBuy(resource))
               return true;
