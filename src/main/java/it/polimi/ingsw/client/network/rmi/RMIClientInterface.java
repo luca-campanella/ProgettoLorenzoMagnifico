@@ -143,4 +143,11 @@ public interface RMIClientInterface extends Remote {
      * @throws RemoteException if something goaes wrong during RMI communication
      */
     public void receivePersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws RemoteException;
+
+    /**
+     * this method is called by the RMI of the server to deliver the personal tiles chosn by other players
+     * @param nickname the nickname of the player that had chosen this personal tile
+     * @param personalTile the personal tile chosen
+     */
+    public void floodPersonalTileChosen(String nickname, PersonalTile personalTile) throws RemoteException;
 }

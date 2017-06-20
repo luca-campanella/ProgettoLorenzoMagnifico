@@ -485,7 +485,22 @@ public class Room {
     public void chosePersonalTile(PersonalTile personalTile, AbstractConnectionPlayer player) {
 
         controllerGame.choosePersonalTile(personalTile, player);
+        floodChosenPersonalTile(personalTile, player);
 
+    }
+
+    private void floodChosenPersonalTile(PersonalTile personalTile, AbstractConnectionPlayer player){
+
+        for(AbstractConnectionPlayer player1 : players){
+            if(!player.getNickname().equals(player1.getNickname())){
+                try{
+                    player1.otherPlayerPersonalTile(player1.getNickname(), personalTile);
+                }
+                catch (NetworkException e){
+                    Debug.printError(e);
+                }
+            }
+        }
     }
 }
 

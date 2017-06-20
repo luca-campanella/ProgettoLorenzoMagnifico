@@ -591,6 +591,23 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     }
 
     /**
+     * this method is called by the room to deliver the personal tile chosen by anothe player to this client
+     * @param nickname the nickname of the client that had chosen the personal tile
+     * @param personalTile the personal tile chosen by the client
+     */
+    @Override
+    public void otherPlayerPersonalTile(String nickname, PersonalTile personalTile) throws NetworkException {
+        try{
+            outStream.writeObject(PacketType.FLOOD_PERSONAL_TILE);
+            outStream.writeObject(new ReceiveChosenPersonalTilePacket(nickname, personalTile));
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the personal tile of " + nickname + " to " + getNickname());
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * this method is used to deliver the leader card to the room (client -> server)
      */
     public void deliverLeaderCards(){

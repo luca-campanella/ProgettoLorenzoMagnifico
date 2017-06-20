@@ -125,4 +125,11 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @param personalTilesToDeliver the personal tiles the player can receive
      */
     public abstract void deliverPersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws NetworkException;
+
+    /**
+     * this method is called by the room to deliver to the other clients the personal tile chosen by anothe client
+     * @param nickname the nickname of the client that had chosen the personal tile
+     * @param personalTile the personal tile chosen by the client
+     */
+    public abstract void otherPlayerPersonalTile(String nickname, PersonalTile personalTile) throws NetworkException;
 }

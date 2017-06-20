@@ -400,6 +400,11 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
             getControllerMain().receiveCardsToPlace(cardsToPlace);
     }
 
+    /**
+     * this method is called by RMI server to receive the personal tiles which the client can chose to play
+     * @param personalTilesToDeliver the different personal tiles
+     * @throws RemoteException
+     */
     @Override
     public void receivePersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws RemoteException {
         PersonalTile standardPersonalTile = null;
@@ -411,5 +416,18 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
                 specialPersonalTile = personalTile;
         }
         getControllerMain().receivedPersonalTiles(standardPersonalTile,specialPersonalTile);
+    }
+
+    /**
+     * this merhod is called by RMI server to deliver the personal tile choices done by the players
+     * @param nickname the nickname of the player that had chosen this personal tile
+     * @param personalTile the personal tile chosen
+     * @throws RemoteException
+     */
+    @Override
+    public void floodPersonalTileChosen(String nickname, PersonalTile personalTile) throws RemoteException {
+
+        getControllerMain().receiveFloodPersonalTile(nickname, personalTile);
+
     }
 }

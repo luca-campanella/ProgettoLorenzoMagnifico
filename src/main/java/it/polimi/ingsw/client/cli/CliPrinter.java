@@ -417,7 +417,6 @@ public class CliPrinter {
     private static void printExcommunicationCards(Board board)
     {
         List<ExcommunicationTile> excommunicationTiles = board.getExcommunicationTiles();
-        System.out.println("Entro qui");
         for(ExcommunicationTile iterator : excommunicationTiles)
             System.out.println("After " + iterator.getPeriod() + " you need to have n faith points to avoid " + iterator.getEffect().getShortEffectDescription());
         return;

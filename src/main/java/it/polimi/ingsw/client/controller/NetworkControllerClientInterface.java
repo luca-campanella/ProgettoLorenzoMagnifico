@@ -75,7 +75,7 @@ public interface NetworkControllerClientInterface {
     /**
      * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
      * to notify that the has to pick a personal tile between the ones proposed
-     * Corresponding callback: {@link ViewControllerCallbackInterface#callbackOnPersonalTileChosen}
+     * Corresponding callback: {@link ViewControllerCallbackInterface#callbackOnTileChosen}
      *
      * @param standardTile option1
      * @param specialTile  option2
@@ -145,4 +145,10 @@ public interface NetworkControllerClientInterface {
      */
     public void receiveEndPhase(String nickname);
 
+    /**
+     * receve the personal tiles chosen by other players
+     * @param nickname the nickname of the player that had chosen the tile
+     * @param personalTile the personal tile chosen
+     */
+    public void receiveFloodPersonalTile(String nickname, PersonalTile personalTile);
 }

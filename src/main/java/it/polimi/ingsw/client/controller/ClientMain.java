@@ -3,10 +3,7 @@ package it.polimi.ingsw.client.controller;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
 import it.polimi.ingsw.client.cli.StdinSingleton;
-import it.polimi.ingsw.client.exceptions.ClientConnectionException;
-import it.polimi.ingsw.client.exceptions.LoginException;
-import it.polimi.ingsw.client.exceptions.NetworkException;
-import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
+import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.network.rmi.RMIClient;
@@ -311,18 +308,12 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.build(familyMemberCurrentAction, servantsUsed);
         Debug.printVerbose("build succeded");
 
-        /*LinkedList<BuildingCard> buildingCards = modelController.getYellowBuildingCards(familyMember.getPlayer());
-
-        ArrayList<ImmediateEffectInterface> effects;
-
-        for(BuildingCard cardIter : buildingCards) {
-            effects = cardIter.getEffectsOnBuilding();
-            if(effects.size() > 1) {
-
-            }
-
-        }*/
-        //todo send the action to the server
+        try{
+            clientNetwork.build(familyMemberCurrentAction, servantsUsed, choicesOnCurrentAction);
+        }
+        catch (NetworkException | IllegalMoveException e){
+            Debug.printError("cannot deliver the move build to the server");
+        }
     }
 
     /**
@@ -777,6 +768,16 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
         userInterface.showEndOfPhaseOfPlayer(nickname);
 
+    }
+
+    /**
+     * this method is used to receive the personal tile deliver by other players
+     * @param nickname the nickname of the player that had chosen the tile
+     * @param personalTile the personal tile chosen
+     */
+    @Override
+    public void receiveFloodPersonalTile(String nickname, PersonalTile personalTile) {
+        modelController.setPersonalTile(personalTile, nickname);
     }
 
 }

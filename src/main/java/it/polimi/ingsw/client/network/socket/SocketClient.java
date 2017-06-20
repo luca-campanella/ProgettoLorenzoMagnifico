@@ -645,4 +645,17 @@ public class SocketClient extends AbstractClientType {
             Debug.printError("the client cannot receives the personal tiles delivered from the server",e);
         }
     }
+
+    /**
+     * this method is called by the server to receive the personal tile chosen by players
+     */
+    public void receiveFloodPersonalTile(){
+        try{
+            ReceiveChosenPersonalTilePacket packet = (ReceiveChosenPersonalTilePacket)inStream.readObject();
+            getControllerMain().receiveFloodPersonalTile(packet.getNickname(), packet.getPersonalTile());
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("cannot receive the personal tile from other player",e);
+        }
+    }
 }

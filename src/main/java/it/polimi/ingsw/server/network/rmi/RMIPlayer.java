@@ -88,6 +88,23 @@ public class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInte
     }
 
     /**
+     * this method is called from the room to deliver the personal tiles chosen by other players
+     * @param nickname the nickname of the client that had chosen the personal tile
+     * @param personalTile the personal tile chosen by the client
+     * @throws NetworkException
+     */
+    @Override
+    public void otherPlayerPersonalTile(String nickname, PersonalTile personalTile) throws NetworkException {
+        try{
+            RMIClientInterfaceInst.floodPersonalTileChosen(nickname, personalTile);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot deliver the personal tiles of " + nickname +" to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
      * @param familyMember the family member placed on the tower
      * @param towerIndex the number of the tower
