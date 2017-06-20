@@ -7,7 +7,8 @@ package it.polimi.ingsw.client.cli;
 import it.polimi.ingsw.client.cli.notblockingmenus.ActionSpacePickerMenu;
 import it.polimi.ingsw.client.cli.notblockingmenus.InitialActionMenu;
 import it.polimi.ingsw.client.cli.notblockingmenus.LeaderPickerMenu;
-import it.polimi.ingsw.client.cli.notblockingmenus.PersonalTilePickerMenu;
+
+import it.polimi.ingsw.client.cli.notblockingmenus.PersonalTilesPickerMenu;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
@@ -388,12 +389,12 @@ public class CommandLineUI extends AbstractUIType {
      * This method is called at the beginning of the game to choose one personal tile
      * This method should be non-blocking
      *
-     * @param standardTile option1
-     * @param specialTile  option2
+     * @param standardTile the standard tile, all the player can choose the same tile
+     * @param specialTile  the special tile, different for every player
      */
     @Override
     public void askPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
-        PersonalTilePickerMenu menu = new PersonalTilePickerMenu(getController(), standardTile, specialTile);
+        PersonalTilesPickerMenu menu = new PersonalTilesPickerMenu(getController(), standardTile, specialTile);
 
         pool.submit(menu);
     }
@@ -404,7 +405,7 @@ public class CommandLineUI extends AbstractUIType {
      * @param possibleLeaders the possibilites to choose from
      * @return the index of the choice
      */
-    public int askWhichLeaderabilityToCopy(List<LeaderCard> possibleLeaders) {
+    public int askWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
         CliOptionsHandler optionsHandler = new CliOptionsHandler(possibleLeaders.size());
         for(LeaderCard leaderIter : possibleLeaders)
             optionsHandler.addOption(leaderIter.getName() + " - ability: " + leaderIter.getAbility().getAbilityDescription());

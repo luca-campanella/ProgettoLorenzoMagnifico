@@ -102,6 +102,9 @@ public class ControllerGame {
      */
     private void initiatePersonalTileChoice() {
 
+        /*personalTiles.get(0).setPersonalTileEnum(PersonalTileEnum.STANDARD);
+        for(int i = 1 ; i < personalTiles.size() ; i++)
+            personalTiles.get(i).setPersonalTileEnum(PersonalTileEnum.SPECIAL);*/
         room.deliverPersonalTiles(personalTiles);
 
     }

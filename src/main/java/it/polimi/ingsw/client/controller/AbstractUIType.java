@@ -146,7 +146,7 @@ abstract public class AbstractUIType {
      * @param possibleLeaders the possibilites to choose from
      * @return the index of the choice
      */
-    public abstract int askWhichLeaderabilityToCopy(List<LeaderCard> possibleLeaders);
+    public abstract int askWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders);
 
     /**
      * This method is called when the player it is playing a leader who has a ONCE_PER_ROUND ability
