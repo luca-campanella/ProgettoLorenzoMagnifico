@@ -179,7 +179,13 @@ public class ModelController {
                 TowerFloorAS towerFloorAs = tower.getFloors()[towerFloor];
                 if(isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), towerFloorAs, familyMembers)){
                     int servantNeeded = towerFloorAs.getDiceRequirement() - familyMember.getValue() -
-                            familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAs.getCard().getColor()) ;
+                            familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAs.getCard().getColor())
+                            //malus coming from excommunication tiles
+                            + familyMember.getPlayer().getExcommunicationTilesCollector().malusDiceOnTowerColor(towerFloorAs.getCard().getColor());
+
+                    //malus coming from excommunication tile
+                    servantNeeded *= familyMember.getPlayer().getExcommunicationTilesCollector().payMoreServant();
+
                     if (servantNeeded < 0)
                         servantNeeded = 0;
 
@@ -208,6 +214,10 @@ public class ModelController {
             if(isMarketActionLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), market)){
             int servantNeeded = market.getDiceRequirement() - familyMember.getValue() -
                     familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild();
+
+                //malus coming from excommunication tile
+                servantNeeded *= familyMember.getPlayer().getExcommunicationTilesCollector().payMoreServant();
+
             if (servantNeeded < 0)
                 servantNeeded = 0;
 
@@ -235,7 +245,7 @@ public class ModelController {
                         player.getPermanentLeaderCardCollector().noMilitaryPointsNeededForTerritoryCards()))
             return false;
 
-            //control on the input, if the player has that resources and if the place is not available
+        //control on the input, if the player has that resources and if the place is not available
         if(!player.getNotUsedFamilyMembers().contains(familyMember)
                 || player.getResource(ResourceTypeEnum.SERVANT)<servant){
             //this means that the player doesn't has the resources that claimed to have, this is cheating
@@ -249,7 +259,9 @@ public class ModelController {
             //this means that the player has already placed a family member on that action space
             return false;}
         //control if the family member has a right value to place here
-        if(servant+familyMember.getValue() +
+        if((servant/player.getExcommunicationTilesCollector().payMoreServant())
+                //we divide by the exchange rate given by the malus of excommunication tiles
+                +familyMember.getValue() +
                 //bonus from blue cards
                 player.getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAS.getCard().getColor())
                 //malus from excomm tiles
@@ -276,9 +288,15 @@ public class ModelController {
         resource.addResource(player.getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(towerFloorAS.getCard().getColor()));
         resource.addResource(player.getPermanentLeaderCardCollector().getDiscountOnCardCost(towerFloorAS.getCard().getColor()));
         ArrayList<ImmediateEffectInterface>effectInterfaces = towerFloorAS.getEffects();
+        Resource resTmp;
+        int resValue = 0;
         for(ImmediateEffectInterface effectIter : effectInterfaces){
             if(effectIter instanceof GainResourceEffect){
-                resource.addResource(((GainResourceEffect) effectIter).getResource());
+                //we have to check if there's a malus coming from excommunication tiles
+                resTmp = ((GainResourceEffect) effectIter).getResource();
+                resValue = resTmp.getValue();
+                resValue -= player.getExcommunicationTilesCollector().gainFewResource(resTmp.getType());
+                resource.addResource(new Resource(resTmp.getType(), resValue));
             }
         }
 
@@ -313,7 +331,12 @@ public class ModelController {
             boolean canPlaceOccupiedActionSpace = familyMember.getPlayer().
                     getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace();
             int servantNeeded = harvestPlace.getValueNeeded(canPlaceOccupiedActionSpace) - familyMember.getValue() -
-                    familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest();
+                    familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest()
+                    + familyMember.getPlayer().getExcommunicationTilesCollector().buildDiceMalusEffect(); //excomm tiles malus
+
+            //malus coming from excommunication tile
+            servantNeeded *= familyMember.getPlayer().getExcommunicationTilesCollector().payMoreServant();
+
             if(servantNeeded < 0)
                 servantNeeded = 0;
             Debug.printDebug("spaceHarvestAvailableRETURNED");
@@ -346,7 +369,9 @@ public class ModelController {
        boolean canPlaceOccupiedActionSpace = familyMember.getPlayer().
                getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace();
         //control if the family member has a right value to harvest
-        if(servant+familyMember.getValue() +
+        if((servant/familyMember.getPlayer().getExcommunicationTilesCollector().payMoreServant())
+                //we divide by the exchange rate given by the malus of excommunication tiles
+                +familyMember.getValue() +
                 familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnHarvest() //blue cards bonus
                 - familyMember.getPlayer().getExcommunicationTilesCollector().harvestDiceMalusEffect() //excomm tiles malus
                 < harvestPlace.getValueNeeded(canPlaceOccupiedActionSpace))
@@ -392,7 +417,13 @@ public class ModelController {
                     getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace();
             int servantNeeded = buildPlace.getValueNeeded(canPlaceOccupiedActionSpace)
                     - familyMember.getValue() -
-                    familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild();
+                    familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild()
+                    + familyMember.getPlayer().getExcommunicationTilesCollector().buildDiceMalusEffect(); //excomm tiles malus
+
+
+            //malus coming from excommunication tile
+            servantNeeded *= familyMember.getPlayer().getExcommunicationTilesCollector().payMoreServant();
+
             if(servantNeeded < 0)
                 servantNeeded = 0;
             Debug.printDebug("spaceBuildAvailableRETURNED");
@@ -427,7 +458,9 @@ public class ModelController {
         boolean canPlaceOccupiedActionSpace = familyMember.getPlayer().
                 getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace();
         //control if the family member has a right value to build
-        if(servant+familyMember.getValue() +
+        if((servant/familyMember.getPlayer().getExcommunicationTilesCollector().payMoreServant())
+                //we divide by the exchange rate given by the malus of excommunication tiles
+                +familyMember.getValue() +
                 familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild() //blue cards bonus
                 - familyMember.getPlayer().getExcommunicationTilesCollector().buildDiceMalusEffect() //excomm tiles malus
                 < buildPlace.getValueNeeded(canPlaceOccupiedActionSpace))
@@ -441,6 +474,7 @@ public class ModelController {
      * This methos is called when the player builds, it is the entry point to the model
      * @param familyMember the family member the player performed the action with
      * @param servants the number of servants the player performed the action with
+     *                 malus coming from excommunication tiles is already included
      */
     public void build(FamilyMember familyMember, int servants) {
 
@@ -470,6 +504,7 @@ public class ModelController {
      * This method is called when the player harvests, it is the entry point to the model
      * @param familyMember the family member the player performed the action with
      * @param servants the number of servants the player performed the action with
+     *                 malus coming from excommunication tiles is already included
      */
     public void harvest(FamilyMember familyMember, int servants) {
 
@@ -498,6 +533,10 @@ public class ModelController {
      */
     private boolean isMarketActionLegal(FamilyMember familyMember, int servant, MarketAS spaceMarket){
 
+        //we check the excommunications tiles first
+        if(familyMember.getPlayer().getExcommunicationTilesCollector().marketNotAvailable())
+            return false;
+
         //control on the input, if the player really has that resources
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant)
@@ -510,7 +549,9 @@ public class ModelController {
             //this means that the player has already placed a family member on that action space
             return false;
         //control if the family member has a right value to build
-        if(servant+familyMember.getValue() +
+        if((servant/familyMember.getPlayer().getExcommunicationTilesCollector().payMoreServant())
+                //we divide by the exchange rate given by the malus of excommunication tiles
+                +familyMember.getValue() +
                 familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnBuild() < spaceMarket.getDiceRequirement())
             //cannot place this familymembers because the value is too low
             return false;
@@ -540,6 +581,10 @@ public class ModelController {
         if(isCouncilActionLegal(familyMember,familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT))){
             CouncilAS councilPlace = gameBoard.getCouncil();
             int servantNeeded = councilPlace.getDiceRequirement()- familyMember.getValue();
+
+            //malus coming from excommunication tile
+            servantNeeded *= familyMember.getPlayer().getExcommunicationTilesCollector().payMoreServant();
+
             if(servantNeeded < 0)
                 servantNeeded = 0;
             Debug.printDebug("spaceCouncilAvailableRETURNED");
@@ -569,7 +614,10 @@ public class ModelController {
             //this means that the player has already placed a family member on that action space
             return false;
         //control if the family member has a right value to build
-        if(servant+familyMember.getValue() < councilPlace.getDiceRequirement())
+        if((servant/familyMember.getPlayer().getExcommunicationTilesCollector().payMoreServant())
+                //we divide by the exchange rate given by the malus of excommunication tiles
+                +familyMember.getValue()
+                < councilPlace.getDiceRequirement())
             //cannot place this family members because the value is too low
             return false;
 

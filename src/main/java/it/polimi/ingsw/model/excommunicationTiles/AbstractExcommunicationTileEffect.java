@@ -80,12 +80,12 @@ public abstract class AbstractExcommunicationTileEffect implements Serializable 
     }
 
     /**
-     * this method indicates how many more servants a player has to pay to have +1 on action value
-     * @return
+     * this method indicates how many servants a player has to pay to have +1 on action value
+     * @return the exchange rate, by defalt 1
      */
     public int payMoreServant()
     {
-        return 0;
+        return 1;
     }
 
     /**

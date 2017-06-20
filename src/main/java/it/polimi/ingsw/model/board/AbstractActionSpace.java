@@ -126,6 +126,7 @@ public abstract class AbstractActionSpace implements Serializable{
     /**
      * This method is used by subclasses inside perform action in order to set the family member as played and
      * subtract the servants needed to perform that action
+     * This method also checks for malus coming from excommunication tiles
      * @param familyMember the family member on current action
      */
     protected void playFMandSubServantsToPlayer(FamilyMember familyMember) {
@@ -134,6 +135,10 @@ public abstract class AbstractActionSpace implements Serializable{
         player.playFamilyMember(familyMember);
         //subtract corresponding family members needed
         int servantsNeeded = getDiceRequirement() - familyMember.getValue();
+
+        //check the excommunication tile malus
+        servantsNeeded *= player.getExcommunicationTilesCollector().payMoreServant();
+
         if(servantsNeeded<0)
             servantsNeeded=0;
         player.subResource(new Resource(ResourceTypeEnum.SERVANT, servantsNeeded));

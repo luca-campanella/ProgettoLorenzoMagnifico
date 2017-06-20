@@ -36,7 +36,6 @@ public class ExcommunicationTilesCollector {
      *
      * @param resourceType the resource to check on
      * @return the resource malus, positive, should be subtracted
-     * //todo inject in model
      */
     public int gainFewResource(ResourceTypeEnum resourceType){
         int malus = 0;
@@ -105,9 +104,6 @@ public class ExcommunicationTilesCollector {
         return malus;
     }
 
-    //99999999 arrived here implementing, check placing legal with one space two players true
-
-
     /**
      * this method doesn't allow a player to place an action player on market
      * @return true if you can't place it
@@ -127,8 +123,12 @@ public class ExcommunicationTilesCollector {
     public int payMoreServant()
     {
         int malus = 0;
-        for(ExcommunicationTile tileIter : tiles)
-            malus += tileIter.getEffect().payMoreServant();
+        int tmp;
+        for(ExcommunicationTile tileIter : tiles) {
+            tmp = tileIter.getEffect().payMoreServant();
+            if(tmp > 1)
+                malus += tmp;
+        }
         return malus;
     }
 
@@ -137,6 +137,7 @@ public class ExcommunicationTilesCollector {
      * <i>Each round, you skip your  rst turn. (When you have to place your first Family Member, you have to pass.) You start taking actions from the second turn (in the appropriate turn order.) When all players have taken all their turns, you may still place your last Family Member.</i>
      * @return true if he has to skip
      */
+    //todo inject in model
     public boolean skipFirstTurn(){
         for(ExcommunicationTile tileIter : tiles)
             if(tileIter.getEffect().skipFirstTurn())
@@ -151,6 +152,7 @@ public class ExcommunicationTilesCollector {
      * @param color ed card
      * @return s true if you don't get VP. False if you get VP
      */
+    //todo insert in ending phase
     public boolean noVPColoredCard(CardColorEnum color)
     {
         return false;
@@ -162,6 +164,7 @@ public class ExcommunicationTilesCollector {
      * @param resource are the resource of the player
      * @return the number of victory points lost
      */
+    //todo insert in ending phase
     public int noVPonResource(ArrayList<Resource> resource)
     {
         return 0;
@@ -172,6 +175,7 @@ public class ExcommunicationTilesCollector {
      * @param cards is the list of yellow cards that a player owns
      * @return
      */
+    //todo insert in ending phase
     public int loseVPonCosts(ArrayList<BuildingCard> cards){ return 0;}
 
     public void addExcommunicationTile(ExcommunicationTile tile) {

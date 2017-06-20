@@ -116,8 +116,22 @@ public class Player implements Serializable{
      */
     public void addResource(Resource resource){
 
-        resourcesMap.addResource(resource);
+        int value = resource.getValue();
+        if(value > 0) {
+            //we have to check malus from excommunication tiles
+            value -= excommunicationTilesCollector.gainFewResource(resource.getType());
+            if (value <= 0)
+                return; // the malus made the addition useless
+        }
+        resourcesMap.addResource(new Resource(resource.getType(), value    ));
+    }
 
+    /**
+     * this method is used to add an array of resources on the player
+     * @param resources the object of the resource, it contains the value and the type
+     */
+    public void addResources(List<Resource> resources) {
+        resources.forEach(resource -> addResource(resource));
     }
 
     /**
@@ -146,14 +160,6 @@ public class Player implements Serializable{
         resourcesMap.subResource(resources);
     }
 
-    /**
-     * this method is used to add an array of resources on the player
-     * @param resources the object of the resource, it contains the value and the type
-     */
-    public void addResources(List<Resource> resources) {
-
-        resourcesMap.addResource(resources);
-    }
 
     public int getResource(ResourceTypeEnum type){
 

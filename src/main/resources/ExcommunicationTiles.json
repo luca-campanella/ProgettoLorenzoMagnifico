@@ -120,7 +120,7 @@
     "period": 2,
     "effect": {
       "excommunicationTiles": "PayMoreServantsEffect",
-      "moreServants": 1
+      "exchangeRate": 2
     }
   },
   {
