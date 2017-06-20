@@ -20,6 +20,17 @@ public class PersonalBoard implements Serializable{
     private LinkedList<VentureCard> ventureCards;
 
     /**
+     * This array is used to check if the player has enough military points
+     * to place the territory card on his personal board
+     */
+    private int militaryPointsTerritoryRequirements[] = {0, 0, 3, 7, 12, 18};
+
+    /**
+     * This array is used to calculate the corresponding vicotry points on territory cards at the end of the game
+     */
+    private int victoryPointsTerritory[] = {0,0,1,4,10,20};
+
+    /**
      * It represent the bonuses of the tiles near the personal board
      */
     private PersonalTile personalTile;
@@ -136,5 +147,17 @@ public class PersonalBoard implements Serializable{
     @Deprecated
     public LinkedList<CharacterCard> getCharacterCards() {
         return characterCardsCollector.getCharacterCards();
+    }
+
+    /**
+     * This method checks that there is enough space on the personal board to take a territory card and plus
+     * checks if the requirement on military points is met
+     * @param currentMilitaryPoints the number of actual military points the player has right now
+     * @return true if he can take the card
+     */
+    public boolean canAddTerritoryCard(int currentMilitaryPoints) {
+        if(territoryCards.size() < 6 && militaryPointsTerritoryRequirements[territoryCards.size()] <= currentMilitaryPoints)
+            return true;
+        return false;
     }
 }

@@ -226,7 +226,11 @@ public class ModelController {
      */
     private boolean isPlaceOnTowerFloorLegal(FamilyMember familyMember, int servant, TowerFloorAS towerFloorAS,ArrayList<FamilyMember> familyMembersOnTheTower){
 
-        //control on the input, if the player has that resources and if the place is not available
+        //if it's a territory card we have to check if the requirement on military points is met
+        if(!familyMember.getPlayer().getPersonalBoard().canAddTerritoryCard(familyMember.getPlayer().getResource(ResourceTypeEnum.COIN)))
+            return false;
+
+            //control on the input, if the player has that resources and if the place is not available
         if(!familyMember.getPlayer().getNotUsedFamilyMembers().contains(familyMember)
                 || familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT)<servant){
             //this means that the player doesn't has the resources that claimed to have, this is cheating
