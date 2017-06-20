@@ -105,7 +105,7 @@ public class PersonalBoard implements Serializable{
         return getCardListByColor(color).size();
     }
 
-    private LinkedList<? extends AbstractCard> getCardListByColor(CardColorEnum color) {
+    public LinkedList<? extends AbstractCard> getCardListByColor(CardColorEnum color) {
         switch(color) {
             case GREEN:
                 return territoryCards;
