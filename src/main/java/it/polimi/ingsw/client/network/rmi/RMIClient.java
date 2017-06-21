@@ -87,12 +87,11 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     /**
      * this method is used to discard a leader card
-     *
-     * @param nameLeader     is the name of the card
+     *  @param nameLeader     is the name of the card
      * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
      */
     @Override
-    public void discardCard(String nameLeader, String resourceChoose) {
+    public void discardLeaderCard(String nameLeader, HashMap<String, Integer> resourceChoose) {
         //TODO implement abstract method
     }
 

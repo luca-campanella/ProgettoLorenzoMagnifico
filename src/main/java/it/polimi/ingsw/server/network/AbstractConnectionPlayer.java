@@ -134,4 +134,6 @@ public abstract class AbstractConnectionPlayer extends Player {
     public abstract void otherPlayerPersonalTile(String nickname, PersonalTile personalTile) throws NetworkException;
 
     public abstract void deliverErrorMove() throws NetworkException;
+
+    public abstract void deliverDiscardLeaderCard(String nameCard, String nickname, HashMap<String, Integer> resourceGet) throws NetworkException;
 }

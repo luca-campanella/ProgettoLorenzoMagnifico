@@ -92,4 +92,10 @@ public interface ViewControllerCallbackInterface {
      * @param tileChosen
      */
     void callbackOnTileChosen(PersonalTile tileChosen);
+
+    /**
+     * this method is called by the view to discard a leader card
+     * @param leaderIter the leader card to discard
+     */
+    void callbackDiscardLeader(LeaderCard leaderIter);
 }

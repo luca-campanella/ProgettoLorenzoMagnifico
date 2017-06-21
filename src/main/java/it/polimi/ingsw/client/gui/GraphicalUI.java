@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -72,7 +73,8 @@ public abstract class GraphicalUI extends AbstractUIType {
      * @param board
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember) {
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember, ArrayList<LeaderCard> leaderCardsNotPlayed,
+                                 ArrayList<LeaderCard> playedLeaderCards) {
 
     }
 
@@ -197,7 +199,7 @@ public abstract class GraphicalUI extends AbstractUIType {
                 break;
             }
             if(tmpInput.equalsIgnoreCase("scarta")){
-                clientMain.callbackDiscardLeader();
+                //clientMain.callbackDiscardLeader();
                 break;
             }
             if(tmpInput.equalsIgnoreCase("Piazza")){

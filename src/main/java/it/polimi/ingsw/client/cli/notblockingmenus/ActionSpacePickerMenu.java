@@ -40,19 +40,19 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
 
         if(servantsNeededHarvest.isPresent())
             addOption("HARV", "Place on the harvest action space (at least" + servantsNeededHarvest.get()
-                    + " additional servants needed)", () -> this.placeFMOnHarvest());
+                    + " additional servants needed)", this::placeFMOnHarvest);
         if(servantsNeededBuild.isPresent())
             addOption("BUILD", "Place on the build action space (at least" + servantsNeededBuild.get()
-                    + " additional servants needed)", () -> this.placeFMOnBuild());
+                    + " additional servants needed)", this::placeFMOnBuild);
         if(servantsNeededCouncil.isPresent())
             addOption("COUNC", "Place on the council action space (" + servantsNeededCouncil.get()
-                    + " additional servants needed)", () -> controller.callbackPlacedFMOnCouncil());
+                    + " additional servants needed)", controller::callbackPlacedFMOnCouncil);
         if(!activeMarketSpaces.isEmpty())
             addOption("MARK", "Place on one of the market action spaces (you will be asked which)",
-                    () -> this.placeFMOnMarket());
+                    this::placeFMOnMarket);
         if(!activeTowerSpaces.isEmpty())
             addOption("TOWER", "Place on one of the towers action spaces (you will be asked which)",
-                    () -> this.placeFMOnTower());
+                    this::placeFMOnTower);
     }
 
     private void placeFMOnMarket() {

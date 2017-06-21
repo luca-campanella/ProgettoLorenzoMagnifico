@@ -518,5 +518,38 @@ public class Room {
             }
         }
     }
+
+    /**
+     * this method is called by the client to inform the server that had discrded a leader card
+     * @param nameCard the name of the card the player had discarded
+     * @param resourceGet the resource obtained
+     */
+    public void receiveDiscardLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, String nickname) {
+
+        controllerGame.discardLeaderCard(nickname, nameCard, resourceGet);
+        floodDiscardLeaderCard(nameCard, resourceGet, nickname);
+
+    }
+
+    /**
+     * this method is used to deliver to the other players the action
+     * @param nameCard the name of the leader card discarded
+     * @param resourceGet the type of resources gotten
+     * @param nickname the nickname o the player that had discrded the card
+     */
+    private void floodDiscardLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, String nickname) {
+
+        for(AbstractConnectionPlayer player : players){
+            if(!player.getNickname().equals(nickname)){
+                try{
+                    player.deliverDiscardLeaderCard(nameCard, nickname, resourceGet);
+                }
+
+                catch (NetworkException e){
+                    Debug.printError("cannot deliver the leader discarded to " + player.getNickname());
+                }
+            }
+        }
+    }
 }
 

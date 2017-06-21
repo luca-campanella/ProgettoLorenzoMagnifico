@@ -256,8 +256,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
      */
     public void discardLeaderCard(){
         try{
-            DiscardCardPacket packet=(DiscardCardPacket)inStream.readObject();
-            //TODO method
+            DiscardLeaderCardPacket packet=(DiscardLeaderCardPacket)inStream.readObject();
+            getRoom().receiveDiscardLeaderCard(packet.getNameCard(), packet.getResourceGet(), this.getNickname());
         }
         catch(IOException e){
             Debug.printError("network is not working", e);
@@ -730,6 +730,29 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch (IOException e){
             Debug.printError("Cannot receive the personal tile chosen by the client" + getNickname(),e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is called by the room to deliver the leader card discarded to the clients
+     * @param nameCard the name of the leader discarded
+     * @param nickname the nickname of the player that had discarded the leader
+     * @param resourceGet the resources obtained by the player
+     * @throws NetworkException
+     */
+    @Override
+    public void deliverDiscardLeaderCard(String nameCard, String nickname, HashMap<String, Integer> resourceGet) throws NetworkException {
+
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.DISCARD_LEADER);
+                outStream.writeObject(new ReceiveDiscardLeaderCardPacket(nickname, nameCard, resourceGet));
+            }
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the discarded leader to " + this.getNickname());
             throw new NetworkException(e);
         }
     }

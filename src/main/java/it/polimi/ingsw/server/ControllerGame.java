@@ -367,13 +367,14 @@ public class ControllerGame {
 
     /**
      * call the method on the controller of the model to discard a leader card
-     * @param player the player who has the card
+     * @param nickname the nickname of the player who has the card
      * @param nameLeader the name of the leader card
      */
-    public void discardLeaderCard(Player player, String nameLeader)  throws IllegalMoveException{
+    public void discardLeaderCard(String nickname, String nameLeader, HashMap<String, Integer> resourceGet){
 
-        controlTurnPlayer(player.getNickname());
-        modelController.discardLeaderCard(player, nameLeader);
+        controlTurnPlayer(nickname);
+        modelController.discardLeaderCard(nickname, nameLeader);
+        //TODO add resources
 
     }
 

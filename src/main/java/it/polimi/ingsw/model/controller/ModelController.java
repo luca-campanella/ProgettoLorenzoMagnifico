@@ -636,9 +636,12 @@ public class ModelController {
         gameBoard.placeOnCouncil(familyMember, choicesController);
     }
 
-    public void discardLeaderCard(Player player, String nameLeader){
+    public void discardLeaderCard(String playerNickname, String nameLeader){
 
-        //player.discardLeaderCard();
+        for(Player player : players){
+            if(player.getNickname().equals(playerNickname))
+                player.discardLeaderCard(nameLeader);
+        }
     }
 
     public void activateLeaderCard(Player player, String nameLeader){
@@ -745,7 +748,10 @@ public class ModelController {
         player.playLeader(leaderCard, choicesController);
     }
 
-
+    /**
+     * this method is called to place all the cards on the board
+     * @param cardsToPlace the cards to place on the board this turn
+     */
     public void placeCardOnBoard(ArrayList<AbstractCard> cardsToPlace) {
 
         int cardPlaced = 0;
@@ -770,6 +776,24 @@ public class ModelController {
                 player.setPersonalTile(personalTile);
         }
 
+    }
+
+    public ArrayList<LeaderCard> getLeaderCardsNotPlayed(String nickname){
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>(4);
+        for(Player player : players){
+            if(player.getNickname().equals(nickname))
+                leaderCards = player.getLeaderCardsNotUsed();
+        }
+        return leaderCards;
+    }
+
+    public ArrayList<LeaderCard> getLeaderCardsPlayed(String nickname){
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>(4);
+        for(Player player : players){
+            if(player.getNickname().equals(nickname))
+                leaderCards = player.getLeaderCardsPlayed();
+        }
+        return leaderCards;
     }
 }
 

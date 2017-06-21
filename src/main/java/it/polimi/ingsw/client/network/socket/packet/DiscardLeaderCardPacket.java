@@ -1,11 +1,12 @@
 package it.polimi.ingsw.client.network.socket.packet;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  * this packet is send when the player decides to use a leader card
  */
-public class DiscardCardPacket implements Serializable {
+public class DiscardLeaderCardPacket implements Serializable {
     /**
      * name of the leader card
      */
@@ -13,20 +14,20 @@ public class DiscardCardPacket implements Serializable {
     /**
      * the name of the resource that you want to obtain discarding the leader card
      */
-    private String resourceGet;
+    private HashMap<String, Integer> resourceChoose;
 
     /**
      * constructor
      * @param nameLeaderCard
      */
-    public DiscardCardPacket(String nameLeaderCard, String resourceGet){
+    public DiscardLeaderCardPacket(String nameLeaderCard, HashMap<String, Integer> resourceChoose){
         this.nameLeaderCard=nameLeaderCard;
-        this.resourceGet=resourceGet;
+        this.resourceChoose=resourceChoose;
     }
     public String getNameCard(){
         return nameLeaderCard;
     }
-    public String getResourceGet(){
-        return resourceGet;
+    public HashMap<String, Integer> getResourceGet(){
+        return resourceChoose;
     }
 }

@@ -60,7 +60,7 @@ public abstract class AbstractClientType  {
      * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
      * @throws NetworkException if something goes wrong during the connection
      */
-    public abstract void discardCard(String nameLeader, String resourceChoose) throws NetworkException;
+    public abstract void discardLeaderCard(String nameLeader, HashMap<String, Integer> resourceChoose) throws NetworkException;
 
     /**
      * this method is used to inform the room that the player had ended his phase

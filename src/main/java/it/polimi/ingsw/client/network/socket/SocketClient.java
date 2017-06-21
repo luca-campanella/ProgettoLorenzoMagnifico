@@ -170,12 +170,12 @@ public class SocketClient extends AbstractClientType {
      * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
      */
     @Override
-    public void discardCard(String nameLeader, String resourceChoose) throws NetworkException{
+    public void discardLeaderCard(String nameLeader, HashMap<String, Integer> resourceChoose) throws NetworkException{
 
         try {
             synchronized (this){
                 outStream.writeObject(PacketType.DISCARD_LEADER);
-                outStream.writeObject(new DiscardCardPacket(nameLeader, resourceChoose));
+                outStream.writeObject(new DiscardLeaderCardPacket(nameLeader, resourceChoose));
             }
             outStream.flush();
         }

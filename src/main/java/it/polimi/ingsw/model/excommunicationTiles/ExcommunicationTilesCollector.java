@@ -122,7 +122,7 @@ public class ExcommunicationTilesCollector {
      */
     public int payMoreServant()
     {
-        int malus = 0;
+        int malus = 1;
         int tmp;
         for(ExcommunicationTile tileIter : tiles) {
             tmp = tileIter.getEffect().payMoreServant();

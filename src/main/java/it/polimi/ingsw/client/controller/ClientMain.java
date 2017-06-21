@@ -221,8 +221,17 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     /**
      * this method it's a callback method called from AbstractUIType when i want to discard a Leader.
      */
-    public void callbackDiscardLeader(){
+    public void callbackDiscardLeader(LeaderCard leaderCard){
+
         Debug.printDebug("I'm in ClientMain.callbackDiscardLeader");
+        modelController.discardLeaderCard(thisPlayer.getNickname(),leaderCard.getName());
+        //TODO add resources
+        try{
+            clientNetwork.discardLeaderCard(leaderCard.getName(),choicesOnCurrentAction);
+        }
+        catch (NetworkException e){
+            Debug.printError("the client cannot deliver the leader card to discard");
+        }
     }
 
     /**
@@ -590,7 +599,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
         initialActionsOnPlayerMove();
-        userInterface.askInitialAction(playableFMs, modelController.getBoard(), playedFamilyMember);
+        userInterface.askInitialAction(playableFMs, modelController.getBoard(), playedFamilyMember,
+                modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname()), modelController.getLeaderCardsPlayed(thisPlayer.getNickname()));
 
     }
 

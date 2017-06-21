@@ -45,7 +45,9 @@ public class Player implements Serializable{
      * These are the leader cards the user chose at the beginning of the game and hasn't played yet
      * Players should be moved out of this list once played
      */
-    private ArrayList<LeaderCard> leaderCards;
+    private ArrayList<LeaderCard> leaderCardsNotUsed;
+
+    private ArrayList<LeaderCard> leaderCardsPlayed;
 
     /**
      * These are the leader cards the user decided to play,
@@ -84,18 +86,18 @@ public class Player implements Serializable{
 
         playedOncePerRoundLeaderCards = new LinkedList<LeaderCard>();
         playedAndActivatedOncePerRoundLeaderCards = new LinkedList<LeaderCard>();
-        leaderCards = new ArrayList<LeaderCard>(4);
+        leaderCardsNotUsed = new ArrayList<LeaderCard>(4);
+        leaderCardsPlayed = new ArrayList<LeaderCard>(4);
         permanentLeaderCardCollector = new PermanentLeaderCardCollector();
         excommunicationTilesCollector = new ExcommunicationTilesCollector();
 
         personalBoard = new PersonalBoard();
-        //TODO CHOOSE TILES OF PERSONAL BOARD
         resourcesMap = new ResourceCollector();
         loadInitialResources();
         notUsedFamilyMembers = new ArrayList<>(4);
         usedFamilyMembers = new ArrayList<>(4);
         //excommunicanionCard = new ArrayList<>(3);
-        //leaderCards = new ArrayList<>(3);
+        //leaderCardsNotUsed = new ArrayList<>(3);
     }
 
     /**
@@ -240,24 +242,24 @@ public class Player implements Serializable{
 
     public void addLeaderCard(LeaderCard leaderCard){
 
-        this.leaderCards.add(leaderCard);
+        this.leaderCardsNotUsed.add(leaderCard);
     }
 
-    public ArrayList<LeaderCard> getLeaderCards(){
+    public ArrayList<LeaderCard> getLeaderCardsNotUsed(){
 
-        return leaderCards;
+        return leaderCardsNotUsed;
     }
 /*
-    public void activateLeaderCard(LeaderCard leaderCards){
+    public void activateLeaderCard(LeaderCard leaderCardsNotUsed){
 
-        this.leaderCards.remove(leaderCards);
-        playedLeaderCard.add(leaderCards);
+        this.leaderCardsNotUsed.remove(leaderCardsNotUsed);
+        playedLeaderCard.add(leaderCardsNotUsed);
 
     }
 
-    public void discardLeaderCard(LeaderCard leaderCards){
+    public void discardLeaderCard(LeaderCard leaderCardsNotUsed){
 
-        this.leaderCards.remove(leaderCards);
+        this.leaderCardsNotUsed.remove(leaderCardsNotUsed);
         //TODO get bonus
     }*/
 
@@ -332,7 +334,7 @@ public class Player implements Serializable{
     public List<LeaderCard> getPlayableLeaders() {
         ArrayList<LeaderCard> playableLeaders = new ArrayList<LeaderCard>(1);
 
-        for(LeaderCard leaderIter : leaderCards) {
+        for(LeaderCard leaderIter : leaderCardsNotUsed) {
             if(leaderIter.isPlayable(this))
                 playableLeaders.add(leaderIter);
         }
@@ -402,7 +404,7 @@ public class Player implements Serializable{
      * @param leaderCardToBeDiscarded the card to be discarded
      */
     public void discardLeader(LeaderCard leaderCardToBeDiscarded, ChoicesHandlerInterface choicesHandler) {
-        leaderCards.remove(leaderCardToBeDiscarded);
+        leaderCardsNotUsed.remove(leaderCardToBeDiscarded);
         List<GainResourceEffect> resourceChoice = choicesHandler.callbackOnCouncilGift("discardLeader", 1);
         for(GainResourceEffect effectIter : resourceChoice)
             effectIter.applyToPlayer(this, choicesHandler, "discardLeaderInside");
@@ -414,5 +416,21 @@ public class Player implements Serializable{
 
     public PermanentLeaderCardCollector getPermanentLeaderCardCollector() {
         return permanentLeaderCardCollector;
+    }
+
+    public ArrayList<LeaderCard> getLeaderCardsPlayed() {
+        return leaderCardsPlayed;
+    }
+
+    /**
+     * this method is used to discard a leader card of a player
+     * @param nameLeader the name of the leader card
+     */
+    public void discardLeaderCard(String nameLeader) {
+
+        for(LeaderCard leaderCard : leaderCardsNotUsed){
+            if(leaderCard.getName().equals(nameLeader))
+                leaderCardsNotUsed.remove(leaderCard);
+        }
     }
 }

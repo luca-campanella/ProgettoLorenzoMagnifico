@@ -119,6 +119,11 @@ import java.util.HashMap;
         }
     }
 
+    @Override
+    public void deliverDiscardLeaderCard(String nameCard, String nickname, HashMap<String, Integer> resourceGet) throws NetworkException {
+
+    }
+
     /**
      * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
      * @param familyMember the family member placed on the tower
