@@ -35,7 +35,7 @@ public class LoginRegisterMenu extends BasicCLIMenu {
                 () -> this.register());
     }
 
-    private void login() {
+    public void login() {
         UsrPwdContainer usrPwdContainer = readUsrPwd();
         getController().callbackLogin(usrPwdContainer.getNickname(), usrPwdContainer.getPassword());
     }

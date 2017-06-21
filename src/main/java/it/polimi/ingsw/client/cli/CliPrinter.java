@@ -501,43 +501,43 @@ public class CliPrinter {
      */
     private static void printPersonalBoardResources(Player player) {
         StringBuilder resourcesStatus = new StringBuilder();
+        resourcesStatus.append("PRINTING RESOURCES :");
+        resourcesStatus.append("\n\tCoins : ");
         resourcesStatus.append(player.getResource(ResourceTypeEnum.COIN));
-        resourcesStatus.append("COINS");
+        resourcesStatus.append("\n\tWood : ");
         resourcesStatus.append(player.getResource(ResourceTypeEnum.WOOD));
-        resourcesStatus.append("WOOD");
+        resourcesStatus.append("\n\tStone : ");
         resourcesStatus.append(player.getResource(ResourceTypeEnum.STONE));
-        resourcesStatus.append("STONE");
+        resourcesStatus.append("\n\tServant : ");
         resourcesStatus.append(player.getResource(ResourceTypeEnum.SERVANT));
-        resourcesStatus.append("SERVANT");
+        resourcesStatus.append("\n\tMilitary Point : ");
         resourcesStatus.append(player.getResource(ResourceTypeEnum.MILITARY_POINT));
-        resourcesStatus.append("MILITARY_POINT");
+        resourcesStatus.append("\n\tVictory Point : ");
         resourcesStatus.append(player.getResource(ResourceTypeEnum.VICTORY_POINT));
-        resourcesStatus.append("VICTORY_POINT");
         System.out.println(resourcesStatus);
     }
 
     /**
      * this class prints the personalBoard
      *
-     * @param personalBoard is the board where players put their own cards
      * @param player        is the user of the game
      */
-    public static void printPersonalBoard(PersonalBoard personalBoard, Player player) {
+    public static void printPersonalBoard(Player player) {
         System.out.println("");
         System.out.print("Printing Territory Cards: ");
-        printGenericCards(personalBoard.getCardListByColor(CardColorEnum.GREEN));
+        printGenericCards(player.getPersonalBoard().getCardListByColor(CardColorEnum.GREEN));
         System.out.print("Printing Character Cards: ");
-        printGenericCards(personalBoard.getCardListByColor(CardColorEnum.BLUE));
+        printGenericCards(player.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE));
         System.out.print("Printing Building Cards: ");
-        printGenericCards(personalBoard.getCardListByColor(CardColorEnum.YELLOW));
+        printGenericCards(player.getPersonalBoard().getCardListByColor(CardColorEnum.YELLOW));
         System.out.print("Printing Venture Cards: ");
-        printGenericCards(personalBoard.getCardListByColor(CardColorEnum.PURPLE));
+        printGenericCards(player.getPersonalBoard().getCardListByColor(CardColorEnum.PURPLE));
         /*printPersonalBoardTerritoryCards(personalBoard.getCardListByColor());
         printPersonalBoardCharacterCards(personalBoard.getCharacterCards());
         printPersonalBoardBuildingCards(personalBoard.getBuildingCards());
         printPersonalBoardVentureCards(personalBoard.getVentureCards());*/
-        System.out.print("Printing personal tile: ");
-        printPersonalTile(personalBoard.getPersonalTile());
+        System.out.print("PRINTING PERSONAL TILE: ");
+        printPersonalTile(player.getPersonalBoard().getPersonalTile());
         printPersonalBoardResources(player);
 
     }

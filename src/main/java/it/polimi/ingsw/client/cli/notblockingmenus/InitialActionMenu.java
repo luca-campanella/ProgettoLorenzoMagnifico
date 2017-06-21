@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -21,12 +22,13 @@ public class InitialActionMenu extends BasicCLIMenu {
     private ArrayList<LeaderCard> playedLeaderCards;
 
     public InitialActionMenu(ViewControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilMembery,
-                             ArrayList<LeaderCard> leaderCardsNotPlayed, ArrayList<LeaderCard> playedLeaderCards) {
+                             ArrayList<LeaderCard> leaderCardsNotPlayed, ArrayList<LeaderCard> playedLeaderCards, Player player) {
         super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
         this.playableFMs = playableFMs;
         this.leaderCardsNotPlayed = leaderCardsNotPlayed;
         this.playedLeaderCards = playedLeaderCards;
         addOption("BOARD", "Show me the board", () -> this.printBoard(board));
+        addOption("PB", "Show the personal board of the player", () -> this.printPersonalBoard(player));
         if(!playedFamilMembery)
             addOption("FM", "Place a Family Member on an action space", this::placeFamilyMember);
         if(leaderCardsNotPlayed.size() !=0)
@@ -53,7 +55,6 @@ public class InitialActionMenu extends BasicCLIMenu {
         if(playableFMs.size() == 1) {
             System.out.println("You can only place family member " + playableFMs.get(0).getColor() + " with value " + playableFMs.get(0).getValue());
             System.out.println("I'm placing this family member");
-            indexRes = 0;
         } else {
             Debug.printVerbose("placeFamilyMember called");
             CliOptionsHandler familyMemberChooser = new CliOptionsHandler(playableFMs.size());
@@ -71,9 +72,27 @@ public class InitialActionMenu extends BasicCLIMenu {
      */
     private void discardLeader() {
 
-        LeaderDiscardMenu menu = new LeaderDiscardMenu(getController(),leaderCardsNotPlayed);
-        ExecutorService pool = Executors.newFixedThreadPool(1);
-        pool.submit(menu);
+        int indexRes = 0;
+        if(leaderCardsNotPlayed.size() == 1) {
+            System.out.println("You can only discard Leader Card " + leaderCardsNotPlayed.get(0).getName());
+            System.out.println("I'm discarding this leader card");
+        } else {
+            Debug.printVerbose("discard leader card called");
+            CliOptionsHandler discardLeaderCardChooser = new CliOptionsHandler(leaderCardsNotPlayed.size());
+
+            for (LeaderCard lcIter : leaderCardsNotPlayed) {
+                discardLeaderCardChooser.addOption("Discard " + lcIter.getName() + " of description " + lcIter.getAbility().getAbilityDescription());
+            }
+            indexRes = discardLeaderCardChooser.askUserChoice();
+        }
+        getController().callbackDiscardLeader(leaderCardsNotPlayed.get(indexRes));
+    }
+
+    private void printPersonalBoard(Player player){
+
+        CliPrinter.printPersonalBoard(player);
+        showMenuAndAsk();
+
     }
 
     private void playLeader() {

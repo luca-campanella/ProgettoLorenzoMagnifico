@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
@@ -74,7 +75,7 @@ public abstract class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember, ArrayList<LeaderCard> leaderCardsNotPlayed,
-                                 ArrayList<LeaderCard> playedLeaderCards) {
+                                 ArrayList<LeaderCard> playedLeaderCards, Player player) {
 
     }
 

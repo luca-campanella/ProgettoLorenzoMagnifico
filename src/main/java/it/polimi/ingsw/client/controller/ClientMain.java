@@ -600,7 +600,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(this);
         initialActionsOnPlayerMove();
         userInterface.askInitialAction(playableFMs, modelController.getBoard(), playedFamilyMember,
-                modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname()), modelController.getLeaderCardsPlayed(thisPlayer.getNickname()));
+                modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname()), modelController.getLeaderCardsPlayed(thisPlayer.getNickname()), thisPlayer);
 
     }
 
@@ -654,7 +654,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receivedPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
-        userInterface.askPersonalTiles(standardTile, specialTile);
+        //userInterface.askPersonalTiles(standardTile, specialTile);
+        callbackOnTileChosen(standardTile);
     }
 
     /**
