@@ -77,4 +77,12 @@ public interface ChoicesHandlerInterface {
      * @return true if he also wants to activate, false otherwise
      */
     public boolean callbackOnAlsoActivateLeaderCard();
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when the player performs an action but from the model we have to ask
+     * how many servants he wants to add
+     * @return the number of servants the player wants to add to the action
+     */
+    public int callbackOnAddingServants(String choiceCode, int minimum, int maximum);
 }

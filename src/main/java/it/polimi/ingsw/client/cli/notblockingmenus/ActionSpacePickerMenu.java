@@ -115,26 +115,12 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
         System.out.println("Choose how many servants you want to add to the base action:\n" +
                             "Base number of servants needed: " + baseValue + "\n" +
                             "You can add up to " + addableServants + " servants");
-        int choice = readAndParseInt();
+        int choice = StdinSingleton.readAndParseInt();
         while(choice < 0 || choice > addableServants) {
             System.out.println("Please insert a number between 0 and " + addableServants);
-            choice = readAndParseInt();
+            choice = StdinSingleton.readAndParseInt();
         }
 
         return choice;
-    }
-
-    /**
-     * reads a line from the console and tries to parse it as an integer, if it cannot returns -1
-     * @return the integer read or -1 if error
-     */
-    private int readAndParseInt(){
-        String line = StdinSingleton.nextLine();
-        try{
-            return Integer.parseInt(line);
-        } catch (NumberFormatException e) {
-            Debug.printVerbose("Not entered a number");
-            return -1;
-        }
     }
 }

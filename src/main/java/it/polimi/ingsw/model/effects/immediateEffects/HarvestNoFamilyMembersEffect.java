@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 /**
  * This effect allows player to harvest without placing a family member on HarvestAS ex: 69
@@ -14,8 +15,8 @@ public class HarvestNoFamilyMembersEffect extends AbstractPerformActionEffect {
     }
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName){
-        //todo: ask servants
-        player.harvest(diceValue, choicesHandlerInterface);
+        int servantsToAdd = choicesHandlerInterface.callbackOnAddingServants(cardName,0, player.getResource(ResourceTypeEnum.SERVANT));
+        player.harvest(diceValue + servantsToAdd, choicesHandlerInterface);
     }
 
     @Override

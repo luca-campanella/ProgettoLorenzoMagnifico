@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.player.Player;
+
+import java.util.List;
 
 /**
  * This class handles the leader's ability that gives the player the possibility to use
@@ -22,6 +25,7 @@ public class OncePerRoundCouncilGiftAbility extends AbstractImmediateLeaderAbili
 
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface, String cardName) {
-        //todo give council gift to a player;
+        List<GainResourceEffect> choices = choicesHandlerInterface.callbackOnCouncilGift(cardName, numberOfDifferentCouncilGift);
+        choices.forEach(choice -> choice.applyToPlayer(player, choicesHandlerInterface, cardName+"innerChoice"));
     }
 }

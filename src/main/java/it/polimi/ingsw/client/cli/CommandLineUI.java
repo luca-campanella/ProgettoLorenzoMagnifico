@@ -8,7 +8,6 @@ import it.polimi.ingsw.client.cli.notblockingmenus.*;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
-import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
@@ -155,22 +154,6 @@ public class CommandLineUI extends AbstractUIType {
         LoginRegisterMenu menu = new LoginRegisterMenu(getController());
 
         pool.submit(menu);
-    }
-
-    /**
-     * this method allows CLI to ask proper Database's info to user.
-     * @return
-     */
-    private UsrPwdContainer readUsrPwd()
-    {
-        String nickname, password;
-
-        System.out.println("Insert UserId");
-        nickname = StdinSingleton.nextLine();
-        System.out.println("Insert PassWord");
-        password = StdinSingleton.nextLine();
-
-        return new UsrPwdContainer(nickname, password);
     }
 
     /*
@@ -395,6 +378,28 @@ public class CommandLineUI extends AbstractUIType {
         optionsHandler.addOption("no - do not activate his once per round effect");
 
         return optionsHandler.askUserChoice();
+    }
+
+    /*
+     * This method is called when the player performs an action but from the model we have to ask
+     * how many servants he wants to add
+     * @param minimum the minimum number of servants he shuold at least add (typically 0)
+     * @param maximum the maximum number of servants he can add (typically the ones the player has)
+     * @return the number of servants the player wants to add to the action
+     */
+    @Override
+    public int askAddingServants(int minimum, int maximum) {
+        System.out.println("You can add servants to your current action, you can add from " + minimum
+                + " to " + maximum + " servants. How many do you want to add?");
+
+        int choice = StdinSingleton.readAndParseInt();
+        while(choice < minimum || choice > maximum) {
+            System.out.println("Please add a correct number of servnts, between " + minimum
+                    + " and " + maximum);
+            choice = StdinSingleton.readAndParseInt();
+        }
+
+        return choice;
     }
 
     @Override

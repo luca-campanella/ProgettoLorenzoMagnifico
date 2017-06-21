@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.cli;
 
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,28 +100,14 @@ public class CliOptionsHandler {
         for(int i = 0; i< options.size(); i++)
             System.out.println(i + "--- " + options.get(i));
 
-        numberPicked = readAndParseInt();
+        numberPicked = StdinSingleton.readAndParseInt();
 
         while(numberPicked >= options.size() || numberPicked < 0) {
             System.out.println("Please insert a valid number, between 0 and " + (options.size() - 1));
-            numberPicked = readAndParseInt();
+            numberPicked = StdinSingleton.readAndParseInt();
         }
 
         return numberPicked;
-    }
-
-    /**
-     * reads a line from the console and tries to parse it as an integer, if it cannot returns -1
-     * @return the integer read or -1 if error
-     */
-    private int readAndParseInt(){
-        String line = StdinSingleton.nextLine();
-        try{
-            return Integer.parseInt(line);
-        } catch (NumberFormatException e) {
-            Debug.printVerbose("Not entered a number");
-            return -1;
-        }
     }
 
     //Just for testing

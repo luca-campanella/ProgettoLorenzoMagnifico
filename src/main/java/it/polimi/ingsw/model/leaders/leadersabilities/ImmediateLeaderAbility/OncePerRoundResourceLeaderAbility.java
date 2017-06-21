@@ -25,7 +25,7 @@ public class OncePerRoundResourceLeaderAbility extends AbstractImmediateLeaderAb
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface, String cardName)
     {
-        player.addResources(bonuses);
+        player.addResourcesNoMalus(bonuses);
     }
 
     public String getAbilityDescription() {
