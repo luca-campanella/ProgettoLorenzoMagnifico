@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.cli;
 
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.cards.VentureCard;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
@@ -12,6 +13,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.server.JSONLoader;
+import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -246,23 +248,30 @@ public class CliPrinter {
     /**
      * This method prints a generic card cost pillar
      */
-    public static void printGenericCostPillar(TowerFloorAS floor) {
+    private static void printGenericCostPillar(TowerFloorAS floor) {
         int i = 0;
         ArrayList<Resource> costs;
         StringBuilder tempCostsScene = new StringBuilder("|Cost: ");
-        costs = floor.getCard().getCost();
-        //first i print the costs
+        if(floor.getCard() instanceof VentureCard) {
+            try {
+                tempCostsScene.append(((VentureCard) floor.getCard()).getCostChoiceMilitary().getDescription());
+            } catch (NullPointerException noChoiceMilitary) {
+                ;
+            }
+        }
         try {
+            costs = floor.getCard().getCost();
+            //first i print the costs
             for (i = 0; i < costs.size(); i++) {
                 tempCostsScene.append(costs.get(i).getResourceShortDescript());
                 tempCostsScene.append(" ");
             }
         } catch (NullPointerException e) {
-            printScene("|La risorsa è vuota " + costs.size() + " " + costs.get(0).getValue());
-            return;
+            ;
         }
         printScene(tempCostsScene.toString());
     }
+
 
     private static void printScene(String toPrintString) {
         int i;
