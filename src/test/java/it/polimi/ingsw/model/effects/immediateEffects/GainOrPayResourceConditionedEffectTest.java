@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -53,6 +55,11 @@ public class GainOrPayResourceConditionedEffectTest {
         @Override
         public int callbackOnAddingServants(String choiceCode, int minimum, int maximum) {
             return 0;
+        }
+
+        @Override
+        public DiceAndFamilyMemberColorEnum callbackOnFamilyMemberBonus(String choiceCode, List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException {
+            return null;
         }
     };
 
