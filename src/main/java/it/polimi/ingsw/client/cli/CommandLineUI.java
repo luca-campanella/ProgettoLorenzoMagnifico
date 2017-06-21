@@ -5,13 +5,11 @@ package it.polimi.ingsw.client.cli;
  */
 
 import it.polimi.ingsw.client.cli.notblockingmenus.*;
-
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
-import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
@@ -25,7 +23,10 @@ import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 //TODO
@@ -54,20 +55,10 @@ public class CommandLineUI extends AbstractUIType {
     public void askNetworkType()
     {
         Debug.printDebug("I am in CLI. Select NetworkType");
-        NetworkTypeEnum choice;
-        while(true) {
-            System.out.println("Choose rmi or socket.");
-            tmpInput = StdinSingleton.nextLine();
-            if (tmpInput.equalsIgnoreCase("rmi")) {
-                choice = NetworkTypeEnum.RMI;
-                break;
-            }
-            if (tmpInput.equalsIgnoreCase("SOCKET")) {
-                choice = NetworkTypeEnum.SOCKET;
-                break;
-            }
-        }
-        getController().callbackNetworkType(choice);
+
+        NetworkTypePickerMenu menu = new NetworkTypePickerMenu(getController());
+
+        pool.submit(menu);
     }
 
     /**
