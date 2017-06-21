@@ -21,5 +21,7 @@ public class ReceiveDiscardLeaderCardPacket extends DiscardLeaderCardPacket {
         this.nickname = nickname;
     }
 
-
+    public java.lang.String getNickname() {
+        return nickname;
+    }
 }

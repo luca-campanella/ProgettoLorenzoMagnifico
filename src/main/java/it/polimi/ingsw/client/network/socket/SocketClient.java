@@ -670,4 +670,18 @@ public class SocketClient extends AbstractClientType {
             Debug.printError("cannot receive the personal tile from other player",e);
         }
     }
+
+    /**
+     * this method iscused to receive the leader cards from other players
+     */
+    public void receiveDiscardLeaderCard(){
+
+        try{
+            ReceiveDiscardLeaderCardPacket packet = (ReceiveDiscardLeaderCardPacket)inStream.readObject();
+            getControllerMain().receivedDiscardLeaderCard(packet.getNickname(), packet.getNameCard(), packet.getResourceGet());
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the discard card receive from the server",e);
+        }
+    }
 }

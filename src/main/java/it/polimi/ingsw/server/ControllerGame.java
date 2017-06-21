@@ -373,8 +373,8 @@ public class ControllerGame {
     public void discardLeaderCard(String nickname, String nameLeader, HashMap<String, Integer> resourceGet){
 
         controlTurnPlayer(nickname);
-        modelController.discardLeaderCard(nickname, nameLeader);
-        //TODO add resources
+        choicesController.setChoicesMap(resourceGet);
+        modelController.discardLeaderCard(nickname, nameLeader,choicesController);
 
     }
 
@@ -392,7 +392,6 @@ public class ControllerGame {
 
     /**
      * control if is the turn of the player that had delivered a move
-     * @throws IllegalMoveException
      */
     private void controlTurnPlayer(String playerName){
 

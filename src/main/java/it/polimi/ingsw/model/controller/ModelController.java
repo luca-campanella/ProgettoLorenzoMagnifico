@@ -636,12 +636,19 @@ public class ModelController {
         gameBoard.placeOnCouncil(familyMember, choicesController);
     }
 
-    public void discardLeaderCard(String playerNickname, String nameLeader){
+    public void discardLeaderCard(String playerNickname, String nameLeader, ChoicesHandlerInterface choicesHandlerInterface){
 
+        Player playerMove = null;
         for(Player player : players){
-            if(player.getNickname().equals(playerNickname))
+            if(player.getNickname().equals(playerNickname)){
                 player.discardLeaderCard(nameLeader);
+                playerMove = player;
+            }
         }
+
+        List<GainResourceEffect> choices = choicesHandlerInterface.callbackOnCouncilGift("discard leader", 1);
+        for(GainResourceEffect effectIterator : choices)
+            effectIterator.applyToPlayer(playerMove, choicesHandlerInterface, nameLeader);
     }
 
     public void activateLeaderCard(Player player, String nameLeader){

@@ -224,8 +224,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void callbackDiscardLeader(LeaderCard leaderCard){
 
         Debug.printDebug("I'm in ClientMain.callbackDiscardLeader");
-        modelController.discardLeaderCard(thisPlayer.getNickname(),leaderCard.getName());
-        //TODO add resources
+        modelController.discardLeaderCard(thisPlayer.getNickname(),leaderCard.getName(),this);
         try{
             clientNetwork.discardLeaderCard(leaderCard.getName(),choicesOnCurrentAction);
         }
@@ -635,6 +634,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void callbackOnLeaderCardChosen(LeaderCard leaderCardChoice) {
         Debug.printVerbose("callbackOnLeaderCardChosen Called");
+        modelController.addLeaderCardToPlayer(leaderCardChoice, thisPlayer);
         try {
             clientNetwork.deliverLeaderChose(leaderCardChoice);
         } catch (NetworkException e) {
@@ -828,6 +828,21 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receiveFloodPersonalTile(String nickname, PersonalTile personalTile) {
         modelController.setPersonalTile(personalTile, nickname);
+    }
+
+    /**
+     * this method is called by the connectioon to deliver the discard leader card of a player
+     * @param nickname the nickname of the player that discarded the leader card
+     * @param nameCard the name of the leader card discarded
+     * @param resourceGet the resource obtained
+     */
+    @Override
+    public void receivedDiscardLeaderCard(String nickname, String nameCard, HashMap<String, Integer> resourceGet) {
+
+        otherPlayerChoicesHandler.setChoicesMap(resourceGet);
+        modelController.discardLeaderCard(nickname, nameCard, otherPlayerChoicesHandler);
+        Debug.printVerbose("The player "+ nickname + " has discarded " + nameCard);
+
     }
 
 }
