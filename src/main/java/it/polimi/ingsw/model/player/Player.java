@@ -262,7 +262,7 @@ public class Player implements Serializable{
         personalBoard.addCard(card);
     }
 
-    public void addLeaderCard(LeaderCard leaderCard){
+    public synchronized void addLeaderCard(LeaderCard leaderCard){
 
         this.leaderCardsNotUsed.add(leaderCard);
     }

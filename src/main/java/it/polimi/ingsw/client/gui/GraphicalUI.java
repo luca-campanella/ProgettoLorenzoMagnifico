@@ -13,18 +13,37 @@ import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
+import javafx.application.Application;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-public abstract class GraphicalUI extends AbstractUIType {
-    //TODO gui -- I copied CLI here because absUIType wouldn't let me run the program and test it
+public class GraphicalUI extends AbstractUIType {
+
+    private MainGUIApplication guiApplication;
+
+
+    /**
+     * This is the constructor of the class
+     * @param controller is used to make callbacks on the controller ({@link ClientMain}
+     */
+    public GraphicalUI(ViewControllerCallbackInterface controller)
+    {
+        super(controller);
+        guiApplication = new MainGUIApplication();
+        guiApplication.setController(controller);
+        //guiApplication.launch();
+
+        Application.launch(MainGUIApplication.class);
+    }
+
     public void selectFamilyMember()
     {
         int i;
@@ -41,6 +60,23 @@ public abstract class GraphicalUI extends AbstractUIType {
         }
         //clientMain.callbackFamilyMemberSelected(familyColorID);
     }
+
+    /**
+     * This method asks the user to pick one of the action spaces to put his family member in
+     * Direction: {@link ClientMain} -> {@link AbstractUIType}
+     *
+     * @param servantsNeededHarvest The servants needed by the user to harvest, Optional.empty() if the action is not valid
+     * @param servantsNeededBuild   The servants needed by the user to build, Optional.empty() if the action is not valid
+     * @param servantsNeededCouncil The servants needed by the user to place on cuincil, Optional.empty() if the action is not valid
+     * @param activeMarketSpaces    The list of legal action spaces in the market
+     * @param activeTowerSpaces     the list of legal action spaces on the towers
+     * @param availableServants     the number of servants the user can spend to perform the action
+     */
+    @Override
+    public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest, Optional<Integer> servantsNeededBuild, Optional<Integer> servantsNeededCouncil, List<MarketWrapper> activeMarketSpaces, List<TowerWrapper> activeTowerSpaces, int availableServants) {
+
+    }
+
     /**
      * this method prints all allowed actions for the user.
      * @param legalActionSpaces
@@ -114,6 +150,82 @@ public abstract class GraphicalUI extends AbstractUIType {
     }
 
     /**
+     * This method is called at the beginning of the game to choose one leader card
+     * This method should be non-blocking
+     *
+     * @param leaderCards the list of resources the player will pay if he chooses this option
+     */
+    @Override
+    public void askLeaderCards(List<LeaderCard> leaderCards) {
+
+    }
+
+    /**
+     * This method is called at the beginning of the game to choose one personal tile
+     * This method should be non-blocking
+     *
+     * @param standardTile option1
+     * @param specialTile  option2
+     */
+    @Override
+    public void askPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
+
+    }
+
+    /**
+     * This method is called when a player chooses to play a ledear with a COPY ability and he should be asked to choose
+     * This method should be blocking
+     *
+     * @param possibleLeaders the possibilites to choose from
+     * @return the index of the choice
+     */
+    @Override
+    public int askWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
+        return 0;
+    }
+
+    /**
+     * This method is called when the player it is playing a leader who has a ONCE_PER_ROUND ability
+     * to ask the user if he also wants to activate the ability
+     * This method should be blocking
+     *
+     * @return true if he also wants to activate, false otherwise
+     */
+    @Override
+    public int askAlsoActivateLeaderCard() {
+        return 0;
+    }
+
+    @Override
+    public int askAddingServants(int minimum, int maximum) {
+        return 0;
+    }
+
+    /**
+     * this method is called when a player pass the phase
+     *
+     * @param nickname the player that had pass the phase
+     */
+    @Override
+    public void showEndOfPhaseOfPlayer(String nickname) {
+
+    }
+
+    /**
+     * This method is called when the player activate a leader with a once per round ability that modifies
+     * the value of one of his colored family members, he has to choose which one
+     *
+     * @param availableFamilyMembers the list of available family member, it's useless to modify
+     *                               the value of a family member already played
+     * @return the color of the family member he chose
+     * @throws IllegalArgumentException if the list is empty
+     */
+    @Override
+    public DiceAndFamilyMemberColorEnum askWhichFamilyMemberBonus(List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException {
+        return null;
+    }
+
+    /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error
      *
      * @param error
@@ -167,15 +279,6 @@ public abstract class GraphicalUI extends AbstractUIType {
         //askLoginOrCreate()
     }
 
-
-    /**
-     * This is the costructor of the class
-     * @param x is the ClientMain
-     */
-    public GraphicalUI(ViewControllerCallbackInterface x)
-    {
-       super(x);
-    }
     /**
      * Chiede all'utente con quale connessione si vuole connettere
      */

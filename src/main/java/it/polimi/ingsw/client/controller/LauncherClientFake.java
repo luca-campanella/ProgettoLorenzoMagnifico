@@ -1,5 +1,8 @@
 package it.polimi.ingsw.client.controller;
+
 import it.polimi.ingsw.client.cli.CommandLineUI;
+import it.polimi.ingsw.client.cli.StdinSingleton;
+import it.polimi.ingsw.client.gui.GraphicalUI;
 
 /**
  * todo: implement a proper launcher
@@ -31,16 +34,15 @@ public class LauncherClientFake {
         String input;
         while(true){
             System.out.println("Do you want to use CLI or gui?");
-            //input = StdinSingleton.nextLine();
+            input = StdinSingleton.nextLine();
             //TODO delete this
-            input ="cli";
+            //input ="cli";
 
             if(input.equalsIgnoreCase("cli")){
                 return new CommandLineUI(this.clientMain);
             }
             if(input.equalsIgnoreCase("gui")){
-                //return new GraphicalUI(this.clientMain);
-
+                return new GraphicalUI(this.clientMain);
             }
         }
 
