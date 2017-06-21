@@ -25,4 +25,8 @@ public class VentureCardMilitaryCost implements Serializable {
     public Resource getResourceCost() {
         return resourceCost;
     }
+
+    public String getDescription(){
+        return ("IF " + resourceRequirement.getResourceShortDescript() + "-" + resourceCost.getResourceShortDescript());
+    }
 }

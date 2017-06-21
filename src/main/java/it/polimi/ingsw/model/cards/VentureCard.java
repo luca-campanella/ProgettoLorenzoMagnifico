@@ -34,32 +34,12 @@ public class VentureCard extends AbstractCard{
     //TODO
     @Override
     public ArrayList<Resource> getCost(){
-        ArrayList<Resource> temp = new ArrayList<>();
-        try {
-            temp.addAll(costChoiceResource);
-        }catch(NullPointerException e)
-        {
-            //do nothing;
-        }
-        try {
-            temp.add(getCostChoiceMilitary().getResourceCost());
-        }catch(NullPointerException e)
-        {
-            //do nothing
-        }
-
-        return temp;
-    }
-
-    public ArrayList<Resource> getCostResources(){
-
         return costChoiceResource;
-
     }
+
 
 
     public VentureCardMilitaryCost getCostChoiceMilitary(){
-
         return costChoiceMilitary;
     }
 
