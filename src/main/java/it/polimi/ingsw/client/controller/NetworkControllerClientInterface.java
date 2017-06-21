@@ -151,4 +151,12 @@ public interface NetworkControllerClientInterface {
      * @param personalTile the personal tile chosen
      */
     public void receiveFloodPersonalTile(String nickname, PersonalTile personalTile);
+
+    /**
+     * this method is called by the connection to deliver the leader card discarded by a player
+     * @param nickname the nickname of the player that discarded the leader card
+     * @param nameCard the name of the leader card discarded
+     * @param resourceGet the resource obtained
+     */
+    public void receivedDiscardLeaderCard(String nickname, String nameCard, HashMap<String, Integer> resourceGet);
 }

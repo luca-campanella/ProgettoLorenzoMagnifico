@@ -71,7 +71,7 @@ public class InitialActionMenu extends BasicCLIMenu {
      */
     private void discardLeader() {
 
-        LeaderPickerMenu menu = new LeaderPickerMenu(getController(),leaderCardsNotPlayed);
+        LeaderDiscardMenu menu = new LeaderDiscardMenu(getController(),leaderCardsNotPlayed);
         ExecutorService pool = Executors.newFixedThreadPool(1);
         pool.submit(menu);
     }
