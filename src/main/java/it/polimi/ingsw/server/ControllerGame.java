@@ -361,7 +361,7 @@ public class ControllerGame {
      * @param familyMember the familymember the player places
      * @param marketSpaceIndex the number of servant you add on the family member to increase the value
      */
-    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex, HashMap<String, Integer> playerChoices)  throws IllegalMoveException{
+    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex, HashMap<String, Integer> playerChoices){
 
         choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
