@@ -849,6 +849,30 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         return choice;
     }
 
+    /**
+     * Callback from model to controller
+     * the model uses this method when the player activate a leader with a once per round ability that modifies
+     * the value of one of his colored family members, he has to choose which one
+     * @param choiceCode the code of the choice, to be put inside hashmap
+     * @param availableFamilyMembers the list of available family member, it's useless to modify
+     *                               the value of a family member already played
+     * @throws IllegalArgumentException if the list is empty
+     * @return the color of the family member he chose
+     */
+    @Override
+    public DiceAndFamilyMemberColorEnum callbackOnFamilyMemberBonus(String choiceCode, List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException {
+        DiceAndFamilyMemberColorEnum choice;
+
+        try {
+            choice = userInterface.askWhichFamilyMemberBonus(availableFamilyMembers);
+        } catch (IllegalArgumentException e) {
+            choicesOnCurrentAction.put(choiceCode, -1); //means no family member
+            throw new IllegalArgumentException(e);
+        }
+
+        choicesOnCurrentAction.put(choiceCode, choice.getIntegerValue());
+        return choice;
+    }
 }
 
 
