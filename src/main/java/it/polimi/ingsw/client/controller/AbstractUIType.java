@@ -37,18 +37,25 @@ abstract public class AbstractUIType {
 
     //This method read an action from the user
     abstract public void readAction();
+
     //This method ask what network the user wants to use
     abstract public void askNetworkType();
+
     //This method ask the user if he wants to login or to create a new account
     abstract public void askLoginOrCreate();
+
     //This method allows the user to create a newAccount
     abstract public void createNewAccount();
+
     //This method allows the user to ask to Login
     abstract public void askLogin();
+
     //This method updates the view
     abstract public void updateView();
+
     //Highlights that login has failed and manages that
     abstract public void loginFailure(String failureReason);
+
     //Selects a family member
     abstract public void selectFamilyMember();
 
@@ -56,12 +63,13 @@ abstract public class AbstractUIType {
     /**
      * This method asks the user to pick one of the action spaces to put his family member in
      * Direction: {@link ClientMain} -> {@link AbstractUIType}
+     *
      * @param servantsNeededHarvest The servants needed by the user to harvest, Optional.empty() if the action is not valid
-     * @param servantsNeededBuild The servants needed by the user to build, Optional.empty() if the action is not valid
+     * @param servantsNeededBuild   The servants needed by the user to build, Optional.empty() if the action is not valid
      * @param servantsNeededCouncil The servants needed by the user to place on cuincil, Optional.empty() if the action is not valid
-     * @param activeMarketSpaces The list of legal action spaces in the market
-     * @param activeTowerSpaces the list of legal action spaces on the towers
-     * @param availableServants the number of servants the user can spend to perform the action
+     * @param activeMarketSpaces    The list of legal action spaces in the market
+     * @param activeTowerSpaces     the list of legal action spaces on the towers
+     * @param availableServants     the number of servants the user can spend to perform the action
      */
     abstract public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest,
                                              Optional<Integer> servantsNeededBuild,
@@ -77,6 +85,7 @@ abstract public class AbstractUIType {
 
     /**
      * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
+     *
      * @param senderNick
      * @param msg
      */
@@ -97,17 +106,19 @@ abstract public class AbstractUIType {
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * {@link ViewControllerCallbackInterface(DiceAndFamilyMemberColorEnum, int)}
-     * @param playableFMs the list of playable family members to make the user choose
-     * @param board the board of the game
-     * @param playedFamilyMember is a boolean, true if the player had already placed a family member this turn
+     *
+     * @param playableFMs          the list of playable family members to make the user choose
+     * @param board                the board of the game
+     * @param playedFamilyMember   is a boolean, true if the player had already placed a family member this turn
      * @param leaderCardsNotPlayed the leader cards on the hand of the player
-     * @param playedLeaderCards the leader cards played by the player
+     * @param playedLeaderCards    the leader cards played by the player
      */
     public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember,
                                           ArrayList<LeaderCard> leaderCardsNotPlayed, ArrayList<LeaderCard> playedLeaderCards);
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui
+     *
      * @param options
      * @return the index of the selected option, the choice the user made
      */
@@ -115,6 +126,7 @@ abstract public class AbstractUIType {
 
     /**
      * This method is called when a choice on which effect to activate in a yellow card should be perfomed by the ui
+     *
      * @param possibleEffectChoices
      * @return the index of the chosen effect
      */
@@ -122,6 +134,7 @@ abstract public class AbstractUIType {
 
     /**
      * This method is called when a choice on which cost to pay in a purple card should be perfomed by the ui
+     *
      * @param costChoiceResource the list of resources the player will pay if he chooses this option
      * @param costChoiceMilitary the cost he will pay on something conditioned
      * @return 0 if he chooses to pay with resources, 1 with military points
@@ -131,6 +144,7 @@ abstract public class AbstractUIType {
     /**
      * This method is called at the beginning of the game to choose one leader card
      * This method should be non-blocking
+     *
      * @param leaderCards the list of resources the player will pay if he chooses this option
      */
     public abstract void askLeaderCards(List<LeaderCard> leaderCards);
@@ -138,14 +152,16 @@ abstract public class AbstractUIType {
     /**
      * This method is called at the beginning of the game to choose one personal tile
      * This method should be non-blocking
+     *
      * @param standardTile option1
-     * @param specialTile option2
+     * @param specialTile  option2
      */
     public abstract void askPersonalTiles(PersonalTile standardTile, PersonalTile specialTile);
 
     /**
      * This method is called when a player chooses to play a ledear with a COPY ability and he should be asked to choose
      * This method should be blocking
+     *
      * @param possibleLeaders the possibilites to choose from
      * @return the index of the choice
      */
@@ -155,6 +171,7 @@ abstract public class AbstractUIType {
      * This method is called when the player it is playing a leader who has a ONCE_PER_ROUND ability
      * to ask the user if he also wants to activate the ability
      * This method should be blocking
+     *
      * @return true if he also wants to activate, false otherwise
      */
     public abstract int askAlsoActivateLeaderCard();
@@ -170,8 +187,19 @@ abstract public class AbstractUIType {
 
     /**
      * this method is called when a player pass the phase
+     *
      * @param nickname the player that had pass the phase
      */
     public abstract void showEndOfPhaseOfPlayer(String nickname);
-}
 
+    /**
+     * This method is called when the player activate a leader with a once per round ability that modifies
+     * the value of one of his colored family members, he has to choose which one
+     *
+     * @param availableFamilyMembers the list of available family member, it's useless to modify
+     *                               the value of a family member already played
+     * @return the color of the family member he chose
+     * @throws IllegalArgumentException if the list is empty
+     */
+    public abstract DiceAndFamilyMemberColorEnum askWhichFamilyMemberBonus(List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException;
+}

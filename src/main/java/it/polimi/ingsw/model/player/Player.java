@@ -254,7 +254,7 @@ public class Player implements Serializable{
         usedFamilyMembers.clear();
 
         //align th family member with the value of the linked dice, to delete any changes of the family members' values
-        //notUsedFamilyMembers.forEach(FamilyMember::alignValue);
+        notUsedFamilyMembers.forEach(FamilyMember::alignValue);
 
     }
 

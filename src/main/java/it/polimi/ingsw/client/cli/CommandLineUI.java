@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.resource.MarketWrapper;
@@ -28,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-//TODO
+
 
 /**
  * this class is the CLI. It allows players to do actions, play, discard leaders.
@@ -400,6 +401,40 @@ public class CommandLineUI extends AbstractUIType {
         }
 
         return choice;
+    }
+
+    /**
+     * This method is called when the player activate a leader with a once per round ability that modifies
+     * the value of one of his colored family members, he has to choose which one
+     * @param availableFamilyMembers the list of available family member, it's useless to modify
+     *                               the value of a family member already played
+     * @throws IllegalArgumentException if the list is empty
+     * @return the color of the family member he chose
+     */
+    @Override
+    public DiceAndFamilyMemberColorEnum askWhichFamilyMemberBonus(List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException {
+        if(availableFamilyMembers.isEmpty()) {
+            System.out.println("You don't have any family member left to play, it's useless to activate" +
+                    "this once per round leader ability right now, please wait next round");
+            throw new IllegalArgumentException("the list is empty");
+        }
+
+        if(availableFamilyMembers.size() == 1) {
+            System.out.println("You can only apply the leader to family member "
+                    + availableFamilyMembers.get(0).getColor() +
+                    " with value " + availableFamilyMembers.get(0).getValue());
+            System.out.println("I'm applying it to this family member");
+            return availableFamilyMembers.get(0).getColor();
+        } else {
+            CliOptionsHandler familyMemberChooser = new CliOptionsHandler(availableFamilyMembers.size());
+
+            for (FamilyMember fmIter : availableFamilyMembers) {
+                familyMemberChooser.addOption("Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
+            }
+
+            int choice = familyMemberChooser.askUserChoice();
+            return availableFamilyMembers.get(choice).getColor();
+        }
     }
 
     @Override

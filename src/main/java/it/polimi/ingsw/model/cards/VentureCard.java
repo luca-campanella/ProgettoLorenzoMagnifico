@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,6 @@ import java.util.List;
 /**
  * This class is fro purple cards.
  */
-//todo: maybe victoryEndPoints are a resource and not a number -- Arto
 public class VentureCard extends AbstractCard{
     private static CardColorEnum cardColor = CardColorEnum.PURPLE;
     //purple cards have 2 costs, one is on resources
@@ -34,10 +34,29 @@ public class VentureCard extends AbstractCard{
     //TODO
     @Override
     public ArrayList<Resource> getCost(){
+        ArrayList<Resource> temp = new ArrayList<>();
+        try {
+            temp.addAll(costChoiceResource);
+        }catch(NullPointerException e)
+        {
+            //do nothing;
+        }
+        try {
+            temp.add(getCostChoiceMilitary().getResourceCost());
+        }catch(NullPointerException e)
+        {
+            //do nothing
+        }
+
+        return temp;
+    }
+
+    public ArrayList<Resource> getCostResources(){
 
         return costChoiceResource;
 
     }
+
 
     public VentureCardMilitaryCost getCostChoiceMilitary(){
 

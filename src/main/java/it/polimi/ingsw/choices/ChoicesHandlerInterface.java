@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
+import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.List;
@@ -85,4 +87,16 @@ public interface ChoicesHandlerInterface {
      * @return the number of servants the player wants to add to the action
      */
     public int callbackOnAddingServants(String choiceCode, int minimum, int maximum);
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when the player activate a leader with a once per round ability that modifies
+     * the value of one of his colored family members, he has to choose which one
+     * @param choiceCode the code of the choice, to be put inside hashmap
+     * @param availableFamilyMembers the list of available family member, it's useless to modify
+     *                               the value of a family member already played
+     * @throws IllegalArgumentException if the list is empty
+     * @return the color of the family member he chose
+     */
+    public DiceAndFamilyMemberColorEnum callbackOnFamilyMemberBonus(String choiceCode, List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException;
 }
