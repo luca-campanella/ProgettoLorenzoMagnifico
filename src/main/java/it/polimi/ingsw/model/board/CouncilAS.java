@@ -42,7 +42,7 @@ public class CouncilAS extends AbstractActionSpace implements Serializable{
     }
 
     public ArrayList<GainResourceEffect> getCouncilGiftChoices() {
-        return councilGiftChoices;
+        return new ArrayList<GainResourceEffect>(councilGiftChoices);
     }
 
     public void setCouncilGiftChoices(ArrayList<GainResourceEffect> councilGiftChoices) {

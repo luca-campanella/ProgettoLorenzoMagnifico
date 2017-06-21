@@ -278,8 +278,9 @@ public class Board implements Serializable {
      * @param choicesController needed because there can be some decisions tied to the action
      */
     public void placeOnMarket(FamilyMember familyMember, int marketASIndex, ChoicesHandlerInterface choicesController) {
+
         market.get(marketASIndex).performAction(familyMember, choicesController);
-        return;
+
     }
 
     /**

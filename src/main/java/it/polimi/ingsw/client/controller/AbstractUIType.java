@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -114,7 +115,7 @@ abstract public class AbstractUIType {
      * @param playedLeaderCards    the leader cards played by the player
      */
     public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember,
-                                          ArrayList<LeaderCard> leaderCardsNotPlayed, ArrayList<LeaderCard> playedLeaderCards);
+                                          ArrayList<LeaderCard> leaderCardsNotPlayed, ArrayList<LeaderCard> playedLeaderCards, Player player);
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui

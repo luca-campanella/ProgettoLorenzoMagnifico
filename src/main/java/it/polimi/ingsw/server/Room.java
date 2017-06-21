@@ -177,7 +177,7 @@ public class Room {
      *
      * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
-    public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
+    public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices){
 
         controllerGame.placeOnMarket(familyMember, marketIndex, playerChoices);
         floodPlaceOnMarket(familyMember, marketIndex, playerChoices);

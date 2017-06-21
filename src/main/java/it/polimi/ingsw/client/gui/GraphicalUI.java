@@ -17,6 +17,7 @@ import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.resource.MarketWrapper;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
@@ -110,7 +111,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember, ArrayList<LeaderCard> leaderCardsNotPlayed,
-                                 ArrayList<LeaderCard> playedLeaderCards) {
+                                 ArrayList<LeaderCard> playedLeaderCards, Player player) {
 
     }
 
