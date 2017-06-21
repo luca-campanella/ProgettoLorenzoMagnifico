@@ -114,6 +114,7 @@ public class Player implements Serializable{
     /**
      * this method is used to add a resource on the player
      * if {@link Resource#getValue()} < 0 subtracts the resource instead
+     * It takes into account the malus of the excommunication tiles
      * @param resource the object of the resource, it contains the value and the type
      */
     public void addResource(Resource resource){
@@ -130,11 +131,32 @@ public class Player implements Serializable{
 
     /**
      * this method is used to add an array of resources on the player
+     * It takes into account the malus of the excommunication tiles
      * @param resources the object of the resource, it contains the value and the type
      */
     public void addResources(List<Resource> resources) {
         resources.forEach(this::addResource);
     }
+
+    /**
+     * this method is used to add an array of resources on the player
+     * It <b>doesn't</b> take into account the malus of the excommunication tiles
+     * @param resources the object of the resource, it contains the value and the type
+     */
+    public void addResourcesNoMalus(List<Resource> resources) {
+        resourcesMap.addResource(resources);
+    }
+
+    /**
+     * this method is used to add a resource on the player
+     * if {@link Resource#getValue()} < 0 subtracts the resource instead
+     * It <b>doesn't</b> take into account the malus of the excommunication tiles
+     * @param resource the object of the resource, it contains the value and the type
+     */
+    public void addResourceNoMalus(Resource resource){
+        resourcesMap.addResource(resource);
+    }
+
 
     /**
      * this method is used to subtract a single resource,

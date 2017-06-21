@@ -27,7 +27,7 @@ public abstract class BasicCLIMenu implements Runnable {
     }
 
     public void addOption(String abbrev, String descr, CallbackFunction callbackFunction) {
-        optionsMap.put(abbrev, new DescrCallbackContainer(callbackFunction, descr));
+        optionsMap.put(abbrev.toUpperCase(), new DescrCallbackContainer(callbackFunction, descr));
     }
 
     /**

@@ -4,17 +4,11 @@ package it.polimi.ingsw.client.cli;
  * to insert inputs on the cli
  */
 
-import it.polimi.ingsw.client.cli.notblockingmenus.ActionSpacePickerMenu;
-import it.polimi.ingsw.client.cli.notblockingmenus.InitialActionMenu;
-import it.polimi.ingsw.client.cli.notblockingmenus.LeaderPickerMenu;
-
-import it.polimi.ingsw.client.cli.notblockingmenus.PersonalTilesPickerMenu;
+import it.polimi.ingsw.client.cli.notblockingmenus.*;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
-import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
 import it.polimi.ingsw.client.exceptions.NetworkException;
-import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
@@ -28,7 +22,10 @@ import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 //TODO
@@ -57,20 +54,10 @@ public class CommandLineUI extends AbstractUIType {
     public void askNetworkType()
     {
         Debug.printDebug("I am in CLI. Select NetworkType");
-        NetworkTypeEnum choice;
-        while(true) {
-            System.out.println("Choose rmi or socket.");
-            tmpInput = StdinSingleton.nextLine();
-            if (tmpInput.equalsIgnoreCase("rmi")) {
-                choice = NetworkTypeEnum.RMI;
-                break;
-            }
-            if (tmpInput.equalsIgnoreCase("SOCKET")) {
-                choice = NetworkTypeEnum.SOCKET;
-                break;
-            }
-        }
-        getController().callbackNetworkType(choice);
+
+        NetworkTypePickerMenu menu = new NetworkTypePickerMenu(getController());
+
+        pool.submit(menu);
     }
 
     /**
@@ -164,48 +151,9 @@ public class CommandLineUI extends AbstractUIType {
     public void askLoginOrCreate()
     {
         Debug.printDebug("I am in CLI.askLoginOrCreate");
-        String userID = "user";
-        String userPW = "password";
-        UsrPwdContainer usrAndPwd;
-        while(true)
-        {
-            System.out.println("Do you want to Create a new account, or LogIn into an old one? Write Create, or Login");
-            //tmpInput = inputScanner.nextLine();
-            tmpInput = "login";
-            if(tmpInput.equalsIgnoreCase("Create")){
-                usrAndPwd = readUsrPwd();
-                getController().callbackCreateAccount(usrAndPwd.getNickname(), usrAndPwd.getPassword());
-                break;
-            }
+        LoginRegisterMenu menu = new LoginRegisterMenu(getController());
 
-            if(tmpInput.equalsIgnoreCase("LogIn")){
-                usrAndPwd = readUsrPwd();
-                getController().callbackLogin(usrAndPwd.getNickname(), usrAndPwd.getPassword());
-                break;
-            }
-            /*
-            //TODO eliminate skip
-            if(tmpInput.equalsIgnoreCase("Skip")){
-                clientMain.callbackLoginAsGuest();
-                break;
-            }*/
-        }
-    }
-
-    /**
-     * this method allows CLI to ask proper Database's info to user.
-     * @return
-     */
-    private UsrPwdContainer readUsrPwd()
-    {
-        String nickname, password;
-
-        System.out.println("Insert UserId");
-        nickname = StdinSingleton.nextLine();
-        System.out.println("Insert PassWord");
-        password = StdinSingleton.nextLine();
-
-        return new UsrPwdContainer(nickname, password);
+        pool.submit(menu);
     }
 
     /*
@@ -430,6 +378,28 @@ public class CommandLineUI extends AbstractUIType {
         optionsHandler.addOption("no - do not activate his once per round effect");
 
         return optionsHandler.askUserChoice();
+    }
+
+    /*
+     * This method is called when the player performs an action but from the model we have to ask
+     * how many servants he wants to add
+     * @param minimum the minimum number of servants he shuold at least add (typically 0)
+     * @param maximum the maximum number of servants he can add (typically the ones the player has)
+     * @return the number of servants the player wants to add to the action
+     */
+    @Override
+    public int askAddingServants(int minimum, int maximum) {
+        System.out.println("You can add servants to your current action, you can add from " + minimum
+                + " to " + maximum + " servants. How many do you want to add?");
+
+        int choice = StdinSingleton.readAndParseInt();
+        while(choice < minimum || choice > maximum) {
+            System.out.println("Please add a correct number of servnts, between " + minimum
+                    + " and " + maximum);
+            choice = StdinSingleton.readAndParseInt();
+        }
+
+        return choice;
     }
 
     @Override

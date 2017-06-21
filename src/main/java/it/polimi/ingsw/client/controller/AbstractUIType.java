@@ -159,6 +159,15 @@ abstract public class AbstractUIType {
      */
     public abstract int askAlsoActivateLeaderCard();
 
+    /*
+     * This method is called when the player performs an action but from the model we have to ask
+     * how many servants he wants to add
+     * @param minimum the minimum number of servants he shuold at least add (typically 0)
+     * @param maximum the maximum number of servants he can add (typically the ones the player has)
+     * @return the number of servants the player wants to add to the action
+     */
+    public abstract int askAddingServants(int minimum, int maximum);
+
     /**
      * this method is called when a player pass the phase
      * @param nickname the player that had pass the phase

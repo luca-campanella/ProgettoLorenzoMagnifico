@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 /**
  * This ability gives the possibility to build once per round with a certain dice value,
@@ -23,7 +24,8 @@ public class OncePerRoundBuildLeaderAbility extends AbstractImmediateLeaderAbili
      */
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface, String cardName)
     {
-        //todo: implement applyToPlayer;
+        int servantsToAdd = choicesHandlerInterface.callbackOnAddingServants(cardName,0, player.getResource(ResourceTypeEnum.SERVANT));
+        player.build(diceValue + servantsToAdd, choicesHandlerInterface);
     }
 
 

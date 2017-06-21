@@ -162,4 +162,20 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
             return true;
         return false;
     }
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when the player performs an action but from the model we have to ask
+     * how many servants he wants to add
+     * @param minimum the minimum number of servants he shuold at least add (typically 0)
+     * @param maximum the maximum number of servants he can add (typically the ones the player has)
+     * @return the number of servants the player wants to add to the action
+     */
+    @Override
+    public int callbackOnAddingServants(String choiceCode, int minimum, int maximum) {
+        if(minimum == maximum)
+            return maximum;
+
+        return choicesMap.get(choiceCode+":servantsAdded");
+    }
 }

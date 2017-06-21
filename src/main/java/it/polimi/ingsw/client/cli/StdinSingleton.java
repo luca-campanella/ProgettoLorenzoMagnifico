@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.cli;
 
+import it.polimi.ingsw.utils.Debug;
+
 import java.util.Scanner;
 
 /**
@@ -47,5 +49,19 @@ public class StdinSingleton
 
     public static String nextLine() {
         return stdinScanner.nextLine();
+    }
+
+    /**
+      * reads a line from the console and tries to parse it as an integer, if it cannot returns -1
+      * @return the integer read or -1 if error
+      */
+    public static int readAndParseInt() {
+            String line = stdinScanner.nextLine();
+            try{
+                return Integer.parseInt(line);
+            } catch (NumberFormatException e) {
+                Debug.printVerbose("Not entered a number");
+                return -1;
+            }
     }
 }

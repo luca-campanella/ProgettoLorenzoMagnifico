@@ -51,6 +51,11 @@ public class GainResourceEffectTest {
         public boolean callbackOnAlsoActivateLeaderCard() {
             return false;
         }
+
+        @Override
+        public int callbackOnAddingServants(String choiceCode, int minimum, int maximum) {
+            return 0;
+        }
     };
 
 
