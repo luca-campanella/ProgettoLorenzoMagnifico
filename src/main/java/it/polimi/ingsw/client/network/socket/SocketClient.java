@@ -220,24 +220,21 @@ public class SocketClient extends AbstractClientType {
      */
     @Override
     public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices)
-            throws NetworkException,IllegalMoveException{
-        MoveErrorEnum moveErrorEnum;
+            throws NetworkException{
+
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.MOVE_IN_MARKET);
                 outStream.writeObject(new PlaceOnMarketPacket(familyMember.getColor(), marketIndex, playerChoices));
             }
             outStream.flush();
-            moveErrorEnum=(MoveErrorEnum)inStream.readObject();
+
         }
-        catch(IOException | ClassNotFoundException e){
+        catch(IOException e){
             Debug.printError("network is not available",e);
             throw new NetworkException(e);
         }
-        if(moveErrorEnum==MoveErrorEnum.LOW_RESOURCES || moveErrorEnum== MoveErrorEnum.LOW_VALUE_DICE
-                || moveErrorEnum== MoveErrorEnum.NOT_PLAYER_TURN){
-            throw new IllegalMoveException(moveErrorEnum);
-        }
+
     }
 
     /**

@@ -17,6 +17,7 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -154,7 +155,8 @@ public class CommandLineUI extends AbstractUIType {
         Debug.printDebug("I am in CLI.askLoginOrCreate");
         LoginRegisterMenu menu = new LoginRegisterMenu(getController());
 
-        pool.submit(menu);
+        //pool.submit(menu);
+        menu.login();//TODO change method login to private
     }
 
     /*
@@ -266,9 +268,9 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember,
-                                 ArrayList<LeaderCard> leaderCardsNotPlayed, ArrayList<LeaderCard> playedLeaderCards) {
+                                 ArrayList<LeaderCard> leaderCardsNotPlayed, ArrayList<LeaderCard> playedLeaderCards, Player player) {
         InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs, board,
-                playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards);
+                playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards, player);
 
         pool.submit(menu);
     }

@@ -31,6 +31,7 @@ import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -367,7 +368,19 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackPlacedFMOnMarket(int marketASIndex){
+
+        Debug.printVerbose("Callback on market");
         modelController.placeOnMarket(familyMemberCurrentAction, marketASIndex);
+        try{
+            clientNetwork.placeOnMarket(familyMemberCurrentAction, marketASIndex, choicesOnCurrentAction);
+            Debug.printVerbose("delivered market move to server");
+            playedFamilyMember = true;
+            clientChoices();
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the move on market to the server");
+        }
+
     }
 
     /**
@@ -600,7 +613,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(this);
         initialActionsOnPlayerMove();
         userInterface.askInitialAction(playableFMs, modelController.getBoard(), playedFamilyMember,
-                modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname()), modelController.getLeaderCardsPlayed(thisPlayer.getNickname()));
+                modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname()), modelController.getLeaderCardsPlayed(thisPlayer.getNickname()), thisPlayer);
 
     }
 
@@ -654,7 +667,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receivedPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
-        userInterface.askPersonalTiles(standardTile, specialTile);
+        //userInterface.askPersonalTiles(standardTile, specialTile);
+        callbackOnTileChosen(standardTile);
     }
 
     /**

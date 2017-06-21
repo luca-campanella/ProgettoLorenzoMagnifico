@@ -189,17 +189,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
             PlaceOnMarketPacket packet=(PlaceOnMarketPacket)inStream.readObject();
             getRoom().placeOnMarket(getFamilyMemberByColor(packet.getFamilyMemberColor()), packet.getMarketIndex(), packet.getPlayerChoices());
-            outStream.writeObject(MoveErrorEnum.NO_ERROR);
 
     }
-        catch (IllegalMoveException e){
-            try{
-                outStream.writeObject(e.getErrorType());
-            }
-            catch (IOException e1){
-                Debug.printError("network is not working", e1);
-            }
-        }
+
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
         }

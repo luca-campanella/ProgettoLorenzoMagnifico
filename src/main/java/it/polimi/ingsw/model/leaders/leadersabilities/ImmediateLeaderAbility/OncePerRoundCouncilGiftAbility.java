@@ -20,7 +20,7 @@ public class OncePerRoundCouncilGiftAbility extends AbstractImmediateLeaderAbili
 
     @Override
     public String getAbilityDescription() {
-        return null;
+        return "Receive " + numberOfDifferentCouncilGift + " council privilege.";
     }
 
     @Override
