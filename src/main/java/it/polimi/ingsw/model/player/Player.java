@@ -451,8 +451,10 @@ public class Player implements Serializable{
     public void discardLeaderCard(String nameLeader) {
 
         for(LeaderCard leaderCard : leaderCardsNotUsed){
-            if(leaderCard.getName().equals(nameLeader))
+            if(leaderCard.getName().equals(nameLeader)){
                 leaderCardsNotUsed.remove(leaderCard);
+                break;
+            }
         }
     }
 }

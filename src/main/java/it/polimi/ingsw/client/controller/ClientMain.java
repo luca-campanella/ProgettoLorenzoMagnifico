@@ -227,6 +227,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.discardLeaderCard(thisPlayer.getNickname(),leaderCard.getName(),this);
         try{
             clientNetwork.discardLeaderCard(leaderCard.getName(),choicesOnCurrentAction);
+            clientChoices();
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
