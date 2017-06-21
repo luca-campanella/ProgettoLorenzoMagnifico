@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * This class is fro purple cards.
  */
-//todo: maybe victoryEndPoints are a resource and not a number -- Arto
 public class VentureCard extends AbstractCard{
     private static CardColorEnum cardColor = CardColorEnum.PURPLE;
     //purple cards have 2 costs, one is on resources

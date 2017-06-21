@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.server.JSONLoader;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -58,6 +59,7 @@ public class CliPrinter {
 
     /**
      * print towers with no overhead
+     *
      * @param board this is the gameBoard
      */
     public static void printTowers(Board board) {
@@ -75,7 +77,7 @@ public class CliPrinter {
     /**
      * this method prints a single tower floor level (ex. territory lvl 1, character lvl 1.....)
      *
-     * @param board is the game board
+     * @param board            is the game board
      * @param floorOfAllTowers is a single floor
      */
     private static void printTower(Board board, TowerFloorAS[] floorOfAllTowers) {
@@ -120,7 +122,7 @@ public class CliPrinter {
      * @param floors
      */
     private static void printSecondEffectPillar(TowerFloorAS[] floors) {
-        for(int i = 0; i < floors.length; i++)
+        for (int i = 0; i < floors.length; i++)
             printCardSecondEffectOnFloor(floors[i]);
     }
 
@@ -210,9 +212,22 @@ public class CliPrinter {
      */
     private static void printCostCards(TowerFloorAS[] floors) {
         printOneEmptyPillar();
-        printGenericCostPillar(floors[1]);
-        printGenericCostPillar(floors[2]);
-        printGenericCostPillar(floors[3]);
+        try{
+        printGenericCostPillar(floors[1]);}
+        catch (NullPointerException exception){
+            printOneEmptyPillar();
+        }
+        try{
+            printGenericCostPillar(floors[2]);}
+        catch (NullPointerException exception){
+            printOneEmptyPillar();
+        }
+        try{
+            printGenericCostPillar(floors[3]);}
+        catch (NullPointerException exception){
+            printOneEmptyPillar();
+        }
+
     }
 
     /**
@@ -248,7 +263,7 @@ public class CliPrinter {
         }
         printScene(tempCostsScene.toString());
     }
-    
+
     private static void printScene(String toPrintString) {
         int i;
         StringBuilder toPrint = new StringBuilder(toPrintString);
@@ -419,13 +434,14 @@ public class CliPrinter {
             System.out.print(" | ");
         }
     }
-    private static void printExcommunicationCards(Board board)
-    {
+
+    private static void printExcommunicationCards(Board board) {
         List<ExcommunicationTile> excommunicationTiles = board.getExcommunicationTiles();
-        for(ExcommunicationTile iterator : excommunicationTiles)
+        for (ExcommunicationTile iterator : excommunicationTiles)
             System.out.println("After " + iterator.getPeriod() + " you need to have n faith points to avoid " + iterator.getEffect().getShortEffectDescription());
         return;
     }
+
     /**
      * this method prints a line
      *
@@ -440,24 +456,24 @@ public class CliPrinter {
 
     /**
      * this method simply cicles a list given from personal Board and calls a printGenericCard for all cards
+     *
      * @param cardsToPrint is the List to print
      */
-    private static void printGenericCards(LinkedList<? extends AbstractCard> cardsToPrint)
-    {
-        if((cardsToPrint.isEmpty())) {
+    private static void printGenericCards(LinkedList<? extends AbstractCard> cardsToPrint) {
+        if ((cardsToPrint.isEmpty())) {
             System.out.println("NoCards");
             return;
         }
-        for(AbstractCard cardIterator : cardsToPrint)
+        for (AbstractCard cardIterator : cardsToPrint)
             printGenericCard(cardIterator);
     }
 
     /**
      * this method prints a generiCard for personalBoard
+     *
      * @param card is the generic card we print
      */
-    private static void printGenericCard(AbstractCard card)
-    {
+    private static void printGenericCard(AbstractCard card) {
         StringBuilder stringToPrint = new StringBuilder();
         stringToPrint.append("Cardname: ");
         stringToPrint.append(card.getName());
@@ -473,15 +489,17 @@ public class CliPrinter {
         stringToPrint.append(card.secondEffect());
         System.out.println(stringToPrint);
     }
-    private static void printPersonalTile(PersonalTile personalTile){
+
+    private static void printPersonalTile(PersonalTile personalTile) {
         System.out.println(personalTile.getDescription());
     }
 
     /**
      * this method prints the
+     *
      * @param player's resources @ personalBoard
      */
-    private static void printPersonalBoardResources (Player player){
+    private static void printPersonalBoardResources(Player player) {
         StringBuilder resourcesStatus = new StringBuilder();
         resourcesStatus.append(player.getResource(ResourceTypeEnum.COIN));
         resourcesStatus.append("COINS");
@@ -500,11 +518,11 @@ public class CliPrinter {
 
     /**
      * this class prints the personalBoard
+     *
      * @param personalBoard is the board where players put their own cards
-     * @param player is the user of the game
+     * @param player        is the user of the game
      */
-    public static void printPersonalBoard(PersonalBoard personalBoard, Player player)
-    {
+    public static void printPersonalBoard(PersonalBoard personalBoard, Player player) {
         System.out.println("");
         System.out.print("Printing Territory Cards: ");
         printGenericCards(personalBoard.getCardListByColor(CardColorEnum.GREEN));
@@ -524,10 +542,11 @@ public class CliPrinter {
 
     }
 
-    public static void printLeadersDeck(LeadersDeck leadersDeck){
-        leadersDeck.getLeaders().forEach(leader ->System.out.println("**"+leader.getName()+"**"+"\n"
-                        +leader.getDescription()+"\n"
-                        +"Requirement: "+leader.getRequirements().stream().map(req ->req.getDescription()). collect(Collectors.joining())+"\n"
-                        +"Ability: "+leader.getAbility().getAbilityDescription() +"\n"));
+    public static void printLeadersDeck(LeadersDeck leadersDeck) {
+        leadersDeck.getLeaders().forEach(leader -> System.out.println("**" + leader.getName() + "**" + "\n"
+                + leader.getDescription() + "\n"
+                + "Requirement: " + leader.getRequirements().stream().map(req -> req.getDescription()).collect(Collectors.joining()) + "\n"
+                + "Ability: " + leader.getAbility().getAbilityDescription() + "\n"));
     }
+
 }

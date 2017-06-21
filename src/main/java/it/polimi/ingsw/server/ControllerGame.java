@@ -116,6 +116,23 @@ public class ControllerGame {
             initiateLeaderChoice();
     }
 
+    /**
+     * costructor for controllerGame. This is just a temp constructor to test the class
+     * @param numberOfPlayers is the number of players currently playing this game.
+     * @throws IOException in case JSON loading fails
+     */
+    public ControllerGame(int numberOfPlayers) throws IOException {
+        JSONLoader.instance();
+        personalTiles = JSONLoader.loadPersonalTiles();
+        boardGame = JSONLoader.boardCreator();
+        deck = JSONLoader.createNewDeck();
+        leadersDeck = JSONLoader.loadLeaders();
+        boardModifier(numberOfPlayers);
+        this.numberOfPlayers = numberOfPlayers;
+        numberOfTurn = 0;
+        numberOfRound = 1;
+    }
+
     public static void main(String[] args) throws Exception {
         /*GsonBuilder gsonBuilder = new GsonBuilder();
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
@@ -127,7 +144,9 @@ public class ControllerGame {
         resources.add(resource);
         asd.setCost(resources);
         System.out.println(gson.toJson(asd));*/
+        Debug.instance(3);
         ControllerGame controllerGame =  new ControllerGame(2);
+
         CliPrinter cli = new CliPrinter();
         //cli.printDeck(controllerGame.getDeck());
         cli.printBoard(controllerGame.getBoardGame());
@@ -222,22 +241,7 @@ public class ControllerGame {
     }
 
 
-    /**
-     * costructor for controllerGame. This is just a temp constructor to test the class
-     * @param numberOfPlayers is the number of players currently playing this game.
-     * @throws IOException in case JSON loading fails
-     */
-    public ControllerGame(int numberOfPlayers) throws IOException {
-        JSONLoader.instance();
-        personalTiles = JSONLoader.loadPersonalTiles();
-        boardGame = JSONLoader.boardCreator();
-        deck = JSONLoader.createNewDeck();
-        leadersDeck = JSONLoader.loadLeaders();
-        boardModifier(numberOfPlayers);
-        this.numberOfPlayers = numberOfPlayers;
-        numberOfTurn = 0;
-        numberOfRound = 1;
-    }
+
 
     /**
      * this method modifies the board given a number of players

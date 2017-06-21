@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-//TODO
+
 
 /**
  * this class is the CLI. It allows players to do actions, play, discard leaders.

@@ -9,9 +9,9 @@ import java.io.Serializable;
  */
 public class VentureCardMilitaryCost implements Serializable {
     //you need to have:
-    Resource resourceRequirement;
+    private Resource resourceRequirement;
     //in order to spend:
-    Resource resourceCost;
+    private Resource resourceCost;
 
     public VentureCardMilitaryCost(Resource resourceRequirement, Resource resourceCost) {
         this.resourceRequirement = resourceRequirement;
