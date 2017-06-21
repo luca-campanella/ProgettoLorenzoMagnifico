@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +34,29 @@ public class VentureCard extends AbstractCard{
     //TODO
     @Override
     public ArrayList<Resource> getCost(){
+        ArrayList<Resource> temp = new ArrayList<>();
+        try {
+            temp.addAll(costChoiceResource);
+        }catch(NullPointerException e)
+        {
+            //do nothing;
+        }
+        try {
+            temp.add(getCostChoiceMilitary().getResourceCost());
+        }catch(NullPointerException e)
+        {
+            //do nothing
+        }
+
+        return temp;
+    }
+
+    public ArrayList<Resource> getCostResources(){
 
         return costChoiceResource;
 
     }
+
 
     public VentureCardMilitaryCost getCostChoiceMilitary(){
 
