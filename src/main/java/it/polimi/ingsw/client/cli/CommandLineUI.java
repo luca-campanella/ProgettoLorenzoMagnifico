@@ -4,11 +4,8 @@ package it.polimi.ingsw.client.cli;
  * to insert inputs on the cli
  */
 
-import it.polimi.ingsw.client.cli.notblockingmenus.ActionSpacePickerMenu;
-import it.polimi.ingsw.client.cli.notblockingmenus.InitialActionMenu;
-import it.polimi.ingsw.client.cli.notblockingmenus.LeaderPickerMenu;
+import it.polimi.ingsw.client.cli.notblockingmenus.*;
 
-import it.polimi.ingsw.client.cli.notblockingmenus.PersonalTilesPickerMenu;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
@@ -164,32 +161,9 @@ public class CommandLineUI extends AbstractUIType {
     public void askLoginOrCreate()
     {
         Debug.printDebug("I am in CLI.askLoginOrCreate");
-        String userID = "user";
-        String userPW = "password";
-        UsrPwdContainer usrAndPwd;
-        while(true)
-        {
-            System.out.println("Do you want to Create a new account, or LogIn into an old one? Write Create, or Login");
-            //tmpInput = inputScanner.nextLine();
-            tmpInput = "login";
-            if(tmpInput.equalsIgnoreCase("Create")){
-                usrAndPwd = readUsrPwd();
-                getController().callbackCreateAccount(usrAndPwd.getNickname(), usrAndPwd.getPassword());
-                break;
-            }
+        LoginRegisterMenu menu = new LoginRegisterMenu(getController());
 
-            if(tmpInput.equalsIgnoreCase("LogIn")){
-                usrAndPwd = readUsrPwd();
-                getController().callbackLogin(usrAndPwd.getNickname(), usrAndPwd.getPassword());
-                break;
-            }
-            /*
-            //TODO eliminate skip
-            if(tmpInput.equalsIgnoreCase("Skip")){
-                clientMain.callbackLoginAsGuest();
-                break;
-            }*/
-        }
+        pool.submit(menu);
     }
 
     /**
