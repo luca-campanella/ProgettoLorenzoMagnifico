@@ -5,12 +5,21 @@ import it.polimi.ingsw.utils.Debug;
 import javafx.scene.layout.Pane;
 
 /**
- * Created by campus on 22/06/2017.
+ * This custom fx control is the base for all controls class
+ * It offers a method to set the {@link ViewControllerCallbackInterface} in order to let single controls make
+ * callbacks on the controller ({@link it.polimi.ingsw.client.controller.ClientMain}
  */
 public class CustomFxControl extends Pane {
+
+    /**
+     * the controller for callbacks
+     */
     private ViewControllerCallbackInterface controller;
 
-
+    /**
+     * This method sets the controller for callbacks
+     * @param controller the controller to set to
+     */
     public void setController(ViewControllerCallbackInterface controller) {
         Debug.printVerbose("Controller setted to " + controller.toString());
         this.controller = controller;

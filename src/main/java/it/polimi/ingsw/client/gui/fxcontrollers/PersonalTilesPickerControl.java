@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * Created by campus on 23/06/2017.
+ * This fx control handles event in the personal tiles choosing window and helps creating it dynamically
  */
 public class PersonalTilesPickerControl extends CustomFxControl {
 
@@ -30,6 +30,11 @@ public class PersonalTilesPickerControl extends CustomFxControl {
     PersonalTile selectedTile;
     PersonalTile standardTile, specialTile;
 
+    /**
+     * Add tiles to the window, this method should be called before showing the window
+     * @param standardTile the standard personal tile
+     * @param specialTile the special personal tile
+     */
     public void addTiles(PersonalTile standardTile, PersonalTile specialTile) {
         this.standardTile = standardTile;
         this.specialTile = specialTile;
@@ -37,6 +42,10 @@ public class PersonalTilesPickerControl extends CustomFxControl {
         addSingleTileToScene(specialTile);
     }
 
+    /**
+     * Adds a single tile to the scene
+     * @param tile the tile to be added
+     */
     private void addSingleTileToScene(PersonalTile tile) {
 
         final ToggleButton toggle = new ToggleButton();
@@ -73,11 +82,13 @@ public class PersonalTilesPickerControl extends CustomFxControl {
         Debug.printVerbose("tile " + tile.getPersonalTileEnum().name() + "added scuccesfully to the window");
     }
 
+    /**
+     * Handles the pressing of the button, which corresponds with a choice
+     * Calls back the controller with the performed choice
+     * @param event the fx event
+     */
     @FXML
     public void buttonChooseClicked(ActionEvent event) {
         Platform.runLater(()-> getController().callbackOnTileChosen(selectedTile));
     }
-
-
-
 }

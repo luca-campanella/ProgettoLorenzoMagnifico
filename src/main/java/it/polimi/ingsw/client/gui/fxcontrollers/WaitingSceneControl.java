@@ -11,6 +11,10 @@ public class WaitingSceneControl extends CustomFxControl {
     @FXML
     Label messageLabel;
 
+    /**
+     * Sets the message to show the user
+     * @param message the message
+     */
     public void setMessage(String message) {
         messageLabel.setText(message);
     }

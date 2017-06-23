@@ -17,7 +17,7 @@ import javafx.scene.layout.HBox;
 import java.util.HashMap;
 
 /**
- * Created by campus on 23/06/2017.
+ * This fx control handles event in the personal tiles choosing window and helps creating it dynamically
  */
 public class LeaderPickerControl extends CustomFxControl {
 
@@ -31,20 +31,23 @@ public class LeaderPickerControl extends CustomFxControl {
     ToggleGroup toggleGroup = new ToggleGroup();
     LeaderCard selectedLeader;
 
+    /**
+     * Add a single leader card to the window, should be called with all leader cards before showing the window
+     * @param leader the leader card to add
+     */
     public void addLeader(LeaderCard leader) {
 
         final ToggleButton toggle = new ToggleButton();
         toggle.setToggleGroup(toggleGroup);
-       /* System.out.println(getClass());
-        System.out.println(getClass().getResource("/LorenzoRitratto.jpg"));
-        System.out.println(getClass().getResource("/Leaders/leaders_f_c_01"));*/
+
+
         final Image leaderImage  = new Image(getClass().getResourceAsStream("/imgs/Leaders/" + leader.getImgName()));
         final ImageView toggleImage = new ImageView();
         toggle.setGraphic(toggleImage);
         toggleImage.imageProperty().bind(Bindings
                 .when(toggle.selectedProperty())
                 .then(leaderImage)
-                .otherwise(leaderImage) //this shoulb be unselected
+                .otherwise(leaderImage) //this should be unselected
         );
         toggleImage.setFitHeight(320);
         toggleImage.setPreserveRatio(true);
@@ -67,6 +70,11 @@ public class LeaderPickerControl extends CustomFxControl {
         Debug.printVerbose("leader " + leader.getName() + "added scuccesfully to the window");
     }
 
+    /**
+     * Handles the pressing of the button, which corresponds with a choice
+     * Calls back the controller with the performed choice
+     * @param event the fx event
+     */
     @FXML
     public void buttonChooseClicked(ActionEvent event) {
         Platform.runLater(()-> getController().callbackOnLeaderCardChosen(selectedLeader));

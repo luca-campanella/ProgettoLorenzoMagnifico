@@ -21,6 +21,10 @@ public class LoginRegisterControl extends CustomFxControl {
     @FXML
     private PasswordField passwordField;
 
+    /**
+     * Handles the pressing of the login button
+     * @param event the fx event
+     */
     @FXML
     public void loginHandler(ActionEvent event) {
         String nickname = nickField.getText();
@@ -33,6 +37,10 @@ public class LoginRegisterControl extends CustomFxControl {
         }
     }
 
+    /**
+     * Handles the pressing of the register button
+     * @param event the fx event
+     */
     @FXML
     public void registerHandler(ActionEvent event) {
         String nickname = nickField.getText();
@@ -45,6 +53,14 @@ public class LoginRegisterControl extends CustomFxControl {
         }
     }
 
+    /**
+     * This method validates the username and password with {@link UsernamePasswordValidator}
+     * If they respect the parameters it returns true, otherwise false but also
+     * shows a fx {@link Alert} dialog telling the user what went wrong
+     * @param nickname the nickname / username
+     * @param password the password
+     * @return true if they are valid, false otherwise
+     */
     private static boolean validateOrShowDialog(String nickname, String password) {
         if(!UsernamePasswordValidator.validateUsername(nickname)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
