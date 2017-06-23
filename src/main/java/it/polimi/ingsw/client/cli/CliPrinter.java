@@ -525,6 +525,8 @@ public class CliPrinter {
         resourcesStatus.append(player.getResource(ResourceTypeEnum.STONE));
         resourcesStatus.append("\n\tServant : ");
         resourcesStatus.append(player.getResource(ResourceTypeEnum.SERVANT));
+        resourcesStatus.append("\n\tFaith Point : ");
+        resourcesStatus.append(player.getResource(ResourceTypeEnum.FAITH_POINT));
         resourcesStatus.append("\n\tMilitary Point : ");
         resourcesStatus.append(player.getResource(ResourceTypeEnum.MILITARY_POINT));
         resourcesStatus.append("\n\tVictory Point : ");
