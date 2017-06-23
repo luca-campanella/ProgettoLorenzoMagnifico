@@ -5,11 +5,15 @@ import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 
 /**
  * Created by campus on 22/06/2017.
  */
 public class CustomControllerConnectionChoice extends CustomFxController {
+
+    @FXML
+    private TextField nickField;
 
     @FXML
     public void socketConnection(ActionEvent event) {
