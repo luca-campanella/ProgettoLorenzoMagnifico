@@ -7,6 +7,8 @@ package it.polimi.ingsw.client.gui;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
+import it.polimi.ingsw.client.gui.fxcontrollers.CustomControllerConnectionChoice;
+import it.polimi.ingsw.client.gui.fxcontrollers.LoginRegisterController;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
@@ -16,21 +18,25 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
-import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.*;
 
 public class GraphicalUI extends AbstractUIType {
 
     private MainGUIApplication guiApplication;
 
-
+    Stage mainStage;
     /**
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
@@ -39,10 +45,26 @@ public class GraphicalUI extends AbstractUIType {
     {
         super(controller);
         guiApplication = new MainGUIApplication();
-        guiApplication.setController(controller);
+        if(controller == null)
+            Debug.printVerbose("controller is null in GraphicalUI");
         //guiApplication.launch();
 
-        Application.launch(MainGUIApplication.class);
+        //Application.launch(MainGUIApplication.class);
+        guiApplication.startGUI();
+        Debug.printVerbose("Before setting controller");
+        guiApplication.setController(controller);
+        Debug.printVerbose("After setting controller");
+
+    }
+
+    /**
+     * This is the constructor of the class
+     * @param controller is used to make callbacks on the controller ({@link ClientMain}
+     */
+    public GraphicalUI(ViewControllerCallbackInterface controller, Stage mainStage)
+    {
+        super(controller);
+        this.mainStage = mainStage;
     }
 
     public void selectFamilyMember()
@@ -285,8 +307,22 @@ public class GraphicalUI extends AbstractUIType {
      */
     public void askNetworkType()
     {
-        Debug.printError("Sono nella gui. Voglio chedere quale network usare.");
+        Debug.printDebug("Sono nella gui. Voglio chedere quale network usare.");
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ConnectionChooserV2.fxml"));
+
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ((CustomControllerConnectionChoice) fxmlLoader.getController()).setController(getController());
+
+        mainStage.setTitle("Connection Type Choice");
+        mainStage.setScene(new Scene(root));
+        mainStage.show();
     }
 
     /**
@@ -319,7 +355,22 @@ public class GraphicalUI extends AbstractUIType {
      */
     public void askLoginOrCreate()
     {
-        //TODO gophical
+        Debug.printDebug("Sono nella gui. ask login or create.");
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Login.fxml"));
+
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ((LoginRegisterController) fxmlLoader.getController()).setController(getController());
+
+        mainStage.setTitle("Connection Type Choice");
+        mainStage.setScene(new Scene(root));
+        mainStage.show();
     }
 
     //permette all'utente di create un nuovo account

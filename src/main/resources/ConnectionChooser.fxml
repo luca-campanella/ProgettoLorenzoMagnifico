@@ -22,7 +22,7 @@
          <font>
             <Font name="Californian FB" size="24.0" />
          </font></Button>
-      <Button layoutX="400.0" layoutY="555.0" maxHeight="45.0" maxWidth="400.0" minHeight="45.0" minWidth="400.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="404.0" text="RMI connection" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Button layoutX="400.0" layoutY="555.0" maxHeight="45.0" maxWidth="400.0" minHeight="45.0" minWidth="400.0" mnemonicParsing="false" onAction="#rmiConnection" prefHeight="45.0" prefWidth="404.0" text="RMI connection" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="Californian FB" size="24.0" />
          </font></Button>
