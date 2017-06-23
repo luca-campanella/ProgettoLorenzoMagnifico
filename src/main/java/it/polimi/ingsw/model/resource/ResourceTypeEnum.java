@@ -27,4 +27,5 @@ public enum ResourceTypeEnum {
     public String getFullName() {
         return fullName;
     }
+
 }

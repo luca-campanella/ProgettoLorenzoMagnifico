@@ -240,8 +240,8 @@ public class Player implements Serializable{
 
     public void playFamilyMember(FamilyMember familyMember){
 
-        this.notUsedFamilyMembers.remove(familyMember);
-        this.usedFamilyMembers.add(familyMember);
+        notUsedFamilyMembers.remove(familyMember);
+        usedFamilyMembers.add(familyMember);
 
     }
 
@@ -456,5 +456,9 @@ public class Player implements Serializable{
                 break;
             }
         }
+    }
+
+    public ArrayList<FamilyMember> getUsedFamilyMembers() {
+        return usedFamilyMembers;
     }
 }
