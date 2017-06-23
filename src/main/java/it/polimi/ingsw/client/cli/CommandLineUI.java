@@ -190,11 +190,11 @@ public class CommandLineUI extends AbstractUIType {
 
     /**
      * if an error occurs, this method printsit
-     * @param error
+     * @param title
      */
-    public void printError(String error)
+    public void displayError(String title, String errorDescription)
     {
-        System.out.println( error );
+        System.out.println("**Error** " + title + " - " + errorDescription);
     }
 
     /**

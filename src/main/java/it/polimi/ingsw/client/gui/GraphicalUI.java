@@ -7,10 +7,7 @@ package it.polimi.ingsw.client.gui;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
-import it.polimi.ingsw.client.gui.fxcontrollers.LeaderPickerControl;
-import it.polimi.ingsw.client.gui.fxcontrollers.CustomFxControl;
-import it.polimi.ingsw.client.gui.fxcontrollers.PersonalTilesPickerControl;
-import it.polimi.ingsw.client.gui.fxcontrollers.WaitingSceneControl;
+import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
@@ -30,6 +27,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -49,6 +47,7 @@ public class GraphicalUI extends AbstractUIType {
         super(controller);
         this.mainStage = mainStage;
         currentStage = new Stage();
+        currentStage.setAlwaysOnTop(true);
     }
 
     public void selectFamilyMember()
@@ -275,11 +274,17 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error
      *
-     * @param error
+     * @param title
      */
     @Override
-    public void printError(String error) {
-        //TODO implent
+    public void displayError(String title, String errorDescription) {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(title);
+        alert.setContentText(errorDescription);
+        alert.initOwner(currentStage);
+        alert.show();
     }
 
     /**
@@ -368,7 +373,8 @@ public class GraphicalUI extends AbstractUIType {
     {
         Debug.printDebug("Sono nella gui. ask login or create.");
 
-        Platform.runLater(() -> openNewWindow("LoginRegisterScene.fxml", "Login or register", null));
+        Platform.runLater(() -> openNewWindow("LoginRegisterScene.fxml", "Login or register",
+                () -> ((LoginRegisterControl) (currentFXControl)).setStage(currentStage)));
     }
 
     //permette all'utente di create un nuovo account
