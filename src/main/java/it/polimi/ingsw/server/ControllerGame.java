@@ -306,9 +306,8 @@ public class ControllerGame {
      * @param familyMember the familymember the player places
      * @param towerIndex the number of the tower where the family member is placed
      * @param floorIndex the number of floor on the tower the family member is placed
-     * @throws IllegalMoveException if the move is not correct
      */
-    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) {
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
 

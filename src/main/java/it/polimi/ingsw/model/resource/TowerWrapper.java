@@ -20,7 +20,7 @@ public class TowerWrapper {
      */
     private int servantNeeded;
 
-    public TowerWrapper(int towerFloor, int towerIndex, int servantNeeded){
+    public TowerWrapper(int towerIndex, int towerFloor, int servantNeeded){
 
         this.towerFloor = towerFloor;
         this.towerIndex = towerIndex;

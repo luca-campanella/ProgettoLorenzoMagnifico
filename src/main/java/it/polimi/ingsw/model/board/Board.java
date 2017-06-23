@@ -267,7 +267,6 @@ public class Board implements Serializable {
      */
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, ChoicesHandlerInterface choicesController) {
         towers[towerIndex].placeFamilyMember(familyMember, floorIndex, choicesController);
-        return;
     }
 
     /**

@@ -360,6 +360,16 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void callbackPlacedFMOnTower(int towerIndex, int floorIndex){
         modelController.placeOnTower(familyMemberCurrentAction, towerIndex, floorIndex);
+
+        try{
+            clientNetwork.placeOnTower(familyMemberCurrentAction, towerIndex, floorIndex, choicesOnCurrentAction);
+            Debug.printVerbose("delivered tower move to server");
+            playedFamilyMember = true;
+            clientChoices();
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the move on tower to the server");
+        }
     }
 
     /**
@@ -601,7 +611,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         clientChoices();
     }
 
-    private void clientChoices(){
+    public void clientChoices(){
         ArrayList<FamilyMember> playableFMs = thisPlayer.getNotUsedFamilyMembers();
         if(!playedFamilyMember){
 

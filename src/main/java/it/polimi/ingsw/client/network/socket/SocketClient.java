@@ -195,23 +195,20 @@ public class SocketClient extends AbstractClientType {
     @Override
     public void placeOnTower(FamilyMember familyMember,
                              int numberTower, int floorTower, HashMap<String, Integer> playerChoices)
-            throws NetworkException,IllegalMoveException {
-        MoveErrorEnum moveErrorEnum;
+            throws NetworkException{
+
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.MOVE_IN_TOWER);
                 outStream.writeObject(new PlaceOnTowerPacket(familyMember.getColor(),numberTower,floorTower, playerChoices));
             }
             outStream.flush();
-            moveErrorEnum=(MoveErrorEnum) inStream.readObject();
+
         }
-        catch (IOException | ClassNotFoundException e){
+        catch (IOException e){
             Debug.printError("Connection not available",e);
             throw new NetworkException(e);
-        }
-        if(moveErrorEnum==MoveErrorEnum.LOW_RESOURCES || moveErrorEnum== MoveErrorEnum.LOW_VALUE_DICE
-                || moveErrorEnum== MoveErrorEnum.NOT_PLAYER_TURN){
-            throw new IllegalMoveException(moveErrorEnum);
+
         }
     }
 

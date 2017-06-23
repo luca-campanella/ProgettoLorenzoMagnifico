@@ -37,7 +37,7 @@ public interface RMIPlayerInterface extends Remote {
      * @throws RemoteException if something goes wrong during the connection
      * @throws IllegalMoveException //todo remove or implement server side
      */
-    public void placeOnTower(DiceAndFamilyMemberColorEnum familyMemberColor, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws RemoteException, IllegalMoveException;
+    public void placeOnTower(DiceAndFamilyMemberColorEnum familyMemberColor, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws RemoteException;
 
     /**
      * this method is used to deliver the move of a family member on a marketplace
@@ -47,7 +47,7 @@ public interface RMIPlayerInterface extends Remote {
      * @throws RemoteException if something goes wrong during the connection
      * @throws IllegalMoveException //todo remove or implement server side
      */
-    public void placeOnMarket(DiceAndFamilyMemberColorEnum familyMemberColor,int marketIndex, HashMap<String, Integer> playerChoices) throws  RemoteException, IllegalMoveException;
+    public void placeOnMarket(DiceAndFamilyMemberColorEnum familyMemberColor,int marketIndex, HashMap<String, Integer> playerChoices) throws  RemoteException;
 
     /**
      * this method is used to deliver the move of a family member on a council

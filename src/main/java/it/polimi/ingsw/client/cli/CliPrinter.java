@@ -155,6 +155,7 @@ public class CliPrinter {
         ArrayList<? extends ImmediateEffectInterface> costs;
         StringBuilder immediateEffects = new StringBuilder("| Instantly: ");
 
+        if(floor.getFamilyMembers().size() == 0){
         costs = floor.getCard().getImmediateEffect();
         //first i print the costs
         for (int i = 0; i < costs.size(); i++) {
@@ -163,7 +164,7 @@ public class CliPrinter {
         }
         //then i print the remaining space from cost to .. |
         printScene(immediateEffects.toString());
-    }
+    }}
 
     /**
      * this method prints all second effects permanent / harvests / build and purple
@@ -172,7 +173,8 @@ public class CliPrinter {
      */
     private static void printCardSecondEffectOnFloor(TowerFloorAS floor) {
         StringBuilder tempCostsScene = new StringBuilder("| Second: ");
-        tempCostsScene.append(floor.getCard().secondEffect());
+        if(floor.getFamilyMembers().size() == 0)
+            tempCostsScene.append(floor.getCard().secondEffect());
         //Here i fit my string to the scene.. |
         while (tempCostsScene.length() < INSIDE_TOWER_LENGHT + 1)
             tempCostsScene.append(" ");
@@ -195,8 +197,10 @@ public class CliPrinter {
         String name;
         for (int k = 0; k < board.getNUMBER_OF_TOWERS(); k++) {
             //temp printing, waiting for filling all the cards
-            name = temp[k].getCard().getName();
-
+            if(temp[k].getFamilyMembers().size() == 0)
+                name = temp[k].getCard().getName();
+            else
+                name = "";
             System.out.print("|");
             tempLength = ((INSIDE_TOWER_LENGHT) - name.length()) / 2;
             for (int i = 0; i < tempLength; i++)
@@ -252,13 +256,15 @@ public class CliPrinter {
         int i = 0;
         ArrayList<Resource> costs;
         StringBuilder tempCostsScene = new StringBuilder("|Cost: ");
+        if(floor.getFamilyMembers().size()==0){
         if(floor.getCard() instanceof VentureCard) {
             try {
                 tempCostsScene.append(((VentureCard) floor.getCard()).getCostChoiceMilitary().getDescription());
             } catch (NullPointerException noChoiceMilitary) {
                 ;
             }
-        }
+        }}
+        if(floor.getFamilyMembers().size()==0){
         try {
             costs = floor.getCard().getCost();
             //first i print the costs
@@ -268,7 +274,7 @@ public class CliPrinter {
             }
         } catch (NullPointerException e) {
             ;
-        }
+        }}
         printScene(tempCostsScene.toString());
     }
 

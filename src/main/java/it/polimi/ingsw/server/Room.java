@@ -165,7 +165,7 @@ public class Room {
      *
      * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
-    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException {
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices){
 
         controllerGame.placeOnTower(familyMember, towerIndex, floorIndex, playerChoices);
         floodPlaceOnTower(familyMember, towerIndex, floorIndex, playerChoices);
@@ -174,8 +174,6 @@ public class Room {
 
     /**
      * the method called by the client to do place a family member on the market
-     *
-     * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
     public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices){
 
@@ -196,8 +194,6 @@ public class Room {
 
     /**
      * call the method on controller game to harvest
-     *
-     * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
     public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 

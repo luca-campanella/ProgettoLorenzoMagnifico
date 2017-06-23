@@ -17,8 +17,6 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
 
     private AbstractCard card;
 
-    private FamilyMember familyMember = null;
-
     public TowerFloorAS(/*int diceCost, ImmediateEffectInterface effect*/){
         /*this.diceCost = diceCost;
         this.effect = effect;*/
@@ -65,7 +63,14 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
         card.applyImmediateEffectsToPlayer(player, choiceController);
     }
 
+    /**
+     * this method is used to add the card on the floor and to clear the family member
+     * @param card the card placed on the floor
+     */
     public void setCard(AbstractCard card) {
+
         this.card = card;
+        getFamilyMembers().clear();
+
     }
 }

@@ -345,10 +345,9 @@ import java.util.HashMap;
      * @param floorTower the number of the floor (from top to bottom)
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws RemoteException if something goes wrong during the connection
-     * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
-    public void placeOnTower(DiceAndFamilyMemberColorEnum familyMemberColor, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws RemoteException, IllegalMoveException {
+    public void placeOnTower(DiceAndFamilyMemberColorEnum familyMemberColor, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws RemoteException {
         getRoom().placeOnTower(getFamilyMemberByColor(familyMemberColor), numberTower, floorTower, playerChoices);
     }
 
@@ -358,10 +357,9 @@ import java.util.HashMap;
      * @param marketIndex is the index of the market space  (from left to right) //todo: Check this assert
      * @param playerChoices is the map that cointains all the choices of the client when an effect asks
      * @throws RemoteException if something goes wrong during the connection
-     * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
-    public void placeOnMarket(DiceAndFamilyMemberColorEnum familyMemberColor, int marketIndex, HashMap<String, Integer> playerChoices) throws RemoteException, IllegalMoveException {
+    public void placeOnMarket(DiceAndFamilyMemberColorEnum familyMemberColor, int marketIndex, HashMap<String, Integer> playerChoices) throws RemoteException {
         getRoom().placeOnMarket(getFamilyMemberByColor(familyMemberColor),marketIndex,playerChoices);
     }
 
@@ -370,7 +368,6 @@ import java.util.HashMap;
      * @param familyMemberColor is the color of the chosen family member
      * @param playerChoices is the map that cointains all the choices of the client when an effect asks
      * @throws RemoteException if something goes wrong during the connection
-     * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
     public void placeOnCouncil(DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) throws  RemoteException
@@ -384,7 +381,6 @@ import java.util.HashMap;
      * @param servantsUsed is the numberof additional servants used to increase value of the dice
      * @param playerChoices is the map that cointains all the choices of the client when an effect asks
      * @throws RemoteException if something goes wrong during the connection
-     * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
     public void harvest(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException

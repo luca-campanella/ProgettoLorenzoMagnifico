@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.controller;
 
+import it.polimi.ingsw.client.cli.CallbackFunction;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.leaders.LeaderCard;
@@ -98,4 +99,9 @@ public interface ViewControllerCallbackInterface {
      * @param leaderIter the leader card to discard
      */
     void callbackDiscardLeader(LeaderCard leaderIter);
+
+    /**
+     * this method is called to turn back at the start of the initial choices
+     */
+    void clientChoices();
 }

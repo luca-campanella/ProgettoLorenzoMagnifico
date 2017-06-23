@@ -11,16 +11,15 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by campus on 11/06/2017.
+ * this class is used to create the client view of the player that wants to place a family member on the board
  */
 public class ActionSpacePickerMenu extends BasicCLIMenu {
 
-    Optional<Integer> servantsNeededHarvest;
-    Optional<Integer> servantsNeededBuild;
-    Optional<Integer> servantsNeededCouncil;
-    List<MarketWrapper> activeMarketSpaces;
-    List<TowerWrapper> activeTowerSpaces;
-    int availableServants;
+    private Optional<Integer> servantsNeededHarvest;
+    private Optional<Integer> servantsNeededBuild;
+    private List<MarketWrapper> activeMarketSpaces;
+    private List<TowerWrapper> activeTowerSpaces;
+    private int availableServants;
 
     public ActionSpacePickerMenu(ViewControllerCallbackInterface controller,
                                  Optional<Integer> servantsNeededHarvest,
@@ -33,11 +32,11 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
 
         this.servantsNeededHarvest = servantsNeededHarvest;
         this.servantsNeededBuild = servantsNeededBuild;
-        this.servantsNeededCouncil = servantsNeededCouncil;
         this.activeMarketSpaces = activeMarketSpaces;
         this.activeTowerSpaces = activeTowerSpaces;
         this.availableServants = availableServants;
 
+        addOption("BACK", "Turn back to the initial menu", controller::clientChoices);
         if(servantsNeededHarvest.isPresent())
             addOption("HARV", "Place on the harvest action space (at least" + servantsNeededHarvest.get()
                     + " additional servants needed)", this::placeFMOnHarvest);
@@ -78,20 +77,25 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
     private void placeFMOnTower() {
 
         Debug.printVerbose("placeFMOnTower");
-        int indexRes;
+        int towerIndex;
+        int floorIndex;
         if(activeTowerSpaces.size() == 1) {
-            System.out.println("You can only place on space of tower number " + activeMarketSpaces.get(0).getMarketIndex() + "with " + activeMarketSpaces.get(0).getServantNeeded() + "servants needed");
+            System.out.println("You can only place on space of :\ntower number " + activeTowerSpaces.get(0).getTowerIndex() + "\nFloor : " + activeTowerSpaces.get(0).getTowerFloor() + "\nwith " + activeTowerSpaces.get(0).getServantNeeded() + "servants needed");
             System.out.println("I'm placing it over there");
-            indexRes = activeMarketSpaces.get(0).getMarketIndex();
-        } else { //we have to ask the user for a choice
-            CliOptionsHandler marketSpaceChooser = new CliOptionsHandler(activeMarketSpaces.size());
+            towerIndex = activeTowerSpaces.get(0).getTowerIndex();
+            floorIndex = activeTowerSpaces.get(0).getTowerFloor();
 
-            for (MarketWrapper maketIter : activeMarketSpaces) {
-                marketSpaceChooser.addOption("Place on market action space n " + maketIter.getMarketIndex() + "with " + maketIter.getServantNeeded() + "servants needed");
+        } else { //we have to ask the user for a choice
+            CliOptionsHandler towerSpaceChooser = new CliOptionsHandler(activeTowerSpaces.size());
+
+            for (TowerWrapper towerIter : activeTowerSpaces) {
+                towerSpaceChooser.addOption("Place on tower action space n " + towerIter.getTowerIndex() + ", floor " + towerIter.getTowerFloor() + " with " + towerIter.getServantNeeded() + "servants needed");
             }
-            indexRes = activeMarketSpaces.get(marketSpaceChooser.askUserChoice()).getMarketIndex();
+            int index = towerSpaceChooser.askUserChoice();
+            towerIndex = activeTowerSpaces.get(index).getTowerIndex();
+            floorIndex = activeTowerSpaces.get(index).getTowerFloor();
         }
-        getController().callbackPlacedFMOnMarket(indexRes);
+        getController().callbackPlacedFMOnTower(towerIndex, floorIndex);
     }
 
     private void placeFMOnBuild() {

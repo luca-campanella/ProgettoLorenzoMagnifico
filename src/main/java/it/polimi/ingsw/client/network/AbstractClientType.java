@@ -114,19 +114,17 @@ public abstract class AbstractClientType  {
      * this method is used to deliver the move of a family member on a tower
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws NetworkException if something goes wrong during the connection
-     * @throws IllegalMoveException
      */
     public abstract void placeOnTower(FamilyMember familyMember, int numberTower, int floorTower, HashMap<String, Integer> playerChoices)
-            throws NetworkException,IllegalMoveException;
+            throws NetworkException;
 
     /**
      * this method is used to deliver the move of a family member on a space market
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws NetworkException if something goes wrong during the connection
-     * @throws IllegalMoveException
      */
     public abstract void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices)
-            throws NetworkException,IllegalMoveException;
+            throws NetworkException;
 
     public abstract void placeOnCouncil(FamilyMember familyMember,HashMap<String, Integer> playerChoices)
         throws NetworkException;

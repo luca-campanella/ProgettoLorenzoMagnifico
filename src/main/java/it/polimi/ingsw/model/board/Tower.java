@@ -2,12 +2,14 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.cards.CharacterCardCollector;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 /**
  * This class represents the single tower and collects action spaces regarding cards
@@ -86,11 +88,11 @@ public class Tower implements Serializable{
             player.subResource(new Resource(ResourceTypeEnum.COIN, 3));
 
         //we check if there is a discount on the tower coming from blue cards, if there is we add this discount to the player
-       /* done in perform action of floorAS
+       // done in perform action of floorAS
        CharacterCardCollector blueCards = player.getPersonalBoard().getCharacterCardsCollector();
 
         LinkedList<Resource> discount = blueCards.getDiscountOnTower(colorTower);
-        player.addResource(discount);*/
+        player.addResources(discount);
 
         floors[floorIndex].performAction(familyMember, choicesController);
     }

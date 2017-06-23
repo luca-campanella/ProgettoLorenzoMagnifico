@@ -147,7 +147,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
-    public void placeOnTower(FamilyMember familyMember, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+    public void placeOnTower(FamilyMember familyMember, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws NetworkException {
         try {
             RMIPlayerInterfaceInst.placeOnTower(familyMember.getColor(), numberTower, floorTower, playerChoices);
         } catch (RemoteException e) {
@@ -165,7 +165,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
-    public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException, IllegalMoveException {
+    public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
         try {
         RMIPlayerInterfaceInst.placeOnMarket(familyMember.getColor(), marketIndex, playerChoices);
         } catch (RemoteException e) {

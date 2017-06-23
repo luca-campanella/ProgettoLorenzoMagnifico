@@ -164,17 +164,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
             PlaceOnTowerPacket packet=(PlaceOnTowerPacket)inStream.readObject();
             getRoom().placeOnTower(getFamilyMemberByColor(packet.getFamilyMemberColor()), packet.getTowerIndex(), packet.getFloorIndex(), packet.getPlayersChoices());
-            outStream.writeObject(MoveErrorEnum.NO_ERROR);
 
         }
-        catch (IllegalMoveException e){
-            try{
-                outStream.writeObject(e.getErrorType());
-            }
-            catch (IOException e1){
-                Debug.printError("network is not working", e1);
-            }
-        }
+
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
         }

@@ -1,9 +1,5 @@
 package it.polimi.ingsw.client.cli;
 
-/**
- * to insert inputs on the cli
- */
-
 import it.polimi.ingsw.client.cli.notblockingmenus.*;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
@@ -37,7 +33,6 @@ import java.util.concurrent.Executors;
  */
 public class CommandLineUI extends AbstractUIType {
 
-    String tmpInput;
     private ExecutorService pool;
 
     /**
@@ -439,6 +434,10 @@ public class CommandLineUI extends AbstractUIType {
         }
     }
 
+    /**
+     * thies message is showed to all the players to inform that a player had passed the turn
+     * @param nickname the player that had pass the phase
+     */
     @Override
     public void showEndOfPhaseOfPlayer(String nickname) {
         Debug.printVerbose("The player " + nickname + " had passed the turn.");
