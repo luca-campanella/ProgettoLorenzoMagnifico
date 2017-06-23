@@ -1,19 +1,19 @@
 package it.polimi.ingsw.client.cli;
 
-import it.polimi.ingsw.model.board.*;
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.model.board.MarketAS;
+import it.polimi.ingsw.model.board.TowerFloorAS;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCard;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.leaders.LeadersDeck;
-import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
-import it.polimi.ingsw.server.JSONLoader;
-import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -155,7 +155,7 @@ public class CliPrinter {
         ArrayList<? extends ImmediateEffectInterface> costs;
         StringBuilder immediateEffects = new StringBuilder("| Instantly: ");
 
-        if(floor.getFamilyMembers().size() == 0){
+        if(floor.getFamilyMembers().isEmpty()){
         costs = floor.getCard().getImmediateEffect();
         //first i print the costs
         for (int i = 0; i < costs.size(); i++) {
@@ -173,7 +173,7 @@ public class CliPrinter {
      */
     private static void printCardSecondEffectOnFloor(TowerFloorAS floor) {
         StringBuilder tempCostsScene = new StringBuilder("| Second: ");
-        if(floor.getFamilyMembers().size() == 0)
+        if(floor.getFamilyMembers().isEmpty())
             tempCostsScene.append(floor.getCard().secondEffect());
         //Here i fit my string to the scene.. |
         while (tempCostsScene.length() < INSIDE_TOWER_LENGHT + 1)
@@ -197,7 +197,7 @@ public class CliPrinter {
         String name;
         for (int k = 0; k < board.getNUMBER_OF_TOWERS(); k++) {
             //temp printing, waiting for filling all the cards
-            if(temp[k].getFamilyMembers().size() == 0)
+            if(temp[k].getFamilyMembers().isEmpty())
                 name = temp[k].getCard().getName();
             else
                 name = "";
