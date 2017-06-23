@@ -292,7 +292,7 @@ public class PlayerTest {
 
     }
 
-    //@Test todo
+    @Test
     public void addCardRandom() throws Exception{
         Deck deck = JSONLoader.createNewDeck();
         Player playerNickname;
@@ -339,7 +339,7 @@ public class PlayerTest {
         }
 
     }
-    @Test
+    //@Test
     public void buildRandom() throws Exception {
         Deck deck = JSONLoader.createNewDeck();
         Player playerNickname;
