@@ -260,10 +260,11 @@ public class CommandLineUI extends AbstractUIType {
      * //todo other methods triggered
      * @param playableFMs the list of playable family members to make the user choose
      * @param board
+     * @param playedLeaderCards
      */
     @Override
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember,
-                                 ArrayList<LeaderCard> leaderCardsNotPlayed, ArrayList<LeaderCard> playedLeaderCards, Player player) {
+                                 ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, Player player) {
         InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs, board,
                 playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards, player);
 

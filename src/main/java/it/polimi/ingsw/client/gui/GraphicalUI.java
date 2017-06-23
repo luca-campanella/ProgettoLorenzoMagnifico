@@ -121,13 +121,13 @@ public class GraphicalUI extends AbstractUIType {
      * This method will trigger either
      * {@link ViewControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
-     *
-     * @param playableFMs the list of playable family members to make the user choose
+     *  @param playableFMs the list of playable family members to make the user choose
      * @param board
+     * @param playedLeaderCards
      */
     @Override
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember, ArrayList<LeaderCard> leaderCardsNotPlayed,
-                                 ArrayList<LeaderCard> playedLeaderCards, Player player) {
+                                 List<LeaderCard> playedLeaderCards, Player player) {
 
     }
 

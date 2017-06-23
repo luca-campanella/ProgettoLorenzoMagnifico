@@ -47,8 +47,6 @@ public class Player implements Serializable{
      */
     private ArrayList<LeaderCard> leaderCardsNotUsed;
 
-    private ArrayList<LeaderCard> leaderCardsPlayed;
-
     /**
      * These are the leader cards the user decided to play,
      * but of which he still hasn't activated the once per round ability
@@ -87,7 +85,6 @@ public class Player implements Serializable{
         playedOncePerRoundLeaderCards = new LinkedList<LeaderCard>();
         playedAndActivatedOncePerRoundLeaderCards = new LinkedList<LeaderCard>();
         leaderCardsNotUsed = new ArrayList<LeaderCard>(4);
-        leaderCardsPlayed = new ArrayList<LeaderCard>(4);
         permanentLeaderCardCollector = new PermanentLeaderCardCollector();
         excommunicationTilesCollector = new ExcommunicationTilesCollector();
 
@@ -261,16 +258,6 @@ public class Player implements Serializable{
     public void addCard(AbstractCard card){
         personalBoard.addCard(card);
     }
-
-    public synchronized void addLeaderCard(LeaderCard leaderCard){
-
-        this.leaderCardsNotUsed.add(leaderCard);
-    }
-
-    public ArrayList<LeaderCard> getLeaderCardsNotUsed(){
-
-        return leaderCardsNotUsed;
-    }
 /*
     public void activateLeaderCard(LeaderCard leaderCardsNotUsed){
 
@@ -348,6 +335,26 @@ public class Player implements Serializable{
         playedOncePerRoundLeaderCards.clear();
     }
 
+
+    /**
+     * This method adds a leader card to the ones the user has
+     * it should be used only during the draft initial phase
+     * @param leaderCard the leader to add
+     */
+    public synchronized void addLeaderCard(LeaderCard leaderCard){
+
+        this.leaderCardsNotUsed.add(leaderCard);
+    }
+
+    /**
+     * Returns the List of leader cards the user hasn't played yet (hence neither activated)
+     * @return he List of leader cards the user hasn't played yet
+     */
+    public ArrayList<LeaderCard> getLeaderCardsNotUsed(){
+
+        return leaderCardsNotUsed;
+    }
+    
     /**
      * This method returns a list of LeaderCards not yet played, but playable,
      * i.e. they player meets their the requirements to be played
@@ -438,10 +445,6 @@ public class Player implements Serializable{
 
     public PermanentLeaderCardCollector getPermanentLeaderCardCollector() {
         return permanentLeaderCardCollector;
-    }
-
-    public ArrayList<LeaderCard> getLeaderCardsPlayed() {
-        return leaderCardsPlayed;
     }
 
     /**
