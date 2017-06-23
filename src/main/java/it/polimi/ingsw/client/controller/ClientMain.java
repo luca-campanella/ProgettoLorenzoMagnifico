@@ -666,6 +666,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void callbackOnLeaderCardChosen(LeaderCard leaderCardChoice) {
         Debug.printVerbose("callbackOnLeaderCardChosen Called");
         modelController.addLeaderCardToPlayer(leaderCardChoice, thisPlayer);
+        //todo do this only if some other player is missing
+        userInterface.showWaitingForLeaderChoices();
         try {
             clientNetwork.deliverLeaderChose(leaderCardChoice);
         } catch (NetworkException e) {

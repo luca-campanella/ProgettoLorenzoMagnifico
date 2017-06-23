@@ -104,6 +104,11 @@ abstract public class AbstractUIType {
     public abstract void showWaitingForGameStart();
 
     /**
+     * This method is called by the controller after a leader is selected and the player has to wait for enemies to choose their
+     */
+    public abstract void showWaitingForLeaderChoices();
+
+    /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * {@link ViewControllerCallbackInterface(DiceAndFamilyMemberColorEnum, int)}

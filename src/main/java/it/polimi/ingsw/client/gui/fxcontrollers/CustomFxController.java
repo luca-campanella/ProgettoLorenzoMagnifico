@@ -2,12 +2,12 @@ package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.utils.Debug;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 /**
  * Created by campus on 22/06/2017.
  */
-public class CustomFxController extends AnchorPane {
+public class CustomFxController extends Pane {
     private ViewControllerCallbackInterface controller;
 
 

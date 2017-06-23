@@ -9,6 +9,7 @@ import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.fxcontrollers.CustomControllerLeaderChoices;
 import it.polimi.ingsw.client.gui.fxcontrollers.CustomFxController;
+import it.polimi.ingsw.client.gui.fxcontrollers.WaitingSceneControl;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
@@ -101,7 +102,23 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForGameStart() {
-        
+
+        Debug.printDebug("GUI: whow waiting for game start");
+
+        Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for game to start",
+                () -> this.prepareWaitingScene("Room joined succesfully, waiting for other players to join or for timeout...")));
+
+    }
+
+    /**
+     * This method is called by the controller after a leader is selected and the player has to wait for enemies to choose their
+     */
+    @Override
+    public void showWaitingForLeaderChoices() {
+        Debug.printDebug("GUI: whow waiting for another leader choice");
+
+        Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for leader choices",
+                () -> this.prepareWaitingScene("Leader chose, waiting for other players to choose...")));
     }
 
     /**
@@ -379,6 +396,11 @@ public class GraphicalUI extends AbstractUIType {
             runBeforeShow.run();
 
         currentStage.show();
+    }
+
+    private void prepareWaitingScene(String message) {
+        //openNewWindow("WaitingScene.fxml", title, null);
+        ((WaitingSceneControl) (currentFXControl)).setMessage(message);
     }
 
 }

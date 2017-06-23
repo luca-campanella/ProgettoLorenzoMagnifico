@@ -24,9 +24,9 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * Just a class to test the leader choices with GUI
+ * Just a class to tests some of the GUI windows
  */
-public class LeaderChooserTester extends Application implements ViewControllerCallbackInterface {
+public class GUIWindowsTester extends Application implements ViewControllerCallbackInterface {
 
     GraphicalUI gui;
 
@@ -35,6 +35,35 @@ public class LeaderChooserTester extends Application implements ViewControllerCa
         Debug.instance(Debug.LEVEL_VERBOSE);
 
         gui = new GraphicalUI(this);
+
+        //testLeaders();
+        testWaitingMenu();
+    }
+
+    public static void main(String args[]) {
+        launch(args);
+    }
+
+    private void testWaitingMenu() {
+        gui.showWaitingForGameStart();
+    }
+
+    private static ArrayList<AbstractRequirement> createOneReqArray(AbstractRequirement req) {
+        ArrayList<AbstractRequirement> reqs = new ArrayList<AbstractRequirement>(1);
+        reqs.add(req);
+
+        return reqs;
+    }
+
+    private static ArrayList<AbstractRequirement> createTwoReqArray(AbstractRequirement req1, AbstractRequirement req2) {
+        ArrayList<AbstractRequirement> reqs = new ArrayList<AbstractRequirement>(2);
+        reqs.add(req1);
+        reqs.add(req2);
+
+        return reqs;
+    }
+
+    private void testLeaders() {
         ArrayList<LeaderCard> leadersMock = new ArrayList<LeaderCard>(4);
         leadersMock.add(new LeaderCard(createOneReqArray(new CardRequirement(5, CardColorEnum.PURPLE)),
                 "Francesco Sforza",
@@ -63,25 +92,6 @@ public class LeaderChooserTester extends Application implements ViewControllerCa
                 new BonusNeutralFMLeaderAbility(3), "leaders_f_c_14.jpg"));
 
         gui.askLeaderCards(leadersMock);
-    }
-
-    public static void main(String args[]) {
-        launch(args);
-    }
-
-    private static ArrayList<AbstractRequirement> createOneReqArray(AbstractRequirement req) {
-        ArrayList<AbstractRequirement> reqs = new ArrayList<AbstractRequirement>(1);
-        reqs.add(req);
-
-        return reqs;
-    }
-
-    private static ArrayList<AbstractRequirement> createTwoReqArray(AbstractRequirement req1, AbstractRequirement req2) {
-        ArrayList<AbstractRequirement> reqs = new ArrayList<AbstractRequirement>(2);
-        reqs.add(req1);
-        reqs.add(req2);
-
-        return reqs;
     }
 
     /**

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.WaitingSceneControl">
+   <items>
+      <VBox alignment="CENTER">
+         <children>
+            <Label fx:id="messageLabel" text="Waiting message goes here">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font></Label>
+            <ImageView nodeOrientation="INHERIT" preserveRatio="true">
+               <image>
+                  <Image url="@imgs/Fiorenza.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </items>
+</SplitPane>
