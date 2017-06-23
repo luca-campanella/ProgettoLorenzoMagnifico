@@ -794,11 +794,11 @@ public class ModelController {
         return leaderCards;
     }
 
-    public ArrayList<LeaderCard> getLeaderCardsPlayed(String nickname){
-        ArrayList<LeaderCard> leaderCards = new ArrayList<>(4);
+    public List<LeaderCard> getLeaderCardsPlayed(String nickname){
+        List<LeaderCard> leaderCards = new ArrayList<>(4);
         for(Player player : players){
             if(player.getNickname().equals(nickname))
-                leaderCards = player.getLeaderCardsPlayed();
+                leaderCards = player.getPlayedLeaders();
         }
         return leaderCards;
     }

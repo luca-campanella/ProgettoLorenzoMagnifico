@@ -10,8 +10,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.List;
 
 /**
  * this class is the base menu, where you cann see all the possible option during your phase
@@ -19,10 +18,10 @@ import java.util.concurrent.Executors;
 public class InitialActionMenu extends BasicCLIMenu {
     private ArrayList<FamilyMember> playableFMs;
     private ArrayList<LeaderCard> leaderCardsNotPlayed;
-    private ArrayList<LeaderCard> playedLeaderCards;
+    private List<LeaderCard> playedLeaderCards;
 
     public InitialActionMenu(ViewControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilMembery,
-                             ArrayList<LeaderCard> leaderCardsNotPlayed, ArrayList<LeaderCard> playedLeaderCards, Player player) {
+                             ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, Player player) {
         super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
         this.playableFMs = playableFMs;
         this.leaderCardsNotPlayed = leaderCardsNotPlayed;
