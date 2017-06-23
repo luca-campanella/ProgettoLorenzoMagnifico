@@ -4,11 +4,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.CustomControllerLeaderChoices">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="938.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.CustomControllerLeaderChoices">
    <children>
-      <Button layoutX="740.0" layoutY="472.0" mnemonicParsing="false" text="Choose" />
-      <Label contentDisplay="CENTER" layoutX="198.0" layoutY="14.0" text="Please choose one of the following leaders, you can pick one at at a time" textAlignment="CENTER" wrapText="true" />
-      <HBox fx:id="leaderContainer" layoutX="21.0" layoutY="40.0" prefHeight="427.0" prefWidth="802.0" />
+      <Label contentDisplay="CENTER" layoutX="246.0" layoutY="14.0" text="Please choose one of the following leaders, you can pick one at at a time" textAlignment="CENTER" wrapText="true" />
+      <HBox fx:id="leaderContainer" layoutX="14.0" layoutY="40.0" prefHeight="380.0" prefWidth="908.0" />
+      <Button fx:id="chooseButton" disable="true" layoutX="848.0" layoutY="423.0" mnemonicParsing="false" onAction="#buttonChooseClicked" text="Choose" />
    </children>
 </AnchorPane>

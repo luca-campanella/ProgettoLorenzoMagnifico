@@ -354,7 +354,7 @@ public class Player implements Serializable{
 
         return leaderCardsNotUsed;
     }
-    
+
     /**
      * This method returns a list of LeaderCards not yet played, but playable,
      * i.e. they player meets their the requirements to be played

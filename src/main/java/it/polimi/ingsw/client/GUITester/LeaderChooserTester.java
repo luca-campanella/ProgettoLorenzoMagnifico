@@ -193,7 +193,7 @@ public class LeaderChooserTester extends Application implements ViewControllerCa
      */
     @Override
     public void callbackOnLeaderCardChosen(LeaderCard leaderCardChoice) {
-
+        Debug.printVerbose("Selected leader " + leaderCardChoice.getName());
     }
 
     /**
