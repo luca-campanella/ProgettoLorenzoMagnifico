@@ -12,19 +12,22 @@ import java.util.Random;
 /**
  * This class has all cards.
  */
-public class Deck implements Serializable{
-    private ArrayList<AbstractCard> allCards;
+public class
+Deck implements Serializable{
+
     private ArrayList<TerritoryCard> territoryCards;
     private ArrayList<CharacterCard> characterCards;
     private ArrayList<BuildingCard> buildingCards;
     private ArrayList<VentureCard> ventureCards;
+    private ArrayList<AbstractCard> allCards;
 
     public void shufflePartOfArrayList(ArrayList<? extends  AbstractCard> developmentCard){
 
 
     }
-    public void getNextCard(){
-        ;
+    public AbstractCard getNextCard(){
+        Random random = new Random();
+        return allCards.get(random.nextInt(96));
     }
 
     /**

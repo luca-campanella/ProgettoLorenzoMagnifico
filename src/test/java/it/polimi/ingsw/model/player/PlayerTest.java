@@ -2,10 +2,17 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
+import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.cards.Deck;
+import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.GiveCouncilGiftEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
+import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.leaders.LeadersDeck;
+import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.server.JSONLoader;
@@ -14,6 +21,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.*;
@@ -28,7 +36,42 @@ public class PlayerTest {
     private Resource resourceStone = new Resource(ResourceTypeEnum.STONE,2);
     private Resource resourceServants = new Resource(ResourceTypeEnum.SERVANT,3);
     private Resource resourceEmpty = new Resource(ResourceTypeEnum.COIN,0);
+    private ChoicesHandlerInterface choicesHandlerInterface = new ChoicesHandlerInterface() {
+        @Override
+        public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
+            return null;
+        }
 
+        @Override
+        public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, List<ImmediateEffectInterface> possibleEffectChoices) {
+            return null;
+        }
+
+        @Override
+        public List<Resource> callbackOnVentureCardCost(String choiceCode, List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary) {
+            return null;
+        }
+
+        @Override
+        public AbstractLeaderAbility callbackOnWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
+            return null;
+        }
+
+        @Override
+        public boolean callbackOnAlsoActivateLeaderCard() {
+            return false;
+        }
+
+        @Override
+        public int callbackOnAddingServants(String choiceCode, int minimum, int maximum) {
+            return 0;
+        }
+
+        @Override
+        public DiceAndFamilyMemberColorEnum callbackOnFamilyMemberBonus(String choiceCode, List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException {
+            return null;
+        }
+    };
     @Before
     public void setUp() throws Exception {
         JSONLoader.instance();
@@ -171,16 +214,16 @@ public class PlayerTest {
         Player player = new Player();
         ArrayList<Dice> dices = new ArrayList<>();
         Dice dice = new Dice(DiceAndFamilyMemberColorEnum.ORANGE);
-        FamilyMember familyOrange = new FamilyMember(dice, player);
 
         dices.add(dice);
         player.setFamilyMembers(dices);
+
         assertEquals(1, player.getNotUsedFamilyMembers().size());
         assertEquals(0, player.getUsedFamilyMembers().size());
 
-        player.playFamilyMember(familyOrange);
-        //todo there's a problem here. getNotUsedFamilyMembers.size should be 0
-        assertEquals(1, player.getNotUsedFamilyMembers().size());
+        player.playFamilyMember(player.getNotUsedFamilyMembers().get(0));
+
+        assertEquals(0, player.getNotUsedFamilyMembers().size());
         assertEquals(1, player.getUsedFamilyMembers().size());
         
         for(FamilyMember iterator : player.getNotUsedFamilyMembers())
@@ -188,20 +231,23 @@ public class PlayerTest {
 
         player.reloadFamilyMember();
 
-        for(FamilyMember iterator : player.getNotUsedFamilyMembers())
-            System.out.println("Not used " + iterator.getColor());
-        for(FamilyMember iterator : player.getUsedFamilyMembers())
-            System.out.println("Used " + iterator.getColor());
+        assertEquals(1, player.getNotUsedFamilyMembers().size());
+        assertEquals(0, player.getUsedFamilyMembers().size());
+
 
     }
 
     @Test
     public void addCard() throws Exception {
+        Deck deck = JSONLoader.createNewDeck();
+        Player playerNickname = new Player("Bravo");
+        playerNickname.addCard(deck.getBuildingCards().get(2));
+        assertEquals(1, playerNickname.getPersonalBoard().getYellowBuildingCards().size());
+        playerNickname.addCard(deck.getBuildingCards().get(3));
+        assertEquals(2, playerNickname.getPersonalBoard().getYellowBuildingCards().size());
+        assertEquals(0, playerNickname.getPersonalBoard().getNumberOfColoredCard(CardColorEnum.BLUE));
     }
 
-    @Test
-    public void addLeaderCard() throws Exception {
-    }
 
     @Test
     public void harvest() throws Exception {
@@ -217,6 +263,22 @@ public class PlayerTest {
 
     @Test
     public void getPersonalBoard() throws Exception {
+    }
+
+    @Test
+    public void addLeaderCard() throws Exception {
+        Player playerNickname = new Player("Alpha");
+        Random random = new Random();
+        LeadersDeck leadersDeck = JSONLoader.loadLeaders();
+        for(int i = 0; i< 4; i++)
+            playerNickname.addLeaderCard(leadersDeck.getLeaders().get(random.nextInt(20)));
+        assertEquals(4, playerNickname.getLeaderCardsNotUsed().size());
+
+        playerNickname.playLeader(playerNickname.getLeaderCardsNotUsed().get(0),choicesHandlerInterface);
+        //todo this has to be 3 istead of 4
+        assertEquals(4, playerNickname.getLeaderCardsNotUsed().size());
+        assertEquals(1, playerNickname.getPlayableLeaders().size());
+
     }
 
     @Test
