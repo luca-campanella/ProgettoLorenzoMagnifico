@@ -137,9 +137,7 @@ public class ServerMain {
 				Debug.printError("Couln't load JSON properly");
 			}
 		}
-		else if(room.canJoin(player))
-			//it's woth checking if the layer can join only if we haven't just created a new room. If we just created the room there is no way the player is already inside
-			if(!room.canJoin(player))
+		else if(!room.canJoin(player))//it's worth checking if the layer can join only if we haven't just created a new room. If we just created the room there is no way the player is already inside
 				throw new LoginException(LoginErrorEnum.ALREADY_LOGGED_TO_ROOM);
 		room.addNewPlayer(player);
 
@@ -152,7 +150,7 @@ public class ServerMain {
 			try {
 				rooms.get(rooms.size() - 1).addNewPlayer(player);
 			} catch (FullRoomException | GameAlreadyStartedRoomException e1) {
-				Debug.printError("Fatal error on the server, exiting", e1);
+				Debug.displayError("Fatal error on the server, exiting", e1);
 				System.exit(-1);
 			}
 		}*/
@@ -185,7 +183,7 @@ public class ServerMain {
 			try {
 				rooms.get(rooms.size() - 1).addNewPlayer(player);
 			} catch (FullRoomException | GameAlreadyStartedRoomException e1) {
-				Debug.printError("Fatal error on the server, exiting", e1);
+				Debug.displayError("Fatal error on the server, exiting", e1);
 				System.exit(-1);
 			}
 		}*/

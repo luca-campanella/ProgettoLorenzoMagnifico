@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * this is the custom controller for the login or register window, it validates passoword and username and makes
@@ -20,6 +21,7 @@ public class LoginRegisterControl extends CustomFxControl {
 
     @FXML
     private PasswordField passwordField;
+    private Stage stage;
 
     /**
      * Handles the pressing of the login button
@@ -61,26 +63,30 @@ public class LoginRegisterControl extends CustomFxControl {
      * @param password the password
      * @return true if they are valid, false otherwise
      */
-    private static boolean validateOrShowDialog(String nickname, String password) {
+    private boolean validateOrShowDialog(String nickname, String password) {
         if(!UsernamePasswordValidator.validateUsername(nickname)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Wrong username");
             alert.setHeaderText("You inserted a semantically invalid username");
             alert.setContentText("Please insert a username with no spaces and with only letters or numbers");
-
-            alert.showAndWait();
+            alert.initOwner(stage);
+            alert.show();
             return false;
         }
-        if(!UsernamePasswordValidator.validatePassword(nickname)) {
+        if(!UsernamePasswordValidator.validatePassword(password)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Wrong password");
             alert.setHeaderText("You inserted a semantically invalid password");
             alert.setContentText("Please insert a password with no spaces");
-
-            alert.showAndWait();
+            alert.initOwner(stage);
+            alert.show();
             return false;
         }
 
         return true;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

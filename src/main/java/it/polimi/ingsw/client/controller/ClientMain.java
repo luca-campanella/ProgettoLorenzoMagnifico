@@ -159,6 +159,11 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printDebug("Sono nel ClientMain.callbackLogin.");
         try {
             clientNetwork.loginPlayer(userID, userPW);
+
+            this.nickname = userID;
+            userInterface.showWaitingForGameStart();
+            Debug.printVerbose("Longin succesfully");
+
         } catch (NetworkException e) {
             //TODO handle network problems
             e.printStackTrace();
@@ -168,28 +173,27 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             Debug.printDebug("Login exception occurred", e);
             switch(e.getErrorType()) {
                 case ALREADY_LOGGED_TO_ROOM :
-                    userInterface.printError("Already logged to room");
+                    userInterface.displayError("Already logged", "You are already logged to " +
+                            "the current room, please use another account or wait for the game to start");
                     break;
                 case NOT_EXISTING_USERNAME:
-                    userInterface.printError("The username you inserted doesn't exists");
+                    userInterface.displayError("Not existing username", "The username you inserted " +
+                            "doesn't exists, please use an existing one or register a new account");
                     userInterface.askLoginOrCreate();
                 break;
                 case WRONG_PASSWORD:
-                    userInterface.printError("The password you inserted was wrong");
+                    userInterface.displayError("Wrong password", "The password you inserted was wrong");
                     userInterface.askLoginOrCreate();
                     break;
                 default:
-                    userInterface.printError("Something went wrong.");
+                    userInterface.displayError("Some problem", "Something went wrong.");
                     userInterface.askLoginOrCreate();
                     break;
 
             }
 
         }
-        this.nickname = userID;
-        userInterface.showWaitingForGameStart();
 
-        Debug.printVerbose("Im going to call askChatMsg");
         //userInterface.askChatMsg(); //TODO this is a method just for testing chat
         //userInterface.askInitialAction(); //TODO this is a method just for testing
     }
@@ -204,6 +208,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printDebug("I'm in ClientMain.callbackCreateAccount");
         try {
             clientNetwork.registerPlayer(userID, userPW);
+            this.nickname = userID;
+            userInterface.showWaitingForGameStart();
         } catch (NetworkException e) {
             //TODO handle network problems
             e.printStackTrace();
@@ -211,11 +217,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         catch(UsernameAlreadyInUseException e)
         {
             Debug.printDebug(e);
-            userInterface.printError("The username you inserted is already in use, please insert a new one");
+            userInterface.displayError("Username already in use", "The username you inserted is already in use, please insert a new one");
             userInterface.askLoginOrCreate();
         }
-        this.nickname = userID;
-        userInterface.showWaitingForGameStart();
     }
 
     /**
@@ -673,7 +677,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         } catch (NetworkException e) {
             //todo handle better
             Debug.printError("Cannot send leader choice", e);
-            userInterface.printError("Cannot contact the server, exiting the program");
+            userInterface.displayError("Connection problem", "Cannot contact the server, exiting the program");
             System.exit(0);
         }
     }

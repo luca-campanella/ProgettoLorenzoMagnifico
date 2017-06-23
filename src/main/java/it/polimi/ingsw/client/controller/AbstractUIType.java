@@ -81,8 +81,18 @@ abstract public class AbstractUIType {
 
     /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error
+     * @param title the title of the error
+     * @param errorDescription the description of the error
      */
-    abstract public void printError(String error);
+    abstract public void displayError(String title, String errorDescription);
+
+    /**
+     * this method alerts user that there was an error somewhere. It doesn't handle the error
+     * The error is a fatal one and after the user clicked ok the program terminates     *
+     * @param title the title of the error
+     * @param errorDescription the description of the error
+     */
+    public abstract void displayErrorAndExit(String title, String errorDescription);
 
     /**
      * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)

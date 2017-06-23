@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -190,11 +191,29 @@ public class CommandLineUI extends AbstractUIType {
 
     /**
      * if an error occurs, this method printsit
-     * @param error
+     * @param title the title of the error
+     * @param errorDescription the description of the erro
      */
-    public void printError(String error)
+    public void displayError(String title, String errorDescription)
     {
-        System.out.println( error );
+        System.out.println("**Error** " + title + " - " + errorDescription);
+    }
+
+    /**
+     * this method alerts user that there was an error somewhere. It doesn't handle the error
+     * The error is a fatal one and after the user clicked ok the program terminates     *
+     * @param title the title of the error
+     * @param errorDescription the description of the error
+     */
+    @Override
+    public void displayErrorAndExit(String title, String errorDescription) {
+        this.displayError(title, errorDescription);
+        try {
+            TimeUnit.SECONDS.sleep(20);
+        } catch (InterruptedException e) {
+            System.exit(0);
+        }
+        System.exit(0);
     }
 
     /**

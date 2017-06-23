@@ -47,7 +47,7 @@ public class Board implements Serializable {
         }catch(IOException e)
         {
             Debug.instance(2);
-            Debug.printError("Json couldn't load excommunication cards");
+            Debug.displayError("Json couldn't load excommunication cards");
         }
         */
     }
@@ -60,7 +60,7 @@ public class Board implements Serializable {
         }catch(IOException e)
         {
             Debug.instance(2);
-            Debug.printError("Json couldn't load excommunication cards");
+            Debug.displayError("Json couldn't load excommunication cards");
         }
     }*/
     /*
