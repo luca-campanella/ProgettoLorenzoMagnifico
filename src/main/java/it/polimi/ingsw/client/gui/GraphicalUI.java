@@ -34,8 +34,6 @@ import java.util.*;
 
 public class GraphicalUI extends AbstractUIType {
 
-    private MainGUIApplication guiApplication;
-
     Stage mainStage;
     /**
      * This is the constructor of the class
@@ -44,17 +42,9 @@ public class GraphicalUI extends AbstractUIType {
     public GraphicalUI(ViewControllerCallbackInterface controller)
     {
         super(controller);
-        guiApplication = new MainGUIApplication();
         if(controller == null)
             Debug.printVerbose("controller is null in GraphicalUI");
         //guiApplication.launch();
-
-        //Application.launch(MainGUIApplication.class);
-        guiApplication.startGUI();
-        Debug.printVerbose("Before setting controller");
-        guiApplication.setController(controller);
-        Debug.printVerbose("After setting controller");
-
     }
 
     /**

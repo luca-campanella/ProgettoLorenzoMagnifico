@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="740.0" layoutY="472.0" mnemonicParsing="false" text="Choose" />
+      <Label contentDisplay="CENTER" layoutX="198.0" layoutY="14.0" text="Please choose one of the following leaders, you can pick one at at a time" textAlignment="CENTER" wrapText="true" />
+      <HBox layoutX="21.0" layoutY="40.0" prefHeight="427.0" prefWidth="802.0" />
+   </children>
+</AnchorPane>
