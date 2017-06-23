@@ -7,8 +7,8 @@ package it.polimi.ingsw.client.gui;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
-import it.polimi.ingsw.client.gui.fxcontrollers.CustomControllerConnectionChoice;
-import it.polimi.ingsw.client.gui.fxcontrollers.LoginRegisterController;
+import it.polimi.ingsw.client.gui.fxcontrollers.CustomControllerLeaderChoices;
+import it.polimi.ingsw.client.gui.fxcontrollers.CustomFxController;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
@@ -24,6 +24,7 @@ import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -35,6 +36,8 @@ import java.util.*;
 public class GraphicalUI extends AbstractUIType {
 
     Stage mainStage;
+    Stage currentStage;
+    CustomFxController currentFXControl;
     /**
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
@@ -55,6 +58,7 @@ public class GraphicalUI extends AbstractUIType {
     {
         super(controller);
         this.mainStage = mainStage;
+        currentStage = new Stage();
     }
 
     public void selectFamilyMember()
@@ -171,6 +175,14 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public void askLeaderCards(List<LeaderCard> leaderCards) {
 
+        Debug.printDebug("GUI: ask leader cards");
+
+        Platform.runLater(() -> openNewWindow("LeaderPickerScene.fxml", "Choose a leader", () -> this.setLeadersToWindow(leaderCards)));
+
+    }
+
+    private void setLeadersToWindow(List<LeaderCard> leaderCards) {
+        leaderCards.forEach(leader -> ((CustomControllerLeaderChoices) (currentFXControl)).addLeader(leader));
     }
 
     /**
@@ -299,20 +311,7 @@ public class GraphicalUI extends AbstractUIType {
     {
         Debug.printDebug("Sono nella gui. Voglio chedere quale network usare.");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ConnectionChooserV2.fxml"));
-
-        Parent root = null;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ((CustomControllerConnectionChoice) fxmlLoader.getController()).setController(getController());
-
-        mainStage.setTitle("Connection Type Choice");
-        mainStage.setScene(new Scene(root));
-        mainStage.show();
+        Platform.runLater(() ->openNewWindow("ConnectionChooserV2.fxml", "Connection Type Choice", null));
     }
 
     /**
@@ -347,20 +346,7 @@ public class GraphicalUI extends AbstractUIType {
     {
         Debug.printDebug("Sono nella gui. ask login or create.");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Login.fxml"));
-
-        Parent root = null;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ((LoginRegisterController) fxmlLoader.getController()).setController(getController());
-
-        mainStage.setTitle("Connection Type Choice");
-        mainStage.setScene(new Scene(root));
-        mainStage.show();
+        Platform.runLater(() -> openNewWindow("Login.fxml", "Login or register", null));
     }
 
     //permette all'utente di create un nuovo account
@@ -375,6 +361,36 @@ public class GraphicalUI extends AbstractUIType {
     public void updateView()
     {
         System.out.println("Sono in gui");
+    }
+
+    /**
+     * This method opens a new window and shows it. It also sets the controller for the callbacks inside the custom fx controller
+     * This method shoudl be passed as a parameter to the runLater fx method
+     * @param fxmlFileName the fxml to start from
+     * @param title the title of the window
+     */
+    private void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
+
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        currentFXControl = ((CustomFxController) fxmlLoader.getController());
+
+        currentFXControl.setController(getController());
+
+        currentStage.setTitle(title);
+        currentStage.setScene(new Scene(root));
+
+        if(runBeforeShow != null) //there is something to run
+            runBeforeShow.run();
+
+        currentStage.show();
     }
 
 }
