@@ -2,10 +2,10 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
-import it.polimi.ingsw.model.cards.Deck;
-import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
+import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.GiveCouncilGiftEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -16,6 +16,7 @@ import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.server.JSONLoader;
+import it.polimi.ingsw.utils.Debug;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,21 +31,28 @@ import static org.junit.Assert.*;
  * This class tests player methods.
  */
 public class PlayerTest {
+    private static final int NUMBEROFTESTS = 100000;
     //private Player playerNickname;
     private Resource resourceCoin = new Resource(ResourceTypeEnum.COIN,0);
     private Resource resourceWood = new Resource(ResourceTypeEnum.WOOD,2);
     private Resource resourceStone = new Resource(ResourceTypeEnum.STONE,2);
     private Resource resourceServants = new Resource(ResourceTypeEnum.SERVANT,3);
     private Resource resourceEmpty = new Resource(ResourceTypeEnum.COIN,0);
+    private Resource resourceFaith = new Resource(ResourceTypeEnum.FAITH_POINT, 20);
+    private Resource resourceMilitary = new Resource(ResourceTypeEnum.MILITARY_POINT, 20);
+    private Resource resourceVP = new Resource(ResourceTypeEnum.VICTORY_POINT, 20);
     private ChoicesHandlerInterface choicesHandlerInterface = new ChoicesHandlerInterface() {
         @Override
         public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
-            return null;
+            ArrayList<GainResourceEffect> gainResourceEffects = new ArrayList<>(1);
+            GainResourceEffect gainResourceEffect = new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,0));
+            gainResourceEffects.add(gainResourceEffect);
+            return gainResourceEffects;
         }
 
         @Override
         public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, List<ImmediateEffectInterface> possibleEffectChoices) {
-            return null;
+            return possibleEffectChoices.get(0);
         }
 
         @Override
@@ -54,7 +62,7 @@ public class PlayerTest {
 
         @Override
         public AbstractLeaderAbility callbackOnWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
-            return null;
+            return possibleLeaders.get(0).getAbility();
         }
 
         @Override
@@ -75,6 +83,7 @@ public class PlayerTest {
     @Before
     public void setUp() throws Exception {
         JSONLoader.instance();
+        Debug.setLevel(0);
 
     }
     private Resource getRandomResource()
@@ -82,7 +91,7 @@ public class PlayerTest {
         Random random = new Random();
         int resourceType = random.nextInt(6);
         Resource resource;
-        int resourceValue = random.nextInt(100);
+        int resourceValue = random.nextInt(99)+1;
         switch (resourceType){
             case 0:
                 resource = new Resource(ResourceTypeEnum.COIN, resourceValue);
@@ -121,12 +130,13 @@ public class PlayerTest {
     /**
      * this method test all add/sub Resources standard
      * @throws Exception
+     * N.B. if you have a +0 resources effect and an excommunication on that effect, you will receive -1 resources.
+     * Care!!
      */
     @Test
     public void addResource() throws Exception {
         Resource test = new Resource(ResourceTypeEnum.COIN,0);
         Resource secondTest = new Resource(ResourceTypeEnum.COIN, 0);
-        int numberOfTests = 100;
         Player playerNickname = new Player("Charlie");
         //this list is used later to add more random resources
         ArrayList<Resource> multipleResource = new ArrayList<>(2);
@@ -140,7 +150,7 @@ public class PlayerTest {
         for(ResourceTypeEnum iterator : ResourceTypeEnum.values())
             assertEquals(0, playerNickname.getResource(iterator));
         //now i try to add random resources with no malus
-        for(int i=0; i< numberOfTests; i++) {
+        for(int i=0; i< NUMBEROFTESTS; i++) {
             test = getRandomResource();
             playerNickname.addResource(test);
             assertEquals(test.getValue(), playerNickname.getResource(test.getType()));
@@ -182,10 +192,11 @@ public class PlayerTest {
         ExcommunicationTile excommunicationTile = getRandomExcommunicationTileFromJSON();
         playerNickname.addExcommunicationTile(excommunicationTile);
         System.out.print(excommunicationTile.getEffect().getShortEffectDescription());
-        for(int i = 0; i< numberOfTests; i++)
+        Resource testCorrector;
+        for(int i = 0; i< NUMBEROFTESTS; i++)
         {
             test = getRandomResource();
-            Resource testCorrector = new Resource(test.getType(),excommunicationTile.getEffect().gainFewResource(test.getType()));
+            testCorrector = new Resource(test.getType(),excommunicationTile.getEffect().gainFewResource(test.getType()));
             //i start adding a resource to the player
             playerNickname.addResource(test);
             //i can't check yet if that resource is effected by excoumm. so i sub it
@@ -225,7 +236,7 @@ public class PlayerTest {
 
         assertEquals(0, player.getNotUsedFamilyMembers().size());
         assertEquals(1, player.getUsedFamilyMembers().size());
-        
+
         for(FamilyMember iterator : player.getNotUsedFamilyMembers())
             System.out.print(iterator.getColor());
 
@@ -275,15 +286,124 @@ public class PlayerTest {
         playerNickname.harvest(0,choicesHandlerInterface);
         assertEquals(7, playerNickname.getResource(ResourceTypeEnum.WOOD));
         //todo: fix build
-        /*playerNickname.build(6, choicesHandlerInterface);
+        playerNickname.build(6, choicesHandlerInterface);
         //the cards i have actually gives player +1 VP for each purple card / blue card they have
         assertEquals(1, playerNickname.getResource(ResourceTypeEnum.VICTORY_POINT));
-*/
 
     }
 
+    //@Test todo
+    public void addCardRandom() throws Exception{
+        Deck deck = JSONLoader.createNewDeck();
+        Player playerNickname;
+        Player playerTest;
+        ArrayList<ImmediateEffectInterface> testHarvestsEffectList;
+        PersonalTile personalTile = JSONLoader.loadPersonalTiles().get(0);
+        AbstractCard cardTemp;
+        ArrayList<Integer> differentNumbersArray = new ArrayList<>(6);
 
+        int numberOfCardsAllowed = 6;
+        CliPrinter cliPrinter = new CliPrinter();
+        //testing random harvest
+        for(int numberOfTimesCycled = 0; numberOfTimesCycled < NUMBEROFTESTS; numberOfTimesCycled++){
+            playerNickname = new Player("Bravo");
+            playerTest = new Player(("TEST"));
+            playerNickname.setPersonalTile(personalTile);
+            for(int k=0; k<numberOfCardsAllowed; k++) {
+                cardTemp = deck.getTerritoryCards().get(getDifferentRandomNumber(differentNumbersArray));
+                playerNickname.addCard(cardTemp);
+                testHarvestsEffectList = ((TerritoryCard)cardTemp).getEffectsOnHarvest();
+                for(ImmediateEffectInterface iterator : testHarvestsEffectList)
+                    iterator.applyToPlayer(playerTest, choicesHandlerInterface, cardTemp.getName());
+            }
+            differentNumbersArray.clear();
+            //blue cards don't impact when dice is already 6
+            for(int k=0; k<numberOfCardsAllowed; k++) {
+                cardTemp = deck.getCharacterCards().get(getDifferentRandomNumber(differentNumbersArray));
+                playerNickname.addCard(cardTemp);
+            }
+            differentNumbersArray.clear();
+            playerNickname.harvest(6, choicesHandlerInterface);
+            //cliPrinter.printPersonalBoard(playerNickname);
+            for(GainResourceEffect iterator : personalTile.getEffectOnHarvest())
+                iterator.applyToPlayer(playerTest,choicesHandlerInterface,"cardName");
+
+            assertEquals(playerTest.getResource(ResourceTypeEnum.COIN),playerNickname.getResource(ResourceTypeEnum.COIN));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.WOOD),playerNickname.getResource(ResourceTypeEnum.WOOD));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.STONE),playerNickname.getResource(ResourceTypeEnum.STONE));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.SERVANT),playerNickname.getResource(ResourceTypeEnum.SERVANT));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.FAITH_POINT),playerNickname.getResource(ResourceTypeEnum.FAITH_POINT));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.MILITARY_POINT),playerNickname.getResource(ResourceTypeEnum.MILITARY_POINT));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.VICTORY_POINT),playerNickname.getResource(ResourceTypeEnum.VICTORY_POINT));
+
+        }
+
+    }
     @Test
+    public void buildRandom() throws Exception {
+        Deck deck = JSONLoader.createNewDeck();
+        Player playerNickname;
+        Player playerTest;
+        ArrayList<ImmediateEffectInterface> testBuildingEffectList;
+        PersonalTile personalTile = JSONLoader.loadPersonalTiles().get(0);
+        AbstractCard cardTemp;
+        ArrayList<Integer> differentNumbersArray = new ArrayList<>(6);
+        Resource coins = new Resource(ResourceTypeEnum.COIN, 20);
+        ArrayList<Resource> initialResources = new ArrayList<>();
+        initialResources.add(resourceWood);
+        initialResources.add(coins);
+        initialResources.add(resourceServants);
+        initialResources.add(resourceStone);
+        initialResources.add(resourceFaith);
+        initialResources.add(resourceMilitary);
+        initialResources.add(resourceVP);
+
+        int numberOfCardsAllowed = 6;
+        //CliPrinter cliPrinter = new CliPrinter();
+        //testing random building
+        for (int numberOfTimesCycled = 0; numberOfTimesCycled < NUMBEROFTESTS; numberOfTimesCycled++) {
+            playerNickname = new Player("Bravo");
+            playerTest = new Player(("TEST"));
+            playerNickname.setPersonalTile(personalTile);
+            for (GainResourceEffect iterator : personalTile.getEffectOnBuild())
+                iterator.applyToPlayer(playerTest, choicesHandlerInterface, "cardName");
+
+            playerTest.addResources(initialResources);
+            playerNickname.addResources(initialResources);
+
+            for (int k = 0; k < numberOfCardsAllowed; k++) {
+                cardTemp = deck.getBuildingCards().get(getDifferentRandomNumber(differentNumbersArray));
+                playerNickname.addCard(cardTemp);
+                testBuildingEffectList = ((BuildingCard) cardTemp).getEffectsOnBuilding();
+                for (ImmediateEffectInterface iterator : testBuildingEffectList)
+                    iterator.applyToPlayer(playerTest, choicesHandlerInterface, cardTemp.getName());
+            }
+            differentNumbersArray.clear();
+            //blue cards don't impact when dice is already 6
+            /*
+            for (int k = 0; k < numberOfCardsAllowed; k++) {
+                cardTemp = deck.getCharacterCards().get(getDifferentRandomNumber(differentNumbersArray));
+                playerNickname.addCard(cardTemp);
+            }*/
+            differentNumbersArray.clear();
+            playerNickname.build(6, choicesHandlerInterface);
+            //cliPrinter.printPersonalBoard(playerNickname);
+
+            CliPrinter.printPersonalBoard(playerNickname);
+            playerTest.setPersonalTile(personalTile);
+            CliPrinter.printPersonalBoard(playerTest);
+
+            assertEquals(playerTest.getResource(ResourceTypeEnum.COIN), playerNickname.getResource(ResourceTypeEnum.COIN));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.WOOD), playerNickname.getResource(ResourceTypeEnum.WOOD));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.STONE), playerNickname.getResource(ResourceTypeEnum.STONE));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.SERVANT), playerNickname.getResource(ResourceTypeEnum.SERVANT));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.FAITH_POINT), playerNickname.getResource(ResourceTypeEnum.FAITH_POINT));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.MILITARY_POINT), playerNickname.getResource(ResourceTypeEnum.MILITARY_POINT));
+            assertEquals(playerTest.getResource(ResourceTypeEnum.VICTORY_POINT), playerNickname.getResource(ResourceTypeEnum.VICTORY_POINT));
+
+        }
+    }
+        @Test
     public void purplePoints() throws Exception {
         Deck deck = JSONLoader.createNewDeck();
         Player playerNickname = new Player("Foxtrot");
