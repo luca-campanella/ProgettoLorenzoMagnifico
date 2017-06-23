@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.utils.Debug;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -45,7 +46,7 @@ public class CustomControllerLeaderChoices extends CustomFxController {
                 .then(leaderImage)
                 .otherwise(leaderImage) //this shoulb be unselected
         );
-        toggleImage.setFitHeight(400);
+        toggleImage.setFitHeight(320);
         toggleImage.setPreserveRatio(true);
 
         toggle.setOnAction(new EventHandler<ActionEvent>() {
@@ -61,9 +62,16 @@ public class CustomControllerLeaderChoices extends CustomFxController {
         });
 
         leaderContainer.getChildren().add(toggle);
+        toggle.setId(leader.getName());
         buttonsLeadersMap.put(toggle.getId(), leader);
         Debug.printVerbose("leader " + leader.getName() + "added scuccesfully to the window");
     }
+
+    @FXML
+    public void buttonChooseClicked(ActionEvent event) {
+        Platform.runLater(()-> getController().callbackOnLeaderCardChosen(selectedLeader));
+    }
+
 
 
 }
