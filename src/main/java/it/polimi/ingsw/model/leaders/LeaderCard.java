@@ -15,6 +15,7 @@ public class LeaderCard implements Serializable {
     private String name;
     private String description;
     private AbstractLeaderAbility ability;
+    private String imgName;
 
     /**
      * This constructor should be called when you can already set all parameters
@@ -22,12 +23,14 @@ public class LeaderCard implements Serializable {
      * @param name The name of the leader
      * @param description the description of the leader
      * @param ability the the ability of the leader
+     * @param imgName the name of the corresponding image, for GUI
      */
-    public LeaderCard(ArrayList<AbstractRequirement> requirements, String name, String description, AbstractLeaderAbility ability) {
+    public LeaderCard(ArrayList<AbstractRequirement> requirements, String name, String description, AbstractLeaderAbility ability, String imgName) {
         this.requirements = requirements;
         this.name = name;
         this.description = description;
         this.ability = ability;
+        this.imgName = imgName;
     }
 
     /**
@@ -82,5 +85,9 @@ public class LeaderCard implements Serializable {
                 return false;
 
         return true;
+    }
+
+    public String getImgName() {
+        return imgName;
     }
 }

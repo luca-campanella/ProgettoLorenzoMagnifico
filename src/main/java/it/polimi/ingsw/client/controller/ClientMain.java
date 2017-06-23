@@ -7,7 +7,6 @@ import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
-import it.polimi.ingsw.client.gui.GraphicalUI;
 import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.network.rmi.RMIClient;
@@ -34,7 +33,6 @@ import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -110,16 +108,11 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         userInterface.askNetworkType();
     }
 
-    public ClientMain(Stage mainStage) {
-        Debug.instance(Debug.LEVEL_VERBOSE);
-        StdinSingleton.instance();
-        userInterface = new GraphicalUI(this, mainStage);
-        userInterface.askNetworkType();
-    }
-
+    @Deprecated
     public static void main(String args[]) {
         new ClientMain();
     }
+
     /**
      * This method returns Client's userInterface
      * @return Client's userInterface

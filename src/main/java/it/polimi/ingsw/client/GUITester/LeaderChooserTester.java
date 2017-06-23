@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * Created by campus on 23/06/2017.
+ * Just a class to test the leader choices with GUI
  */
 public class LeaderChooserTester extends Application implements ViewControllerCallbackInterface {
 
@@ -34,25 +34,25 @@ public class LeaderChooserTester extends Application implements ViewControllerCa
     public void start(Stage primaryStage) throws Exception {
         Debug.instance(Debug.LEVEL_VERBOSE);
 
-        gui = new GraphicalUI(this, primaryStage);
+        gui = new GraphicalUI(this);
         ArrayList<LeaderCard> leadersMock = new ArrayList<LeaderCard>(4);
         leadersMock.add(new LeaderCard(createOneReqArray(new CardRequirement(5, CardColorEnum.PURPLE)),
                 "Francesco Sforza",
                 "E per dirlo ad un tratto non ci fu guerra famosa nell’Italia, che Francesco Sforza non vi " +
                         "si trovasse, e le Repubbliche, Prencipi, Re e Papi andavano a gara per haverlo al suo sevigio.",
-                new OncePerRoundHarvestLeaderAbility(1)));
+                new OncePerRoundHarvestLeaderAbility(1), "leaders_f_c_01.jpg"));
 
         leadersMock.add(new LeaderCard(createOneReqArray(new CardRequirement(5, CardColorEnum.BLUE)),
                 "Ludovico Ariosto",
                 "Io desidero intendere da voi Alessandro fratel, compar mio Bagno, S’in la Cort’è memoria " +
                         "più di noi; Se più il Signor m’accusa; se compagno Per me si lieva.",
-                new CanPlaceFMInOccupiedASLeaderAbility()));
+                new CanPlaceFMInOccupiedASLeaderAbility(), "leaders_f_c_02.jpg"));
 
         leadersMock.add(new LeaderCard(createOneReqArray(new CardRequirement(5, CardColorEnum.YELLOW)),
                 "Filippo Brunelleschi",
                 "[...] sparuto de la persona [...], ma di ingegno tanto elevato che ben si può dire che e’" +
                         "ci fu donato dal cielo per dar nuova forma alla architettura.",
-                new NotToSpendForOccupiedTowerLeaderAbility()));
+                new NotToSpendForOccupiedTowerLeaderAbility(), "leaders_f_c_03.jpg"));
 
         leadersMock.add(new LeaderCard(createTwoReqArray(
                 new ResourceRequirement(new Resource(ResourceTypeEnum.MILITARY_POINT, 7)),
@@ -60,7 +60,7 @@ public class LeaderChooserTester extends Application implements ViewControllerCa
                 "Sigismondo Malatesta",
                 "Era a campo la maistà del re de Ragona. [...] el fé levare de campo cum la soe gente e" +
                         "cum lo altre di fiorentini, cum gram danno e poco onore del re.",
-                new BonusNeutralFMLeaderAbility(3)));
+                new BonusNeutralFMLeaderAbility(3), "leaders_f_c_14.jpg"));
 
         gui.askLeaderCards(leadersMock);
     }

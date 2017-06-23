@@ -38,7 +38,7 @@ public class CustomControllerLeaderChoices extends CustomFxController {
        /* System.out.println(getClass());
         System.out.println(getClass().getResource("/LorenzoRitratto.jpg"));
         System.out.println(getClass().getResource("/Leaders/leaders_f_c_01"));*/
-        final Image leaderImage  = new Image(getClass().getResourceAsStream("/imgs/Leaders/leaders_f_c_01.jpg"));
+        final Image leaderImage  = new Image(getClass().getResourceAsStream("/imgs/Leaders/" + leader.getImgName()));
         final ImageView toggleImage = new ImageView();
         toggle.setGraphic(toggleImage);
         toggleImage.imageProperty().bind(Bindings

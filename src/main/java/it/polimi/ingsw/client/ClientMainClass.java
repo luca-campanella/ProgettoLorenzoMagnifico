@@ -9,17 +9,9 @@ import javafx.stage.Stage;
  */
 public class ClientMainClass extends Application {
 
-    private ClientMain clientMain;
-
-    /*public ClientMainClass() {
-        clientMain = new ClientMain();
-        clientMain.startUp();
-    }*/
-
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new ClientMain(primaryStage);
+        new ClientMain();
     }
 
     public static void main(String args[]) {

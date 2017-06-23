@@ -45,18 +45,6 @@ public class GraphicalUI extends AbstractUIType {
     public GraphicalUI(ViewControllerCallbackInterface controller)
     {
         super(controller);
-        if(controller == null)
-            Debug.printVerbose("controller is null in GraphicalUI");
-        //guiApplication.launch();
-    }
-
-    /**
-     * This is the constructor of the class
-     * @param controller is used to make callbacks on the controller ({@link ClientMain}
-     */
-    public GraphicalUI(ViewControllerCallbackInterface controller, Stage mainStage)
-    {
-        super(controller);
         this.mainStage = mainStage;
         currentStage = new Stage();
     }

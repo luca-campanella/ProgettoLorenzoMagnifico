@@ -13,7 +13,8 @@
       "ability": {
         "abilityType": "OncePerRoundHarvestLeaderAbility",
         "diceValue": 1
-      }
+      },
+      "imgName": "leaders_f_c_01.jpg"
     },
     {
       "requirements": [
@@ -27,7 +28,8 @@
       "description": "Io desidero intendere da voi Alessandro fratel, compar mio Bagno, S’in la Cort’è memoria più di noi; Se più il Signor m’accusa; se compagno Per me si lieva.",
       "ability": {
         "abilityType": "CanPlaceFMInOccupiedASLeaderAbility"
-      }
+      },
+      "imgName": "leaders_f_c_02.jpg"
     },
     {
       "requirements": [
@@ -41,7 +43,8 @@
       "description": "[...] sparuto de la persona [...], ma di ingegno tanto elevato che ben si può dire che e’ci fu donato dal cielo per dar nuova forma alla architettura.",
       "ability": {
         "abilityType": "NotToSpendForOccupiedTowerLeaderAbility"
-      }
+      },
+      "imgName": "leaders_f_c_03.jpg"
     },
     {
       "requirements": [
@@ -65,7 +68,8 @@
       "ability": {
         "abilityType": "BonusNeutralFMLeaderAbility",
         "bonusValue": 3
-      }
+      },
+      "imgName": "leaders_f_c_14.jpg"
     },
     {
       "requirements": [
@@ -87,7 +91,8 @@
             "value": 1
           }
         ]
-      }
+      },
+      "imgName": "leaders_f_c_05.jpg"
     },
     {
       "requirements": [
@@ -109,7 +114,8 @@
             "value": 3
           }
         ]
-      }
+      },
+      "imgName": "leaders_f_c_08.jpg"
     },
     {
       "requirements": [
@@ -139,7 +145,8 @@
             "value": 1
           }
         ]
-      }
+      },
+      "imgName": "leaders_f_c_06.jpg"
     },
     {
       "requirements": [
@@ -159,7 +166,8 @@
       "ability": {
         "abilityType": "OncePerRoundBuildLeaderAbility",
         "diceValue": 0
-      }
+      },
+      "imgName": "leaders_f_c_10.jpg"
     },
     {
       "requirements": [
@@ -185,7 +193,8 @@
             "value": 1
           }
         ]
-      }
+      },
+      "imgName": "leaders_f_c_07.jpg"
     },
     {
       "requirements": [
@@ -215,7 +224,8 @@
       "ability": {
         "abilityType": "FixedFamilyMembersValueLeaderAbility",
         "diceValue": 5
-      }
+      },
+      "imgName": "leaders_f_c_16.jpg"
     },
     {
       "requirements": [
@@ -230,7 +240,8 @@
       "ability": {
         "abilityType": "BonusColoredFamilyMembersLeaderAbility",
         "bonusValue": 2
-      }
+      },
+      "imgName": "leaders_f_c_13.jpg"
     },
     {
       "requirements": [
@@ -245,7 +256,8 @@
       "ability": {
         "abilityType": "OncePerRoundBonusOneColoredFamilyMemberLeaderAbility",
         "bonusValue": 6
-      }
+      },
+      "imgName": "leaders_f_c_04.jpg"
     },
     {
       "requirements": [
@@ -261,7 +273,8 @@
       "description": "Vir ad omnia summa natus, et qui  antem re antemque totiens fortunam usque adeo sit alterna veli catione moderatus.",
       "ability": {
         "abilityType": "CopyAnotherLeaderAbility"
-      }
+      },
+      "imgName": "leaders_f_c_15.jpg"
     },
     {
       "requirements": [
@@ -299,7 +312,8 @@
       "ability": {
         "abilityType": "GainFaithPointsSupportingChurchLeaderAbility",
         "additionalFaithPoints": 5
-      }
+      },
+      "imgName": "leaders_f_c_12.jpg"
     },
     {
       "requirements": [
@@ -327,7 +341,8 @@
       "description": "Cesarem Borgiam, qui sanguinario ingenio, immanique saevitia veteres tyrannos aequasse censeri potest, viroso sanguine, execrabile semine progenitum ferunt.",
       "ability": {
         "abilityType": "NoMilitaryPointsNeededForTerritoryCardsLeaderAbility"
-      }
+      },
+      "imgName": "leaders_f_c_17.jpg"
     },
     {
       "requirements": [
@@ -345,7 +360,8 @@
         "abilityType": "AddMoreTimesResourcesOnImmediateCardEffectAbility",
         "timesToAddMore": 1,
         "cardColor": "YELLOW"
-      }
+      },
+      "imgName": "leaders_f_c_18.jpg"
     },
     {
       "requirements": [
@@ -374,7 +390,8 @@
             "value": 1
           }
         ]
-      }
+      },
+      "imgName": "leaders_f_c_19.jpg"
     },
     {
       "requirements": [
@@ -399,7 +416,8 @@
             "value": 4
           }
         ]
-      }
+      },
+      "imgName": "leaders_f_c_20.jpg"
     },
     {
       "requirements": [
@@ -416,7 +434,8 @@
       "ability": {
         "abilityType": "OncePerRoundCouncilGiftAbility",
         "numberOfDifferentCouncilGift": 1
-      }
+      },
+      "imgName": "leaders_f_c_09.jpg"
     },
     {
       "requirements": [
@@ -440,7 +459,8 @@
           "type": "COIN",
           "value": 3
         }
-      }
+      },
+      "imgName": "leaders_f_c_11.jpg"
     }
   ]
 }
