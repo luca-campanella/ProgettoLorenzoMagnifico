@@ -686,8 +686,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receivedPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
-        //userInterface.askPersonalTiles(standardTile, specialTile);
-        callbackOnTileChosen(standardTile);
+        userInterface.askPersonalTiles(standardTile, specialTile);
+        //callbackOnTileChosen(standardTile);
     }
 
     /**
@@ -709,6 +709,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackOnTileChosen(PersonalTile tileChosen) {
+        userInterface.showWaitingForTilesChoices();
         modelController.setPersonalTile(tileChosen, thisPlayer.getNickname());
         try{
             clientNetwork.deliverTileChosen(tileChosen);

@@ -263,6 +263,15 @@ public class CommandLineUI extends AbstractUIType {
     }
 
     /**
+     * This method is called by the controller after a personal tile is selected and the player
+     * has to wait for enemies to choose their
+     */
+    @Override
+    public void showWaitingForTilesChoices() {
+        System.out.println("Personal tile chose, please wait for other player(s) to choose...");
+    }
+
+    /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * //todo other methods triggered

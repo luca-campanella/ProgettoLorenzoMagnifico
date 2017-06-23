@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 /**
  * This control performs no callbacks, just shows a window that tells the user the game is waiting for something
  */
-public class WaitingSceneControl extends CustomFxController {
+public class WaitingSceneControl extends CustomFxControl {
 
     @FXML
     Label messageLabel;

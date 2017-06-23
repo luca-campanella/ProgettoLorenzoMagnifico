@@ -7,8 +7,9 @@ package it.polimi.ingsw.client.gui;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
-import it.polimi.ingsw.client.gui.fxcontrollers.CustomControllerLeaderChoices;
-import it.polimi.ingsw.client.gui.fxcontrollers.CustomFxController;
+import it.polimi.ingsw.client.gui.fxcontrollers.LeaderPickerControl;
+import it.polimi.ingsw.client.gui.fxcontrollers.CustomFxControl;
+import it.polimi.ingsw.client.gui.fxcontrollers.PersonalTilesPickerControl;
 import it.polimi.ingsw.client.gui.fxcontrollers.WaitingSceneControl;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.Board;
@@ -38,7 +39,7 @@ public class GraphicalUI extends AbstractUIType {
 
     Stage mainStage;
     Stage currentStage;
-    CustomFxController currentFXControl;
+    CustomFxControl currentFXControl;
     /**
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
@@ -122,6 +123,18 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     /**
+     * This method is called by the controller after a personal tile is selected and the player
+     * has to wait for enemies to choose their
+     */
+    @Override
+    public void showWaitingForTilesChoices() {
+        Debug.printDebug("GUI: show waiting for tile choice");
+
+        Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for tiles choices",
+                () -> this.prepareWaitingScene("Personal tile chose, waiting for other players to choose...")));
+    }
+
+    /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * {@link ViewControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
@@ -187,7 +200,7 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     private void setLeadersToWindow(List<LeaderCard> leaderCards) {
-        leaderCards.forEach(leader -> ((CustomControllerLeaderChoices) (currentFXControl)).addLeader(leader));
+        leaderCards.forEach(leader -> ((LeaderPickerControl) (currentFXControl)).addLeader(leader));
     }
 
     /**
@@ -199,6 +212,10 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
+        Debug.printDebug("GUI: ask personal tiles");
+
+        Platform.runLater(() -> openNewWindow("PersonalTilesPickerScene.fxml", "Choose a personal tile",
+                () -> ((PersonalTilesPickerControl) (currentFXControl)).addTiles(standardTile, specialTile)));
 
     }
 
@@ -351,7 +368,7 @@ public class GraphicalUI extends AbstractUIType {
     {
         Debug.printDebug("Sono nella gui. ask login or create.");
 
-        Platform.runLater(() -> openNewWindow("Login.fxml", "Login or register", null));
+        Platform.runLater(() -> openNewWindow("LoginRegisterScene.fxml", "Login or register", null));
     }
 
     //permette all'utente di create un nuovo account
@@ -385,7 +402,7 @@ public class GraphicalUI extends AbstractUIType {
             e.printStackTrace();
         }
 
-        currentFXControl = ((CustomFxController) fxmlLoader.getController());
+        currentFXControl = ((CustomFxControl) fxmlLoader.getController());
 
         currentFXControl.setController(getController());
 

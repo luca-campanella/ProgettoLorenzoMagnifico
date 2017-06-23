@@ -3,11 +3,12 @@
     "DICEONHARVEST": 1,
     "DICEONBUILD": 1,
     "defaultTile":true,
+    "imgName": "personalbonustile_1.png",
     "effectOnBuild": [
       {
         "resource": {
           "type": "MILITARY_POINT",
-          "value": 2
+          "value": 1
         }
       },
       {
@@ -42,6 +43,7 @@
     "DICEONHARVEST": 1,
     "DICEONBUILD": 1,
     "defaultTile":false,
+    "imgName": "personalbonustile_2.png",
     "effectOnBuild": [
       {
         "resource": {
@@ -80,6 +82,7 @@
   "DICEONHARVEST": 1,
   "DICEONBUILD": 1,
   "defaultTile":false,
+  "imgName": "personalbonustile_3.png",
   "effectOnBuild": [
     {
       "resource": {
@@ -118,6 +121,7 @@
   "DICEONHARVEST": 1,
   "DICEONBUILD": 1,
   "defaultTile":false,
+  "imgName": "personalbonustile_4.png",
   "effectOnBuild": [
     {
       "resource": {
@@ -156,6 +160,7 @@
   "DICEONHARVEST": 1,
   "DICEONBUILD": 1,
   "defaultTile":false,
+  "imgName": "personalbonustile_5.png",
   "effectOnBuild": [
     {
       "resource": {

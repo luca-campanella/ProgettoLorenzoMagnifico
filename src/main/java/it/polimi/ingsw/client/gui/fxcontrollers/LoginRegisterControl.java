@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
  * this is the custom controller for the login or register window, it validates passoword and username and makes
  * corresponding callbacks
  */
-public class LoginRegisterController extends CustomFxController {
+public class LoginRegisterControl extends CustomFxControl {
 
     @FXML
     private TextField nickField;

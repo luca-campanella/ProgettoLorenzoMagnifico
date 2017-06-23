@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 /**
  * Created by campus on 22/06/2017.
  */
-public class CustomFxController extends Pane {
+public class CustomFxControl extends Pane {
     private ViewControllerCallbackInterface controller;
 
 

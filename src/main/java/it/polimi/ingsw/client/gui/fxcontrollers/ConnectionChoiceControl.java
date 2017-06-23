@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 /**
  * Created by campus on 22/06/2017.
  */
-public class CustomControllerConnectionChoice extends CustomFxController {
+public class ConnectionChoiceControl extends CustomFxControl {
 
     @FXML
     private TextField nickField;

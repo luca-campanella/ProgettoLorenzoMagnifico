@@ -15,6 +15,9 @@ public class PersonalTile implements Serializable{
     //for game balancing, we don't allow players to customize their own dice tile
     private static final int DICEONHARVEST = 1;
     private static final int DICEONBUILD = 1;
+
+    private String imgName;
+
     /**
      * this arrayList is called every time a user builds with a diceValue of 1
      */
@@ -65,5 +68,9 @@ public class PersonalTile implements Serializable{
             description = description.concat(effect.getResource().getType().getFullName() + " : +" + effect.getResource().getValue() + "\n\t");
         }
         return  description;
+    }
+
+    public String getImgName() {
+        return imgName;
     }
 }
