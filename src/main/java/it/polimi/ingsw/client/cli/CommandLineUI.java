@@ -297,13 +297,14 @@ public class CommandLineUI extends AbstractUIType {
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * @param playableFMs the list of playable family members to make the user choose
+     * @param leaderCardsNotPlayed
      * @param playedLeaderCards
      */
     @Override
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
-                                 ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards) {
+                                 List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards) {
         InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs,
-                playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards);
+                playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards, playableLeaderCards);
 
         pool.submit(menu);
     }
@@ -489,6 +490,39 @@ public class CommandLineUI extends AbstractUIType {
     public void waitMenu() {
 
         waitMenu.run();
+    }
+
+    /**
+     * this method is used to show the personal board of the player
+     * @param thisPlayer the player that own the personal board
+     */
+    @Override
+    public void printPersonalBoard(Player thisPlayer) {
+
+        CliPrinter.printPersonalBoard(thisPlayer);
+
+    }
+
+    /**
+     * this method is called to show the board of the game
+     * @param board
+     */
+    @Override
+    public void printBoard(Board board) {
+
+        CliPrinter.printBoard(board);
+
+    }
+
+    /**
+     * this method is called to show the personal boards of the other players
+     * @param players the players that the client wants to see the personal boards
+     */
+    @Override
+    public void printPersonalBoardOtherPlayers(ArrayList<Player> players) {
+
+        players.forEach(CliPrinter::printPersonalBoard);
+
     }
 
 

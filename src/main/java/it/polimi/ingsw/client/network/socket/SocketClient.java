@@ -148,11 +148,11 @@ public class SocketClient extends AbstractClientType {
      * @throws NetworkException if something goes wrong during the connection
      */
     @Override
-    public void playLeaderCard(String nameLeader) throws NetworkException{
+    public void playLeaderCard(String nameLeader, HashMap<String, String> choicesOnCurrentActionString) throws NetworkException{
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.PLAY_LEADER);
-                outStream.writeObject(new PlayCardPacket(nameLeader));
+                outStream.writeObject(new PlayCardPacket(nameLeader, choicesOnCurrentActionString));
             }
             outStream.flush();
         }

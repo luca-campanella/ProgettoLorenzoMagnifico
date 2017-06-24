@@ -267,7 +267,7 @@ public class Room {
         }
     }
 
-    public void endPhase(AbstractConnectionPlayer player) throws IllegalMoveException {
+    public void endPhase(AbstractConnectionPlayer player){
 
         controllerGame.endPhase(player);
         floodEndPhase(player);

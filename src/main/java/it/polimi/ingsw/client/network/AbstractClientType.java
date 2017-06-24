@@ -108,7 +108,7 @@ public abstract class AbstractClientType  {
      * @param nameLeader the name of the chosen leader
      * @throws NetworkException if something goes wrong during the connection
      */
-    public abstract void playLeaderCard(String nameLeader) throws NetworkException;
+    public abstract void playLeaderCard(String nameLeader, HashMap<String, String> choicesOnCurrentActionString) throws NetworkException;
 
     /**
      * this method is used to deliver the move of a family member on a tower

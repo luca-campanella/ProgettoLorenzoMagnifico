@@ -99,8 +99,15 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * this method is used to inform the room that the player had ended his phase
      */
     @Override
-    public void endPhase() {
-        //TODO implement abstract method
+    public void endPhase() throws NetworkException {
+
+        try{
+            RMIPlayerInterfaceInst.receiveEndPhase();
+        }
+        catch (RemoteException e){
+            Debug.printError("Cannot deliver the end phase of the player to the server");
+            throw new NetworkException(e);
+        }
     }
 
     /**
@@ -128,9 +135,9 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @throws NetworkException if something goes wrong during the connection
      */
     @Override
-    public void playLeaderCard(String nameLeader) throws NetworkException {
+    public void playLeaderCard(String nameLeader, HashMap<String, String> choicesOnCurrentActionString) throws NetworkException {
         try {
-            RMIPlayerInterfaceInst.playLeaderCard(nameLeader);
+            RMIPlayerInterfaceInst.playLeaderCard(nameLeader, choicesOnCurrentActionString);
         } catch (RemoteException e) {
             Debug.printError("RMI: Cannot deliver the leader card chosen to the server", e);
             throw new NetworkException("RMI: Cannot deliver the leader card chosen to the server", e);
@@ -144,7 +151,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @param floorTower the number of the floor (from top to bottom)
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws NetworkException if something goes wrong during the connection
-     * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
     public void placeOnTower(FamilyMember familyMember, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws NetworkException {
@@ -162,7 +168,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @param marketIndex is the index of the merket (from left to right) todo: check this assertion --Arto
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws NetworkException if something goes wrong during the connection
-     * @throws IllegalMoveException //todo remove or implement server side
      */
     @Override
     public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) throws NetworkException {
@@ -179,7 +184,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @param familyMember is the family member chosen
      * @param playerChoices is a map that contains all the choices of the client when af effect is asked
      * @throws NetworkException if something goes wrong during the connection
-     * @throws IllegalMoveException //todo
      */
     @Override
     public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws NetworkException {
@@ -197,7 +201,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @param servantUsed is the number of family member used to increase the power of the action
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws NetworkException if something foes wrong with the connection
-     * @throws IllegalMoveException //todo
      */
     @Override
     public void harvest(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException {
@@ -215,7 +218,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @param servantUsed is the number of family member used to increase the power of the action
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws NetworkException if something goes wrong with the connection
-     * @throws IllegalMoveException //todo
      */
     @Override
     public void build(FamilyMember familyMember, int servantUsed, HashMap<String, Integer> playerChoices) throws NetworkException {
@@ -228,6 +230,11 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         }
     }
 
+    /**
+     * this method is called to deliver the personal tile chose by the client
+     * @param tileChosen the tile chose
+     * @throws NetworkException
+     */
     @Override
     public void deliverTileChosen(PersonalTile tileChosen) throws NetworkException {
         try{
@@ -266,6 +273,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void receiveChatMsg(String senderNick, String msg) throws RemoteException {
+
         getControllerMain().receiveChatMsg(senderNick, msg);
     }
 
@@ -346,16 +354,32 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         getControllerMain().receivedPlaceOnCouncil(playerNickname, familyMemberColor, playerChoices);
     }
 
+    /**
+     * this method is called to receive the end of the phase of another player
+     * @param nickname the nickname of the player that had ended the turn
+     * @throws RemoteException
+     */
     @Override
     public void receiveEndPhase(String nickname) throws RemoteException {
 
+        getControllerMain().receiveEndPhase(nickname);
     }
 
+    /**
+     * this method is called to receive the dice value of the server
+     * @param dices the dice to save on the client board
+     * @throws RemoteException
+     */
     @Override
     public void receiveDice(ArrayList<Dice> dices) throws RemoteException {
         getControllerMain().receivedDices(dices);
     }
 
+    /**
+     * this method is called to receive the board of the game at the start of the turn
+     * @param gameBoard clean, with only the excommunication tiles, without cards or dice
+     * @throws RemoteException
+     */
     @Override
     public void receiveBoard(Board gameBoard) throws RemoteException {
         getControllerMain().receivedStartGameBoard(gameBoard);

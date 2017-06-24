@@ -119,4 +119,10 @@ public interface ViewControllerCallbackInterface {
      * this method is called by the view to show the personal boards of the other players
      */
     void printPersonalBoardOtherPlayers();
+
+    /**
+     * this method is called to play a leader card on the hand of the player
+     * @param leaderCard the leader card played by the player
+     */
+    void callbackPlayLeader(LeaderCard leaderCard);
 }

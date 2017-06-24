@@ -345,7 +345,7 @@ import java.util.HashMap;
     /**
      * This method is used by the client to send chat message to all other players in the room (Direction: client -> sever)
      * @param msg the message
-     * @throws NetworkException if somthing went wrong on the network
+     * @throws NetworkException if something went wrong on the network
      */
     @Override
     public void sendChatMsg(String msg) throws RemoteException {
@@ -359,7 +359,7 @@ import java.util.HashMap;
      * @throws RemoteException if something goes wrong with RMI communication
      */
     @Override
-    public void playLeaderCard(String leaderName) throws RemoteException {
+    public void playLeaderCard(String leaderName,HashMap<String, String> choicesOnCurrentActionString) throws RemoteException {
         //todo implement method
     }
 
@@ -436,6 +436,15 @@ import java.util.HashMap;
 
         getRoom().chosePersonalTile(tileChosen, this);
 
+    }
+
+    /**
+     * this method is called by the client to infor the server that the player had ended his turn
+     */
+    @Override
+    public void receiveEndPhase() throws RemoteException{
+
+        getRoom().endPhase(this);
     }
 
 

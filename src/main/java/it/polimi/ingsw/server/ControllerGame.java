@@ -175,7 +175,7 @@ public class ControllerGame {
      * this method in launch during every end of the player's phase
      * @throws IllegalMoveException
      */
-    public void endPhase(AbstractConnectionPlayer player) throws IllegalMoveException{
+    public void endPhase(AbstractConnectionPlayer player){
 
         controlTurnPlayer(player.getNickname());
 
@@ -386,7 +386,7 @@ public class ControllerGame {
      * @param player the player who has the card
      * @param nameLeader the name of the leader card
      */
-    public void playLeaderCard(Player player, String nameLeader)  throws IllegalMoveException{
+    public void playLeaderCard(Player player, String nameLeader){
 
         controlTurnPlayer(player.getNickname());
         modelController.activateLeaderCard(player, nameLeader);
@@ -499,12 +499,8 @@ public class ControllerGame {
         else if((actualPosition+1)%numberOfPlayers == position){
             //this means that now is the turn of the disconnected player
             //the 'if' is used to control if the player that had passed the last time is the player before the disconnected player
-            try{
-                endPhase(player);
-            }
-            catch (IllegalMoveException e){
-                Debug.printError("is not the turn of this player",e);
-            }
+            endPhase(player);
+
         }
     }
 }

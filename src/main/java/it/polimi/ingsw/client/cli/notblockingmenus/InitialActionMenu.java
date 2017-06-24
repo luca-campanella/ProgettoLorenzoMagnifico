@@ -17,20 +17,23 @@ import java.util.List;
  */
 public class InitialActionMenu extends WaitBasicCliMenu {
     private ArrayList<FamilyMember> playableFMs;
-    private ArrayList<LeaderCard> leaderCardsNotPlayed;
+    private List<LeaderCard> leaderCardsNotPlayed;
     private List<LeaderCard> playedLeaderCards;
+    private List<LeaderCard> playableLeaderCards;
 
     public InitialActionMenu(ViewControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs, boolean playedFamilMembery,
-                             ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards) {
+                             List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards) {
         super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
         this.playableFMs = playableFMs;
         this.leaderCardsNotPlayed = leaderCardsNotPlayed;
         this.playedLeaderCards = playedLeaderCards;
+        this.playableLeaderCards = playableLeaderCards;
         if(!playedFamilMembery)
             addOption("FM", "Place a Family Member on an action space", this::placeFamilyMember);
         if(leaderCardsNotPlayed.size() !=0)
             addOption("DL", "Discard a Leader", this::discardLeader);
-        addOption("PL", "Play a Leader card", this::playLeader);
+        if(playableLeaderCards.size() !=0)
+            addOption("PL", "Play a Leader card", this::playLeader);
         if(playedLeaderCards.size() != 0)
             addOption("AL", "Activate a Leader ability", this::activateLeaderAbility);
         addOption("END","Pass the turn", this::passTheTurn);
@@ -71,8 +74,9 @@ public class InitialActionMenu extends WaitBasicCliMenu {
         if(leaderCardsNotPlayed.size() == 1) {
             System.out.println("You can only discard Leader Card " + leaderCardsNotPlayed.get(0).getName());
             System.out.println("I'm discarding this leader card");
-        } else {
-            Debug.printVerbose("discard leader card called");
+        }
+        else {
+            Debug.printVerbose("Discard leader card called");
             CliOptionsHandler discardLeaderCardChooser = new CliOptionsHandler(leaderCardsNotPlayed.size());
 
             for (LeaderCard lcIter : leaderCardsNotPlayed) {
@@ -83,8 +87,26 @@ public class InitialActionMenu extends WaitBasicCliMenu {
         getController().callbackDiscardLeader(leaderCardsNotPlayed.get(indexRes));
     }
 
+    /**
+     * this method is used to play a leader card
+     */
     private void playLeader() {
 
+        int indexRes = 0;
+        if(playableLeaderCards.size() == 1) {
+            System.out.println("You can only play Leader Card " + playableLeaderCards.get(0).getName());
+            System.out.println("I'm playing this leader card");
+        }
+        else {
+            Debug.printVerbose("Play leader card called");
+            CliOptionsHandler playLeaderCardChooser = new CliOptionsHandler(playableLeaderCards.size());
+
+            for (LeaderCard lcIter : playableLeaderCards) {
+                playLeaderCardChooser.addOption("play " + lcIter.getName() + " of description " + lcIter.getAbility().getAbilityDescription());
+            }
+            indexRes = playLeaderCardChooser.askUserChoice();
+        }
+        getController().callbackPlayLeader(playableLeaderCards.get(indexRes));
     }
 
     private void activateLeaderAbility() {

@@ -402,13 +402,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
      */
     public void endPhase(){
 
-        try {
-            getRoom().endPhase(this);
-        }
-
-        catch (IllegalMoveException e){
-
-        }
+        getRoom().endPhase(this);
 
     }
 

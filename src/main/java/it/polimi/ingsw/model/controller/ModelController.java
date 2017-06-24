@@ -808,7 +808,7 @@ public class ModelController {
      * this method is used to remove a player from the board , this happens when a player had left the game
      * @param player the player to remove
      */
-    public void removePlayer(AbstractConnectionPlayer player) {
+    public void removePlayer(Player player) {
         players.remove(player);
     }
 }

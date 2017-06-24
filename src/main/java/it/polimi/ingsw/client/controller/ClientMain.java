@@ -625,6 +625,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         clientChoices();
     }
 
+    /**
+     * this method is called to show to the client the different choices he can do
+     */
     public void clientChoices(){
         ArrayList<FamilyMember> playableFMs = thisPlayer.getNotUsedFamilyMembers();
         if(!playedFamilyMember){
@@ -636,9 +639,26 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
         initialActionsOnPlayerMove();
+        List<LeaderCard> notPlayedLeaderCards = modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname());
+        List<LeaderCard> playeableLeaderCards = findPlayableLeader(notPlayedLeaderCards);
         userInterface.askInitialAction(playableFMs, playedFamilyMember,
-                modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname()), modelController.getLeaderCardsPlayed(thisPlayer.getNickname()));
+                notPlayedLeaderCards, modelController.getLeaderCardsPlayed(thisPlayer.getNickname()), playeableLeaderCards);
 
+    }
+
+    /**
+     * this method is used to find the leader you can play in this turn
+     * @param notPlayedLeaderCards the leader cards onthe hand of the player
+     * @return the leader cards that the player can play on the board
+     */
+    private List<LeaderCard> findPlayableLeader(List<LeaderCard> notPlayedLeaderCards) {
+
+        List<LeaderCard> playableCards = new ArrayList<>(notPlayedLeaderCards.size());
+        for(LeaderCard leaderCard : notPlayedLeaderCards){
+            if(leaderCard.isPlayable(thisPlayer))
+                playableCards.add(leaderCard);
+        }
+        return playableCards;
     }
 
     /**
@@ -647,7 +667,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void printPersonalBoard() {
 
-        CliPrinter.printPersonalBoard(thisPlayer);
+        userInterface.printPersonalBoard(thisPlayer);
 
     }
 
@@ -657,7 +677,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void printBoard() {
 
-        CliPrinter.printBoard(modelController.getBoard());
+        userInterface.printBoard(modelController.getBoard());
     }
 
     /**
@@ -666,11 +686,31 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void printPersonalBoardOtherPlayers() {
 
+        ArrayList<Player> otherPlayers = new ArrayList<>(players.size()-1);
         for(Player player : players){
             if(!player.getNickname().equals(thisPlayer.getNickname()))
-                CliPrinter.printPersonalBoard(player);
+                otherPlayers.add(player);
         }
+        userInterface.printPersonalBoardOtherPlayers(otherPlayers);
 
+    }
+
+    /**
+     * this method is called to play a leader card on the hand of the player
+     * @param leaderCard the leader card played by the player
+     */
+    @Override
+    public void callbackPlayLeader(LeaderCard leaderCard) {
+
+        Debug.printDebug("I'm in ClientMain.callbackPlayLeader");
+        modelController.playLeaderCard(leaderCard, thisPlayer);
+        try{
+            clientNetwork.playLeaderCard(leaderCard.getName(),choicesOnCurrentActionString);
+        }
+        catch (NetworkException e){
+            Debug.printError("the client cannot deliver the leader card to discard");
+        }
+        clientChoices();
     }
 
     /**
@@ -932,6 +972,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         for(Player player : players){
             if(player.getNickname().equals(nicknamePlayerDisconnected)){
                 players.remove(player);
+                modelController.removePlayer(player);
                 break;
             }
         }

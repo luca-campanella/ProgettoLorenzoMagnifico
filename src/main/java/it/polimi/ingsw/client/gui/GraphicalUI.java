@@ -139,12 +139,13 @@ public class GraphicalUI extends AbstractUIType {
      * This method will trigger either
      * {@link ViewControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
-     *  @param playableFMs the list of playable family members to make the user choose
+     * @param playableFMs the list of playable family members to make the user choose
+     * @param leaderCardsNotPlayed
      * @param playedLeaderCards
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember, ArrayList<LeaderCard> leaderCardsNotPlayed,
-                                 List<LeaderCard> playedLeaderCards) {
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember, List<LeaderCard> leaderCardsNotPlayed,
+                                 List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards) {
 
     }
 
@@ -278,6 +279,21 @@ public class GraphicalUI extends AbstractUIType {
 
     @Override
     public void waitMenu() {
+
+    }
+
+    @Override
+    public void printPersonalBoard(Player thisPlayer) {
+
+    }
+
+    @Override
+    public void printBoard(Board board) {
+
+    }
+
+    @Override
+    public void printPersonalBoardOtherPlayers(ArrayList<Player> players) {
 
     }
 

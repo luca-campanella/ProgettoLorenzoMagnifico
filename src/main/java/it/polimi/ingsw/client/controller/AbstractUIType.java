@@ -128,13 +128,13 @@ abstract public class AbstractUIType {
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * {@link ViewControllerCallbackInterface(DiceAndFamilyMemberColorEnum, int)}
-     *  @param playableFMs          the list of playable family members to make the user choose
+     * @param playableFMs          the list of playable family members to make the user choose
      * @param playedFamilyMember   is a boolean, true if the player had already placed a family member this turn
      * @param leaderCardsNotPlayed the leader cards on the hand of the player
      * @param playedLeaderCards    the leader cards played by the player
      */
     public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
-                                          ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards);
+                                          List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards);
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui
@@ -232,4 +232,21 @@ abstract public class AbstractUIType {
      * this method is used to start the menu used when the player is waiting the other players playing the phase
      */
     public abstract void waitMenu();
+
+    /**
+     * this method is used to show the persoanl board of the player
+     * @param thisPlayer the player that own the personal board
+     */
+    public abstract void printPersonalBoard(Player thisPlayer);
+
+    /**
+     * this method is called to show the board of the game
+     */
+    public abstract void printBoard(Board board);
+
+    /**
+     * this method is called to show the personal boards of the other players
+     * @param players the players that the client wants to see the personal boards
+     */
+    public abstract void printPersonalBoardOtherPlayers(ArrayList<Player> players);
 }
