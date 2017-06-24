@@ -283,8 +283,8 @@ public class GraphicalUI extends AbstractUIType {
 
     /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error
-     *
-     * @param title
+     * @param title the title of the error
+     * @param errorDescription the description of the error
      */
     @Override
     public void displayError(String title, String errorDescription) {
@@ -295,6 +295,24 @@ public class GraphicalUI extends AbstractUIType {
         alert.setContentText(errorDescription);
         alert.initOwner(currentStage);
         alert.show();
+    }
+
+    /**
+     * this method alerts user that there was an error somewhere. It doesn't handle the error
+     * The error is a fatal one and after the user clicked ok the program terminates     *
+     * @param title the title of the error
+     * @param errorDescription the description of the error
+     */
+    @Override
+    public void displayErrorAndExit(String title, String errorDescription) {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(title);
+        alert.setContentText(errorDescription);
+        alert.initOwner(currentStage);
+        alert.showAndWait();
+        System.exit(0);
     }
 
     /**
@@ -415,7 +433,8 @@ public class GraphicalUI extends AbstractUIType {
         try {
             root = fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            Debug.printError("Error in loading fxml", e);
+            displayErrorAndExit("Fatal error", "Error message: " + e.getMessage());
         }
 
         currentFXControl = ((CustomFxControl) fxmlLoader.getController());

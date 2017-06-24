@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.GUITester;
+package it.polimi.ingsw.client.guitester;
 
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.exceptions.NetworkException;
