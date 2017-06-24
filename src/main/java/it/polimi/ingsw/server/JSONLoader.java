@@ -27,7 +27,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.lang.reflect.*;
 import java.util.Collections;
-
+import java.util.stream.Collectors;
 /**
  * This class is a singleton that handles all the classes loaded from file
  */
@@ -213,8 +213,9 @@ public class JSONLoader {
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
-        Reader reader = new InputStreamReader(RoomConfigurator.class.getResourceAsStream("/RoomCFG.json"), "UTF-8");
+        Reader reader = new InputStreamReader(JSONLoader.class.getResourceAsStream("/RoomCFG.json"), "UTF-8");
             RoomConfigurator roomConfigurator = gson.fromJson(reader, RoomConfigurator.class);
             return  roomConfigurator;
     }
+
 }
