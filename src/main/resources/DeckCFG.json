@@ -18,7 +18,7 @@
           "immediateEffect": "NoEffect"
         }
       ],
-      "imgName":"1-CommercialHub.jpg"
+      "imgName":"1-CommercialHub.png"
     },
     {
       "harvestEffectValue": 2,
@@ -42,7 +42,7 @@
           }
         }
       ],
-      "imgName":"2-Woods.jpg"
+      "imgName":"2-Woods.png"
     },
     {
       "harvestEffectValue": 3,
@@ -69,7 +69,7 @@
           "immediateEffect": "NoEffect"
         }
       ],
-      "imgName":"3-Village.jpg"
+      "imgName":"3-Village.png"
     },
     {
       "harvestEffectValue": 4,
@@ -93,7 +93,7 @@
           }
         }
       ],
-      "imgName":"4-GravelPit.jpg"
+      "imgName":"4-GravelPit.png"
     },
     {
       "harvestEffectValue": 5,
@@ -117,7 +117,7 @@
           }
         }
       ],
-      "imgName":"5-Forest.jpg"
+      "imgName":"5-Forest.png"
     },
     {
       "harvestEffectValue": 6,
@@ -155,7 +155,7 @@
           }
         }
       ],
-      "imgName":"6-Monastery.jpg"
+      "imgName":"6-Monastery.png"
     },
     {
       "harvestEffectValue": 5,
@@ -182,7 +182,7 @@
           "immediateEffect": "NoEffect"
         }
       ],
-      "imgName":"7-Citadel.jpg"
+      "imgName":"7-Citadel.png"
     },
     {
       "harvestEffectValue": 6,
@@ -203,7 +203,7 @@
           }
         }
       ],
-      "imgName":"8-City.jpg"
+      "imgName":"8-City.png"
     },
     {
       "harvestEffectValue": 1,
@@ -227,7 +227,7 @@
           }
         }
       ],
-      "imgName":"9-GoldMine.jpg"
+      "imgName":"9-GoldMine.png"
     },
     {
       "harvestEffectValue": 3,
@@ -258,7 +258,7 @@
           }
         }
       ],
-      "imgName":"10-MountainTown.jpg"
+      "imgName":"10-MountainTown.png"
     },
     {
       "harvestEffectValue": 4,
@@ -296,7 +296,7 @@
           }
         }
       ],
-      "imgName":"11-MiningTown.jpg"
+      "imgName":"11-MiningTown.png"
     },
     {
       "harvestEffectValue": 3,
@@ -320,7 +320,7 @@
           }
         }
       ],
-      "imgName":"12-RockPit.jpg"
+      "imgName":"12-RockPit.png"
     },
     {
       "harvestEffectValue": 4,
@@ -358,7 +358,7 @@
           }
         }
       ],
-      "imgName":"13-Estate.jpg"
+      "imgName":"13-Estate.png"
     },
     {
       "harvestEffectValue": 2,
@@ -382,7 +382,7 @@
           }
         }
       ],
-      "imgName":"14-Hermitage.jpg"
+      "imgName":"14-Hermitage.png"
     },
     {
       "harvestEffectValue": 5,
@@ -409,7 +409,7 @@
           "immediateEffect": "NoEffect"
         }
       ],
-      "imgName":"15-ManorHouse.jpg"
+      "imgName":"15-ManorHouse.png"
     },
     {
       "harvestEffectValue": 6,
@@ -447,7 +447,7 @@
           }
         }
       ],
-      "imgName":"16-Dukedom.jpg"
+      "imgName":"16-Dukedom.png"
     },
     {
       "harvestEffectValue": 1,
@@ -478,7 +478,7 @@
           }
         }
       ],
-      "imgName":"17-TradingTown.jpg"
+      "imgName":"17-TradingTown.png"
     },
     {
       "harvestEffectValue": 3,
@@ -516,7 +516,7 @@
           }
         }
       ],
-      "imgName":"18-Farm.jpg"
+      "imgName":"18-Farm.png"
     },
     {
       "harvestEffectValue": 5,
@@ -547,7 +547,7 @@
           }
         }
       ],
-      "imgName":"19-Colony.jpg"
+      "imgName":"19-Colony.png"
     },
     {
       "harvestEffectValue": 2,
@@ -578,7 +578,7 @@
           }
         }
       ],
-      "imgName":"20-MarblePit.jpg"
+      "imgName":"20-MarblePit.png"
     },
     {
       "harvestEffectValue": 6,
@@ -613,7 +613,7 @@
           "numberOfCouncilGift" : 1
         }
       ],
-      "imgName":"21-Province.jpg"
+      "imgName":"21-Province.png"
     },
     {
       "harvestEffectValue": 1,
@@ -644,7 +644,7 @@
           }
         }
       ],
-      "imgName":"22-Sanctuary.jpg"
+      "imgName":"22-Sanctuary.png"
     },
     {
       "harvestEffectValue": 4,
@@ -682,7 +682,7 @@
           }
         }
       ],
-      "imgName":"23-Castle.jpg"
+      "imgName":"23-Castle.png"
     },
     {
       "harvestEffectValue": 2,
@@ -720,7 +720,7 @@
           }
         }
       ],
-      "imgName":"24-FortifiedTown.jpg"
+      "imgName":"24-FortifiedTown.png"
     }
   ],
   "characterCards": [
@@ -750,7 +750,7 @@
           }
         }
       ],
-      "imgName":"49-Warlord.jpg"
+      "imgName":"49-Warlord.png"
     },
     {
       "cost": [
@@ -781,7 +781,7 @@
           "immediateEffect": "NoEffect"
         }
       ],
-      "imgName":"50-Stonemason.jpg"
+      "imgName":"50-Stonemason.png"
     },{
       "cost": [
         {
@@ -806,7 +806,7 @@
           "immediateEffect": "NoEffect"
         }
       ],
-      "imgName":"51-Dame.jpg"
+      "imgName":"51-Dame.png"
     },
     {
       "cost": [
@@ -831,7 +831,7 @@
           "numberOfCouncilGift" : 1
         }
       ],
-      "imgName":"52-Knight.jpg"
+      "imgName":"52-Knight.png"
     },
     {
       "cost": [
@@ -853,7 +853,7 @@
           "immediateEffect": "NoEffect"
         }
       ],
-      "imgName":"53-Farmer.jpg"
+      "imgName":"53-Farmer.png"
     },
     {
       "cost": [
@@ -875,7 +875,7 @@
           "immediateEffect": "NoEffect"
         }
       ],
-      "imgName":"54-Artisan.jpg"
+      "imgName":"54-Artisan.png"
     },{
       "cost": [
         {
@@ -900,7 +900,7 @@
           }
         }
       ],
-      "imgName":"55-Preacher.jpg"
+      "imgName":"55-Preacher.png"
     },
     {
       "cost": [
@@ -936,7 +936,7 @@
           ]
         }
       ],
-      "imgName":"56-Badess.jpg"
+      "imgName":"56-Badess.png"
     },{
       "cost": [
         {
@@ -968,7 +968,7 @@
           ]
         }
       ],
-      "imgName":"57-Captain.jpg"
+      "imgName":"57-Captain.png"
     },
     {
       "cost": [
@@ -1008,7 +1008,7 @@
           ]
         }
       ],
-      "imgName":"58-Architect.jpg"
+      "imgName":"58-Architect.png"
     },
     {
       "cost": [
@@ -1044,7 +1044,7 @@
           ]
         }
       ],
-      "imgName":"59-Patron.jpg"
+      "imgName":"59-Patron.png"
     },
     {
       "cost": [
@@ -1075,7 +1075,7 @@
           "numberOfCouncilGift" : 1
         }
       ],
-      "imgName":"60-Hero.jpg"
+      "imgName":"60-Hero.png"
     },{
       "cost": [
         {
@@ -1096,7 +1096,7 @@
           "immediateEffect": "NoEffect"
         }
       ],
-      "imgName":"61-Paesant.jpg"
+      "imgName":"61-Paesant.png"
     },
     {
       "cost": [
@@ -1118,7 +1118,7 @@
           "immediateEffect": "NoEffect"
         }
       ],
-      "imgName":"62-Scholar.jpg"
+      "imgName":"62-Scholar.png"
     },{
       "cost": [
         {
@@ -1142,7 +1142,7 @@
           }
         }
       ],
-      "imgName":"63-PapalMessanger.jpg"
+      "imgName":"63-PapalMessanger.png"
     },
     {
       "cost": [
@@ -1164,7 +1164,7 @@
           "numberOfCouncilGift" : 3
         }
       ],
-      "imgName":"64-RoyalMessanger.jpg"
+      "imgName":"64-RoyalMessanger.png"
     },{
       "cost": [
         {
@@ -1190,7 +1190,7 @@
           }
         }
       ],
-      "imgName":"65-Noble.jpg"
+      "imgName":"65-Noble.png"
     },
     {
       "cost": [
@@ -1217,7 +1217,7 @@
           }
         }
       ],
-      "imgName":"66-Governor.jpg"
+      "imgName":"66-Governor.png"
     },{
       "cost": [
         {
@@ -1242,7 +1242,7 @@
           }
         }
       ],
-      "imgName":"67-Paramour.jpg"
+      "imgName":"67-Paramour.png"
     },
     {
       "cost": [
@@ -1269,7 +1269,7 @@
           }
         }
       ],
-      "imgName":"68-Herald.jpg"
+      "imgName":"68-Herald.png"
     },{
       "cost": [
         {
@@ -1297,7 +1297,7 @@
           "diceValue": 4
         }
       ],
-      "imgName":"69-Cardinal.jpg"
+      "imgName":"69-Cardinal.png"
     },
     {
       "cost": [
@@ -1327,7 +1327,7 @@
           "diceValue": 4
         }
       ],
-      "imgName":"71-Bishop.jpg"
+      "imgName":"71-Bishop.png"
     },{
       "cost": [
         {
@@ -1356,7 +1356,7 @@
           }
         }
       ],
-      "imgName":"71-General.jpg"
+      "imgName":"71-General.png"
     },
     {
       "cost": [
@@ -1389,7 +1389,7 @@
           "numberOfCouncilGift" : 1
         }
       ],
-      "imgName":"72-Ambassador.jpg"
+      "imgName":"72-Ambassador.png"
     }
   ],
   "buildingCards": [
@@ -1427,7 +1427,7 @@
           }
         }
       ],
-      "imgName":"25-Mint.jpg"
+      "imgName":"25-Mint.png"
     },
     {
       "cost": [
@@ -1463,7 +1463,7 @@
           }
         }
       ],
-      "imgName":"26-TaxOffice.jpg"
+      "imgName":"26-TaxOffice.png"
     },
     {
       "cost": [
@@ -1499,7 +1499,7 @@
           }
         }
       ],
-      "imgName":"27-TriumphalArch.jpg"
+      "imgName":"27-TriumphalArch.png"
     },
     {
       "cost": [
@@ -1538,7 +1538,7 @@
           }
         }
       ],
-      "imgName":"28-Theater.jpg"
+      "imgName":"28-Theater.png"
     },{
       "cost": [
         {
@@ -1596,7 +1596,7 @@
           }
         }
       ],
-      "imgName":"29-Carpenter'sShop.jpg"
+      "imgName":"29-Carpenter'sShop.png"
     },{
       "cost": [
         {
@@ -1654,7 +1654,7 @@
           }
         }
       ],
-      "imgName":"30-Stonemason'sShop.jpg"
+      "imgName":"30-Stonemason'sShop.png"
     },
     {
       "cost": [
@@ -1693,7 +1693,7 @@
           }
         }
       ],
-      "imgName":"31-Chapel.jpg"
+      "imgName":"31-Chapel.png"
     },{
       "cost": [
         {
@@ -1725,7 +1725,7 @@
           }
         }
       ],
-      "imgName":"32-Residence.jpg"
+      "imgName":"32-Residence.png"
     },{
       "cost": [
         {
@@ -1771,7 +1771,7 @@
           }
         }
       ],
-      "imgName":"33-Marketplace.jpg"
+      "imgName":"33-Marketplace.png"
     },{
       "cost": [
         {
@@ -1823,7 +1823,7 @@
           }
         }
       ],
-      "imgName":"34-Treasury.jpg"
+      "imgName":"34-Treasury.png"
     },{
       "cost": [
         {
@@ -1875,7 +1875,7 @@
           }
         }
       ],
-      "imgName":"35-Painters'Guild.jpg"
+      "imgName":"35-Painters'Guild.png"
     },{
       "cost": [
         {
@@ -1927,7 +1927,7 @@
           }
         }
       ],
-      "imgName":"36-Scuptors'Guild.jpg"
+      "imgName":"36-Scuptors'Guild.png"
     },{
       "cost": [
         {
@@ -1977,7 +1977,7 @@
         }
       ]
     ,
-      "imgName":"37-Stonemasons'Guild.jpg"
+      "imgName":"37-Stonemasons'Guild.png"
     },{
       "cost": [
         {
@@ -2026,7 +2026,7 @@
           }
         }
       ],
-      "imgName":"38-Baptistery.jpg"
+      "imgName":"38-Baptistery.png"
     },{
       "cost": [
         {
@@ -2069,7 +2069,7 @@
           }
         }
       ],
-      "imgName":"39-Barracks.jpg"
+      "imgName":"39-Barracks.png"
     },{
       "cost": [
         {
@@ -2119,7 +2119,7 @@
           }
         }
       ],
-      "imgName":"40-Stronghold.jpg"
+      "imgName":"40-Stronghold.png"
     },{
       "cost": [
         {
@@ -2159,7 +2159,7 @@
           }
         }
       ],
-      "imgName":"41-Bank.jpg"
+      "imgName":"41-Bank.png"
     },{
       "cost": [
         {
@@ -2205,7 +2205,7 @@
           }
         }
       ],
-      "imgName":"42-Fair.jpg"
+      "imgName":"42-Fair.png"
     },{
       "cost": [
         {
@@ -2244,7 +2244,7 @@
           }
         }
       ],
-      "imgName":"43-Garden.jpg"
+      "imgName":"43-Garden.png"
     },{
       "cost": [
         {
@@ -2290,7 +2290,7 @@
         }
       ]
     ,
-      "imgName":"44-Fortress.jpg"
+      "imgName":"44-Fortress.png"
     },{
       "cost": [
         {
@@ -2342,7 +2342,7 @@
           }
         }
       ],
-      "imgName":"45-Palace.jpg"
+      "imgName":"45-Palace.png"
     },{
       "cost": [
         {
@@ -2393,7 +2393,7 @@
           }
         }
       ],
-      "imgName":"46-Church.jpg"
+      "imgName":"46-Church.png"
     },{
       "cost": [
         {
@@ -2444,7 +2444,7 @@
           }
         }
       ],
-      "imgName":"47-MilitaryAcademy.jpg"
+      "imgName":"47-MilitaryAcademy.png"
     },{
       "cost": [
         {
@@ -2486,7 +2486,7 @@
           }
         }
       ],
-      "imgName":"48-Cathedral.jpg"
+      "imgName":"48-Cathedral.png"
     }
   ],
   "ventureCards": [
@@ -2511,7 +2511,7 @@
           }
         }
       ],
-      "imgName":"73-HiringRecruits.jpg"
+      "imgName":"73-HiringRecruits.png"
     }
   ,
     {
@@ -2547,7 +2547,7 @@
           }
         }
       ],
-      "imgName":"74-RepairingTheChurch.jpg"
+      "imgName":"74-RepairingTheChurch.png"
     },
 
     {
@@ -2575,7 +2575,7 @@
           }
         }
       ],
-      "imgName":"75-BuildingTheWalls.jpg"
+      "imgName":"75-BuildingTheWalls.png"
     },
     {
       "costChoiceResource": [
@@ -2602,7 +2602,7 @@
         }
       ]
     ,
-      "imgName":"76-RaisingAStatue.jpg"
+      "imgName":"76-RaisingAStatue.png"
     }
   ,
 
@@ -2632,7 +2632,7 @@
           }
         }
       ] ,
-      "imgName":"77-MilitaryCampaign.jpg"
+      "imgName":"77-MilitaryCampaign.png"
 
     }
   ,
@@ -2657,7 +2657,7 @@
           }
         }
       ] ,
-      "imgName":"78-HostingPanhandlers.jpg"
+      "imgName":"78-HostingPanhandlers.png"
 
     }
   ,
@@ -2688,7 +2688,7 @@
           }
         }
       ] ,
-      "imgName":"79-FightingHeresies.jpg"
+      "imgName":"79-FightingHeresies.png"
 
     }
   ,
@@ -2736,7 +2736,7 @@
           }
         }
       ] ,
-      "imgName":"80-SupportToTheBishop.jpg"
+      "imgName":"80-SupportToTheBishop.png"
     }
   ,
 
@@ -2760,7 +2760,7 @@
           }
         }
       ],
-      "imgName":"81-HiringSoldiers.jpg"
+      "imgName":"81-HiringSoldiers.png"
 
     }
   ,
@@ -2797,7 +2797,7 @@
           }
         }
       ],
-      "imgName":"82-RepairingTheAbbey.jpg"
+      "imgName":"82-RepairingTheAbbey.png"
 
     }
   ,
@@ -2826,7 +2826,7 @@
           }
         }
       ],
-      "imgName":"83-BuildingTheBastions.jpg"
+      "imgName":"83-BuildingTheBastions.png"
 
     }
   ,
@@ -2861,7 +2861,7 @@
           }
         }
       ],
-      "imgName":"84-SupportToTheKing.jpg"
+      "imgName":"84-SupportToTheKing.png"
 
     }
   ,
@@ -2889,7 +2889,7 @@
           "diceValue": 4
         }
       ],
-      "imgName":"85-ImprovingTheCanals.jpg"
+      "imgName":"85-ImprovingTheCanals.png"
 
     }
   ,
@@ -2914,7 +2914,7 @@
           }
         }
       ],
-      "imgName":"86-HostingForeigners.jpg"
+      "imgName":"86-HostingForeigners.png"
 
     }
   ,
@@ -2951,7 +2951,7 @@
             "value": 1
           }}
       ],
-      "imgName":"87-Crusade.jpg"
+      "imgName":"87-Crusade.png"
 
     }
   ,
@@ -3000,7 +3000,7 @@
         }
 
       ],
-      "imgName":"88-SupportToTheCardinal.jpg"
+      "imgName":"88-SupportToTheCardinal.png"
 
     }
   ,
@@ -3025,7 +3025,7 @@
           }
         }
       ],
-      "imgName":"89-HiringMercenaries.jpg"
+      "imgName":"89-HiringMercenaries.png"
 
     }
   ,
@@ -3071,7 +3071,7 @@
           ]
         }
       ],
-      "imgName":"90-RepairingTheCathedral.jpg"
+      "imgName":"90-RepairingTheCathedral.png"
 
     }
   ,
@@ -3099,7 +3099,7 @@
           }
         }
       ],
-      "imgName":"91-BuildingTheTowers.jpg"
+      "imgName":"91-BuildingTheTowers.png"
     }
   ,
 
@@ -3123,7 +3123,7 @@
           }
         }
       ],
-      "imgName":"92-PromotingSacredArt.jpg"
+      "imgName":"92-PromotingSacredArt.png"
     }
   ,
 
@@ -3167,7 +3167,7 @@
           }
         }
       ],
-      "imgName":"93-MilitaryConquest.jpg"
+      "imgName":"93-MilitaryConquest.png"
     }
   ,
 
@@ -3194,7 +3194,7 @@
           "immediateEffect": "BuildNoFamilyMembersEffect",
           "diceValue": 3
         }      ],
-      "imgName":"94-ImprovingTheRoads.jpg"
+      "imgName":"94-ImprovingTheRoads.png"
     }
   ,
 
@@ -3224,7 +3224,7 @@
           }
         }
       ],
-      "imgName":"95-SacredWar.jpg"
+      "imgName":"95-SacredWar.png"
     }
   ,
 
@@ -3273,7 +3273,7 @@
           }
         }
       ],
-      "imgName":"96-SupportToThePope.jpg"
+      "imgName":"96-SupportToThePope.png"
     }
   ]
 }

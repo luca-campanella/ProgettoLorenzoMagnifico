@@ -5,6 +5,8 @@ import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.gui.GraphicalUI;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.OncePerRoundHarvestLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility.BonusNeutralFMLeaderAbility;
@@ -17,11 +19,14 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.server.JSONLoader;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Just a class to tests some of the GUI windows
@@ -37,7 +42,8 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
         gui = new GraphicalUI(this);
 
         //testLeaders();
-        testWaitingMenu();
+        //testWaitingMenu();
+        testCards();
     }
 
     public static void main(String args[]) {
@@ -46,6 +52,18 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
 
     private void testWaitingMenu() {
         gui.showWaitingForGameStart();
+    }
+
+    private void testCards() {
+        List<AbstractCard> cards;
+        Deck cardsDeck = null;
+        try {
+            cardsDeck = JSONLoader.createNewDeck();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        cards = cardsDeck.getRandomCards(1).subList(0,4);
+        gui.showCards(cards);
     }
 
     private static ArrayList<AbstractRequirement> createOneReqArray(AbstractRequirement req) {
