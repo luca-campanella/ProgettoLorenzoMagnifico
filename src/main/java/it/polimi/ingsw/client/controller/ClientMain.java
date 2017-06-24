@@ -163,7 +163,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
             this.nickname = userID;
             userInterface.showWaitingForGameStart();
-            Debug.printVerbose("Longin succesfully");
+            Debug.printVerbose("Login succesfully");
 
         } catch (NetworkException e) {
             //TODO handle network problems

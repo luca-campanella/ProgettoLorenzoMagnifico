@@ -21,13 +21,13 @@ public abstract class AbstractCard implements Serializable{
     private int period;
     ArrayList<ImmediateEffectInterface> immediateEffect;
     private CardColorEnum cardColor;
+    private String imgName;
 
     public abstract ArrayList<Resource> getCost();
 
     public abstract List<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController);
 
     public abstract String secondEffect();
-    private String imgName;
 
     //abstract public int characteristicValue();
     public void addImmediateEffect(ImmediateEffectInterface effect){
@@ -93,4 +93,8 @@ public abstract class AbstractCard implements Serializable{
      * @return is true if you can buy the card, false otherwise
      */
     public abstract boolean canBuy(ResourceCollector resource);
+
+    public String getImgName() {
+        return imgName;
+    }
 }
