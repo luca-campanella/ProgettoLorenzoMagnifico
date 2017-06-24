@@ -133,7 +133,23 @@ public abstract class AbstractConnectionPlayer extends Player {
      */
     public abstract void otherPlayerPersonalTile(String nickname, PersonalTile personalTile) throws NetworkException;
 
+    /**
+     * this method is used to inform the player that the move did is not correct
+     */
     public abstract void deliverErrorMove() throws NetworkException;
 
+    /**
+     * this method is called by the room to deliver to all the players the information that a player had discarded a leader card
+     * @param nameCard the name of the card discarded
+     * @param nickname the nickname of the player
+     * @param resourceGet the resource got by the player
+     * @throws NetworkException if there are errors in the connection
+     */
     public abstract void deliverDiscardLeaderCard(String nameCard, String nickname, HashMap<String, Integer> resourceGet) throws NetworkException;
+
+    /**
+     * this method is used to deliver to a player that a different players had left the game
+     * @param nickname the nickname of the player that is not more in the game
+     */
+    public abstract void deliverDisconnectionPlayer(String nickname) throws NetworkException;
 }

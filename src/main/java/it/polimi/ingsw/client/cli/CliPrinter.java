@@ -540,6 +540,7 @@ public class CliPrinter {
      * @param player        is the user of the game
      */
     public static void printPersonalBoard(Player player) {
+        System.out.println("Personal Board of the player : " + player.getNickname() + "\n");
         System.out.println("");
         System.out.print("Printing Territory Cards: ");
         printGenericCards(player.getPersonalBoard().getCardListByColor(CardColorEnum.GREEN));

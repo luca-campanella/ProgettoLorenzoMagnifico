@@ -11,7 +11,7 @@ import java.util.HashMap;
  * This is the base menu class for all the menus of the cli when the user has choices
  * and the cli should call callbacks accordingly
  */
-public abstract class BasicCLIMenu implements Runnable {
+public abstract class BasicCLIMenu extends Thread {
 
     private HashMap<String, DescrCallbackContainer> optionsMap;
 

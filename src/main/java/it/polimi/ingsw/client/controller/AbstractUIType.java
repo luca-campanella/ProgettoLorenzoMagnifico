@@ -121,13 +121,12 @@ abstract public class AbstractUIType {
      * This method will trigger either
      * {@link ViewControllerCallbackInterface(DiceAndFamilyMemberColorEnum, int)}
      *  @param playableFMs          the list of playable family members to make the user choose
-     * @param board                the board of the game
      * @param playedFamilyMember   is a boolean, true if the player had already placed a family member this turn
      * @param leaderCardsNotPlayed the leader cards on the hand of the player
      * @param playedLeaderCards    the leader cards played by the player
      */
-    public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember,
-                                          ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, Player player);
+    public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
+                                          ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards);
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui
@@ -215,4 +214,14 @@ abstract public class AbstractUIType {
      * @throws IllegalArgumentException if the list is empty
      */
     public abstract DiceAndFamilyMemberColorEnum askWhichFamilyMemberBonus(List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException;
+
+    /**
+     * this method is called to end the menu used while witing for the other players
+     */
+    public abstract void interruptWaitMenu();
+
+    /**
+     * this method is used to start the menu used when the player is waiting the other players playing the phase
+     */
+    public abstract void waitMenu();
 }

@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.server.network.socket.SocketPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -544,6 +545,24 @@ public class Room {
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the leader discarded to " + player.getNickname());
                 }
+            }
+        }
+    }
+
+    /**
+     * this method is used to deliver the information that a player has disconnected
+     * @param player the player disconnected
+     */
+    public void disconnectedPlayer(AbstractConnectionPlayer player) {
+
+        controllerGame.disconnectedPlayer(player.getNickname());
+        players.remove(player);
+        for(AbstractConnectionPlayer playerIter : players){
+            try {
+                playerIter.deliverDisconnectionPlayer(player.getNickname());
+            }
+            catch (NetworkException e){
+                Debug.printError("cannot deliver the disconnection to the player " + playerIter.getNickname());
             }
         }
     }

@@ -241,4 +241,19 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     public void clientChoices() {
 
     }
+
+    @Override
+    public void printPersonalBoard() {
+
+    }
+
+    @Override
+    public void printBoard() {
+
+    }
+
+    @Override
+    public void printPersonalBoardOtherPlayers() {
+
+    }
 }

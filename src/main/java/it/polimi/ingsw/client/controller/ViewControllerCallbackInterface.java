@@ -104,4 +104,19 @@ public interface ViewControllerCallbackInterface {
      * this method is called to turn back at the start of the initial choices
      */
     void clientChoices();
+
+    /**
+     * this method is called to show the personal board of the player
+     */
+    void printPersonalBoard();
+
+    /**
+     * this method is called to show the board of the game
+     */
+    void printBoard();
+
+    /**
+     * this method is called by the view to show the personal boards of the other players
+     */
+    void printPersonalBoardOtherPlayers();
 }

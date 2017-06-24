@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.*;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -801,6 +802,14 @@ public class ModelController {
                 leaderCards = player.getPlayedLeaders();
         }
         return leaderCards;
+    }
+
+    /**
+     * this method is used to remove a player from the board , this happens when a player had left the game
+     * @param player the player to remove
+     */
+    public void removePlayer(AbstractConnectionPlayer player) {
+        players.remove(player);
     }
 }
 

@@ -114,13 +114,38 @@ import java.util.HashMap;
             RMIClientInterfaceInst.receiveError();
         }
         catch (RemoteException e){
-            Debug.printError("cannot deliver the error to the server");
+            Debug.printError("cannot deliver the error to the client");
             throw new NetworkException(e);
         }
     }
 
+    /**
+     * this method is called by the room to deliver to all the players the information that a player had discarded a leader card
+     * @param nameCard the name of the card discarded
+     * @param nickname the nickname of the player
+     * @param resourceGet the resource got by the player
+     * @throws NetworkException
+     */
     @Override
     public void deliverDiscardLeaderCard(String nameCard, String nickname, HashMap<String, Integer> resourceGet) throws NetworkException {
+
+        try{
+            RMIClientInterfaceInst.receiveDiscardedLeaderCard(nameCard, nickname, resourceGet);
+        }
+        catch (RemoteException e){
+            Debug.printError("cannot deliver the leader card discarded to the client");
+            throw new NetworkException(e);
+        }
+
+    }
+
+    /**
+     * this method is used to deliver to a player that a different players had left the game
+     * @param nickname the nickname of the player that is not more in the game
+     * @throws NetworkException
+     */
+    @Override
+    public void deliverDisconnectionPlayer(String nickname) throws NetworkException {
 
     }
 

@@ -430,8 +430,24 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     }
 
+    /**
+     * this method is called by the server to inform the client that in the last move there was an error
+     * @throws RemoteException
+     */
     @Override
     public void receiveError() throws RemoteException {
 
+    }
+
+    /**
+     * this method is called by the server to receive the leader card discarded
+     * @param nameCard name of the card discarded
+     * @param nickname nickname of the player that had discarded the card
+     * @param resourceGet the type of resources the player got
+     * @throws RemoteException
+     */
+    @Override
+    public void receiveDiscardedLeaderCard(String nameCard, String nickname, HashMap<String, Integer> resourceGet) throws RemoteException {
+        //TODO
     }
 }

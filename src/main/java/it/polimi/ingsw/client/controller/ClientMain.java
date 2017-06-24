@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
@@ -579,6 +580,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receivedStartGameBoard(Board board){
+
         Debug.printVerbose("receivedStartgameBoard called");
 
         modelController = new ModelController(players, board);
@@ -617,6 +619,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * to notify that the player is in turn and should move
      */
     public void receivedStartTurnNotification() {
+        userInterface.interruptWaitMenu();
         Debug.printVerbose("receivedStartTurnNotification called");
         playedFamilyMember = false;
         clientChoices();
@@ -633,8 +636,40 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
         initialActionsOnPlayerMove();
-        userInterface.askInitialAction(playableFMs, modelController.getBoard(), playedFamilyMember,
-                modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname()), modelController.getLeaderCardsPlayed(thisPlayer.getNickname()), thisPlayer);
+        userInterface.askInitialAction(playableFMs, playedFamilyMember,
+                modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname()), modelController.getLeaderCardsPlayed(thisPlayer.getNickname()));
+
+    }
+
+    /**
+     * this method is called by the view to show the personal board of the player
+     */
+    @Override
+    public void printPersonalBoard() {
+
+        CliPrinter.printPersonalBoard(thisPlayer);
+
+    }
+
+    /**
+     * this method is called by the view to print the board of the game
+     */
+    @Override
+    public void printBoard() {
+
+        CliPrinter.printBoard(modelController.getBoard());
+    }
+
+    /**
+     * this method is called by the view to show the personal boards of the other players
+     */
+    @Override
+    public void printPersonalBoardOtherPlayers() {
+
+        for(Player player : players){
+            if(!player.getNickname().equals(thisPlayer.getNickname()))
+                CliPrinter.printPersonalBoard(player);
+        }
 
     }
 
@@ -645,10 +680,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receivedLeaderCards(List<LeaderCard> leaderCards) {
-        //Debug.printDebug("Automatically chose leader " + leaderCards.get(0).getName());
-        //callbackOnLeaderCardChosen(leaderCards.get(0)); //todo remove these two statements
+        Debug.printDebug("Automatically chose leader " + leaderCards.get(0).getName());
+        callbackOnLeaderCardChosen(leaderCards.get(0)); //todo remove these two statements
         //todo commented to skip leader chosing phase, not to lose time
-        userInterface.askLeaderCards(leaderCards);
+        //userInterface.askLeaderCards(leaderCards);
     }
 
     /**
@@ -690,8 +725,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receivedPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
-        userInterface.askPersonalTiles(standardTile, specialTile);
-        //callbackOnTileChosen(standardTile);
+        //userInterface.askPersonalTiles(standardTile, specialTile);
+        callbackOnTileChosen(standardTile);
     }
 
     /**
@@ -701,9 +736,12 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void callBackPassTheTurn() {
         try{
             clientNetwork.endPhase();
+            userInterface.waitMenu();
+
         }
         catch (NetworkException e){
             Debug.printError("Cannot deliver the end of the phase",e);
+            clientChoices();
         }
     }
 
@@ -885,6 +923,21 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * this method is called by the server to inform the client that a player had left the game
+     * @param nicknamePlayerDisconnected the nickname of the player that had left the game
+     */
+    @Override
+    public void receiveDisconnection(String nicknamePlayerDisconnected) {
+
+        for(Player player : players){
+            if(player.getNickname().equals(nicknamePlayerDisconnected)){
+                players.remove(player);
+                break;
+            }
+        }
+    }
+
+    /**
      * Callback from model to controller
      * the model uses this method when the player performs an action but from the model we have to ask
      * how many servants he wants to add
@@ -927,6 +980,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         choicesOnCurrentAction.put(choiceCode, choice.getIntegerValue());
         return choice;
     }
+
 }
 
 

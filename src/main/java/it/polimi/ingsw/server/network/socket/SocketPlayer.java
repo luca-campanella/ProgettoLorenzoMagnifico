@@ -96,6 +96,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             }
             catch(IOException | ClassNotFoundException e){
                 Debug.printError("network is not working",e);
+                getRoom().disconnectedPlayer(this);
                 closeEverything();
                 break;
             }
@@ -732,6 +733,26 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.DISCARD_LEADER);
                 outStream.writeObject(new ReceiveDiscardLeaderCardPacket(nickname, nameCard, resourceGet));
+            }
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the discarded leader to " + this.getNickname());
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is used to deliver to a player that a different players had left the game
+     * @param nickname the nickname of the player that is not more in the game
+     */
+    @Override
+    public void deliverDisconnectionPlayer(String nickname) throws NetworkException {
+
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.DISCONNECTION_PLAYER);
+                outStream.writeObject(nickname);
             }
             outStream.flush();
         }

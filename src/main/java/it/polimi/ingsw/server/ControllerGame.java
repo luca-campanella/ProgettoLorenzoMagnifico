@@ -462,5 +462,50 @@ public class ControllerGame {
         room.playersTurn(orderOfPlayers.get(0));
     }
 
+    /**
+     * this method is called by the room to inform the controller that a player had left the game
+     * @param nickname the nickname of the player that is no more connected
+     */
+    public void disconnectedPlayer(String nickname) {
+        int position = 0;
+        for(AbstractConnectionPlayer player : orderOfPlayers) {
+            if(player.getNickname().equals(nickname)){
+
+                modelController.removePlayer(player);
+                correctionRound(position, player);
+                orderOfPlayers.remove(player);
+                numberOfPlayers = orderOfPlayers.size();
+
+            }
+            position++;
+
+        }
+    }
+
+    /**
+     * this method is used to align the value of the phase with the number of player connected
+     * this method is called when a player left the game
+     * @param position the position of the player on the the order of turn
+     */
+    private void correctionRound(int position, AbstractConnectionPlayer player) {
+
+        //this is the position on the order of turn of the last player that had ended the phase
+        int actualPosition = numberOfTurn%numberOfPlayers;
+        //this is used to subtract every turn player by the player
+        numberOfTurn -= numberOfTurn/numberOfPlayers;
+        if(actualPosition >= position)
+            //this means that in this round the disconnected player had already done his move
+            numberOfTurn--;
+        else if((actualPosition+1)%numberOfPlayers == position){
+            //this means that now is the turn of the disconnected player
+            //the 'if' is used to control if the player that had passed the last time is the player before the disconnected player
+            try{
+                endPhase(player);
+            }
+            catch (IllegalMoveException e){
+                Debug.printError("is not the turn of this player",e);
+            }
+        }
+    }
 }
 

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.network.socket;
 
 
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.controller.NetworkControllerClientInterface;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.AbstractClientType;
@@ -677,5 +678,20 @@ public class SocketClient extends AbstractClientType {
         catch (IOException | ClassNotFoundException e){
             Debug.printError("the client cannot receives the discard card receive from the server",e);
         }
+    }
+
+    /**
+     * this method is called by the server to inform the client that a player had left the game
+     */
+    public void receiveDisconnectionPlayer(){
+
+        try{
+            String nicknamePlayerDisconnected = (String)inStream.readObject();
+            getControllerMain().receiveDisconnection(nicknamePlayerDisconnected);
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the disconnection of a player",e);
+        }
+
     }
 }

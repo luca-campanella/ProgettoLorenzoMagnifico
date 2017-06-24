@@ -15,19 +15,17 @@ import java.util.List;
 /**
  * this class is the base menu, where you cann see all the possible option during your phase
  */
-public class InitialActionMenu extends BasicCLIMenu {
+public class InitialActionMenu extends WaitBasicCliMenu {
     private ArrayList<FamilyMember> playableFMs;
     private ArrayList<LeaderCard> leaderCardsNotPlayed;
     private List<LeaderCard> playedLeaderCards;
 
-    public InitialActionMenu(ViewControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilMembery,
-                             ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, Player player) {
+    public InitialActionMenu(ViewControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs, boolean playedFamilMembery,
+                             ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards) {
         super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
         this.playableFMs = playableFMs;
         this.leaderCardsNotPlayed = leaderCardsNotPlayed;
         this.playedLeaderCards = playedLeaderCards;
-        addOption("BOARD", "Show me the board", () -> this.printBoard(board));
-        addOption("PB", "Show the personal board of the player", () -> this.printPersonalBoard(player));
         if(!playedFamilMembery)
             addOption("FM", "Place a Family Member on an action space", this::placeFamilyMember);
         if(leaderCardsNotPlayed.size() !=0)
@@ -38,11 +36,9 @@ public class InitialActionMenu extends BasicCLIMenu {
         addOption("END","Pass the turn", this::passTheTurn);
     }
 
-    private void printBoard(Board board) {
-        CliPrinter.printBoard(board);
-        showMenuAndAsk();
-    }
-
+    /**
+     * this method is used to deliver to the servver the end of the phase of this player
+     */
     private void passTheTurn(){
 
         getController().callBackPassTheTurn();
@@ -85,13 +81,6 @@ public class InitialActionMenu extends BasicCLIMenu {
             indexRes = discardLeaderCardChooser.askUserChoice();
         }
         getController().callbackDiscardLeader(leaderCardsNotPlayed.get(indexRes));
-    }
-
-    private void printPersonalBoard(Player player){
-
-        CliPrinter.printPersonalBoard(player);
-        showMenuAndAsk();
-
     }
 
     private void playLeader() {

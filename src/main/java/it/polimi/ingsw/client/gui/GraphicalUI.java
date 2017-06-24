@@ -133,18 +133,18 @@ public class GraphicalUI extends AbstractUIType {
                 () -> this.prepareWaitingScene("Personal tile chose, waiting for other players to choose...")));
     }
 
+
     /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * {@link ViewControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
      *  @param playableFMs the list of playable family members to make the user choose
-     * @param board
      * @param playedLeaderCards
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember, ArrayList<LeaderCard> leaderCardsNotPlayed,
-                                 List<LeaderCard> playedLeaderCards, Player player) {
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember, ArrayList<LeaderCard> leaderCardsNotPlayed,
+                                 List<LeaderCard> playedLeaderCards) {
 
     }
 
@@ -269,6 +269,16 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public DiceAndFamilyMemberColorEnum askWhichFamilyMemberBonus(List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException {
         return null;
+    }
+
+    @Override
+    public void interruptWaitMenu() {
+
+    }
+
+    @Override
+    public void waitMenu() {
+
     }
 
     /**

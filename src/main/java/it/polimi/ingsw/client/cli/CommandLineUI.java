@@ -35,6 +35,8 @@ public class CommandLineUI extends AbstractUIType {
 
     private ExecutorService pool;
 
+    WaitBasicCliMenu waitMenu;
+
     /**
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
@@ -43,6 +45,7 @@ public class CommandLineUI extends AbstractUIType {
     {
         super(controller);
         pool = Executors.newFixedThreadPool(2);
+        waitMenu = new WaitBasicCliMenu(controller);
     }
 
     /**
@@ -274,19 +277,18 @@ public class CommandLineUI extends AbstractUIType {
     /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
-     * //todo other methods triggered
      * @param playableFMs the list of playable family members to make the user choose
-     * @param board
      * @param playedLeaderCards
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs, Board board, boolean playedFamilyMember,
-                                 ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, Player player) {
-        InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs, board,
-                playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards, player);
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
+                                 ArrayList<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards) {
+        InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs,
+                playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards);
 
         pool.submit(menu);
     }
+
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui
@@ -451,6 +453,25 @@ public class CommandLineUI extends AbstractUIType {
             return availableFamilyMembers.get(choice).getColor();
         }
     }
+
+    /**
+     * this method is called to end the menu used while witing for the other players
+     */
+    @Override
+    public void interruptWaitMenu() {
+
+        waitMenu.interrupt();
+    }
+
+    /**
+     * this method is used to start the menu used when the player is waiting the other players playing the phase
+     */
+    @Override
+    public void waitMenu() {
+
+        waitMenu.run();
+    }
+
 
     /**
      * thies message is showed to all the players to inform that a player had passed the turn

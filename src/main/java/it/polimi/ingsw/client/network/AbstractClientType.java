@@ -148,4 +148,5 @@ public abstract class AbstractClientType  {
      * @param tileChosen
      */
     public abstract void deliverTileChosen(PersonalTile tileChosen) throws NetworkException;
+
 }
