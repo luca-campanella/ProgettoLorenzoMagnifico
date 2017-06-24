@@ -1,0 +1,14 @@
+#TowersCouncilFaith {
+    -fx-background-image: url("/imgs/TowersChurchCouncil.jpg");
+    -fx-background-size: cover;
+}
+
+#MarketBuildHarvest {
+    -fx-background-image: url("/imgs/MarketBuildHarvest.jpg");
+    -fx-background-size: cover;
+}
+
+#PersonalBoard {
+    -fx-background-image: url("/imgs/PersonalBoard.jpg");
+    -fx-background-size: cover;
+}
