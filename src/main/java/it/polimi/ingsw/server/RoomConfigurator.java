@@ -5,9 +5,9 @@ package it.polimi.ingsw.server;
  */
 public class RoomConfigurator {
     //when room has the minimum number of player a timeout starts with this countdown.
-    int timeoutSec;
+    private int timeoutSec;
     //time for a turn
-    int timeToPass;
+    private int timeToPass;
 
     public int getTimeoutSec() {
         return timeoutSec;

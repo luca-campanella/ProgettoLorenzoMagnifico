@@ -32,7 +32,7 @@ public class Board implements Serializable {
     //private ArrayList<ExcommunicationTile> excommunicationDeck;
     private List<ExcommunicationTile> excommunicationTiles = new ArrayList<>(3);
     // this is the constructor
-    public void createNewBoard(Tower[] towers, ArrayList<MarketAS> market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport) {
+    /*public void createNewBoard(Tower[] towers, ArrayList<MarketAS> market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport) {
         this.towers = towers;
         this.market = market;
         this.build = build;
@@ -49,8 +49,8 @@ public class Board implements Serializable {
             Debug.instance(2);
             Debug.displayError("Json couldn't load excommunication cards");
         }
-        */
-    }
+
+    }/*
     /*public void loadExcommunicationCards()
     {
         JSONLoader.instance();
@@ -171,7 +171,7 @@ public class Board implements Serializable {
     public int[] getVaticanFaithAge() {
         return this.vaticanReport.getRequiredFaithPoints();
     }
-
+    //returns how many points do yo need at index slot
     public int getVaticanFaithAgeIndex(int index) {
         return vaticanReport.getRequiredFaithPointsByIndex(index);
     }
