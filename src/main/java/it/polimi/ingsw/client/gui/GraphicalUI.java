@@ -9,7 +9,7 @@ import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
-import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -17,7 +17,6 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -25,10 +24,15 @@ import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.*;
@@ -139,13 +143,13 @@ public class GraphicalUI extends AbstractUIType {
      * This method will trigger either
      * {@link ViewControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
-     * @param playableFMs the list of playable family members to make the user choose
-     * @param leaderCardsNotPlayed
+     *  @param playableFMs the list of playable family members to make the user choose
      * @param playedLeaderCards
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember, List<LeaderCard> leaderCardsNotPlayed,
-                                 List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards) {
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember, ArrayList<LeaderCard> leaderCardsNotPlayed,
+                                 List<LeaderCard> playedLeaderCards) {
+        Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", null));
 
     }
 
@@ -469,6 +473,34 @@ public class GraphicalUI extends AbstractUIType {
     private void prepareWaitingScene(String message) {
         //openNewWindow("WaitingScene.fxml", title, null);
         ((WaitingSceneControl) (currentFXControl)).setMessage(message);
+    }
+
+    /**
+     * Shows a window with the list of cards passed as an argument
+     * @param cards the cards to show to the user
+     */
+    public void showCards(List<AbstractCard> cards) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Blue cards");
+        alert.setHeaderText(null);
+        //alert.setContentText(errorDescription);
+
+        HBox cardsContainer = new HBox();
+        cardsContainer.setSpacing(5);
+        cardsContainer.setAlignment(Pos.CENTER);
+
+        for(AbstractCard cardIter : cards) {
+            final Image cardImage  = new Image(getClass().getResourceAsStream("/imgs/Cards/" + cardIter.getImgName()));
+            final ImageView imgView = new ImageView();
+            imgView.setImage(cardImage);
+            imgView.setPreserveRatio(true);
+
+            cardsContainer.getChildren().add(imgView);
+        }
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setGraphic(cardsContainer);
+        //alert.initOwner(currentStage);
+        alert.show();
     }
 
 }

@@ -58,4 +58,7 @@ public class Market {
         return marketSpaces.get(position);
     }
 
+    public ArrayList<MarketAS> getMarketSpaces() {
+        return marketSpaces;
+    }
 }
