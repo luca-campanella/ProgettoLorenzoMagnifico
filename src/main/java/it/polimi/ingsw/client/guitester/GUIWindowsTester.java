@@ -1,9 +1,10 @@
-package it.polimi.ingsw.client.GUITester;
+package it.polimi.ingsw.client.guitester;
 
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.gui.GraphicalUI;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
@@ -17,6 +18,7 @@ import it.polimi.ingsw.model.leaders.requirements.CardRequirement;
 import it.polimi.ingsw.model.leaders.requirements.ResourceRequirement;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.server.JSONLoader;
@@ -267,17 +269,17 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     }
 
     @Override
-    public void printPersonalBoard() {
+    public Player callbackObtainPlayer() {
 
     }
 
     @Override
-    public void printBoard() {
+    public Board callbackObtainBoard() {
 
     }
 
     @Override
-    public void printPersonalBoardOtherPlayers() {
+    public List<Player> callbackObtainOtherPlayers() {
 
     }
 

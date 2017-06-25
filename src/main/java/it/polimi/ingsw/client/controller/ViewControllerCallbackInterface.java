@@ -1,12 +1,14 @@
 package it.polimi.ingsw.client.controller;
 
-import it.polimi.ingsw.client.cli.CallbackFunction;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.PersonalTileEnum;
+import it.polimi.ingsw.model.player.Player;
+
+import java.util.List;
 
 /**
  * This interface is used for callbacks from view to controller
@@ -106,23 +108,30 @@ public interface ViewControllerCallbackInterface {
     void clientChoices();
 
     /**
-     * this method is called to show the personal board of the player
-     */
-    void printPersonalBoard();
-
-    /**
-     * this method is called to show the board of the game
-     */
-    void printBoard();
-
-    /**
-     * this method is called by the view to show the personal boards of the other players
-     */
-    void printPersonalBoardOtherPlayers();
-
-    /**
      * this method is called to play a leader card on the hand of the player
      * @param leaderCard the leader card played by the player
      */
     void callbackPlayLeader(LeaderCard leaderCard);
+
+    /**
+     * This method returns to the view a reference to the board
+     * this method is called to obtain the board of the game inside the view
+     * @return the current board
+     */
+    Board callbackObtainBoard();
+
+    /**
+     * This method returns to the view a reference to the player the client represents
+     * this method is usually called to show the personal board of the player
+     * @return the player the clietn represents
+     */
+    Player callbackObtainPlayer();
+
+    /**
+     * This method returns to the view a list of other players
+     * this method is usually called by the view to show the personal boards of the other players
+     * @return the list of other playes
+     */
+    List<Player> callbackObtainOtherPlayers();
+
 }

@@ -11,7 +11,25 @@
         <items>
             <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
-                  <AnchorPane id="TowersCouncilFaith" prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane id="towersCouncilFaith" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView id="card00" fitHeight="143.0" fitWidth="96.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card01" fitHeight="143.0" fitWidth="96.0" layoutX="14.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card02" fitHeight="143.0" fitWidth="96.0" layoutX="14.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card03" fitHeight="143.0" fitWidth="96.0" layoutX="14.0" layoutY="459.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card13" fitHeight="143.0" fitWidth="96.0" layoutX="153.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card12" fitHeight="143.0" fitWidth="96.0" layoutX="153.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card11" fitHeight="143.0" fitWidth="96.0" layoutX="153.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card10" fitHeight="143.0" fitWidth="96.0" layoutX="153.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card20" fitHeight="143.0" fitWidth="96.0" layoutX="348.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card21" fitHeight="143.0" fitWidth="96.0" layoutX="348.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card22" fitHeight="143.0" fitWidth="96.0" layoutX="348.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card23" fitHeight="143.0" fitWidth="96.0" layoutX="348.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card33" fitHeight="143.0" fitWidth="96.0" layoutX="520.0" layoutY="464.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card32" fitHeight="143.0" fitWidth="96.0" layoutX="520.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card31" fitHeight="143.0" fitWidth="96.0" layoutX="520.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView id="card30" fitHeight="143.0" fitWidth="96.0" layoutX="520.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></AnchorPane>
               </items>
             </SplitPane>
             <SplitPane dividerPositions="0.6370192307692307, 0.7740384615384616" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">

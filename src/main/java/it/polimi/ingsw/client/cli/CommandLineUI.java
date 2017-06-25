@@ -493,40 +493,6 @@ public class CommandLineUI extends AbstractUIType {
     }
 
     /**
-     * this method is used to show the personal board of the player
-     * @param thisPlayer the player that own the personal board
-     */
-    @Override
-    public void printPersonalBoard(Player thisPlayer) {
-
-        CliPrinter.printPersonalBoard(thisPlayer);
-
-    }
-
-    /**
-     * this method is called to show the board of the game
-     * @param board
-     */
-    @Override
-    public void printBoard(Board board) {
-
-        CliPrinter.printBoard(board);
-
-    }
-
-    /**
-     * this method is called to show the personal boards of the other players
-     * @param players the players that the client wants to see the personal boards
-     */
-    @Override
-    public void printPersonalBoardOtherPlayers(ArrayList<Player> players) {
-
-        players.forEach(CliPrinter::printPersonalBoard);
-
-    }
-
-
-    /**
      * thies message is showed to all the players to inform that a player had passed the turn
      * @param nickname the player that had pass the phase
      */

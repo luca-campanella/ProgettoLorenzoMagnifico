@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.cli.notblockingmenus;
 
 import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
-import it.polimi.ingsw.model.player.Player;
 
 /**
  * this is the view showe when is not the turn of the player
@@ -34,7 +33,7 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
      */
     public void printBoard(){
 
-        getController().printBoard();
+        CliPrinter.printBoard(getController().callbackObtainBoard());
         showMenuAndAsk();
 
     }
@@ -44,7 +43,7 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
      */
     public void printPersonalBoard(){
 
-        getController().printPersonalBoard();
+        CliPrinter.printPersonalBoard(getController().callbackObtainPlayer());
         showMenuAndAsk();
 
     }
@@ -54,7 +53,7 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
      */
     public void printPersonalBoardOtherPlayers(){
 
-        getController().printPersonalBoardOtherPlayers();
+        getController().callbackObtainOtherPlayers().forEach(CliPrinter::printPersonalBoard);
         showMenuAndAsk();
 
     }

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.cli.CommandLineUI;
-import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -9,7 +8,6 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -233,20 +231,4 @@ abstract public class AbstractUIType {
      */
     public abstract void waitMenu();
 
-    /**
-     * this method is used to show the persoanl board of the player
-     * @param thisPlayer the player that own the personal board
-     */
-    public abstract void printPersonalBoard(Player thisPlayer);
-
-    /**
-     * this method is called to show the board of the game
-     */
-    public abstract void printBoard(Board board);
-
-    /**
-     * this method is called to show the personal boards of the other players
-     * @param players the players that the client wants to see the personal boards
-     */
-    public abstract void printPersonalBoardOtherPlayers(ArrayList<Player> players);
 }

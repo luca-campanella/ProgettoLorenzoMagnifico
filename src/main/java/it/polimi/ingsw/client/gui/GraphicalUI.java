@@ -9,7 +9,6 @@ import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
-import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
@@ -18,7 +17,6 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -148,8 +146,8 @@ public class GraphicalUI extends AbstractUIType {
      * @param playedLeaderCards
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember, List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards) {
-
+    public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
+                                          List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards) {
         Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", null));
 
     }
@@ -285,21 +283,6 @@ public class GraphicalUI extends AbstractUIType {
 
     @Override
     public void waitMenu() {
-
-    }
-
-    @Override
-    public void printPersonalBoard(Player thisPlayer) {
-
-    }
-
-    @Override
-    public void printBoard(Board board) {
-
-    }
-
-    @Override
-    public void printPersonalBoardOtherPlayers(ArrayList<Player> players) {
 
     }
 

@@ -43,7 +43,7 @@ public class BoardCreator {
         System.out.println(boardTest.toString());
 
         CliPrinter printer = new CliPrinter();
-        printer.printBoard(boardFormJson);
+        printer.callbackObtainBoard(boardFormJson);
         */
         // The JSON data
        try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {

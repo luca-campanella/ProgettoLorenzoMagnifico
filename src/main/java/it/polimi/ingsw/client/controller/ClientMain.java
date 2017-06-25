@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
-import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
@@ -26,10 +25,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.EmptyLeaderAbility;
-import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
-import it.polimi.ingsw.model.player.FamilyMember;
-import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.*;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -592,7 +588,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         otherPlayerChoicesHandler = new NetworkChoicesPacketHandler(modelController.getBoard().getCouncilAS().getCouncilGiftChoices());
 
         //todo this is just for testing
-        //CliPrinter.printBoard(board);
+        //CliPrinter.callbackObtainBoard(board);
     }
 
     /**
@@ -665,9 +661,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * this method is called by the view to show the personal board of the player
      */
     @Override
-    public void printPersonalBoard() {
+    public Player callbackObtainPlayer() {
 
-        userInterface.printPersonalBoard(thisPlayer);
+        return thisPlayer;
+        //userInterface.printPersonalBoard(thisPlayer);
 
     }
 
@@ -675,24 +672,23 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * this method is called by the view to print the board of the game
      */
     @Override
-    public void printBoard() {
-
-        userInterface.printBoard(modelController.getBoard());
+    public Board callbackObtainBoard() {
+        return modelController.getBoard();
     }
 
     /**
      * this method is called by the view to show the personal boards of the other players
      */
     @Override
-    public void printPersonalBoardOtherPlayers() {
+    public List<Player> callbackObtainOtherPlayers() {
 
         ArrayList<Player> otherPlayers = new ArrayList<>(players.size()-1);
         for(Player player : players){
             if(!player.getNickname().equals(thisPlayer.getNickname()))
                 otherPlayers.add(player);
         }
-        userInterface.printPersonalBoardOtherPlayers(otherPlayers);
-
+        //userInterface.printPersonalBoardOtherPlayers(otherPlayers);
+        return otherPlayers;
     }
 
     /**
