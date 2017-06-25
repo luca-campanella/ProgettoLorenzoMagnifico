@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -11,24 +13,24 @@
         <items>
             <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
-                  <AnchorPane id="towersCouncilFaith" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="towersCouncilFaith" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <ImageView id="card00" fitHeight="143.0" fitWidth="96.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card01" fitHeight="143.0" fitWidth="96.0" layoutX="14.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card02" fitHeight="143.0" fitWidth="96.0" layoutX="14.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card03" fitHeight="143.0" fitWidth="96.0" layoutX="14.0" layoutY="459.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card13" fitHeight="143.0" fitWidth="96.0" layoutX="153.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card12" fitHeight="143.0" fitWidth="96.0" layoutX="153.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card11" fitHeight="143.0" fitWidth="96.0" layoutX="153.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card10" fitHeight="143.0" fitWidth="96.0" layoutX="153.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card20" fitHeight="143.0" fitWidth="96.0" layoutX="348.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card21" fitHeight="143.0" fitWidth="96.0" layoutX="348.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card22" fitHeight="143.0" fitWidth="96.0" layoutX="348.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card23" fitHeight="143.0" fitWidth="96.0" layoutX="348.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card33" fitHeight="143.0" fitWidth="96.0" layoutX="520.0" layoutY="464.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card32" fitHeight="143.0" fitWidth="96.0" layoutX="520.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card31" fitHeight="143.0" fitWidth="96.0" layoutX="520.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView id="card30" fitHeight="143.0" fitWidth="96.0" layoutX="520.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card00" fitHeight="143.0" fitWidth="96.0" layoutX="7.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card01" fitHeight="143.0" fitWidth="96.0" layoutX="7.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card02" fitHeight="143.0" fitWidth="96.0" layoutX="7.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card03" fitHeight="143.0" fitWidth="96.0" layoutX="7.0" layoutY="457.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card13" fitHeight="143.0" fitWidth="96.0" layoutX="155.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card12" fitHeight="143.0" fitWidth="96.0" layoutX="155.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card11" fitHeight="143.0" fitWidth="96.0" layoutX="155.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card10" fitHeight="143.0" fitWidth="96.0" layoutX="155.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card20" fitHeight="143.0" fitWidth="96.0" layoutX="312.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card21" fitHeight="143.0" fitWidth="96.0" layoutX="312.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card22" fitHeight="143.0" fitWidth="96.0" layoutX="312.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card23" fitHeight="143.0" fitWidth="96.0" layoutX="312.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card33" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card32" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card31" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card30" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
                      </children></AnchorPane>
               </items>
             </SplitPane>
@@ -40,7 +42,7 @@
                            <content>
                                     <SplitPane dividerPositions="0.847870182555781, 0.9553752535496958" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                                       <items>
-                                    <AnchorPane id="PersonalBoard" prefHeight="200.0" prefWidth="573.0" />
+                                    <AnchorPane fx:id="PersonalBoard" prefHeight="200.0" prefWidth="573.0" />
                               <ToolBar prefHeight="45.0" prefWidth="488.0">
                                  <items>
                                     <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="166.0" text="Blue characher cards" />
@@ -58,7 +60,24 @@
                     </tabs>
                   </TabPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                  <AnchorPane id="MarketBuildHarvest" />
+                  <AnchorPane fx:id="marketBuildHarvest">
+                     <children>
+                        <Text fx:id="dice1" fill="WHITE" layoutX="347.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="dice0" layoutX="415.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="dice2" layoutX="482.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </children></AnchorPane>
               </items>
             </SplitPane>
         </items>

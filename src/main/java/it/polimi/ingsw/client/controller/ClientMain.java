@@ -701,6 +701,16 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * This method returns to the view the list of dices
+     * this method is usually called by the view to show the dices value
+     * @return the list of the dices
+     */
+    @Override
+    public List<Dice> callbackObtainDices() {
+        return modelController.getDices();
+    }
+
+    /**
      * this method is called to play a leader card on the hand of the player
      * @param leaderCard the leader card played by the player
      */

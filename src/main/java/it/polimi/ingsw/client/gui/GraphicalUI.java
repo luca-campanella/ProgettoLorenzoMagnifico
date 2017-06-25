@@ -157,9 +157,11 @@ public class GraphicalUI extends AbstractUIType {
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
 
         control.setBoard(getController().callbackObtainBoard());
+        control.displayCards();
         control.setThisPlayer(getController().callbackObtainPlayer());
         control.setOtherPlayers(getController().callbackObtainOtherPlayers());
-        control.placeCards();
+        control.setDices(getController().callbackObtainDices());
+        control.displayDices();
     }
 
 

@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.gui.GraphicalUI;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.leaders.LeaderCard;
@@ -304,6 +305,17 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public List<Player> callbackObtainOtherPlayers() {
+        return null;
+    }
+
+    /**
+     * This method returns to the view the list of dices
+     * this method is usually called by the view to show the dices value
+     *
+     * @return the list of the dices
+     */
+    @Override
+    public List<Dice> callbackObtainDices() {
         return null;
     }
 }

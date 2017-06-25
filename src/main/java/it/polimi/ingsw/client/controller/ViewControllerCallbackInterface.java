@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.controller;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
@@ -130,8 +131,15 @@ public interface ViewControllerCallbackInterface {
     /**
      * This method returns to the view a list of other players
      * this method is usually called by the view to show the personal boards of the other players
-     * @return the list of other playes
+     * @return the list of other players
      */
     List<Player> callbackObtainOtherPlayers();
+
+    /**
+     * This method returns to the view the list of dices
+     * this method is usually called by the view to show the dices value
+     * @return the list of the dices
+     */
+    List<Dice> callbackObtainDices();
 
 }
