@@ -63,7 +63,7 @@
                   </TabPane>
                   <HBox fx:id="familyMembersPanel">
                      <children>
-                        <TextArea fx:id="availableFMLabel" editable="false" prefHeight="56.0" prefWidth="95.0" text="Available&#10;Family&#10;Members" />
+                        <Label prefHeight="17.0" prefWidth="68.0" text="Available&#13;Family&#13;Members" wrapText="true" />
                         <Button fx:id="FM1" mnemonicParsing="false" text="6" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="27.0" />
