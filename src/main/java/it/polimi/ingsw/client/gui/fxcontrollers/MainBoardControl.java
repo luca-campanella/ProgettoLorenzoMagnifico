@@ -39,6 +39,9 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     Button purpleCardsButton;
 
+    @FXML
+    HBox familyMembersPanel;
+
     private Board board;
 
     private Player thisPlayer;
@@ -97,6 +100,13 @@ public class MainBoardControl extends CustomFxControl {
         //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
         purpleCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
         blueCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));
+    }
+
+    public void displayFamilyMembers() {
+        for(Dice diceIter : dices) {
+                Button fm = ((Button) (familyMembersPanel.lookup("#FM" + diceIter.getColor().getIntegerValue())));
+                fm.setText(String.valueOf(diceIter.getValue()));
+        }
     }
 
     @FXML

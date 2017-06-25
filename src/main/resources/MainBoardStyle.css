@@ -12,3 +12,66 @@
     -fx-background-image: url("/imgs/PersonalBoard.jpg");
     -fx-background-size: cover;
 }
+
+#familyMembersPanel {
+    -fx-background-color: #e1e29e;
+}
+
+#FM1 {
+    -fx-border-radius: 50em;
+    -fx-border-color: green;
+    -fx-border-width: 10px;
+    -fx-background-radius: 50em;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-background-color: black;
+    -fx-font-size: 15px;
+}
+
+#FM0 {
+    -fx-border-radius: 50em;
+    -fx-border-color: green;
+    -fx-border-width: 10px;
+    -fx-background-radius: 50em;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-background-color: white;
+    -fx-font-size: 15px;
+    -fx-font-color: black;
+}
+
+#FM2 {
+    -fx-border-radius: 50em;
+    -fx-border-color: green;
+    -fx-border-width: 10px;
+    -fx-background-radius: 50em;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-background-color: darkorange;
+    -fx-font-size: 15px;
+    -fx-font-color: black;
+}
+
+#FM3 {
+    -fx-border-radius: 50em;
+    -fx-border-color: green;
+    -fx-border-width: 10px;
+    -fx-background-radius: 50em;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-background-color: purple;
+    -fx-font-size: 15px;
+    -fx-font-color: black;
+}
+
+#availableFMLabel {
+    -fx-background-color: #e1e29e;
+}

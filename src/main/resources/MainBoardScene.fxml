@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -34,7 +36,7 @@
                      </children></AnchorPane>
               </items>
             </SplitPane>
-            <SplitPane dividerPositions="0.6370192307692307, 0.7740384615384616" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+            <SplitPane dividerPositions="0.6971153846153846, 0.7740384615384616" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
                   <TabPane prefHeight="431.0" prefWidth="573.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
@@ -45,8 +47,8 @@
                                     <AnchorPane fx:id="personalBoard" prefHeight="200.0" prefWidth="573.0" />
                               <ToolBar prefHeight="45.0" prefWidth="488.0">
                                  <items>
-                                    <Button fx:id="blueCardsButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" onAction="#showBlueCards"/>
-                                    <Button fx:id="purpleCardsButton" mnemonicParsing="false" text="Purple Venture Cards" onAction="#showPurpleCards"/>
+                                    <Button fx:id="blueCardsButton" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
+                                    <Button fx:id="purpleCardsButton" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
                                     <Button mnemonicParsing="false" text="Leader Cards" />
                                  </items>
                               </ToolBar>
@@ -59,7 +61,31 @@
                       <Tab text="Untitled Tab 2" />
                     </tabs>
                   </TabPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                  <HBox fx:id="familyMembersPanel">
+                     <children>
+                        <TextArea fx:id="availableFMLabel" editable="false" prefHeight="56.0" prefWidth="95.0" text="Available&#10;Family&#10;Members" />
+                        <Button fx:id="FM1" mnemonicParsing="false" text="6" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="27.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="FM0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="6" textAlignment="CENTER" textFill="#141414">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="FM2" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" text="6" textAlignment="CENTER">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="FM3" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" text="0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                   <AnchorPane fx:id="marketBuildHarvest">
                      <children>
                         <Text fx:id="dice1" fill="WHITE" layoutX="347.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">

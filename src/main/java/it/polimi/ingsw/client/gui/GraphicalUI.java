@@ -163,6 +163,7 @@ public class GraphicalUI extends AbstractUIType {
         control.setOtherPlayers(getController().callbackObtainOtherPlayers());
         control.setDices(getController().callbackObtainDices());
         control.displayDices();
+        control.displayFamilyMembers();
     }
 
 
