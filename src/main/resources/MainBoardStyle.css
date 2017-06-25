@@ -8,7 +8,7 @@
     -fx-background-size: cover;
 }
 
-#PersonalBoard {
+#personalBoard {
     -fx-background-image: url("/imgs/PersonalBoard.jpg");
     -fx-background-size: cover;
 }

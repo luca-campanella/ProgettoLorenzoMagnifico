@@ -159,6 +159,7 @@ public class GraphicalUI extends AbstractUIType {
         control.setBoard(getController().callbackObtainBoard());
         control.displayCards();
         control.setThisPlayer(getController().callbackObtainPlayer());
+        control.displayThisPlayerPersonalBoard();
         control.setOtherPlayers(getController().callbackObtainOtherPlayers());
         control.setDices(getController().callbackObtainDices());
         control.displayDices();
@@ -476,6 +477,7 @@ public class GraphicalUI extends AbstractUIType {
      * Shows a window with the list of cards passed as an argument
      * @param cards the cards to show to the user
      */
+    @Deprecated
     public void showCards(List<AbstractCard> cards) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Blue cards");

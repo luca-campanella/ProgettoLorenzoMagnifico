@@ -42,11 +42,11 @@
                            <content>
                                     <SplitPane dividerPositions="0.847870182555781, 0.9553752535496958" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                                       <items>
-                                    <AnchorPane fx:id="PersonalBoard" prefHeight="200.0" prefWidth="573.0" />
+                                    <AnchorPane fx:id="personalBoard" prefHeight="200.0" prefWidth="573.0" />
                               <ToolBar prefHeight="45.0" prefWidth="488.0">
                                  <items>
-                                    <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="166.0" text="Blue characher cards" />
-                                    <Button mnemonicParsing="false" text="Purple Venture Cards" />
+                                    <Button fx:id="blueCardsButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" onAction="#showBlueCards"/>
+                                    <Button fx:id="purpleCardsButton" mnemonicParsing="false" text="Purple Venture Cards" onAction="#showPurpleCards"/>
                                     <Button mnemonicParsing="false" text="Leader Cards" />
                                  </items>
                               </ToolBar>
