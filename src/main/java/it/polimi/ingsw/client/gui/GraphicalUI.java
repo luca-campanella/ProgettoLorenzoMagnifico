@@ -148,8 +148,18 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
                                           List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards) {
-        Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", null));
 
+        Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", () -> setUpMainBoardControl()));
+
+    }
+
+    private void setUpMainBoardControl() {
+        MainBoardControl control = ((MainBoardControl) (currentFXControl));
+
+        control.setBoard(getController().callbackObtainBoard());
+        control.setThisPlayer(getController().callbackObtainPlayer());
+        control.setOtherPlayers(getController().callbackObtainOtherPlayers());
+        control.placeCards();
     }
 
 

@@ -658,7 +658,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * this method is called by the view to show the personal board of the player
+     * This method returns to the view a reference to the player the client represents
+     * this method is usually called to show the personal board of the player
+     *
+     * @return the player the clietn represents
      */
     @Override
     public Player callbackObtainPlayer() {
@@ -669,7 +672,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * this method is called by the view to print the board of the game
+     * This method returns to the view a reference to the board
+     * this method is called to obtain the board of the game inside the view
+     *
+     * @return the current board
      */
     @Override
     public Board callbackObtainBoard() {
@@ -677,7 +683,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * this method is called by the view to show the personal boards of the other players
+     * This method returns to the view a list of other players
+     * this method is usually called by the view to show the personal boards of the other players
+     *
+     * @return the list of other playes
      */
     @Override
     public List<Player> callbackObtainOtherPlayers() {
