@@ -27,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -172,9 +173,11 @@ public class GraphicalUI extends AbstractUIType {
         control.setThisPlayer(getController().callbackObtainPlayer());
         control.displayThisPlayerPersonalBoard();
         control.setOtherPlayers(getController().callbackObtainOtherPlayers());
+        control.setOrderOfPlayers(getController().callbackObtainPlayersInOrder());
         control.setDices(getController().callbackObtainDices());
         control.displayDices();
         control.displayFamilyMembers();
+        control.setPlayersPersonalBoards();
     }
 
 
@@ -472,7 +475,7 @@ public class GraphicalUI extends AbstractUIType {
         currentFXControl.setController(getController());
 
         currentStage.setTitle(title);
-        currentStage.setScene(new Scene(root));
+        currentStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
 
         if(runBeforeShow != null) //there is something to run
             runBeforeShow.run();

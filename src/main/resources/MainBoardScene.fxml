@@ -66,18 +66,38 @@
                          </Button>
                          <Button fx:id="towerAS30" disable="true" layoutX="561.0" layoutY="484.0" mnemonicParsing="false" styleClass="actionSpaceButton">
                          </Button>
+                        <Cylinder fx:id="orderCylinder0" height="12.0" layoutX="586.0" layoutY="593.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
+                           <rotationAxis>
+                              <Point3D x="1.0" />
+                           </rotationAxis>
+                        </Cylinder>
+                        <Cylinder fx:id="orderCylinder1" height="12.0" layoutX="586.0" layoutY="629.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
+                           <rotationAxis>
+                              <Point3D x="1.0" />
+                           </rotationAxis>
+                        </Cylinder>
+                        <Cylinder fx:id="orderCylinder2" height="12.0" layoutX="586.0" layoutY="666.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
+                           <rotationAxis>
+                              <Point3D x="1.0" />
+                           </rotationAxis>
+                        </Cylinder>
+                        <Cylinder fx:id="orderCylinder3" height="12.0" layoutX="586.0" layoutY="703.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
+                           <rotationAxis>
+                              <Point3D x="1.0" />
+                           </rotationAxis>
+                        </Cylinder>
                      </children></AnchorPane>
               </items>
             </SplitPane>
             <SplitPane dividerPositions="0.6971153846153846, 0.7740384615384616, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
-                  <TabPane prefHeight="431.0" prefWidth="573.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="playersTabPersonalBoard" prefHeight="431.0" prefWidth="573.0" styleClass="personalBoardPane" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab text="You (nicnkame)">
+                      <Tab fx:id="thisPlayerTab" closable="false" text="You (nickname)">
                            <content>
                                     <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                                       <items>
-                                    <AnchorPane fx:id="personalBoard" prefHeight="200.0" prefWidth="573.0" />
+                                    <AnchorPane fx:id="personalBoard" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
                               <ToolBar prefHeight="45.0" prefWidth="488.0">
                                  <items>
                                     <Button fx:id="blueCardsButton" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
@@ -91,7 +111,54 @@
                            </content>
 
                         </Tab>
-                      <Tab text="Untitled Tab 2" />
+                        <Tab fx:id="player1Tab" closable="false" text="Player1">
+                           <content>
+                              <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                                 <items>
+                                    <AnchorPane fx:id="personalBoard1" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
+                                    <ToolBar prefHeight="45.0" prefWidth="488.0">
+                                       <items>
+                                          <Button fx:id="blueCardsButton1" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
+                                          <Button fx:id="purpleCardsButton1" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
+                                          <Button mnemonicParsing="false" text="Leader Cards" />
+                                       </items>
+                                    </ToolBar>
+                                 </items>
+                              </SplitPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="player2Tab" closable="false" text="Player2">
+                           <content>
+                              <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                                 <items>
+                                    <AnchorPane fx:id="personalBoard11" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
+                                    <ToolBar prefHeight="45.0" prefWidth="488.0">
+                                       <items>
+                                          <Button fx:id="blueCardsButton11" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
+                                          <Button fx:id="purpleCardsButton11" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
+                                          <Button mnemonicParsing="false" text="Leader Cards" />
+                                       </items>
+                                    </ToolBar>
+                                 </items>
+                              </SplitPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="player3Tab" closable="false" text="Player3">
+                           <content>
+                              <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                                 <items>
+                                    <AnchorPane fx:id="personalBoard111" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
+                                    <ToolBar prefHeight="45.0" prefWidth="488.0">
+                                       <items>
+                                          <Button fx:id="blueCardsButton111" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
+                                          <Button fx:id="purpleCardsButton111" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
+                                          <Button mnemonicParsing="false" text="Leader Cards" />
+                                       </items>
+                                    </ToolBar>
+                                 </items>
+                              </SplitPane>
+                           </content>
+                        </Tab>
                     </tabs>
                   </TabPane>
                   <TextArea fx:id="currentGameStateTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" text="Waiting for enemies to play" />

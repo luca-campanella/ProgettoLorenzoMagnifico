@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -20,6 +21,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Cylinder;
 import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
 
@@ -49,6 +53,23 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private TextArea currentGameStateTextArea;
 
+    @FXML
+    private TabPane playersTabPersonalBoard;
+
+    @FXML
+    private Tab thisPlayerTab;
+
+    @FXML
+    private Tab player1Tab;
+
+    @FXML
+    private Tab player2Tab;
+
+    @FXML
+    private Tab player3Tab;
+
+
+
     private Board board;
 
     private Player thisPlayer;
@@ -57,6 +78,7 @@ public class MainBoardControl extends CustomFxControl {
 
     private List<Dice> dices;
 
+    @FXML
     private ToggleGroup familyMembersToggleGroup = new ToggleGroup();
 
     public void displayCards() {
@@ -199,5 +221,29 @@ public class MainBoardControl extends CustomFxControl {
             Button activeASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
             activeASButton.setDisable(false);
         }
+    }
+
+    public void setOrderOfPlayers(List<Player> players) {
+        //todo set circles
+        Cylinder cylinder;
+
+        for(int i = 0; i < players.size(); i++) {
+            cylinder = (Cylinder) (towersCouncilFaith.lookup(("#orderCylinder" + i)));
+            cylinder.setVisible(true);
+            PhongMaterial material = new PhongMaterial();
+            material.setDiffuseColor(Color.valueOf(players.get(i).getPlayerColor().getStringValue()));
+            //material.setSpecularColor(Color.RED);
+            cylinder.setMaterial(material);
+        }
+    }
+
+    public void setPlayersPersonalBoards() {
+        ObservableList<Tab> tabs = playersTabPersonalBoard.getTabs();
+        tabs.get(0).setText("You (" + thisPlayer.getPlayerColor().getStringValue() + ")");
+
+        for(int i = 1; i <= otherPlayers.size(); i++) {
+                tabs.get(i).setText(otherPlayers.get(i-1).getNickname() + " (" + otherPlayers.get(i-1).getPlayerColor().getStringValue() + ")");
+        }
+        tabs.remove(otherPlayers.size()+1, tabs.size());
     }
 }

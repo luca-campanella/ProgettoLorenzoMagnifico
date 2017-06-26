@@ -709,6 +709,17 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * This method returns to the view a list of all the players in order
+     * this method is usually called by the view to show the correct order of players in the board
+     *
+     * @return the list of all players in order
+     */
+    @Override
+    public List<Player> callbackObtainPlayersInOrder() {
+        return players;
+    }
+
+    /**
      * This method returns to the view the list of dices
      * this method is usually called by the view to show the dices value
      * @return the list of the dices
