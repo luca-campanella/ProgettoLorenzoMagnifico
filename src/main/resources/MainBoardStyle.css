@@ -29,9 +29,8 @@
     -fx-font-size: 15px;
 }
 
-.familyMemberButton:pressed {
-    -fx-opacity: 10%;
-    -fx-font-size: 1px;
+.familyMemberButton:selected {
+    -fx-opacity: 80%;
 }
 
 #FM1 {

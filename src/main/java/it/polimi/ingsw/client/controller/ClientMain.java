@@ -564,6 +564,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             playerTmp = new Player(nicknameIter);
             if(nicknameIter.equals(nickname))
                 thisPlayer = playerTmp;
+            playerTmp.setPlayerColor(PlayerColorEnum.valueOf(players.size()));
             players.add(playerTmp);
             Debug.printVerbose("Created new player " + nicknameIter);
         }
