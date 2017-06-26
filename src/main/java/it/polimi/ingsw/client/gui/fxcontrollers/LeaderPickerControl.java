@@ -22,14 +22,14 @@ import java.util.HashMap;
 public class LeaderPickerControl extends CustomFxControl {
 
     @FXML
-    HBox leaderContainer;
+    private HBox leaderContainer;
 
     @FXML
-    Button chooseButton;
+    private Button chooseButton;
 
-    HashMap<String, LeaderCard> buttonsLeadersMap = new HashMap<String, LeaderCard>(2);
-    ToggleGroup toggleGroup = new ToggleGroup();
-    LeaderCard selectedLeader;
+    private HashMap<String, LeaderCard> buttonsLeadersMap = new HashMap<String, LeaderCard>(2);
+    private ToggleGroup toggleGroup = new ToggleGroup();
+    private LeaderCard selectedLeader;
 
     /**
      * Add a single leader card to the window, should be called with all leader cards before showing the window

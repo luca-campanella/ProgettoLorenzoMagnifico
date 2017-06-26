@@ -259,7 +259,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void callbackFamilyMemberSelected(FamilyMember selectdFM)
     {
-        Debug.printDebug("Sono nel ClientMain.callbackFamilyMember: color = " + selectdFM.getColor());
+        Debug.printDebug("Sono nel ClientMain.callbackFamilyMember: color = " + selectdFM.getColor() + " value: " + selectdFM.getValue());
 
         familyMemberCurrentAction = selectdFM;
 
@@ -367,6 +367,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackPlacedFMOnTower(int towerIndex, int floorIndex){
+
+        Debug.printVerbose("Callback: placed fm on tower " + towerIndex + " on floor " + floorIndex);
+
         modelController.placeOnTower(familyMemberCurrentAction, towerIndex, floorIndex);
 
         try{

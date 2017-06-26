@@ -84,7 +84,8 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest, Optional<Integer> servantsNeededBuild, Optional<Integer> servantsNeededCouncil, List<MarketWrapper> activeMarketSpaces, List<TowerWrapper> activeTowerSpaces, int availableServants) {
-
+        MainBoardControl control = ((MainBoardControl) (currentFXControl));
+        Platform.runLater(() -> control.setActiveActionSpaces(servantsNeededHarvest, servantsNeededBuild, servantsNeededCouncil, activeMarketSpaces, activeTowerSpaces));
     }
 
     /**

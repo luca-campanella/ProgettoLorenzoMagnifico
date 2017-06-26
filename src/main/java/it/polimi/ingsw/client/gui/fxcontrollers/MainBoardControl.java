@@ -9,10 +9,15 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.MarketWrapper;
+import it.polimi.ingsw.model.resource.TowerWrapper;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +26,7 @@ import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by campus on 24/06/2017.
@@ -102,10 +108,11 @@ public class MainBoardControl extends CustomFxControl {
         blueCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));
     }
 
-    public void displayFamilyMembers() {
+    public void displayFamilyMembers(/*List<FamilyMember> availableFMs*/) {
         for(Dice diceIter : dices) {
-                Button fm = ((Button) (familyMembersPanel.lookup("#FM" + diceIter.getColor().getIntegerValue())));
+            ToggleButton fm = ((ToggleButton) (familyMembersPanel.lookup("#FM" + diceIter.getColor().getIntegerValue())));
                 fm.setText(String.valueOf(diceIter.getValue()));
+                fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
         }
     }
 
@@ -117,6 +124,25 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     public void showBlueCards() {
         showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE), "Blue cards");
+    }
+
+    @FXML
+    public void familyMemberSelected(ActionEvent event) {
+        ToggleButton buttonFM = ((ToggleButton) (event.getSource()));
+
+        DiceAndFamilyMemberColorEnum colorEnum = DiceAndFamilyMemberColorEnum.valueOf(
+                Character.getNumericValue(buttonFM.getId().charAt(2)));
+
+        Platform.runLater(() -> getController().callbackFamilyMemberSelected(thisPlayer.getFamilyMemberByColor(colorEnum)));
+    }
+
+    @FXML
+    private void towerFloorSelected(ActionEvent event) {
+        Button actionSpace = ((Button) (event.getSource()));
+        String id = actionSpace.getId();
+        int towerIndex = Character.getNumericValue(id.charAt(7));
+        int floorIndex = Character.getNumericValue(id.charAt(8));
+        Platform.runLater(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
     }
 
     /**
@@ -149,5 +175,26 @@ public class MainBoardControl extends CustomFxControl {
         alert.initStyle(StageStyle.UTILITY);
         //alert.initOwner(currentStage);
         alert.show();
+    }
+
+    public void setActiveActionSpaces(Optional<Integer> servantsNeededHarvest,
+                                      Optional<Integer> servantsNeededBuild,
+                                      Optional<Integer> servantsNeededCouncil,
+                                      List<MarketWrapper> activeMarketSpaces,
+                                      List<TowerWrapper> activeTowerSpaces) {
+
+        //we set all AS to disabled
+        for(int col = 0; col < 4; col++) {
+            for(int raw = 0; raw < 4; raw++) {
+                Button activeASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + col) + raw));
+                activeASButton.setDisable(true);
+            }
+        }
+
+        //we reactivatre only the ones passed via parameters
+        for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
+            Button activeASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
+            activeASButton.setDisable(false);
+        }
     }
 }

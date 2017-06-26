@@ -17,7 +17,7 @@
     -fx-background-color: #e1e29e;
 }
 
-#FM1 {
+.familyMemberButton {
     -fx-border-radius: 50em;
     -fx-border-color: green;
     -fx-border-width: 10px;
@@ -26,52 +26,53 @@
     -fx-min-height: 50px;
     -fx-max-width: 50px;
     -fx-max-height: 50px;
-    -fx-background-color: black;
     -fx-font-size: 15px;
 }
 
+.familyMemberButton:pressed {
+    -fx-opacity: 10%;
+    -fx-font-size: 1px;
+}
+
+#FM1 {
+    -fx-background-color: black;
+}
+
 #FM0 {
-    -fx-border-radius: 50em;
-    -fx-border-color: green;
-    -fx-border-width: 10px;
-    -fx-background-radius: 50em;
-    -fx-min-width: 50px;
-    -fx-min-height: 50px;
-    -fx-max-width: 50px;
-    -fx-max-height: 50px;
     -fx-background-color: white;
-    -fx-font-size: 15px;
     -fx-font-color: black;
 }
 
 #FM2 {
-    -fx-border-radius: 50em;
-    -fx-border-color: green;
-    -fx-border-width: 10px;
-    -fx-background-radius: 50em;
-    -fx-min-width: 50px;
-    -fx-min-height: 50px;
-    -fx-max-width: 50px;
-    -fx-max-height: 50px;
     -fx-background-color: darkorange;
-    -fx-font-size: 15px;
     -fx-font-color: black;
 }
 
 #FM3 {
-    -fx-border-radius: 50em;
-    -fx-border-color: green;
-    -fx-border-width: 10px;
-    -fx-background-radius: 50em;
-    -fx-min-width: 50px;
-    -fx-min-height: 50px;
-    -fx-max-width: 50px;
-    -fx-max-height: 50px;
     -fx-background-color: purple;
-    -fx-font-size: 15px;
     -fx-font-color: black;
 }
 
 #availableFMLabel {
     -fx-background-color: #e1e29e;
+}
+
+.actionSpaceButton {
+    -fx-background-color: orange;
+    -fx-opacity: 40%;
+    -fx-min-width: 45px;
+    -fx-min-height: 45px;
+    -fx-background-radius: 20px;
+}
+
+.actionSpaceButton:disabled {
+    -fx-background-color: transparent;
+}
+
+.button {
+    -fx-cursor: hand;
+}
+
+.toggle-button {
+    -fx-cursor: hand;
 }

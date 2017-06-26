@@ -9,8 +9,8 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.PersonalTileEnum;
+import it.polimi.ingsw.model.player.PlayerColorEnum;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.server.network.socket.SocketPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -76,10 +76,11 @@ public class Room {
      * @param player the istance of the player to add
      */
     public void addNewPlayer(AbstractConnectionPlayer player) {
+        player.setPlayerColor(PlayerColorEnum.valueOf(players.size()));
         players.add(player);
         player.setRoom(this);
         currNOfPlayers++;
-        Debug.printDebug("*Room*: added player " + player.getNickname());
+        Debug.printDebug("*Room*: added player " + player.getNickname() + "of color: " + player.getPlayerColor().getStringValue());
         if (currNOfPlayers == maxNOfPlayers) //ModelController should start
         {
             Debug.printVerbose("Room capacity reached, starting new game");

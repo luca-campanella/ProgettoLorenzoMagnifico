@@ -39,6 +39,11 @@ public class Player implements Serializable{
 
     private ExcommunicationTilesCollector excommunicationTilesCollector;
 
+    /**
+     * The color this player will be displayed with
+     */
+    private PlayerColorEnum playerColor;
+
     //private PersonalTile personalTile = null; MOVED TO PERSONALBOARD
 
     /**
@@ -463,5 +468,13 @@ public class Player implements Serializable{
 
     public ArrayList<FamilyMember> getUsedFamilyMembers() {
         return usedFamilyMembers;
+    }
+
+    public PlayerColorEnum getPlayerColor() {
+        return playerColor;
+    }
+
+    public void setPlayerColor(PlayerColorEnum playerColor) {
+        this.playerColor = playerColor;
     }
 }
