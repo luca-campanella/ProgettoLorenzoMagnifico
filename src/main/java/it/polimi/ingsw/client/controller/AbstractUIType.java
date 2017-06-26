@@ -107,6 +107,12 @@ abstract public class AbstractUIType {
     public abstract int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer);
 
     /**
+     * This method is called when all the choices are made and the game begins.
+     * It is called regardless if it's the player's turn or not
+     */
+    public abstract void showInitialBoard();
+
+    /**
      * This method is called when the player has joined a room, but the game isn't started yet
      */
     public abstract void showWaitingForGameStart();
@@ -130,9 +136,10 @@ abstract public class AbstractUIType {
      * @param playedFamilyMember   is a boolean, true if the player had already placed a family member this turn
      * @param leaderCardsNotPlayed the leader cards on the hand of the player
      * @param playedLeaderCards    the leader cards played by the player
+     * @param playedAndNotActivatedLeaderCards
      */
     public abstract void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
-                                          List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards);
+                                          List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards, List<LeaderCard> playedAndNotActivatedLeaderCards);
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui

@@ -34,31 +34,31 @@
                         <ImageView fx:id="card31" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="card32" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="card33" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="towerAS03" disable="true" layoutX="103.0" layoutY="71.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                        <Button fx:id="towerAS03" disable="true" layoutX="103.0" layoutY="71.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                         </Button>
-                        <Button fx:id="towerAS02" disable="true" layoutX="103.0" layoutY="212.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                        <Button fx:id="towerAS02" disable="true" layoutX="103.0" layoutY="212.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                         </Button>
-                        <Button fx:id="towerAS01" disable="true" layoutX="103.0" layoutY="344.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                        <Button fx:id="towerAS01" disable="true" layoutX="103.0" layoutY="344.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                         </Button>
-                        <Button fx:id="towerAS00" disable="true" layoutX="103.0" layoutY="484.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                        <Button fx:id="towerAS00" disable="true" layoutX="103.0" layoutY="484.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                         </Button>
-                         <Button fx:id="towerAS13" disable="true" layoutX="251.0" layoutY="71.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                         <Button fx:id="towerAS13" disable="true" layoutX="251.0" layoutY="71.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS12" disable="true" layoutX="251.0" layoutY="212.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                         <Button fx:id="towerAS12" disable="true" layoutX="251.0" layoutY="212.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS11" disable="true" layoutX="251.0" layoutY="344.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                         <Button fx:id="towerAS11" disable="true" layoutX="251.0" layoutY="344.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS10" disable="true" layoutX="251.0" layoutY="484.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                         <Button fx:id="towerAS10" disable="true" layoutX="251.0" layoutY="484.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS23" disable="true" layoutX="408.0" layoutY="71.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                         <Button fx:id="towerAS23" disable="true" layoutX="408.0" layoutY="71.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS22" disable="true" layoutX="408.0" layoutY="212.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                         <Button fx:id="towerAS22" disable="true" layoutX="408.0" layoutY="212.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS21" disable="true" layoutX="408.0" layoutY="344.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                         <Button fx:id="towerAS21" disable="true" layoutX="408.0" layoutY="344.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS20" disable="true" layoutX="408.0" layoutY="484.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                         <Button fx:id="towerAS20" disable="true" layoutX="408.0" layoutY="484.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS33" disable="true" layoutX="561.0" layoutY="71.0" mnemonicParsing="false" styleClass="actionSpaceButton" onAction="#towerFloorSelected">
+                         <Button fx:id="towerAS33" disable="true" layoutX="561.0" layoutY="71.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
                          <Button fx:id="towerAS32" disable="true" layoutX="561.0" layoutY="212.0" mnemonicParsing="false" styleClass="actionSpaceButton">
                          </Button>
@@ -69,13 +69,13 @@
                      </children></AnchorPane>
               </items>
             </SplitPane>
-            <SplitPane dividerPositions="0.6971153846153846, 0.7740384615384616" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+            <SplitPane dividerPositions="0.6971153846153846, 0.7740384615384616, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
                   <TabPane prefHeight="431.0" prefWidth="573.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab text="You (nicnkame)">
                            <content>
-                                    <SplitPane dividerPositions="0.847870182555781, 0.9553752535496958" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                                    <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                                       <items>
                                     <AnchorPane fx:id="personalBoard" prefHeight="200.0" prefWidth="573.0" />
                               <ToolBar prefHeight="45.0" prefWidth="488.0">
@@ -83,9 +83,9 @@
                                     <Button fx:id="blueCardsButton" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
                                     <Button fx:id="purpleCardsButton" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
                                     <Button mnemonicParsing="false" text="Leader Cards" />
+                                          <Button mnemonicParsing="false" text="Pass the turn" />
                                  </items>
                               </ToolBar>
-                                    <TextArea prefHeight="200.0" prefWidth="200.0" />
                                       </items>
                                     </SplitPane>
                            </content>
@@ -94,6 +94,7 @@
                       <Tab text="Untitled Tab 2" />
                     </tabs>
                   </TabPane>
+                  <TextArea fx:id="currentGameStateTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" text="Waiting for enemies to play" />
                   <HBox fx:id="familyMembersPanel">
                      <children>
                         <Label prefHeight="17.0" prefWidth="68.0" text="Available&#13;Family&#13;Members" wrapText="true" />

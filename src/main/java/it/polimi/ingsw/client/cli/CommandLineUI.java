@@ -5,7 +5,6 @@ import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.exceptions.NetworkException;
-import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -13,7 +12,6 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
@@ -269,6 +267,18 @@ public class CommandLineUI extends AbstractUIType {
     }
 
     /**
+     * This method is called when all the choices are made and the game begins.
+     * It is called regardless if it's the player's turn or not
+     */
+    @Override
+    public void showInitialBoard() {
+        System.out.println("********");
+        System.out.println("The game has started");
+        System.out.println("********\n");
+        CliPrinter.printBoard(getController().callbackObtainBoard());
+    }
+
+    /**
      * This method is called when the player has joined a room, but the game isn't started yet
      */
     @Override
@@ -299,12 +309,13 @@ public class CommandLineUI extends AbstractUIType {
      * @param playableFMs the list of playable family members to make the user choose
      * @param leaderCardsNotPlayed
      * @param playedLeaderCards
+     * @param playedAndNotActivatedLeaderCards
      */
     @Override
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
-                                 List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards) {
+                                 List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards, List<LeaderCard> playedAndNotActivatedLeaderCards) {
         InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs,
-                playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards, playableLeaderCards);
+                playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards, playableLeaderCards, playedAndNotActivatedLeaderCards);
 
         pool.submit(menu);
     }

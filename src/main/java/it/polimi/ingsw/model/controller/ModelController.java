@@ -14,7 +14,6 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.*;
-import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -786,6 +785,7 @@ public class ModelController {
 
     }
 
+    @Deprecated
     public ArrayList<LeaderCard> getLeaderCardsNotPlayed(String nickname){
         ArrayList<LeaderCard> leaderCards = new ArrayList<>(4);
         for(Player player : players){
@@ -795,6 +795,7 @@ public class ModelController {
         return leaderCards;
     }
 
+    @Deprecated
     public List<LeaderCard> getLeaderCardsPlayed(String nickname){
         List<LeaderCard> leaderCards = new ArrayList<>(4);
         for(Player player : players){

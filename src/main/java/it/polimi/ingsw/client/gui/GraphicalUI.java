@@ -103,6 +103,15 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     /**
+     * This method is called when all the choices are made and the game begins.
+     * It is called regardless if it's the player's turn or not
+     */
+    @Override
+    public void showInitialBoard() {
+        //todo display here the initial window
+    }
+
+    /**
      * This method is called when the player has joined a room, but the game isn't started yet
      */
     @Override
@@ -143,12 +152,13 @@ public class GraphicalUI extends AbstractUIType {
      * This method will trigger either
      * {@link ViewControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
-     *  @param playableFMs the list of playable family members to make the user choose
+     * @param playableFMs the list of playable family members to make the user choose
      * @param playedLeaderCards
+     * @param playedAndNotActivatedLeaderCards
      */
     @Override
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
-                                          List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards) {
+                                 List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards, List<LeaderCard> playedAndNotActivatedLeaderCards) {
 
         Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", () -> setUpMainBoardControl()));
 

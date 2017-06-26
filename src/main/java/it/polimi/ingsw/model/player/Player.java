@@ -394,6 +394,14 @@ public class Player implements Serializable{
     }
 
     /**
+     * getter for a list of all played leader, regardless of their ability type
+     * @return a list of all played leader, regardless of their ability type
+     */
+    public List<LeaderCard> getPlayedNotActivatedOncePerRoundLeaderCards(){
+        return playedOncePerRoundLeaderCards;
+    }
+
+    /**
      * This method is called when the user wants to play a leader card,
      * if the card has a permanent ability it is automatically activated
      * if the card has a once per round ability the user is asked if he wants to activate it now or leave it for later

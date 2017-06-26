@@ -1,12 +1,9 @@
 package it.polimi.ingsw.client.cli.notblockingmenus;
 
 import it.polimi.ingsw.client.cli.CliOptionsHandler;
-import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
-import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -20,9 +17,10 @@ public class InitialActionMenu extends WaitBasicCliMenu {
     private List<LeaderCard> leaderCardsNotPlayed;
     private List<LeaderCard> playedLeaderCards;
     private List<LeaderCard> playableLeaderCards;
+    private List<LeaderCard> playedAndNotActivatedLeaderCards;
 
     public InitialActionMenu(ViewControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs, boolean playedFamilMembery,
-                             List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards) {
+                             List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards, List<LeaderCard> playedAndNotActivatedLeaderCards) {
         super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
         this.playableFMs = playableFMs;
         this.leaderCardsNotPlayed = leaderCardsNotPlayed;

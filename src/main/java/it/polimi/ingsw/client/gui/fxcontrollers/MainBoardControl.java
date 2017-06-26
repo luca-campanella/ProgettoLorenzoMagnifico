@@ -15,10 +15,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -35,19 +32,22 @@ import java.util.Optional;
 public class MainBoardControl extends CustomFxControl {
 
     @FXML
-    AnchorPane towersCouncilFaith;
+    private AnchorPane towersCouncilFaith;
 
     @FXML
-    AnchorPane marketBuildHarvest;
+    private AnchorPane marketBuildHarvest;
 
     @FXML
-    Button blueCardsButton;
+    private Button blueCardsButton;
 
     @FXML
-    Button purpleCardsButton;
+    private Button purpleCardsButton;
 
     @FXML
-    HBox familyMembersPanel;
+    private HBox familyMembersPanel;
+
+    @FXML
+    private TextArea currentGameStateTextArea;
 
     private Board board;
 

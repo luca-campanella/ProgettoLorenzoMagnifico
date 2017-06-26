@@ -639,10 +639,13 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
         initialActionsOnPlayerMove();
-        List<LeaderCard> notPlayedLeaderCards = modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname());
-        List<LeaderCard> playeableLeaderCards = findPlayableLeader(notPlayedLeaderCards);
+        //List<LeaderCard> notPlayedLeaderCards = //modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname());
+        //List<LeaderCard> playeableLeaderCards = //findPlayableLeader(notPlayedLeaderCards);
         userInterface.askInitialAction(playableFMs, playedFamilyMember,
-                notPlayedLeaderCards, modelController.getLeaderCardsPlayed(thisPlayer.getNickname()), playeableLeaderCards);
+                thisPlayer.getLeaderCardsNotUsed(),
+                thisPlayer.getPlayedLeaders(),
+                thisPlayer.getPlayableLeaders(),
+                thisPlayer.getPlayedNotActivatedOncePerRoundLeaderCards());
 
     }
 
@@ -651,6 +654,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param notPlayedLeaderCards the leader cards onthe hand of the player
      * @return the leader cards that the player can play on the board
      */
+    @Deprecated //use player.getPlayableleaders() instead
     private List<LeaderCard> findPlayableLeader(List<LeaderCard> notPlayedLeaderCards) {
 
         List<LeaderCard> playableCards = new ArrayList<>(notPlayedLeaderCards.size());
