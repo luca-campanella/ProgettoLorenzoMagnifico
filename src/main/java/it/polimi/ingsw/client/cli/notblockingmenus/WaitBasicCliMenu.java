@@ -5,7 +5,8 @@ import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.utils.Debug;
 
 /**
- * this is the view showe when is not the turn of the player
+ * this is the view showed when is not the turn of the player
+ * This object overrides run method form BasiCLIMenu so that its thread can be interrupted at any time
  */
 public class WaitBasicCliMenu extends BasicCLIMenu {
 
@@ -30,7 +31,8 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
     }
 
     /**
-     *
+     * Asks the user an imput
+     * Override of method in {@link BasicCLIMenu} so that this thread can be interrupted at any time
      */
     @Override
     public void run() {
