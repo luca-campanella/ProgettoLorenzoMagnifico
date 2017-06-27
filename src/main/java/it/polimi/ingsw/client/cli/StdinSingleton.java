@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.cli;
 
 import it.polimi.ingsw.utils.Debug;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -49,6 +50,20 @@ public class StdinSingleton
 
     public static String nextLine() {
         return stdinScanner.nextLine();
+    }
+
+    public static boolean hasNext() { return stdinScanner.hasNext();}
+
+    public static int available() throws IOException {
+        return System.in.available();
+    }
+
+    public static String nextLineNonBlocking() throws IOException {
+        byte[] inputData = new byte[1024];
+        int result = System.in.read(inputData, 0, System.in.available());
+        if(result > 0)
+            return new String(inputData, "UTF-8").substring(0, result-1);
+        return null;
     }
 
     /**

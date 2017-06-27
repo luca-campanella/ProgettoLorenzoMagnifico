@@ -314,6 +314,8 @@ public class CommandLineUI extends AbstractUIType {
     @Override
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
                                  List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards, List<LeaderCard> playedAndNotActivatedLeaderCards) {
+        Debug.printVerbose("****wait menu state: " + waitMenu.getState());
+
         InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs,
                 playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards, playableLeaderCards, playedAndNotActivatedLeaderCards);
 
@@ -491,7 +493,10 @@ public class CommandLineUI extends AbstractUIType {
     @Override
     public void interruptWaitMenu() {
 
+        Debug.printVerbose("interruptWaitMenu, state before stop: " + waitMenu.getState());
         waitMenu.interrupt();
+        Debug.printVerbose("interruptWaitMenu, state after stop: " + waitMenu.getState());
+
     }
 
     /**
@@ -502,6 +507,7 @@ public class CommandLineUI extends AbstractUIType {
 
         waitMenu = new WaitBasicCliMenu(getController());
         waitMenu.start();
+        //pool.submit(waitMenu);
     }
 
     /**
@@ -510,7 +516,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void showEndOfPhaseOfPlayer(String nickname) {
-        Debug.printVerbose("The player " + nickname + " had passed the turn.");
+        System.out.println("The player " + nickname + " had passed the turn.");
     }
 }
 
