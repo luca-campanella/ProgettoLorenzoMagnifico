@@ -500,7 +500,8 @@ public class CommandLineUI extends AbstractUIType {
     @Override
     public void waitMenu() {
 
-        waitMenu.run();
+        waitMenu = new WaitBasicCliMenu(getController());
+        waitMenu.start();
     }
 
     /**

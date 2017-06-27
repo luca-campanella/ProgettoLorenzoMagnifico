@@ -769,6 +769,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printDebug("Cards received, placing on board");
         cards.forEach((card) -> Debug.printVerbose(card.getName()));
         modelController.placeCardOnBoard(cards);
+        if(!players.get(0).getNickname().equals(thisPlayer.getNickname()))
+            userInterface.waitMenu();
     }
 
     /**

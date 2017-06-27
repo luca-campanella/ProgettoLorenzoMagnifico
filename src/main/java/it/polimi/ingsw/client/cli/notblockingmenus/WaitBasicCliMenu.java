@@ -57,5 +57,4 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
         showMenuAndAsk();
 
     }
-
 }
