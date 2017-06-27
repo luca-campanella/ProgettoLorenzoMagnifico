@@ -43,23 +43,21 @@ public abstract class BasicCLIMenu extends Thread {
     protected void showMenuAndAsk() {
         printMenu();
 
-        while(!Thread.currentThread().isInterrupted()) {
-            /*try {
-                if (StdinSingleton.available() > 0) {
-                    String choice = StdinSingleton.nextLine();
-                    DescrCallbackContainer callbackContainer = optionsMap.get(choice.toUpperCase());
+        String choice = StdinSingleton.nextLine();
+        DescrCallbackContainer callbackContainer = optionsMap.get(choice.toUpperCase());
 
-                    if (callbackContainer == null) {
-                        System.out.println(choice + " is not a recognised option, please choose a correct one");
-                        continue;
-                    }
-                    callbackContainer.getFunction().callback();
-                    Thread.currentThread().interrupt();
-                }
-            } catch (IOException e) {
-                Debug.printVerbose("Interrupting thread caused by IOex", e);
-                Thread.currentThread().interrupt();
-            }*/
+        while(callbackContainer == null) {
+            System.out.println(choice + " is not a recognised option, please choose a correct one");
+            choice = StdinSingleton.nextLine();
+            callbackContainer = optionsMap.get(choice.toUpperCase());
+        }
+        callbackContainer.getFunction().callback();
+    }
+
+    protected void showMenuAndAskNonBlocking() {
+        printMenu();
+
+        while(!Thread.currentThread().isInterrupted()) {
             try {
                 String choice = StdinSingleton.nextLineNonBlocking();
                 if (choice != null) {
@@ -73,7 +71,7 @@ public abstract class BasicCLIMenu extends Thread {
                     Thread.currentThread().interrupt();
                 }
                 else {
-                    Thread.sleep(5000);
+                    Thread.sleep(100);
                 }
             } catch (Exception e) {
                 Debug.printVerbose("Interrupting thread caused by IOex", e);
@@ -81,6 +79,7 @@ public abstract class BasicCLIMenu extends Thread {
             }
         }
     }
+
 
     private void printMenu() {
         System.out.println(initialMenu);
