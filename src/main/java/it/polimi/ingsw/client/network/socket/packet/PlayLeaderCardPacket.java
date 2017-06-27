@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
  * packet that contains the name of the leader card
  */
-public class PlayCardPacket implements Serializable {
+public class PlayLeaderCardPacket implements Serializable {
     /**
      * name of the leader card
      */
@@ -21,7 +21,7 @@ public class PlayCardPacket implements Serializable {
      * constructor
      * @param nameLeaderCard
      */
-    public PlayCardPacket(String nameLeaderCard, HashMap<String, String> choicesOnCurrentActionString){
+    public PlayLeaderCardPacket(String nameLeaderCard, HashMap<String, String> choicesOnCurrentActionString){
         this.nameLeaderCard=nameLeaderCard;
         this.choicesOnCurrentActionString = choicesOnCurrentActionString;
     }

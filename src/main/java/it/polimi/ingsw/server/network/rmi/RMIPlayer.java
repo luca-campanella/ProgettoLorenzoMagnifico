@@ -150,6 +150,18 @@ import java.util.HashMap;
     }
 
     /**
+     * this method is used to deliver to all the players the leader card played by a player
+     * @param nameCard the name of the leader card
+     * @param choicesOnCurrentActionString the choices done while playing the card
+     * @param nickname the nickname of the player that had played the card
+     * @throws NetworkException
+     */
+    @Override
+    public void deliverPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws NetworkException {
+
+    }
+
+    /**
      * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
      * @param familyMember the family member placed on the tower
      * @param towerIndex the number of the tower

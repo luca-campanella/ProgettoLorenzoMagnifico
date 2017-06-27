@@ -16,6 +16,10 @@ public class IllegalMoveException extends IOException {
         this.moveErrorEnum=moveErrorEnum;
     }
 
+    public IllegalMoveException(){
+
+    }
+
     public MoveErrorEnum getErrorType() {
         return moveErrorEnum;
     }

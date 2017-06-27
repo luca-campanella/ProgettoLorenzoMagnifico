@@ -726,7 +726,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void callbackPlayLeader(LeaderCard leaderCard) {
 
         Debug.printDebug("I'm in ClientMain.callbackPlayLeader");
-        modelController.playLeaderCard(leaderCard, thisPlayer);
+        modelController.playLeaderCard(leaderCard.getName(), thisPlayer,this);
         try{
             clientNetwork.playLeaderCard(leaderCard.getName(),choicesOnCurrentActionString);
         }

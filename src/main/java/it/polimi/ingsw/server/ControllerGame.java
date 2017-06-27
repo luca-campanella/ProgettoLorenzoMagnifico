@@ -175,7 +175,7 @@ public class ControllerGame {
      * this method in launch during every end of the player's phase
      * @throws IllegalMoveException
      */
-    public void endPhase(AbstractConnectionPlayer player){
+    public void endPhase(AbstractConnectionPlayer player) throws IllegalMoveException{
 
         controlTurnPlayer(player.getNickname());
 
@@ -307,7 +307,7 @@ public class ControllerGame {
      * @param towerIndex the number of the tower where the family member is placed
      * @param floorIndex the number of floor on the tower the family member is placed
      */
-    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) {
+    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
 
@@ -322,7 +322,7 @@ public class ControllerGame {
      * @param servant the number of servant you add on the family member to increase the value
      * @param playerChoices
      */
-    public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
+    public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
 
         choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
@@ -336,7 +336,7 @@ public class ControllerGame {
      * @param familyMember the familymember the player places
      * @param servant the number of servant you add on the family member to increase the value
      */
-    public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
+    public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
 
         choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
@@ -349,7 +349,7 @@ public class ControllerGame {
      * @param familyMember the family member the player wants to place on the council
      * @param playerChoices the choices taken from the player when an effect have different choices
      */
-    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices){
+    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
         modelController.placeOnCouncil(familyMember);
@@ -360,7 +360,7 @@ public class ControllerGame {
      * @param familyMember the familymember the player places
      * @param marketSpaceIndex the number of servant you add on the family member to increase the value
      */
-    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex, HashMap<String, Integer> playerChoices){
+    public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
 
         choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
@@ -373,7 +373,7 @@ public class ControllerGame {
      * @param nickname the nickname of the player who has the card
      * @param nameLeader the name of the leader card
      */
-    public void discardLeaderCard(String nickname, String nameLeader, HashMap<String, Integer> resourceGet){
+    public void discardLeaderCard(String nickname, String nameLeader, HashMap<String, Integer> resourceGet) throws IllegalMoveException{
 
         controlTurnPlayer(nickname);
         choicesController.setChoicesMap(resourceGet);
@@ -386,20 +386,21 @@ public class ControllerGame {
      * @param player the player who has the card
      * @param nameLeader the name of the leader card
      */
-    public void playLeaderCard(Player player, String nameLeader){
+    public void playLeaderCard(String nameLeader,HashMap<String, String> choicesOnCurrentAction, Player player) throws IllegalMoveException{
 
         controlTurnPlayer(player.getNickname());
-        modelController.activateLeaderCard(player, nameLeader);
+        choicesController.setChoicesMapString(choicesOnCurrentAction);
+        modelController.playLeaderCard(nameLeader, player ,choicesController);
 
     }
 
     /**
      * control if is the turn of the player that had delivered a move
      */
-    private void controlTurnPlayer(String playerName){
+    private void controlTurnPlayer(String playerName) throws IllegalMoveException{
 
         if(!playerName.equals(orderOfPlayers.get(numberOfTurn%numberOfPlayers).getNickname()))
-            room.deliverError(playerName);
+            throw new IllegalMoveException();
 
     }
 
@@ -499,7 +500,12 @@ public class ControllerGame {
         else if((actualPosition+1)%numberOfPlayers == position){
             //this means that now is the turn of the disconnected player
             //the 'if' is used to control if the player that had passed the last time is the player before the disconnected player
-            endPhase(player);
+            try{
+                endPhase(player);
+            }
+            catch (IllegalMoveException e){
+                Debug.printError(e);
+            }
 
         }
     }

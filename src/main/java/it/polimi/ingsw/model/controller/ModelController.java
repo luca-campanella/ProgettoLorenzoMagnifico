@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
+import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
@@ -651,7 +652,7 @@ public class ModelController {
             effectIterator.applyToPlayer(playerMove, choicesHandlerInterface, nameLeader);
     }
 
-    public void activateLeaderCard(Player player, String nameLeader){
+    public void activateLeaderCard(String nickname, String nameLeader, NetworkChoicesPacketHandler choicesController){
 
         //player.activateLeaderCard();
 
@@ -735,10 +736,12 @@ public class ModelController {
 
     /**
      * this method is called by the controller when a player plays a leader
-     * @param leaderCard the card that should be set as played inside the player
+     * @param nameLeader the card that should be set as played inside the player
      * @param player the player that had chosen to play the card
      */
-    public void playLeaderCard(LeaderCard leaderCard, Player player){
+    public void playLeaderCard(String nameLeader, Player player, ChoicesHandlerInterface choicesHandlerInterface){
+
+        LeaderCard leaderCard = player.getLeaderCardNotUsed(nameLeader);
         //if the leader he's chosen has the ability to copy another leader ability we should ask which one he wants to copy
         if(leaderCard.getAbility().getAbilityType() == LeaderAbilityTypeEnum.COPY_ABILITY) {
             //Let's retreive all the played leaders of other players
@@ -747,12 +750,12 @@ public class ModelController {
                 if(playerIter != player) //only leaders from other players can be copied
                     playedLeaders.addAll(playerIter.getPlayedLeaders());
             }
-            AbstractLeaderAbility choice = choicesController.callbackOnWhichLeaderAbilityToCopy(playedLeaders);
+            AbstractLeaderAbility choice = choicesHandlerInterface.callbackOnWhichLeaderAbilityToCopy(playedLeaders);
             leaderCard.setAbility(choice);
         }
 
         //we deldegate the rest of the action to the player itself
-        player.playLeader(leaderCard, choicesController);
+        player.playLeader(leaderCard, choicesHandlerInterface);
     }
 
     /**

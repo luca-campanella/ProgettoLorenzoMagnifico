@@ -43,7 +43,7 @@ public class ReadServerPacketProtocol {
         instruction.put(PacketType.BUILD, ()-> client.receiveBuild());
         instruction.put(PacketType.GAME_BOARD, ()->client.receiveStartGameBoard());
         instruction.put(PacketType.DISCARD_LEADER, ()-> client.receiveDiscardLeaderCard());
-        //instruction.put(PacketType.PLAY_LEADER, ()-> client.receivePlayCard());
+        instruction.put(PacketType.PLAY_LEADER, ()-> client.receivePlayLeaderCard());
         instruction.put(PacketType.END_PHASE, ()-> client.receiveEndPhase());
         instruction.put(PacketType.START_TURN, ()-> client.startTurn());
         instruction.put(PacketType.ORDER_PLAYERS, ()-> client.receiveOrderPlayers());

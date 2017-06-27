@@ -222,10 +222,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     /**
      * receives the packet from socket of the playing of a leader card and deliver the move to the room
      */
-    public void playLeaderCard(){
+    public void receivedPlayLeaderCard(){
         try{
-            PlayCardPacket packet=(PlayCardPacket)inStream.readObject();
-            //TODO method
+            PlayLeaderCardPacket packet=(PlayLeaderCardPacket)inStream.readObject();
+            getRoom().playLeaderCard(packet.getNameCard(),packet.getChoicesOnCurrentActionString(),this);
         }
         catch(IOException e){
             Debug.printError("network is not working", e);
@@ -242,7 +242,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void discardLeaderCard(){
         try{
             DiscardLeaderCardPacket packet=(DiscardLeaderCardPacket)inStream.readObject();
-            getRoom().receiveDiscardLeaderCard(packet.getNameCard(), packet.getResourceGet(), this.getNickname());
+            getRoom().receiveDiscardLeaderCard(packet.getNameCard(), packet.getResourceGet(), this);
         }
         catch(IOException e){
             Debug.printError("network is not working", e);
@@ -754,6 +754,30 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             Debug.printError("cannot deliver the discarded leader to " + this.getNickname());
             throw new NetworkException(e);
         }
+    }
+
+    /**
+     * this method is used to deliver to all the players the leader card played by a player
+     * @param nameCard the name of the leader card
+     * @param choicesOnCurrentActionString the choices done while playing the card
+     * @param nickname the nickname of the player that had played the card
+     * @throws NetworkException
+     */
+    @Override
+    public void deliverPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws NetworkException {
+
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.PLAY_LEADER);
+                outStream.writeObject(new ReceivePlayLeaderCardPacket(nameCard, choicesOnCurrentActionString,nickname));
+            }
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the discarded leader to " + this.getNickname());
+            throw new NetworkException(e);
+        }
+
     }
 
 }

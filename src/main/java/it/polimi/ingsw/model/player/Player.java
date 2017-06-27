@@ -361,6 +361,19 @@ public class Player implements Serializable{
     }
 
     /**
+     * Returns the leader card with that name
+     */
+    public LeaderCard getLeaderCardNotUsed(String nameLeader){
+
+        for(LeaderCard leaderCard : leaderCardsNotUsed){
+            if(leaderCard.getName().equals(nameLeader))
+                return leaderCard;
+        }
+
+        return null;
+    }
+
+    /**
      * This method returns a list of LeaderCards not yet played, but playable,
      * i.e. they player meets their the requirements to be played
      * @return a list of playable LeaderCards, epty if none is playable (yet)

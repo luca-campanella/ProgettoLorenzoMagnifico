@@ -6,11 +6,9 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
-import it.polimi.ingsw.model.player.FamilyMember;
-import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.PersonalTileEnum;
-import it.polimi.ingsw.model.player.PlayerColorEnum;
+import it.polimi.ingsw.model.player.*;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.server.network.socket.SocketPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -151,27 +149,46 @@ public class Room {
 
     /**
      * call the method on controller game to place a family member on the council
-     *
-     * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
     public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices){
 
-        controllerGame.placeOnCouncil(familyMember, playerChoices);
-        floodPlaceOnCouncil(familyMember, playerChoices);
+        try{
+            controllerGame.placeOnCouncil(familyMember, playerChoices);
+            floodPlaceOnCouncil(familyMember, playerChoices);
+        }
+        catch (IllegalMoveException e){
+
+            AbstractConnectionPlayer player = getAbstractPlayer(familyMember.getPlayer().getNickname());
+            try{
+                player.deliverErrorMove();
+            }
+            catch (NetworkException c){
+                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+            }
+        }
 
 
     }
 
     /**
      * call the method on controller game to place a family member on the tower
-     *
-     * @throws IllegalMoveException if the player doesn't have the correct resources to do the action
      */
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices){
 
-        controllerGame.placeOnTower(familyMember, towerIndex, floorIndex, playerChoices);
-        floodPlaceOnTower(familyMember, towerIndex, floorIndex, playerChoices);
+        try{
+            controllerGame.placeOnTower(familyMember, towerIndex, floorIndex, playerChoices);
+            floodPlaceOnTower(familyMember, towerIndex, floorIndex, playerChoices);
+        }
+        catch (IllegalMoveException e){
 
+            AbstractConnectionPlayer player = getAbstractPlayer(familyMember.getPlayer().getNickname());
+            try{
+                player.deliverErrorMove();
+            }
+            catch (NetworkException c){
+                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+            }
+        }
     }
 
     /**
@@ -179,8 +196,20 @@ public class Room {
      */
     public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices){
 
-        controllerGame.placeOnMarket(familyMember, marketIndex, playerChoices);
-        floodPlaceOnMarket(familyMember, marketIndex, playerChoices);
+        try{
+            controllerGame.placeOnMarket(familyMember, marketIndex, playerChoices);
+            floodPlaceOnMarket(familyMember, marketIndex, playerChoices);
+        }
+        catch (IllegalMoveException e){
+
+            AbstractConnectionPlayer player = getAbstractPlayer(familyMember.getPlayer().getNickname());
+            try{
+                player.deliverErrorMove();
+            }
+            catch (NetworkException c){
+                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+            }
+        }
 
     }
 
@@ -189,9 +218,20 @@ public class Room {
      */
     public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 
-        controllerGame.build(familyMember, servant, playerChoices);
-        floodBuild(familyMember, servant, playerChoices);
+        try{
+            controllerGame.build(familyMember, servant, playerChoices);
+            floodBuild(familyMember, servant, playerChoices);
+        }
+        catch (IllegalMoveException e){
 
+            AbstractConnectionPlayer player = getAbstractPlayer(familyMember.getPlayer().getNickname());
+            try{
+                player.deliverErrorMove();
+            }
+            catch (NetworkException c){
+                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+            }
+        }
     }
 
     /**
@@ -199,9 +239,33 @@ public class Room {
      */
     public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 
-        controllerGame.harvest(familyMember, servant, playerChoices);
-        floodHarvest(familyMember, servant, playerChoices);
+        try{
+            controllerGame.harvest(familyMember, servant, playerChoices);
+            floodHarvest(familyMember, servant, playerChoices);
+        }
+        catch (IllegalMoveException e){
 
+            AbstractConnectionPlayer player = getAbstractPlayer(familyMember.getPlayer().getNickname());
+            try{
+                player.deliverErrorMove();
+            }
+            catch (NetworkException c){
+                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+            }
+        }
+    }
+
+    /**
+     * this method is used to find the player connection knowing the nickname
+     * @param nickname the nickname of the connection player you want to get
+     */
+    private AbstractConnectionPlayer getAbstractPlayer(String nickname) {
+
+        for(AbstractConnectionPlayer player : players){
+            if(player.getNickname().equals(nickname))
+                return player;
+        }
+        return players.get(0);
     }
 
     /**
@@ -268,10 +332,24 @@ public class Room {
         }
     }
 
+    /**
+     * this method is used to perform the end of the turn of the player on the server and inform the other players
+     * @param player the player that had ended the phase
+     */
     public void endPhase(AbstractConnectionPlayer player){
 
-        controllerGame.endPhase(player);
-        floodEndPhase(player);
+        try{
+            controllerGame.endPhase(player);
+            floodEndPhase(player);
+        }
+        catch (IllegalMoveException e){
+            try{
+                player.deliverErrorMove();
+            }
+            catch (NetworkException c){
+                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+            }
+        }
 
     }
 
@@ -390,6 +468,10 @@ public class Room {
         }
     }
 
+    /**
+     * this method is used to receive the leader card chose by the player
+     * @param leaderCard the leader card chosen
+     */
     public void receiveLeaderCards(LeaderCard leaderCard, AbstractConnectionPlayer player) {
         Debug.printVerbose("[Room] receiveLeaderCards called");
         controllerGame.choiceLeaderCard(leaderCard, player);
@@ -420,7 +502,8 @@ public class Room {
     }
 
     /**
-     * @param familyMember
+     * this method is used to inform the other players that a player had placed a family member on the council
+     * @param familyMember the family member place on the council
      */
     private void floodPlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) {
 
@@ -522,11 +605,20 @@ public class Room {
      * @param nameCard the name of the card the player had discarded
      * @param resourceGet the resource obtained
      */
-    public void receiveDiscardLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, String nickname) {
+    public void receiveDiscardLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, AbstractConnectionPlayer player) {
 
-        controllerGame.discardLeaderCard(nickname, nameCard, resourceGet);
-        floodDiscardLeaderCard(nameCard, resourceGet, nickname);
-
+        try{
+            controllerGame.discardLeaderCard(player.getNickname(), nameCard, resourceGet);
+            floodDiscardLeaderCard(nameCard, resourceGet, player.getNickname());
+        }
+        catch (IllegalMoveException e){
+            try{
+                player.deliverErrorMove();
+            }
+            catch (NetworkException c){
+                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+            }
+        }
     }
 
     /**
@@ -564,6 +656,49 @@ public class Room {
             }
             catch (NetworkException e){
                 Debug.printError("cannot deliver the disconnection to the player " + playerIter.getNickname());
+            }
+        }
+    }
+
+    /**
+     * this method is called by the network when a player had played a leader card
+     * @param nameCard the name of the leader card played
+     * @param choicesOnCurrentActionString the choices did while playing the card
+     * @param player the player that had played the card
+     */
+    public void playLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, AbstractConnectionPlayer player) {
+
+        try{
+            controllerGame.playLeaderCard(nameCard, choicesOnCurrentActionString, player);
+            floodPlayLeaderCard(nameCard, choicesOnCurrentActionString, player.getNickname());
+        }
+        catch (IllegalMoveException e){
+            try{
+                player.deliverErrorMove();
+            }
+            catch (NetworkException c){
+                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+            }
+        }
+
+    }
+
+    /**
+     * this method is used to deliver to all the other players the information that a player had played a leader card
+     * @param nameCard the name of the leader card played
+     * @param choicesOnCurrentActionString the choices done on the leader card
+     * @param nickname the nickname of the player that had played the leader card
+     */
+    private void floodPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) {
+
+        for(AbstractConnectionPlayer player : players){
+            if(!player.getNickname().equals(nickname)){
+                try {
+                    player.deliverPlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname);
+                }
+                catch (NetworkException e){
+                    Debug.printError("cannot deliver the leader card played by " + nickname + " to " + player.getNickname(),e);
+                }
             }
         }
     }

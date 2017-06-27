@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.network.socket;
 
 
-import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.controller.NetworkControllerClientInterface;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.AbstractClientType;
@@ -152,7 +151,7 @@ public class SocketClient extends AbstractClientType {
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.PLAY_LEADER);
-                outStream.writeObject(new PlayCardPacket(nameLeader, choicesOnCurrentActionString));
+                outStream.writeObject(new PlayLeaderCardPacket(nameLeader, choicesOnCurrentActionString));
             }
             outStream.flush();
         }
@@ -693,5 +692,19 @@ public class SocketClient extends AbstractClientType {
             Debug.printError("the client cannot receives the disconnection of a player",e);
         }
 
+    }
+
+    /**
+     * this method is used to receive the leader cards played by the other players
+     */
+    public void receivePlayLeaderCard(){
+
+        try{
+            String nicknamePlayerDisconnected = (String)inStream.readObject();
+            getControllerMain().receiveDisconnection(nicknamePlayerDisconnected);
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the leader card played by another player",e);
+        }
     }
 }

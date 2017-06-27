@@ -152,4 +152,12 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @param nickname the nickname of the player that is not more in the game
      */
     public abstract void deliverDisconnectionPlayer(String nickname) throws NetworkException;
+
+    /**
+     * this method is used to deliver to all the players the leader card played by a player
+     * @param nameCard the name of the leader card
+     * @param choicesOnCurrentActionString the choices done while playing the card
+     * @param nickname the nickname of the player that had played the card
+     */
+    public abstract void deliverPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws NetworkException;
 }
