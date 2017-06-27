@@ -51,6 +51,10 @@ public class GraphicalUI extends AbstractUIType {
     {
         super(controller);
         this.mainStage = mainStage;
+        Platform.runLater(() -> initStage());
+    }
+
+    private void initStage() {
         currentStage = new Stage();
         currentStage.setAlwaysOnTop(true);
     }

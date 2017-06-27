@@ -10,6 +10,7 @@ import java.util.HashMap;
 /**
  * This is the base menu class for all the menus of the cli when the user has choices
  * and the cli should call callbacks accordingly
+ * If run is not overridden this thread cannot (and should not) be interrupted
  */
 public abstract class BasicCLIMenu extends Thread {
 
@@ -31,7 +32,7 @@ public abstract class BasicCLIMenu extends Thread {
     }
 
     /**
-     *
+     * Just shows the menu and waits for the input of the user
      */
     @Override
     public void run() {
@@ -40,6 +41,10 @@ public abstract class BasicCLIMenu extends Thread {
         showMenuAndAsk();
     }
 
+    /**
+     * Shows the menu and waits for the input.
+     * If this method is running the thread cannot be interrupted
+     */
     protected void showMenuAndAsk() {
         printMenu();
 
@@ -53,6 +58,37 @@ public abstract class BasicCLIMenu extends Thread {
         }
         callbackContainer.getFunction().callback();
     }
+
+    /**
+     * Shows the menu and wait for the input.
+     * If this method is running the thread <b>can</b> be interrupted via {@link Thread#interrupt()}
+     */
+    protected void showMenuAndAskNonBlocking() {
+        printMenu();
+
+        while(!Thread.currentThread().isInterrupted()) {
+            try {
+                String choice = StdinSingleton.nextLineNonBlocking();
+                if (choice != null) {
+                    DescrCallbackContainer callbackContainer = optionsMap.get(choice.toUpperCase());
+
+                    if (callbackContainer == null) {
+                        System.out.println(choice + " is not a recognised option, please choose a correct one");
+                        continue;
+                    }
+                    callbackContainer.getFunction().callback();
+                    Thread.currentThread().interrupt();
+                }
+                else {
+                    Thread.sleep(100);
+                }
+            } catch (Exception e) {
+                Debug.printVerbose("Interrupting thread caused by IOex", e);
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
 
     private void printMenu() {
         System.out.println(initialMenu);

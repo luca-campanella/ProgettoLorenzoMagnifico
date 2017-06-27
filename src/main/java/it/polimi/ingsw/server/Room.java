@@ -6,9 +6,11 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
-import it.polimi.ingsw.model.player.*;
+import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.PersonalTileEnum;
+import it.polimi.ingsw.model.player.PlayerColorEnum;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.server.network.socket.SocketPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -339,8 +341,8 @@ public class Room {
     public void endPhase(AbstractConnectionPlayer player){
 
         try{
-            controllerGame.endPhase(player);
             floodEndPhase(player);
+            controllerGame.endPhase(player);
         }
         catch (IllegalMoveException e){
             try{
@@ -490,7 +492,7 @@ public class Room {
     /**
      * this method is called by controllerGame and deliver to all the clients on the room the cards to place on the board
      */
-    public void deliverCardToPlace(ArrayList<AbstractCard> cards) {
+    public synchronized void deliverCardToPlace(ArrayList<AbstractCard> cards) {
         for (AbstractConnectionPlayer player : players) {
             try {
                 player.deliverCardToPlace(cards);

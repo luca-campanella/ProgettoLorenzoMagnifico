@@ -172,6 +172,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
                 case ALREADY_LOGGED_TO_ROOM :
                     userInterface.displayError("Already logged", "You are already logged to " +
                             "the current room, please use another account or wait for the game to start");
+                    userInterface.askLoginOrCreate();
                     break;
                 case NOT_EXISTING_USERNAME:
                     userInterface.displayError("Not existing username", "The username you inserted " +
