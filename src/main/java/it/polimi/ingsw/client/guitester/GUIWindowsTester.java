@@ -318,4 +318,15 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     public List<Dice> callbackObtainDices() {
         return null;
     }
+
+    /**
+     * This method returns to the view a list of all the players in order
+     * this method is usually called by the view to show the correct order of players in the board
+     *
+     * @return the list of all players in order
+     */
+    @Override
+    public List<Player> callbackObtainPlayersInOrder() {
+        return null;
+    }
 }

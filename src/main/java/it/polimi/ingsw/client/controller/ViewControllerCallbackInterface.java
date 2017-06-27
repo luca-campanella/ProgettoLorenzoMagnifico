@@ -142,4 +142,12 @@ public interface ViewControllerCallbackInterface {
      */
     List<Dice> callbackObtainDices();
 
+    /**
+     * This method returns to the view a list of all the players in order
+     * this method is usually called by the view to show the correct order of players in the board
+     *
+     * @return the list of all players in order
+     */
+    public List<Player> callbackObtainPlayersInOrder();
+
 }
