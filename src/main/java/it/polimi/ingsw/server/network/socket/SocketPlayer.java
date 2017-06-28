@@ -628,7 +628,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void deliverLeaderCards(){
         Debug.printVerbose("deliverLeaderCards called");
         try{
-            ReceiveLeaderCardChosePacket packet = (ReceiveLeaderCardChosePacket) inStream.readObject();
+            ChosenLeaderPacket packet = (ChosenLeaderPacket) inStream.readObject();
             Debug.printVerbose("leader card received " + packet.getLeaderCard().getName());
             getRoom().receiveLeaderCards(packet.getLeaderCard(), this);
         }
@@ -778,6 +778,27 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             throw new NetworkException(e);
         }
 
+    }
+
+    /**
+     * this method is used to deliver to the player client the chosen leader card to other player
+     * @param leaderCard the leader card that has be chosen by a player
+     * @param player the player that has chosen the leader card
+     */
+    @Override
+    public void deliverLeaderChose(LeaderCard leaderCard, AbstractConnectionPlayer player) throws NetworkException {
+
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.CHOSEN_LEADER);
+                outStream.writeObject(new ReceiveChosenLeaderPacket(leaderCard, player.getNickname()));
+            }
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the chosen leader to " + this.getNickname());
+            throw new NetworkException(e);
+        }
     }
 
 }

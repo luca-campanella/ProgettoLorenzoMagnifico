@@ -474,4 +474,30 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     public void receiveDiscardedLeaderCard(String nameCard, String nickname, HashMap<String, Integer> resourceGet) throws RemoteException {
         //TODO
     }
+
+    /**
+     * this method is called by the server to deliver the leader card played by a player
+     * @param nameCard the name of the leader card
+     * @param choicesOnCurrentActionString the choices done while playing the leader card
+     * @param nickname the nickname of the player
+     * @throws RemoteException
+     */
+    @Override
+    public void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws RemoteException {
+
+        getControllerMain().receivePlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname);
+
+    }
+
+    /**
+     * this method is used to receive the leader card chosen by the other players
+     * @param leaderCard the leader card chosen by the player
+     * @param nickname the nickname of the player that ha chosen the leader card
+     * @throws RemoteException
+     */
+    @Override
+    public void receiveChosenLeaderCard(LeaderCard leaderCard, String nickname) throws RemoteException {
+
+        getControllerMain().receiveChosenLeader(nickname, leaderCard);
+    }
 }

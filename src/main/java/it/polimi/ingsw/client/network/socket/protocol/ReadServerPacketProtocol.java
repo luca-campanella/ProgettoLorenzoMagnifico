@@ -55,6 +55,7 @@ public class ReadServerPacketProtocol {
         instruction.put(PacketType.CHOSE_TILES, ()-> client.receivePersonalTiles());
         instruction.put(PacketType.FLOOD_PERSONAL_TILE, ()-> client.receiveFloodPersonalTile());
         instruction.put(PacketType.DISCONNECTION_PLAYER, ()-> client.receiveDisconnectionPlayer());
+        instruction.put(PacketType.CHOSEN_LEADER, ()-> client.receiveChosenLeaderCard());
     }
 
     /**

@@ -13,26 +13,16 @@ import java.util.List;
  * this class is the base menu, where you cann see all the possible option during your phase
  */
 public class InitialActionMenu extends WaitBasicCliMenu {
-    private ArrayList<FamilyMember> playableFMs;
-    private List<LeaderCard> leaderCardsNotPlayed;
-    private List<LeaderCard> playedLeaderCards;
-    private List<LeaderCard> playableLeaderCards;
-    private List<LeaderCard> playedAndNotActivatedLeaderCards;
 
-    public InitialActionMenu(ViewControllerCallbackInterface controller, ArrayList<FamilyMember> playableFMs, boolean playedFamilMembery,
-                             List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards, List<LeaderCard> playedAndNotActivatedLeaderCards) {
+    public InitialActionMenu(ViewControllerCallbackInterface controller, boolean playedFamilyMember) {
         super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
-        this.playableFMs = playableFMs;
-        this.leaderCardsNotPlayed = leaderCardsNotPlayed;
-        this.playedLeaderCards = playedLeaderCards;
-        this.playableLeaderCards = playableLeaderCards;
-        if(!playedFamilMembery)
+        if(!playedFamilyMember)
             addOption("FM", "Place a Family Member on an action space", this::placeFamilyMember);
-        if(leaderCardsNotPlayed.size() !=0)
+        if(getController().callbackObtainPlayer().getLeaderCardsNotUsed().size() !=0)
             addOption("DL", "Discard a Leader", this::discardLeader);
-        if(playableLeaderCards.size() !=0)
+        if(getController().callbackObtainPlayer().getPlayableLeaders().size() !=0)
             addOption("PL", "Play a Leader card", this::playLeader);
-        if(playedLeaderCards.size() != 0)
+        if(getController().callbackObtainPlayer().getPlayedNotActivatedOncePerRoundLeaderCards().size() != 0)
             addOption("AL", "Activate a Leader ability", this::activateLeaderAbility);
         addOption("END","Pass the turn", this::passTheTurn);
     }
@@ -48,6 +38,7 @@ public class InitialActionMenu extends WaitBasicCliMenu {
     private void placeFamilyMember() {
 
         int indexRes = 0;
+        ArrayList<FamilyMember> playableFMs = getController().callbackObtainPlayer().getNotUsedFamilyMembers();
         if(playableFMs.size() == 1) {
             System.out.println("You can only place family member " + playableFMs.get(0).getColor() + " with value " + playableFMs.get(0).getValue());
             System.out.println("I'm placing this family member");
@@ -69,6 +60,7 @@ public class InitialActionMenu extends WaitBasicCliMenu {
     private void discardLeader() {
 
         int indexRes = 0;
+        List<LeaderCard> leaderCardsNotPlayed = getController().callbackObtainPlayer().getLeaderCardsNotUsed();
         if(leaderCardsNotPlayed.size() == 1) {
             System.out.println("You can only discard Leader Card " + leaderCardsNotPlayed.get(0).getName());
             System.out.println("I'm discarding this leader card");
@@ -91,6 +83,7 @@ public class InitialActionMenu extends WaitBasicCliMenu {
     private void playLeader() {
 
         int indexRes = 0;
+        List<LeaderCard> playableLeaderCards = getController().callbackObtainPlayer().getPlayableLeaders();
         if(playableLeaderCards.size() == 1) {
             System.out.println("You can only play Leader Card " + playableLeaderCards.get(0).getName());
             System.out.println("I'm playing this leader card");
@@ -109,5 +102,21 @@ public class InitialActionMenu extends WaitBasicCliMenu {
 
     private void activateLeaderAbility() {
 
+        int indexRes = 0;
+        List<LeaderCard> activailableLeaderCards = getController().callbackObtainPlayer().getPlayedNotActivatedOncePerRoundLeaderCards();
+        if(activailableLeaderCards.size() == 1) {
+            System.out.println("You can only activate Leader Card " + activailableLeaderCards.get(0).getName());
+            System.out.println("I'm activating this leader card");
+        }
+        else {
+            Debug.printVerbose("Activate leader card called");
+            CliOptionsHandler playLeaderCardChooser = new CliOptionsHandler(activailableLeaderCards.size());
+
+            for (LeaderCard lcIter : activailableLeaderCards) {
+                playLeaderCardChooser.addOption("play " + lcIter.getName() + " of description " + lcIter.getAbility().getAbilityDescription());
+            }
+            indexRes = playLeaderCardChooser.askUserChoice();
+        }
+        getController().callbackPlayLeader(activailableLeaderCards.get(indexRes));
     }
 }

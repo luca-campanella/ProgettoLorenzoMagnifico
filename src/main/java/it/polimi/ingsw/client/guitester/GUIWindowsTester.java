@@ -55,8 +55,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     }
 
     private void testMainBoard() {
-        gui.askInitialAction(new ArrayList<FamilyMember>(2), false,
-                new ArrayList<LeaderCard>(2), new ArrayList<LeaderCard>(2), new ArrayList<LeaderCard>(2), new ArrayList<LeaderCard>(2));
+        gui.askInitialAction(false);
     }
 
     private void testWaitingMenu() {

@@ -50,12 +50,7 @@ public class GraphicalUI extends AbstractUIType {
     public GraphicalUI(ViewControllerCallbackInterface controller)
     {
         super(controller);
-        Platform.runLater(() -> initStage());
-    }
-
-    private void initStage() {
         currentStage = new Stage();
-        currentStage.setAlwaysOnTop(true);
     }
 
     public void selectFamilyMember()
@@ -156,13 +151,9 @@ public class GraphicalUI extends AbstractUIType {
      * This method will trigger either
      * {@link ViewControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
      * //todo other methods triggered
-     * @param playableFMs the list of playable family members to make the user choose
-     * @param playedLeaderCards
-     * @param playedAndNotActivatedLeaderCards
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
-                                 List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards, List<LeaderCard> playedAndNotActivatedLeaderCards) {
+    public void askInitialAction(boolean playedFamilyMember) {
 
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", () -> setUpMainBoardControl()));
@@ -486,7 +477,7 @@ public class GraphicalUI extends AbstractUIType {
 
         currentStage.setTitle(title);
         currentStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
-
+        currentStage.setResizable(false);
         if(runBeforeShow != null) //there is something to run
             runBeforeShow.run();
 

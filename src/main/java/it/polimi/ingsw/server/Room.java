@@ -485,8 +485,29 @@ public class Room {
             }
         }
 
+        floodReceiveLeaderCard(leaderCard, player);
+
         deliverLeaderCardsToPlayers();
 
+    }
+
+    /**
+     * this method is called to deliver to the other player the leader card chose by a player
+     * @param leaderCard the chosen leader card by the player
+     * @param player the player that had chosen the leader card
+     */
+    private void floodReceiveLeaderCard(LeaderCard leaderCard, AbstractConnectionPlayer player) {
+
+        for(AbstractConnectionPlayer playerIter : players){
+            if(!player.getNickname().equals(playerIter.getNickname())){
+                try{
+                    playerIter.deliverLeaderChose(leaderCard, player);
+                }
+                catch (NetworkException e){
+                    Debug.printError("tried to deliver the chosen leader cards to " + player.getNickname());
+                }
+            }
+        }
     }
 
     /**

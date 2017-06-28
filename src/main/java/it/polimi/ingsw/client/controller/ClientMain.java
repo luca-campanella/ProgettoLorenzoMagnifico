@@ -629,23 +629,13 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * this method is called to show to the client the different choices he can do
      */
     public void clientChoices(){
-        ArrayList<FamilyMember> playableFMs = thisPlayer.getNotUsedFamilyMembers();
-        if(!playedFamilyMember){
 
-            for(FamilyMember fmIter : playableFMs) {
-                Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
-            }
-        }
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
         initialActionsOnPlayerMove();
         //List<LeaderCard> notPlayedLeaderCards = //modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname());
         //List<LeaderCard> playeableLeaderCards = //findPlayableLeader(notPlayedLeaderCards);
-        userInterface.askInitialAction(playableFMs, playedFamilyMember,
-                thisPlayer.getLeaderCardsNotUsed(),
-                thisPlayer.getPlayedLeaders(),
-                thisPlayer.getPlayableLeaders(),
-                thisPlayer.getPlayedNotActivatedOncePerRoundLeaderCards());
+        userInterface.askInitialAction(playedFamilyMember);
 
     }
 
@@ -1015,6 +1005,31 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * this method is used to receive the leader cards that had been chosen by the other players
+     * @param nickname the nickname of the player that had chosen the card
+     * @param leaderCard the chosen leader card
+     */
+    @Override
+    public void receiveChosenLeader(String nickname, LeaderCard leaderCard) {
+
+        modelController.addLeaderCardToPlayer(leaderCard, modelController.getPlayerByNickname(nickname));
+
+    }
+
+    /**
+     * this method is called by RMI client to receive the leaderc card played bu another player
+     * @param nameCard the name of the leader card played
+     * @param choicesOnCurrentActionString the choices done while playing the leader card
+     * @param nickname the nickname of the player
+     */
+    @Override
+    public void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) {
+
+        otherPlayerChoicesHandler.setChoicesMapString(choicesOnCurrentActionString);
+        modelController.playLeaderCard(nameCard, modelController.getPlayerByNickname(nickname), otherPlayerChoicesHandler);
+    }
+
+    /**
      * Callback from model to controller
      * the model uses this method when the player performs an action but from the model we have to ask
      * how many servants he wants to add
@@ -1057,6 +1072,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         choicesOnCurrentAction.put(choiceCode, choice.getIntegerValue());
         return choice;
     }
+
 
 }
 

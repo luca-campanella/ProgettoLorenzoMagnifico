@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.network.rmi;
 
-import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.rmi.RMIClientInterface;
 import it.polimi.ingsw.model.board.Board;
@@ -73,7 +72,7 @@ import java.util.HashMap;
     /**
      * this method is called by room to deliver the personal tiles to the player
      * @param personalTilesToDeliver the personal tiles the player can receive
-     * @throws NetworkException
+     * @throws NetworkException if something went wrong on the network
      */
     @Override
     public void deliverPersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws NetworkException {
@@ -91,7 +90,7 @@ import java.util.HashMap;
      * this method is called from the room to deliver the personal tiles chosen by other players
      * @param nickname the nickname of the client that had chosen the personal tile
      * @param personalTile the personal tile chosen by the client
-     * @throws NetworkException
+     * @throws NetworkException if something went wrong on the network
      */
     @Override
     public void otherPlayerPersonalTile(String nickname, PersonalTile personalTile) throws NetworkException {
@@ -106,7 +105,7 @@ import java.util.HashMap;
 
     /**
      * this method is called by room to inform the client of a error of the move
-     * @throws NetworkException
+     * @throws NetworkException if something went wrong on the network
      */
     @Override
     public void deliverErrorMove() throws NetworkException {
@@ -124,7 +123,7 @@ import java.util.HashMap;
      * @param nameCard the name of the card discarded
      * @param nickname the nickname of the player
      * @param resourceGet the resource got by the player
-     * @throws NetworkException
+     * @throws NetworkException if something went wrong on the network
      */
     @Override
     public void deliverDiscardLeaderCard(String nameCard, String nickname, HashMap<String, Integer> resourceGet) throws NetworkException {
@@ -142,7 +141,7 @@ import java.util.HashMap;
     /**
      * this method is used to deliver to a player that a different players had left the game
      * @param nickname the nickname of the player that is not more in the game
-     * @throws NetworkException
+     * @throws NetworkException if something went wrong on the network
      */
     @Override
     public void deliverDisconnectionPlayer(String nickname) throws NetworkException {
@@ -154,10 +153,36 @@ import java.util.HashMap;
      * @param nameCard the name of the leader card
      * @param choicesOnCurrentActionString the choices done while playing the card
      * @param nickname the nickname of the player that had played the card
-     * @throws NetworkException
+     * @throws NetworkException if something went wrong on the network
      */
     @Override
     public void deliverPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws NetworkException {
+
+        try{
+            RMIClientInterfaceInst.receivePlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot deliver the leader card played to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is used to deliver to the player client the chosen leader card to other player
+     * @param leaderCard the leader card that has be chosen by a player
+     * @param player the player that has chosen the leader card
+     * @throws NetworkException if something went wrong on the network
+     */
+    @Override
+    public void deliverLeaderChose(LeaderCard leaderCard, AbstractConnectionPlayer player) throws NetworkException {
+
+        try{
+            RMIClientInterfaceInst.receiveChosenLeaderCard(leaderCard, player.getNickname());
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot deliver the leader card chosen by " + player.getNickname() + " to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
 
     }
 
@@ -372,7 +397,9 @@ import java.util.HashMap;
      */
     @Override
     public void playLeaderCard(String leaderName,HashMap<String, String> choicesOnCurrentActionString) throws RemoteException {
-        //todo implement method
+
+        getRoom().playLeaderCard(leaderName, choicesOnCurrentActionString, this);
+
     }
 
     /**

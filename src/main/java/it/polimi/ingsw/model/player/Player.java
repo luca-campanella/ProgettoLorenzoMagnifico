@@ -363,7 +363,7 @@ public class Player implements Serializable{
     /**
      * Returns the leader card with that name
      */
-    public LeaderCard getLeaderCardNotUsed(String nameLeader){
+    public LeaderCard getLeaderCardsNotUsed(String nameLeader){
 
         for(LeaderCard leaderCard : leaderCardsNotUsed){
             if(leaderCard.getName().equals(nameLeader))
@@ -453,17 +453,17 @@ public class Player implements Serializable{
             Debug.printError("activateLeaderCardAbility called with a PERMANENT ability (?)");
     }
 
-    /**
+    /*
      * This method allows to discard a leader card, the leader card passed as an argument should no be alredy played,
      * thet's against the rules
      * @param leaderCardToBeDiscarded the card to be discarded
      */
-    public void discardLeader(LeaderCard leaderCardToBeDiscarded, ChoicesHandlerInterface choicesHandler) {
+   /*public void discardLeader(LeaderCard leaderCardToBeDiscarded, ChoicesHandlerInterface choicesHandler) {
         leaderCardsNotUsed.remove(leaderCardToBeDiscarded);
         List<GainResourceEffect> resourceChoice = choicesHandler.callbackOnCouncilGift("discardLeader", 1);
         for(GainResourceEffect effectIter : resourceChoice)
             effectIter.applyToPlayer(this, choicesHandler, "discardLeaderInside");
-    }
+    }*/
 
     public void setPersonalTile(PersonalTile personalTile){
         personalBoard.setPersonalTile(personalTile);
