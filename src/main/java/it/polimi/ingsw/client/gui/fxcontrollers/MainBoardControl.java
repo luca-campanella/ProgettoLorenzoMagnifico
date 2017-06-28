@@ -171,7 +171,7 @@ public class MainBoardControl extends CustomFxControl {
     public void showLeaderCards()
     {
         if(!isLeaderStageCreated[0])
-        Platform.runLater(() -> this.openNewWindow("LeaderPickerScene.fxml", "Choose a leader", () -> this.showLeaders(
+        Platform.runLater(() -> this.openNewWindow("LeaderOwnedScene.fxml", "Choose a leader", () -> this.showLeaders(
                 thisPlayer.getLeaderCardsNotUsed(), thisPlayer.getPlayedLeaders(), thisPlayer.getPlayableLeaders(),
                 thisPlayer.getPlayedNotActivatedOncePerRoundLeaderCards())));
 

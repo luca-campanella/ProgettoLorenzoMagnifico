@@ -118,7 +118,7 @@ public class GraphicalUI extends AbstractUIType {
 
         Debug.printDebug("GUI: whow waiting for game start");
 
-        Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for game to start",
+        Platform.runLater(() -> this.openNewWindow("WaitingScene.fxml", "Waiting for game to start",
                 () -> this.prepareWaitingScene("Room joined succesfully, waiting for other players to join or for timeout...")));
 
     }
@@ -462,10 +462,10 @@ public class GraphicalUI extends AbstractUIType {
     public void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
-
+        Debug.printVerbose(getClass().getResource("/"+fxmlFileName).toString());
         Parent root = null;
         try {
-            root = fxmlLoader.load();
+            root = (Parent) fxmlLoader.load();
         } catch (IOException e) {
             Debug.printError("Error in loading fxml", e);
             displayErrorAndExit("Fatal error", "Error message: " + e.getMessage());
