@@ -741,7 +741,7 @@ public class ModelController {
      */
     public void playLeaderCard(String nameLeader, Player player, ChoicesHandlerInterface choicesHandlerInterface){
 
-        LeaderCard leaderCard = player.getLeaderCardNotUsed(nameLeader);
+        LeaderCard leaderCard = player.getLeaderCardsNotUsed(nameLeader);
         //if the leader he's chosen has the ability to copy another leader ability we should ask which one he wants to copy
         if(leaderCard.getAbility().getAbilityType() == LeaderAbilityTypeEnum.COPY_ABILITY) {
             //Let's retreive all the played leaders of other players

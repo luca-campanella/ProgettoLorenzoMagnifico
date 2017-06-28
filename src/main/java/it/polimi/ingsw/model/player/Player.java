@@ -363,7 +363,7 @@ public class Player implements Serializable{
     /**
      * Returns the leader card with that name
      */
-    public LeaderCard getLeaderCardNotUsed(String nameLeader){
+    public LeaderCard getLeaderCardsNotUsed(String nameLeader){
 
         for(LeaderCard leaderCard : leaderCardsNotUsed){
             if(leaderCard.getName().equals(nameLeader))

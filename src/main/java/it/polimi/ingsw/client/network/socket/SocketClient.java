@@ -403,7 +403,7 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
-
+            Debug.printError("cannot receive the end of the phase of another player");
         }
 
     }
@@ -425,7 +425,7 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
-
+            Debug.printError("cannot receive the market move of another player");
         }
     }
 
@@ -446,7 +446,7 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
-
+            Debug.printError("cannot receive the harvest move of another player");
         }
 
     }
@@ -468,7 +468,7 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
-
+            Debug.printError("cannot receive the build move of another player");
         }
 
     }
@@ -487,6 +487,7 @@ public class SocketClient extends AbstractClientType {
 
         catch (ClassNotFoundException | IOException e){
 
+            Debug.printError("cannot receive the end of the phase of another player");
         }
     }
 
@@ -700,8 +701,8 @@ public class SocketClient extends AbstractClientType {
     public void receivePlayLeaderCard(){
 
         try{
-            String nicknamePlayerDisconnected = (String)inStream.readObject();
-            getControllerMain().receiveDisconnection(nicknamePlayerDisconnected);
+            ReceivePlayLeaderCardPacket packet = (ReceivePlayLeaderCardPacket)inStream.readObject();
+            getControllerMain().receivePlayLeaderCard(packet.getNameCard(), packet.getChoicesOnCurrentActionString(), packet.getNickname());
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("the client cannot receives the leader card played by another player",e);

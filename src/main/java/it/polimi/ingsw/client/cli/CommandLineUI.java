@@ -306,21 +306,15 @@ public class CommandLineUI extends AbstractUIType {
     /**
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
-     * @param playableFMs the list of playable family members to make the user choose
-     * @param leaderCardsNotPlayed
-     * @param playedLeaderCards
-     * @param playedAndNotActivatedLeaderCards
      */
     @Override
-    public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
-                                 List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards, List<LeaderCard> playedAndNotActivatedLeaderCards) {
+    public void askInitialAction(boolean playedFamilyMember) {
         Debug.printVerbose("****wait menu state: " + waitMenu.getState());
 
         if(waitMenu.getState() == Thread.State.RUNNABLE || waitMenu.getState() == Thread.State.TIMED_WAITING)
             waitMenu.interrupt();
 
-        InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs,
-                playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards, playableLeaderCards, playedAndNotActivatedLeaderCards);
+        InitialActionMenu menu = new InitialActionMenu(getController(), playedFamilyMember);
 
         pool.submit(menu);
     }
