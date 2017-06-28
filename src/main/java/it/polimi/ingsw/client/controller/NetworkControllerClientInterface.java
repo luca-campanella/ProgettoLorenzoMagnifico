@@ -56,7 +56,6 @@ public interface NetworkControllerClientInterface {
      */
     public void receivedStartTurnNotification();
 
-
     /**
      * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
      * to notify that the has to pick a leader card between the ones proposed
@@ -141,7 +140,7 @@ public interface NetworkControllerClientInterface {
 
     /**
      * this method is used to receive the end phase of other players
-     * @param nickname
+     * @param nickname the nicknameof the player that had ended the phase
      */
     public void receiveEndPhase(String nickname);
 
@@ -165,4 +164,11 @@ public interface NetworkControllerClientInterface {
      * @param nicknamePlayerDisconnected the nickname of the player that had left the game
      */
     public void receiveDisconnection(String nicknamePlayerDisconnected);
+
+    /**
+     * this method is used to receive the leader cards that had been chosen by the other players
+     * @param nickname the nickname of the player that had chosen the card
+     * @param leaderCard the chosen leader card
+     */
+    void receiveChosenLeader(String nickname, LeaderCard leaderCard);
 }

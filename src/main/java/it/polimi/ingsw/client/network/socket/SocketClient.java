@@ -583,7 +583,7 @@ public class SocketClient extends AbstractClientType {
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.LEADER_CHOICES);
-                outStream.writeObject(new ReceiveLeaderCardChosePacket(leaderCard));
+                outStream.writeObject(new ChosenLeaderPacket(leaderCard));
             }
             outStream.flush();
             Debug.printVerbose("Packet on leader choice sent " + leaderCard.getName());
@@ -707,4 +707,19 @@ public class SocketClient extends AbstractClientType {
             Debug.printError("the client cannot receives the leader card played by another player",e);
         }
     }
+
+    /**
+     * this method is used to receive the chosen leader cards of the other players
+     */
+    public void receiveChosenLeaderCard(){
+
+        try{
+            ReceiveChosenLeaderPacket packet = (ReceiveChosenLeaderPacket)inStream.readObject();
+            getControllerMain().receiveChosenLeader(packet.getNickname(), packet.getLeaderCard());
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the leader card played by another player",e);
+        }
+    }
+
 }

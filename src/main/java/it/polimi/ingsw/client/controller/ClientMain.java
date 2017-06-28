@@ -1016,6 +1016,18 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * this method is used to receive the leader cards that had been chosen by the other players
+     * @param nickname the nickname of the player that had chosen the card
+     * @param leaderCard the chosen leader card
+     */
+    @Override
+    public void receiveChosenLeader(String nickname, LeaderCard leaderCard) {
+
+        modelController.addLeaderCardToPlayer(leaderCard, modelController.getPlayerByNickname(nickname));
+
+    }
+
+    /**
      * Callback from model to controller
      * the model uses this method when the player performs an action but from the model we have to ask
      * how many servants he wants to add

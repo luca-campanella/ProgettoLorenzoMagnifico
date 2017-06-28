@@ -7,11 +7,11 @@ import java.io.Serializable;
 /**
  * this is the packet to deliver the leader card chose by the client
  */
-public class ReceiveLeaderCardChosePacket implements Serializable{
+public class ChosenLeaderPacket implements Serializable{
 
     private LeaderCard leaderCard;
 
-    public ReceiveLeaderCardChosePacket(LeaderCard leaderCard){
+    public ChosenLeaderPacket(LeaderCard leaderCard){
         this.leaderCard = leaderCard;
     }
 
