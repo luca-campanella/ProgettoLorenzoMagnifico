@@ -39,8 +39,8 @@ public abstract class AbstractClientType  {
 
     /**
      * this method is used when an user already exists and decides to login with his username and password
-     * @param nickname
-     * @param password
+     * @param nickname is the nick of the player
+     * @param password is the password of the player
      * @throws NetworkException if something goes wrong during the connection
      * @throws LoginException if username doesn't exist or if password is wrong
      */

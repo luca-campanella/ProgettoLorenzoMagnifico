@@ -242,6 +242,7 @@ public class GraphicalUI extends AbstractUIType {
         leaderCards.forEach(leader -> ((LeaderPickerControl) (currentFXControl)).addLeader(leader));
     }
 
+
     /**
      * This method is called at the beginning of the game to choose one personal tile
      * This method should be non-blocking
@@ -467,7 +468,7 @@ public class GraphicalUI extends AbstractUIType {
      * @param fxmlFileName the fxml to start from
      * @param title the title of the window
      */
-    private void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
+    public void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
 
