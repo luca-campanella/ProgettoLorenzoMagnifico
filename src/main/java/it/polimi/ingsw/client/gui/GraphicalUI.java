@@ -486,7 +486,7 @@ public class GraphicalUI extends AbstractUIType {
 
         currentStage.setTitle(title);
         currentStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
-
+        currentStage.setResizable(false);
         if(runBeforeShow != null) //there is something to run
             runBeforeShow.run();
 

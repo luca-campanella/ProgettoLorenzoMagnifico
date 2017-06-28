@@ -57,8 +57,10 @@
 }
 
 .actionSpaceButton {
+    -fx-border-color: yellow;
+    -fx-border-width: 10px;
     -fx-background-color: orange;
-    -fx-opacity: 40%;
+    -fx-opacity: 100%;
     -fx-min-width: 45px;
     -fx-min-height: 45px;
     -fx-background-radius: 20px;
@@ -66,6 +68,7 @@
 
 .actionSpaceButton:disabled {
     -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .button {
