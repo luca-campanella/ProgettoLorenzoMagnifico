@@ -49,8 +49,13 @@ public class LeaderPickerControl extends CustomFxControl {
                 .then(leaderImage)
                 .otherwise(leaderImage) //this should be unselected
         );
-        toggleImage.setFitHeight(320);
+        toggleImage.setFitHeight(450);
+        toggleImage.prefHeight(320);
+        toggleImage.maxHeight(320);
+        //toggleImage.setFitHeight(320);
         toggleImage.setPreserveRatio(true);
+
+        //toggle.maxHeight(330);
 
         toggle.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
