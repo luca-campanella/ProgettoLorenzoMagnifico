@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.client.cli.CliPrinter;
-import it.polimi.ingsw.client.gui.GraphicalUI;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
@@ -38,7 +37,6 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +51,10 @@ public class MainBoardControl extends CustomFxControl {
     private AnchorPane towersCouncilFaith;
 
     @FXML
-    private AnchorPane marketBuildHarvest;
+    private AnchorPane marketPane;
+
+    @FXML
+    private AnchorPane buildHarvestPane;
 
     @FXML
     private Button blueCardsButton;
@@ -130,7 +131,7 @@ public class MainBoardControl extends CustomFxControl {
     public void displayDices() {
         for(Dice diceIter : dices) {
             if(diceIter.getColor() != DiceAndFamilyMemberColorEnum.NEUTRAL) {
-                Text diceText = ((Text) (marketBuildHarvest.lookup("#dice" + diceIter.getColor().getIntegerValue())));
+                Text diceText = ((Text) (marketPane.lookup("#dice" + diceIter.getColor().getIntegerValue())));
                 diceText.setText(String.valueOf(diceIter.getValue()));
             }
         }
@@ -280,7 +281,7 @@ public class MainBoardControl extends CustomFxControl {
             }
         }
 
-        //we reactivatre only the ones passed via parameters
+        //we reactivate only the ones passed via parameters
         for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
             Button activeASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
             activeASButton.setDisable(false);
