@@ -89,8 +89,55 @@
                      </children></AnchorPane>
               </items>
             </SplitPane>
-            <SplitPane dividerPositions="0.6971153846153846, 0.7740384615384616, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+            <SplitPane dividerPositions="0.23317307692307693, 0.3161057692307692, 0.39302884615384615" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
+                  <AnchorPane fx:id="marketBuildHarvest">
+                     <children>
+                        <Text fx:id="dice1" fill="WHITE" layoutX="347.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="dice0" layoutX="415.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="dice2" layoutX="482.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                     </children></AnchorPane>
+                  <HBox fx:id="familyMembersPanel">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="68.0" text="Available&#13;Family&#13;Members" wrapText="true" />
+                        <ToggleButton fx:id="FM1" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="6" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="27.0" />
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="familyMembersToggleGroup" />
+                           </toggleGroup>
+                        </ToggleButton>
+                        <ToggleButton fx:id="FM0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="6" textAlignment="CENTER" textFill="#141414">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </ToggleButton>
+                        <ToggleButton fx:id="FM2" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="6" textAlignment="CENTER">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </ToggleButton>
+                        <ToggleButton fx:id="FM3" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </ToggleButton>
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="currentGameStateTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" text="Waiting for enemies to play" />
                   <TabPane fx:id="playersTabPersonalBoard" prefHeight="431.0" prefWidth="573.0" styleClass="personalBoardPane" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab fx:id="thisPlayerTab" closable="false" text="You (nickname)">
@@ -161,53 +208,6 @@
                         </Tab>
                     </tabs>
                   </TabPane>
-                  <TextArea fx:id="currentGameStateTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" text="Waiting for enemies to play" />
-                  <HBox fx:id="familyMembersPanel">
-                     <children>
-                        <Label prefHeight="17.0" prefWidth="68.0" text="Available&#13;Family&#13;Members" wrapText="true" />
-                        <ToggleButton fx:id="FM1" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="6" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="27.0" />
-                           </font>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="familyMembersToggleGroup" />
-                           </toggleGroup>
-                        </ToggleButton>
-                        <ToggleButton fx:id="FM0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="6" textAlignment="CENTER" textFill="#141414">
-                           <font>
-                              <Font size="27.0" />
-                           </font>
-                        </ToggleButton>
-                        <ToggleButton fx:id="FM2" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="6" textAlignment="CENTER">
-                           <font>
-                              <Font size="27.0" />
-                           </font>
-                        </ToggleButton>
-                        <ToggleButton fx:id="FM3" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="0" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font size="27.0" />
-                           </font>
-                        </ToggleButton>
-                     </children>
-                  </HBox>
-                  <AnchorPane fx:id="marketBuildHarvest">
-                     <children>
-                        <Text fx:id="dice1" fill="WHITE" layoutX="347.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="dice0" layoutX="415.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="dice2" layoutX="482.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Text>
-                     </children></AnchorPane>
               </items>
             </SplitPane>
         </items>

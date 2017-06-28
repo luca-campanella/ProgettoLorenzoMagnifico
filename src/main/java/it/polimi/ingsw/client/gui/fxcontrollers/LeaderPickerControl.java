@@ -7,6 +7,7 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -49,10 +50,10 @@ public class LeaderPickerControl extends CustomFxControl {
                 .then(leaderImage)
                 .otherwise(leaderImage) //this should be unselected
         );
-        toggleImage.setFitHeight(450);
-        toggleImage.prefHeight(320);
+        toggleImage.setFitHeight(420);
+        /*toggleImage.prefHeight(320);
         toggleImage.maxHeight(320);
-        //toggleImage.setFitHeight(320);
+        //toggleImage.setFitHeight(320);*/
         toggleImage.setPreserveRatio(true);
 
         //toggle.maxHeight(330);
@@ -70,6 +71,7 @@ public class LeaderPickerControl extends CustomFxControl {
         });
 
         leaderContainer.getChildren().add(toggle);
+        leaderContainer.setAlignment(Pos.CENTER);
         toggle.setId(leader.getName());
         buttonsLeadersMap.put(toggle.getId(), leader);
         Debug.printVerbose("leader " + leader.getName() + "added scuccesfully to the window");
