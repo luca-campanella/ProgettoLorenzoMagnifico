@@ -149,4 +149,11 @@ public abstract class AbstractClientType  {
      */
     public abstract void deliverTileChosen(PersonalTile tileChosen) throws NetworkException;
 
+    /**
+     * this method is called by the client main to deliver to the server that this player
+     * has activated the effect of a leader card
+     * @param leaderName the name of the leader card
+     * @param choicesOnCurrentAction the choices done on the effect
+     */
+    public abstract void activateLeaderCard(String leaderName, HashMap<String, Integer> choicesOnCurrentAction) throws NetworkException;
 }

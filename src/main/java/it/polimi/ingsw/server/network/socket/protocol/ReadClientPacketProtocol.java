@@ -45,6 +45,7 @@ public class ReadClientPacketProtocol {
         instruction.put(PacketType.LEADER_CHOICES, ()-> player.deliverLeaderCards());
         instruction.put(PacketType.MOVE_IN_COUNCIL, ()-> player.placeOnCouncil());
         instruction.put(PacketType.CHOSE_TILES, ()-> player.receivedPersonalTile());
+        instruction.put(PacketType.ACTIVATE_LEADER, ()-> player.receiveActivatedLeader());
     }
 
     /**

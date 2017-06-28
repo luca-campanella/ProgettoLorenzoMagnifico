@@ -110,13 +110,13 @@ public class InitialActionMenu extends WaitBasicCliMenu {
         }
         else {
             Debug.printVerbose("Activate leader card called");
-            CliOptionsHandler playLeaderCardChooser = new CliOptionsHandler(activailableLeaderCards.size());
+            CliOptionsHandler activateLeaderCardChooser = new CliOptionsHandler(activailableLeaderCards.size());
 
             for (LeaderCard lcIter : activailableLeaderCards) {
-                playLeaderCardChooser.addOption("play " + lcIter.getName() + " of description " + lcIter.getAbility().getAbilityDescription());
+                activateLeaderCardChooser.addOption("play " + lcIter.getName() + " of description " + lcIter.getAbility().getAbilityDescription());
             }
-            indexRes = playLeaderCardChooser.askUserChoice();
+            indexRes = activateLeaderCardChooser.askUserChoice();
         }
-        getController().callbackPlayLeader(activailableLeaderCards.get(indexRes));
+        getController().callbackActivateLeader(activailableLeaderCards.get(indexRes));
     }
 }

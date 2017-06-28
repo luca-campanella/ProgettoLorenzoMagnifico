@@ -150,4 +150,9 @@ public interface ViewControllerCallbackInterface {
      */
     public List<Player> callbackObtainPlayersInOrder();
 
+    /**
+     * this method is called by the view to activate the effect of a leader card
+     * @param leaderCard the leader card that activates the effect
+     */
+    void callbackActivateLeader(LeaderCard leaderCard);
 }

@@ -180,4 +180,13 @@ public interface RMIClientInterface extends Remote {
      * @param nickname the nickname of the player that ha chosen the leader card
      */
     void receiveChosenLeaderCard(LeaderCard leaderCard, String nickname) throws RemoteException;
+
+    /**
+     * this method is called by the networ to deliver the leader card activated by another player
+     * @param nameCard the name of the leader card
+     * @param resourceGet the resource gotten
+     * @param nickname the nickname of the player that had activated the card
+     * @throws RemoteException
+     */
+    void receiveActivatedLeader(String nameCard, HashMap<String, Integer> resourceGet, String nickname) throws RemoteException;
 }

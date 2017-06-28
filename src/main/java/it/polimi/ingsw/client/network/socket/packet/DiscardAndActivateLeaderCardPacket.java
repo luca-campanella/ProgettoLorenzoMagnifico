@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
  * this packet is send when the player decides to use a leader card
  */
-public class DiscardLeaderCardPacket implements Serializable {
+public class DiscardAndActivateLeaderCardPacket implements Serializable {
     /**
      * name of the leader card
      */
@@ -20,7 +20,7 @@ public class DiscardLeaderCardPacket implements Serializable {
      * constructor
      * @param nameLeaderCard
      */
-    public DiscardLeaderCardPacket(String nameLeaderCard, HashMap<String, Integer> resourceChoose){
+    public DiscardAndActivateLeaderCardPacket(String nameLeaderCard, HashMap<String, Integer> resourceChoose){
         this.nameLeaderCard=nameLeaderCard;
         this.resourceChoose=resourceChoose;
     }

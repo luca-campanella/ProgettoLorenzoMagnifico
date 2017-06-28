@@ -187,6 +187,25 @@ import java.util.HashMap;
     }
 
     /**
+     * this method is used to deliver to the client the information that a player had activated the effect of a leader card
+     * @param nameCard the name of the leader card
+     * @param resourceGet the resource gotten thanks to the effect
+     * @param nickname the nickname of the player that had activated the leader card
+     * @throws NetworkException
+     */
+    @Override
+    public void deliverActivatedLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, String nickname) throws NetworkException {
+
+        try{
+            RMIClientInterfaceInst.receiveActivatedLeader(nameCard, resourceGet, nickname);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send move on tower to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
      * @param familyMember the family member placed on the tower
      * @param towerIndex the number of the tower
@@ -484,6 +503,18 @@ import java.util.HashMap;
     public void receiveEndPhase() throws RemoteException{
 
         getRoom().endPhase(this);
+    }
+
+    /**
+     * this method is called by the client to deliver to the server the leader card activated
+     * @param leaderName the name of the leader card
+     * @param choicesOnCurrentAction the choices done if the player had to choose recources
+     * @throws RemoteException
+     */
+    @Override
+    public void receiveActivatedLeader(String leaderName, HashMap<String, Integer> choicesOnCurrentAction) throws RemoteException {
+
+        getRoom().receiveActivatedLeader(leaderName, choicesOnCurrentAction, this);
     }
 
 

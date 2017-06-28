@@ -710,6 +710,24 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     *
+     * @param leaderCard the leader card that activates the effect
+     */
+    @Override
+    public void callbackActivateLeader(LeaderCard leaderCard) {
+
+        Debug.printDebug("I'm in ClientMain.callbackActivateLeader");
+        modelController.activateLeaderCard( thisPlayer.getNickname(), leaderCard.getName() ,this);
+        try{
+            clientNetwork.activateLeaderCard(leaderCard.getName(),choicesOnCurrentAction);
+        }
+        catch (NetworkException e){
+            Debug.printError("the client cannot deliver the leader card to activate");
+        }
+        clientChoices();
+    }
+
+    /**
      * This method returns to the view the list of dices
      * this method is usually called by the view to show the dices value
      * @return the list of the dices

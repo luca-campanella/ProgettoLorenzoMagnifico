@@ -84,5 +84,12 @@ public interface RMIPlayerInterface extends Remote {
      * this method is called by the client to infor the server that the player had ended his turn
      */
     void receiveEndPhase() throws RemoteException;
+
+    /**
+     * this method is called by the client to deliver to the server the leader card activated
+     * @param leaderName the name of the leader card
+     * @param choicesOnCurrentAction the choices done if the player had to choose recources
+     */
+    void receiveActivatedLeader(String leaderName, HashMap<String, Integer> choicesOnCurrentAction) throws RemoteException;
 }
 
