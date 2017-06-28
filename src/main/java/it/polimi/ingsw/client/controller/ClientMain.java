@@ -620,7 +620,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * to notify that the player is in turn and should move
      */
     public void receivedStartTurnNotification() {
-        userInterface.interruptWaitMenu();
         Debug.printVerbose("receivedStartTurnNotification called");
         playedFamilyMember = false;
         clientChoices();

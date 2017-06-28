@@ -316,6 +316,9 @@ public class CommandLineUI extends AbstractUIType {
                                  List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards, List<LeaderCard> playedAndNotActivatedLeaderCards) {
         Debug.printVerbose("****wait menu state: " + waitMenu.getState());
 
+        if(waitMenu.getState() == Thread.State.RUNNABLE || waitMenu.getState() == Thread.State.TIMED_WAITING)
+            waitMenu.interrupt();
+
         InitialActionMenu menu = new InitialActionMenu(getController(), playableFMs,
                 playedFamilyMember,leaderCardsNotPlayed,playedLeaderCards, playableLeaderCards, playedAndNotActivatedLeaderCards);
 
@@ -485,18 +488,6 @@ public class CommandLineUI extends AbstractUIType {
             int choice = familyMemberChooser.askUserChoice();
             return availableFamilyMembers.get(choice).getColor();
         }
-    }
-
-    /**
-     * this method is called to end the menu used while witing for the other players
-     */
-    @Override
-    public void interruptWaitMenu() {
-
-        Debug.printVerbose("interruptWaitMenu, state before stop: " + waitMenu.getState());
-        waitMenu.interrupt();
-        Debug.printVerbose("interruptWaitMenu, state after stop: " + waitMenu.getState());
-
     }
 
     /**

@@ -40,9 +40,9 @@ import java.util.*;
 
 public class GraphicalUI extends AbstractUIType {
 
-    Stage mainStage;
     Stage currentStage;
     CustomFxControl currentFXControl;
+    SceneEnum currentSceneType;
     /**
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
@@ -50,7 +50,6 @@ public class GraphicalUI extends AbstractUIType {
     public GraphicalUI(ViewControllerCallbackInterface controller)
     {
         super(controller);
-        this.mainStage = mainStage;
         Platform.runLater(() -> initStage());
     }
 
@@ -165,7 +164,11 @@ public class GraphicalUI extends AbstractUIType {
     public void askInitialAction(ArrayList<FamilyMember> playableFMs, boolean playedFamilyMember,
                                  List<LeaderCard> leaderCardsNotPlayed, List<LeaderCard> playedLeaderCards, List<LeaderCard> playableLeaderCards, List<LeaderCard> playedAndNotActivatedLeaderCards) {
 
-        Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", () -> setUpMainBoardControl()));
+        if(currentSceneType != SceneEnum.MAIN_BOARD) {
+            Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", () -> setUpMainBoardControl()));
+            currentSceneType = SceneEnum.MAIN_BOARD;
+        }
+        //todo call on the controller something that tells its his turn
 
     }
 
@@ -310,13 +313,12 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     @Override
-    public void interruptWaitMenu() {
-
-    }
-
-    @Override
     public void waitMenu() {
-
+        if(currentSceneType != SceneEnum.MAIN_BOARD) {
+            Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", () -> setUpMainBoardControl()));
+            currentSceneType = SceneEnum.MAIN_BOARD;
+        }
+        //todo call on the controller something that tells its not his turn
     }
 
     /**
@@ -403,6 +405,7 @@ public class GraphicalUI extends AbstractUIType {
     public void askNetworkType()
     {
         Debug.printDebug("Sono nella gui. Voglio chedere quale network usare.");
+        currentSceneType = SceneEnum.CONNECTION_CHOICE;
 
         Platform.runLater(() ->openNewWindow("ConnectionChooserV2.fxml", "Connection Type Choice", null));
     }
@@ -438,9 +441,11 @@ public class GraphicalUI extends AbstractUIType {
     public void askLoginOrCreate()
     {
         Debug.printDebug("Sono nella gui. ask login or create.");
-
-        Platform.runLater(() -> openNewWindow("LoginRegisterScene.fxml", "Login or register",
-                () -> ((LoginRegisterControl) (currentFXControl)).setStage(currentStage)));
+        if(currentSceneType != SceneEnum.LOGIN_REGISTER) {
+            Platform.runLater(() -> openNewWindow("LoginRegisterScene.fxml", "Login or register",
+                    () -> ((LoginRegisterControl) (currentFXControl)).setStage(currentStage)));
+            currentSceneType = SceneEnum.LOGIN_REGISTER;
+        }
     }
 
     //permette all'utente di create un nuovo account
