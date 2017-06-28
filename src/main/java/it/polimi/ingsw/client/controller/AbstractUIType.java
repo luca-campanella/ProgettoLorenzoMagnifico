@@ -229,11 +229,6 @@ abstract public class AbstractUIType {
     public abstract DiceAndFamilyMemberColorEnum askWhichFamilyMemberBonus(List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException;
 
     /**
-     * this method is called to end the menu used while witing for the other players
-     */
-    public abstract void interruptWaitMenu();
-
-    /**
      * this method is used to start the menu used when the player is waiting the other players playing the phase
      */
     public abstract void waitMenu();

@@ -620,7 +620,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * to notify that the player is in turn and should move
      */
     public void receivedStartTurnNotification() {
-        userInterface.interruptWaitMenu();
         Debug.printVerbose("receivedStartTurnNotification called");
         playedFamilyMember = false;
         clientChoices();
@@ -756,9 +755,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receivedLeaderCards(List<LeaderCard> leaderCards) {
         Debug.printDebug("Automatically chose leader " + leaderCards.get(0).getName());
-        callbackOnLeaderCardChosen(leaderCards.get(0)); //todo remove these two statements
+        //callbackOnLeaderCardChosen(leaderCards.get(0)); //todo remove these two statements
         //todo commented to skip leader chosing phase, not to lose time
-        //userInterface.askLeaderCards(leaderCards);
+        userInterface.askLeaderCards(leaderCards);
     }
 
     /**

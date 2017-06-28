@@ -44,10 +44,10 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
 
         gui = new GraphicalUI(this);
 
-        //testLeaders();
+        testLeaders();
         //testWaitingMenu();
         //testCards();
-        testMainBoard();
+        //testMainBoard();
     }
 
     public static void main(String args[]) {
@@ -92,7 +92,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
 
     private void testLeaders() {
         ArrayList<LeaderCard> leadersMock = new ArrayList<LeaderCard>(4);
-        leadersMock.add(new LeaderCard(createOneReqArray(new CardRequirement(5, CardColorEnum.PURPLE)),
+       leadersMock.add(new LeaderCard(createOneReqArray(new CardRequirement(5, CardColorEnum.PURPLE)),
                 "Francesco Sforza",
                 "E per dirlo ad un tratto non ci fu guerra famosa nell’Italia, che Francesco Sforza non vi " +
                         "si trovasse, e le Repubbliche, Prencipi, Re e Papi andavano a gara per haverlo al suo sevigio.",

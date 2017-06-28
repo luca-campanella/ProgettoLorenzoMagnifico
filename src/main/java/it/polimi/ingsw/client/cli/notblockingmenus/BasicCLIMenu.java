@@ -66,8 +66,8 @@ public abstract class BasicCLIMenu extends Thread {
     protected void showMenuAndAskNonBlocking() {
         printMenu();
 
-        while(!Thread.currentThread().isInterrupted()) {
-            try {
+        try {
+            while(!Thread.currentThread().isInterrupted()) {
                 String choice = StdinSingleton.nextLineNonBlocking();
                 if (choice != null) {
                     DescrCallbackContainer callbackContainer = optionsMap.get(choice.toUpperCase());
@@ -82,10 +82,10 @@ public abstract class BasicCLIMenu extends Thread {
                 else {
                     Thread.sleep(100);
                 }
-            } catch (Exception e) {
+            }
+        } catch (Exception e) {
                 Debug.printVerbose("Interrupting thread caused by IOex", e);
                 Thread.currentThread().interrupt();
-            }
         }
     }
 
