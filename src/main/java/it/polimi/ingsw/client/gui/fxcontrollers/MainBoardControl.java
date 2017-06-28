@@ -46,7 +46,9 @@ import java.util.Optional;
  * Created by campus on 24/06/2017.
  */
 public class MainBoardControl extends CustomFxControl {
-
+    boolean[] isLeaderStageCreated = {false,false, false, false, false};
+    Stage secondStage = new Stage();
+    CustomFxControl currentFXControl;
     @FXML
     private AnchorPane towersCouncilFaith;
 
@@ -162,17 +164,23 @@ public class MainBoardControl extends CustomFxControl {
     public void showBlueCards() {
         showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE), "Blue cards");
     }
-
+    /**
+     * owned cards leader
+     */
     @FXML
     public void showLeaderCards()
     {
+        if(!isLeaderStageCreated[0])
         Platform.runLater(() -> this.openNewWindow("LeaderPickerScene.fxml", "Choose a leader", () -> this.showLeaders(
                 thisPlayer.getLeaderCardsNotUsed(), thisPlayer.getPlayedLeaders(), thisPlayer.getPlayableLeaders(),
-                thisPlayer.getPermanentLeaderCardCollector())));
+                thisPlayer.getPlayedNotActivatedOncePerRoundLeaderCards())));
+
+
     }
 
-    private void showLeaders(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, PermanentLeaderCardCollector leadersEffectCollector) {
-
+    private void showLeaders(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {
+        LeaderOwnedControl leaderOwnedControl = ((LeaderOwnedControl) (currentFXControl));
+        leaderOwnedControl.setLeaders(leaderNotUsed,leaderActivated,leadersPlayable,leadersOPRNotActivated);
         return;
     }
 
@@ -187,8 +195,6 @@ public class MainBoardControl extends CustomFxControl {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
         Parent root = null;
-        Stage secondStage = new Stage();
-        CustomFxControl currentFXControl;
         try {
             root = fxmlLoader.load();
         } catch (IOException e) {
@@ -197,7 +203,7 @@ public class MainBoardControl extends CustomFxControl {
 
         currentFXControl = (fxmlLoader.getController());
 
-        //currentFXControl.setController(getController());
+        currentFXControl.setController(getController());
 
         secondStage.setTitle(title);
         secondStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
