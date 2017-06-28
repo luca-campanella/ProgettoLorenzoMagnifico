@@ -102,5 +102,21 @@ public class InitialActionMenu extends WaitBasicCliMenu {
 
     private void activateLeaderAbility() {
 
+        int indexRes = 0;
+        List<LeaderCard> activailableLeaderCards = getController().callbackObtainPlayer().getPlayedNotActivatedOncePerRoundLeaderCards();
+        if(activailableLeaderCards.size() == 1) {
+            System.out.println("You can only activate Leader Card " + activailableLeaderCards.get(0).getName());
+            System.out.println("I'm activating this leader card");
+        }
+        else {
+            Debug.printVerbose("Activate leader card called");
+            CliOptionsHandler playLeaderCardChooser = new CliOptionsHandler(activailableLeaderCards.size());
+
+            for (LeaderCard lcIter : activailableLeaderCards) {
+                playLeaderCardChooser.addOption("play " + lcIter.getName() + " of description " + lcIter.getAbility().getAbilityDescription());
+            }
+            indexRes = playLeaderCardChooser.askUserChoice();
+        }
+        getController().callbackPlayLeader(activailableLeaderCards.get(indexRes));
     }
 }
