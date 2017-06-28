@@ -171,4 +171,12 @@ public interface NetworkControllerClientInterface {
      * @param leaderCard the chosen leader card
      */
     void receiveChosenLeader(String nickname, LeaderCard leaderCard);
+
+    /**
+     * this method is called by RMI client to receive the leaderc card played bu another player
+     * @param nameCard the name of the leader card played
+     * @param choicesOnCurrentActionString the choices done while playing the leader card
+     * @param nickname the nickname of the player
+     */
+    void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname);
 }

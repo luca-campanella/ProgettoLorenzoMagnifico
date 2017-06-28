@@ -484,7 +484,9 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws RemoteException {
-        //TODO
+
+        getControllerMain().receivePlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname);
+
     }
 
     /**
