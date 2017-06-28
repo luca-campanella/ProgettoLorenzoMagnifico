@@ -8,6 +8,16 @@
     -fx-background-size: cover;
 }
 
+#buildHarvestPane {
+    -fx-background-image: url("/imgs/BuildHarvest.jpg");
+    -fx-background-size: cover;
+}
+
+#marketPane {
+    -fx-background-image: url("/imgs/Market.jpg");
+    -fx-background-size: cover;
+}
+
 .personalBoardPane {
     -fx-background-image: url("/imgs/PersonalBoard.jpg");
     -fx-background-size: cover;
@@ -57,10 +67,8 @@
 }
 
 .actionSpaceButton {
-    -fx-border-color: yellow;
-    -fx-border-width: 10px;
     -fx-background-color: orange;
-    -fx-opacity: 100%;
+    -fx-opacity: 40%;
     -fx-min-width: 45px;
     -fx-min-height: 45px;
     -fx-background-radius: 20px;

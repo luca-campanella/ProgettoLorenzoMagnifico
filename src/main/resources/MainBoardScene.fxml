@@ -10,9 +10,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="834.0" prefWidth="1213.0" stylesheets="@MainBoardStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.MainBoardControl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1280.0" stylesheets="@MainBoardStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.MainBoardControl">
    <children>
-      <SplitPane dividerPositions="0.523534269199009" layoutX="-1.0" prefHeight="834.0" prefWidth="1213.0">
+      <SplitPane dividerPositions="0.5312989045383412" layoutX="-1.0" prefHeight="900.0" prefWidth="1280.0">
         <items>
             <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
@@ -89,26 +89,32 @@
                      </children></AnchorPane>
               </items>
             </SplitPane>
-            <SplitPane dividerPositions="0.23317307692307693, 0.3161057692307692, 0.39302884615384615" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+            <SplitPane dividerPositions="0.23273942093541203, 0.3062360801781737, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
-                  <AnchorPane fx:id="marketBuildHarvest">
-                     <children>
-                        <Text fx:id="dice1" fill="WHITE" layoutX="347.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="dice0" layoutX="415.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="dice2" layoutX="482.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Text>
-                     </children></AnchorPane>
+                  <SplitPane dividerPositions="0.5">
+                     <items>
+                        <AnchorPane fx:id="buildHarvestPane" prefHeight="205.0" prefWidth="225.0" />
+                        <AnchorPane fx:id="marketPane">
+                           <children>
+                              <Text fx:id="dice1" fill="WHITE" layoutX="51.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="dice0" layoutX="139.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="dice2" layoutX="236.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                     </items>
+                  </SplitPane>
                   <HBox fx:id="familyMembersPanel">
                      <children>
                         <Label prefHeight="17.0" prefWidth="68.0" text="Available&#13;Family&#13;Members" wrapText="true" />
