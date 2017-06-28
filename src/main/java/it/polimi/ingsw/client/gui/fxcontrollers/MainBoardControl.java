@@ -1,21 +1,29 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.client.cli.CliPrinter;
+import it.polimi.ingsw.client.gui.GraphicalUI;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.Tower;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.leaders.PermanentLeaderCardCollector;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.TowerWrapper;
+import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,8 +33,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -150,6 +162,52 @@ public class MainBoardControl extends CustomFxControl {
     public void showBlueCards() {
         showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE), "Blue cards");
     }
+
+    @FXML
+    public void showLeaderCards()
+    {
+        Platform.runLater(() -> this.openNewWindow("LeaderPickerScene.fxml", "Choose a leader", () -> this.showLeaders(
+                thisPlayer.getLeaderCardsNotUsed(), thisPlayer.getPlayedLeaders(), thisPlayer.getPlayableLeaders(),
+                thisPlayer.getPermanentLeaderCardCollector())));
+    }
+
+    private void showLeaders(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, PermanentLeaderCardCollector leadersEffectCollector) {
+
+        return;
+    }
+
+
+    /**
+     * This method opens a new window and shows it. It also sets the controller for the callbacks inside the custom fx controller
+     * This method shoudl be passed as a parameter to the runLater fx method
+     * @param fxmlFileName the fxml to start from
+     * @param title the title of the window
+     */
+    private void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
+        Parent root = null;
+        Stage secondStage = new Stage();
+        CustomFxControl currentFXControl;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            Debug.printError("Error in loading fxml", e);
+        }
+
+        currentFXControl = (fxmlLoader.getController());
+
+        //currentFXControl.setController(getController());
+
+        secondStage.setTitle(title);
+        secondStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
+
+        if(runBeforeShow != null) //there is something to run
+            runBeforeShow.run();
+
+        secondStage.show();
+    }
+
 
     @FXML
     public void familyMemberSelected(ActionEvent event) {
