@@ -52,8 +52,6 @@ public class StdinSingleton
         return stdinScanner.nextLine();
     }
 
-    public static boolean hasNext() { return stdinScanner.hasNext();}
-
     public static int available() throws IOException {
         return System.in.available();
     }
