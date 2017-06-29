@@ -13,7 +13,10 @@ import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//todo: leaders: add play / activate / discard effects
+//todo: check bug (2x leaders)
+//todo: check if right part is filled
+//todo: hide / show the window properly
 /**
  * This class controls the AnchorPane that a user sees when clicks "ShowLeader"
  */

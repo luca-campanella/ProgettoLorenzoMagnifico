@@ -44,9 +44,11 @@ import java.util.Optional;
  * Created by campus on 24/06/2017.
  */
 public class MainBoardControl extends CustomFxControl {
-    boolean[] isLeaderStageCreated = {false,false, false, false, false};
-    Stage secondStage = new Stage();
-    CustomFxControl currentFXControl;
+    //todo: implement refresh of the leaders in tLeaderOwnedControl
+    private boolean[] isLeaderStageCreated = {false,false, false, false, false};
+
+    private Stage secondStage = new Stage();
+    private CustomFxControl currentFXControl;
     @FXML
     private AnchorPane towersCouncilFaith;
 
@@ -169,14 +171,46 @@ public class MainBoardControl extends CustomFxControl {
      * owned cards leader
      */
     @FXML
-    public void showLeaderCards()
-    {
-        if(!isLeaderStageCreated[0])
+    public void showLeaderCards() {
+        if (!isLeaderStageCreated[0]) {
+
         Platform.runLater(() -> this.openNewWindow("LeaderOwnedScene.fxml", "Choose a leader", () -> this.showLeaders(
                 thisPlayer.getLeaderCardsNotUsed(), thisPlayer.getPlayedLeaders(), thisPlayer.getPlayableLeaders(),
                 thisPlayer.getPlayedNotActivatedOncePerRoundLeaderCards())));
+        //todo: isLeaderStageCreated[0] = true;
+        }
 
+    }
+    @FXML
+    public void showOtherPlayerLeader1()
+    {
+        showOtherPlayerLeader(1);
+    }
+    @FXML
+    public void showOtherPlayerLeader2()
+    {
+        showOtherPlayerLeader(2);
+    }
+    @FXML
+    public void showOtherPlayerLeader3()
+    {
+        showOtherPlayerLeader(3);
+    }
 
+    @FXML
+    private void showOtherPlayerLeader(int indexOfPlayerTab)
+    {
+        if(!isLeaderStageCreated[indexOfPlayerTab]) {
+            //todo check index
+            Player temp = otherPlayers.get(indexOfPlayerTab-1);
+            Platform.runLater(() -> this.openNewWindow("LeaderOtherPlayersScene.fxml", "Choose a leader",
+                    () -> this.showLeaders(
+                            temp.getLeaderCardsNotUsed(),
+                            temp.getPlayedLeaders(),
+                            temp.getPlayableLeaders(),
+                            temp.getPlayedNotActivatedOncePerRoundLeaderCards())));
+            Debug.printVerbose("runLater loaded");
+        }
     }
 
     private void showLeaders(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {

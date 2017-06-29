@@ -173,7 +173,7 @@
                                        <items>
                                           <Button fx:id="blueCardsButton1" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
                                           <Button fx:id="purpleCardsButton1" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
-                                          <Button mnemonicParsing="false" text="Leader Cards" />
+                                          <Button fx:id="leaderCardsButton1" mnemonicParsing="false" onAction="#showOtherPlayerLeader1" text="Leader Cards" />
                                        </items>
                                     </ToolBar>
                                  </items>
@@ -189,7 +189,7 @@
                                        <items>
                                           <Button fx:id="blueCardsButton11" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
                                           <Button fx:id="purpleCardsButton11" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
-                                          <Button mnemonicParsing="false" text="Leader Cards" />
+                                          <Button fx:id="leaderCardsButton11" mnemonicParsing="false" onAction="#showOtherPlayerLeader2" text="Leader Cards" />
                                        </items>
                                     </ToolBar>
                                  </items>
@@ -205,7 +205,7 @@
                                        <items>
                                           <Button fx:id="blueCardsButton111" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
                                           <Button fx:id="purpleCardsButton111" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
-                                          <Button mnemonicParsing="false" text="Leader Cards" />
+                                          <Button fx:id="leaderCardsButton111" mnemonicParsing="false" onAction="#showOtherPlayerLeader3" text="Leader Cards" />
                                        </items>
                                     </ToolBar>
                                  </items>
