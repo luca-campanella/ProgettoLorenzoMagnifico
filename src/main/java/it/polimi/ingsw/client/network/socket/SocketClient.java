@@ -175,7 +175,7 @@ public class SocketClient extends AbstractClientType {
         try {
             synchronized (this){
                 outStream.writeObject(PacketType.DISCARD_LEADER);
-                outStream.writeObject(new DiscardLeaderCardPacket(nameLeader, resourceChoose));
+                outStream.writeObject(new DiscardAndActivateLeaderCardPacket(nameLeader, resourceChoose));
             }
             outStream.flush();
         }
@@ -310,12 +310,38 @@ public class SocketClient extends AbstractClientType {
 
     }
 
+    /**
+     * this method is called by the client to deliver to the server the tile chosen by the player
+     * @param tileChosen the tile chosen by the player to play
+     * @throws NetworkException if something goes wrong with the network
+     */
     @Override
     public void deliverTileChosen(PersonalTile tileChosen) throws NetworkException {
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.CHOSE_TILES);
                 outStream.writeObject(tileChosen);}
+            outStream.flush();
+        }
+        catch (IOException e){
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is called by the client main to deliver to the server that this player
+     * has activated the effect of a leader card
+     * @param leaderName the name of the leader card
+     * @param choicesOnCurrentAction the choices done on the effect
+     * @throws NetworkException
+     */
+    @Override
+    public void activateLeaderCard(String leaderName, HashMap<String, Integer> choicesOnCurrentAction) throws NetworkException {
+
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.ACTIVATE_LEADER);
+                outStream.writeObject(new DiscardAndActivateLeaderCardPacket(leaderName, choicesOnCurrentAction));}
             outStream.flush();
         }
         catch (IOException e){
@@ -672,7 +698,7 @@ public class SocketClient extends AbstractClientType {
     public void receiveDiscardLeaderCard(){
 
         try{
-            ReceiveDiscardLeaderCardPacket packet = (ReceiveDiscardLeaderCardPacket)inStream.readObject();
+            ReceiveDiscardOrActivatedLeaderCardPacket packet = (ReceiveDiscardOrActivatedLeaderCardPacket)inStream.readObject();
             getControllerMain().receivedDiscardLeaderCard(packet.getNickname(), packet.getNameCard(), packet.getResourceGet());
         }
         catch (IOException | ClassNotFoundException e){
@@ -723,4 +749,17 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    /**
+     * this method is called by the server to inform the client that anothe player had activated a leader card's effect
+     */
+    public void receiveActivatedLeaderCard() {
+
+        try{
+            ReceiveDiscardOrActivatedLeaderCardPacket packet = (ReceiveDiscardOrActivatedLeaderCardPacket)inStream.readObject();
+            //TODO
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the leader card activated by another player",e);
+        }
+    }
 }

@@ -241,7 +241,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
      */
     public void discardLeaderCard(){
         try{
-            DiscardLeaderCardPacket packet=(DiscardLeaderCardPacket)inStream.readObject();
+            DiscardAndActivateLeaderCardPacket packet=(DiscardAndActivateLeaderCardPacket)inStream.readObject();
             getRoom().receiveDiscardLeaderCard(packet.getNameCard(), packet.getResourceGet(), this);
         }
         catch(IOException e){
@@ -726,7 +726,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.DISCARD_LEADER);
-                outStream.writeObject(new ReceiveDiscardLeaderCardPacket(nickname, nameCard, resourceGet));
+                outStream.writeObject(new ReceiveDiscardOrActivatedLeaderCardPacket(nickname, nameCard, resourceGet));
             }
             outStream.flush();
         }
@@ -801,5 +801,41 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
     }
 
+    /**
+     * this method is used to deliver to the client the information that a player had activated the effect of a leader card
+     * @param nameCard the name of the leader card
+     * @param resourceGet the resource gotten thanks to the effect
+     * @param nickname the nickname of the player that had activated the leader card
+     * @throws NetworkException
+     */
+    @Override
+    public void deliverActivatedLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, String nickname) throws NetworkException {
+
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.ACTIVATE_LEADER);
+                outStream.writeObject(new ReceiveDiscardOrActivatedLeaderCardPacket( nickname, nameCard, resourceGet));
+            }
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the activated leader to " + this.getNickname());
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is used to receive from the client the leader card activated
+     */
+    public void receiveActivatedLeader() {
+
+        try{
+            DiscardAndActivateLeaderCardPacket packet = (DiscardAndActivateLeaderCardPacket)inStream.readObject();
+            getRoom().receiveActivatedLeader(packet.getNameCard(), packet.getResourceGet(), this);
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("cannot receive the leader card activated");
+        }
+    }
 }
 

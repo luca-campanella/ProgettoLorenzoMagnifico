@@ -247,6 +247,24 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     }
 
     /**
+     * this method is called by the client main to deliver to the server that this player
+     * @param leaderName the name of the leader card
+     * @param choicesOnCurrentAction the choices done on the effect
+     * @throws NetworkException
+     */
+    @Override
+    public void activateLeaderCard(String leaderName, HashMap<String, Integer> choicesOnCurrentAction) throws NetworkException {
+
+        try{
+            RMIPlayerInterfaceInst.receiveActivatedLeader(leaderName, choicesOnCurrentAction);
+        }
+        catch (RemoteException e){
+            Debug.printError("RMI: cannot deliver the activated leader card", e);
+            throw new NetworkException("RMI: cannot deliver the activated leader", e);
+        }
+    }
+
+    /**
      * Performs the rmi operations to get "open" a rmi connection with the server
      * @throws ClientConnectionException if it can't find either the sever either the server class or it can't pulbish itself on the registry
      */
@@ -499,5 +517,17 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     public void receiveChosenLeaderCard(LeaderCard leaderCard, String nickname) throws RemoteException {
 
         getControllerMain().receiveChosenLeader(nickname, leaderCard);
+    }
+
+    /**
+     * this method is called by the networ to deliver the leader card activated by another player
+     * @param nameCard the name of the leader card
+     * @param resourceGet the resource gotten
+     * @param nickname the nickname of the player that had activated the card
+     * @throws RemoteException
+     */
+    @Override
+    public void receiveActivatedLeader(String nameCard, HashMap<String, Integer> resourceGet, String nickname) throws RemoteException {
+        //TODO
     }
 }

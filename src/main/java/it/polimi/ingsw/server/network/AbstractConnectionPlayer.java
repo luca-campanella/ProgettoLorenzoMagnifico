@@ -167,4 +167,12 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @param player the player that has chosen the leader card
      */
     public abstract void deliverLeaderChose(LeaderCard leaderCard, AbstractConnectionPlayer player) throws NetworkException;
+
+    /**
+     * this method is used to deliver to the client the information that a player had activated the effect of a leader card
+     * @param nameCard the name of the leader card
+     * @param resourceGet the resource gotten thanks to the effect
+     * @param nickname the nickname of the player that had activated the leader card
+     */
+    public abstract void deliverActivatedLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, String nickname) throws NetworkException;
 }

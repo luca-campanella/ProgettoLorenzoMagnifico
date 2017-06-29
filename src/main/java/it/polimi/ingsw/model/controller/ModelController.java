@@ -652,9 +652,20 @@ public class ModelController {
             effectIterator.applyToPlayer(playerMove, choicesHandlerInterface, nameLeader);
     }
 
-    public void activateLeaderCard(String nickname, String nameLeader, NetworkChoicesPacketHandler choicesController){
+    public void activateLeaderCard(String nickname, String nameLeader, ChoicesHandlerInterface choicesController){
 
-        //player.activateLeaderCard();
+        //TODO
+        Player playerMove = null;
+        for(Player player : players){
+            if(player.getNickname().equals(nickname)){
+                //player.activateLeaderCardAbility(nameLeader);
+                playerMove = player;
+            }
+        }
+
+        List<GainResourceEffect> choices = choicesController.callbackOnCouncilGift("discard leader", 1);
+        for(GainResourceEffect effectIterator : choices)
+            effectIterator.applyToPlayer(playerMove, choicesController, nameLeader);
 
     }
 

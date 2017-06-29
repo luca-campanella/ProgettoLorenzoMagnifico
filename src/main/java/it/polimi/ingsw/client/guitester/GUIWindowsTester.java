@@ -328,4 +328,14 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     public List<Player> callbackObtainPlayersInOrder() {
         return null;
     }
+
+    /**
+     * this method is called by the view to activate the effect of a leader card
+     *
+     * @param leaderCard the leader card that activates the effect
+     */
+    @Override
+    public void callbackActivateLeader(LeaderCard leaderCard) {
+
+    }
 }

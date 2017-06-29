@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.model.player.PlayerColorEnum;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.server.network.socket.SocketPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -721,6 +722,37 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the leader card played by " + nickname + " to " + player.getNickname(),e);
+                }
+            }
+        }
+    }
+
+    /**
+     * this method is called by the network to inform the server that a player had activated a leader card's ability
+     * @param nameCard the name of the leader card
+     * @param resourceGet the resources gotten
+     * @param player the player that had activated the leader
+     */
+    public void receiveActivatedLeader(String nameCard, HashMap<String, Integer> resourceGet, AbstractConnectionPlayer player) {
+        //TODO
+        floodActivatedLeaderCard(nameCard, resourceGet, player.getNickname());
+    }
+
+    /**
+     * this method is used to deliver to the othe players the information that a player had activated a leader card's ability
+     * @param nameCard the name of the leader card activated
+     * @param resourceGet the resources gotten
+     * @param nickname the player that had activated the leader
+     */
+    private void floodActivatedLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, String nickname) {
+
+        for(AbstractConnectionPlayer player : players){
+            if(!player.getNickname().equals(nickname)){
+                try {
+                    player.deliverActivatedLeaderCard(nameCard, resourceGet, nickname);
+                }
+                catch (NetworkException e){
+                    Debug.printError("cannot deliver the leader card activated by " + nickname + " to " + player.getNickname(),e);
                 }
             }
         }
