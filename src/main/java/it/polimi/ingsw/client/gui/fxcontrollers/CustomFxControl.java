@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.utils.Debug;
 import javafx.scene.layout.Pane;
 
+
 /**
  * This custom fx control is the base for all controls class
  * It offers a method to set the {@link ViewControllerCallbackInterface} in order to let single controls make

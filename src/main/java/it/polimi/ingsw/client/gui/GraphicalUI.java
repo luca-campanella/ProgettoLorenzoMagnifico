@@ -145,16 +145,30 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askInitialAction(boolean playedFamilyMember) {
+        StringBuilder textToDisplay = new StringBuilder("It's your turn, ");
+
+        if(!playedFamilyMember) {
+            textToDisplay.append("please select a family member and then an action space or ");
+        }
+        else {
+            textToDisplay.append("you already played your family member, please ");
+        }
+        textToDisplay.append("make a leader action or pass the turn");
 
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
-            Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", () -> setUpMainBoardControl()));
+            Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
+                    () -> setUpMainBoardControl(textToDisplay.toString())));
             currentSceneType = SceneEnum.MAIN_BOARD;
+        } else {
+            ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(textToDisplay.toString());
         }
-        //todo call on the controller something that tells its his turn
-
     }
 
-    private void setUpMainBoardControl() {
+    /**
+     * performs all the action on the {@link MainBoardControl} in order to display the initial board
+     * @param message the initial message to show the user
+     */
+    private void setUpMainBoardControl(String message) {
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
 
         control.setBoard(getController().callbackObtainBoard());
@@ -167,7 +181,8 @@ public class GraphicalUI extends AbstractUIType {
         control.setDices(getController().callbackObtainDices());
         control.displayDices();
         control.displayFamilyMembers();
-        control.setPlayersPersonalBoards();
+        control.setUpPlayersPersonalBoards();
+        control.appendMessageOnStateTextArea(message);
     }
 
 
@@ -297,11 +312,14 @@ public class GraphicalUI extends AbstractUIType {
 
     @Override
     public void waitMenu() {
+        String message = "Enemies are currently playing, please wait your turn";
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
-            Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", () -> setUpMainBoardControl()));
+            Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
+                    () -> setUpMainBoardControl(message)));
             currentSceneType = SceneEnum.MAIN_BOARD;
+        } else {
+            ((MainBoardControl) currentFXControl).appendMessageOnStateTextArea(message);
         }
-        //todo call on the controller something that tells its not his turn
     }
 
     /**
@@ -466,12 +484,12 @@ public class GraphicalUI extends AbstractUIType {
         currentFXControl = ((CustomFxControl) fxmlLoader.getController());
 
         currentFXControl.setController(getController());
+        if(runBeforeShow != null) //there is something to run
+            runBeforeShow.run();
 
         currentStage.setTitle(title);
         currentStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
         currentStage.setResizable(false);
-        if(runBeforeShow != null) //there is something to run
-            runBeforeShow.run();
 
         currentStage.show();
     }

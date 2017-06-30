@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import it.polimi.ingsw.client.gui.fxcontrollers.PlayerTabSubControl?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.image.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.shape.Cylinder?>
+<?import javafx.scene.text.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1280.0" stylesheets="@MainBoardStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.MainBoardControl">
    <children>
       <SplitPane dividerPositions="0.5312989045383412" layoutX="-1.0" prefHeight="900.0" prefWidth="1280.0">
@@ -146,14 +144,22 @@
                         </ToggleButton>
                      </children>
                   </HBox>
-                  <TextArea fx:id="currentGameStateTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" />
+                  <TextArea fx:id="currentGameStateTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" text="The game has started" wrapText="true">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor></TextArea>
                   <TabPane fx:id="playersTabPersonalBoard" prefHeight="431.0" prefWidth="573.0" styleClass="personalBoardPane" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab fx:id="thisPlayerTab" closable="false" text="You (nickname)">
+                      <PlayerTabSubControl fx:id="thisPlayerTab" closable="false" text="You (nickname)">
                            <content>
                                     <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                                       <items>
-                                    <AnchorPane fx:id="personalBoard" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
+                                    <HBox>
+                                       <children>
+                                          <ImageView fx:id="thisPlayerPersonalTile" fitHeight="366.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" />
+                                          <AnchorPane fx:id="personalBoard" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
+                                       </children>
+                                    </HBox>
                               <ToolBar prefHeight="45.0" prefWidth="488.0">
                                  <items>
                                     <Button fx:id="blueCardsButton" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
@@ -166,7 +172,7 @@
                                     </SplitPane>
                            </content>
 
-                        </Tab>
+                                    </PlayerTabSubControl>
                         <Tab fx:id="player1Tab" closable="false" text="Player1">
                            <content>
                               <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
