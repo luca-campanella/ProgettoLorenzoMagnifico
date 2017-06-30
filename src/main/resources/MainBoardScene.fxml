@@ -18,23 +18,23 @@
               <items>
                   <AnchorPane fx:id="towersCouncilFaith" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="card03" fitHeight="143.0" fitWidth="96.0" layoutX="7.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card02" fitHeight="143.0" fitWidth="96.0" layoutX="7.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card01" fitHeight="143.0" fitWidth="96.0" layoutX="7.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card00" fitHeight="143.0" fitWidth="96.0" layoutX="7.0" layoutY="457.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card10" fitHeight="143.0" fitWidth="96.0" layoutX="155.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card11" fitHeight="143.0" fitWidth="96.0" layoutX="155.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card12" fitHeight="143.0" fitWidth="96.0" layoutX="155.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card13" fitHeight="143.0" fitWidth="96.0" layoutX="155.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card23" fitHeight="143.0" fitWidth="96.0" layoutX="312.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card22" fitHeight="143.0" fitWidth="96.0" layoutX="312.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card21" fitHeight="143.0" fitWidth="96.0" layoutX="312.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card20" fitHeight="143.0" fitWidth="96.0" layoutX="312.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card30" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card31" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card32" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="card33" fitHeight="143.0" fitWidth="96.0" layoutX="465.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="towerAS03" disable="true" layoutX="103.0" layoutY="71.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                        <ImageView fx:id="card03" fitHeight="146.0" fitWidth="88.0" layoutX="11.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card02" fitHeight="146.0" fitWidth="88.0" layoutX="11.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card01" fitHeight="146.0" fitWidth="88.0" layoutX="11.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card00" fitHeight="146.0" fitWidth="88.0" layoutX="11.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card13" fitHeight="146.0" fitWidth="88.0" layoutX="178.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card12" fitHeight="146.0" fitWidth="88.0" layoutX="178.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card11" fitHeight="146.0" fitWidth="88.0" layoutX="178.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card10" fitHeight="146.0" fitWidth="88.0" layoutX="178.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card23" fitHeight="146.0" fitWidth="88.0" layoutX="344.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card22" fitHeight="146.0" fitWidth="88.0" layoutX="344.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card21" fitHeight="146.0" fitWidth="88.0" layoutX="344.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card20" fitHeight="146.0" fitWidth="88.0" layoutX="344.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card33" fitHeight="146.0" fitWidth="88.0" layoutX="511.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card32" fitHeight="146.0" fitWidth="88.0" layoutX="511.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card31" fitHeight="146.0" fitWidth="88.0" layoutX="511.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card30" fitHeight="146.0" fitWidth="88.0" layoutX="511.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button fx:id="towerAS03" disable="true" layoutX="110.0" layoutY="70.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                         </Button>
                         <Button fx:id="towerAS02" disable="true" layoutX="103.0" layoutY="212.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                         </Button>
@@ -86,6 +86,9 @@
                               <Point3D x="1.0" />
                            </rotationAxis>
                         </Cylinder>
+                        <ImageView fx:id="excomm0" fitHeight="138.0" fitWidth="61.0" layoutX="115.0" layoutY="700.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="excomm1" fitHeight="121.0" fitWidth="61.0" layoutX="180.0" layoutY="700.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="excomm2" fitHeight="138.0" fitWidth="61.0" layoutX="246.0" layoutY="700.0" pickOnBounds="true" preserveRatio="true" />
                      </children></AnchorPane>
               </items>
             </SplitPane>
@@ -143,7 +146,7 @@
                         </ToggleButton>
                      </children>
                   </HBox>
-                  <TextArea fx:id="currentGameStateTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" text="Waiting for enemies to play" />
+                  <TextArea fx:id="currentGameStateTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" />
                   <TabPane fx:id="playersTabPersonalBoard" prefHeight="431.0" prefWidth="573.0" styleClass="personalBoardPane" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab fx:id="thisPlayerTab" closable="false" text="You (nickname)">

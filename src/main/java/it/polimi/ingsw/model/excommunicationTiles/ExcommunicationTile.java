@@ -3,12 +3,13 @@ package it.polimi.ingsw.model.excommunicationTiles;
 import java.io.Serializable;
 
 /**
- * This card rappresents che excommunication tiles available
+ * This card represents che excommunication tiles available
  */
 public class ExcommunicationTile implements Serializable {
 
     int period;
     AbstractExcommunicationTileEffect effect;
+    String imgName;
 
     public int getPeriod() {
         return period;
@@ -24,5 +25,9 @@ public class ExcommunicationTile implements Serializable {
 
     public void setEffect(AbstractExcommunicationTileEffect effect) {
         this.effect = effect;
+    }
+
+    public String getImgName() {
+        return imgName;
     }
 }

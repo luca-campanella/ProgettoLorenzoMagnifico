@@ -1,6 +1,7 @@
 [
   {
     "period": 1,
+    "imgName": "excomm_1_1.png",
     "effect": {
       "excommunicationTiles": "GainFewerResourceEffect",
       "resourceExcommunication": {
@@ -11,6 +12,7 @@
   },
   {
     "period": 1,
+    "imgName": "excomm_1_2.png",
     "effect": {
       "excommunicationTiles": "GainFewerResourceEffect",
       "resourceExcommunication": {
@@ -21,6 +23,7 @@
   },
   {
     "period": 1,
+    "imgName": "excomm_1_3.png",
     "effect": {
       "excommunicationTiles": "GainFewerResourceEffect",
       "resourceExcommunication": {
@@ -31,6 +34,7 @@
   },
   {
     "period": 1,
+    "imgName": "excomm_1_4.png",
     "effect": {
       "excommunicationTiles": "GainFewerResourceEffect",
       "resourceExcommunication": {
@@ -41,6 +45,7 @@
   },
   {
     "period": 1,
+    "imgName": "excomm_1_4.png",
     "effect": {
       "excommunicationTiles": "GainFewerResourceEffect",
       "resourceExcommunication": {
@@ -51,6 +56,7 @@
   },
   {
     "period": 1,
+    "imgName": "excomm_1_6.png",
     "effect": {
       "excommunicationTiles": "BuildMalusEffect",
       "malusOnDice": 3
@@ -58,6 +64,7 @@
   },
   {
     "period": 1,
+    "imgName": "excomm_1_5.png",
     "effect": {
       "excommunicationTiles": "HarvestMalusEffect",
       "malusOnDice": 3
@@ -65,6 +72,7 @@
   },
   {
     "period": 1,
+    "imgName": "excomm_1_7.png",
     "effect": {
       "excommunicationTiles": "ReductionOnDiceEffect",
       "colorsEffected": [
@@ -77,6 +85,7 @@
   },
   {
     "period": 2,
+    "imgName": "excomm_2_1.png",
     "effect": {
       "excommunicationTiles": "MalusDiceOnTowerColorEffect",
       "malusDice": 4,
@@ -86,6 +95,7 @@
 
   {
     "period": 2,
+    "imgName": "excomm_2_2.png",
     "effect": {
       "excommunicationTiles": "MalusDiceOnTowerColorEffect",
       "malusDice": 4,
@@ -95,6 +105,7 @@
 
   {
     "period": 2,
+    "imgName": "excomm_2_3.png",
     "effect": {
       "excommunicationTiles": "MalusDiceOnTowerColorEffect",
       "malusDice": 4,
@@ -103,6 +114,7 @@
   },
   {
     "period": 2,
+    "imgName": "excomm_2_4.png",
     "effect": {
       "excommunicationTiles": "MalusDiceOnTowerColorEffect",
       "malusDice": 4,
@@ -111,6 +123,7 @@
   },
   {
     "period": 2,
+    "imgName": "excomm_2_5.png",
     "effect": {
       "excommunicationTiles": "MalusOnMarketEffect",
       "maluseActivate": true
@@ -118,6 +131,7 @@
   },
   {
     "period": 2,
+    "imgName": "excomm_2_6.png",
     "effect": {
       "excommunicationTiles": "PayMoreServantsEffect",
       "exchangeRate": 2
@@ -125,6 +139,7 @@
   },
   {
     "period": 2,
+    "imgName": "excomm_2_7.png",
     "effect": {
       "excommunicationTiles": "SkipRoundEffect",
       "skipRound": true
@@ -132,6 +147,7 @@
   },
   {
     "period": 3,
+    "imgName": "excomm_3_3.png",
     "effect": {
       "excommunicationTiles": "NoVPOnColoredCard",
       "colorExcomunnication": "GREEN"
@@ -139,6 +155,7 @@
   },
   {
     "period": 3,
+    "imgName": "excomm_3_1.png",
     "effect": {
       "excommunicationTiles": "NoVPOnColoredCard",
       "colorExcomunnication": "BLUE"
@@ -146,12 +163,14 @@
   },
   {
     "period": 3,
+    "imgName": "excomm_3_2.png",
     "effect": {
       "excommunicationTiles": "NoVPOnColoredCard",
       "colorExcomunnication": "PURPLE"
     }
   },{
   "period": 3,
+  "imgName": "excomm_3_3.png",
   "effect": {
     "excommunicationTiles": "NoVPOnResources",
     "numberOfVictoryPointLostPerResource": 1,
@@ -165,6 +184,7 @@
 },
   {
     "period": 3,
+    "imgName": "excomm_3_5.png",
     "effect": {
       "excommunicationTiles": "NoVPOnResources",
       "resourcesEffected": [
@@ -177,6 +197,7 @@
   },
   {
     "period": 3,
+    "imgName": "excomm_3_6.png",
     "effect": {
       "excommunicationTiles": "LoseVPonCostCards",
       "coloredCard": "YELLOW"
@@ -184,6 +205,7 @@
   },
   {
     "period": 3,
+    "imgName": "excomm_3_7.png",
     "effect": {
       "excommunicationTiles": "NoVPOnResources",
       "resourcesEffected": [

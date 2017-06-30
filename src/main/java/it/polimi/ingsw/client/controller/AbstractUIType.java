@@ -107,12 +107,6 @@ abstract public class AbstractUIType {
     public abstract int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer);
 
     /**
-     * This method is called when all the choices are made and the game begins.
-     * It is called regardless if it's the player's turn or not
-     */
-    public abstract void showInitialBoard();
-
-    /**
      * This method is called when the player has joined a room, but the game isn't started yet
      */
     public abstract void showWaitingForGameStart();

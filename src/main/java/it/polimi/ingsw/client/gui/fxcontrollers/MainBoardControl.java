@@ -6,8 +6,8 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.Tower;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.leaders.LeaderCard;
-import it.polimi.ingsw.model.leaders.PermanentLeaderCardCollector;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
@@ -155,6 +155,18 @@ public class MainBoardControl extends CustomFxControl {
                 fm.setText(String.valueOf(diceIter.getValue()));
                 fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
                 fm.setToggleGroup(familyMembersToggleGroup);
+        }
+    }
+
+    public void displayExcommTiles() {
+        List<ExcommunicationTile> tiles = board.getExcommunicationTiles();
+
+        for(int i = 0; i < tiles.size(); i++) {
+            ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#excomm" + i)));
+            Image tileImg  = new Image(getClass().getResourceAsStream("/imgs/ExcommunicationTiles/" +
+                    tiles.get(i).getImgName()));
+            imgView.setImage(tileImg);
+            imgView.setPreserveRatio(true);
         }
     }
 

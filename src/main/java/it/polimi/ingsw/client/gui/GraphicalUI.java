@@ -102,15 +102,6 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     /**
-     * This method is called when all the choices are made and the game begins.
-     * It is called regardless if it's the player's turn or not
-     */
-    @Override
-    public void showInitialBoard() {
-        //todo display here the initial window
-    }
-
-    /**
      * This method is called when the player has joined a room, but the game isn't started yet
      */
     @Override
@@ -168,6 +159,7 @@ public class GraphicalUI extends AbstractUIType {
 
         control.setBoard(getController().callbackObtainBoard());
         control.displayCards();
+        control.displayExcommTiles();
         control.setThisPlayer(getController().callbackObtainPlayer());
         control.displayThisPlayerPersonalBoard();
         control.setOtherPlayers(getController().callbackObtainOtherPlayers());
