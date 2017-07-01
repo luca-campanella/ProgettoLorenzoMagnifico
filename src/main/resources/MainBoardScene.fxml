@@ -155,53 +155,20 @@
                                <PlayerTabSubControl fx:id="thisPlayerTab" />
                            </content>
                       </Tab>
-                        <Tab fx:id="player1Tab" closable="false" text="Player1">
-                           <content>
-                              <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                                 <items>
-                                    <AnchorPane fx:id="personalBoard1" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
-                                    <ToolBar prefHeight="45.0" prefWidth="488.0">
-                                       <items>
-                                          <Button fx:id="blueCardsButton1" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
-                                          <Button fx:id="purpleCardsButton1" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
-                                          <Button fx:id="leaderCardsButton1" mnemonicParsing="false" onAction="#showOtherPlayerLeader1" text="Leader Cards" />
-                                       </items>
-                                    </ToolBar>
-                                 </items>
-                              </SplitPane>
-                           </content>
+                        <Tab closable="false" text="Player1">
+                            <content>
+                                <PlayerTabSubControl fx:id="player1Tab" />
+                            </content>
                         </Tab>
-                        <Tab fx:id="player2Tab" closable="false" text="Player2">
-                           <content>
-                              <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                                 <items>
-                                    <AnchorPane fx:id="personalBoard11" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
-                                    <ToolBar prefHeight="45.0" prefWidth="488.0">
-                                       <items>
-                                          <Button fx:id="blueCardsButton11" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
-                                          <Button fx:id="purpleCardsButton11" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
-                                          <Button fx:id="leaderCardsButton11" mnemonicParsing="false" onAction="#showOtherPlayerLeader2" text="Leader Cards" />
-                                       </items>
-                                    </ToolBar>
-                                 </items>
-                              </SplitPane>
-                           </content>
+                        <Tab closable="false" text="Player2">
+                            <content>
+                                <PlayerTabSubControl fx:id="player2Tab" />
+                            </content>
                         </Tab>
-                        <Tab fx:id="player3Tab" closable="false" text="Player3">
-                           <content>
-                              <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                                 <items>
-                                    <AnchorPane fx:id="personalBoard111" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
-                                    <ToolBar prefHeight="45.0" prefWidth="488.0">
-                                       <items>
-                                          <Button fx:id="blueCardsButton111" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
-                                          <Button fx:id="purpleCardsButton111" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
-                                          <Button fx:id="leaderCardsButton111" mnemonicParsing="false" onAction="#showOtherPlayerLeader3" text="Leader Cards" />
-                                       </items>
-                                    </ToolBar>
-                                 </items>
-                              </SplitPane>
-                           </content>
+                        <Tab closable="false" text="Player3">
+                            <content>
+                                <PlayerTabSubControl fx:id="player3Tab" />
+                            </content>
                         </Tab>
                     </tabs>
                   </TabPane>

@@ -77,13 +77,13 @@ public class MainBoardControl extends CustomFxControl {
     private PlayerTabSubControl thisPlayerTab;
 
     @FXML
-    private Tab player1Tab;
+    private PlayerTabSubControl player1Tab;
 
     @FXML
-    private Tab player2Tab;
+    private PlayerTabSubControl player2Tab;
 
     @FXML
-    private Tab player3Tab;
+    private PlayerTabSubControl player3Tab;
 
 
 

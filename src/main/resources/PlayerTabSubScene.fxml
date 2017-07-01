@@ -8,7 +8,7 @@
 
 <fx:root type="Pane" xmlns:fx="http://javafx.com/fxml">
     <children>
-        <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+        <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL"  prefHeight="200.0">
             <items>
                 <HBox>
                     <children>
