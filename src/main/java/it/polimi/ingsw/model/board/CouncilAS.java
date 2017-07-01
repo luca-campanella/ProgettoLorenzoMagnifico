@@ -17,17 +17,7 @@ public class CouncilAS extends AbstractActionSpace implements Serializable{
     public CouncilAS(){
         super();
     }
-    /**
-     * this method lets you perform an action
-     *
-     * @param familyMember
-     */
-    //@Override
-    public void performAction(FamilyMember familyMember) {
 
-        getFamilyMembers().add(familyMember);
-
-    }
 
     /**
      * this method gives a description of the action space
