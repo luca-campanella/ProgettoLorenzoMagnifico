@@ -7,5 +7,6 @@ package it.polimi.ingsw.client.gui;
 public enum SceneEnum {
     CONNECTION_CHOICE,
     LOGIN_REGISTER,
+    WAITING_SCENE,
     MAIN_BOARD
 }

@@ -6,8 +6,8 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.Tower;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.leaders.LeaderCard;
-import it.polimi.ingsw.model.leaders.PermanentLeaderCardCollector;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
@@ -58,11 +58,11 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private AnchorPane buildHarvestPane;
 
-    @FXML
+   /* @FXML
     private Button blueCardsButton;
 
     @FXML
-    private Button purpleCardsButton;
+    private Button purpleCardsButton;*/
 
     @FXML
     private HBox familyMembersPanel;
@@ -74,7 +74,7 @@ public class MainBoardControl extends CustomFxControl {
     private TabPane playersTabPersonalBoard;
 
     @FXML
-    private Tab thisPlayerTab;
+    private PlayerTabSubControl thisPlayerTab;
 
     @FXML
     private Tab player1Tab;
@@ -145,8 +145,23 @@ public class MainBoardControl extends CustomFxControl {
         PersonalBoard persBoard = thisPlayer.getPersonalBoard();
 
         //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
-        purpleCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
-        blueCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));
+        /*purpleCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
+        blueCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));*/
+
+        thisPlayerTab.setRelatedPlayer(thisPlayer);
+        thisPlayerTab.setPersonalTile();
+    }
+
+    public void setUpPlayersPersonalBoards() {
+        ObservableList<Tab> tabs = playersTabPersonalBoard.getTabs();
+        Tab currentTab = tabs.get(0); //this player tab
+        currentTab.setText("You (" + thisPlayer.getPlayerColor().getStringValue() + ")");
+
+        for(int i = 1; i <= otherPlayers.size(); i++) {
+            currentTab = tabs.get(i);
+            currentTab.setText(otherPlayers.get(i-1).getNickname() + " (" + otherPlayers.get(i-1).getPlayerColor().getStringValue() + ")");
+        }
+        tabs.remove(otherPlayers.size()+1, tabs.size());
     }
 
     public void displayFamilyMembers(/*List<FamilyMember> availableFMs*/) {
@@ -155,6 +170,18 @@ public class MainBoardControl extends CustomFxControl {
                 fm.setText(String.valueOf(diceIter.getValue()));
                 fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
                 fm.setToggleGroup(familyMembersToggleGroup);
+        }
+    }
+
+    public void displayExcommTiles() {
+        List<ExcommunicationTile> tiles = board.getExcommunicationTiles();
+
+        for(int i = 0; i < tiles.size(); i++) {
+            ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#excomm" + i)));
+            Image tileImg  = new Image(getClass().getResourceAsStream("/imgs/ExcommunicationTiles/" +
+                    tiles.get(i).getImgName()));
+            imgView.setImage(tileImg);
+            imgView.setPreserveRatio(true);
         }
     }
 
@@ -167,6 +194,7 @@ public class MainBoardControl extends CustomFxControl {
     public void showBlueCards() {
         showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE), "Blue cards");
     }
+
     /**
      * owned cards leader
      */
@@ -181,6 +209,7 @@ public class MainBoardControl extends CustomFxControl {
         }
 
     }
+
     @FXML
     public void showOtherPlayerLeader1()
     {
@@ -217,6 +246,15 @@ public class MainBoardControl extends CustomFxControl {
         LeaderOwnedControl leaderOwnedControl = ((LeaderOwnedControl) (currentFXControl));
         leaderOwnedControl.setLeaders(leaderNotUsed,leaderActivated,leadersPlayable,leadersOPRNotActivated);
         return;
+    }
+
+    /**
+     * Appends a message on the text area that displays the current state of the game
+     * @param toAppend text to append
+     */
+    public void appendMessageOnStateTextArea(String toAppend) {
+        String currentText = currentGameStateTextArea.getText();
+        currentGameStateTextArea.setText(currentText + "\n" + "--> " + toAppend);
     }
 
 
@@ -336,13 +374,4 @@ public class MainBoardControl extends CustomFxControl {
         }
     }
 
-    public void setPlayersPersonalBoards() {
-        ObservableList<Tab> tabs = playersTabPersonalBoard.getTabs();
-        tabs.get(0).setText("You (" + thisPlayer.getPlayerColor().getStringValue() + ")");
-
-        for(int i = 1; i <= otherPlayers.size(); i++) {
-                tabs.get(i).setText(otherPlayers.get(i-1).getNickname() + " (" + otherPlayers.get(i-1).getPlayerColor().getStringValue() + ")");
-        }
-        tabs.remove(otherPlayers.size()+1, tabs.size());
-    }
 }
