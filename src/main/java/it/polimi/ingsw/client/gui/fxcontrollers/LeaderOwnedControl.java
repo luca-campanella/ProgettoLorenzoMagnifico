@@ -1,8 +1,11 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.model.leaders.LeaderCard;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
@@ -25,11 +28,17 @@ public class LeaderOwnedControl extends CustomFxControl {
     List<LeaderCard> leaderActivated;
     List<LeaderCard> leadersPlayable;
     List<LeaderCard> leadersOPRNotActivated;
-
+    LeaderCard selectedLeader;
     @FXML
     private GridPane leadersNotPlayedGridPane;
     @FXML
     private GridPane leadersPlayedGridPane;
+    @FXML
+    private ToggleButton discardLeader;
+    @FXML
+    private ToggleButton playLeader;
+    @FXML
+    private ToggleButton activateLeader;
 
 
     public void setLeaders(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {
@@ -57,8 +66,14 @@ public class LeaderOwnedControl extends CustomFxControl {
                     );
                     toggleImage.setFitHeight(320);
                     toggleImage.setPreserveRatio(true);
-                    if (!(leadersPlayable.contains(leaderNotUsed.get(numberOfLeaderNotUsed))))
-                        button.setDisable(true);
+                    button.setDisable(false);
+                    while(button.isSelected()){
+                            discardLeader.setDisable(false);
+                            playLeader.setDisable(true);
+
+                    }
+
+
 
                     numberOfLeaderNotUsed++;
                 }
@@ -79,7 +94,9 @@ public class LeaderOwnedControl extends CustomFxControl {
                     /* setting images inside the button */
                     loadImageLeader(rows,cols, leadersPlayedGridPane, leaderActivated.get(numberOfLeaderNotUsed).getImgName());
                     numberOfActivatedLeaders++;
+
                 }
+                //nb: cosi non posso modificare probabilmente le proprietà dei bottoni..
                 //todo: ask campanella if leaderActivated have the same logic
 
             }
@@ -104,6 +121,15 @@ public class LeaderOwnedControl extends CustomFxControl {
         );
         toggleImage.setFitHeight(320);
         toggleImage.setPreserveRatio(true);
+    }
+
+    @FXML
+    public void discardLeaderClick(ActionEvent event) {
+
+    }
+    @FXML
+    public void playLeaderClick(ActionEvent event) {
+        Platform.runLater(()-> getController().callbackOnLeaderCardChosen(selectedLeader));
     }
 
 }
