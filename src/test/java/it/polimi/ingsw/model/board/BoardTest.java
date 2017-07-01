@@ -158,8 +158,12 @@ public class BoardTest {
     }
 
     @Test
-    public void product() throws Exception {
-
+    public void addCardToTower() throws Exception {
+    TowerFloorAS blueTower = new TowerFloorAS();
+    AbstractCard card = JSONLoader.createNewDeck().getCharacterCards().get(2);
+    String cardName = card.getName();
+    blueTower.setCard(card);
+    assertEquals(cardName, blueTower.getCard().getName());
     }
 
     @Test
@@ -171,13 +175,15 @@ public class BoardTest {
         assertEquals(1,board.getBuild().getOccupyingFamilyMemberNumber());
         board.build(familyMember1);
         assertEquals(2,board.getBuild().getOccupyingFamilyMemberNumber());
+        assertEquals(false, board.getBuild().isTwoPlayersOneSpace());
 
         assertEquals(3,board.getBuild().getValueMalus());
         assertEquals(false,board.getBuild().checkIfFirst());
         assertEquals(false,board.getBuild().isTwoPlayersOneSpace());
 
-
-
+        //todo: test 2PlayerOneSpace true
+        //this is one because i didn't add a family member to the AS.
+        assertEquals(1, board.getBuild().getValueNeeded(true));
 
         board.clearBoard();
         board.harvest(familyMember);
