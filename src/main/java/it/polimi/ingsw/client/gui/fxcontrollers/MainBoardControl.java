@@ -58,11 +58,11 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private AnchorPane buildHarvestPane;
 
-    @FXML
+   /* @FXML
     private Button blueCardsButton;
 
     @FXML
-    private Button purpleCardsButton;
+    private Button purpleCardsButton;*/
 
     @FXML
     private HBox familyMembersPanel;
@@ -145,8 +145,8 @@ public class MainBoardControl extends CustomFxControl {
         PersonalBoard persBoard = thisPlayer.getPersonalBoard();
 
         //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
-        purpleCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
-        blueCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));
+        /*purpleCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
+        blueCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));*/
 
         thisPlayerTab.setRelatedPlayer(thisPlayer);
         thisPlayerTab.setPersonalTile();
@@ -194,6 +194,7 @@ public class MainBoardControl extends CustomFxControl {
     public void showBlueCards() {
         showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE), "Blue cards");
     }
+
     /**
      * owned cards leader
      */
@@ -208,6 +209,7 @@ public class MainBoardControl extends CustomFxControl {
         }
 
     }
+
     @FXML
     public void showOtherPlayerLeader1()
     {

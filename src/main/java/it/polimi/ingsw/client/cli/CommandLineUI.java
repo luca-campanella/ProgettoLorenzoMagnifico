@@ -60,50 +60,6 @@ public class CommandLineUI extends AbstractUIType {
     }
 
     /**
-     * This is the method which starts asking the User inputs.
-     */
-    public void readAction(){
-        Debug.printDebug("I'm in CLI.readAction");
-       /* while(true)
-        {
-            System.out.println("What action do you wanna make? Play a Leader, Discard a Leader, Place a family member? Write Play, Discard, Place");
-            tmpInput = inputScanner.nextLine();
-            if(tmpInput.equalsIgnoreCase("Play")){
-                getController().callbackPlayLeader();
-                break;
-            }
-            if(tmpInput.equalsIgnoreCase("Discard")){
-                getController().callbackDiscardLeader();
-                break;
-            }
-            if(tmpInput.equalsIgnoreCase("Place")){
-                getController().callbackPerformPlacement();
-                break;
-            }
-
-        }*/
-    }
-
-    /**
-     * this method allows the user to select a familyMember
-     */
-    public void selectFamilyMember()
-    {
-        /*int i;
-        String familyColorID;
-        System.out.print("Select a family member. You can choose " );
-
-        System.out.print("Yellow, Red, Green, Neutral");
-        System.out.println();
-        while(true) {
-            familyColorID = inputScanner.nextLine();
-            if(existingColors(familyColorID))
-            break;
-        }
-        getController().callbackFamilyMemberSelected(familyColorID);*/
-    }
-
-    /**
      * This method asks the user to pick one of the action spaces to put his family member in
      * Direction: {@link ClientMain} -> {@link AbstractUIType}
      * @param servantsNeededHarvest The servants needed by the user to harvest, Optional.empty() if the action is not valid
@@ -156,39 +112,6 @@ public class CommandLineUI extends AbstractUIType {
         menu.login();//TODO change method login to private
     }
 
-    /*
-    todo: we need to cancel this
-     */
-    public void createNewAccount(){
-        System.out.println("Creating new Account...");
-    }
-    /*
-    todo: we need to cancel this one too
-     */
-    public void askLogin(){
-        System.out.println("Logging In...");
-    }
-
-    /**
-     * todo: what does this method really do?
-     * Chiama il criprinter, il quale è singleton e in base a non so quali parametri chiama il metodo giusto?
-     * A questo punto: meglio far chiamare direttamente dal controller un GenericPrinter o dalla CLI il CLIPrinter.
-     */
-    public void updateView()
-    {
-        System.out.println("Aggiorno la view");
-    }
-
-    /**
-     * this method handles the login failure
-     * @param reasonFailure
-     */
-    public void loginFailure(String reasonFailure)
-    {
-
-        System.out.println("Error: " + reasonFailure);
-        //askLoginOrCreate()
-    }
 
     /**
      * if an error occurs, this method printsit

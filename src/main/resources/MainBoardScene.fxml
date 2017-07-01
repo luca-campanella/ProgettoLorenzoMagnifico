@@ -58,11 +58,11 @@
                          </Button>
                          <Button fx:id="towerAS33" disable="true" layoutX="561.0" layoutY="71.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS32" disable="true" layoutX="561.0" layoutY="212.0" mnemonicParsing="false" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS32" disable="true" layoutX="561.0" layoutY="212.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS31" disable="true" layoutX="561.0" layoutY="344.0" mnemonicParsing="false" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS31" disable="true" layoutX="561.0" layoutY="344.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS30" disable="true" layoutX="561.0" layoutY="484.0" mnemonicParsing="false" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS30" disable="true" layoutX="561.0" layoutY="484.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
                         <Cylinder fx:id="orderCylinder0" height="12.0" layoutX="586.0" layoutY="593.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
                            <rotationAxis>
@@ -148,31 +148,13 @@
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor></TextArea>
-                  <TabPane fx:id="playersTabPersonalBoard" prefHeight="431.0" prefWidth="573.0" styleClass="personalBoardPane" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="playersTabPersonalBoard" prefHeight="431.0" prefWidth="573.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <PlayerTabSubControl fx:id="thisPlayerTab" closable="false" text="You (nickname)">
+                      <Tab closable="false" text="You (nickname)">
                            <content>
-                                    <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                                      <items>
-                                    <HBox>
-                                       <children>
-                                          <ImageView fx:id="thisPlayerPersonalTile" fitHeight="366.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" />
-                                          <AnchorPane fx:id="personalBoard" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
-                                       </children>
-                                    </HBox>
-                              <ToolBar prefHeight="45.0" prefWidth="488.0">
-                                 <items>
-                                    <Button fx:id="blueCardsButton" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
-                                    <Button fx:id="purpleCardsButton" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
-                                    <Button fx:id="leaderCardsButton" mnemonicParsing="false" onAction="#showLeaderCards" text="Leader Cards" />
-                                          <Button mnemonicParsing="false" text="Pass the turn" />
-                                 </items>
-                              </ToolBar>
-                                      </items>
-                                    </SplitPane>
+                               <PlayerTabSubControl fx:id="thisPlayerTab" />
                            </content>
-
-                                    </PlayerTabSubControl>
+                      </Tab>
                         <Tab fx:id="player1Tab" closable="false" text="Player1">
                            <content>
                               <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">

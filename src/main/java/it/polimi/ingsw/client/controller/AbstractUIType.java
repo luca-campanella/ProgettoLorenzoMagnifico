@@ -34,30 +34,13 @@ abstract public class AbstractUIType {
         return controller;
     }
 
-    //This method read an action from the user
-    abstract public void readAction();
-
-    //This method ask what network the user wants to use
+    /**
+     * Asks the user which connection mode he wants to use
+     */
     abstract public void askNetworkType();
 
     //This method ask the user if he wants to login or to create a new account
     abstract public void askLoginOrCreate();
-
-    //This method allows the user to create a newAccount
-    abstract public void createNewAccount();
-
-    //This method allows the user to ask to Login
-    abstract public void askLogin();
-
-    //This method updates the view
-    abstract public void updateView();
-
-    //Highlights that login has failed and manages that
-    abstract public void loginFailure(String failureReason);
-
-    //Selects a family member
-    abstract public void selectFamilyMember();
-
 
     /**
      * This method asks the user to pick one of the action spaces to put his family member in
