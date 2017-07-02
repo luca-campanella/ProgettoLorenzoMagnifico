@@ -32,54 +32,54 @@
                         <ImageView fx:id="card32" fitHeight="146.0" fitWidth="88.0" layoutX="511.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="card31" fitHeight="146.0" fitWidth="88.0" layoutX="511.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="card30" fitHeight="146.0" fitWidth="88.0" layoutX="511.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="towerAS03" disable="true" layoutX="110.0" layoutY="70.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                        <Button fx:id="towerAS03" disable="true" layoutX="114.0" layoutY="70.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                         </Button>
-                        <Button fx:id="towerAS02" disable="true" layoutX="103.0" layoutY="212.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                        <Button fx:id="towerAS02" disable="true" layoutX="114.0" layoutY="223.5" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                         </Button>
-                        <Button fx:id="towerAS01" disable="true" layoutX="103.0" layoutY="344.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                        <Button fx:id="towerAS01" disable="true" layoutX="114.0" layoutY="375.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                         </Button>
-                        <Button fx:id="towerAS00" disable="true" layoutX="103.0" layoutY="484.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                        <Button fx:id="towerAS00" disable="true" layoutX="114.0" layoutY="528.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                         </Button>
-                         <Button fx:id="towerAS13" disable="true" layoutX="251.0" layoutY="71.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS13" disable="true" layoutX="280.0" layoutY="70.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS12" disable="true" layoutX="251.0" layoutY="212.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS12" disable="true" layoutX="280.0" layoutY="223.5" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS11" disable="true" layoutX="251.0" layoutY="344.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS11" disable="true" layoutX="280.0" layoutY="375.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS10" disable="true" layoutX="251.0" layoutY="484.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS10" disable="true" layoutX="280.0" layoutY="528.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS23" disable="true" layoutX="408.0" layoutY="71.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS23" disable="true" layoutX="446.0" layoutY="70.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS22" disable="true" layoutX="408.0" layoutY="212.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS22" disable="true" layoutX="446.0" layoutY="223.5" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS21" disable="true" layoutX="408.0" layoutY="344.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS21" disable="true" layoutX="446.0" layoutY="375.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS20" disable="true" layoutX="408.0" layoutY="484.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS20" disable="true" layoutX="446.0" layoutY="528.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS33" disable="true" layoutX="561.0" layoutY="71.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS33" disable="true" layoutX="614.0" layoutY="70.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS32" disable="true" layoutX="561.0" layoutY="212.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS32" disable="true" layoutX="614.0" layoutY="223.5" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS31" disable="true" layoutX="561.0" layoutY="344.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS31" disable="true" layoutX="614.0" layoutY="375.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                         <Button fx:id="towerAS30" disable="true" layoutX="561.0" layoutY="484.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
+                         <Button fx:id="towerAS30" disable="true" layoutX="614.0" layoutY="528.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton">
                          </Button>
-                        <Cylinder fx:id="orderCylinder0" height="12.0" layoutX="586.0" layoutY="593.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
+                        <Cylinder fx:id="orderCylinder0" height="12.0" layoutX="640.0" layoutY="630.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
                            <rotationAxis>
                               <Point3D x="1.0" />
                            </rotationAxis>
                         </Cylinder>
-                        <Cylinder fx:id="orderCylinder1" height="12.0" layoutX="586.0" layoutY="629.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
+                        <Cylinder fx:id="orderCylinder1" height="12.0" layoutX="640.0" layoutY="675.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
                            <rotationAxis>
                               <Point3D x="1.0" />
                            </rotationAxis>
                         </Cylinder>
-                        <Cylinder fx:id="orderCylinder2" height="12.0" layoutX="586.0" layoutY="666.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
+                        <Cylinder fx:id="orderCylinder2" height="12.0" layoutX="640.0" layoutY="720.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
                            <rotationAxis>
                               <Point3D x="1.0" />
                            </rotationAxis>
                         </Cylinder>
-                        <Cylinder fx:id="orderCylinder3" height="12.0" layoutX="586.0" layoutY="703.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
+                        <Cylinder fx:id="orderCylinder3" height="12.0" layoutX="640.0" layoutY="765.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
                            <rotationAxis>
                               <Point3D x="1.0" />
                            </rotationAxis>
