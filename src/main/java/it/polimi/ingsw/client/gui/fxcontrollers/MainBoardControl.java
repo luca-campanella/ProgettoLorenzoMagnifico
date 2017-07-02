@@ -148,9 +148,6 @@ public class MainBoardControl extends CustomFxControl {
         /*purpleCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
         blueCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));*/
 
-        PlayerTabSubControl test = new PlayerTabSubControl();
-
-
         thisPlayerTab.setController(getController());
         thisPlayerTab.setRelatedPlayer(thisPlayer);
         thisPlayerTab.setPersonalTile();
