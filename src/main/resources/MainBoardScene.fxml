@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import it.polimi.ingsw.client.gui.fxcontrollers.PlayerTabSubControl?>
+
 <?import javafx.geometry.Point3D?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Cylinder?>
-<?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1280.0" stylesheets="@MainBoardStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.MainBoardControl">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1280.0" stylesheets="@MainBoardStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.MainBoardControl">
    <children>
       <SplitPane dividerPositions="0.5312989045383412" layoutX="-1.0" prefHeight="900.0" prefWidth="1280.0">
         <items>
@@ -87,6 +98,7 @@
                         <ImageView fx:id="excomm0" fitHeight="138.0" fitWidth="61.0" layoutX="115.0" layoutY="700.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="excomm1" fitHeight="121.0" fitWidth="61.0" layoutX="180.0" layoutY="715.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="excomm2" fitHeight="138.0" fitWidth="61.0" layoutX="246.0" layoutY="700.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button fx:id="councilGiftButton" disable="true" layoutX="350.0" layoutY="650.0" mnemonicParsing="false" onAction="#councilGiftSelected" prefHeight="75.0" prefWidth="225.0" styleClass="actionSpaceButton" />
                      </children></AnchorPane>
               </items>
             </SplitPane>
@@ -94,7 +106,13 @@
               <items>
                   <SplitPane dividerPositions="0.5">
                      <items>
-                        <AnchorPane fx:id="buildHarvestPane" prefHeight="205.0" prefWidth="225.0" />
+                        <AnchorPane fx:id="buildHarvestPane" prefHeight="205.0" prefWidth="225.0">
+                           <children>
+                               <Button fx:id="buildSmallActionSpace" disable="true" layoutX="14.5" layoutY="23.0" mnemonicParsing="false" onAction="#towerFloorSelected" prefHeight="50.0" prefWidth="61.0" styleClass="actionSpaceButton" />
+                               <Button fx:id="buildBigActionSpace" disable="true" layoutX="120.0" layoutY="23.0" mnemonicParsing="false" onAction="#towerFloorSelected" prefHeight="55.0" prefWidth="160.0" styleClass="actionSpaceButton" />
+                               <Button fx:id="harvestSmallActionSpace" disable="true" layoutX="14.5" layoutY="125.0" mnemonicParsing="false" onAction="#towerFloorSelected" prefHeight="50.0" prefWidth="61.0" styleClass="actionSpaceButton" />
+                               <Button fx:id="harvestBigActionSpace" disable="true" layoutX="120.0" layoutY="125.0" mnemonicParsing="false" onAction="#towerFloorSelected" prefHeight="55.0" prefWidth="160.0" styleClass="actionSpaceButton" />
+                           </children></AnchorPane>
                         <AnchorPane fx:id="marketPane">
                            <children>
                               <Text fx:id="dice1" fill="WHITE" layoutX="51.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
@@ -112,6 +130,10 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Text>
+                              <Button fx:id="marketAS0" disable="true" layoutX="30.0" layoutY="18.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton" />
+                              <Button fx:id="marketAS1" disable="true" layoutX="100.0" layoutY="20.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton" />
+                              <Button fx:id="marketAS2" disable="true" layoutX="175.0" layoutY="33.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton" />
+                              <Button fx:id="marketAS3" disable="true" layoutX="225.0" layoutY="85.0" mnemonicParsing="false" onAction="#towerFloorSelected" styleClass="actionSpaceButton" />
                            </children>
                         </AnchorPane>
                      </items>
@@ -153,22 +175,22 @@
                     <tabs>
                       <Tab closable="false" text="You (nickname)">
                            <content>
-                               <PlayerTabSubControl fx:id="thisPlayerTab" />
+                               <!----><PlayerTabSubControl fx:id="thisPlayerTab" />
                            </content>
                       </Tab>
                         <Tab closable="false" text="Player1">
                             <content>
-                                <PlayerTabSubControl fx:id="player1Tab" />
+                                <!----><PlayerTabSubControl fx:id="player1Tab" />
                             </content>
                         </Tab>
                         <Tab closable="false" text="Player2">
                             <content>
-                                <PlayerTabSubControl fx:id="player2Tab" />
+                                <!----><PlayerTabSubControl fx:id="player2Tab" /><!---->
                             </content>
                         </Tab>
                         <Tab closable="false" text="Player3">
                             <content>
-                                <PlayerTabSubControl fx:id="player3Tab" />
+                                <!----><PlayerTabSubControl fx:id="player3Tab" /><!---->
                             </content>
                         </Tab>
                     </tabs>

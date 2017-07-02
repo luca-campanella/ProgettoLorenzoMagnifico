@@ -297,7 +297,14 @@ public class MainBoardControl extends CustomFxControl {
 
         Platform.runLater(() -> getController().callbackFamilyMemberSelected(thisPlayer.getFamilyMemberByColor(colorEnum)));
     }
-
+    //todo check this method
+    @FXML
+    private void councilGiftSelected(ActionEvent event)
+    {
+        Button actionSpace = ((Button) (event.getSource()));
+        String id = actionSpace.getId();
+        Platform.runLater(() -> getController().callbackPlacedFMOnCouncil());
+    }
     @FXML
     private void towerFloorSelected(ActionEvent event) {
         Button actionSpace = ((Button) (event.getSource()));
@@ -348,16 +355,49 @@ public class MainBoardControl extends CustomFxControl {
         //we set all AS to disabled
         for(int col = 0; col < 4; col++) {
             for(int raw = 0; raw < 4; raw++) {
-                Button activeASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + col) + raw));
-                activeASButton.setDisable(true);
+                Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + col) + raw));
+                activeTowersASButton.setDisable(true);
             }
         }
+        for(int iterator = 0; iterator < 4; iterator++) {
+            Button marketASButton = (Button) (marketPane.lookup("#marketAS" + iterator));
+            marketASButton.setDisable(true);
+        }
+
+        //todo: disable build and harvest
+        //first we need to disable build
+        //we need to disable also harvest
+        //servamts needed to build / harvest ?
+        //todo: ci sono volte in cui non sempre è possibile piazzare un family member.. Com'è stato gestito? --Arto
+        //setting council enabled
+        Button activeCouncilASButton = (Button) (towersCouncilFaith.lookup("#councilGiftButton"));
+        activeCouncilASButton.setDisable(false);
+        //setting build and harvest enabled
+        Button harvestSmallASButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
+        harvestSmallASButton.setDisable(false);
+        Button harvestBigASButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
+        harvestBigASButton.setDisable(false);
+        Button buildSmallASButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
+        buildSmallASButton.setDisable(false);
+        Button buildBigASButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
+        buildBigASButton.setDisable(false);
+
+        //setting harvest AS enable
 
         //we reactivate only the ones passed via parameters
         for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
-            Button activeASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
-            activeASButton.setDisable(false);
+            Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
+            activeTowersASButton.setDisable(false);
         }
+        //we reactivate only the AS passed via parameters -> problem here. Wrapper is not used correctly
+
+        for(MarketWrapper marketIterator : activeMarketSpaces)
+        {
+                Button marketASButton = (Button) (marketPane.lookup("#marketAS" + marketIterator.getMarketIndex()));
+                Debug.printVerbose("iterator on wrapper: " + marketIterator.getMarketIndex());
+                marketASButton.setDisable(false);
+        }
+
     }
 
     public void setOrderOfPlayers(List<Player> players) {
