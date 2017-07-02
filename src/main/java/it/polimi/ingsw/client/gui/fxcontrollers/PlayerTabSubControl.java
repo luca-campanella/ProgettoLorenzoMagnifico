@@ -38,6 +38,7 @@ public class PlayerTabSubControl extends CustomFxControl {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/PlayerTabSubScene.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
+        fxmlLoader.setClassLoader(getClass().getClassLoader());
 
         try {
             Debug.printVerbose("before running load");
