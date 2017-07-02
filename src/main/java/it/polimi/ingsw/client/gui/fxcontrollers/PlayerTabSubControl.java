@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.StageStyle;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -127,6 +129,12 @@ public class PlayerTabSubControl extends CustomFxControl {
         alert.initStyle(StageStyle.UTILITY);
         //alert.initOwner(currentStage);
         alert.show();
+    }
+
+    @FXML
+    public void passTurn(ActionEvent event)
+    {
+        Platform.runLater(()-> getController().callBackPassTheTurn());
     }
 
 }

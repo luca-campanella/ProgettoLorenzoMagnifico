@@ -187,6 +187,7 @@ public class CommandLineUI extends AbstractUIType {
         } while (numChoice < 0 || numChoice>choices.size() );
 
         return numChoice;
+        
     }
 
     /**

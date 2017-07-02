@@ -44,7 +44,7 @@ import java.util.Optional;
  * Created by campus on 24/06/2017.
  */
 public class MainBoardControl extends CustomFxControl {
-    //todo: implement refresh of the leaders in tLeaderOwnedControl
+    //todo: implement refresh of the leaders in LeaderOwnedControl
     private boolean[] isLeaderStageCreated = {false,false, false, false, false};
 
     private Stage secondStage = new Stage();
@@ -147,7 +147,7 @@ public class MainBoardControl extends CustomFxControl {
         //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
         /*purpleCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
         blueCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));*/
-
+        thisPlayerTab.setController(getController());
         thisPlayerTab.setRelatedPlayer(thisPlayer);
         thisPlayerTab.setPersonalTile();
     }
@@ -299,10 +299,43 @@ public class MainBoardControl extends CustomFxControl {
     }
     //todo check this method
     @FXML
+    private void harvestSelected(ActionEvent event)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Harvest");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText("I have a great message for you!");
+        alert.showAndWait();
+
+        Platform.runLater(()->getController().callbackPlacedFMOnHarvest(5));
+    }
+    @FXML
+    private void buildSelected(ActionEvent event)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Build");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText("I have a great message for you!");
+        alert.showAndWait();
+
+        Platform.runLater(()->getController().callbackPlacedFMOnBuild(5));
+    }
+    @FXML
+    private void marketSelected(ActionEvent event)
+    {
+        //todo: this is for debug, remove
+        Button actionSpace = ((Button) (event.getSource()));
+        String id = actionSpace.getId();
+        int marketIndex = Character.getNumericValue(id.charAt(8));
+        Debug.printVerbose("Market placed" + marketIndex);
+        Platform.runLater(()->getController().callbackPlacedFMOnMarket(marketIndex));
+
+    }
+    @FXML
     private void councilGiftSelected(ActionEvent event)
     {
         Button actionSpace = ((Button) (event.getSource()));
-        String id = actionSpace.getId();
+        //String id = actionSpace.getId();
         Platform.runLater(() -> getController().callbackPlacedFMOnCouncil());
     }
     @FXML
