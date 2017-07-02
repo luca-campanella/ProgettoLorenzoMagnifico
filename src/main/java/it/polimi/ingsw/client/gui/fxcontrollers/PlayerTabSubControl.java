@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.StageStyle;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -84,6 +83,12 @@ public class PlayerTabSubControl extends CustomFxControl {
         showCards(player.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE), "Blue cards");
     }
 
+    @FXML
+    public void passTurn()
+    {
+        Platform.runLater(()-> getController().callBackPassTheTurn());
+    }
+
     /**
      * owned cards leader
      */
@@ -131,10 +136,5 @@ public class PlayerTabSubControl extends CustomFxControl {
         alert.show();
     }
 
-    @FXML
-    public void passTurn(ActionEvent event)
-    {
-        Platform.runLater(()-> getController().callBackPassTheTurn());
-    }
 
 }

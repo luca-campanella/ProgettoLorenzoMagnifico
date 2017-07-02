@@ -147,6 +147,10 @@ public class MainBoardControl extends CustomFxControl {
         //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
         /*purpleCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
         blueCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));*/
+
+        PlayerTabSubControl test = new PlayerTabSubControl();
+
+
         thisPlayerTab.setController(getController());
         thisPlayerTab.setRelatedPlayer(thisPlayer);
         thisPlayerTab.setPersonalTile();
@@ -306,7 +310,7 @@ public class MainBoardControl extends CustomFxControl {
         alert.setHeaderText("Look, an Information Dialog");
         alert.setContentText("I have a great message for you!");
         alert.showAndWait();
-
+        //todo make the alert ask the user
         Platform.runLater(()->getController().callbackPlacedFMOnHarvest(5));
     }
     @FXML
