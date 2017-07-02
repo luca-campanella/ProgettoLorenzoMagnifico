@@ -108,14 +108,41 @@ public class JSONLoader {
 
         //we insert excommunication tiles inside the board
         ArrayList<ExcommunicationTile> excomTiles = loadExcommunicationTiles();
-        Collections.shuffle(excomTiles);
+
         ArrayList<ExcommunicationTile> randomTiles = new ArrayList<ExcommunicationTile>(3);
-        randomTiles.addAll(excomTiles.subList(0,3));
+        randomTiles = shuffle(excomTiles);
         board.setExcommunicationTiles(randomTiles);
 
         return board;
     }
 
+    /**
+     * this method just shuffle tiles
+     * @param allTiles are all the exocmmunicationTiles
+     * @return
+     */
+    private static ArrayList<ExcommunicationTile> shuffle(ArrayList<ExcommunicationTile> allTiles){
+        ArrayList<ExcommunicationTile> firstPeriodExcommunication = new ArrayList<>(7);
+        ArrayList<ExcommunicationTile> secondPeriodExcommunication = new ArrayList<>(7);
+        ArrayList<ExcommunicationTile> thirdPeriodExcommunication = new ArrayList<>(7);
+        ArrayList<ExcommunicationTile> subExcommunicationTiles = new ArrayList<>(3);
+
+        for(ExcommunicationTile iterator : allTiles)
+            if(iterator.getPeriod() == 1)
+                firstPeriodExcommunication.add(iterator);
+            else
+                if(iterator.getPeriod()==2)
+                    secondPeriodExcommunication.add(iterator);
+            else
+                thirdPeriodExcommunication.add(iterator);
+        Collections.shuffle(firstPeriodExcommunication);
+        Collections.shuffle(secondPeriodExcommunication);
+        Collections.shuffle(thirdPeriodExcommunication);
+        subExcommunicationTiles.add(firstPeriodExcommunication.get(0));
+        subExcommunicationTiles.add(secondPeriodExcommunication.get(0));
+        subExcommunicationTiles.add(thirdPeriodExcommunication.get(0));
+        return subExcommunicationTiles;
+    }
     /**
      * this loads an arrayList of tiles. The first element of the array list is the standard tile
      * @return an array list of tiles

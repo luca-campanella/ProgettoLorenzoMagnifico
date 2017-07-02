@@ -45,17 +45,6 @@
   },
   {
     "period": 1,
-    "imgName": "excomm_1_4.png",
-    "effect": {
-      "excommunicationTiles": "GainFewerResourceEffect",
-      "resourceExcommunication": {
-        "type": "STONE",
-        "value": 1
-      }
-    }
-  },
-  {
-    "period": 1,
     "imgName": "excomm_1_6.png",
     "effect": {
       "excommunicationTiles": "BuildMalusEffect",

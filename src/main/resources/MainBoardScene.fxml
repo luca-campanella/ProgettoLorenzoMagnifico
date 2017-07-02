@@ -85,7 +85,7 @@
                            </rotationAxis>
                         </Cylinder>
                         <ImageView fx:id="excomm0" fitHeight="138.0" fitWidth="61.0" layoutX="115.0" layoutY="700.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="excomm1" fitHeight="121.0" fitWidth="61.0" layoutX="180.0" layoutY="700.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="excomm1" fitHeight="121.0" fitWidth="61.0" layoutX="180.0" layoutY="715.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="excomm2" fitHeight="138.0" fitWidth="61.0" layoutX="246.0" layoutY="700.0" pickOnBounds="true" preserveRatio="true" />
                      </children></AnchorPane>
               </items>
