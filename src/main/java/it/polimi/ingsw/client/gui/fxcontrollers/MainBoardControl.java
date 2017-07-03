@@ -23,21 +23,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by campus on 24/06/2017.
+ * This object is the fx controller of the main board scene
+ * Method name syntax:
+ * set -- sets an attribute of the control that is needed to show something else or to perform queries
+ * setUp -- does something that should be done only the first time the window is opened
+ * display -- displays or refreshes something, may be called more than once during the game
  */
 public class MainBoardControl extends CustomFxControl {
-    //todo: implement refresh of the leaders in LeaderOwnedControl
-    private boolean[] isLeaderStageCreated = {false,false, false, false, false};
 
-    private Stage secondStage = new Stage();
-    private CustomFxControl currentFXControl;
     @FXML
     private AnchorPane towersCouncilFaith;
 
@@ -46,12 +45,6 @@ public class MainBoardControl extends CustomFxControl {
 
     @FXML
     private AnchorPane buildHarvestPane;
-
-   /* @FXML
-    private Button blueCardsButton;
-
-    @FXML
-    private Button purpleCardsButton;*/
 
     @FXML
     private HBox familyMembersPanel;
@@ -74,11 +67,13 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private PlayerTabSubControl player3Tab;
 
+    @FXML
+    private ToggleGroup familyMembersToggleGroup = new ToggleGroup();
+
     /**
      * This hashmap is used to obtain the tab related to the player
      */
     HashMap<String, PlayerTabSubControl> playersTabMap;
-
 
 
     private Board board;
@@ -96,50 +91,52 @@ public class MainBoardControl extends CustomFxControl {
         playersTabMap = new HashMap<String, PlayerTabSubControl>(3);
     }
 
-    @FXML
-    private ToggleGroup familyMembersToggleGroup = new ToggleGroup();
-
-    public void displayCards() {
-        Tower[] towers = board.getTowers();
-
-        for(int col = 0; col < towers.length; col++) {
-            for(int raw = 0; raw < 4; raw++) {
-                ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#card"+col+raw)));
-                Image cardImg  = new Image(getClass().getResourceAsStream("/imgs/Cards/" +
-                        towers[col].getFloorByIndex(raw).getCard().getImgName()));
-                imgView.setImage(cardImg);
-                imgView.setPreserveRatio(true);
-            }
-        }
-        //todo remove, this is just for debug
-        CliPrinter.printBoard(board);
-    }
-
+    /**
+     * This method sets the board object so that the controller can perform queries on it
+     * @param board the current board
+     */
     public void setBoard(Board board) {
         this.board = board;
     }
 
-    public void setThisPlayer(Player thisPlayer) {
-        this.thisPlayer = thisPlayer;
-    }
-
+    /**
+     * This method sets the list of other players so that the controller can perform queries on it
+     * @param otherPlayers the list of players not related to this client
+     */
     public void setOtherPlayers(List<Player> otherPlayers) {
         this.otherPlayers = otherPlayers;
     }
 
+    /**
+     * This method sets the player related to this client so that the controller can perform queries on it
+     * @param thisPlayer the player not related to this client
+     */
+    public void setThisPlayer(Player thisPlayer) {
+        this.thisPlayer = thisPlayer;
+    }
+
+    /**
+     * This method sets the list of dices so that the controller can perform queries on it
+     * @param dices the list of dices
+     */
     public void setDices(List<Dice> dices) {
         this.dices = dices;
     }
 
-    public void displayDices() {
-        for(Dice diceIter : dices) {
-            if(diceIter.getColor() != DiceAndFamilyMemberColorEnum.NEUTRAL) {
-                Text diceText = ((Text) (marketPane.lookup("#dice" + diceIter.getColor().getIntegerValue())));
-                diceText.setText(String.valueOf(diceIter.getValue()));
-            }
+    /**
+     * This method displays the excommunication tiles
+     * Should be called only at the beginning of the game
+     */
+    public void setUpExcommTiles() {
+        List<ExcommunicationTile> tiles = board.getExcommunicationTiles();
+
+        for(int i = 0; i < tiles.size(); i++) {
+            ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#excomm" + i)));
+            Image tileImg  = new Image(getClass().getResourceAsStream("/imgs/ExcommunicationTiles/" +
+                    tiles.get(i).getImgName()));
+            imgView.setImage(tileImg);
+            imgView.setPreserveRatio(true);
         }
-        //todo remove, this is just for debug
-        CliPrinter.printPersonalBoard(thisPlayer);
     }
 
     /**
@@ -173,6 +170,60 @@ public class MainBoardControl extends CustomFxControl {
         }
     }
 
+    /**
+     * This displays (or refreshes) the order of the player in the personal board cylinders
+     * @param players the ordered list of players
+     */
+    public void displayOrderOfPlayers(List<Player> players) {
+        //todo set circles
+        Cylinder cylinder;
+
+        for(int i = 0; i < players.size(); i++) {
+            cylinder = (Cylinder) (towersCouncilFaith.lookup(("#orderCylinder" + i)));
+            cylinder.setVisible(true);
+            PhongMaterial material = new PhongMaterial();
+            material.setDiffuseColor(Color.valueOf(players.get(i).getPlayerColor().getStringValue()));
+            //material.setSpecularColor(Color.RED);
+            cylinder.setMaterial(material);
+        }
+    }
+
+    /**
+     * This method displays (or refreshes) the cards on the board
+     */
+    public void displayCards() {
+        Tower[] towers = board.getTowers();
+
+        for(int col = 0; col < towers.length; col++) {
+            for(int raw = 0; raw < 4; raw++) {
+                ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#card"+col+raw)));
+                Image cardImg  = new Image(getClass().getResourceAsStream("/imgs/Cards/" +
+                        towers[col].getFloorByIndex(raw).getCard().getImgName()));
+                imgView.setImage(cardImg);
+                imgView.setPreserveRatio(true);
+            }
+        }
+        //todo remove, this is just for debug
+        CliPrinter.printBoard(board);
+    }
+
+    /**
+     * This method displays (or refreshes) the dices on the board
+     */
+    public void displayDices() {
+        for(Dice diceIter : dices) {
+            if(diceIter.getColor() != DiceAndFamilyMemberColorEnum.NEUTRAL) {
+                Text diceText = ((Text) (marketPane.lookup("#dice" + diceIter.getColor().getIntegerValue())));
+                diceText.setText(String.valueOf(diceIter.getValue()));
+            }
+        }
+        //todo remove, this is just for debug
+        CliPrinter.printPersonalBoard(thisPlayer);
+    }
+
+    /**
+     * This method displays (or refreshes) the family members of this player
+     */
     public void displayFamilyMembers(/*List<FamilyMember> availableFMs*/) {
         for(Dice diceIter : dices) {
             ToggleButton fm = ((ToggleButton) (familyMembersPanel.lookup("#FM" + diceIter.getColor().getIntegerValue())));
@@ -180,18 +231,7 @@ public class MainBoardControl extends CustomFxControl {
                 fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
                 fm.setToggleGroup(familyMembersToggleGroup);
         }
-    }
-
-    public void displayExcommTiles() {
-        List<ExcommunicationTile> tiles = board.getExcommunicationTiles();
-
-        for(int i = 0; i < tiles.size(); i++) {
-            ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#excomm" + i)));
-            Image tileImg  = new Image(getClass().getResourceAsStream("/imgs/ExcommunicationTiles/" +
-                    tiles.get(i).getImgName()));
-            imgView.setImage(tileImg);
-            imgView.setPreserveRatio(true);
-        }
+        //todo refresh
     }
 
     /**
@@ -203,76 +243,19 @@ public class MainBoardControl extends CustomFxControl {
         currentGameStateTextArea.setText(currentText + "\n" + "--> " + toAppend);
     }
 
-
-    @FXML
-    public void familyMemberSelected(ActionEvent event) {
-        ToggleButton buttonFM = ((ToggleButton) (event.getSource()));
-
-        DiceAndFamilyMemberColorEnum colorEnum = DiceAndFamilyMemberColorEnum.valueOf(
-                Character.getNumericValue(buttonFM.getId().charAt(2)));
-
-        Platform.runLater(() -> getController().callbackFamilyMemberSelected(thisPlayer.getFamilyMemberByColor(colorEnum)));
-    }
-
-    //todo check this method
-    @FXML
-    private void harvestSelected(ActionEvent event)
-    {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Harvest");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText("I have a great message for you!");
-        alert.showAndWait();
-        //todo make the alert ask the user
-        Platform.runLater(()->getController().callbackPlacedFMOnHarvest(5));
-    }
-
-    @FXML
-    private void buildSelected(ActionEvent event)
-    {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Build");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText("I have a great message for you!");
-        alert.showAndWait();
-
-        Platform.runLater(()->getController().callbackPlacedFMOnBuild(5));
-    }
-
-    @FXML
-    private void marketSelected(ActionEvent event)
-    {
-        //todo: this is for debug, remove
-        Button actionSpace = ((Button) (event.getSource()));
-        String id = actionSpace.getId();
-        int marketIndex = Character.getNumericValue(id.charAt(8));
-        Debug.printVerbose("Market placed" + marketIndex);
-        Platform.runLater(()->getController().callbackPlacedFMOnMarket(marketIndex));
-
-    }
-
-    @FXML
-    private void councilGiftSelected(ActionEvent event)
-    {
-        Button actionSpace = ((Button) (event.getSource()));
-        //String id = actionSpace.getId();
-        Platform.runLater(() -> getController().callbackPlacedFMOnCouncil());
-    }
-
-    @FXML
-    private void towerFloorSelected(ActionEvent event) {
-        Button actionSpace = ((Button) (event.getSource()));
-        String id = actionSpace.getId();
-        int towerIndex = Character.getNumericValue(id.charAt(7));
-        int floorIndex = Character.getNumericValue(id.charAt(8));
-        Platform.runLater(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
-    }
-
-    public void setActiveActionSpaces(Optional<Integer> servantsNeededHarvest,
-                                      Optional<Integer> servantsNeededBuild,
-                                      Optional<Integer> servantsNeededCouncil,
-                                      List<MarketWrapper> activeMarketSpaces,
-                                      List<TowerWrapper> activeTowerSpaces) {
+    /**
+     * This method displays (or refreshes) only the action spaces that are available with the selected family member
+     * @param servantsNeededHarvest The servants needed by the user to harvest, Optional.empty() if the action is not valid
+     * @param servantsNeededBuild   The servants needed by the user to build, Optional.empty() if the action is not valid
+     * @param servantsNeededCouncil The servants needed by the user to place on cuincil, Optional.empty() if the action is not valid
+     * @param activeMarketSpaces    The list of legal action spaces in the market
+     * @param activeTowerSpaces     the list of legal action spaces on the towers
+     */
+    public void displayActiveActionSpaces(Optional<Integer> servantsNeededHarvest,
+                                          Optional<Integer> servantsNeededBuild,
+                                          Optional<Integer> servantsNeededCouncil,
+                                          List<MarketWrapper> activeMarketSpaces,
+                                          List<TowerWrapper> activeTowerSpaces) {
 
         //we set all AS to disabled
         for(int col = 0; col < 4; col++) {
@@ -315,25 +298,99 @@ public class MainBoardControl extends CustomFxControl {
 
         for(MarketWrapper marketIterator : activeMarketSpaces)
         {
-                Button marketASButton = (Button) (marketPane.lookup("#marketAS" + marketIterator.getMarketIndex()));
-                Debug.printVerbose("iterator on wrapper: " + marketIterator.getMarketIndex());
-                marketASButton.setDisable(false);
+            Button marketASButton = (Button) (marketPane.lookup("#marketAS" + marketIterator.getMarketIndex()));
+            Debug.printVerbose("iterator on wrapper: " + marketIterator.getMarketIndex());
+            marketASButton.setDisable(false);
         }
 
     }
 
-    public void setOrderOfPlayers(List<Player> players) {
-        //todo set circles
-        Cylinder cylinder;
+    /**
+     * Method called by fx when a family member is clicked
+     * @param event the fx event
+     */
+    @FXML
+    public void familyMemberSelected(ActionEvent event) {
+        ToggleButton buttonFM = ((ToggleButton) (event.getSource()));
 
-        for(int i = 0; i < players.size(); i++) {
-            cylinder = (Cylinder) (towersCouncilFaith.lookup(("#orderCylinder" + i)));
-            cylinder.setVisible(true);
-            PhongMaterial material = new PhongMaterial();
-            material.setDiffuseColor(Color.valueOf(players.get(i).getPlayerColor().getStringValue()));
-            //material.setSpecularColor(Color.RED);
-            cylinder.setMaterial(material);
-        }
+        DiceAndFamilyMemberColorEnum colorEnum = DiceAndFamilyMemberColorEnum.valueOf(
+                Character.getNumericValue(buttonFM.getId().charAt(2)));
+
+        Platform.runLater(() -> getController().callbackFamilyMemberSelected(thisPlayer.getFamilyMemberByColor(colorEnum)));
+    }
+
+    /**
+     * Method called by fx when a harvest as is clicked
+     * @param event the fx event
+     */
+    //todo check this method
+    @FXML
+    private void harvestSelected(ActionEvent event)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Harvest");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText("I have a great message for you!");
+        alert.showAndWait();
+        //todo make the alert ask the user
+        Platform.runLater(()->getController().callbackPlacedFMOnHarvest(5));
+    }
+
+    /**
+     * Method called by fx when a build as is clicked
+     * @param event the fx event
+     */
+    @FXML
+    private void buildSelected(ActionEvent event)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Build");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText("I have a great message for you!");
+        alert.showAndWait();
+
+        Platform.runLater(()->getController().callbackPlacedFMOnBuild(5));
+    }
+
+    /**
+     * Method called by fx when a market as is clicked
+     * @param event the fx event
+     */
+    @FXML
+    private void marketSelected(ActionEvent event)
+    {
+        //todo: this is for debug, remove
+        Button actionSpace = ((Button) (event.getSource()));
+        String id = actionSpace.getId();
+        int marketIndex = Character.getNumericValue(id.charAt(8));
+        Debug.printVerbose("Market placed" + marketIndex);
+        Platform.runLater(()->getController().callbackPlacedFMOnMarket(marketIndex));
+
+    }
+
+    /**
+     * Method called by fx when the council is clicked
+     * @param event the fx event
+     */
+    @FXML
+    private void councilGiftSelected(ActionEvent event)
+    {
+        Button actionSpace = ((Button) (event.getSource()));
+        //String id = actionSpace.getId();
+        Platform.runLater(() -> getController().callbackPlacedFMOnCouncil());
+    }
+
+    /**
+     * Method called by fx when a tower as as is clicked
+     * @param event the fx event
+     */
+    @FXML
+    private void towerFloorSelected(ActionEvent event) {
+        Button actionSpace = ((Button) (event.getSource()));
+        String id = actionSpace.getId();
+        int towerIndex = Character.getNumericValue(id.charAt(7));
+        int floorIndex = Character.getNumericValue(id.charAt(8));
+        Platform.runLater(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
     }
 
 }
