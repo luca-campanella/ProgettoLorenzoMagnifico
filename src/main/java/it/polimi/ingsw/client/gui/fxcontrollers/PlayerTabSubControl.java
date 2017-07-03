@@ -160,11 +160,13 @@ public class PlayerTabSubControl extends CustomFxControl {
     private void showLeaderCards()
     {
         if(!isLeaderStageCreated) {
-            String fxmlFileName = "LeaderOtherPlayersScene.fxml";
+            final String fxmlFileName;
             if(isThisPlayer)
                 fxmlFileName = "LeaderOwnedScene.fxml";
+            else
+                fxmlFileName = "LeaderOtherPlayersScene.fxml";
 
-            Platform.runLater(() -> this.openLeadersWindow("LeaderOtherPlayersScene.fxml", "Leaders",
+            Platform.runLater(() -> this.openLeadersWindow(fxmlFileName, "Leaders",
                     () -> leadersControl.setLeaders(
                             player.getLeaderCardsNotUsed(),
                             player.getPlayedLeaders(),
