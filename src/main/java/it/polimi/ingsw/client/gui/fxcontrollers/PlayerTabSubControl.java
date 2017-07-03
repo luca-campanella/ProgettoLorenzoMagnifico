@@ -1,7 +1,9 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
+import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
@@ -10,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -24,6 +27,11 @@ import java.util.List;
 public class PlayerTabSubControl extends CustomFxControl {
 
     Player player;
+    PersonalBoard personalBoard;
+    /**
+     * true if the tab is linked with the player which controls the client
+     */
+    boolean isThisPlayer = false;
 
     @FXML
     ImageView thisPlayerPersonalTile;
@@ -33,6 +41,12 @@ public class PlayerTabSubControl extends CustomFxControl {
 
     @FXML
     private Button purpleCardsButton;
+
+    @FXML
+    private Button passTurnButton;
+
+    @FXML
+    private ToolBar buttonsToolBar;
 
 
     public PlayerTabSubControl() {
@@ -54,17 +68,46 @@ public class PlayerTabSubControl extends CustomFxControl {
     }
 
     /**
+     * This method is used at the beginning of the game when we have to setup a tab for each player with his information
+     * @param controller the controller for callbacks
+     * @param relatedPlayer the player related to the tab
+     * @param isThisPlayer true if the tab is linked with the player which controls the client
+     */
+    public void setUpTab(ViewControllerCallbackInterface controller, Player relatedPlayer, boolean isThisPlayer) {
+        this.isThisPlayer = isThisPlayer;
+        setController(controller);
+        setRelatedPlayer(relatedPlayer);
+        personalBoard = player.getPersonalBoard();
+        setPersonalTile();
+        refresh();
+        if(!isThisPlayer) {
+            buttonsToolBar.getItems().remove(passTurnButton);
+        }
+    }
+
+    /**
+     * This method is used to refresh the tab after the player performed an action
+     */
+    public void refresh() {
+        //todo set the cards of the player to the board
+        //todo set the resources of the player to the board
+        //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
+        purpleCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
+        blueCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));
+    }
+
+    /**
      * Sets the instance of the player related to this tab
      * @param player
      */
-    public void setRelatedPlayer(Player player) {
+    private void setRelatedPlayer(Player player) {
         this.player = player;
     }
 
     /**
      * Sets the personal tile image of the related player
      */
-    public void setPersonalTile() {
+    private void setPersonalTile() {
         Debug.printVerbose("setUpPersonalTIles called");
         Debug.printVerbose(player.getPersonalBoard().getPersonalTile().getImgName());
         Image tileImg  = new Image(getClass().getResourceAsStream("/imgs/PersonalBonusTiles/Long/" +

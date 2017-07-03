@@ -1,9 +1,5 @@
 package it.polimi.ingsw.client.gui;
 
-/**
- * Created by higla on 11/05/2017.
- */
-
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
@@ -38,11 +34,16 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * This object represents the implementation of the user interface via graphical user interface
+ * Uses java fx
+ */
 public class GraphicalUI extends AbstractUIType {
 
     Stage currentStage;
     CustomFxControl currentFXControl;
     SceneEnum currentSceneType;
+
     /**
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
@@ -158,7 +159,6 @@ public class GraphicalUI extends AbstractUIType {
         control.displayCards();
         control.displayExcommTiles();
         control.setThisPlayer(getController().callbackObtainPlayer());
-        control.displayThisPlayerPersonalBoard();
         control.setOtherPlayers(getController().callbackObtainOtherPlayers());
         control.setOrderOfPlayers(getController().callbackObtainPlayersInOrder());
         control.setDices(getController().callbackObtainDices());

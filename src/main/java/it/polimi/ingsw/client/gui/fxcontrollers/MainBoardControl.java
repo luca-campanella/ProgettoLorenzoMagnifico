@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
-import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.TowerWrapper;
@@ -37,6 +36,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,6 +85,11 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private PlayerTabSubControl player3Tab;
 
+    /**
+     * This hashmap is used to obtain the tab related to the player
+     */
+    HashMap<String, PlayerTabSubControl> playersTabMap;
+
 
 
     private Board board;
@@ -94,6 +99,13 @@ public class MainBoardControl extends CustomFxControl {
     private List<Player> otherPlayers;
 
     private List<Dice> dices;
+
+    /**
+     * Contructor, called when opened fxml
+     */
+    public MainBoardControl() {
+        playersTabMap = new HashMap<String, PlayerTabSubControl>(3);
+    }
 
     @FXML
     private ToggleGroup familyMembersToggleGroup = new ToggleGroup();
@@ -141,28 +153,35 @@ public class MainBoardControl extends CustomFxControl {
         CliPrinter.printPersonalBoard(thisPlayer);
     }
 
-    public void displayThisPlayerPersonalBoard() {
-        PersonalBoard persBoard = thisPlayer.getPersonalBoard();
-
-        //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
-        /*purpleCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
-        blueCardsButton.setDisable((persBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));*/
-
-        thisPlayerTab.setController(getController());
-        thisPlayerTab.setRelatedPlayer(thisPlayer);
-        thisPlayerTab.setPersonalTile();
-    }
-
+    /**
+     * This method is used ad startup when we have to setup all the personal boards of the players
+     */
     public void setUpPlayersPersonalBoards() {
         ObservableList<Tab> tabs = playersTabPersonalBoard.getTabs();
         Tab currentTab = tabs.get(0); //this player tab
         currentTab.setText("You (" + thisPlayer.getPlayerColor().getStringValue() + ")");
+
+        thisPlayerTab.setUpTab(getController(), thisPlayer, true);
+        playersTabMap.put(thisPlayer.getNickname(), thisPlayerTab);
 
         for(int i = 1; i <= otherPlayers.size(); i++) {
             currentTab = tabs.get(i);
             currentTab.setText(otherPlayers.get(i-1).getNickname() + " (" + otherPlayers.get(i-1).getPlayerColor().getStringValue() + ")");
         }
         tabs.remove(otherPlayers.size()+1, tabs.size());
+
+        if(otherPlayers.size() >= 1) {
+            player1Tab.setUpTab(getController(), otherPlayers.get(0), false);
+            playersTabMap.put(otherPlayers.get(0).getNickname(), player1Tab);
+            if(otherPlayers.size() >= 2) {
+                player2Tab.setUpTab(getController(), otherPlayers.get(1), false);
+                playersTabMap.put(otherPlayers.get(1).getNickname(), player2Tab);
+                if(otherPlayers.size() >= 3) {
+                    player3Tab.setUpTab(getController(), otherPlayers.get(2), false);
+                    playersTabMap.put(otherPlayers.get(2).getNickname(), player3Tab);
+                }
+            }
+        }
     }
 
     public void displayFamilyMembers(/*List<FamilyMember> availableFMs*/) {
