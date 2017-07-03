@@ -4,8 +4,12 @@ import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.Tower;
+import it.polimi.ingsw.model.board.*;
+import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
+import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.TowerWrapper;
@@ -36,7 +40,7 @@ import java.util.Optional;
  * display -- displays or refreshes something, may be called more than once during the game
  */
 public class MainBoardControl extends CustomFxControl {
-
+    ToggleButton currentFamilyMemberSelected;
     @FXML
     private AnchorPane towersCouncilFaith;
 
@@ -225,13 +229,124 @@ public class MainBoardControl extends CustomFxControl {
      * This method displays (or refreshes) the family members of this player
      */
     public void displayFamilyMembers(/*List<FamilyMember> availableFMs*/) {
-        for(Dice diceIter : dices) {
-            ToggleButton fm = ((ToggleButton) (familyMembersPanel.lookup("#FM" + diceIter.getColor().getIntegerValue())));
-                fm.setText(String.valueOf(diceIter.getValue()));
+
+        for(FamilyMember familyMember : thisPlayer.getNotUsedFamilyMembers()) {
+            ToggleButton fm = ((ToggleButton) (familyMembersPanel.lookup("#FM" + familyMember.getColor().getIntegerValue())));
+                fm.setText(String.valueOf(familyMember.getValue()));
                 fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
                 fm.setToggleGroup(familyMembersToggleGroup);
         }
-        //todo refresh
+
+
+    }
+
+    public void updateFamilyMembers() {
+        ArrayList<Player> allPlayers = new ArrayList<>(5);
+        allPlayers.add(thisPlayer);
+        allPlayers.addAll(otherPlayers);
+        for(Player player : allPlayers)
+        {
+            //this method shows other players family member inside towers
+            for(int towerIndex = 0; towerIndex < board.getTowers().length; towerIndex++) {
+                Tower tower = board.getTowers()[towerIndex];
+                for (int floorIndex = 0; floorIndex < tower.getFloors().length; floorIndex++) {
+                    TowerFloorAS floor = tower.getFloors()[floorIndex];
+
+                    for (FamilyMember familyMember : floor.getFamilyMembers()) {
+
+                        ToggleButton fm = ((ToggleButton) (towersCouncilFaith.lookup("#towerAS" + towerIndex + floorIndex)));
+                        fm.setText(String.valueOf(familyMember.getValue()));
+                        fm.setStyle("-fx-border-color: " + player.getPlayerColor().getStringValue() + ";");
+                        fm.getStyleClass().add("familyMemberButton");
+                    }
+                }
+            }
+            //this method shows other family members inside market
+            for(int marketIndex = 0; marketIndex < board.getMarket().size(); marketIndex++)
+            {
+                for (FamilyMember familyMember : board.getMarket().get(marketIndex).getFamilyMembers()) {
+                    Button fm = ((Button) (marketPane.lookup("#marketAS" + marketIndex)));
+                    fm.setText(String.valueOf(familyMember.getValue()));
+                    fm.setStyle("-fx-border-color: " + player.getPlayerColor().getStringValue() + ";");
+                    fm.getStyleClass().add("familyMemberButton");
+                }
+            }
+        }
+    }
+
+    public void displayExcommTiles() {
+        List<ExcommunicationTile> tiles = board.getExcommunicationTiles();
+
+        for(int i = 0; i < tiles.size(); i++) {
+            ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#excomm" + i)));
+            Image tileImg  = new Image(getClass().getResourceAsStream("/imgs/ExcommunicationTiles/" +
+                    tiles.get(i).getImgName()));
+            imgView.setImage(tileImg);
+            imgView.setPreserveRatio(true);
+        }
+    }
+
+    @FXML
+    public void showPurpleCards() {
+        showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.PURPLE), "Purple cards");
+    }
+
+    @FXML
+    public void showBlueCards() {
+        showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE), "Blue cards");
+    }
+
+    /**
+     * owned cards leader
+     */
+    @FXML
+    public void showLeaderCards() {
+        if (!isLeaderStageCreated[0]) {
+
+        Platform.runLater(() -> this.openNewWindow("LeaderOwnedScene.fxml", "Choose a leader", () -> this.showLeaders(
+                thisPlayer.getLeaderCardsNotUsed(), thisPlayer.getPlayedLeaders(), thisPlayer.getPlayableLeaders(),
+                thisPlayer.getPlayedNotActivatedOncePerRoundLeaderCards())));
+        //todo: isLeaderStageCreated[0] = true;
+        }
+
+    }
+
+    @FXML
+    public void showOtherPlayerLeader1()
+    {
+        showOtherPlayerLeader(1);
+    }
+    @FXML
+    public void showOtherPlayerLeader2()
+    {
+        showOtherPlayerLeader(2);
+    }
+    @FXML
+    public void showOtherPlayerLeader3()
+    {
+        showOtherPlayerLeader(3);
+    }
+
+    @FXML
+    private void showOtherPlayerLeader(int indexOfPlayerTab)
+    {
+        if(!isLeaderStageCreated[indexOfPlayerTab]) {
+            //todo check index
+            Player temp = otherPlayers.get(indexOfPlayerTab-1);
+            Platform.runLater(() -> this.openNewWindow("LeaderOtherPlayersScene.fxml", "Choose a leader",
+                    () -> this.showLeaders(
+                            temp.getLeaderCardsNotUsed(),
+                            temp.getPlayedLeaders(),
+                            temp.getPlayableLeaders(),
+                            temp.getPlayedNotActivatedOncePerRoundLeaderCards())));
+            Debug.printVerbose("runLater loaded");
+        }
+    }
+
+    private void showLeaders(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {
+        LeaderOwnedControl leaderOwnedControl = ((LeaderOwnedControl) (currentFXControl));
+        leaderOwnedControl.setLeaders(leaderNotUsed,leaderActivated,leadersPlayable,leadersOPRNotActivated);
+        return;
     }
 
     /**
@@ -315,8 +430,9 @@ public class MainBoardControl extends CustomFxControl {
 
         DiceAndFamilyMemberColorEnum colorEnum = DiceAndFamilyMemberColorEnum.valueOf(
                 Character.getNumericValue(buttonFM.getId().charAt(2)));
-
+        currentFamilyMemberSelected = buttonFM;
         Platform.runLater(() -> getController().callbackFamilyMemberSelected(thisPlayer.getFamilyMemberByColor(colorEnum)));
+
     }
 
     /**
@@ -327,6 +443,7 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void harvestSelected(ActionEvent event)
     {
+        Button buttonHarvest = ((Button) (event.getSource()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Harvest");
         alert.setHeaderText("Look, an Information Dialog");
@@ -334,6 +451,16 @@ public class MainBoardControl extends CustomFxControl {
         alert.showAndWait();
         //todo make the alert ask the user
         Platform.runLater(()->getController().callbackPlacedFMOnHarvest(5));
+
+        currentFamilyMemberSelected.setVisible(false);
+        ToggleButton familyMemberPlaced = new ToggleButton();
+        familyMemberPlaced.setLayoutX(buttonHarvest.getLayoutX());
+        familyMemberPlaced.setLayoutY(buttonHarvest.getLayoutY());
+        familyMemberPlaced.getStyleClass().add("familyMemberButton");
+        buildHarvestPane.getChildren().add(familyMemberPlaced);
+        Debug.printVerbose("Added FM to build");
+        updateFamilyMembers();
+
     }
 
     /**
@@ -343,6 +470,7 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void buildSelected(ActionEvent event)
     {
+        Button buttonBuild = ((Button) (event.getSource()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Build");
         alert.setHeaderText("Look, an Information Dialog");
@@ -350,6 +478,16 @@ public class MainBoardControl extends CustomFxControl {
         alert.showAndWait();
 
         Platform.runLater(()->getController().callbackPlacedFMOnBuild(5));
+
+        currentFamilyMemberSelected.setVisible(false);
+        ToggleButton familyMemberPlaced = new ToggleButton();
+        familyMemberPlaced.setLayoutX(buttonBuild.getLayoutX());
+        familyMemberPlaced.setLayoutY(buttonBuild.getLayoutY());
+        familyMemberPlaced.getStyleClass().add("familyMemberButton");
+        buildHarvestPane.getChildren().add(familyMemberPlaced);
+        Debug.printVerbose("Added FM to build");
+        updateFamilyMembers();
+
     }
 
     /**
@@ -359,13 +497,28 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void marketSelected(ActionEvent event)
     {
-        //todo: this is for debug, remove
+        Button buttonMarket = ((Button) (event.getSource()));
+
         Button actionSpace = ((Button) (event.getSource()));
         String id = actionSpace.getId();
         int marketIndex = Character.getNumericValue(id.charAt(8));
         Debug.printVerbose("Market placed" + marketIndex);
         Platform.runLater(()->getController().callbackPlacedFMOnMarket(marketIndex));
 
+        currentFamilyMemberSelected.setVisible(false);
+        double height = buttonMarket.getPrefHeight();
+        double width = buttonMarket.getWidth();
+        ToggleButton familyMemberPlaced = new ToggleButton();
+        /*familyMemberPlaced.setMinHeight(height);
+        familyMemberPlaced.setMaxWidth(width);*/
+
+        familyMemberPlaced.setLayoutX(buttonMarket.getLayoutX());
+        familyMemberPlaced.setLayoutY(buttonMarket.getLayoutY());
+        familyMemberPlaced.getStyleClass().add("familyMemberButton");
+        marketPane.getChildren().add(familyMemberPlaced);
+
+        //CliPrinter.printBoard(board);
+        updateFamilyMembers();
     }
 
     /**
@@ -375,9 +528,25 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void councilGiftSelected(ActionEvent event)
     {
+        ToggleButton buttonCouncil = ((ToggleButton) (event.getSource()));
+
         Button actionSpace = ((Button) (event.getSource()));
         //String id = actionSpace.getId();
         Platform.runLater(() -> getController().callbackPlacedFMOnCouncil());
+        currentFamilyMemberSelected.setVisible(false);
+        double height = buttonCouncil.getPrefHeight();
+        double width = buttonCouncil.getWidth();
+        ToggleButton familyMemberPlaced = new ToggleButton();
+        /*familyMemberPlaced.setMinHeight(height);
+        familyMemberPlaced.setMaxWidth(width);*/
+
+        familyMemberPlaced.setLayoutX(buttonCouncil.getLayoutX());
+        familyMemberPlaced.setLayoutY(buttonCouncil.getLayoutY());
+        familyMemberPlaced.getStyleClass().add("familyMemberButton");
+        towersCouncilFaith.getChildren().add(familyMemberPlaced);
+        Debug.printVerbose("Added FM to council");
+        updateFamilyMembers();
+
     }
 
     /**

@@ -74,6 +74,9 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
         return 10;
     }
 
+    /**
+     * @return the fact that it is a 2 players game
+     */
     public boolean isTwoPlayersOneSpace() {
         return twoPlayersOneSpace;
     }
