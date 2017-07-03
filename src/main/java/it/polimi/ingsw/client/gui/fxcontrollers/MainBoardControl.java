@@ -4,12 +4,10 @@ import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.Tower;
-import it.polimi.ingsw.model.board.*;
-import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.board.TowerFloorAS;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
-import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.TowerWrapper;
@@ -74,6 +72,9 @@ public class MainBoardControl extends CustomFxControl {
 
     @FXML
     private ToggleGroup familyMembersToggleGroup = new ToggleGroup();
+
+    @FXML
+    private Button towerAS03; //todo delete
 
     /**
      * This hashmap is used to obtain the tab related to the player
@@ -314,9 +315,19 @@ public class MainBoardControl extends CustomFxControl {
         for(int col = 0; col < 4; col++) {
             for(int raw = 0; raw < 4; raw++) {
                 Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + col) + raw));
-                activeTowersASButton.setDisable(true);
+                activeTowersASButton.setDisable(true); //todo change in true
             }
         }
+
+        towerAS03.setDisable(false);
+        //we reactivate only the ones passed via parameters
+        for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
+            Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
+            activeTowersASButton.setText("text");
+            activeTowersASButton.setDisable(false);
+            activeTowersASButton.setStyle("-fx-background-color: red;");
+        }
+
         for(int iterator = 0; iterator < 4; iterator++) {
             Button marketASButton = (Button) (marketPane.lookup("#marketAS" + iterator));
             marketASButton.setDisable(true);
@@ -342,11 +353,6 @@ public class MainBoardControl extends CustomFxControl {
 
         //setting harvest AS enable
 
-        //we reactivate only the ones passed via parameters
-        for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
-            Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
-            activeTowersASButton.setDisable(false);
-        }
         //we reactivate only the AS passed via parameters -> problem here. Wrapper is not used correctly
 
         for(MarketWrapper marketIterator : activeMarketSpaces)
@@ -493,6 +499,7 @@ public class MainBoardControl extends CustomFxControl {
      */
     @FXML
     private void towerFloorSelected(ActionEvent event) {
+        Debug.printVerbose("towerFloorSelected called");
         Button actionSpace = ((Button) (event.getSource()));
         String id = actionSpace.getId();
         int towerIndex = Character.getNumericValue(id.charAt(7));

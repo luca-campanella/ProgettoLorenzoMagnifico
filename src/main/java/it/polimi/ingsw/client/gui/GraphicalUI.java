@@ -67,6 +67,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest, Optional<Integer> servantsNeededBuild, Optional<Integer> servantsNeededCouncil, List<MarketWrapper> activeMarketSpaces, List<TowerWrapper> activeTowerSpaces, int availableServants) {
+        Debug.printVerbose("askWhichActionSpace called");
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
         Platform.runLater(() -> control.displayActiveActionSpaces(servantsNeededHarvest, servantsNeededBuild, servantsNeededCouncil, activeMarketSpaces, activeTowerSpaces));
     }
