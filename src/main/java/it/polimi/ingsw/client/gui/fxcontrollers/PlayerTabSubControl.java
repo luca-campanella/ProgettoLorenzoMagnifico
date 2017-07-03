@@ -132,7 +132,7 @@ public class PlayerTabSubControl extends CustomFxControl {
     }
 
     @FXML
-    public void passTurn(ActionEvent event)
+    public void passTurn()
     {
         Platform.runLater(()-> getController().callBackPassTheTurn());
     }

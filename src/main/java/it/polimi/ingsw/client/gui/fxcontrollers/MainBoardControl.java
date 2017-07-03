@@ -1,14 +1,12 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.client.cli.CliPrinter;
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.board.Dice;
-import it.polimi.ingsw.model.board.Tower;
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
@@ -44,6 +42,8 @@ import java.util.Optional;
  * Created by campus on 24/06/2017.
  */
 public class MainBoardControl extends CustomFxControl {
+    ToggleButton currentFamilyMemberSelected;
+
     //todo: implement refresh of the leaders in LeaderOwnedControl
     private boolean[] isLeaderStageCreated = {false,false, false, false, false};
 
@@ -165,11 +165,48 @@ public class MainBoardControl extends CustomFxControl {
     }
 
     public void displayFamilyMembers(/*List<FamilyMember> availableFMs*/) {
-        for(Dice diceIter : dices) {
-            ToggleButton fm = ((ToggleButton) (familyMembersPanel.lookup("#FM" + diceIter.getColor().getIntegerValue())));
-                fm.setText(String.valueOf(diceIter.getValue()));
+
+        for(FamilyMember familyMember : thisPlayer.getNotUsedFamilyMembers()) {
+            ToggleButton fm = ((ToggleButton) (familyMembersPanel.lookup("#FM" + familyMember.getColor().getIntegerValue())));
+                fm.setText(String.valueOf(familyMember.getValue()));
                 fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
                 fm.setToggleGroup(familyMembersToggleGroup);
+        }
+
+
+    }
+
+    public void updateFamilyMembers() {
+        ArrayList<Player> allPlayers = new ArrayList<>(5);
+        allPlayers.add(thisPlayer);
+        allPlayers.addAll(otherPlayers);
+        for(Player player : allPlayers)
+        {
+            //this method shows other players family member inside towers
+            for(int towerIndex = 0; towerIndex < board.getTowers().length; towerIndex++) {
+                Tower tower = board.getTowers()[towerIndex];
+                for (int floorIndex = 0; floorIndex < tower.getFloors().length; floorIndex++) {
+                    TowerFloorAS floor = tower.getFloors()[floorIndex];
+
+                    for (FamilyMember familyMember : floor.getFamilyMembers()) {
+
+                        ToggleButton fm = ((ToggleButton) (towersCouncilFaith.lookup("#towerAS" + towerIndex + floorIndex)));
+                        fm.setText(String.valueOf(familyMember.getValue()));
+                        fm.setStyle("-fx-border-color: " + player.getPlayerColor().getStringValue() + ";");
+                        fm.getStyleClass().add("familyMemberButton");
+                    }
+                }
+            }
+            //this method shows other family members inside market
+            for(int marketIndex = 0; marketIndex < board.getMarket().size(); marketIndex++)
+            {
+                for (FamilyMember familyMember : board.getMarket().get(marketIndex).getFamilyMembers()) {
+                    Button fm = ((Button) (marketPane.lookup("#marketAS" + marketIndex)));
+                    fm.setText(String.valueOf(familyMember.getValue()));
+                    fm.setStyle("-fx-border-color: " + player.getPlayerColor().getStringValue() + ";");
+                    fm.getStyleClass().add("familyMemberButton");
+                }
+            }
         }
     }
 
@@ -294,13 +331,15 @@ public class MainBoardControl extends CustomFxControl {
 
         DiceAndFamilyMemberColorEnum colorEnum = DiceAndFamilyMemberColorEnum.valueOf(
                 Character.getNumericValue(buttonFM.getId().charAt(2)));
-
+        currentFamilyMemberSelected = buttonFM;
         Platform.runLater(() -> getController().callbackFamilyMemberSelected(thisPlayer.getFamilyMemberByColor(colorEnum)));
+
     }
     //todo check this method
     @FXML
     private void harvestSelected(ActionEvent event)
     {
+        Button buttonHarvest = ((Button) (event.getSource()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Harvest");
         alert.setHeaderText("Look, an Information Dialog");
@@ -308,10 +347,21 @@ public class MainBoardControl extends CustomFxControl {
         alert.showAndWait();
 
         Platform.runLater(()->getController().callbackPlacedFMOnHarvest(5));
+
+        currentFamilyMemberSelected.setVisible(false);
+        ToggleButton familyMemberPlaced = new ToggleButton();
+        familyMemberPlaced.setLayoutX(buttonHarvest.getLayoutX());
+        familyMemberPlaced.setLayoutY(buttonHarvest.getLayoutY());
+        familyMemberPlaced.getStyleClass().add("familyMemberButton");
+        buildHarvestPane.getChildren().add(familyMemberPlaced);
+        Debug.printVerbose("Added FM to build");
+        updateFamilyMembers();
+
     }
     @FXML
     private void buildSelected(ActionEvent event)
     {
+        Button buttonBuild = ((Button) (event.getSource()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Build");
         alert.setHeaderText("Look, an Information Dialog");
@@ -319,24 +369,65 @@ public class MainBoardControl extends CustomFxControl {
         alert.showAndWait();
 
         Platform.runLater(()->getController().callbackPlacedFMOnBuild(5));
+
+        currentFamilyMemberSelected.setVisible(false);
+        ToggleButton familyMemberPlaced = new ToggleButton();
+        familyMemberPlaced.setLayoutX(buttonBuild.getLayoutX());
+        familyMemberPlaced.setLayoutY(buttonBuild.getLayoutY());
+        familyMemberPlaced.getStyleClass().add("familyMemberButton");
+        buildHarvestPane.getChildren().add(familyMemberPlaced);
+        Debug.printVerbose("Added FM to build");
+        updateFamilyMembers();
+
     }
     @FXML
     private void marketSelected(ActionEvent event)
     {
-        //todo: this is for debug, remove
+        Button buttonMarket = ((Button) (event.getSource()));
+
         Button actionSpace = ((Button) (event.getSource()));
         String id = actionSpace.getId();
         int marketIndex = Character.getNumericValue(id.charAt(8));
         Debug.printVerbose("Market placed" + marketIndex);
         Platform.runLater(()->getController().callbackPlacedFMOnMarket(marketIndex));
 
+        currentFamilyMemberSelected.setVisible(false);
+        double height = buttonMarket.getPrefHeight();
+        double width = buttonMarket.getWidth();
+        ToggleButton familyMemberPlaced = new ToggleButton();
+        /*familyMemberPlaced.setMinHeight(height);
+        familyMemberPlaced.setMaxWidth(width);*/
+
+        familyMemberPlaced.setLayoutX(buttonMarket.getLayoutX());
+        familyMemberPlaced.setLayoutY(buttonMarket.getLayoutY());
+        familyMemberPlaced.getStyleClass().add("familyMemberButton");
+        marketPane.getChildren().add(familyMemberPlaced);
+
+        //CliPrinter.printBoard(board);
+        updateFamilyMembers();
     }
     @FXML
     private void councilGiftSelected(ActionEvent event)
     {
+        ToggleButton buttonCouncil = ((ToggleButton) (event.getSource()));
+
         Button actionSpace = ((Button) (event.getSource()));
         //String id = actionSpace.getId();
         Platform.runLater(() -> getController().callbackPlacedFMOnCouncil());
+        currentFamilyMemberSelected.setVisible(false);
+        double height = buttonCouncil.getPrefHeight();
+        double width = buttonCouncil.getWidth();
+        ToggleButton familyMemberPlaced = new ToggleButton();
+        /*familyMemberPlaced.setMinHeight(height);
+        familyMemberPlaced.setMaxWidth(width);*/
+
+        familyMemberPlaced.setLayoutX(buttonCouncil.getLayoutX());
+        familyMemberPlaced.setLayoutY(buttonCouncil.getLayoutY());
+        familyMemberPlaced.getStyleClass().add("familyMemberButton");
+        towersCouncilFaith.getChildren().add(familyMemberPlaced);
+        Debug.printVerbose("Added FM to council");
+        updateFamilyMembers();
+
     }
     @FXML
     private void towerFloorSelected(ActionEvent event) {
@@ -384,7 +475,9 @@ public class MainBoardControl extends CustomFxControl {
                                       Optional<Integer> servantsNeededCouncil,
                                       List<MarketWrapper> activeMarketSpaces,
                                       List<TowerWrapper> activeTowerSpaces) {
-
+        //first, we disable all family member because if you click on a family
+        //member that can be placed on an AS then you click on another fm that can't be placed
+        //there, yuo can still see that AS.
         //we set all AS to disabled
         for(int col = 0; col < 4; col++) {
             for(int raw = 0; raw < 4; raw++) {
@@ -392,29 +485,56 @@ public class MainBoardControl extends CustomFxControl {
                 activeTowersASButton.setDisable(true);
             }
         }
+        //setting market disabled
         for(int iterator = 0; iterator < 4; iterator++) {
             Button marketASButton = (Button) (marketPane.lookup("#marketAS" + iterator));
             marketASButton.setDisable(true);
         }
 
-        //todo: disable build and harvest
-        //first we need to disable build
-        //we need to disable also harvest
-        //servamts needed to build / harvest ?
-        //todo: ci sono volte in cui non sempre è possibile piazzare un family member.. Com'è stato gestito? --Arto
-        //setting council enabled
-        Button activeCouncilASButton = (Button) (towersCouncilFaith.lookup("#councilGiftButton"));
-        activeCouncilASButton.setDisable(false);
-        //setting build and harvest enabled
-        Button harvestSmallASButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
-        harvestSmallASButton.setDisable(false);
-        Button harvestBigASButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
-        harvestBigASButton.setDisable(false);
-        Button buildSmallASButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
-        buildSmallASButton.setDisable(false);
-        Button buildBigASButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
-        buildBigASButton.setDisable(false);
+        //setting build and harvest disabled
+        if(servantsNeededHarvest.isPresent()){
+            if(!board.getHarvest().isTwoPlayersOneSpace()){
+                Button harvestBigASButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
+                harvestBigASButton.setDisable(true);}
+            if(board.getHarvest().checkIfFirst()) {
+                Button harvestSmallASButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
+                harvestSmallASButton.setDisable(true);
+            }}
+        if(servantsNeededBuild.isPresent()) {
+            if (!board.getBuild().isTwoPlayersOneSpace()) {
+                Button buildBigASButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
+                buildBigASButton.setDisable(true);
+            }
+            if (board.getBuild().checkIfFirst()) {
+                Button buildSmallASButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
+                buildSmallASButton.setDisable(true);
+            }
+        }
 
+        //setting council enabled
+        if(servantsNeededCouncil.isPresent()) {
+            Button activeCouncilASButton = (Button) (towersCouncilFaith.lookup("#councilGiftButton"));
+            activeCouncilASButton.setDisable(false);
+        }
+        //setting build and harvest enabled
+        if(servantsNeededHarvest.isPresent()){
+        if(!board.getHarvest().isTwoPlayersOneSpace()){
+            Button harvestBigASButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
+            harvestBigASButton.setDisable(false);}
+        if(board.getHarvest().checkIfFirst()) {
+            Button harvestSmallASButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
+            harvestSmallASButton.setDisable(false);
+        }}
+        if(servantsNeededBuild.isPresent()) {
+            if (!board.getBuild().isTwoPlayersOneSpace()) {
+                Button buildBigASButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
+                buildBigASButton.setDisable(false);
+            }
+            if (board.getBuild().checkIfFirst()) {
+                Button buildSmallASButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
+                buildSmallASButton.setDisable(false);
+            }
+        }
         //setting harvest AS enable
 
         //we reactivate only the ones passed via parameters
