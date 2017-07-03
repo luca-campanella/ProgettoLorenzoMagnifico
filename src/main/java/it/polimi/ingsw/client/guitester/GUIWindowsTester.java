@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.guitester;
+package it.polimi.ingsw.client.GUITester;
 
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.exceptions.NetworkException;
@@ -327,5 +327,10 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     @Override
     public List<Player> callbackObtainPlayersInOrder() {
         return null;
+    }
+
+    @Override
+    public void callbackActivateLeader(LeaderCard leaderCard) {
+
     }
 }
