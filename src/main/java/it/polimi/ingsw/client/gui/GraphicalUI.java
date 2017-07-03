@@ -1,9 +1,5 @@
 package it.polimi.ingsw.client.gui;
 
-/**
- * Created by higla on 11/05/2017.
- */
-
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
@@ -38,11 +34,16 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * This object represents the implementation of the user interface via graphical user interface
+ * Uses java fx
+ */
 public class GraphicalUI extends AbstractUIType {
 
     Stage currentStage;
     CustomFxControl currentFXControl;
     SceneEnum currentSceneType;
+
     /**
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
@@ -67,7 +68,7 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest, Optional<Integer> servantsNeededBuild, Optional<Integer> servantsNeededCouncil, List<MarketWrapper> activeMarketSpaces, List<TowerWrapper> activeTowerSpaces, int availableServants) {
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
-        Platform.runLater(() -> control.setActiveActionSpaces(servantsNeededHarvest, servantsNeededBuild, servantsNeededCouncil, activeMarketSpaces, activeTowerSpaces));
+        Platform.runLater(() -> control.displayActiveActionSpaces(servantsNeededHarvest, servantsNeededBuild, servantsNeededCouncil, activeMarketSpaces, activeTowerSpaces));
     }
 
     /**
@@ -159,11 +160,10 @@ public class GraphicalUI extends AbstractUIType {
 
         control.setBoard(getController().callbackObtainBoard());
         control.displayCards();
-        control.displayExcommTiles();
+        control.setUpExcommTiles();
         control.setThisPlayer(getController().callbackObtainPlayer());
-        control.displayThisPlayerPersonalBoard();
         control.setOtherPlayers(getController().callbackObtainOtherPlayers());
-        control.setOrderOfPlayers(getController().callbackObtainPlayersInOrder());
+        control.displayOrderOfPlayers(getController().callbackObtainPlayersInOrder());
         control.setDices(getController().callbackObtainDices());
         control.displayDices();
         control.displayFamilyMembers();

@@ -1,21 +1,27 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
+import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,6 +31,27 @@ import java.util.List;
 public class PlayerTabSubControl extends CustomFxControl {
 
     Player player;
+    PersonalBoard personalBoard;
+    /**
+     * true if the tab is linked with the player which controls the client
+     */
+    boolean isThisPlayer = false;
+
+    /**
+     * true if the stage for the leaders is already created, false otherwise
+     */
+    boolean isLeaderStageCreated;
+
+    /**
+     * this stage represents the stage of the windows that displays leaders
+     */
+    Stage leadersStage;
+
+    /**
+     * this control is the fx control of the leaders window
+     * //todo change controller name if it's the same for both scenes, or make different instances
+     */
+    LeaderOwnedControl leadersControl;
 
     @FXML
     ImageView thisPlayerPersonalTile;
@@ -34,6 +61,12 @@ public class PlayerTabSubControl extends CustomFxControl {
 
     @FXML
     private Button purpleCardsButton;
+
+    @FXML
+    private Button passTurnButton;
+
+    @FXML
+    private ToolBar buttonsToolBar;
 
 
     public PlayerTabSubControl() {
@@ -55,17 +88,46 @@ public class PlayerTabSubControl extends CustomFxControl {
     }
 
     /**
+     * This method is used at the beginning of the game when we have to setup a tab for each player with his information
+     * @param controller the controller for callbacks
+     * @param relatedPlayer the player related to the tab
+     * @param isThisPlayer true if the tab is linked with the player which controls the client
+     */
+    public void setUpTab(ViewControllerCallbackInterface controller, Player relatedPlayer, boolean isThisPlayer) {
+        this.isThisPlayer = isThisPlayer;
+        setController(controller);
+        setRelatedPlayer(relatedPlayer);
+        personalBoard = player.getPersonalBoard();
+        setPersonalTile();
+        refresh();
+        if(!isThisPlayer) {
+            buttonsToolBar.getItems().remove(passTurnButton);
+        }
+    }
+
+    /**
+     * This method is used to refresh the tab after the player performed an action
+     */
+    public void refresh() {
+        //todo set the cards of the player to the board
+        //todo set the resources of the player to the board
+        //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
+        purpleCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
+        blueCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));
+    }
+
+    /**
      * Sets the instance of the player related to this tab
      * @param player
      */
-    public void setRelatedPlayer(Player player) {
+    private void setRelatedPlayer(Player player) {
         this.player = player;
     }
 
     /**
      * Sets the personal tile image of the related player
      */
-    public void setPersonalTile() {
+    private void setPersonalTile() {
         Debug.printVerbose("setUpPersonalTIles called");
         Debug.printVerbose(player.getPersonalBoard().getPersonalTile().getImgName());
         Image tileImg  = new Image(getClass().getResourceAsStream("/imgs/PersonalBonusTiles/Long/" +
@@ -84,20 +146,37 @@ public class PlayerTabSubControl extends CustomFxControl {
         showCards(player.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE), "Blue cards");
     }
 
+    @FXML
+    public void passTurn()
+    {
+        Platform.runLater(()-> getController().callBackPassTheTurn());
+    }
+
+
     /**
-     * owned cards leader
+     * This method responds to the pressing of the leader button by creating and showing the leader window
      */
-    /*@FXML
-    public void showLeaderCards() {
-        if (!isLeaderStageCreated[0]) {
+    @FXML
+    private void showLeaderCards()
+    {
+        if(!isLeaderStageCreated) {
+            String fxmlFileName = "LeaderOtherPlayersScene.fxml";
+            if(isThisPlayer)
+                fxmlFileName = "LeaderOwnedScene.fxml";
 
-            Platform.runLater(() -> this.openNewWindow("LeaderOwnedScene.fxml", "Choose a leader", () -> this.showLeaders(
-                    thisPlayer.getLeaderCardsNotUsed(), thisPlayer.getPlayedLeaders(), thisPlayer.getPlayableLeaders(),
-                    thisPlayer.getPlayedNotActivatedOncePerRoundLeaderCards())));
-            //todo: isLeaderStageCreated[0] = true;
+            Platform.runLater(() -> this.openLeadersWindow("LeaderOtherPlayersScene.fxml", "Leaders",
+                    () -> leadersControl.setLeaders(
+                            player.getLeaderCardsNotUsed(),
+                            player.getPlayedLeaders(),
+                            player.getPlayableLeaders(),
+                            player.getPlayedNotActivatedOncePerRoundLeaderCards())));
+            Debug.printVerbose("runLater loaded");
+            isLeaderStageCreated = true;
         }
-
-    }*/
+        else {
+            leadersStage.show();
+        }
+    }
 
     /**
      * Shows a window with the list of cards passed as an argument
@@ -131,10 +210,32 @@ public class PlayerTabSubControl extends CustomFxControl {
         alert.show();
     }
 
-    @FXML
-    public void passTurn()
-    {
-        Platform.runLater(()-> getController().callBackPassTheTurn());
-    }
+    /**
+     * This method opens the leader window shows it. It also sets the controller for the callbacks inside the custom fx controller
+     * This method shoudl be passed as a parameter to the runLater fx method
+     * @param fxmlFileName the fxml to start from
+     * @param title the title of the window
+     */
+    private void openLeadersWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            Debug.printError("Error in loading fxml", e);
+        }
+        leadersStage = new Stage();
+        leadersControl = (LeaderOwnedControl) (fxmlLoader.getController());
+
+        leadersControl.setController(getController());
+
+        leadersStage.setTitle(title);
+        leadersStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
+
+        if(runBeforeShow != null) //there is something to run
+            runBeforeShow.run();
+
+        leadersStage.show();
+    }
 }
