@@ -91,3 +91,8 @@
 .toggle-button {
     -fx-cursor: hand;
 }
+.labelResources{
+    -fx-font-size: 25px;
+    -fx-font-family: sans-serif;
+    -fx-background-color: aliceblue;
+}

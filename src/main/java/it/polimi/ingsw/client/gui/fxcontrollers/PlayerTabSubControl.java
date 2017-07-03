@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -13,9 +15,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -55,6 +55,9 @@ public class PlayerTabSubControl extends CustomFxControl {
 
     @FXML
     ImageView thisPlayerPersonalTile;
+
+    @FXML
+    HBox personalBoardPane;
 
     @FXML
     private Button blueCardsButton;
@@ -110,12 +113,22 @@ public class PlayerTabSubControl extends CustomFxControl {
      */
     public void refresh() {
         //todo set the cards of the player to the board
-        //todo set the resources of the player to the board
+        displayResources();
         //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
         purpleCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
         blueCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));
     }
+    private void displayResources(){
+        //todo: change style of the resources
+        Debug.printVerbose("Hello, i'm here");
+        Debug.printVerbose("Hello, i'm here" + player.toString());
 
+        ((Label)personalBoardPane.lookup("#coinLabel")).setText(String.valueOf(player.getResource(ResourceTypeEnum.COIN)));
+        ((Label)personalBoardPane.lookup("#woodLabel")).setText(String.valueOf(player.getResource(ResourceTypeEnum.WOOD)));
+        ((Label)personalBoardPane.lookup("#stoneLabel")).setText(String.valueOf(player.getResource(ResourceTypeEnum.STONE)));
+        ((Label)personalBoardPane.lookup("#servantsLabel")).setText(String.valueOf(player.getResource(ResourceTypeEnum.SERVANT)));
+
+    }
     /**
      * Sets the instance of the player related to this tab
      * @param player

@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<fx:root type="Pane" xmlns:fx="http://javafx.com/fxml">
+<fx:root  type="Pane" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@MainBoardStyle.css">
     <children>
-        <SplitPane dividerPositions="0.847870182555781" orientation="VERTICAL"  prefHeight="200.0">
+        <SplitPane  dividerPositions="0.847870182555781" orientation="VERTICAL" prefHeight="200.0">
             <items>
-                <HBox>
+                <HBox fx:id="personalBoardPane">
                     <children>
                         <ImageView fx:id="thisPlayerPersonalTile" fitHeight="366.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" />
-                        <AnchorPane fx:id="personalBoard" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane" />
+                        <AnchorPane fx:id="personalBoard" prefHeight="200.0" prefWidth="573.0" styleClass="personalBoardPane">
+                     <children>
+                        <Label fx:id="coinLabel" styleClass="labelResources" layoutX="34.0" layoutY="304.0" text="COIN" />
+                        <Label fx:id="woodLabel" styleClass="labelResources" layoutX="124.0" layoutY="304.0" text="WOOD" />
+                        <Label fx:id="stoneLabel" styleClass="labelResources" layoutX="217.0" layoutY="304.0" text="STONE" />
+                        <Label fx:id="servantsLabel" styleClass="labelResources" layoutX="304.0" layoutY="304.0" text="SERV" />
+                     </children></AnchorPane>
                     </children>
                 </HBox>
-                <ToolBar fx:id="buttonsToolBar" prefHeight="45.0" prefWidth="488.0">
+                <ToolBar fx:id="buttonsToolBar" prefHeight="29.0" prefWidth="745.0">
                     <items>
                         <Button fx:id="blueCardsButton" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
                         <Button fx:id="purpleCardsButton" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
                         <Button fx:id="leaderCardsButton" mnemonicParsing="false" onAction="#showLeaderCards" text="Leader Cards" />
-                        <Button fx:id="passTurnButton" mnemonicParsing="false" text="Pass the turn" onAction="#passTurn"/>
+                        <Button fx:id="passTurnButton" mnemonicParsing="false" onAction="#passTurn" text="Pass the turn" />
                     </items>
                 </ToolBar>
             </items>
