@@ -27,7 +27,7 @@ public class HarvestMalusEffectTest {
     @Test
     public void harvestMalusEffect() throws Exception {
         int valueTest;
-        valueTest = excommunicationTiles.get(6).effect.harvestDiceMalusEffect();
+        valueTest = excommunicationTiles.get(5).effect.harvestDiceMalusEffect();
         assertEquals(3, valueTest);
 
     }

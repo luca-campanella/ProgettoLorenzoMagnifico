@@ -40,7 +40,7 @@ public class LoseVPonCostCardsTest {
     @Test
     public void loseVPonCosts() throws Exception {
         int kalkulatedByFunctionTesting = 0;
-        kalkulatedByFunctionTesting = excommunicationTiles.get(20).effect.loseVPonCosts(deck.getBuildingCards());
+        kalkulatedByFunctionTesting = excommunicationTiles.get(19).effect.loseVPonCosts(deck.getBuildingCards());
         int calculatedHandly = 0;
         for(int i = 0; i<deck.getBuildingCards().size();i++)
             for(Resource iterator : deck.getBuildingCards().get(i).getCost())

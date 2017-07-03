@@ -30,7 +30,7 @@ public class PayMoreServantsEffectTest {
     }
     @Test
     public void payMoreServant() throws Exception {
-        int valueTest = excommunicationTiles.get(13).effect.payMoreServant();
+        int valueTest = excommunicationTiles.get(12).effect.payMoreServant();
         assertEquals(2, valueTest);
     }
 

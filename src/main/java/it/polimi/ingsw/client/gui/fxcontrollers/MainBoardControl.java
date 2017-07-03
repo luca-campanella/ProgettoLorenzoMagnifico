@@ -28,6 +28,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -284,69 +285,6 @@ public class MainBoardControl extends CustomFxControl {
             imgView.setImage(tileImg);
             imgView.setPreserveRatio(true);
         }
-    }
-
-    @FXML
-    public void showPurpleCards() {
-        showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.PURPLE), "Purple cards");
-    }
-
-    @FXML
-    public void showBlueCards() {
-        showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE), "Blue cards");
-    }
-
-    /**
-     * owned cards leader
-     */
-    @FXML
-    public void showLeaderCards() {
-        if (!isLeaderStageCreated[0]) {
-
-        Platform.runLater(() -> this.openNewWindow("LeaderOwnedScene.fxml", "Choose a leader", () -> this.showLeaders(
-                thisPlayer.getLeaderCardsNotUsed(), thisPlayer.getPlayedLeaders(), thisPlayer.getPlayableLeaders(),
-                thisPlayer.getPlayedNotActivatedOncePerRoundLeaderCards())));
-        //todo: isLeaderStageCreated[0] = true;
-        }
-
-    }
-
-    @FXML
-    public void showOtherPlayerLeader1()
-    {
-        showOtherPlayerLeader(1);
-    }
-    @FXML
-    public void showOtherPlayerLeader2()
-    {
-        showOtherPlayerLeader(2);
-    }
-    @FXML
-    public void showOtherPlayerLeader3()
-    {
-        showOtherPlayerLeader(3);
-    }
-
-    @FXML
-    private void showOtherPlayerLeader(int indexOfPlayerTab)
-    {
-        if(!isLeaderStageCreated[indexOfPlayerTab]) {
-            //todo check index
-            Player temp = otherPlayers.get(indexOfPlayerTab-1);
-            Platform.runLater(() -> this.openNewWindow("LeaderOtherPlayersScene.fxml", "Choose a leader",
-                    () -> this.showLeaders(
-                            temp.getLeaderCardsNotUsed(),
-                            temp.getPlayedLeaders(),
-                            temp.getPlayableLeaders(),
-                            temp.getPlayedNotActivatedOncePerRoundLeaderCards())));
-            Debug.printVerbose("runLater loaded");
-        }
-    }
-
-    private void showLeaders(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {
-        LeaderOwnedControl leaderOwnedControl = ((LeaderOwnedControl) (currentFXControl));
-        leaderOwnedControl.setLeaders(leaderNotUsed,leaderActivated,leadersPlayable,leadersOPRNotActivated);
-        return;
     }
 
     /**
