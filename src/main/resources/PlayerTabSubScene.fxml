@@ -20,7 +20,7 @@
                     <items>
                         <Button fx:id="blueCardsButton" mnemonicParsing="false" onAction="#showBlueCards" prefHeight="27.0" prefWidth="166.0" text="Blue character cards" />
                         <Button fx:id="purpleCardsButton" mnemonicParsing="false" onAction="#showPurpleCards" text="Purple Venture Cards" />
-                        <!-- <Button fx:id="leaderCardsButton" mnemonicParsing="false" onAction="#showOtherPlayerLeader" text="Leader Cards" /> -->
+                        <Button fx:id="leaderCardsButton" mnemonicParsing="false" onAction="#showLeaderCards" text="Leader Cards" />
                         <Button fx:id="passTurnButton" mnemonicParsing="false" text="Pass the turn" onAction="#passTurn"/>
                     </items>
                 </ToolBar>

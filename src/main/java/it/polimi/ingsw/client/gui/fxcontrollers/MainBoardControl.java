@@ -2,12 +2,9 @@ package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.Tower;
-import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
-import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
@@ -17,11 +14,6 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,10 +24,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -205,69 +194,6 @@ public class MainBoardControl extends CustomFxControl {
         }
     }
 
-    @FXML
-    public void showPurpleCards() {
-        showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.PURPLE), "Purple cards");
-    }
-
-    @FXML
-    public void showBlueCards() {
-        showCards(thisPlayer.getPersonalBoard().getCardListByColor(CardColorEnum.BLUE), "Blue cards");
-    }
-
-    /**
-     * owned cards leader
-     */
-    @FXML
-    public void showLeaderCards() {
-        if (!isLeaderStageCreated[0]) {
-
-        Platform.runLater(() -> this.openNewWindow("LeaderOwnedScene.fxml", "Choose a leader", () -> this.showLeaders(
-                thisPlayer.getLeaderCardsNotUsed(), thisPlayer.getPlayedLeaders(), thisPlayer.getPlayableLeaders(),
-                thisPlayer.getPlayedNotActivatedOncePerRoundLeaderCards())));
-        //todo: isLeaderStageCreated[0] = true;
-        }
-
-    }
-
-    @FXML
-    public void showOtherPlayerLeader1()
-    {
-        showOtherPlayerLeader(1);
-    }
-    @FXML
-    public void showOtherPlayerLeader2()
-    {
-        showOtherPlayerLeader(2);
-    }
-    @FXML
-    public void showOtherPlayerLeader3()
-    {
-        showOtherPlayerLeader(3);
-    }
-
-    @FXML
-    private void showOtherPlayerLeader(int indexOfPlayerTab)
-    {
-        if(!isLeaderStageCreated[indexOfPlayerTab]) {
-            //todo check index
-            Player temp = otherPlayers.get(indexOfPlayerTab-1);
-            Platform.runLater(() -> this.openNewWindow("LeaderOtherPlayersScene.fxml", "Choose a leader",
-                    () -> this.showLeaders(
-                            temp.getLeaderCardsNotUsed(),
-                            temp.getPlayedLeaders(),
-                            temp.getPlayableLeaders(),
-                            temp.getPlayedNotActivatedOncePerRoundLeaderCards())));
-            Debug.printVerbose("runLater loaded");
-        }
-    }
-
-    private void showLeaders(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {
-        LeaderOwnedControl leaderOwnedControl = ((LeaderOwnedControl) (currentFXControl));
-        leaderOwnedControl.setLeaders(leaderNotUsed,leaderActivated,leadersPlayable,leadersOPRNotActivated);
-        return;
-    }
-
     /**
      * Appends a message on the text area that displays the current state of the game
      * @param toAppend text to append
@@ -275,36 +201,6 @@ public class MainBoardControl extends CustomFxControl {
     public void appendMessageOnStateTextArea(String toAppend) {
         String currentText = currentGameStateTextArea.getText();
         currentGameStateTextArea.setText(currentText + "\n" + "--> " + toAppend);
-    }
-
-
-    /**
-     * This method opens a new window and shows it. It also sets the controller for the callbacks inside the custom fx controller
-     * This method shoudl be passed as a parameter to the runLater fx method
-     * @param fxmlFileName the fxml to start from
-     * @param title the title of the window
-     */
-    private void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
-        Parent root = null;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            Debug.printError("Error in loading fxml", e);
-        }
-
-        currentFXControl = (fxmlLoader.getController());
-
-        currentFXControl.setController(getController());
-
-        secondStage.setTitle(title);
-        secondStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
-
-        if(runBeforeShow != null) //there is something to run
-            runBeforeShow.run();
-
-        secondStage.show();
     }
 
 
@@ -317,6 +213,7 @@ public class MainBoardControl extends CustomFxControl {
 
         Platform.runLater(() -> getController().callbackFamilyMemberSelected(thisPlayer.getFamilyMemberByColor(colorEnum)));
     }
+
     //todo check this method
     @FXML
     private void harvestSelected(ActionEvent event)
@@ -329,6 +226,7 @@ public class MainBoardControl extends CustomFxControl {
         //todo make the alert ask the user
         Platform.runLater(()->getController().callbackPlacedFMOnHarvest(5));
     }
+
     @FXML
     private void buildSelected(ActionEvent event)
     {
@@ -340,6 +238,7 @@ public class MainBoardControl extends CustomFxControl {
 
         Platform.runLater(()->getController().callbackPlacedFMOnBuild(5));
     }
+
     @FXML
     private void marketSelected(ActionEvent event)
     {
@@ -351,6 +250,7 @@ public class MainBoardControl extends CustomFxControl {
         Platform.runLater(()->getController().callbackPlacedFMOnMarket(marketIndex));
 
     }
+
     @FXML
     private void councilGiftSelected(ActionEvent event)
     {
@@ -358,6 +258,7 @@ public class MainBoardControl extends CustomFxControl {
         //String id = actionSpace.getId();
         Platform.runLater(() -> getController().callbackPlacedFMOnCouncil());
     }
+
     @FXML
     private void towerFloorSelected(ActionEvent event) {
         Button actionSpace = ((Button) (event.getSource()));
@@ -365,38 +266,6 @@ public class MainBoardControl extends CustomFxControl {
         int towerIndex = Character.getNumericValue(id.charAt(7));
         int floorIndex = Character.getNumericValue(id.charAt(8));
         Platform.runLater(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
-    }
-
-    /**
-     * Shows a window with the list of cards passed as an argument
-     * @param cards the cards to show to the user
-     */
-    private void showCards(List<? extends AbstractCard> cards, String title) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        if(cards.isEmpty()) {
-            alert.setHeaderText("No cards to show");
-        } else {
-            alert.setHeaderText(null);
-            //alert.setContentText(errorDescription);
-
-            HBox cardsContainer = new HBox();
-            cardsContainer.setSpacing(5);
-            cardsContainer.setAlignment(Pos.CENTER);
-
-            for (AbstractCard cardIter : cards) {
-                final Image cardImage = new Image(getClass().getResourceAsStream("/imgs/Cards/" + cardIter.getImgName()));
-                final ImageView imgView = new ImageView();
-                imgView.setImage(cardImage);
-                imgView.setPreserveRatio(true);
-
-                cardsContainer.getChildren().add(imgView);
-                alert.setGraphic(cardsContainer);
-            }
-        }
-        alert.initStyle(StageStyle.UTILITY);
-        //alert.initOwner(currentStage);
-        alert.show();
     }
 
     public void setActiveActionSpaces(Optional<Integer> servantsNeededHarvest,

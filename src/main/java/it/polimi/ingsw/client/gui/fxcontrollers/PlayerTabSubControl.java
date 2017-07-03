@@ -10,12 +10,16 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
@@ -32,6 +36,22 @@ public class PlayerTabSubControl extends CustomFxControl {
      * true if the tab is linked with the player which controls the client
      */
     boolean isThisPlayer = false;
+
+    /**
+     * true if the stage for the leaders is already created, false otherwise
+     */
+    boolean isLeaderStageCreated;
+
+    /**
+     * this stage represents the stage of the windows that displays leaders
+     */
+    Stage leadersStage;
+
+    /**
+     * this control is the fx control of the leaders window
+     * //todo change controller name if it's the same for both scenes, or make different instances
+     */
+    LeaderOwnedControl leadersControl;
 
     @FXML
     ImageView thisPlayerPersonalTile;
@@ -132,20 +152,31 @@ public class PlayerTabSubControl extends CustomFxControl {
         Platform.runLater(()-> getController().callBackPassTheTurn());
     }
 
+
     /**
-     * owned cards leader
+     * This method responds to the pressing of the leader button by creating and showing the leader window
      */
-    /*@FXML
-    public void showLeaderCards() {
-        if (!isLeaderStageCreated[0]) {
+    @FXML
+    private void showLeaderCards()
+    {
+        if(!isLeaderStageCreated) {
+            String fxmlFileName = "LeaderOtherPlayersScene.fxml";
+            if(isThisPlayer)
+                fxmlFileName = "LeaderOwnedScene.fxml";
 
-            Platform.runLater(() -> this.openNewWindow("LeaderOwnedScene.fxml", "Choose a leader", () -> this.showLeaders(
-                    thisPlayer.getLeaderCardsNotUsed(), thisPlayer.getPlayedLeaders(), thisPlayer.getPlayableLeaders(),
-                    thisPlayer.getPlayedNotActivatedOncePerRoundLeaderCards())));
-            //todo: isLeaderStageCreated[0] = true;
+            Platform.runLater(() -> this.openLeadersWindow("LeaderOtherPlayersScene.fxml", "Leaders",
+                    () -> leadersControl.setLeaders(
+                            player.getLeaderCardsNotUsed(),
+                            player.getPlayedLeaders(),
+                            player.getPlayableLeaders(),
+                            player.getPlayedNotActivatedOncePerRoundLeaderCards())));
+            Debug.printVerbose("runLater loaded");
+            isLeaderStageCreated = true;
         }
-
-    }*/
+        else {
+            leadersStage.show();
+        }
+    }
 
     /**
      * Shows a window with the list of cards passed as an argument
@@ -179,5 +210,32 @@ public class PlayerTabSubControl extends CustomFxControl {
         alert.show();
     }
 
+    /**
+     * This method opens the leader window shows it. It also sets the controller for the callbacks inside the custom fx controller
+     * This method shoudl be passed as a parameter to the runLater fx method
+     * @param fxmlFileName the fxml to start from
+     * @param title the title of the window
+     */
+    private void openLeadersWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            Debug.printError("Error in loading fxml", e);
+        }
+        leadersStage = new Stage();
+        leadersControl = (LeaderOwnedControl) (fxmlLoader.getController());
+
+        leadersControl.setController(getController());
+
+        leadersStage.setTitle(title);
+        leadersStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
+
+        if(runBeforeShow != null) //there is something to run
+            runBeforeShow.run();
+
+        leadersStage.show();
+    }
 }
