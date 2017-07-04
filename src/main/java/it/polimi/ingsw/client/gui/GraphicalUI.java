@@ -42,9 +42,9 @@ import java.util.Optional;
  */
 public class GraphicalUI extends AbstractUIType {
 
-    Stage currentStage;
-    CustomFxControl currentFXControl;
-    SceneEnum currentSceneType;
+    private Stage currentStage;
+    private CustomFxControl currentFXControl;
+    private volatile SceneEnum currentSceneType;
 
     /**
      * This is the constructor of the class
@@ -94,7 +94,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForGameStart() {
-
+        currentSceneType = SceneEnum.WAITING_SCENE;
         Debug.printDebug("GUI: whow waiting for game start");
 
         Platform.runLater(() -> this.openNewWindow("WaitingScene.fxml", "Waiting for game to start",
@@ -107,6 +107,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForLeaderChoices() {
+        currentSceneType = SceneEnum.WAITING_SCENE;
         Debug.printDebug("GUI: whow waiting for another leader choice");
 
         Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for leader choices",
@@ -119,6 +120,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForTilesChoices() {
+        currentSceneType = SceneEnum.WAITING_SCENE;
         Debug.printDebug("GUI: show waiting for tile choice");
 
         Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for tiles choices",
@@ -133,6 +135,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askInitialAction(boolean playedFamilyMember) {
+        Debug.printVerbose("askInitialAction called with currentSceneType = " + currentSceneType);
         StringBuilder textToDisplay = new StringBuilder("It's your turn, ");
 
         if(!playedFamilyMember) {
@@ -151,7 +154,12 @@ public class GraphicalUI extends AbstractUIType {
                     () -> setUpMainBoardControl(textToDisplay.toString())));
             currentSceneType = SceneEnum.MAIN_BOARD;
         } else {
-            ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(textToDisplay.toString());
+            MainBoardControl control = ((MainBoardControl) (currentFXControl));
+            Platform.runLater(() -> {
+                control.appendMessageOnStateTextArea(textToDisplay.toString());
+                control.setFamilyMemberDisable(playedFamilyMember);
+                control.refreshPersonalBoardOfPlayer(getController().callbackObtainPlayer().getNickname());
+            });
         }
     }
 
@@ -312,6 +320,7 @@ public class GraphicalUI extends AbstractUIType {
 
     @Override
     public void waitMenu() {
+        Debug.printVerbose("waitMenu called with currentSceneType = " + currentSceneType);
         String message = "Opponents are currently playing, please wait your turn";
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
@@ -463,7 +472,6 @@ public class GraphicalUI extends AbstractUIType {
 
     private void prepareWaitingScene(String message) {
         //openNewWindow("WaitingScene.fxml", title, null);
-        currentSceneType = SceneEnum.WAITING_SCENE;
         ((WaitingSceneControl) (currentFXControl)).setMessage(message);
     }
 

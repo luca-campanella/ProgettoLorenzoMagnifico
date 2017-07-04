@@ -48,21 +48,25 @@
     -fx-opacity: 80%;
 }
 
-#FM1 {
+.familyMemberPlaceHolder:disabled {
+    -fx-opacity: 100%;
+}
+
+.FM1Class {
     -fx-background-color: black;
 }
 
-#FM0 {
+.FM0Class {
     -fx-background-color: white;
     -fx-font-color: black;
 }
 
-#FM2 {
+.FM2Class {
     -fx-background-color: darkorange;
     -fx-font-color: black;
 }
 
-#FM3 {
+.FM3Class {
     -fx-background-color: purple;
     -fx-font-color: black;
 }

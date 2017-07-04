@@ -72,12 +72,12 @@ public class SocketServer extends AbstractServerType {
         /**
          * this executor creates a thread when the client log in
          */
-        private ExecutorService generetorOfConnection;
+        private ExecutorService generatorOfConnection;
 
         @Override
         public void run() {
             Socket socket;
-            generetorOfConnection = Executors.newCachedThreadPool();
+            generatorOfConnection = Executors.newCachedThreadPool();
 
             Debug.printVerbose("Process waiting for socket clients started");
             /* infinite loop to wait for all the possible clients */
@@ -92,11 +92,11 @@ public class SocketServer extends AbstractServerType {
                     break;
                 }
                 try {
-                    Debug.printVerbose("creazione  player");
+                    Debug.printVerbose("creation player");
                     SocketPlayer player = new SocketPlayer(socket, getServerMainInst());
-                    Debug.printVerbose("Constructor of socketplayer called successfully");
-                    generetorOfConnection.submit(player);
-                    System.out.println("creazione  player con successo");
+                    Debug.printVerbose("Constructor of socket player called successfully");
+                    generatorOfConnection.submit(player);
+                    System.out.println("creation player succeeded");
                     System.out.flush();
                 } catch (IOException e) {
                     Debug.printError("Can't open input and ouput streams on socket, closing socket", e);
@@ -108,7 +108,7 @@ public class SocketServer extends AbstractServerType {
                     }
                 }
             }
-            generetorOfConnection.shutdown();
+            generatorOfConnection.shutdown();
         }
     }
 }

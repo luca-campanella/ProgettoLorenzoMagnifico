@@ -654,6 +654,16 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * This method returns to the view true if this turn the palyer already played a family member
+     *
+     * @return true if this turn the palyer already played a family member
+     */
+    @Override
+    public boolean callbackObtainIsPlayedFamilyMember() {
+        return playedFamilyMember;
+    }
+
+    /**
      * This method returns to the view a reference to the board
      * this method is called to obtain the board of the game inside the view
      *
@@ -913,10 +923,11 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receivedPlaceOnCouncil(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) {
         Player player = modelController.getPlayerByNickname(nickname);
+        Debug.printVerbose("received place on council");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.placeOnCouncil(player.getFamilyMemberByColor(familyMemberColor));
-        //todo show something in the view
+        Debug.printVerbose("the player " + nickname + " had placed a family member on he council.");
     }
 
     /**

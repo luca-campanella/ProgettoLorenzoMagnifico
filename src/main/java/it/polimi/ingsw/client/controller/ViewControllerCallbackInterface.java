@@ -155,4 +155,12 @@ public interface ViewControllerCallbackInterface {
      * @param leaderCard the leader card that activates the effect
      */
     void callbackActivateLeader(LeaderCard leaderCard);
+
+
+    /**
+     * This method returns to the view true if this turn the palyer already played a family member
+     *
+     * @return true if this turn the palyer already played a family member
+     */
+    public boolean callbackObtainIsPlayedFamilyMember();
 }

@@ -343,4 +343,14 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     public void callbackActivateLeader(LeaderCard leaderCard) {
 
     }
+
+    /**
+     * This method returns to the view true if this turn the palyer already played a family member
+     *
+     * @return true if this turn the palyer already played a family member
+     */
+    @Override
+    public boolean callbackObtainIsPlayedFamilyMember() {
+        return false;
+    }
 }

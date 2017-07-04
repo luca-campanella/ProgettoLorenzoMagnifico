@@ -36,7 +36,7 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
      */
     @Override
     public void run() {
-        Debug.printVerbose("Process Started");
+        Debug.printVerbose("WaitBasicCliMenu started");
 
         showMenuAndAskNonBlocking();
     }
