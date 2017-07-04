@@ -5,7 +5,9 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.Tower;
 import it.polimi.ingsw.model.board.TowerFloorAS;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
+import it.polimi.ingsw.model.excommunicationTiles.GainFewerResourceEffect;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -247,7 +249,7 @@ public class MainBoardControl extends CustomFxControl {
 
     }
 
-    /*public void updateFamilyMembers() {
+    public void updateFamilyMembers() {
         ArrayList<Player> allPlayers = new ArrayList<>(5);
         allPlayers.add(thisPlayer);
         allPlayers.addAll(otherPlayers);
@@ -261,7 +263,7 @@ public class MainBoardControl extends CustomFxControl {
 
                     for (FamilyMember familyMember : floor.getFamilyMembers()) {
 
-                        ToggleButton fm = ((ToggleButton) (towersCouncilFaith.lookup("#towerAS" + towerIndex + floorIndex)));
+                        Button fm = ((Button) (towersCouncilFaith.lookup("#towerAS" + towerIndex + floorIndex)));
                         fm.setText(String.valueOf(familyMember.getValue()));
                         fm.setStyle("-fx-border-color: " + player.getPlayerColor().getStringValue() + ";");
                         fm.getStyleClass().add("familyMemberButton");
@@ -279,8 +281,44 @@ public class MainBoardControl extends CustomFxControl {
                 }
             }
         }
-    }*/
+    }
 
+    /**
+     * this method shows a dialog and returns the index of the choice made.
+     * @param effectOptions is a list of gain res effect choices
+     * @return the index of that list
+     */
+    public int displayCouncilOptions(List<GainResourceEffect> effectOptions)
+    {
+        //todo displayCouncil
+        Debug.printVerbose("Im inside displayCouncilOption");
+
+        List<String> options = new ArrayList<>();
+        for(GainResourceEffect iterator : effectOptions)
+            options.add(iterator.descriptionOfEffect());
+
+        Debug.printVerbose("Im inside displayCouncilOption1");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(options.get(0), options);
+        Debug.printVerbose("Im inside displayCouncilOption2");
+
+        dialog.setTitle("Information Harvest");
+        dialog.setHeaderText("Look, a Choiche Dialog");
+        dialog.setContentText("Choose your councilGift!");
+
+        Debug.printVerbose("Im inside displayCouncilOption3");
+
+        Optional<String> result = dialog.showAndWait();
+
+        for(int index = 0; index < options.size(); index++)
+            if(options.get(index).equals(result))
+                return index;
+        Debug.printVerbose("Im inside displayCouncilOption4");
+
+        return 1;
+
+
+    }
     public void displayExcommTiles() {
         List<ExcommunicationTile> tiles = board.getExcommunicationTiles();
 
@@ -484,17 +522,18 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void councilGiftSelected(ActionEvent event)
     {
-        ToggleButton buttonCouncil = ((ToggleButton) (event.getSource()));
+        Button buttonCouncil = ((Button) (event.getSource()));
 
         Button actionSpace = ((Button) (event.getSource()));
         //String id = actionSpace.getId();
         pool.submit(() -> getController().callbackPlacedFMOnCouncil());
+
+        //todo: modify this counciltodo
+
         currentFamilyMemberSelected.setVisible(false);
         double height = buttonCouncil.getPrefHeight();
         double width = buttonCouncil.getWidth();
         ToggleButton familyMemberPlaced = new ToggleButton();
-        /*familyMemberPlaced.setMinHeight(height);
-        familyMemberPlaced.setMaxWidth(width);*/
 
         familyMemberPlaced.setLayoutX(buttonCouncil.getLayoutX());
         familyMemberPlaced.setLayoutY(buttonCouncil.getLayoutY());
