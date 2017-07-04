@@ -23,7 +23,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +31,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This object represents the implementation of the user interface via graphical user interface
@@ -441,7 +443,8 @@ public class GraphicalUI extends AbstractUIType {
             runBeforeShow.run();
 
         currentStage.setTitle(title);
-        currentStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
+        //currentStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED)); antialiasing was bugged
+        currentStage.setScene(new Scene(root));
         currentStage.setResizable(false);
 
         currentStage.show();
