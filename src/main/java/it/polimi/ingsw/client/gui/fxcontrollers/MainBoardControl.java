@@ -85,7 +85,7 @@ public class MainBoardControl extends CustomFxControl {
      * This list contains all the family members represented as a button added during this turn
      * Should be cleaned at the end of the turn
      */
-    List<Button> addedFamilyMembersButtons;
+    List<ToggleButton> addedFamilyMembersButtons;
 
 
     private Board board;
@@ -104,7 +104,7 @@ public class MainBoardControl extends CustomFxControl {
     public MainBoardControl() {
         playersTabMap = new HashMap<String, PlayerTabSubControl>(3);
         pool = Executors.newFixedThreadPool(2);
-        addedFamilyMembersButtons = new ArrayList<Button>(16);
+        addedFamilyMembersButtons = new ArrayList<ToggleButton>(16);
     }
 
     /**
@@ -310,6 +310,47 @@ public class MainBoardControl extends CustomFxControl {
     }
 
     /**
+     * This method sets al family members to enabled/disabled depending on the parameter
+     * @param disabled true if you want to disable
+     */
+    public void setFamilyMemberDisable(boolean disabled) {
+        for(DiceAndFamilyMemberColorEnum coloEnumIter : DiceAndFamilyMemberColorEnum.values()) {
+            ToggleButton fm = ((ToggleButton) (familyMembersPanel.lookup("#FM" + coloEnumIter.getIntegerValue())));
+            fm.setDisable(disabled);
+        }
+    }
+
+    /**
+     * This method disables all the button that let the user click on an action space
+     */
+    private void disableActionSpaces() {
+        for(int col = 0; col < 4; col++) {
+            for(int raw = 0; raw < 4; raw++) {
+                Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + col) + raw));
+                activeTowersASButton.setDisable(true);
+            }
+        }
+
+
+        for(int iterator = 0; iterator < 4; iterator++) {
+            Button marketASButton = (Button) (marketPane.lookup("#marketAS" + iterator));
+            marketASButton.setDisable(true);
+        }
+
+        Button activeCouncilASButton = (Button) (towersCouncilFaith.lookup("#councilGiftButton"));
+        activeCouncilASButton.setDisable(true);
+        //setting build and harvest enabled
+        Button harvestSmallASButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
+        harvestSmallASButton.setDisable(true);
+        Button harvestBigASButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
+        harvestBigASButton.setDisable(true);
+        Button buildSmallASButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
+        buildSmallASButton.setDisable(true);
+        Button buildBigASButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
+        buildBigASButton.setDisable(true);
+    }
+
+    /**
      * This method displays (or refreshes) only the action spaces that are available with the selected family member
      * @param servantsNeededHarvest The servants needed by the user to harvest, Optional.empty() if the action is not valid
      * @param servantsNeededBuild   The servants needed by the user to build, Optional.empty() if the action is not valid
@@ -329,12 +370,7 @@ public class MainBoardControl extends CustomFxControl {
 
 
         //we set all AS to disabled
-        for(int col = 0; col < 4; col++) {
-            for(int raw = 0; raw < 4; raw++) {
-                Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + col) + raw));
-                activeTowersASButton.setDisable(true);
-            }
-        }
+        disableActionSpaces();
 
         //we reactivate only the ones passed via parameters
         for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
@@ -342,36 +378,14 @@ public class MainBoardControl extends CustomFxControl {
             activeTowersASButton.setDisable(false);
         }
 
-        Button button = new Button("click me");
+       /* Button button = new Button("click me");
         button.setLayoutX(400+new Random().nextInt(20));
         button.setLayoutY(400);
         button.toFront();
-        towersCouncilFaith.getChildren().add(button);
+        todo remove
 
-        for(int iterator = 0; iterator < 4; iterator++) {
-            Button marketASButton = (Button) (marketPane.lookup("#marketAS" + iterator));
-            marketASButton.setDisable(true);
-        }
+        towersCouncilFaith.getChildren().add(button);*/
 
-        //todo: disable build and harvest
-        //first we need to disable build
-        //we need to disable also harvest
-        //servamts needed to build / harvest ?
-        //todo: ci sono volte in cui non sempre è possibile piazzare un family member.. Com'è stato gestito? --Arto
-        //setting council enabled
-        Button activeCouncilASButton = (Button) (towersCouncilFaith.lookup("#councilGiftButton"));
-        activeCouncilASButton.setDisable(false);
-        //setting build and harvest enabled
-        Button harvestSmallASButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
-        harvestSmallASButton.setDisable(false);
-        Button harvestBigASButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
-        harvestBigASButton.setDisable(false);
-        Button buildSmallASButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
-        buildSmallASButton.setDisable(false);
-        Button buildBigASButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
-        buildBigASButton.setDisable(false);
-
-        //setting harvest AS enable
 
         //we reactivate only the AS passed via parameters -> problem here. Wrapper is not used correctly
 
@@ -524,12 +538,18 @@ public class MainBoardControl extends CustomFxControl {
         int towerIndex = Character.getNumericValue(id.charAt(7));
         int floorIndex = Character.getNumericValue(id.charAt(8));
 
-        Button fmButton = new Button();
-        fmButton.getStyleClass().add(currentFamilyMemberSelected.getStyle());
+        //he cannot place a family member anymore
+        disableActionSpaces();
+        setFamilyMemberDisable(true);
+
+        ToggleButton fmButton = new ToggleButton(currentFamilyMemberSelected.getText());
+        fmButton.getStyleClass().addAll(currentFamilyMemberSelected.getStyleClass());
+        fmButton.getStyleClass().add("familyMemberPlaceHolder");
+        fmButton.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
         fmButton.setLayoutX(actionSpace.getLayoutX());
         fmButton.setLayoutY(actionSpace.getLayoutY());
-        fmButton.setText(currentFamilyMemberSelected.getText());
         fmButton.setDisable(true);
+        fmButton.toFront();
         towersCouncilFaith.getChildren().add(fmButton);
 
         addedFamilyMembersButtons.add(fmButton); //in roder to remove it afterwards

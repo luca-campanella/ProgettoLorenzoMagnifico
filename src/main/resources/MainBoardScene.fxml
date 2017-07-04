@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import it.polimi.ingsw.client.gui.fxcontrollers.PlayerTabSubControl?>
+<?import java.lang.String?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-      <SplitPane dividerPositions="0.5312989045383412" layoutX="0.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@MainBoardStyle.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.MainBoardControl">
+<SplitPane dividerPositions="0.5312989045383412" layoutX="0.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@MainBoardStyle.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.MainBoardControl">
         <items>
             <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
@@ -137,28 +138,44 @@
                   <HBox fx:id="familyMembersPanel">
                      <children>
                         <Label prefHeight="17.0" prefWidth="68.0" text="Available&#13;Family&#13;Members" wrapText="true" />
-                        <ToggleButton fx:id="FM1" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="6" textAlignment="CENTER" textFill="WHITE">
+                        <ToggleButton fx:id="FM1" mnemonicParsing="false" onAction="#familyMemberSelected" text="6" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="27.0" />
                            </font>
                            <toggleGroup>
                               <ToggleGroup fx:id="familyMembersToggleGroup" />
                            </toggleGroup>
+                     <styleClass>
+                        <String fx:value="familyMemberButton" />
+                        <String fx:value="FM1Class" />
+                     </styleClass>
                         </ToggleButton>
-                        <ToggleButton fx:id="FM0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="6" textAlignment="CENTER" textFill="#141414">
+                        <ToggleButton fx:id="FM0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" text="6" textAlignment="CENTER" textFill="#141414">
                            <font>
                               <Font size="27.0" />
                            </font>
+                     <styleClass>
+                        <String fx:value="familyMemberButton" />
+                        <String fx:value="FM0Class" />
+                     </styleClass>
                         </ToggleButton>
-                        <ToggleButton fx:id="FM2" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="6" textAlignment="CENTER">
+                        <ToggleButton fx:id="FM2" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" text="6" textAlignment="CENTER">
                            <font>
                               <Font size="27.0" />
                            </font>
+                     <styleClass>
+                        <String fx:value="familyMemberButton" />
+                        <String fx:value="FM2Class" />
+                     </styleClass>
                         </ToggleButton>
-                        <ToggleButton fx:id="FM3" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" styleClass="familyMemberButton" text="0" textAlignment="CENTER" textFill="WHITE">
+                        <ToggleButton fx:id="FM3" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#familyMemberSelected" text="0" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="27.0" />
                            </font>
+                     <styleClass>
+                        <String fx:value="familyMemberButton" />
+                        <String fx:value="FM3Class" />
+                     </styleClass>
                         </ToggleButton>
                      </children>
                   </HBox>
