@@ -100,6 +100,9 @@ public class InitialActionMenu extends WaitBasicCliMenu {
         getController().callbackPlayLeader(playableLeaderCards.get(indexRes));
     }
 
+    /**
+     * this method is called to activate the effect of a leader card
+     */
     private void activateLeaderAbility() {
 
         int indexRes = 0;

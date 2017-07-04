@@ -234,7 +234,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void callbackDiscardLeader(LeaderCard leaderCard){
 
         Debug.printDebug("I'm in ClientMain.callbackDiscardLeader");
-        modelController.discardLeaderCard(thisPlayer.getNickname(),leaderCard.getName(),this);
+        modelController.setChoicesController(this);
+        modelController.discardLeaderCard(thisPlayer.getNickname(),leaderCard.getName());
         try{
             clientNetwork.discardLeaderCard(leaderCard.getName(),choicesOnCurrentAction);
             clientChoices();
@@ -701,7 +702,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void callbackActivateLeader(LeaderCard leaderCard) {
 
         Debug.printDebug("I'm in ClientMain.callbackActivateLeader");
-        modelController.activateLeaderCard( thisPlayer.getNickname(), leaderCard.getName() ,this);
+        modelController.setChoicesController(this);
+        modelController.activateLeaderCard( thisPlayer.getNickname(), leaderCard.getName());
         try{
             clientNetwork.activateLeaderCard(leaderCard.getName(),choicesOnCurrentAction);
         }
@@ -729,7 +731,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void callbackPlayLeader(LeaderCard leaderCard) {
 
         Debug.printDebug("I'm in ClientMain.callbackPlayLeader");
-        modelController.playLeaderCard(leaderCard.getName(), thisPlayer,this);
+        modelController.setChoicesController(this);
+        modelController.playLeaderCard(leaderCard.getName(), thisPlayer);
         try{
             clientNetwork.playLeaderCard(leaderCard.getName(),choicesOnCurrentActionString);
         }
@@ -842,6 +845,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receivedPlaceOnTower(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) {
         Player player = modelController.getPlayerByNickname(nickname);
+        Debug.printVerbose("the player " + nickname + " has place the family member on tower.");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.placeOnTower(player.getFamilyMemberByColor(familyMemberColor), towerIndex, floorIndex);
@@ -878,6 +882,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receivedHarvest(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int servantsUsed, HashMap<String, Integer> playerChoices) {
         Player player = modelController.getPlayerByNickname(nickname);
+        Debug.printVerbose("the player " + nickname + " has harvested.");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.harvest(player.getFamilyMemberByColor(familyMemberColor), servantsUsed);
@@ -896,6 +901,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receivedBuild(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int servantsUsed, HashMap<String, Integer> playerChoices) {
         Player player = modelController.getPlayerByNickname(nickname);
+        Debug.printVerbose("the player " + nickname + " has build.");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.build(player.getFamilyMemberByColor(familyMemberColor), servantsUsed);
@@ -986,7 +992,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void receivedDiscardLeaderCard(String nickname, String nameCard, HashMap<String, Integer> resourceGet) {
 
         otherPlayerChoicesHandler.setChoicesMap(resourceGet);
-        modelController.discardLeaderCard(nickname, nameCard, otherPlayerChoicesHandler);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        modelController.discardLeaderCard(nickname, nameCard);
         Debug.printVerbose("The player "+ nickname + " has discarded " + nameCard);
 
     }
@@ -1029,7 +1036,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) {
 
         otherPlayerChoicesHandler.setChoicesMapString(choicesOnCurrentActionString);
-        modelController.playLeaderCard(nameCard, modelController.getPlayerByNickname(nickname), otherPlayerChoicesHandler);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        modelController.playLeaderCard(nameCard, modelController.getPlayerByNickname(nickname));
     }
 
     /**

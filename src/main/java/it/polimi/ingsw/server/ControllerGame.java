@@ -318,16 +318,16 @@ public class ControllerGame {
 
     /**
      * call the method on the controller of the model to harvest
-     * @param familyMember the familymember the player places
+     * @param familyMember the family member the player places
      * @param servant the number of servant you add on the family member to increase the value
-     * @param playerChoices
+     * @param playerChoices the choices done by the player ont the resource to get when harvesting
      */
     public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
 
         choicesController.setChoicesMap(playerChoices);
         controlTurnPlayer(familyMember.getPlayer().getNickname());
+        modelController.setChoicesController(choicesController);
         modelController.harvest(familyMember, servant);
-
 
     }
 
@@ -352,6 +352,8 @@ public class ControllerGame {
     public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
 
         controlTurnPlayer(familyMember.getPlayer().getNickname());
+        choicesController.setChoicesMap(playerChoices);
+        modelController.setChoicesController(choicesController);
         modelController.placeOnCouncil(familyMember);
     }
 
@@ -377,7 +379,8 @@ public class ControllerGame {
 
         controlTurnPlayer(nickname);
         choicesController.setChoicesMap(resourceGet);
-        modelController.discardLeaderCard(nickname, nameLeader,choicesController);
+        modelController.setChoicesController(choicesController);
+        modelController.discardLeaderCard(nickname, nameLeader);
 
     }
 
@@ -390,7 +393,8 @@ public class ControllerGame {
 
         controlTurnPlayer(player.getNickname());
         choicesController.setChoicesMapString(choicesOnCurrentAction);
-        modelController.playLeaderCard(nameLeader, player ,choicesController);
+        modelController.setChoicesController(choicesController);
+        modelController.playLeaderCard(nameLeader, player);
 
     }
 
@@ -508,6 +512,19 @@ public class ControllerGame {
             }
 
         }
+    }
+
+    /**
+     * this method is called by room to deliver the leader card activated by a player
+     * @param nameCard the name of the leader card activated
+     * @param resourceGet the resources gotten activating a leader card
+     * @param player the name of the player that had activated the leader card
+     */
+    public void activateLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, AbstractConnectionPlayer player) throws IllegalMoveException {
+
+        controlTurnPlayer(player.getNickname());
+        choicesController.setChoicesMap(resourceGet);
+        player.activateLeaderCardAbility(player.getLeaderCardsNotUsed(nameCard), choicesController);
     }
 }
 

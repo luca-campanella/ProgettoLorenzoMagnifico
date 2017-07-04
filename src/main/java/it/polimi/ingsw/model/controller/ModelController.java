@@ -636,7 +636,7 @@ public class ModelController {
         gameBoard.placeOnCouncil(familyMember, choicesController);
     }
 
-    public void discardLeaderCard(String playerNickname, String nameLeader, ChoicesHandlerInterface choicesHandlerInterface){
+    public void discardLeaderCard(String playerNickname, String nameLeader){
 
         Player playerMove = null;
         for(Player player : players){
@@ -646,18 +646,17 @@ public class ModelController {
             }
         }
 
-        List<GainResourceEffect> choices = choicesHandlerInterface.callbackOnCouncilGift("discard leader", 1);
+        List<GainResourceEffect> choices = choicesController.callbackOnCouncilGift("discard leader", 1);
         for(GainResourceEffect effectIterator : choices)
-            effectIterator.applyToPlayer(playerMove, choicesHandlerInterface, nameLeader);
+            effectIterator.applyToPlayer(playerMove, choicesController, nameLeader);
     }
 
-    public void activateLeaderCard(String nickname, String nameLeader, ChoicesHandlerInterface choicesController){
+    public void activateLeaderCard(String nickname, String nameLeader){
 
-        //TODO
         Player playerMove = null;
         for(Player player : players){
             if(player.getNickname().equals(nickname)){
-                //player.activateLeaderCardAbility(nameLeader);
+                player.activateLeaderCardAbility(player.getLeaderCardsNotUsed(nameLeader), choicesController);
                 playerMove = player;
             }
         }
@@ -749,7 +748,7 @@ public class ModelController {
      * @param nameLeader the card that should be set as played inside the player
      * @param player the player that had chosen to play the card
      */
-    public void playLeaderCard(String nameLeader, Player player, ChoicesHandlerInterface choicesHandlerInterface){
+    public void playLeaderCard(String nameLeader, Player player){
 
         LeaderCard leaderCard = player.getLeaderCardsNotUsed(nameLeader);
         //if the leader he's chosen has the ability to copy another leader ability we should ask which one he wants to copy
@@ -760,12 +759,12 @@ public class ModelController {
                 if(playerIter != player) //only leaders from other players can be copied
                     playedLeaders.addAll(playerIter.getPlayedLeaders());
             }
-            AbstractLeaderAbility choice = choicesHandlerInterface.callbackOnWhichLeaderAbilityToCopy(playedLeaders);
+            AbstractLeaderAbility choice = choicesController.callbackOnWhichLeaderAbilityToCopy(playedLeaders);
             leaderCard.setAbility(choice);
         }
 
         //we deldegate the rest of the action to the player itself
-        player.playLeader(leaderCard, choicesHandlerInterface);
+        player.playLeader(leaderCard, choicesController);
     }
 
     /**
