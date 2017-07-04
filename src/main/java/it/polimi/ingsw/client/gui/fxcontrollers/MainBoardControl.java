@@ -4,17 +4,14 @@ import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.Tower;
-import it.polimi.ingsw.model.board.*;
-import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.board.TowerFloorAS;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
-import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,10 +25,9 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * This object is the fx controller of the main board scene
@@ -76,6 +72,11 @@ public class MainBoardControl extends CustomFxControl {
     private ToggleGroup familyMembersToggleGroup = new ToggleGroup();
 
     /**
+     * This is the pool to run tasks in background
+     */
+    private ExecutorService pool;
+
+    /**
      * This hashmap is used to obtain the tab related to the player
      */
     HashMap<String, PlayerTabSubControl> playersTabMap;
@@ -89,11 +90,14 @@ public class MainBoardControl extends CustomFxControl {
 
     private List<Dice> dices;
 
+
+
     /**
      * Contructor, called when opened fxml
      */
     public MainBoardControl() {
         playersTabMap = new HashMap<String, PlayerTabSubControl>(3);
+        pool = Executors.newFixedThreadPool(2);
     }
 
     /**
@@ -204,6 +208,8 @@ public class MainBoardControl extends CustomFxControl {
                 ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#card"+col+raw)));
                 Image cardImg  = new Image(getClass().getResourceAsStream("/imgs/Cards/" +
                         towers[col].getFloorByIndex(raw).getCard().getImgName()));
+                Debug.printVerbose(cardImg.toString());
+                Debug.printVerbose(imgView.toString());
                 imgView.setImage(cardImg);
                 imgView.setPreserveRatio(true);
             }
@@ -241,7 +247,7 @@ public class MainBoardControl extends CustomFxControl {
 
     }
 
-    public void updateFamilyMembers() {
+    /*public void updateFamilyMembers() {
         ArrayList<Player> allPlayers = new ArrayList<>(5);
         allPlayers.add(thisPlayer);
         allPlayers.addAll(otherPlayers);
@@ -273,7 +279,7 @@ public class MainBoardControl extends CustomFxControl {
                 }
             }
         }
-    }
+    }*/
 
     public void displayExcommTiles() {
         List<ExcommunicationTile> tiles = board.getExcommunicationTiles();
@@ -310,6 +316,11 @@ public class MainBoardControl extends CustomFxControl {
                                           List<MarketWrapper> activeMarketSpaces,
                                           List<TowerWrapper> activeTowerSpaces) {
 
+        towersCouncilFaith.setMouseTransparent(false);
+        Debug.printVerbose("displayActiveActionSpaces called");
+
+
+
         //we set all AS to disabled
         for(int col = 0; col < 4; col++) {
             for(int raw = 0; raw < 4; raw++) {
@@ -317,6 +328,19 @@ public class MainBoardControl extends CustomFxControl {
                 activeTowersASButton.setDisable(true);
             }
         }
+
+        //we reactivate only the ones passed via parameters
+        for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
+            Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
+            activeTowersASButton.setDisable(false);
+        }
+
+        Button button = new Button("click me");
+        button.setLayoutX(400+new Random().nextInt(20));
+        button.setLayoutY(400);
+        button.toFront();
+        towersCouncilFaith.getChildren().add(button);
+
         for(int iterator = 0; iterator < 4; iterator++) {
             Button marketASButton = (Button) (marketPane.lookup("#marketAS" + iterator));
             marketASButton.setDisable(true);
@@ -342,11 +366,6 @@ public class MainBoardControl extends CustomFxControl {
 
         //setting harvest AS enable
 
-        //we reactivate only the ones passed via parameters
-        for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
-            Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
-            activeTowersASButton.setDisable(false);
-        }
         //we reactivate only the AS passed via parameters -> problem here. Wrapper is not used correctly
 
         for(MarketWrapper marketIterator : activeMarketSpaces)
@@ -369,8 +388,7 @@ public class MainBoardControl extends CustomFxControl {
         DiceAndFamilyMemberColorEnum colorEnum = DiceAndFamilyMemberColorEnum.valueOf(
                 Character.getNumericValue(buttonFM.getId().charAt(2)));
         currentFamilyMemberSelected = buttonFM;
-        Platform.runLater(() -> getController().callbackFamilyMemberSelected(thisPlayer.getFamilyMemberByColor(colorEnum)));
-
+        pool.submit(() -> getController().callbackFamilyMemberSelected(thisPlayer.getFamilyMemberByColor(colorEnum)));
     }
 
     /**
@@ -388,7 +406,7 @@ public class MainBoardControl extends CustomFxControl {
         alert.setContentText("I have a great message for you!");
         alert.showAndWait();
         //todo make the alert ask the user
-        Platform.runLater(()->getController().callbackPlacedFMOnHarvest(5));
+        pool.submit(()->getController().callbackPlacedFMOnHarvest(5));
 
         currentFamilyMemberSelected.setVisible(false);
         ToggleButton familyMemberPlaced = new ToggleButton();
@@ -397,7 +415,7 @@ public class MainBoardControl extends CustomFxControl {
         familyMemberPlaced.getStyleClass().add("familyMemberButton");
         buildHarvestPane.getChildren().add(familyMemberPlaced);
         Debug.printVerbose("Added FM to build");
-        updateFamilyMembers();
+        //updateFamilyMembers();
 
     }
 
@@ -415,7 +433,7 @@ public class MainBoardControl extends CustomFxControl {
         alert.setContentText("I have a great message for you!");
         alert.showAndWait();
 
-        Platform.runLater(()->getController().callbackPlacedFMOnBuild(5));
+        pool.submit(()->getController().callbackPlacedFMOnBuild(5));
 
         currentFamilyMemberSelected.setVisible(false);
         ToggleButton familyMemberPlaced = new ToggleButton();
@@ -424,7 +442,7 @@ public class MainBoardControl extends CustomFxControl {
         familyMemberPlaced.getStyleClass().add("familyMemberButton");
         buildHarvestPane.getChildren().add(familyMemberPlaced);
         Debug.printVerbose("Added FM to build");
-        updateFamilyMembers();
+        //updateFamilyMembers();
 
     }
 
@@ -441,7 +459,7 @@ public class MainBoardControl extends CustomFxControl {
         String id = actionSpace.getId();
         int marketIndex = Character.getNumericValue(id.charAt(8));
         Debug.printVerbose("Market placed" + marketIndex);
-        Platform.runLater(()->getController().callbackPlacedFMOnMarket(marketIndex));
+        pool.submit(()->getController().callbackPlacedFMOnMarket(marketIndex));
 
         currentFamilyMemberSelected.setVisible(false);
         double height = buttonMarket.getPrefHeight();
@@ -456,7 +474,7 @@ public class MainBoardControl extends CustomFxControl {
         marketPane.getChildren().add(familyMemberPlaced);
 
         //CliPrinter.printBoard(board);
-        updateFamilyMembers();
+        //updateFamilyMembers();
     }
 
     /**
@@ -470,7 +488,7 @@ public class MainBoardControl extends CustomFxControl {
 
         Button actionSpace = ((Button) (event.getSource()));
         //String id = actionSpace.getId();
-        Platform.runLater(() -> getController().callbackPlacedFMOnCouncil());
+        pool.submit(() -> getController().callbackPlacedFMOnCouncil());
         currentFamilyMemberSelected.setVisible(false);
         double height = buttonCouncil.getPrefHeight();
         double width = buttonCouncil.getWidth();
@@ -483,7 +501,7 @@ public class MainBoardControl extends CustomFxControl {
         familyMemberPlaced.getStyleClass().add("familyMemberButton");
         towersCouncilFaith.getChildren().add(familyMemberPlaced);
         Debug.printVerbose("Added FM to council");
-        updateFamilyMembers();
+        //updateFamilyMembers();
 
     }
 
@@ -493,11 +511,12 @@ public class MainBoardControl extends CustomFxControl {
      */
     @FXML
     private void towerFloorSelected(ActionEvent event) {
+        Debug.printVerbose("towerFloorSelected called");
         Button actionSpace = ((Button) (event.getSource()));
         String id = actionSpace.getId();
         int towerIndex = Character.getNumericValue(id.charAt(7));
         int floorIndex = Character.getNumericValue(id.charAt(8));
-        Platform.runLater(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
+        pool.submit(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
     }
 
 }

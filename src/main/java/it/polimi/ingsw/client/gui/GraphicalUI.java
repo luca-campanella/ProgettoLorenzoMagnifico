@@ -23,7 +23,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +31,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This object represents the implementation of the user interface via graphical user interface
@@ -67,6 +69,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest, Optional<Integer> servantsNeededBuild, Optional<Integer> servantsNeededCouncil, List<MarketWrapper> activeMarketSpaces, List<TowerWrapper> activeTowerSpaces, int availableServants) {
+        Debug.printVerbose("askWhichActionSpace called");
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
         Platform.runLater(() -> control.displayActiveActionSpaces(servantsNeededHarvest, servantsNeededBuild, servantsNeededCouncil, activeMarketSpaces, activeTowerSpaces));
     }
@@ -137,8 +140,8 @@ public class GraphicalUI extends AbstractUIType {
         else {
             textToDisplay.append("you already played your family member, please ");
             //here i let the user show all the family members that have been placed last round
-            MainBoardControl control = ((MainBoardControl) (currentFXControl));
-            control.updateFamilyMembers();
+           /* MainBoardControl control = ((MainBoardControl) (currentFXControl));
+            control.updateFamilyMembers();*/
         }
         textToDisplay.append("make a leader action or pass the turn");
 
@@ -304,10 +307,10 @@ public class GraphicalUI extends AbstractUIType {
                     () -> setUpMainBoardControl(message)));
             currentSceneType = SceneEnum.MAIN_BOARD;
             //here i let the user show all the family members that have been placed last round
-            ((MainBoardControl) (currentFXControl)).updateFamilyMembers();
+            //((MainBoardControl) (currentFXControl)).updateFamilyMembers();
         } else {
             ((MainBoardControl) currentFXControl).appendMessageOnStateTextArea(message);
-            ((MainBoardControl) (currentFXControl)).updateFamilyMembers();
+           // ((MainBoardControl) (currentFXControl)).updateFamilyMembers();
         }
     }
 
@@ -440,7 +443,8 @@ public class GraphicalUI extends AbstractUIType {
             runBeforeShow.run();
 
         currentStage.setTitle(title);
-        currentStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
+        //currentStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED)); antialiasing was bugged
+        currentStage.setScene(new Scene(root));
         currentStage.setResizable(false);
 
         currentStage.show();

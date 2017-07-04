@@ -3,10 +3,14 @@ package it.polimi.ingsw.client.gui.fxcontrollers;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
+import it.polimi.ingsw.model.cards.BuildingCard;
+import it.polimi.ingsw.model.cards.Deck;
+import it.polimi.ingsw.model.cards.TerritoryCard;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.server.JSONLoader;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -23,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -112,11 +117,42 @@ public class PlayerTabSubControl extends CustomFxControl {
      * This method is used to refresh the tab after the player performed an action
      */
     public void refresh() {
-        //todo set the cards of the player to the board
+        //todo: remove this block down here
+        /*JSONLoader.instance();
+        try {
+            Deck deck = JSONLoader.createNewDeck();
+            displayCards(deck.getTerritoryCards().subList(0,6));
+            displayCards(deck.getBuildingCards().subList(0,6));
+        }
+        catch(IOException e){
+            return;
+        }*/
+        //todo: end block to remove ^
+        displayCards(personalBoard.getYellowBuildingCards());
+        displayCards(personalBoard.getTerritoryCards());
         displayResources();
         //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
         purpleCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
         blueCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));
+    }
+    private void displayCards(List<? extends AbstractCard> cards){
+        for(int iterator = 0; iterator < cards.size(); iterator++) {
+            StringBuilder imageViewId = new StringBuilder();
+            if(cards.get(iterator) instanceof TerritoryCard){
+                imageViewId.append("#territoryCard");
+            }
+            else {
+                imageViewId.append("#buildingCard");
+            }
+            ImageView imgView = ((ImageView) (personalBoardPane.lookup(imageViewId.toString() + String.valueOf(iterator))));
+            Image cardImg = new Image(getClass().getResourceAsStream(
+                    "/imgs/Cards/" + cards.get(iterator).getImgName()));
+            Debug.printVerbose(cardImg.toString());
+            Debug.printVerbose(imgView.toString());
+            imgView.setImage(cardImg);
+            imgView.setPreserveRatio(true);
+        }
+
     }
     private void displayResources(){
         //todo: change style of the resources
@@ -144,7 +180,7 @@ public class PlayerTabSubControl extends CustomFxControl {
         Debug.printVerbose("setUpPersonalTIles called");
         Debug.printVerbose(player.getPersonalBoard().getPersonalTile().getImgName());
         Image tileImg  = new Image(getClass().getResourceAsStream("/imgs/PersonalBonusTiles/Long/" +
-                        player.getPersonalBoard().getPersonalTile().getImgName()));
+                player.getPersonalBoard().getPersonalTile().getImgName()));
         thisPlayerPersonalTile.setImage(tileImg);
         thisPlayerPersonalTile.setPreserveRatio(true);
     }
