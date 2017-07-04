@@ -79,8 +79,9 @@ public class GraphicalUI extends AbstractUIType {
      * @param legalActionSpaces
      */
     public void askWhichActionSpace(List<AbstractActionSpace> legalActionSpaces){
-        Debug.printDebug("Sono in CLI.printAllowedActions()");
+        Debug.printDebug("Sono in GUI.askWhichActionSpace");
         System.out.println("Stampo tutte le azioni disponibili dell'utente");
+        //todo: eliminare questo metodo
     }
 
     @Override
@@ -168,7 +169,12 @@ public class GraphicalUI extends AbstractUIType {
      */
     private void setUpMainBoardControl(String message) {
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
-
+        //todo eliminate: this tested if councilGiftOption was working..
+        /*ArrayList< GainResourceEffect> options = new ArrayList<>(1);
+        GainResourceEffect option = new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,2));
+        options.add(option);
+        options.add(option);
+        control.displayCouncilOptions(options);*/
         control.setBoard(getController().callbackObtainBoard());
         control.displayCards();
         control.setUpExcommTiles();
@@ -180,6 +186,8 @@ public class GraphicalUI extends AbstractUIType {
         control.displayFamilyMembers();
         control.setUpPlayersPersonalBoards();
         control.appendMessageOnStateTextArea(message);
+
+        currentFXControl = control;
     }
 
 
@@ -191,7 +199,10 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askCouncilGift(ArrayList<GainResourceEffect> options) {
-        return 0;
+        Debug.printVerbose("I'm in askCouncilGiftGUI");
+
+        return ((MainBoardControl)(currentFXControl)).displayCouncilOptions(options);
+
     }
 
     /**

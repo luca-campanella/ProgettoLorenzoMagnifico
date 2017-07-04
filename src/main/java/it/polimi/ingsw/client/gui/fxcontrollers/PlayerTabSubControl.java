@@ -102,6 +102,7 @@ public class PlayerTabSubControl extends CustomFxControl {
      * @param isThisPlayer true if the tab is linked with the player which controls the client
      */
     public void setUpTab(ViewControllerCallbackInterface controller, Player relatedPlayer, boolean isThisPlayer) {
+        Debug.printVerbose("setUpTab called");
         this.isThisPlayer = isThisPlayer;
         setController(controller);
         setRelatedPlayer(relatedPlayer);
@@ -116,18 +117,7 @@ public class PlayerTabSubControl extends CustomFxControl {
     /**
      * This method is used to refresh the tab after the player performed an action
      */
-    public void refresh() {
-        //todo: remove this block down here
-        /*JSONLoader.instance();
-        try {
-            Deck deck = JSONLoader.createNewDeck();
-            displayCards(deck.getTerritoryCards().subList(0,6));
-            displayCards(deck.getBuildingCards().subList(0,6));
-        }
-        catch(IOException e){
-            return;
-        }*/
-        //todo: end block to remove ^
+    public void refresh(){
         displayCards(personalBoard.getYellowBuildingCards());
         displayCards(personalBoard.getTerritoryCards());
         displayResources();
@@ -135,6 +125,7 @@ public class PlayerTabSubControl extends CustomFxControl {
         purpleCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
         blueCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));
     }
+
     private void displayCards(List<? extends AbstractCard> cards){
         for(int iterator = 0; iterator < cards.size(); iterator++) {
             StringBuilder imageViewId = new StringBuilder();
