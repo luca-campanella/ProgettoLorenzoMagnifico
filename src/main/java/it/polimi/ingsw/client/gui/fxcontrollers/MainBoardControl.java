@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.board.Tower;
-import it.polimi.ingsw.model.board.TowerFloorAS;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -37,6 +36,7 @@ import java.util.concurrent.Executors;
  * display -- displays or refreshes something, may be called more than once during the game
  */
 public class MainBoardControl extends CustomFxControl {
+
     ToggleButton currentFamilyMemberSelected;
     @FXML
     private AnchorPane towersCouncilFaith;
@@ -81,6 +81,12 @@ public class MainBoardControl extends CustomFxControl {
      */
     HashMap<String, PlayerTabSubControl> playersTabMap;
 
+    /**
+     * This list contains all the family members represented as a button added during this turn
+     * Should be cleaned at the end of the turn
+     */
+    List<Button> addedFamilyMembersButtons;
+
 
     private Board board;
 
@@ -98,6 +104,7 @@ public class MainBoardControl extends CustomFxControl {
     public MainBoardControl() {
         playersTabMap = new HashMap<String, PlayerTabSubControl>(3);
         pool = Executors.newFixedThreadPool(2);
+        addedFamilyMembersButtons = new ArrayList<Button>(16);
     }
 
     /**
@@ -516,6 +523,19 @@ public class MainBoardControl extends CustomFxControl {
         String id = actionSpace.getId();
         int towerIndex = Character.getNumericValue(id.charAt(7));
         int floorIndex = Character.getNumericValue(id.charAt(8));
+
+        Button fmButton = new Button();
+        //fmButton.getStyleClass().add(currentFamilyMemberSelected.getStyle());
+        fmButton.setLayoutX(actionSpace.getLayoutX());
+        fmButton.setLayoutY(actionSpace.getLayoutY());
+        fmButton.setText(currentFamilyMemberSelected.getText());
+        fmButton.setDisable(true);
+        towersCouncilFaith.getChildren().add(fmButton);
+
+        addedFamilyMembersButtons.add(fmButton); //in roder to remove it afterwards
+
+        currentFamilyMemberSelected.setVisible(false);
+
         pool.submit(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
     }
 

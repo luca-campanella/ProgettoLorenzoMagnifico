@@ -42,9 +42,9 @@ import java.util.Optional;
  */
 public class GraphicalUI extends AbstractUIType {
 
-    Stage currentStage;
-    CustomFxControl currentFXControl;
-    SceneEnum currentSceneType;
+    private Stage currentStage;
+    private CustomFxControl currentFXControl;
+    private volatile SceneEnum currentSceneType;
 
     /**
      * This is the constructor of the class
@@ -93,7 +93,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForGameStart() {
-
+        currentSceneType = SceneEnum.WAITING_SCENE;
         Debug.printDebug("GUI: whow waiting for game start");
 
         Platform.runLater(() -> this.openNewWindow("WaitingScene.fxml", "Waiting for game to start",
@@ -106,6 +106,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForLeaderChoices() {
+        currentSceneType = SceneEnum.WAITING_SCENE;
         Debug.printDebug("GUI: whow waiting for another leader choice");
 
         Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for leader choices",
@@ -118,6 +119,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForTilesChoices() {
+        currentSceneType = SceneEnum.WAITING_SCENE;
         Debug.printDebug("GUI: show waiting for tile choice");
 
         Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for tiles choices",
@@ -452,7 +454,6 @@ public class GraphicalUI extends AbstractUIType {
 
     private void prepareWaitingScene(String message) {
         //openNewWindow("WaitingScene.fxml", title, null);
-        currentSceneType = SceneEnum.WAITING_SCENE;
         ((WaitingSceneControl) (currentFXControl)).setMessage(message);
     }
 
