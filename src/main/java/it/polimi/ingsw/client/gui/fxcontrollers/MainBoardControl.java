@@ -40,7 +40,7 @@ import java.util.concurrent.Executors;
  */
 public class MainBoardControl extends CustomFxControl {
 
-    ToggleButton currentFamilyMemberSelected;
+    private ToggleButton currentFamilyMemberSelected;
     @FXML
     private AnchorPane towersCouncilFaith;
 
@@ -512,8 +512,16 @@ public class MainBoardControl extends CustomFxControl {
         //todo make the alert ask the user
         pool.submit(()->getController().callbackPlacedFMOnHarvest(5));
 
-        //place the family member
-        placeFamilyMemberForThisPlayer(buildHarvestPane, actionSpace.getLayoutX(), actionSpace.getLayoutY());
+        //place the family member in the correct place
+        if(actionSpace.getId().equals("harvestSmallActionSpace"))
+            placeFamilyMemberForThisPlayer(buildHarvestPane,
+                    new Coordinates(actionSpace.getLayoutX(), actionSpace.getLayoutY()));
+        else {
+            //we have to subtract one because one has already been placed to the small action space
+            int occupyingFMs = board.getHarvest().getOccupyingFamilyMemberNumber()-1;
+            Coordinates coord = calculateCoordinatesBigActionSpace(actionSpace, occupyingFMs);
+            placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
+        }
 
         Debug.printVerbose("Added FM to build");
         //updateFamilyMembers();
@@ -535,8 +543,16 @@ public class MainBoardControl extends CustomFxControl {
         alert.showAndWait();
         //todo make the alert ask the user
 
-        //place the family member
-        placeFamilyMemberForThisPlayer(buildHarvestPane, actionSpace.getLayoutX(), actionSpace.getLayoutY());
+        //place the family member in the correct place
+        if(actionSpace.getId().equals("buildSmallActionSpace"))
+            placeFamilyMemberForThisPlayer(buildHarvestPane,
+                    new Coordinates(actionSpace.getLayoutX(), actionSpace.getLayoutY()));
+        else {
+            //we have to subtract one because one has already been placed to the small action space
+            int occupyingFMs = board.getBuild().getOccupyingFamilyMemberNumber()-1;
+            Coordinates coord = calculateCoordinatesBigActionSpace(actionSpace, occupyingFMs);
+            placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
+        }
 
         Debug.printVerbose("Added FM to build");
 
@@ -558,7 +574,7 @@ public class MainBoardControl extends CustomFxControl {
         Debug.printVerbose("Market placed" + marketIndex);
 
         //place the family member
-        placeFamilyMemberForThisPlayer(marketPane, actionSpace.getLayoutX(), actionSpace.getLayoutY());
+        placeFamilyMemberForThisPlayer(marketPane, new Coordinates(actionSpace.getLayoutX(), actionSpace.getLayoutY()));
 
         pool.submit(()->getController().callbackPlacedFMOnMarket(marketIndex));
         //CliPrinter.printBoard(board);
@@ -572,13 +588,11 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void councilGiftSelected(ActionEvent event)
     {
-        Button buttonCouncil = ((Button) (event.getSource()));
-
         Button actionSpace = ((Button) (event.getSource()));
 
         //place the family member
-        //todo change coordinates to implement council already full
-        placeFamilyMemberForThisPlayer(towersCouncilFaith, actionSpace.getLayoutX(), actionSpace.getLayoutY());
+        Coordinates coord = calculateCoordinatesBigActionSpace(actionSpace, board.getCouncilAS().getOccupyingFamilyMemberNumber());
+        placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
 
         pool.submit(() -> getController().callbackPlacedFMOnCouncil());
 
@@ -603,7 +617,7 @@ public class MainBoardControl extends CustomFxControl {
         imgView.setImage(null);
 
         //place the family member
-        placeFamilyMemberForThisPlayer(towersCouncilFaith, actionSpace.getLayoutX(), actionSpace.getLayoutY());
+        placeFamilyMemberForThisPlayer(towersCouncilFaith, new Coordinates(actionSpace.getLayoutX(), actionSpace.getLayoutY()));
 
         pool.submit(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
     }
@@ -611,17 +625,16 @@ public class MainBoardControl extends CustomFxControl {
     /**
      * This method performs actions needed when a family member of this player is placed on an action space
      * @param paneToPlaceTo the pane to which the family member will be added
-     * @param layoutX on the pane
-     * @param layoutY on the pane
+     * @param coord the coordinates to place the family member to
      */
-    private void placeFamilyMemberForThisPlayer(Pane paneToPlaceTo, double layoutX, double layoutY) {
+    private void placeFamilyMemberForThisPlayer(Pane paneToPlaceTo, Coordinates coord) {
         //he cannot place a family member anymore
         disableActionSpaces();
         setFamilyMemberDisable(true);
 
         ToggleButton fmButton = createFamilyMemberButtonPlaceHolder(
                 getController().callbackObtainSelectedFamilyMember(),
-                layoutX, layoutY);
+                coord);
 
         currentFamilyMemberSelected.setVisible(false);
         paneToPlaceTo.getChildren().add(fmButton);
@@ -630,11 +643,10 @@ public class MainBoardControl extends CustomFxControl {
     /**
      * Creates a toggle button with the right style as a family member
      * @param familyMember the family member to style the button
-     * @param layoutX the x coordinates to give the button to
-     * @param layoutY the y coordinates to give the button to
+     * @param coord the coordinates to give the button to
      * @return the toggle button representing the family member
      */
-    private ToggleButton createFamilyMemberButtonPlaceHolder(FamilyMember familyMember, double layoutX, double layoutY) {
+    private ToggleButton createFamilyMemberButtonPlaceHolder(FamilyMember familyMember, Coordinates coord) {
 
         ToggleButton fmButton = new ToggleButton(String.valueOf(familyMember.getValue()));
         fmButton.getStyleClass().add("FM" + familyMember.getColor().getIntegerValue() + "Class");
@@ -642,8 +654,8 @@ public class MainBoardControl extends CustomFxControl {
         //fmButton.getStyleClass().remove("familyMemberButton");
         fmButton.getStyleClass().add("familyMemberPlaceHolder");
         fmButton.setStyle("-fx-border-color: " + familyMember.getPlayer().getPlayerColor().getStringValue() + ";");
-        fmButton.setLayoutX(layoutX);
-        fmButton.setLayoutY(layoutY);
+        fmButton.setLayoutX(coord.getX());
+        fmButton.setLayoutY(coord.getY());
         fmButton.setDisable(true);
         fmButton.toFront();
         addedFamilyMembersButtons.add(fmButton); //in order to remove it afterwards
@@ -651,4 +663,43 @@ public class MainBoardControl extends CustomFxControl {
         return fmButton;
     }
 
+    /**
+     * Private immutable class for storing coordinates
+     */
+    private final class Coordinates {
+        double x, y;
+        public Coordinates(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public final double getX() {
+            return x;
+        }
+
+        public final double getY() {
+            return y;
+        }
+    }
+
+    /**
+     * Calculates where to palce a family member on an big AS
+     * @param actionSpaceButton the big action space
+     * @param numberFMAlreadyPlaced the number of family members already placed in that space
+     * @return the coordinates to place to
+     */
+    private Coordinates calculateCoordinatesBigActionSpace(Button actionSpaceButton, int numberFMAlreadyPlaced) {
+        double x = actionSpaceButton.getLayoutX();
+        double y = actionSpaceButton.getLayoutY();
+
+        //this is just to get the Height and the width of a family member
+        ToggleButton familyMemberInfo = ((ToggleButton) (familyMembersToggleGroup.getToggles().get(0)));
+
+        y += actionSpaceButton.getHeight() / 2; //we want to set it in the middle
+        y -= familyMemberInfo.getHeight() / 2;
+
+        x += familyMemberInfo.getWidth() * numberFMAlreadyPlaced;
+
+        return new Coordinates(x, y);
+    }
 }
