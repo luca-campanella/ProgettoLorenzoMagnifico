@@ -24,7 +24,10 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.text.Text;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -250,8 +253,29 @@ public class MainBoardControl extends CustomFxControl {
                 fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
                 fm.setToggleGroup(familyMembersToggleGroup);
         }
+    }
 
+    /**
+     * This method is used to refresh the personal board of a player
+     * @param playerNickname the nickn of the player to refresh the tab of
+     */
+    public void refreshPersonalBoardOfPlayer(String playerNickname) {
+        PlayerTabSubControl playerTab = playersTabMap.get(playerNickname);
+        playerTab.refresh();
+    }
 
+    /**
+     * This method is called to perform all the actions needed to prepare the gui for a new round
+     */
+    public void prepareForNewRound() {
+        //we removed all added family members from the board, wherever they might be
+        for(ToggleButton fmButtonIter : addedFamilyMembersButtons) {
+            if(towersCouncilFaith.getChildren().remove(fmButtonIter))
+                continue;
+            if(buildHarvestPane.getChildren().remove(fmButtonIter))
+                continue;
+            marketPane.getChildren().remove(fmButtonIter);
+        }
     }
 
     /*public void updateFamilyMembers() {
@@ -538,13 +562,17 @@ public class MainBoardControl extends CustomFxControl {
         int towerIndex = Character.getNumericValue(id.charAt(7));
         int floorIndex = Character.getNumericValue(id.charAt(8));
 
+        //remove the corresponding card
+        ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#card"+towerIndex+floorIndex)));
+        imgView.setImage(null);
+
         //he cannot place a family member anymore
         disableActionSpaces();
         setFamilyMemberDisable(true);
 
         ToggleButton fmButton = new ToggleButton(currentFamilyMemberSelected.getText());
         fmButton.getStyleClass().addAll(currentFamilyMemberSelected.getStyleClass());
-        fmButton.getStyleClass().remove("familyMemberButton");
+        //fmButton.getStyleClass().remove("familyMemberButton");
         fmButton.getStyleClass().add("familyMemberPlaceHolder");
         fmButton.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
         fmButton.setLayoutX(actionSpace.getLayoutX());

@@ -154,8 +154,11 @@ public class GraphicalUI extends AbstractUIType {
             currentSceneType = SceneEnum.MAIN_BOARD;
         } else {
             MainBoardControl control = ((MainBoardControl) (currentFXControl));
-            control.appendMessageOnStateTextArea(textToDisplay.toString());
-            control.setFamilyMemberDisable(playedFamilyMember);
+            Platform.runLater(() -> {
+                control.appendMessageOnStateTextArea(textToDisplay.toString());
+                control.setFamilyMemberDisable(playedFamilyMember);
+                control.refreshPersonalBoardOfPlayer(getController().callbackObtainPlayer().getNickname());
+            });
         }
     }
 

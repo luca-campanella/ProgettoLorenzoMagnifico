@@ -49,15 +49,7 @@
 }
 
 .familyMemberPlaceHolder:disabled {
-    -fx-border-radius: 50em;
-    -fx-border-color: green;
-    -fx-border-width: 10px;
-    -fx-background-radius: 50em;
-    -fx-min-width: 50px;
-    -fx-min-height: 50px;
-    -fx-max-width: 50px;
-    -fx-max-height: 50px;
-    -fx-font-size: 15px;
+    -fx-opacity: 100%;
 }
 
 .FM1Class {
