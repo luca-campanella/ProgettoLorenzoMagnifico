@@ -525,7 +525,7 @@ public class MainBoardControl extends CustomFxControl {
         int floorIndex = Character.getNumericValue(id.charAt(8));
 
         Button fmButton = new Button();
-        //fmButton.getStyleClass().add(currentFamilyMemberSelected.getStyle());
+        fmButton.getStyleClass().add(currentFamilyMemberSelected.getStyle());
         fmButton.setLayoutX(actionSpace.getLayoutX());
         fmButton.setLayoutY(actionSpace.getLayoutY());
         fmButton.setText(currentFamilyMemberSelected.getText());

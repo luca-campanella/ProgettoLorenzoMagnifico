@@ -134,6 +134,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askInitialAction(boolean playedFamilyMember) {
+        Debug.printVerbose("askInitialAction called with currentSceneType = " + currentSceneType);
         StringBuilder textToDisplay = new StringBuilder("It's your turn, ");
 
         if(!playedFamilyMember) {
@@ -303,6 +304,7 @@ public class GraphicalUI extends AbstractUIType {
 
     @Override
     public void waitMenu() {
+        Debug.printVerbose("waitMenu called with currentSceneType = " + currentSceneType);
         String message = "Opponents are currently playing, please wait your turn";
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
