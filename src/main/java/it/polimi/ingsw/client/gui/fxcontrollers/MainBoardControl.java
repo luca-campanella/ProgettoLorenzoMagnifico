@@ -204,6 +204,8 @@ public class MainBoardControl extends CustomFxControl {
                 ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#card"+col+raw)));
                 Image cardImg  = new Image(getClass().getResourceAsStream("/imgs/Cards/" +
                         towers[col].getFloorByIndex(raw).getCard().getImgName()));
+                Debug.printVerbose(cardImg.toString());
+                Debug.printVerbose(imgView.toString());
                 imgView.setImage(cardImg);
                 imgView.setPreserveRatio(true);
             }
