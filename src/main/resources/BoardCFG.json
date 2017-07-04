@@ -274,7 +274,7 @@
       },
       {
         "effectName": "GiveCouncilGiftEffect",
-        "numberOfCouncilGift": 2
+        "numberOfCouncilGift": 1
       }
     ],
     "councilGiftChoices" : [

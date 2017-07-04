@@ -28,7 +28,7 @@ public class BuildMalusEffectTest {
     @Test
     public void buildMalusEffect() throws Exception {
         int valueTest;
-        valueTest = excommunicationTiles.get(5).effect.buildDiceMalusEffect();
+        valueTest = excommunicationTiles.get(4).effect.buildDiceMalusEffect();
         assertEquals(3, valueTest);
 
     }

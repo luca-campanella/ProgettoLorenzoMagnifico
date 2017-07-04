@@ -37,8 +37,8 @@ public class ReductionOnDiceEffectTest {
     public void reductionOnDice() throws Exception {
         int valueTest;
         //those 2 lines tests the card loaded
-        valueTest = excommunicationTiles.get(7).effect.reductionOnDice(DiceAndFamilyMemberColorEnum.WHITE);
-        int valueSecondTest = excommunicationTiles.get(7).effect.reductionOnDice(DiceAndFamilyMemberColorEnum.NEUTRAL);
+        valueTest = excommunicationTiles.get(6).effect.reductionOnDice(DiceAndFamilyMemberColorEnum.WHITE);
+        int valueSecondTest = excommunicationTiles.get(6).effect.reductionOnDice(DiceAndFamilyMemberColorEnum.NEUTRAL);
         //those 2 tests the effect itself
         int valueThirdTest = cardEffect.reductionOnDice(DiceAndFamilyMemberColorEnum.BLACK);
         int valueFourthTest = cardEffect.reductionOnDice(DiceAndFamilyMemberColorEnum.ORANGE);

@@ -22,11 +22,6 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
         this.effect = effect;*/
     }
 
-    public void placeCard(AbstractCard card){
-
-        this.card = card;
-
-    }
 
     public AbstractCard getCard(){
         return card;

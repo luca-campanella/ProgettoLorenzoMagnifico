@@ -28,7 +28,7 @@ public class MalusOnMarketEffectTest {
     }
     @Test
     public void marketNotAvailable() throws Exception {
-       boolean valueTest = excommunicationTiles.get(12).effect.marketNotAvailable();
+       boolean valueTest = excommunicationTiles.get(11).effect.marketNotAvailable();
         assertTrue(valueTest);
     }
 

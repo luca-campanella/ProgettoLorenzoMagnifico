@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.GUITester;
+package it.polimi.ingsw.client.guitester;
 
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.exceptions.NetworkException;
@@ -329,6 +329,11 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
         return null;
     }
 
+    /**
+     * this method is called by the view to activate the effect of a leader card
+     *
+     * @param leaderCard the leader card that activates the effect
+     */
     @Override
     public void callbackActivateLeader(LeaderCard leaderCard) {
 

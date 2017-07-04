@@ -1,9 +1,5 @@
 package it.polimi.ingsw.client.gui;
 
-/**
- * Created by higla on 11/05/2017.
- */
-
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
@@ -38,11 +34,16 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * This object represents the implementation of the user interface via graphical user interface
+ * Uses java fx
+ */
 public class GraphicalUI extends AbstractUIType {
 
     Stage currentStage;
     CustomFxControl currentFXControl;
     SceneEnum currentSceneType;
+
     /**
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
@@ -51,23 +52,6 @@ public class GraphicalUI extends AbstractUIType {
     {
         super(controller);
         currentStage = new Stage();
-    }
-
-    public void selectFamilyMember()
-    {
-        int i;
-        String familyColorID;
-        System.out.print("Select a family member. You can choose " );
-        /*for(i=0; i< familyMembers.size(); i++)
-            System.out.print(familyMembers.... + " ");
-        */
-        System.out.print("Yellow, Red, Green, Neutral");
-        while(true) {
-            familyColorID = inputScanner.nextLine();
-            if(existingColors(familyColorID))
-                break;
-        }
-        //clientMain.callbackFamilyMemberSelected(familyColorID);
     }
 
     /**
@@ -84,7 +68,7 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest, Optional<Integer> servantsNeededBuild, Optional<Integer> servantsNeededCouncil, List<MarketWrapper> activeMarketSpaces, List<TowerWrapper> activeTowerSpaces, int availableServants) {
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
-        Platform.runLater(() -> control.setActiveActionSpaces(servantsNeededHarvest, servantsNeededBuild, servantsNeededCouncil, activeMarketSpaces, activeTowerSpaces));
+        Platform.runLater(() -> control.displayActiveActionSpaces(servantsNeededHarvest, servantsNeededBuild, servantsNeededCouncil, activeMarketSpaces, activeTowerSpaces));
     }
 
     /**
@@ -102,15 +86,6 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     /**
-     * This method is called when all the choices are made and the game begins.
-     * It is called regardless if it's the player's turn or not
-     */
-    @Override
-    public void showInitialBoard() {
-        //todo display here the initial window
-    }
-
-    /**
      * This method is called when the player has joined a room, but the game isn't started yet
      */
     @Override
@@ -118,7 +93,7 @@ public class GraphicalUI extends AbstractUIType {
 
         Debug.printDebug("GUI: whow waiting for game start");
 
-        Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for game to start",
+        Platform.runLater(() -> this.openNewWindow("WaitingScene.fxml", "Waiting for game to start",
                 () -> this.prepareWaitingScene("Room joined succesfully, waiting for other players to join or for timeout...")));
 
     }
@@ -154,28 +129,46 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askInitialAction(boolean playedFamilyMember) {
+        StringBuilder textToDisplay = new StringBuilder("It's your turn, ");
+
+        if(!playedFamilyMember) {
+            textToDisplay.append("please select a family member and then an action space or ");
+        }
+        else {
+            textToDisplay.append("you already played your family member, please ");
+            //here i let the user show all the family members that have been placed last round
+            MainBoardControl control = ((MainBoardControl) (currentFXControl));
+            control.updateFamilyMembers();
+        }
+        textToDisplay.append("make a leader action or pass the turn");
 
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
-            Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", () -> setUpMainBoardControl()));
+            Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
+                    () -> setUpMainBoardControl(textToDisplay.toString())));
             currentSceneType = SceneEnum.MAIN_BOARD;
+        } else {
+            ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(textToDisplay.toString());
         }
-        //todo call on the controller something that tells its his turn
-
     }
 
-    private void setUpMainBoardControl() {
+    /**
+     * performs all the action on the {@link MainBoardControl} in order to display the initial board
+     * @param message the initial message to show the user
+     */
+    private void setUpMainBoardControl(String message) {
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
 
         control.setBoard(getController().callbackObtainBoard());
         control.displayCards();
+        control.setUpExcommTiles();
         control.setThisPlayer(getController().callbackObtainPlayer());
-        control.displayThisPlayerPersonalBoard();
         control.setOtherPlayers(getController().callbackObtainOtherPlayers());
-        control.setOrderOfPlayers(getController().callbackObtainPlayersInOrder());
+        control.displayOrderOfPlayers(getController().callbackObtainPlayersInOrder());
         control.setDices(getController().callbackObtainDices());
         control.displayDices();
         control.displayFamilyMembers();
-        control.setPlayersPersonalBoards();
+        control.setUpPlayersPersonalBoards();
+        control.appendMessageOnStateTextArea(message);
     }
 
 
@@ -305,11 +298,17 @@ public class GraphicalUI extends AbstractUIType {
 
     @Override
     public void waitMenu() {
+        String message = "Opponents are currently playing, please wait your turn";
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
-            Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game", () -> setUpMainBoardControl()));
+            Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
+                    () -> setUpMainBoardControl(message)));
             currentSceneType = SceneEnum.MAIN_BOARD;
+            //here i let the user show all the family members that have been placed last round
+            ((MainBoardControl) (currentFXControl)).updateFamilyMembers();
+        } else {
+            ((MainBoardControl) currentFXControl).appendMessageOnStateTextArea(message);
+            ((MainBoardControl) (currentFXControl)).updateFamilyMembers();
         }
-        //todo call on the controller something that tells its not his turn
     }
 
     /**
@@ -377,53 +376,16 @@ public class GraphicalUI extends AbstractUIType {
         return (familyColorID.equalsIgnoreCase("yellow")||familyColorID.equalsIgnoreCase("red")||familyColorID.equalsIgnoreCase("green")||familyColorID.equalsIgnoreCase("neutral"));
     }
 
-
-    String tmpInput;
-    Scanner inputScanner = new Scanner(System.in);
-    ClientMain clientMain;
-    // UIControllerUserInterface UIController = new UIControllerUserInterface();
-    public void loginFailure(String reasonFailure)
-    {
-
-        //System.out.println("Error: " + reasonFailure)
-        ;
-        //askLoginOrCreate()
-    }
-
     /**
-     * Chiede all'utente con quale connessione si vuole connettere
+     * Asks the user which connection mode he wants to use
      */
+    @Override
     public void askNetworkType()
     {
         Debug.printDebug("Sono nella gui. Voglio chedere quale network usare.");
         currentSceneType = SceneEnum.CONNECTION_CHOICE;
 
         Platform.runLater(() ->openNewWindow("ConnectionChooserV2.fxml", "Connection Type Choice", null));
-    }
-
-    /**
-     * This is the method which starts asking the User inputs.
-     */
-    public void readAction(){
-        Debug.printError("Sono nella gui.readAction");
-        while(true)
-        {
-            System.out.println("Quale azione vuoi fare? Giocare un Leader, Scartare un Leader, Piazzare un Familiare ? Scrivi Gioca, Scarta, Piazza");
-            tmpInput = inputScanner.nextLine();
-            if(tmpInput.equalsIgnoreCase("gioca")){
-                clientMain.callbackPlayLeader();
-                break;
-            }
-            if(tmpInput.equalsIgnoreCase("scarta")){
-                //clientMain.callbackDiscardLeader();
-                break;
-            }
-            if(tmpInput.equalsIgnoreCase("Piazza")){
-                clientMain.callbackPerformPlacement();
-                break;
-            }
-
-        }
     }
 
     /**
@@ -462,10 +424,10 @@ public class GraphicalUI extends AbstractUIType {
     public void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
-
+        Debug.printVerbose(getClass().getResource("/"+fxmlFileName).toString());
         Parent root = null;
         try {
-            root = fxmlLoader.load();
+            root = (Parent) fxmlLoader.load();
         } catch (IOException e) {
             Debug.printError("Error in loading fxml", e);
             displayErrorAndExit("Fatal error", "Error message: " + e.getMessage());
@@ -474,18 +436,19 @@ public class GraphicalUI extends AbstractUIType {
         currentFXControl = ((CustomFxControl) fxmlLoader.getController());
 
         currentFXControl.setController(getController());
+        if(runBeforeShow != null) //there is something to run
+            runBeforeShow.run();
 
         currentStage.setTitle(title);
         currentStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
         currentStage.setResizable(false);
-        if(runBeforeShow != null) //there is something to run
-            runBeforeShow.run();
 
         currentStage.show();
     }
 
     private void prepareWaitingScene(String message) {
         //openNewWindow("WaitingScene.fxml", title, null);
+        currentSceneType = SceneEnum.WAITING_SCENE;
         ((WaitingSceneControl) (currentFXControl)).setMessage(message);
     }
 

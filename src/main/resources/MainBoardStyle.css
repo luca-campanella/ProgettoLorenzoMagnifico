@@ -1,26 +1,31 @@
 #towersCouncilFaith {
     -fx-background-image: url("/imgs/TowersChurchCouncil.jpg");
     -fx-background-size: cover;
+    -fx-background-position: center;
 }
 
 #marketBuildHarvest {
     -fx-background-image: url("/imgs/MarketBuildHarvest.jpg");
     -fx-background-size: cover;
+    -fx-background-position: center;
 }
 
 #buildHarvestPane {
     -fx-background-image: url("/imgs/BuildHarvest.jpg");
     -fx-background-size: cover;
+    -fx-background-position: center;
 }
 
 #marketPane {
     -fx-background-image: url("/imgs/Market.jpg");
     -fx-background-size: cover;
+    -fx-background-position: center;
 }
 
 .personalBoardPane {
     -fx-background-image: url("/imgs/PersonalBoard.jpg");
     -fx-background-size: cover;
+    -fx-background-position: center;
 }
 
 #familyMembersPanel {
@@ -85,4 +90,9 @@
 
 .toggle-button {
     -fx-cursor: hand;
+}
+.labelResources{
+    -fx-font-size: 25px;
+    -fx-font-family: sans-serif;
+    -fx-background-color: aliceblue;
 }

@@ -245,15 +245,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * this method is a callback method called from abstractUIType when a placement of a family member is performed
-     */
-    public void callbackPerformPlacement(){
-        Debug.printDebug("I'm in ClientMain.callbackPerformPlacement");
-        //get status... ricevo una lista di family member che posso usare
-        userInterface.selectFamilyMember();
-    }
-
-    /**
      * this method is a callback method called from abstractUiType when a family member is selected
      * @param selectdFM the family member selected.
      */
@@ -282,13 +273,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         choicesOnCurrentAction = new HashMap<>();
         choicesOnCurrentActionString = new HashMap<>();
 
-    }
-
-    /**
-     * this method will ask to the model Controller what action user can do
-     */
-    public void askAction(){
-        userInterface.readAction();
     }
 
     /**

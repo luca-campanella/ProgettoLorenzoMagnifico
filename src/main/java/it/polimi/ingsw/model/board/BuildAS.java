@@ -12,7 +12,7 @@ public class BuildAS extends AbstractActionSpace implements Serializable {
     //this is the standard malus build value. (ex -3)
     int valueMalus = 0;
     //this boolean check if the player that puts there the family member is the first
-    //todo Non lo dovrebbe fare il controller? -- Arto
+
     //private boolean first = true;
     public BuildAS() {
         super();
@@ -40,7 +40,7 @@ public class BuildAS extends AbstractActionSpace implements Serializable {
 
     /**
      * this method checks if the player that put here a family member is the first
-     * @return
+     * @return true if this is the first.
      */
     public boolean checkIfFirst(){
         if(getOccupyingFamilyMemberNumber() == 0)

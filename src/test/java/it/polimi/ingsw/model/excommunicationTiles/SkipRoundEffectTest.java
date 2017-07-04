@@ -28,7 +28,7 @@ public class SkipRoundEffectTest {
 
     @Test
     public void skipRound() throws Exception {
-        boolean valueTest = excommunicationTiles.get(14).effect.skipFirstTurn();
+        boolean valueTest = excommunicationTiles.get(13).effect.skipFirstTurn();
         assertTrue(valueTest);
 
     }

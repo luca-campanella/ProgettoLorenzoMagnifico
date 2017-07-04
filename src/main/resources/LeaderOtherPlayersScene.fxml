@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.LeaderOwnedControl">
+   <children>
+      <SplitPane dividerPositions="0.5" layoutY="-6.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="403.0">
+               <children>
+                  <Label layoutX="39.0" layoutY="14.0" prefHeight="21.0" prefWidth="234.0" text="Leaders in Hand" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <GridPane fx:id="leadersNotPlayedGridPane" layoutX="25.0" layoutY="57.0" prefHeight="500.0" prefWidth="346.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="60.0">
+                    <columnConstraints>
+                      <ColumnConstraints fx:id="leadersNotPlayedGridPaneCell0" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints fx:id="leadersNotPlayedGridPaneCell1" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints fx:id="leadersNotPlayedGridPaneCell2" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints fx:id="leadersNotPlayedGridPaneCell3" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+                  <Label layoutX="-31.0" layoutY="564.0" text="These are the laeder that this player haven't played yet." AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="456.0">
+               <children>
+                  <Label layoutX="37.0" layoutY="14.0" prefHeight="21.0" prefWidth="234.0" text="Leaders activated" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="6.0" layoutY="367.0" text="Leaders opaque have been already activated this round." AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <GridPane fx:id="leadersPlayedGridPane" layoutX="25.0" layoutY="49.0" prefHeight="500.0" prefWidth="346.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="60.0">
+                     <columnConstraints>
+                        <ColumnConstraints fx:id="leadersPlayedGridPaneCell0" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints fx:id="leadersPlayedGridPaneCell1" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints fx:id="leadersPlayedGridPaneCell2" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints fx:id="leadersPlayedGridPaneCell3" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

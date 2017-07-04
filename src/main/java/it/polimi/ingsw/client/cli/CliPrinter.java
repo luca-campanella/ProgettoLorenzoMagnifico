@@ -1,15 +1,13 @@
 package it.polimi.ingsw.client.cli;
 
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.board.MarketAS;
-import it.polimi.ingsw.model.board.TowerFloorAS;
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCard;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.leaders.LeadersDeck;
+import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
@@ -97,6 +95,20 @@ public class CliPrinter {
     }
 
     /**
+     * this method gets a string of all the family members inside an
+     * @param actionSpace which is where the family members are placed
+     * @return a string with a list of all nickame + color family members
+     */
+    private static String familyMembersInActionSpace(AbstractActionSpace actionSpace)
+    {
+        StringBuilder familyMembers = new StringBuilder();
+        for(FamilyMember iterator : actionSpace.getFamilyMembers()){
+            familyMembers.append((iterator.getPlayer().getNickname()));
+            familyMembers.append(" ");
+            familyMembers.append(iterator.getColor().toString());}
+        return familyMembers.toString();
+    }
+    /**
      * this method prints the tower name at the top of the towers.
      *
      * @param board is the gameBoard
@@ -109,7 +121,7 @@ public class CliPrinter {
     }
 
     /**
-     * this method prints an immediate effect pillar floor
+     * this method prints an immediate effect pillar floorF
      *
      * @param floors
      */
@@ -153,18 +165,22 @@ public class CliPrinter {
      */
     private static void printCardImmediateEffectOnFloor(TowerFloorAS floor) {
         ArrayList<? extends ImmediateEffectInterface> costs;
-        StringBuilder immediateEffects = new StringBuilder("| Instantly: ");
-
-        if(floor.getFamilyMembers().isEmpty()){
-        costs = floor.getCard().getImmediateEffect();
-        //first i print the costs
-        for (int i = 0; i < costs.size(); i++) {
-            immediateEffects.append(costs.get(i).descriptionShortOfEffect());
-            immediateEffects.append(" ");
+        StringBuilder immediateEffects = new StringBuilder("| ");
+        if(floor.getFamilyMembers().isEmpty()) {
+            immediateEffects.append("Instantly: ");
+            costs = floor.getCard().getImmediateEffect();
+            //first i print the costs
+            for (int i = 0; i < costs.size(); i++) {
+                immediateEffects.append(costs.get(i).descriptionShortOfEffect());
+                immediateEffects.append(" ");
+            }
         }
+        else
+            immediateEffects.append(familyMembersInActionSpace(floor));
         //then i print the remaining space from cost to .. |
         printScene(immediateEffects.toString());
-    }}
+        }
+
 
     /**
      * this method prints all second effects permanent / harvests / build and purple
@@ -172,10 +188,13 @@ public class CliPrinter {
      * @param floor
      */
     private static void printCardSecondEffectOnFloor(TowerFloorAS floor) {
-        StringBuilder tempCostsScene = new StringBuilder("| Second: ");
-        if(floor.getFamilyMembers().isEmpty())
+        StringBuilder tempCostsScene = new StringBuilder("|");
+        if(floor.getFamilyMembers().isEmpty()){
+            tempCostsScene.append("Second: ");
+
             tempCostsScene.append(floor.getCard().secondEffect());
-        //Here i fit my string to the scene.. |
+        }
+         //Here i fit my string to the scene.. |
         while (tempCostsScene.length() < INSIDE_TOWER_LENGHT + 1)
             tempCostsScene.append(" ");
         tempCostsScene.append("|");
@@ -200,7 +219,7 @@ public class CliPrinter {
             if(temp[k].getFamilyMembers().isEmpty())
                 name = temp[k].getCard().getName();
             else
-                name = "";
+                name = ("Card has been taken by player:");
             System.out.print("|");
             tempLength = ((INSIDE_TOWER_LENGHT) - name.length()) / 2;
             for (int i = 0; i < tempLength; i++)
@@ -209,6 +228,7 @@ public class CliPrinter {
             tempLength += name.length();
             for (int i = 0; i < (INSIDE_TOWER_LENGHT) - tempLength; i++)
                 System.out.print(" ");
+
             System.out.print("| *" + temp[k].getDiceRequirement() + "* " + temp[k].getEffectShortDescription() + " ");
         }
     }
@@ -388,10 +408,17 @@ public class CliPrinter {
      */
     private static void printMarket(Board board) {
         int i;
+        StringBuilder familyMemberOccupying = new StringBuilder();
         System.out.println("This is the market: ");
         for (i = 0; i < board.getMarket().size(); i++) {
+            familyMemberOccupying.delete(0,familyMemberOccupying.length());
             MarketAS market = board.getMarketSpaceByIndex(i);
-            System.out.print("|" + i + "| *" + market.getDiceRequirement() + "* " + market.getEffectShortDescription() + " ");
+            if(!market.getFamilyMembers().isEmpty()){
+                familyMemberOccupying.append(" FM here player: ");
+                familyMemberOccupying.append(familyMembersInActionSpace(market));
+            }
+            System.out.print("|" + i + familyMemberOccupying.toString() + "| *" + market.getDiceRequirement() + "* " + market.getEffectShortDescription() + " ");
+
         }
         System.out.println(" ");
     }
@@ -405,6 +432,10 @@ public class CliPrinter {
     private static void printBuildAS(Board board) {
         System.out.println("This is Build Action Space: ");
         System.out.println("Standard " + board.getBuild().getDiceRequirement() + ". Malus " + board.getBuild().getValueMalus());
+        if(!board.getBuild().getFamilyMembers().isEmpty())
+            System.out.println("FM here player: " + familyMembersInActionSpace(board.getBuild()));
+        else
+            System.out.print("");
     }
 
     /**
@@ -415,6 +446,10 @@ public class CliPrinter {
     private static void printHarvestAS(Board board) {
         System.out.println("This is Harvest Action Space: ");
         System.out.println("Standard " + board.getHarvest().getValueStandard() + ". Malus " + board.getHarvest().getValueMalus());
+        if(!board.getHarvest().getFamilyMembers().isEmpty())
+            System.out.println("FM here: " + familyMembersInActionSpace(board.getHarvest()));
+        else
+            System.out.print("");
     }
 
     /**
@@ -425,6 +460,10 @@ public class CliPrinter {
     private static void printCouncil(Board board) {
         System.out.print("This is Council Hall: ");
         System.out.println("Effect " + board.getCouncil().getSpaceDescription());
+        if(!board.getCouncil().getFamilyMembers().isEmpty())
+            System.out.println("FM here: " + familyMembersInActionSpace(board.getCouncilAS()));
+        else
+            System.out.print("");
 
     }
 
