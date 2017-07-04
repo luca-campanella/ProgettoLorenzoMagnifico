@@ -544,6 +544,7 @@ public class MainBoardControl extends CustomFxControl {
 
         ToggleButton fmButton = new ToggleButton(currentFamilyMemberSelected.getText());
         fmButton.getStyleClass().addAll(currentFamilyMemberSelected.getStyleClass());
+        fmButton.getStyleClass().remove("familyMemberButton");
         fmButton.getStyleClass().add("familyMemberPlaceHolder");
         fmButton.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
         fmButton.setLayoutX(actionSpace.getLayoutX());

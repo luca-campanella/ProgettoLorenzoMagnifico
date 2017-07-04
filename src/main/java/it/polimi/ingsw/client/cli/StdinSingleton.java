@@ -56,7 +56,7 @@ public class StdinSingleton
         return System.in.available();
     }
 
-    public static String nextLineNonBlocking() throws IOException {
+    public synchronized static String nextLineNonBlocking() throws IOException {
         byte[] inputData = new byte[1024];
         int result = System.in.read(inputData, 0, System.in.available());
         if(result > 0)

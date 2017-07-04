@@ -64,6 +64,7 @@ public abstract class BasicCLIMenu extends Thread {
      * If this method is running the thread <b>can</b> be interrupted via {@link Thread#interrupt()}
      */
     protected void showMenuAndAskNonBlocking() {
+        Debug.printVerbose("showMenuAndAskNonBlocking started");
         printMenu();
 
         try {
@@ -76,7 +77,9 @@ public abstract class BasicCLIMenu extends Thread {
                         System.out.println(choice + " is not a recognised option, please choose a correct one");
                         continue;
                     }
+                    Debug.printVerbose("before callback from showMenuAndAskNonBlocking");
                     callbackContainer.getFunction().callback();
+                    Debug.printVerbose("after callback from showMenuAndAskNonBlocking");
                     Thread.currentThread().interrupt();
                 }
                 else {
@@ -87,6 +90,7 @@ public abstract class BasicCLIMenu extends Thread {
                 Debug.printVerbose("Interrupting thread caused by IOex", e);
                 Thread.currentThread().interrupt();
         }
+        Debug.printVerbose("showMenuAndAskNonBlocking ended");
     }
 
 
