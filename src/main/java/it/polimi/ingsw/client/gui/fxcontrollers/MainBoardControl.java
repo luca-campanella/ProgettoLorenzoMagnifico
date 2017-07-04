@@ -26,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -252,9 +253,9 @@ public class MainBoardControl extends CustomFxControl {
 
         for(FamilyMember familyMember : thisPlayer.getNotUsedFamilyMembers()) {
             ToggleButton fm = ((ToggleButton) (familyMembersPanel.lookup("#FM" + familyMember.getColor().getIntegerValue())));
-                fm.setText(String.valueOf(familyMember.getValue()));
-                fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
-                fm.setToggleGroup(familyMembersToggleGroup);
+            fm.setText(String.valueOf(familyMember.getValue()));
+            fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
+            fm.setToggleGroup(familyMembersToggleGroup);
         }
     }
 
@@ -320,31 +321,25 @@ public class MainBoardControl extends CustomFxControl {
      * @param effectOptions is a list of gain res effect choices
      * @return the index of that list
      */
-    public int displayCouncilOptions(List<GainResourceEffect> effectOptions)
+    public int displayCouncilOptions(List<GainResourceEffect> effectOptions, Stage currentStage)
     {
         //todo displayCouncil
         Debug.printVerbose("Im inside displayCouncilOption");
 
-        List<String> options = new ArrayList<>();
-        for(GainResourceEffect iterator : effectOptions)
-            options.add(iterator.descriptionOfEffect());
-
-        Debug.printVerbose("Im inside displayCouncilOption1");
-
-        ChoiceDialog<String> dialog = new ChoiceDialog<>(options.get(0), options);
+        /*Debug.printVerbose("Im inside displayCouncilOption1");
+        CliPrinter.printBoard(board);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(currentStage);
         Debug.printVerbose("Im inside displayCouncilOption2");
+        Debug.printVerbose(alert.toString());
 
-        dialog.setTitle("Information Harvest");
-        dialog.setHeaderText("Look, a Choiche Dialog");
-        dialog.setContentText("Choose your councilGift!");
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText("I have a great message for you!");
 
-        Debug.printVerbose("Im inside displayCouncilOption3");
+        alert.showAndWait();
+        */
 
-        Optional<String> result = dialog.showAndWait();
-
-        for(int index = 0; index < options.size(); index++)
-            if(options.get(index).equals(result))
-                return index;
         Debug.printVerbose("Im inside displayCouncilOption4");
 
         return 1;
@@ -434,6 +429,32 @@ public class MainBoardControl extends CustomFxControl {
 
         //we set all AS to disabled
         disableActionSpaces();
+        if(servantsNeededBuild.isPresent()){
+            if(board.getBuild().checkIfFirst()){
+                Button activeBuildButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
+                activeBuildButton.setDisable(false);
+            }
+            else if(!board.getBuild().isTwoPlayersOneSpace()){
+                Button activeBuildButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
+                activeBuildButton.setDisable(false);
+            }
+        }
+
+        if(servantsNeededHarvest.isPresent()){
+            if(board.getHarvest().checkIfFirst()){
+                Button activeHarvestButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
+                activeHarvestButton.setDisable(false);
+            }
+            else if(!board.getBuild().isTwoPlayersOneSpace()){
+                Button activeHarvestButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
+                activeHarvestButton.setDisable(false);
+            }
+        }
+
+        if(servantsNeededCouncil.isPresent()){
+            Button activeCouncilButton = (Button) (towersCouncilFaith.lookup("#councilGiftButton"));
+            activeCouncilButton.setDisable(false);
+        }
 
         //we reactivate only the ones passed via parameters
         for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
@@ -577,7 +598,7 @@ public class MainBoardControl extends CustomFxControl {
         //todo: modify this counciltodo
 
         currentFamilyMemberSelected.setVisible(false);
-        double height = buttonCouncil.getPrefHeight();
+        /*double height = buttonCouncil.getPrefHeight();
         double width = buttonCouncil.getWidth();
         ToggleButton familyMemberPlaced = new ToggleButton();
 
@@ -586,7 +607,7 @@ public class MainBoardControl extends CustomFxControl {
         familyMemberPlaced.getStyleClass().add("familyMemberButton");
         towersCouncilFaith.getChildren().add(familyMemberPlaced);
         Debug.printVerbose("Added FM to council");
-        //updateFamilyMembers();
+        */updateFamilyMembers();
 
     }
 

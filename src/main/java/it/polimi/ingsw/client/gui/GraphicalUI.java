@@ -24,6 +24,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -187,22 +188,43 @@ public class GraphicalUI extends AbstractUIType {
         control.setUpPlayersPersonalBoards();
         control.appendMessageOnStateTextArea(message);
 
-        currentFXControl = control;
+        //currentFXControl = control;
+
     }
 
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui
      *
-     * @param options
+     * @param effectOptions
      * @return the index of the selected option, the choice the user made
      */
     @Override
-    public int askCouncilGift(ArrayList<GainResourceEffect> options) {
+    public int askCouncilGift(ArrayList<GainResourceEffect> effectOptions) {
         Debug.printVerbose("I'm in askCouncilGiftGUI");
 
-        return ((MainBoardControl)(currentFXControl)).displayCouncilOptions(options);
+        //return ((MainBoardControl)(currentFXControl)).displayCouncilOptions(effectOptions, currentStage);
 
+        List<String> options = new ArrayList<>();
+        for(GainResourceEffect iterator : effectOptions) {
+            options.add(iterator.descriptionOfEffect());
+            Debug.printVerbose(iterator.descriptionOfEffect());
+        }
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(options.get(0), options);
+
+        dialog.setTitle("Information Harvest");
+        dialog.setHeaderText("Look, a Choiche Dialog");
+        dialog.setContentText("Choose your councilGift!");
+
+        Debug.printVerbose("Im inside displayCouncilOption3");
+
+        Optional<String> result = dialog.showAndWait();
+
+        for(int index = 0; index < options.size(); index++)
+            if(options.get(index).equals(result))
+                return index;
+        return 0;
     }
 
     /**
