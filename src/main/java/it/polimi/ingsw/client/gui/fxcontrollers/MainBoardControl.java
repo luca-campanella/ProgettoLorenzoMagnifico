@@ -71,9 +71,6 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private ToggleGroup familyMembersToggleGroup = new ToggleGroup();
 
-    @FXML
-    private Button towerAS03; //todo delete
-
     /**
      * This is the pool to run tasks in background
      */
@@ -327,26 +324,13 @@ public class MainBoardControl extends CustomFxControl {
             for(int raw = 0; raw < 4; raw++) {
                 Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + col) + raw));
                 activeTowersASButton.setDisable(true);
-                Debug.printVerbose("1is disabled: " + activeTowersASButton.isDisable());
             }
         }
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        towerAS03.setDisable(false);
+
         //we reactivate only the ones passed via parameters
         for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
             Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
-            activeTowersASButton.setText("text");
             activeTowersASButton.setDisable(false);
-            activeTowersASButton.setStyle("-fx-background-color: red;");
-            activeTowersASButton.toFront();
-
-
-
-            Debug.printVerbose("2is disabled: " + activeTowersASButton.isDisable());
         }
 
         Button button = new Button("click me");
