@@ -153,7 +153,7 @@ public class Room {
     /**
      * call the method on controller game to place a family member on the council
      */
-    public void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices){
+    public synchronized void placeOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices){
 
         try{
             controllerGame.placeOnCouncil(familyMember, playerChoices);
@@ -176,7 +176,7 @@ public class Room {
     /**
      * call the method on controller game to place a family member on the tower
      */
-    public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices){
+    public synchronized void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices){
 
         try{
             controllerGame.placeOnTower(familyMember, towerIndex, floorIndex, playerChoices);
@@ -197,7 +197,7 @@ public class Room {
     /**
      * the method called by the client to do place a family member on the market
      */
-    public void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices){
+    public synchronized void placeOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices){
 
         try{
             controllerGame.placeOnMarket(familyMember, marketIndex, playerChoices);
@@ -219,7 +219,7 @@ public class Room {
     /**
      * call the method on controller game to build
      */
-    public void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
+    public synchronized void build(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 
         try{
             controllerGame.build(familyMember, servant, playerChoices);
@@ -240,7 +240,7 @@ public class Room {
     /**
      * call the method on controller game to harvest
      */
-    public void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
+    public synchronized void harvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices){
 
         try{
             controllerGame.harvest(familyMember, servant, playerChoices);
@@ -339,7 +339,7 @@ public class Room {
      * this method is used to perform the end of the turn of the player on the server and inform the other players
      * @param player the player that had ended the phase
      */
-    public void endPhase(AbstractConnectionPlayer player){
+    public synchronized void endPhase(AbstractConnectionPlayer player){
 
         try{
             floodEndPhase(player);
@@ -451,14 +451,15 @@ public class Room {
             return;
         int index = 0;
 
+        ArrayList<LeaderCard> leaderCardsToDeliver = new ArrayList<>(cardToPlayer);
         // numberOfTimesTheChoiceIsDone is the number of times the round of choices of the leaders
-        for (int numberOfTimesTheChoiceIsDone = 4 * players.size() - (cardToPlayer.size() / players.size()); index < cardToPlayer.size(); numberOfTimesTheChoiceIsDone++) {
+        for (int numberOfTimesTheChoiceIsDone = 4 * players.size() - (leaderCardsToDeliver.size() / players.size()); index < leaderCardsToDeliver.size(); numberOfTimesTheChoiceIsDone++) {
             AbstractConnectionPlayer player = players.get(numberOfTimesTheChoiceIsDone % players.size());
-            int numberCardToDeliver = cardToPlayer.size() / players.size();
+            int numberCardToDeliver = leaderCardsToDeliver.size() / players.size();
             ArrayList<LeaderCard> cardToDeliver = new ArrayList<>(4);
             for (int i = 0; i < numberCardToDeliver; i++) {
 
-                cardToDeliver.add(cardToPlayer.get(index++));
+                cardToDeliver.add(leaderCardsToDeliver.get(index++));
 
             }
             try {

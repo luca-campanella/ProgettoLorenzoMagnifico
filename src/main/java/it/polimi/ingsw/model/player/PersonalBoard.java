@@ -163,4 +163,8 @@ public class PersonalBoard implements Serializable{
             return true;
         return false;
     }
+
+    public LinkedList<TerritoryCard> getTerritoryCards() {
+        return territoryCards;
+    }
 }

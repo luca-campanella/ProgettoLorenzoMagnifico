@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.network.rmi;
 
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.PersonalTile;
 
@@ -91,5 +92,12 @@ public interface RMIPlayerInterface extends Remote {
      * @param choicesOnCurrentAction the choices done if the player had to choose recources
      */
     void receiveActivatedLeader(String leaderName, HashMap<String, Integer> choicesOnCurrentAction) throws RemoteException;
+
+    /**
+     * this method is called by the client to deliver to the server the leader card choose by the client
+     * @param leaderCard the leader card chosen
+     * @throws RemoteException if something goes wrong with the network
+     */
+    void receivedLeaderChosen(LeaderCard leaderCard) throws RemoteException;
 }
 

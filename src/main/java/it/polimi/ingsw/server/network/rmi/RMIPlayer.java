@@ -15,14 +15,18 @@ import it.polimi.ingsw.utils.Debug;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * This class is the player via rmi
  */
  class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInterface {
 
-    RMIClientInterface RMIClientInterfaceInst;
+    private RMIClientInterface RMIClientInterfaceInst;
 
+    private ExecutorService generatorOfThread;
     /**
      * Constructor, calls the super constructor and saves the interface to communicate with the client
      * @param nickname
@@ -405,7 +409,9 @@ import java.util.HashMap;
      */
     @Override
     public void sendChatMsg(String msg) throws RemoteException {
-        getRoom().floodChatMsg(this, msg);
+
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().floodChatMsg(this, msg));
     }
 
     /**
@@ -417,7 +423,8 @@ import java.util.HashMap;
     @Override
     public void playLeaderCard(String leaderName,HashMap<String, String> choicesOnCurrentActionString) throws RemoteException {
 
-        getRoom().playLeaderCard(leaderName, choicesOnCurrentActionString, this);
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().playLeaderCard(leaderName, choicesOnCurrentActionString, this));
 
     }
 
@@ -431,7 +438,9 @@ import java.util.HashMap;
      */
     @Override
     public void placeOnTower(DiceAndFamilyMemberColorEnum familyMemberColor, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws RemoteException {
-        getRoom().placeOnTower(getFamilyMemberByColor(familyMemberColor), numberTower, floorTower, playerChoices);
+
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().placeOnTower(getFamilyMemberByColor(familyMemberColor), numberTower, floorTower, playerChoices));
     }
 
     /**
@@ -443,7 +452,9 @@ import java.util.HashMap;
      */
     @Override
     public void placeOnMarket(DiceAndFamilyMemberColorEnum familyMemberColor, int marketIndex, HashMap<String, Integer> playerChoices) throws RemoteException {
-        getRoom().placeOnMarket(getFamilyMemberByColor(familyMemberColor),marketIndex,playerChoices);
+
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().placeOnMarket(getFamilyMemberByColor(familyMemberColor),marketIndex,playerChoices));
     }
 
     /**
@@ -455,7 +466,8 @@ import java.util.HashMap;
     @Override
     public void placeOnCouncil(DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) throws  RemoteException
     {
-        getRoom().placeOnCouncil(getFamilyMemberByColor(familyMemberColor),playerChoices);
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().placeOnCouncil(getFamilyMemberByColor(familyMemberColor),playerChoices));
     }
 
     /**
@@ -468,7 +480,8 @@ import java.util.HashMap;
     @Override
     public void harvest(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException
     {
-        getRoom().harvest(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices);
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().harvest(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices));
     }
 
     /**
@@ -481,7 +494,8 @@ import java.util.HashMap;
     @Override
     public void build(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException
     {
-        getRoom().build(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices);
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().build(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices));
     }
 
     /**
@@ -492,7 +506,8 @@ import java.util.HashMap;
     @Override
     public void receivePersonalTile(PersonalTile tileChosen) throws RemoteException {
 
-        getRoom().chosePersonalTile(tileChosen, this);
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().chosePersonalTile(tileChosen, this));
 
     }
 
@@ -502,7 +517,8 @@ import java.util.HashMap;
     @Override
     public void receiveEndPhase() throws RemoteException{
 
-        getRoom().endPhase(this);
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().endPhase(this));
     }
 
     /**
@@ -514,7 +530,21 @@ import java.util.HashMap;
     @Override
     public void receiveActivatedLeader(String leaderName, HashMap<String, Integer> choicesOnCurrentAction) throws RemoteException {
 
-        getRoom().receiveActivatedLeader(leaderName, choicesOnCurrentAction, this);
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().receiveActivatedLeader(leaderName, choicesOnCurrentAction, this));
+    }
+
+    /**
+     * this method is called by the client to deliver to the server the leader card choose by the client
+     * @param leaderCard the leader card chosen
+     * @throws RemoteException
+     */
+    @Override
+    public void receivedLeaderChosen(LeaderCard leaderCard) throws RemoteException {
+
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getRoom().receiveLeaderCards(leaderCard, this));
+
     }
 
 
