@@ -138,8 +138,8 @@ public class GraphicalUI extends AbstractUIType {
         else {
             textToDisplay.append("you already played your family member, please ");
             //here i let the user show all the family members that have been placed last round
-            MainBoardControl control = ((MainBoardControl) (currentFXControl));
-            control.updateFamilyMembers();
+           /* MainBoardControl control = ((MainBoardControl) (currentFXControl));
+            control.updateFamilyMembers();*/
         }
         textToDisplay.append("make a leader action or pass the turn");
 
@@ -305,10 +305,10 @@ public class GraphicalUI extends AbstractUIType {
                     () -> setUpMainBoardControl(message)));
             currentSceneType = SceneEnum.MAIN_BOARD;
             //here i let the user show all the family members that have been placed last round
-            ((MainBoardControl) (currentFXControl)).updateFamilyMembers();
+            //((MainBoardControl) (currentFXControl)).updateFamilyMembers();
         } else {
             ((MainBoardControl) currentFXControl).appendMessageOnStateTextArea(message);
-            ((MainBoardControl) (currentFXControl)).updateFamilyMembers();
+           // ((MainBoardControl) (currentFXControl)).updateFamilyMembers();
         }
     }
 
