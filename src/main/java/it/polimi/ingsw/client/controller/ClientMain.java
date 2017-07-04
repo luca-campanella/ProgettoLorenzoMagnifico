@@ -913,10 +913,11 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receivedPlaceOnCouncil(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) {
         Player player = modelController.getPlayerByNickname(nickname);
+        Debug.printVerbose("received place on council");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.placeOnCouncil(player.getFamilyMemberByColor(familyMemberColor));
-        //todo show something in the view
+        Debug.printVerbose("the player " + nickname + " had placed a family member on he council.");
     }
 
     /**
