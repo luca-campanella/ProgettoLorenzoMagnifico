@@ -59,8 +59,8 @@ public class ModelController {
         dices = new ArrayList<>(4);
         this.gameBoard = board;
         loadDices();
-        round=1;
-        period=1;
+        round =1;
+        period =1;
 
     }
 
@@ -117,12 +117,12 @@ public class ModelController {
      */
     public void addCoinsStartGame(ArrayList<? extends Player> players){
 
-        Resource resource = new Resource(ResourceTypeEnum.COIN, 5);
+        Resource resource = new Resource(ResourceTypeEnum.COIN, 4);
 
         for (Player player : players){
-
-            player.addResource(resource);
             resource.setValue(resource.getValue()+1);
+            player.addResource(resource);
+
 
         }
 
@@ -171,7 +171,6 @@ public class ModelController {
             Tower tower = gameBoard.getTowers()[towerIndex];
             ArrayList<FamilyMember> familyMembers = new ArrayList<>(4);
             for (TowerFloorAS towerFloorAS : tower.getFloors()) {
-
                 familyMembers.addAll(towerFloorAS.getFamilyMembers());
             }
 
