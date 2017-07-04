@@ -655,6 +655,16 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * This method returns to the view true if this turn the palyer already played a family member
+     *
+     * @return true if this turn the palyer already played a family member
+     */
+    @Override
+    public boolean callbackObtainIsPlayedFamilyMember() {
+        return playedFamilyMember;
+    }
+
+    /**
      * This method returns to the view a reference to the board
      * this method is called to obtain the board of the game inside the view
      *

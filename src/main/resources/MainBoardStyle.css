@@ -48,21 +48,33 @@
     -fx-opacity: 80%;
 }
 
-#FM1 {
+.familyMemberPlaceHolder:disabled {
+    -fx-border-radius: 50em;
+    -fx-border-color: green;
+    -fx-border-width: 10px;
+    -fx-background-radius: 50em;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-font-size: 15px;
+}
+
+.FM1Class {
     -fx-background-color: black;
 }
 
-#FM0 {
+.FM0Class {
     -fx-background-color: white;
     -fx-font-color: black;
 }
 
-#FM2 {
+.FM2Class {
     -fx-background-color: darkorange;
     -fx-font-color: black;
 }
 
-#FM3 {
+.FM3Class {
     -fx-background-color: purple;
     -fx-font-color: black;
 }
