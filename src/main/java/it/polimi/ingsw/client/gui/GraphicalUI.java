@@ -24,6 +24,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -151,7 +152,7 @@ public class GraphicalUI extends AbstractUIType {
 
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
-                    () -> setUpMainBoardControl(textToDisplay.toString())));
+                    () -> setUpMainBoardControl(textToDisplay.toString(), true)));
             currentSceneType = SceneEnum.MAIN_BOARD;
         } else {
             MainBoardControl control = ((MainBoardControl) (currentFXControl));
@@ -166,8 +167,9 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * performs all the action on the {@link MainBoardControl} in order to display the initial board
      * @param message the initial message to show the user
+     * @param isHisTurn
      */
-    private void setUpMainBoardControl(String message) {
+    private void setUpMainBoardControl(String message, boolean isHisTurn) {
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
         //todo eliminate: this tested if councilGiftOption was working..
         /*ArrayList< GainResourceEffect> options = new ArrayList<>(1);
@@ -186,6 +188,10 @@ public class GraphicalUI extends AbstractUIType {
         control.displayFamilyMembers();
         control.setUpPlayersPersonalBoards();
         control.appendMessageOnStateTextArea(message);
+        if(!isHisTurn) {
+            control.setFamilyMemberDisable(true);
+            //todo disable
+        }
 
         currentFXControl = control;
     }
@@ -201,8 +207,33 @@ public class GraphicalUI extends AbstractUIType {
     public int askCouncilGift(ArrayList<GainResourceEffect> options) {
         Debug.printVerbose("I'm in askCouncilGiftGUI");
 
-        return ((MainBoardControl)(currentFXControl)).displayCouncilOptions(options);
+        //return ((MainBoardControl)(currentFXControl)).displayCouncilOptions(options);
 
+        Debug.printVerbose("Im inside displayCouncilOption");
+
+        List<String> optionsString = new ArrayList<>();
+        for(GainResourceEffect iterator : options)
+            optionsString.add(iterator.descriptionOfEffect());
+
+        Debug.printVerbose("Im inside displayCouncilOption1");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(optionsString.get(0), optionsString);
+        Debug.printVerbose("Im inside displayCouncilOption2");
+
+        dialog.setTitle("Information Harvest");
+        dialog.setHeaderText("Look, a Choiche Dialog");
+        dialog.setContentText("Choose your councilGift!");
+
+        Debug.printVerbose("Im inside displayCouncilOption3");
+
+        Optional<String> result = dialog.showAndWait();
+
+        for(int index = 0; index < optionsString.size(); index++)
+            if(optionsString.get(index).equals(result))
+                return index;
+        Debug.printVerbose("Im inside displayCouncilOption4");
+
+        return 1;
     }
 
     /**
@@ -324,7 +355,7 @@ public class GraphicalUI extends AbstractUIType {
         String message = "Opponents are currently playing, please wait your turn";
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
-                    () -> setUpMainBoardControl(message)));
+                    () -> setUpMainBoardControl(message, false)));
             currentSceneType = SceneEnum.MAIN_BOARD;
             //here i let the user show all the family members that have been placed last round
             //((MainBoardControl) (currentFXControl)).updateFamilyMembers();

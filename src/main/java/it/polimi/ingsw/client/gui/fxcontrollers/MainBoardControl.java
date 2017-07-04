@@ -380,6 +380,10 @@ public class MainBoardControl extends CustomFxControl {
         }
     }
 
+    public void disableAllActionsNotHisTurn() {
+        //todo all actions
+    }
+
     /**
      * This method disables all the button that let the user click on an action space
      */
