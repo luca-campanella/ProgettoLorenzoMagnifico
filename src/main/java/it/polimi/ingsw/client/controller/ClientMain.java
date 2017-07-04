@@ -659,8 +659,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @return true if this turn the palyer already played a family member
      */
     @Override
-    public boolean callbackObtainIsPlayedFamilyMember() {
-        return playedFamilyMember;
+    public FamilyMember callbackObtainSelectedFamilyMember() {
+        return familyMemberCurrentAction;
     }
 
     /**

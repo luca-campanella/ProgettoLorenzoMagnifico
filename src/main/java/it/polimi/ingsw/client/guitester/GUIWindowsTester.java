@@ -345,7 +345,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      * @return true if this turn the palyer already played a family member
      */
     @Override
-    public boolean callbackObtainIsPlayedFamilyMember() {
-        return false;
+    public FamilyMember callbackObtainSelectedFamilyMember() {
+        return null;
     }
 }

@@ -1,9 +1,7 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.client.cli.CliPrinter;
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.Dice;
-import it.polimi.ingsw.model.board.Tower;
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -19,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
@@ -391,12 +390,47 @@ public class MainBoardControl extends CustomFxControl {
         towersCouncilFaith.setMouseTransparent(false);
         Debug.printVerbose("displayActiveActionSpaces called");
 
-
-
         //we set all AS to disabled
         disableActionSpaces();
 
         //we reactivate only the ones passed via parameters
+
+        if(servantsNeededBuild.isPresent()) {
+            BuildAS build = board.getBuild();
+            if(build.isTwoPlayersOneSpace() || build.checkIfFirst() ||
+                    thisPlayer.getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace()) {
+                Button activeButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
+                activeButton.setDisable(false);
+            } else if(!build.isTwoPlayersOneSpace()) {
+                Button activeButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
+                activeButton.setDisable(false);
+            }
+        }
+
+        if(servantsNeededHarvest.isPresent()) {
+            HarvestAS harvest = board.getHarvest();
+            if(harvest.isTwoPlayersOneSpace() || harvest.checkIfFirst() ||
+                    thisPlayer.getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace()) {
+                Button activeButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
+                activeButton.setDisable(false);
+            } else if(!harvest.isTwoPlayersOneSpace()) {
+                Button activeButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
+                activeButton.setDisable(false);
+            }
+        }
+
+        if(servantsNeededCouncil.isPresent()) {
+            Button activeButton = (Button) (towersCouncilFaith.lookup("#councilGiftButton"));
+            activeButton.setDisable(false);
+        }
+
+        for(MarketWrapper marketIterator : activeMarketSpaces)
+        {
+            Button marketASButton = (Button) (marketPane.lookup("#marketAS" + marketIterator.getMarketIndex()));
+            Debug.printVerbose("iterator on wrapper: " + marketIterator.getMarketIndex());
+            marketASButton.setDisable(false);
+        }
+
         for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
             Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
             activeTowersASButton.setDisable(false);
@@ -409,17 +443,6 @@ public class MainBoardControl extends CustomFxControl {
         todo remove
 
         towersCouncilFaith.getChildren().add(button);*/
-
-
-        //we reactivate only the AS passed via parameters -> problem here. Wrapper is not used correctly
-
-        for(MarketWrapper marketIterator : activeMarketSpaces)
-        {
-            Button marketASButton = (Button) (marketPane.lookup("#marketAS" + marketIterator.getMarketIndex()));
-            Debug.printVerbose("iterator on wrapper: " + marketIterator.getMarketIndex());
-            marketASButton.setDisable(false);
-        }
-
     }
 
     /**
@@ -440,11 +463,10 @@ public class MainBoardControl extends CustomFxControl {
      * Method called by fx when a harvest as is clicked
      * @param event the fx event
      */
-    //todo check this method
     @FXML
     private void harvestSelected(ActionEvent event)
     {
-        Button buttonHarvest = ((Button) (event.getSource()));
+        Button actionSpace = ((Button) (event.getSource()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Harvest");
         alert.setHeaderText("Look, an Information Dialog");
@@ -453,12 +475,9 @@ public class MainBoardControl extends CustomFxControl {
         //todo make the alert ask the user
         pool.submit(()->getController().callbackPlacedFMOnHarvest(5));
 
-        currentFamilyMemberSelected.setVisible(false);
-        ToggleButton familyMemberPlaced = new ToggleButton();
-        familyMemberPlaced.setLayoutX(buttonHarvest.getLayoutX());
-        familyMemberPlaced.setLayoutY(buttonHarvest.getLayoutY());
-        familyMemberPlaced.getStyleClass().add("familyMemberButton");
-        buildHarvestPane.getChildren().add(familyMemberPlaced);
+        //place the family member
+        placeFamilyMemberForThisPlayer(buildHarvestPane, actionSpace.getLayoutX(), actionSpace.getLayoutY());
+
         Debug.printVerbose("Added FM to build");
         //updateFamilyMembers();
 
@@ -471,22 +490,20 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void buildSelected(ActionEvent event)
     {
-        Button buttonBuild = ((Button) (event.getSource()));
+        Button actionSpace = ((Button) (event.getSource()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Build");
         alert.setHeaderText("Look, an Information Dialog");
         alert.setContentText("I have a great message for you!");
         alert.showAndWait();
+        //todo make the alert ask the user
+
+        //place the family member
+        placeFamilyMemberForThisPlayer(buildHarvestPane, actionSpace.getLayoutX(), actionSpace.getLayoutY());
+
+        Debug.printVerbose("Added FM to build");
 
         pool.submit(()->getController().callbackPlacedFMOnBuild(5));
-
-        currentFamilyMemberSelected.setVisible(false);
-        ToggleButton familyMemberPlaced = new ToggleButton();
-        familyMemberPlaced.setLayoutX(buttonBuild.getLayoutX());
-        familyMemberPlaced.setLayoutY(buttonBuild.getLayoutY());
-        familyMemberPlaced.getStyleClass().add("familyMemberButton");
-        buildHarvestPane.getChildren().add(familyMemberPlaced);
-        Debug.printVerbose("Added FM to build");
         //updateFamilyMembers();
 
     }
@@ -498,26 +515,15 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void marketSelected(ActionEvent event)
     {
-        Button buttonMarket = ((Button) (event.getSource()));
-
         Button actionSpace = ((Button) (event.getSource()));
         String id = actionSpace.getId();
         int marketIndex = Character.getNumericValue(id.charAt(8));
         Debug.printVerbose("Market placed" + marketIndex);
+
+        //place the family member
+        placeFamilyMemberForThisPlayer(marketPane, actionSpace.getLayoutX(), actionSpace.getLayoutY());
+
         pool.submit(()->getController().callbackPlacedFMOnMarket(marketIndex));
-
-        currentFamilyMemberSelected.setVisible(false);
-        double height = buttonMarket.getPrefHeight();
-        double width = buttonMarket.getWidth();
-        ToggleButton familyMemberPlaced = new ToggleButton();
-        /*familyMemberPlaced.setMinHeight(height);
-        familyMemberPlaced.setMaxWidth(width);*/
-
-        familyMemberPlaced.setLayoutX(buttonMarket.getLayoutX());
-        familyMemberPlaced.setLayoutY(buttonMarket.getLayoutY());
-        familyMemberPlaced.getStyleClass().add("familyMemberButton");
-        marketPane.getChildren().add(familyMemberPlaced);
-
         //CliPrinter.printBoard(board);
         //updateFamilyMembers();
     }
@@ -532,19 +538,12 @@ public class MainBoardControl extends CustomFxControl {
         ToggleButton buttonCouncil = ((ToggleButton) (event.getSource()));
 
         Button actionSpace = ((Button) (event.getSource()));
-        //String id = actionSpace.getId();
-        pool.submit(() -> getController().callbackPlacedFMOnCouncil());
-        currentFamilyMemberSelected.setVisible(false);
-        double height = buttonCouncil.getPrefHeight();
-        double width = buttonCouncil.getWidth();
-        ToggleButton familyMemberPlaced = new ToggleButton();
-        /*familyMemberPlaced.setMinHeight(height);
-        familyMemberPlaced.setMaxWidth(width);*/
 
-        familyMemberPlaced.setLayoutX(buttonCouncil.getLayoutX());
-        familyMemberPlaced.setLayoutY(buttonCouncil.getLayoutY());
-        familyMemberPlaced.getStyleClass().add("familyMemberButton");
-        towersCouncilFaith.getChildren().add(familyMemberPlaced);
+        //place the family member
+        //todo change coordinates to implement council already full
+        placeFamilyMemberForThisPlayer(towersCouncilFaith, actionSpace.getLayoutX(), actionSpace.getLayoutY());
+
+        pool.submit(() -> getController().callbackPlacedFMOnCouncil());
         Debug.printVerbose("Added FM to council");
         //updateFamilyMembers();
 
@@ -566,26 +565,53 @@ public class MainBoardControl extends CustomFxControl {
         ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#card"+towerIndex+floorIndex)));
         imgView.setImage(null);
 
+        //place the family member
+        placeFamilyMemberForThisPlayer(towersCouncilFaith, actionSpace.getLayoutX(), actionSpace.getLayoutY());
+
+        pool.submit(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
+    }
+
+    /**
+     * This method performs actions needed when a family member of this player is placed on an action space
+     * @param paneToPlaceTo the pane to which the family member will be added
+     * @param layoutX on the pane
+     * @param layoutY on the pane
+     */
+    private void placeFamilyMemberForThisPlayer(Pane paneToPlaceTo, double layoutX, double layoutY) {
         //he cannot place a family member anymore
         disableActionSpaces();
         setFamilyMemberDisable(true);
 
-        ToggleButton fmButton = new ToggleButton(currentFamilyMemberSelected.getText());
-        fmButton.getStyleClass().addAll(currentFamilyMemberSelected.getStyleClass());
-        //fmButton.getStyleClass().remove("familyMemberButton");
-        fmButton.getStyleClass().add("familyMemberPlaceHolder");
-        fmButton.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
-        fmButton.setLayoutX(actionSpace.getLayoutX());
-        fmButton.setLayoutY(actionSpace.getLayoutY());
-        fmButton.setDisable(true);
-        fmButton.toFront();
-        towersCouncilFaith.getChildren().add(fmButton);
-
-        addedFamilyMembersButtons.add(fmButton); //in roder to remove it afterwards
+        ToggleButton fmButton = createFamilyMemberButtonPlaceHolder(
+                getController().callbackObtainSelectedFamilyMember(),
+                layoutX, layoutY);
 
         currentFamilyMemberSelected.setVisible(false);
+        paneToPlaceTo.getChildren().add(fmButton);
+    }
 
-        pool.submit(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
+    /**
+     * Creates a toggle button with the right style as a family member
+     * @param familyMember the family member to style the button
+     * @param layoutX the x coordinates to give the button to
+     * @param layoutY the y coordinates to give the button to
+     * @return the toggle button representing the family member
+     */
+    private ToggleButton createFamilyMemberButtonPlaceHolder(FamilyMember familyMember, double layoutX, double layoutY) {
+
+        ToggleButton fmButton = new ToggleButton(String.valueOf(familyMember.getValue()));
+        fmButton.getStyleClass().add("FM" + familyMember.getColor().getIntegerValue() + "Class");
+        fmButton.getStyleClass().add("familyMemberButton");
+        //fmButton.getStyleClass().remove("familyMemberButton");
+        fmButton.getStyleClass().add("familyMemberPlaceHolder");
+        fmButton.setStyle("-fx-border-color: " + familyMember.getPlayer().getPlayerColor().getStringValue() + ";");
+        fmButton.setLayoutX(layoutX);
+        fmButton.setLayoutY(layoutY);
+        fmButton.setDisable(true);
+        fmButton.toFront();
+        addedFamilyMembersButtons.add(fmButton); //in order to remove it afterwards
+
+        return fmButton;
     }
 
 }
