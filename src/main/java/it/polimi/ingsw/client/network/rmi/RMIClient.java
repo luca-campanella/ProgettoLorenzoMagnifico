@@ -125,9 +125,19 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         }
     }
 
+    /**
+     * this method is called by the client to deliver the leader chosen to the server
+     * @param leaderCard the leader card choose by the client
+     * @throws NetworkException if something goes wrong with the network
+     */
     @Override
     public void deliverLeaderChose(LeaderCard leaderCard) throws NetworkException {
 
+        try {
+            RMIPlayerInterfaceInst.receivedLeaderChosen(leaderCard);
+        } catch (RemoteException e) {
+            throw new NetworkException("rmi problem with chat message", e);
+        }
     }
     /**
      * this method is used to deliver a leader card that the client wants to play

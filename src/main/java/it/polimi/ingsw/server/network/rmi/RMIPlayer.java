@@ -517,6 +517,18 @@ import java.util.HashMap;
         getRoom().receiveActivatedLeader(leaderName, choicesOnCurrentAction, this);
     }
 
+    /**
+     * this method is called by the client to deliver to the server the leader card choose by the client
+     * @param leaderCard the leader card chosen
+     * @throws RemoteException
+     */
+    @Override
+    public void receivedLeaderChosen(LeaderCard leaderCard) throws RemoteException {
+
+        getRoom().receiveLeaderCards(leaderCard, this);
+
+    }
+
 
     /**
      * this method is used to deliver to the client his nickname
