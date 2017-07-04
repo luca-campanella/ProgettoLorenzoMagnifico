@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
+import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
@@ -26,6 +27,9 @@ import java.util.concurrent.Executors;
 
     private RMIClientInterface RMIClientInterfaceInst;
 
+    /**
+     * this is the thread pool to generate thread on the method called by the client
+     */
     private ExecutorService generatorOfThread;
     /**
      * Constructor, calls the super constructor and saves the interface to communicate with the client
@@ -81,8 +85,17 @@ import java.util.concurrent.Executors;
     @Override
     public void deliverPersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws NetworkException {
 
+        PersonalTile standardPersonalTile = null;
+        PersonalTile specialPersonalTile = null;
+        for(PersonalTile personalTile : personalTilesToDeliver){
+            if(personalTile.getPersonalTileEnum() == PersonalTileEnum.STANDARD)
+                standardPersonalTile = personalTile;
+            else
+                specialPersonalTile = personalTile;
+        }
+
         try{
-            RMIClientInterfaceInst.receivePersonalTiles(personalTilesToDeliver);
+            RMIClientInterfaceInst.receivePersonalTiles(standardPersonalTile, specialPersonalTile);
         }
         catch (RemoteException e){
             Debug.printError("rmi: cannot deliver the personal tiles to " + getNickname(), e);
