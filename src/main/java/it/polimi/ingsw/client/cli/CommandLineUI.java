@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -405,6 +406,22 @@ public class CommandLineUI extends AbstractUIType {
         waitMenu = new WaitBasicCliMenu(getController());
         waitMenu.start();
         //pool.submit(waitMenu);
+    }
+
+    /**
+     * this method is called when the game is ended
+     * @param playerPositionEndGamePacket the packet with all the information of the end of the game
+     */
+    @Override
+    public void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
+
+        for(int i = 1 ; i < playerPositionEndGamePacket.size(); i++){
+            for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
+                if(playerIter.getPosition() == i)
+                    System.out.println(playerIter.getPosition() + " position: " + playerIter.getNickname()
+                            + " " + playerIter.getVictoryPoints() + " Victory Points");
+            }
+        }
     }
 
     /**

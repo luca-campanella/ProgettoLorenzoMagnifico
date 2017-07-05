@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.blockingdialogs.*;
 
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
@@ -442,6 +443,15 @@ public class GraphicalUI extends AbstractUIType {
                 control.disableAllActionsNotHisTurn(true);
             });
         }
+    }
+
+    /**
+     * this method is called when the game is ended
+     * @param playerPositionEndGamePacket the packet with all the information of the end of the game
+     */
+    @Override
+    public void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
+
     }
 
     /**

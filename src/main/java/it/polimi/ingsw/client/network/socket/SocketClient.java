@@ -756,7 +756,7 @@ public class SocketClient extends AbstractClientType {
 
         try{
             ReceiveDiscardOrActivatedLeaderCardPacket packet = (ReceiveDiscardOrActivatedLeaderCardPacket)inStream.readObject();
-            //TODO
+            getControllerMain().receiveActivateLeaderCard(packet.getNickname(), packet.getNameCard(), packet.getResourceGet());
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("the client cannot receives the leader card activated by another player",e);
@@ -769,8 +769,8 @@ public class SocketClient extends AbstractClientType {
     public void receiveEndGame(){
 
         try{
-            PlayerPositionEndGamePacket packet = (PlayerPositionEndGamePacket)inStream.readObject();
-            //TODO
+            ArrayList<PlayerPositionEndGamePacket> packet = (ArrayList<PlayerPositionEndGamePacket>)inStream.readObject();
+            getControllerMain().receiveEndGame(packet);
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("the client cannot receives the results of the end of the game",e);

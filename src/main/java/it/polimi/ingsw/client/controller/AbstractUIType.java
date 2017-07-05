@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.cli.CommandLineUI;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -204,4 +205,9 @@ abstract public class AbstractUIType {
      */
     public abstract void waitMenu();
 
+    /**
+     * this method is called when the game is ended
+     * @param playerPositionEndGamePacket the packet with all the information of the end of the game
+     */
+    public abstract void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket);
 }

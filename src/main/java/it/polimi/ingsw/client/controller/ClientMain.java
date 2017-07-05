@@ -11,6 +11,7 @@ import it.polimi.ingsw.client.network.AbstractClientType;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.client.network.rmi.RMIClient;
 import it.polimi.ingsw.client.network.socket.SocketClient;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -1046,6 +1047,32 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         otherPlayerChoicesHandler.setChoicesMapString(choicesOnCurrentActionString);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.playLeaderCard(nameCard, modelController.getPlayerByNickname(nickname));
+    }
+
+    /**
+     * this method is called by the network to receive the end game results
+     * @param playerPositionEndGamePacket this packet contains all the players with the final victory points and position
+     */
+    @Override
+    public void receiveEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
+
+        userInterface.showEndOfGame(playerPositionEndGamePacket);
+    }
+
+    /**
+     * this method is called by the network to deliver the leader card activated by anothe player
+     * @param nickname the nickname of the player that had activated the leader card abilty
+     * @param nameCard the name of the leader card activated
+     * @param resourceGet the resources gotten from the leader ability
+     */
+    @Override
+    public void receiveActivateLeaderCard(String nickname, String nameCard, HashMap<String, Integer> resourceGet) {
+
+        otherPlayerChoicesHandler.setChoicesMap(resourceGet);
+        modelController.setChoicesController(otherPlayerChoicesHandler);
+        modelController.activateLeaderCard(nickname, nameCard);
+        Debug.printVerbose("The player "+ nickname + " has activated " + nameCard);
+
     }
 
     /**
