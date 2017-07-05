@@ -303,6 +303,7 @@ public class PlayerTabSubControl extends CustomFxControl {
             isLeaderStageCreated = true;
         }
         else {
+            leadersControl.refreshLeaders();
             leadersStage.show();
         }
     }

@@ -20,6 +20,8 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 //todo: leaders: add play / activate / discard effects
 //todo: check bug (2x leaders)
 //todo: check if right part is filled
@@ -33,6 +35,7 @@ public class LeaderOwnedControl extends CustomFxControl {
     List<LeaderCard> leadersPlayable;
     List<LeaderCard> leadersOPRNotActivated;
     LeaderCard selectedLeader;
+    private ExecutorService pool;
     @FXML
     private GridPane leadersNotPlayedGridPane;
     @FXML
@@ -43,11 +46,12 @@ public class LeaderOwnedControl extends CustomFxControl {
     private Button playLeaderButton;
     @FXML
     private Button activateLeader;
-
+    private ToggleButton lastLeaderButtonClicked;
     private HashMap<String, LeaderCard> buttonsInHandLeadersMap = new HashMap<String, LeaderCard>(2);
     private HashMap<String, LeaderCard> buttonsPlayedLeadersMap = new HashMap<String, LeaderCard>(2);
 
     public void setLeaders(Player player, ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {
+        pool = Executors.newCachedThreadPool();
         this.leaderNotUsed = leaderNotUsed;
         this.leaderActivated = leaderActivated;
         this.leadersOPRNotActivated = leadersOPRNotActivated;
@@ -78,8 +82,8 @@ public class LeaderOwnedControl extends CustomFxControl {
                     button.setOnAction(new EventHandler<ActionEvent>() {
                                            @Override
                                            public void handle(ActionEvent e) {
-                                               ToggleButton clickedButton = (ToggleButton) e.getSource();
-                                               selectedLeader = buttonsInHandLeadersMap.get(clickedButton.getId());
+                                               lastLeaderButtonClicked = (ToggleButton) e.getSource();
+                                               selectedLeader = buttonsInHandLeadersMap.get(lastLeaderButtonClicked.getId());
                                                discardLeaderButton.setDisable(false);
                                                Debug.printVerbose("Hello i'm outside THE if" + player.getNickname());
                                                if (selectedLeader.isPlayable(player)) {
@@ -97,7 +101,7 @@ public class LeaderOwnedControl extends CustomFxControl {
         }
     }
 
-    private void refreshLeaders()
+    public void refreshLeaders()
     {
         return;
     }
@@ -122,18 +126,16 @@ public class LeaderOwnedControl extends CustomFxControl {
     @FXML
     public void discardLeaderClick(ActionEvent event) {
 
-        //buttonsInHandLeadersMap.values().remove(selectedLeader);
-        //todo: disable buttons
+        buttonsInHandLeadersMap.values().remove(selectedLeader);
+        lastLeaderButtonClicked.setDisable(true);
         Debug.printVerbose("Passed the remove from map");
 
-        Platform.runLater(()-> getController().callbackDiscardLeader(selectedLeader));
+        pool.submit(()-> getController().callbackDiscardLeader(selectedLeader));
 
-        refreshLeaders();
     }
     @FXML
     public void playLeaderClick(ActionEvent event) {
-        Platform.runLater(()-> getController().callbackOnLeaderCardChosen(selectedLeader));
-        refreshLeaders();
+        pool.submit(()-> getController().callbackOnLeaderCardChosen(selectedLeader));
     }
 
 }
