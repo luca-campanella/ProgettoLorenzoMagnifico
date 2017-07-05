@@ -243,13 +243,14 @@ import java.util.concurrent.Executors;
     /**
      * this method is called by the room to deliver the players excommunicated
      * @param nicknamePlayerExcommunicated the nickname of the player excommunicated
+     * @param numTile the number of excommunication tile to take
      * @throws NetworkException if something goes wrong with the network
      */
     @Override
-    public void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated) throws NetworkException {
+    public void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated, int numTile) throws NetworkException {
 
         try{
-            RMIClientInterfaceInst.receiveExcommunicatedPlayers(nicknamePlayerExcommunicated);
+            RMIClientInterfaceInst.receiveExcommunicatedPlayers(nicknamePlayerExcommunicated, numTile);
         }
         catch (RemoteException e){
             Debug.printError("rmi: cannot send the nicknames of the excommunicated players to " + getNickname(), e);

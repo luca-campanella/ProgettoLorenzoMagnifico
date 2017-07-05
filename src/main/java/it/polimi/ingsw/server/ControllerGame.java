@@ -194,7 +194,7 @@ public class ControllerGame {
             if(numberOfTurn >= numberOfPlayers*4 && numberOfRound%2 == 0){
 
                 ArrayList<String> nicknamePlayerExcommunicated = new ArrayList<>(modelController.controlExcommunication((numberOfRound/2)+2));
-                room.deliverExcommunication(nicknamePlayerExcommunicated);
+                room.deliverExcommunication(nicknamePlayerExcommunicated, (numberOfRound/2)-1);
                 if(nicknamePlayerExcommunicated.size() != orderOfPlayers.size())
                     //if not all the players had been excommunicated the server has to wait for the choices of the other players
                     return;

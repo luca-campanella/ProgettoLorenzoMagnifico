@@ -198,6 +198,7 @@ public interface NetworkControllerClientInterface {
     /**
      * this method is called by the server to deliver the players excommunicated
      * @param playersExcommunicated the nicknames of the players excommunicated
+     * @param numTile the number of excommunication tile to take
      */
-    void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated);
+    void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated, int numTile);
 }
