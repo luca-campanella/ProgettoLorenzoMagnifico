@@ -202,5 +202,5 @@ public interface RMIClientInterface extends Remote {
      * this method is called by the room to deliver the players excommunicated
      * @param nicknamePlayerExcommunicated the nickname of the players excommunicated
      */
-    void receiveExcommunicatedPlayers(ArrayList<String> nicknamePlayerExcommunicated) throws RemoteException;
+    void receiveExcommunicatedPlayers(ArrayList<String> nicknamePlayerExcommunicated, int numTile) throws RemoteException;
 }

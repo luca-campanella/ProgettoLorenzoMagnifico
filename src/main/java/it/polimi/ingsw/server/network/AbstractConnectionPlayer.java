@@ -188,6 +188,7 @@ public abstract class AbstractConnectionPlayer extends Player {
     /**
      * this method is called by the room to deliver the excommunication to the client
      * @param nicknamePlayerExcommunicated the nickname of the player excommunicated
+     * @param numTile the number of excommunication tile to take
      */
-    public abstract void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated) throws NetworkException;
+    public abstract void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated, int numTile) throws NetworkException;
 }

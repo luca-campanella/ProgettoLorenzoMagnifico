@@ -783,8 +783,8 @@ public class SocketClient extends AbstractClientType {
     public void receiveExcommunicatedPlayers(){
 
         try{
-            ArrayList<String> packet = (ArrayList<String>)inStream.readObject();
-            getControllerMain().receiveExcommunicatedPlayers(packet);
+            ExcommunicationPacket packet = (ExcommunicationPacket)inStream.readObject();
+            getControllerMain().receiveExcommunicatedPlayers(packet.getNicknamePlayersExcommunicated(), packet.getNumTile());
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("the client cannot receives the players excommunicated",e);
