@@ -24,14 +24,14 @@ public class AskMoreServantsDialog implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
         ArrayList<Integer> options = new ArrayList<>();
-        for(int choice = min; choice < max; choice++)
+        for(int choice = min; choice < max+1; choice++)
             options.add(choice);
 
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(min, options);
 
-        dialog.setTitle("Information Harvest");
-        dialog.setHeaderText("Look, a Choiche Dialog");
-        dialog.setContentText("Choose your councilGift!");
+        dialog.setTitle("Harvest");
+        dialog.setHeaderText("Do you want to use more servants?");
+        dialog.setContentText("Choose your additional number of servants!");
 
         Optional<Integer> result = dialog.showAndWait();
 

@@ -1,14 +1,17 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.client.cli.CliPrinter;
+import it.polimi.ingsw.client.gui.blockingdialogs.AskMoreServantsDialog;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.MarketWrapper;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,8 +31,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
 /**
  * This object is the fx controller of the main board scene
@@ -78,6 +83,9 @@ public class MainBoardControl extends CustomFxControl {
      * This is the pool to run tasks in background
      */
     private ExecutorService pool;
+
+    private int minServantsBuild = 0;
+    private int minServantsHarvest = 0;
 
     /**
      * This hashmap is used to obtain the tab related to the player
@@ -413,6 +421,7 @@ public class MainBoardControl extends CustomFxControl {
             if(board.getBuild().checkIfFirst()){
                 Button activeBuildButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
                 activeBuildButton.setDisable(false);
+                minServantsBuild = servantsNeededBuild.get();
             }
             else if(!board.getBuild().isTwoPlayersOneSpace()){
                 Button activeBuildButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
@@ -428,6 +437,7 @@ public class MainBoardControl extends CustomFxControl {
             else if(!board.getBuild().isTwoPlayersOneSpace()){
                 Button activeHarvestButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
                 activeHarvestButton.setDisable(false);
+                minServantsBuild = servantsNeededHarvest.get();
             }
         }
 
@@ -521,14 +531,24 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void harvestSelected(ActionEvent event)
     {
+
         Button actionSpace = ((Button) (event.getSource()));
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Harvest");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText("I have a great message for you!");
-        alert.showAndWait();
-        //todo make the alert ask the user
-        pool.submit(()->getController().callbackPlacedFMOnHarvest(5));
+        Debug.printVerbose("Hello1");
+        //FutureTask<Integer> futureTask = new FutureTask(new AskMoreServantsDialog(minServantsHarvest, thisPlayer.getResource(ResourceTypeEnum.SERVANT)));
+        //Platform.runLater(futureTask);
+        AskMoreServantsDialog askMoreServantsDialog = new AskMoreServantsDialog(minServantsHarvest, thisPlayer.getResource(ResourceTypeEnum.SERVANT));
+        int userAnswer = minServantsHarvest;
+        try {
+            userAnswer = askMoreServantsDialog.call();
+            Debug.printVerbose("Numbero scelto dall'utente" + userAnswer);
+        }catch (Exception e) {
+        e.printStackTrace();
+        Debug.printVerbose("Error opening dialogue, selecting the minServe number");
+        }
+
+        final int temp = userAnswer;
+
+        pool.submit(()->getController().callbackPlacedFMOnHarvest(temp));
 
         //place the family member in the correct place
         if(actionSpace.getId().equals("harvestSmallActionSpace"))
@@ -554,12 +574,24 @@ public class MainBoardControl extends CustomFxControl {
     private void buildSelected(ActionEvent event)
     {
         Button actionSpace = ((Button) (event.getSource()));
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Build");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText("I have a great message for you!");
-        alert.showAndWait();
-        //todo make the alert ask the user
+
+        //FutureTask<Integer> futureTask = new FutureTask(new AskMoreServantsDialog(minServantsHarvest, thisPlayer.getResource(ResourceTypeEnum.SERVANT)));
+        //Platform.runLater(futureTask);
+        AskMoreServantsDialog askMoreServantsDialog = new AskMoreServantsDialog(minServantsBuild, thisPlayer.getResource(ResourceTypeEnum.SERVANT));
+        int userAnswer = minServantsBuild;
+        try {
+            userAnswer = askMoreServantsDialog.call();
+            Debug.printVerbose("Number chosen" + userAnswer);
+        }catch (Exception e) {
+            e.printStackTrace();
+            Debug.printVerbose("Error opening dialogue, selecting the minServe number");
+        }
+
+        final int temp = userAnswer;
+
+        Debug.printVerbose("Added FM to build");
+
+        pool.submit(()->getController().callbackPlacedFMOnBuild(temp));
 
         //place the family member in the correct place
         if(actionSpace.getId().equals("buildSmallActionSpace"))
@@ -572,9 +604,7 @@ public class MainBoardControl extends CustomFxControl {
             placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
         }
 
-        Debug.printVerbose("Added FM to build");
 
-        pool.submit(()->getController().callbackPlacedFMOnBuild(5));
         //updateFamilyMembers();
 
     }

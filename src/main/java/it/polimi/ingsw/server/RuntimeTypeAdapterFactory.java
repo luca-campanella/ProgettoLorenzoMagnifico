@@ -1,4 +1,4 @@
-package it.polimi.ingsw.testingGSON.boardLoader;
+package it.polimi.ingsw.server;
 
 /*
  * Copyright (C) 2011 Google Inc.
