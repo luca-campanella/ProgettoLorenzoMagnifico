@@ -114,7 +114,7 @@ public class PlayerTabSubControl extends CustomFxControl {
         personalBoard = player.getPersonalBoard();
         //setFixedImages();
         setPersonalTile();
-        refresh();
+        refreshResourcesAndCards();
         if(!isThisPlayer) {
             buttonsToolBar.getItems().remove(passTurnButton);
         }
@@ -123,13 +123,25 @@ public class PlayerTabSubControl extends CustomFxControl {
     /**
      * This method is used to refresh the tab after the player performed an action
      */
-    public void refresh(){
+    public void refreshResourcesAndCards(){
         displayCards(personalBoard.getYellowBuildingCards());
         displayCards(personalBoard.getTerritoryCards());
         displayResources();
         //we enable or disable the buttons to see blue and purple cards if the player has or has not some of them
         purpleCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.PURPLE) == 0));
         blueCardsButton.setDisable((personalBoard.getNumberOfColoredCard(CardColorEnum.BLUE) == 0));
+    }
+
+    /**
+     * This method it is called to refresh the leader window
+     */
+    public void refreshLeaderCards() {
+        //todo check if this method is right
+        leadersControl.refreshLeadersCollections(
+                player.getLeaderCardsNotUsed(),
+                player.getPlayedLeaders(),
+                player.getPlayableLeaders(),
+                player.getPlayedNotActivatedOncePerRoundLeaderCards());
     }
 
     private void displayCards(List<? extends AbstractCard> cards){
@@ -310,5 +322,6 @@ public class PlayerTabSubControl extends CustomFxControl {
             leadersStage.show();
         }
     }
+
 
 }

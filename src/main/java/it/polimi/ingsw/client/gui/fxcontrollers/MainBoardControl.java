@@ -266,7 +266,7 @@ public class MainBoardControl extends CustomFxControl {
      */
     public void refreshPersonalBoardOfPlayer(String playerNickname) {
         PlayerTabSubControl playerTab = playersTabMap.get(playerNickname);
-        playerTab.refresh();
+        playerTab.refreshResourcesAndCards();
     }
 
     /**
@@ -335,8 +335,8 @@ public class MainBoardControl extends CustomFxControl {
      * @param toAppend text to append
      */
     public void appendMessageOnStateTextArea(String toAppend) {
-        String currentText = currentGameStateTextArea.getText();
-        currentGameStateTextArea.setText(currentText + "\n" + "--> " + toAppend);
+        currentGameStateTextArea.appendText("\n" + "--> " + toAppend);
+        currentGameStateTextArea.setScrollTop(Double.MAX_VALUE);
     }
 
     /**
@@ -864,6 +864,54 @@ public class MainBoardControl extends CustomFxControl {
         towersCouncilFaith.getChildren().add(fmButton);
 
         refreshPersonalBoardOfPlayer(fm.getPlayer().getNickname());
+    }
+
+    /**
+     * this method is called when a player pass the phase
+     *
+     * @param nickname the player that had pass the phase
+     */
+    public void notifyEndOfPhaseOfPlayer(String nickname) {
+        appendMessageOnStateTextArea("["+nickname + "] --> " + nickname + " has passed the turn.");
+    }
+
+    /**
+     * This method is used by the controller when it receives a discard leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    public void notifyDiscardLeaderCard(String nickname, String nameCard) {
+        notifyLeaderAction(nickname, nameCard, "discarded");
+    }
+
+    /**
+     * This method is used by the controller when it receives a play leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    public void notifyPlayLeaderCard(String nickname, String nameCard) {
+        notifyLeaderAction(nickname, nameCard, "played");
+    }
+
+    /**
+     * This method is used by the controller when it receives a activate leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    public void notifyActivateLeaderCard(String nickname, String nameCard) {
+        notifyLeaderAction(nickname, nameCard, "activated");
+    }
+
+    private void notifyLeaderAction(String nickname, String nameCard, String nameAction) {
+        appendMessageOnStateTextArea("["+nickname + "] --> " + nickname + " has " + nameAction +" a leader card named "
+                + nameCard + ".");
+
+        PlayerTabSubControl tabSubControl = playersTabMap.get(nickname);
+        tabSubControl.refreshLeaderCards();
+        tabSubControl.refreshResourcesAndCards();
     }
 
 

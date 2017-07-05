@@ -187,7 +187,7 @@ abstract public class AbstractUIType {
      *
      * @param nickname the player that had pass the phase
      */
-    public abstract void showEndOfPhaseOfPlayer(String nickname);
+    public abstract void notifyEndOfPhaseOfPlayer(String nickname);
 
     /**
      * This method is called when the player activate a leader with a once per round ability that modifies
@@ -250,4 +250,28 @@ abstract public class AbstractUIType {
      * @param fm the family member used for the move
      */
     public abstract void notifyPlaceOnCouncil(FamilyMember fm);
+
+    /**
+     * This method is used by the controller when it receives a discard leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    public abstract void notifyDiscardLeaderCard(String nickname, String nameCard);
+
+    /**
+     * This method is used by the controller when it receives a play leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    public abstract void notifyPlayLeaderCard(String nickname, String nameCard);
+
+    /**
+     * This method is used by the controller when it receives a activate leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    public abstract void notifyActivateLeaderCard(String nickname, String nameCard);
 }

@@ -386,16 +386,6 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     /**
-     * this method is called when a player pass the phase
-     *
-     * @param nickname the player that had pass the phase
-     */
-    @Override
-    public void showEndOfPhaseOfPlayer(String nickname) {
-
-    }
-
-    /**
      * This method is called when the player activate a leader with a once per round ability that modifies
      * the value of one of his colored family members, he has to choose which one
      *
@@ -680,6 +670,53 @@ public class GraphicalUI extends AbstractUIType {
     public void notifyPlaceOnCouncil(FamilyMember fm) {
         Platform.runLater( () ->
                 ((MainBoardControl) (currentFXControl)).notifyPlaceOnCouncil(fm));
+    }
+
+    /**
+     * this method is called when a player pass the phase
+     *
+     * @param nickname the player that had pass the phase
+     */
+    @Override
+    public void notifyEndOfPhaseOfPlayer(String nickname) {
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).notifyEndOfPhaseOfPlayer(nickname));
+    }
+
+    /**
+     * This method is used by the controller when it receives a discard leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    @Override
+    public void notifyDiscardLeaderCard(String nickname, String nameCard) {
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).notifyDiscardLeaderCard(nickname, nameCard));
+    }
+
+    /**
+     * This method is used by the controller when it receives a play leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    @Override
+    public void notifyPlayLeaderCard(String nickname, String nameCard) {
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).notifyPlayLeaderCard(nickname, nameCard));
+    }
+
+    /**
+     * This method is used by the controller when it receives a activate leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    @Override
+    public void notifyActivateLeaderCard(String nickname, String nameCard) {
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).notifyActivateLeaderCard(nickname, nameCard));
     }
 }
 

@@ -429,8 +429,8 @@ public class CommandLineUI extends AbstractUIType {
      * @param nickname the player that had pass the phase
      */
     @Override
-    public void showEndOfPhaseOfPlayer(String nickname) {
-        System.out.println("The player " + nickname + " had passed the turn.");
+    public void notifyEndOfPhaseOfPlayer(String nickname) {
+        CliPrinter.printPlayerGeneralAction(nickname, " has passed the turn.");
     }
 
     /**
@@ -487,6 +487,39 @@ public class CommandLineUI extends AbstractUIType {
     @Override
     public void notifyPlaceOnCouncil(FamilyMember fm) {
         CliPrinter.printFMMoveNotification(fm, "in the council");
+    }
+
+    /**
+     * This method is used by the controller when it receives a discard leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    @Override
+    public void notifyDiscardLeaderCard(String nickname, String nameCard) {
+        CliPrinter.printPlayerGeneralAction(nickname, "has discarded the leader card " + nameCard);
+    }
+
+    /**
+     * This method is used by the controller when it receives a play leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    @Override
+    public void notifyPlayLeaderCard(String nickname, String nameCard) {
+        CliPrinter.printPlayerGeneralAction(nickname, "has played the leader card " + nameCard);
+    }
+
+    /**
+     * This method is used by the controller when it receives a activate leader action from another player and wants
+     * to notify the user that such a move has happened
+     * @param nickname the name of the palyer making the move
+     * @param nameCard the name of the leader card involved in the action
+     */
+    @Override
+    public void notifyActivateLeaderCard(String nickname, String nameCard) {
+        CliPrinter.printPlayerGeneralAction(nickname, "has activated the leader card " + nameCard);
     }
 }
 

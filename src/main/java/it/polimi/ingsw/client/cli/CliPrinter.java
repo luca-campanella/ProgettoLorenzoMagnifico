@@ -616,4 +616,13 @@ public class CliPrinter {
         " has placed his " + familyMember.getColor() + " family member of value " + familyMember.getValue() +
         " " + text);
     }
+
+    /**
+     * This method is used to print some action of a player
+     * @param nickname the player who made the move
+     * @param text the text explaining the action
+     */
+    public static void printPlayerGeneralAction(String nickname, String text) {
+        System.out.println("["+nickname + "] --> " + nickname + " " + text);
+    }
 }

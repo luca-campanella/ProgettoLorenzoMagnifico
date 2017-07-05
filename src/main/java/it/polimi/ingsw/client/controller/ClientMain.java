@@ -971,10 +971,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receiveEndPhase(String nickname) {
-
-        userInterface.showEndOfPhaseOfPlayer(nickname);
-        //todo show something in the view - implement in the gui
-
+        userInterface.notifyEndOfPhaseOfPlayer(nickname);
     }
 
     /**
@@ -1000,8 +997,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.discardLeaderCard(nickname, nameCard);
         Debug.printVerbose("The player "+ nickname + " has discarded " + nameCard);
-        //todo show something in the view
-
+        userInterface.notifyDiscardLeaderCard(nickname, nameCard);
     }
 
     /**
@@ -1046,8 +1042,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         otherPlayerChoicesHandler.setChoicesMapString(choicesOnCurrentActionString);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.playLeaderCard(nameCard, modelController.getPlayerByNickname(nickname));
-        //todo show something in the view
-
+        userInterface.notifyPlayLeaderCard(nickname, nameCard);
     }
 
     /**
@@ -1073,7 +1068,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.activateLeaderCard(nickname, nameCard);
         Debug.printVerbose("The player "+ nickname + " has activated " + nameCard);
-        //todo show something in the view
+        userInterface.notifyActivateLeaderCard(nickname, nameCard);
     }
 
     /**
@@ -1084,6 +1079,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated, int numTile) {
 
         modelController.excommunicatePlayer(playersExcommunicated, numTile);
+        //todo show excommunications in the view
     }
 
     /**
