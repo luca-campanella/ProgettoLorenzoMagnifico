@@ -77,6 +77,17 @@ public class MainBoardControl extends CustomFxControl {
     private ToggleGroup familyMembersToggleGroup = new ToggleGroup();
 
     /**
+     * This coordinates represent the center of each space for faith points in the board
+     */
+    private final double faithTrackYCoord = 877;
+    private final double faithTrackXCoords[] = {25, 63, 101, 150, 212, 276, 323, 362, 399, 438, 475, 515, 552, 589, 627, 665};
+
+    /**
+     * This map relates the nickname of a player to his cylinder on the faith track
+     */
+    HashMap<String, FaithTrackPlaceHolderCollector> faithTrackCylinderMap;
+
+    /**
      * This is the pool to run tasks in background
      */
     private ExecutorService pool;
@@ -111,6 +122,7 @@ public class MainBoardControl extends CustomFxControl {
      */
     public MainBoardControl() {
         playersTabMap = new HashMap<String, PlayerTabSubControl>(3);
+        faithTrackCylinderMap = new HashMap<String, FaithTrackPlaceHolderCollector>(3);
         pool = Executors.newFixedThreadPool(2);
         addedFamilyMembersButtons = new ArrayList<ToggleButton>(16);
     }
@@ -195,11 +207,27 @@ public class MainBoardControl extends CustomFxControl {
     }
 
     /**
+     * This method is used ad startup when we have to setup the faith track placeholders
+     */
+    public void setUpFaithCylinders(List<Player> players) {
+        Cylinder cylinder;
+
+        for(int i = 0; i < players.size(); i++) {
+            cylinder = (Cylinder) (towersCouncilFaith.lookup(("#faithCylinder" + i)));
+            cylinder.setVisible(true);
+            PhongMaterial material = new PhongMaterial();
+            material.setDiffuseColor(Color.valueOf(players.get(i).getPlayerColor().getStringValue()));
+            cylinder.setMaterial(material);
+
+            faithTrackCylinderMap.put(players.get(i).getNickname(), new FaithTrackPlaceHolderCollector(players.get(i), cylinder));
+        }
+    }
+
+    /**
      * This displays (or refreshes) the order of the player in the personal board cylinders
      * @param players the ordered list of players
      */
     public void displayOrderOfPlayers(List<Player> players) {
-        //todo set circles
         Cylinder cylinder;
 
         for(int i = 0; i < players.size(); i++) {
@@ -262,11 +290,42 @@ public class MainBoardControl extends CustomFxControl {
 
     /**
      * This method is used to refresh the personal board of a player
-     * @param playerNickname the nickn of the player to refresh the tab of
+     * @param playerNickname the nickname of the player to refresh the tab of
      */
     public void refreshPersonalBoardOfPlayer(String playerNickname) {
         PlayerTabSubControl playerTab = playersTabMap.get(playerNickname);
         playerTab.refreshResourcesAndCards();
+        refreshFaithTrackOfPlayer(playerNickname);
+    }
+
+    /**
+     * Refreshes the cylinders of the faith track
+     * @param playerNickname the player to refresh the cylinder of
+     */
+    private void refreshFaithTrackOfPlayer(String playerNickname) {
+        FaithTrackPlaceHolderCollector collector = faithTrackCylinderMap.get(playerNickname);
+        Player player = collector.getPlayer();
+        final int updatedFaithPoints = player.getResource(ResourceTypeEnum.FAITH_POINT);
+
+        if(updatedFaithPoints == collector.getCurrentFaithPoints())
+            return; //nothing to update
+
+        Cylinder cylinder = collector.getCylinder();
+        List<Player> allPlayers = getController().callbackObtainPlayersInOrder();
+        int numberOfPlayersSameFaithPoints = 0;
+
+        //we calculate how many players are already on the space we have to place our cylinder on
+        for(Player playerIter : allPlayers) {
+            if(playerIter != player && playerIter.getResource(ResourceTypeEnum.FAITH_POINT) == updatedFaithPoints)
+                numberOfPlayersSameFaithPoints += 1;
+        }
+
+        //we calculate the coordinates
+        double y = faithTrackYCoord - ((cylinder.getHeight()+cylinder.getRadius())/2) - (cylinder.getHeight()*numberOfPlayersSameFaithPoints) + 8;
+        double x = faithTrackXCoords[updatedFaithPoints] - (cylinder.getRadius()/2) + 5;
+
+        cylinder.setLayoutX(x);
+        cylinder.setLayoutY(y);
     }
 
     /**
@@ -919,5 +978,36 @@ public class MainBoardControl extends CustomFxControl {
         appendMessageOnStateTextArea("["+familyMember.getPlayer().getNickname() + "] --> " + familyMember.getPlayer().getNickname() +
                 " has placed his " + familyMember.getColor() + " family member of value " + familyMember.getValue() +
                 " " + text);
+    }
+
+    /**
+     * This is a private class that lets us keep track of all the informations needed to update the faith track
+     */
+    private class FaithTrackPlaceHolderCollector {
+        Player player;
+        Cylinder cylinder;
+        int currentFaithPoints;
+
+        public FaithTrackPlaceHolderCollector(Player player, Cylinder cylinder) {
+            this.player = player;
+            this.cylinder = cylinder;
+            currentFaithPoints = 0;
+        }
+
+        public Player getPlayer() {
+            return player;
+        }
+
+        public Cylinder getCylinder() {
+            return cylinder;
+        }
+
+        public int getCurrentFaithPoints() {
+            return currentFaithPoints;
+        }
+
+        public void setCurrentFaithPoints(int currentFaithPoints) {
+            this.currentFaithPoints = currentFaithPoints;
+        }
     }
 }

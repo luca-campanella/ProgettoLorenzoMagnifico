@@ -196,6 +196,7 @@ public class GraphicalUI extends AbstractUIType {
         control.setThisPlayer(getController().callbackObtainPlayer());
         control.setOtherPlayers(getController().callbackObtainOtherPlayers());
         control.displayOrderOfPlayers(getController().callbackObtainPlayersInOrder());
+        control.setUpFaithCylinders(getController().callbackObtainPlayersInOrder());
         control.setDices(getController().callbackObtainDices());
         control.displayDices();
         control.displayFamilyMembers();
