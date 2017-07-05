@@ -454,7 +454,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void notifyPlaceOnHarvest(FamilyMember fm, int servantsUsed) {
-        CliPrinter.printFMMoveNotification(fm, "in the harvest action space with " + servantsUsed + "servants");
+        CliPrinter.printFMMoveNotification(fm, "in the harvest action space with " + servantsUsed + " servants");
     }
 
     /**
@@ -465,7 +465,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void notifyPlaceOnBuild(FamilyMember fm, int servantsUsed) {
-        CliPrinter.printFMMoveNotification(fm, "in the build action space with " + servantsUsed + "servants");
+        CliPrinter.printFMMoveNotification(fm, "in the build action space with " + servantsUsed + " servants");
     }
 
     /**

@@ -802,7 +802,7 @@ public class MainBoardControl extends CustomFxControl {
      * @param servantsUsed the number of servants used for the action
      */
     public  void notifyPlaceOnHarvest(FamilyMember fm, int servantsUsed) {
-        notifyMoveOnGameStateTextArea(fm, "in the harvest action space with " + servantsUsed + "servants");
+        notifyMoveOnGameStateTextArea(fm, "in the harvest action space with " + servantsUsed + " servants");
 
         Button activeButton;
         Coordinates coord;
@@ -829,7 +829,7 @@ public class MainBoardControl extends CustomFxControl {
      * @param servantsUsed the number of servants used for the action
      */
     public  void notifyPlaceOnBuild(FamilyMember fm, int servantsUsed) {
-        notifyMoveOnGameStateTextArea(fm, "in the build action space with " + servantsUsed + "servants");
+        notifyMoveOnGameStateTextArea(fm, "in the build action space with " + servantsUsed + " servants");
 
         Button activeButton;
         Coordinates coord;
