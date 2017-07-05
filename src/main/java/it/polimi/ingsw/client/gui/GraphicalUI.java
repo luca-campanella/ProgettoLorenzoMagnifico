@@ -3,7 +3,8 @@ package it.polimi.ingsw.client.gui;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
-import it.polimi.ingsw.client.gui.blockingdialogs.AskCouncilGiftDialog;
+import it.polimi.ingsw.client.gui.blockingdialogs.*;
+
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -87,6 +88,14 @@ public class GraphicalUI extends AbstractUIType {
         //todo: eliminare questo metodo
     }
 
+    /**
+     *
+     * @param nameCard
+     * @param choices
+     * @param resourcePlayer
+     * @return
+     */
+    //todo: is this method used?
     @Override
     public int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer) {
         return 0;
@@ -206,7 +215,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askCouncilGift(ArrayList<GainResourceEffect> options) {
-        FutureTask<Integer> futureTask = new FutureTask(new AskCouncilGiftDialog(options));
+        FutureTask<Integer> futureTask = new FutureTask(new AskChoiceOnEffectDialog(options, "council gift"));
         Platform.runLater(futureTask);
 
         int choice = 0;
@@ -228,20 +237,42 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
-        return 0;
+        FutureTask<Integer> futureTask = new FutureTask(new AskChoiceOnEffectDialog(possibleEffectChoices, " building "));
+        Platform.runLater(futureTask);
+
+        int choice = 0;
+        try {
+            choice = futureTask.get();
+            Debug.printVerbose("Got building choice from GUI: " + choice);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            this.displayError("Error in opening dialogue, default value instead", e.getMessage());
+        }
+        return choice;
+
     }
 
     /**
      * This method is called when a choice on which cost to pay in a purple card should be perfomed by the ui
-     *
+     * Tested and currently working
      * @param costChoiceResource the list of resources the player will pay if he chooses this option
      * @param costChoiceMilitary the cost he will pay on something conditioned
      * @return 0 if he chooses to pay with resources, 1 with military points
      */
     @Override
     public int askPurpleVentureCardCostChoice(List<Resource> costChoiceResource, VentureCardMilitaryCost costChoiceMilitary) {
-        //todo
-        return 0;
+        FutureTask<Integer> futureTask = new FutureTask(new AskPurpleCardCostDialog(costChoiceResource, costChoiceMilitary));
+        Platform.runLater(futureTask);
+
+        int choice = 0;
+        try {
+            choice = futureTask.get();
+            Debug.printVerbose("Got purpleCost choice from GUI: " + choice);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            this.displayError("Error in opening dialogue, default value instead", e.getMessage());
+        }
+        return choice;
     }
 
     /**
@@ -289,7 +320,21 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
-        return 0;
+
+        FutureTask<Integer> futureTask = new FutureTask(new AskWhichLeaderAbilityToCopyDialog(possibleLeaders));
+        Platform.runLater(futureTask);
+
+        int choice = 0;
+
+        try {
+            choice = futureTask.get();
+            Debug.printVerbose("Copying a leader choice from GUI: " + choice);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            this.displayError("Error in opening dialogue, default value instead, called from askAddingServants", e.getMessage());
+        }
+
+        return choice;
     }
 
     /**
@@ -301,12 +346,39 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askAlsoActivateLeaderCard() {
-        return 0;
+        //todo here there's a integer... shouldn't it return false or true? maybe hashmap has problems...
+        FutureTask<Integer> futureTask = new FutureTask(new AskAlsoActivateLeaderCardDialog());
+        Platform.runLater(futureTask);
+
+        int choice = 0;
+
+        try {
+            choice = futureTask.get();
+            Debug.printVerbose("Activating or not effect choice from GUI: " + choice);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            this.displayError("Error in opening dialogue, default value instead, called from askAddingServants", e.getMessage());
+        }
+
+        return choice;
     }
 
     @Override
     public int askAddingServants(int minimum, int maximum) {
-        return 0;
+        Debug.printVerbose("I'm in askAddingServants");
+        FutureTask<Integer> futureTask = new FutureTask(new AskMoreServantsDialog(minimum, maximum));
+        Platform.runLater(futureTask);
+        Debug.printVerbose("I'm in askAddingServants2");
+        int choice = 0;
+        try {
+            choice = futureTask.get();
+            Debug.printVerbose("Got more servants choice from GUI: " + choice);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            this.displayError("Error in opening dialogue, default value instead, called from askAddingServants", e.getMessage());
+        }
+        return choice;
+
     }
 
     /**
@@ -316,7 +388,15 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showEndOfPhaseOfPlayer(String nickname) {
+        //todo, when is this popped up? test this method!
 
+        Debug.printVerbose("showEndOfPhase");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("End of phase");
+        alert.setHeaderText("You passed, wait for your opponents to make a move");
+       // alert.setContentText(errorDescription);
+        alert.initOwner(currentStage);
+        alert.show();
     }
 
     /**
@@ -330,7 +410,19 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public DiceAndFamilyMemberColorEnum askWhichFamilyMemberBonus(List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException {
-        return null;
+        FutureTask<DiceAndFamilyMemberColorEnum> futureTask = new FutureTask(new AskWhichFMBonusDialog(availableFamilyMembers));
+        Platform.runLater(futureTask);
+
+        DiceAndFamilyMemberColorEnum choice = null;
+        try {
+            choice = futureTask.get();
+            Debug.printVerbose("Got DiceAndFamilyMember choice from GUI: " + choice);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            this.displayError("Error in opening dialogue, default value instead", e.getMessage());
+        }
+        //todo: proably we need to handle the null case
+        return choice;
     }
 
     @Override
@@ -402,11 +494,11 @@ public class GraphicalUI extends AbstractUIType {
 
     }
 
-    //@Override
-    public int askChoice(String nameCard, ArrayList<String> choices) {
+    //@Override todo: check this method, i think we can delete it
+    /*public int askChoice(String nameCard, ArrayList<String> choices) {
         return 0;
     }
-
+       */
     /**
      * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
      * this method should also receive the familyMembers list to match the input.

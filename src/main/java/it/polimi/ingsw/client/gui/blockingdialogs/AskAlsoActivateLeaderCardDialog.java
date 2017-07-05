@@ -11,7 +11,7 @@ import java.util.concurrent.Callable;
 /**
  * Created by higla on 05/07/2017.
  */
-public class AskAlsoActivateLeaderCard implements Callable<Integer> {
+public class AskAlsoActivateLeaderCardDialog implements Callable<Integer> {
     //todo: this class needs to be tested
 
 
@@ -20,7 +20,6 @@ public class AskAlsoActivateLeaderCard implements Callable<Integer> {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Leader activation");
         alert.setHeaderText("Do you want to also activate this Leader effect?");
-
 
         ButtonType buttonTypeOne = new ButtonType("Yes");
         ButtonType buttonTypeTwo = new ButtonType("No");
@@ -39,7 +38,7 @@ public class AskAlsoActivateLeaderCard implements Callable<Integer> {
 
 //todo check if returns a boolean or not
 /*
-public class AskAlsoActivateLeaderCard implements Callable<Boolean> {
+public class AskAlsoActivateLeaderCardDialog implements Callable<Boolean> {
 
 
     @Override

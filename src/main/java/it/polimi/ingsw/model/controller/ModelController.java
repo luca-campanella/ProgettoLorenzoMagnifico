@@ -118,7 +118,6 @@ public class ModelController {
     public void addCoinsStartGame(ArrayList<? extends Player> players){
 
         Resource resource = new Resource(ResourceTypeEnum.COIN, 4);
-
         for (Player player : players){
             resource.setValue(resource.getValue()+1);
             player.addResource(resource);

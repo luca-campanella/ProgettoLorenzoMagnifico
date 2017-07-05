@@ -44,11 +44,12 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
         Debug.instance(Debug.LEVEL_VERBOSE);
 
         gui = new GraphicalUI(this);
-        ArrayList< GainResourceEffect> options = new ArrayList<>(1);
+        /*ArrayList< GainResourceEffect> options = new ArrayList<>(1);
         GainResourceEffect option = new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,2));
         options.add(option);
         options.add(option);
-        gui.askCouncilGift(options);
+        gui.askCouncilGift(options);*/
+        //gui.askAddingServants(0, 5);
         //testLeaders();
         //testWaitingMenu();
         //testCards();
