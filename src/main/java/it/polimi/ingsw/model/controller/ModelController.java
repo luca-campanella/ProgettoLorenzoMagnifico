@@ -678,6 +678,35 @@ public class ModelController {
         players.forEach(Player::bluePoints);
         //add the victory points to all the players based on the effects of the venture cards
         players.forEach(Player::purplePoints);
+        addVictoryPointsOnMilitary();
+        addVictoryPointsOnFaith();
+        addVictoryPointsOnResources();
+        deliverTheResults();
+
+    }
+
+    /**
+     * this method is used to add the victory points to the players based on the resources of the player
+     */
+    private void addVictoryPointsOnResources() {
+
+        for(Player playerIter : players){
+            int numOfResources = playerIter.getNumResources();
+            playerIter.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, numOfResources/4));
+        }
+    }
+
+    /**
+     * this method is used to calculate and deliver the result of the game
+     */
+    private void deliverTheResults() {
+    }
+
+    /**
+     * this method is used to add the victory points based on the military points at the end of the turn
+     */
+    private void addVictoryPointsOnMilitary(){
+
         int firstNumMilPoints = 0;
         int secondNumMilPoints = 0;
 
@@ -701,6 +730,19 @@ public class ModelController {
 
             else if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) == secondNumMilPoints)
                 playerIter.addResource(new Resource(ResourceTypeEnum.MILITARY_POINT, 2));
+        }
+    }
+
+    /**
+     * this method is used to add the victory point based on the faith point at the end of the turn
+     */
+    private void addVictoryPointsOnFaith(){
+
+        for(Player playerIter : players){
+
+            int faithPointPlayer = playerIter.getResource(ResourceTypeEnum.FAITH_POINT);
+            playerIter.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, gameBoard.getVaticanFaithAgeIndex(faithPointPlayer)));
+
         }
 
     }
