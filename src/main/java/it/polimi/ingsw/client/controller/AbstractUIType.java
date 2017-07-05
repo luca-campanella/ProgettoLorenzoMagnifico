@@ -210,4 +210,13 @@ abstract public class AbstractUIType {
      * @param playerPositionEndGamePacket the packet with all the information of the end of the game
      */
     public abstract void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket);
+
+    /**
+     * This method is used by the controller when it receives a place on tower from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param towerIndex the index of the tower
+     * @param floorIndex the index of the floor AS
+     */
+    public abstract void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex);
 }

@@ -860,8 +860,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printVerbose("the player " + nickname + " has place the family member on tower.");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
-        modelController.placeOnTower(player.getFamilyMemberByColor(familyMemberColor), towerIndex, floorIndex);
-        //todo show something in the view
+        FamilyMember fm = player.getFamilyMemberByColor(familyMemberColor);
+        modelController.placeOnTower(fm, towerIndex, floorIndex);
+        //we notify the user the other player has done this move
+        userInterface.notifyPlaceOnTower(fm, towerIndex, floorIndex);
     }
 
     /**

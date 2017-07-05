@@ -432,5 +432,17 @@ public class CommandLineUI extends AbstractUIType {
     public void showEndOfPhaseOfPlayer(String nickname) {
         System.out.println("The player " + nickname + " had passed the turn.");
     }
+
+    /**
+     * This method is used by the controller when it receives a place on tower from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param towerIndex the index of the tower
+     * @param floorIndex the index of the floor AS
+     */
+    public void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex) {
+        CliPrinter.printFMMoveNotification(fm, "in a tower action space of coordinates [" + towerIndex + ";" +
+                floorIndex + "]");
+    }
 }
 
