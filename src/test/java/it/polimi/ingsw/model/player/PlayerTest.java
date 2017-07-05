@@ -413,7 +413,7 @@ public class PlayerTest {
         for(int i=0; i<6; i++) {
             indexOfVentureCards = getDifferentRandomNumber(temp);
             playerNickname.addCard(deck.getVentureCards().get(indexOfVentureCards));
-            calculator += deck.getVentureCards().get(indexOfVentureCards).getVictoryEndPoints();
+            calculator += deck.getVentureCards().get(indexOfVentureCards).getVictoryEndPoints().getValue();
         }
         playerNickname.purplePoints();
         //todo: check if it is true once purplePoint method is done. This doesn't count excommunication AT ALL.
