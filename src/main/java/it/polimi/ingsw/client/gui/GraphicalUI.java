@@ -215,17 +215,20 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askCouncilGift(ArrayList<GainResourceEffect> options) {
+        Debug.printVerbose("Im in askCouncilGiftGUI0");
         FutureTask<Integer> futureTask = new FutureTask(new AskChoiceOnEffectDialog(options, "council gift"));
         Platform.runLater(futureTask);
-
+        Debug.printVerbose("Im in askCouncilGiftGUI1");
         int choice = 0;
         try {
+            Debug.printVerbose("Im in askCouncilGiftGUIInside try");
             choice = futureTask.get();
             Debug.printVerbose("Got council choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             this.displayError("Error in opening dialogue, default value instead", e.getMessage());
         }
+        Debug.printVerbose("Im in askCouncilGiftGUIEnd");
         return choice;
     }
 

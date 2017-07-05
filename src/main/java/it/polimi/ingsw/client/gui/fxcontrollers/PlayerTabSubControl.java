@@ -294,7 +294,7 @@ public class PlayerTabSubControl extends CustomFxControl {
                 fxmlFileName = "LeaderOtherPlayersScene.fxml";
 
             Platform.runLater(() -> this.openLeadersWindow(fxmlFileName, "Leaders",
-                    () -> leadersControl.setLeaders(
+                    () -> leadersControl.setLeaders(player,
                             player.getLeaderCardsNotUsed(),
                             player.getPlayedLeaders(),
                             player.getPlayableLeaders(),

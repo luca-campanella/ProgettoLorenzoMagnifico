@@ -654,9 +654,10 @@ public class ModelController {
             if(player.getNickname().equals(playerNickname)){
                 player.discardLeaderCard(nameLeader);
                 playerMove = player;
+                Debug.printVerbose("Sono nella discardLeader Model Controller nel for");
             }
         }
-
+        Debug.printVerbose("Sono nella discardLeader Model Controller");
         List<GainResourceEffect> choices = choicesController.callbackOnCouncilGift("discard leader", 1);
         for(GainResourceEffect effectIterator : choices)
             effectIterator.applyToPlayer(playerMove, choicesController, nameLeader);

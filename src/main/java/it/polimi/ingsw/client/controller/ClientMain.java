@@ -243,6 +243,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
         }
+        //todo: check discard leader
     }
 
     /**
