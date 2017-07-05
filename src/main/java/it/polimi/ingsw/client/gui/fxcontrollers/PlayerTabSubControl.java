@@ -303,7 +303,11 @@ public class PlayerTabSubControl extends CustomFxControl {
             isLeaderStageCreated = true;
         }
         else {
-            leadersControl.refreshLeaders();
+            leadersControl.refreshLeaders(
+                    player.getLeaderCardsNotUsed(),
+                    player.getPlayedLeaders(),
+                    player.getPlayableLeaders(),
+                    player.getPlayedNotActivatedOncePerRoundLeaderCards());
             leadersStage.show();
         }
     }
