@@ -1,13 +1,9 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.client.cli.CliPrinter;
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.Dice;
-import it.polimi.ingsw.model.board.Tower;
-import it.polimi.ingsw.model.board.TowerFloorAS;
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
-import it.polimi.ingsw.model.excommunicationTiles.GainFewerResourceEffect;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
@@ -22,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
@@ -44,7 +41,7 @@ import java.util.concurrent.Executors;
  */
 public class MainBoardControl extends CustomFxControl {
 
-    ToggleButton currentFamilyMemberSelected;
+    private ToggleButton currentFamilyMemberSelected;
     @FXML
     private AnchorPane towersCouncilFaith;
 
@@ -253,9 +250,9 @@ public class MainBoardControl extends CustomFxControl {
 
         for(FamilyMember familyMember : thisPlayer.getNotUsedFamilyMembers()) {
             ToggleButton fm = ((ToggleButton) (familyMembersPanel.lookup("#FM" + familyMember.getColor().getIntegerValue())));
-            fm.setText(String.valueOf(familyMember.getValue()));
-            fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
-            fm.setToggleGroup(familyMembersToggleGroup);
+                fm.setText(String.valueOf(familyMember.getValue()));
+                fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
+                fm.setToggleGroup(familyMembersToggleGroup);
         }
     }
 
@@ -321,25 +318,31 @@ public class MainBoardControl extends CustomFxControl {
      * @param effectOptions is a list of gain res effect choices
      * @return the index of that list
      */
-    public int displayCouncilOptions(List<GainResourceEffect> effectOptions, Stage currentStage)
+    public int displayCouncilOptions(List<GainResourceEffect> effectOptions)
     {
         //todo displayCouncil
         Debug.printVerbose("Im inside displayCouncilOption");
 
-        /*Debug.printVerbose("Im inside displayCouncilOption1");
-        CliPrinter.printBoard(board);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(currentStage);
+        List<String> options = new ArrayList<>();
+        for(GainResourceEffect iterator : effectOptions)
+            options.add(iterator.descriptionOfEffect());
+
+        Debug.printVerbose("Im inside displayCouncilOption1");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(options.get(0), options);
         Debug.printVerbose("Im inside displayCouncilOption2");
-        Debug.printVerbose(alert.toString());
 
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText("I have a great message for you!");
+        dialog.setTitle("Information Harvest");
+        dialog.setHeaderText("Look, a Choiche Dialog");
+        dialog.setContentText("Choose your councilGift!");
 
-        alert.showAndWait();
-        */
+        Debug.printVerbose("Im inside displayCouncilOption3");
 
+        Optional<String> result = dialog.showAndWait();
+
+        for(int index = 0; index < options.size(); index++)
+            if(options.get(index).equals(result))
+                return index;
         Debug.printVerbose("Im inside displayCouncilOption4");
 
         return 1;
@@ -376,6 +379,10 @@ public class MainBoardControl extends CustomFxControl {
             ToggleButton fm = ((ToggleButton) (familyMembersPanel.lookup("#FM" + coloEnumIter.getIntegerValue())));
             fm.setDisable(disabled);
         }
+    }
+
+    public void disableAllActionsNotHisTurn() {
+        //todo all actions
     }
 
     /**
@@ -425,8 +432,6 @@ public class MainBoardControl extends CustomFxControl {
         towersCouncilFaith.setMouseTransparent(false);
         Debug.printVerbose("displayActiveActionSpaces called");
 
-
-
         //we set all AS to disabled
         disableActionSpaces();
         if(servantsNeededBuild.isPresent()){
@@ -457,6 +462,43 @@ public class MainBoardControl extends CustomFxControl {
         }
 
         //we reactivate only the ones passed via parameters
+
+        if(servantsNeededBuild.isPresent()) {
+            BuildAS build = board.getBuild();
+            if(build.isTwoPlayersOneSpace() || build.checkIfFirst() ||
+                    thisPlayer.getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace()) {
+                Button activeButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
+                activeButton.setDisable(false);
+            } else if(!build.isTwoPlayersOneSpace()) {
+                Button activeButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
+                activeButton.setDisable(false);
+            }
+        }
+
+        if(servantsNeededHarvest.isPresent()) {
+            HarvestAS harvest = board.getHarvest();
+            if(harvest.isTwoPlayersOneSpace() || harvest.checkIfFirst() ||
+                    thisPlayer.getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace()) {
+                Button activeButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
+                activeButton.setDisable(false);
+            } else if(!harvest.isTwoPlayersOneSpace()) {
+                Button activeButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
+                activeButton.setDisable(false);
+            }
+        }
+
+        if(servantsNeededCouncil.isPresent()) {
+            Button activeButton = (Button) (towersCouncilFaith.lookup("#councilGiftButton"));
+            activeButton.setDisable(false);
+        }
+
+        for(MarketWrapper marketIterator : activeMarketSpaces)
+        {
+            Button marketASButton = (Button) (marketPane.lookup("#marketAS" + marketIterator.getMarketIndex()));
+            Debug.printVerbose("iterator on wrapper: " + marketIterator.getMarketIndex());
+            marketASButton.setDisable(false);
+        }
+
         for(TowerWrapper towerWrapperIter : activeTowerSpaces) {
             Button activeTowersASButton = (Button) (towersCouncilFaith.lookup(("#towerAS" + towerWrapperIter.getTowerIndex()) + towerWrapperIter.getTowerFloor()));
             activeTowersASButton.setDisable(false);
@@ -504,7 +546,7 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void harvestSelected(ActionEvent event)
     {
-        Button buttonHarvest = ((Button) (event.getSource()));
+        Button actionSpace = ((Button) (event.getSource()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Harvest");
         alert.setHeaderText("Look, an Information Dialog");
@@ -513,12 +555,17 @@ public class MainBoardControl extends CustomFxControl {
         //todo make the alert ask the user
         pool.submit(()->getController().callbackPlacedFMOnHarvest(5));
 
-        currentFamilyMemberSelected.setVisible(false);
-        ToggleButton familyMemberPlaced = new ToggleButton();
-        familyMemberPlaced.setLayoutX(buttonHarvest.getLayoutX());
-        familyMemberPlaced.setLayoutY(buttonHarvest.getLayoutY());
-        familyMemberPlaced.getStyleClass().add("familyMemberButton");
-        buildHarvestPane.getChildren().add(familyMemberPlaced);
+        //place the family member in the correct place
+        if(actionSpace.getId().equals("harvestSmallActionSpace"))
+            placeFamilyMemberForThisPlayer(buildHarvestPane,
+                    new Coordinates(actionSpace.getLayoutX(), actionSpace.getLayoutY()));
+        else {
+            //we have to subtract one because one has already been placed to the small action space
+            int occupyingFMs = board.getHarvest().getOccupyingFamilyMemberNumber()-1;
+            Coordinates coord = calculateCoordinatesBigActionSpace(actionSpace, occupyingFMs);
+            placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
+        }
+
         Debug.printVerbose("Added FM to build");
         //updateFamilyMembers();
 
@@ -531,22 +578,28 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void buildSelected(ActionEvent event)
     {
-        Button buttonBuild = ((Button) (event.getSource()));
+        Button actionSpace = ((Button) (event.getSource()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Build");
         alert.setHeaderText("Look, an Information Dialog");
         alert.setContentText("I have a great message for you!");
         alert.showAndWait();
+        //todo make the alert ask the user
+
+        //place the family member in the correct place
+        if(actionSpace.getId().equals("buildSmallActionSpace"))
+            placeFamilyMemberForThisPlayer(buildHarvestPane,
+                    new Coordinates(actionSpace.getLayoutX(), actionSpace.getLayoutY()));
+        else {
+            //we have to subtract one because one has already been placed to the small action space
+            int occupyingFMs = board.getBuild().getOccupyingFamilyMemberNumber()-1;
+            Coordinates coord = calculateCoordinatesBigActionSpace(actionSpace, occupyingFMs);
+            placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
+        }
+
+        Debug.printVerbose("Added FM to build");
 
         pool.submit(()->getController().callbackPlacedFMOnBuild(5));
-
-        currentFamilyMemberSelected.setVisible(false);
-        ToggleButton familyMemberPlaced = new ToggleButton();
-        familyMemberPlaced.setLayoutX(buttonBuild.getLayoutX());
-        familyMemberPlaced.setLayoutY(buttonBuild.getLayoutY());
-        familyMemberPlaced.getStyleClass().add("familyMemberButton");
-        buildHarvestPane.getChildren().add(familyMemberPlaced);
-        Debug.printVerbose("Added FM to build");
         //updateFamilyMembers();
 
     }
@@ -558,26 +611,15 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void marketSelected(ActionEvent event)
     {
-        Button buttonMarket = ((Button) (event.getSource()));
-
         Button actionSpace = ((Button) (event.getSource()));
         String id = actionSpace.getId();
         int marketIndex = Character.getNumericValue(id.charAt(8));
         Debug.printVerbose("Market placed" + marketIndex);
+
+        //place the family member
+        placeFamilyMemberForThisPlayer(marketPane, new Coordinates(actionSpace.getLayoutX(), actionSpace.getLayoutY()));
+
         pool.submit(()->getController().callbackPlacedFMOnMarket(marketIndex));
-
-        currentFamilyMemberSelected.setVisible(false);
-        double height = buttonMarket.getPrefHeight();
-        double width = buttonMarket.getWidth();
-        ToggleButton familyMemberPlaced = new ToggleButton();
-        /*familyMemberPlaced.setMinHeight(height);
-        familyMemberPlaced.setMaxWidth(width);*/
-
-        familyMemberPlaced.setLayoutX(buttonMarket.getLayoutX());
-        familyMemberPlaced.setLayoutY(buttonMarket.getLayoutY());
-        familyMemberPlaced.getStyleClass().add("familyMemberButton");
-        marketPane.getChildren().add(familyMemberPlaced);
-
         //CliPrinter.printBoard(board);
         //updateFamilyMembers();
     }
@@ -589,26 +631,16 @@ public class MainBoardControl extends CustomFxControl {
     @FXML
     private void councilGiftSelected(ActionEvent event)
     {
-        Button buttonCouncil = ((Button) (event.getSource()));
-
         Button actionSpace = ((Button) (event.getSource()));
-        //String id = actionSpace.getId();
+
+        //place the family member
+        Coordinates coord = calculateCoordinatesBigActionSpace(actionSpace, board.getCouncilAS().getOccupyingFamilyMemberNumber());
+        placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
+
         pool.submit(() -> getController().callbackPlacedFMOnCouncil());
 
-        //todo: modify this counciltodo
-
-        currentFamilyMemberSelected.setVisible(false);
-        /*double height = buttonCouncil.getPrefHeight();
-        double width = buttonCouncil.getWidth();
-        ToggleButton familyMemberPlaced = new ToggleButton();
-
-        familyMemberPlaced.setLayoutX(buttonCouncil.getLayoutX());
-        familyMemberPlaced.setLayoutY(buttonCouncil.getLayoutY());
-        familyMemberPlaced.getStyleClass().add("familyMemberButton");
-        towersCouncilFaith.getChildren().add(familyMemberPlaced);
         Debug.printVerbose("Added FM to council");
-        */updateFamilyMembers();
-
+        //updateFamilyMembers();
     }
 
     /**
@@ -627,26 +659,90 @@ public class MainBoardControl extends CustomFxControl {
         ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#card"+towerIndex+floorIndex)));
         imgView.setImage(null);
 
-        //he cannot place a family member anymore
-        disableActionSpaces();
-        setFamilyMemberDisable(true);
-
-        ToggleButton fmButton = new ToggleButton(currentFamilyMemberSelected.getText());
-        fmButton.getStyleClass().addAll(currentFamilyMemberSelected.getStyleClass());
-        //fmButton.getStyleClass().remove("familyMemberButton");
-        fmButton.getStyleClass().add("familyMemberPlaceHolder");
-        fmButton.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
-        fmButton.setLayoutX(actionSpace.getLayoutX());
-        fmButton.setLayoutY(actionSpace.getLayoutY());
-        fmButton.setDisable(true);
-        fmButton.toFront();
-        towersCouncilFaith.getChildren().add(fmButton);
-
-        addedFamilyMembersButtons.add(fmButton); //in roder to remove it afterwards
-
-        currentFamilyMemberSelected.setVisible(false);
+        //place the family member
+        placeFamilyMemberForThisPlayer(towersCouncilFaith, new Coordinates(actionSpace.getLayoutX(), actionSpace.getLayoutY()));
 
         pool.submit(() -> getController().callbackPlacedFMOnTower(towerIndex, floorIndex));
     }
 
+    /**
+     * This method performs actions needed when a family member of this player is placed on an action space
+     * @param paneToPlaceTo the pane to which the family member will be added
+     * @param coord the coordinates to place the family member to
+     */
+    private void placeFamilyMemberForThisPlayer(Pane paneToPlaceTo, Coordinates coord) {
+        //he cannot place a family member anymore
+        disableActionSpaces();
+        setFamilyMemberDisable(true);
+
+        ToggleButton fmButton = createFamilyMemberButtonPlaceHolder(
+                getController().callbackObtainSelectedFamilyMember(),
+                coord);
+
+        currentFamilyMemberSelected.setVisible(false);
+        paneToPlaceTo.getChildren().add(fmButton);
+    }
+
+    /**
+     * Creates a toggle button with the right style as a family member
+     * @param familyMember the family member to style the button
+     * @param coord the coordinates to give the button to
+     * @return the toggle button representing the family member
+     */
+    private ToggleButton createFamilyMemberButtonPlaceHolder(FamilyMember familyMember, Coordinates coord) {
+
+        ToggleButton fmButton = new ToggleButton(String.valueOf(familyMember.getValue()));
+        fmButton.getStyleClass().add("FM" + familyMember.getColor().getIntegerValue() + "Class");
+        fmButton.getStyleClass().add("familyMemberButton");
+        //fmButton.getStyleClass().remove("familyMemberButton");
+        fmButton.getStyleClass().add("familyMemberPlaceHolder");
+        fmButton.setStyle("-fx-border-color: " + familyMember.getPlayer().getPlayerColor().getStringValue() + ";");
+        fmButton.setLayoutX(coord.getX());
+        fmButton.setLayoutY(coord.getY());
+        fmButton.setDisable(true);
+        fmButton.toFront();
+        addedFamilyMembersButtons.add(fmButton); //in order to remove it afterwards
+
+        return fmButton;
+    }
+
+    /**
+     * Private immutable class for storing coordinates
+     */
+    private final class Coordinates {
+        double x, y;
+        public Coordinates(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public final double getX() {
+            return x;
+        }
+
+        public final double getY() {
+            return y;
+        }
+    }
+
+    /**
+     * Calculates where to palce a family member on an big AS
+     * @param actionSpaceButton the big action space
+     * @param numberFMAlreadyPlaced the number of family members already placed in that space
+     * @return the coordinates to place to
+     */
+    private Coordinates calculateCoordinatesBigActionSpace(Button actionSpaceButton, int numberFMAlreadyPlaced) {
+        double x = actionSpaceButton.getLayoutX();
+        double y = actionSpaceButton.getLayoutY();
+
+        //this is just to get the Height and the width of a family member
+        ToggleButton familyMemberInfo = ((ToggleButton) (familyMembersToggleGroup.getToggles().get(0)));
+
+        y += actionSpaceButton.getHeight() / 2; //we want to set it in the middle
+        y -= familyMemberInfo.getHeight() / 2;
+
+        x += familyMemberInfo.getWidth() * numberFMAlreadyPlaced;
+
+        return new Coordinates(x, y);
+    }
 }

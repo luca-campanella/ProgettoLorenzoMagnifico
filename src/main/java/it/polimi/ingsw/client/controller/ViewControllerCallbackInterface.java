@@ -162,5 +162,5 @@ public interface ViewControllerCallbackInterface {
      *
      * @return true if this turn the palyer already played a family member
      */
-    public boolean callbackObtainIsPlayedFamilyMember();
+    public FamilyMember callbackObtainSelectedFamilyMember();
 }
