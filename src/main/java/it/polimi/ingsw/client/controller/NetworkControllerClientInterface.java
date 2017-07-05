@@ -191,7 +191,13 @@ public interface NetworkControllerClientInterface {
      * this method is called by the network to receive the leader card activated by another player
      * @param nickname the nickname of the player that had activated the leader card abilty
      * @param nameCard the name of the leader card activated
-     * @param resourceGet the resources gotten from the leader ablity
+     * @param resourceGet the resources gotten from the leader ability
      */
     void receiveActivateLeaderCard(String nickname, String nameCard, HashMap<String, Integer> resourceGet);
+
+    /**
+     * this method is called by the server to deliver the players excommunicated
+     * @param playersExcommunicated the nicknames of the players excommunicated
+     */
+    void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated);
 }

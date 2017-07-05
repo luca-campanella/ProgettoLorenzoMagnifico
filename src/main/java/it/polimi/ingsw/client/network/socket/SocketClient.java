@@ -776,4 +776,18 @@ public class SocketClient extends AbstractClientType {
             Debug.printError("the client cannot receives the results of the end of the game",e);
         }
     }
+
+    /**
+     * this method is called by the server to deliver the excommunicated players
+     */
+    public void receiveExcommunicatedPlayers(){
+
+        try{
+            ArrayList<String> packet = (ArrayList<String>)inStream.readObject();
+            getControllerMain().receiveExcommunicatedPlayers(packet);
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the players excommunicated",e);
+        }
+    }
 }

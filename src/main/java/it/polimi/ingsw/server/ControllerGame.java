@@ -181,26 +181,55 @@ public class ControllerGame {
 
         numberOfTurn++;
 
-       //control if the game gad ended
-        if(numberOfTurn >= numberOfPlayers*4 && numberOfRound == 3){
+       //control if the game had ended
+        if(numberOfTurn >= numberOfPlayers*4 && numberOfRound == 6){
             ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(orderOfPlayers.size());
             playerPositionEndGames = modelController.endGame();
             room.deliverEndGame(playerPositionEndGames);
         }
 
-        //control if all the player had done all the move
-        if(numberOfTurn >= numberOfPlayers*4){
-            modelController.prepareForNewRound();
-            deliverDices(modelController.getDices());
-            numberOfRound++;
-            ArrayList<AbstractCard> cardsToPlace = deck.getRandomCards(numberOfRound);
-            room.deliverCardToPlace(cardsToPlace);
-            modelController.placeCardOnBoard(cardsToPlace);
-            reDoOrderPlayer(modelController.getFamilyMemberCouncil());
-            numberOfTurn = 0;
+        else{
 
+            //control if the excommunication tiles has to be added
+            if(numberOfTurn >= numberOfPlayers*4 && numberOfRound%2 == 0){
 
+                ArrayList<String> nicknamePlayerExcommunicated = new ArrayList<>(modelController.controlExcommunication((numberOfRound/2)+2));
+                room.deliverExcommunication(nicknamePlayerExcommunicated);
+                if(nicknamePlayerExcommunicated.size() != orderOfPlayers.size())
+                    //if not all the players had been excommunicated the server has to wait for the choices of the other players
+                    return;
+            }
+
+            //control if all the player had done all the move
+            else if(numberOfTurn >= numberOfPlayers*4) {
+                prepareForNewRound();
+            }
         }
+
+        deliverStartOfPhase();
+
+    }
+
+    /**
+     * this method is called to prepare the board for a new round
+     */
+    public void prepareForNewRound(){
+
+        modelController.prepareForNewRound();
+        deliverDices(modelController.getDices());
+        numberOfRound++;
+        ArrayList<AbstractCard> cardsToPlace = deck.getRandomCards(numberOfRound);
+        room.deliverCardToPlace(cardsToPlace);
+        modelController.placeCardOnBoard(cardsToPlace);
+        reDoOrderPlayer(modelController.getFamilyMemberCouncil());
+        numberOfTurn = 0;
+
+    }
+
+    /**
+     * this method is called to deliver the start of the phase to the proper player
+     */
+    public void deliverStartOfPhase(){
 
         Debug.printVerbose("deliver start of phase to " +orderOfPlayers.get(numberOfTurn%numberOfPlayers).getNickname());
         //call the method to inform the player that is his turn
@@ -211,7 +240,6 @@ public class ControllerGame {
             Debug.printVerbose(player1.getNickname());
 
     }
-
     /**
      * manage the order of the orderOfPlayers based on the council
      * @param familyMembers the family members placed on the council

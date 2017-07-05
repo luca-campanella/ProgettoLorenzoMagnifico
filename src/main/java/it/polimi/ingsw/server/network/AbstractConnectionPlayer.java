@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.server.Room;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.player.Player;
+import sun.nio.ch.Net;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -183,4 +184,10 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @throws NetworkException if something goes wrong with the network
      */
     public abstract void deliverEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames) throws NetworkException;
+
+    /**
+     * this method is called by the room to deliver the excommunication to the client
+     * @param nicknamePlayerExcommunicated the nickname of the player excommunicated
+     */
+    public abstract void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated) throws NetworkException;
 }

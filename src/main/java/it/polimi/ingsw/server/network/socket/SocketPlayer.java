@@ -846,6 +846,27 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     }
 
     /**
+     * this method is called by the room to deliver the excommunicated players to the client
+     * @param nicknamePlayerExcommunicated the nickname of the player excommunicated
+     * @throws NetworkException if something goes wrong wit the connection
+     */
+    @Override
+    public void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated) throws NetworkException {
+
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.EXCOMMUNICATION);
+                outStream.writeObject(nicknamePlayerExcommunicated);
+            }
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the excommunicated to " + this.getNickname());
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * this method is used to receive from the client the leader card activated
      */
     public void receiveActivatedLeader() {

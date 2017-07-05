@@ -241,6 +241,23 @@ import java.util.concurrent.Executors;
     }
 
     /**
+     * this method is called by the room to deliver the players excommunicated
+     * @param nicknamePlayerExcommunicated the nickname of the player excommunicated
+     * @throws NetworkException if something goes wrong with the network
+     */
+    @Override
+    public void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated) throws NetworkException {
+
+        try{
+            RMIClientInterfaceInst.receiveExcommunicatedPlayers(nicknamePlayerExcommunicated);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the nicknames of the excommunicated players to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
      * @param familyMember the family member placed on the tower
      * @param towerIndex the number of the tower

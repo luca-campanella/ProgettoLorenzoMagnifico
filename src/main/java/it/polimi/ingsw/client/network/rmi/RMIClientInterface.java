@@ -197,4 +197,10 @@ public interface RMIClientInterface extends Remote {
      * @param playerPositionEndGames the results of the game(the winner, the positions,...)
      */
     void receiveEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames) throws RemoteException;
+
+    /**
+     * this method is called by the room to deliver the players excommunicated
+     * @param nicknamePlayerExcommunicated the nickname of the players excommunicated
+     */
+    void receiveExcommunicatedPlayers(ArrayList<String> nicknamePlayerExcommunicated) throws RemoteException;
 }

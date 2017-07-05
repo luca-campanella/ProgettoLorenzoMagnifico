@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.LeaderAbilityTypeEnum;
@@ -923,6 +924,50 @@ public class ModelController {
      */
     public void removePlayer(Player player) {
         players.remove(player);
+    }
+
+    /**
+     * this method is called to find the player that doesn't have the needed resources to avoid the excommunication
+     * @param faithNeeded the needed faith point to avoid the excommunication
+     * @return the nickname f the player excommunicated
+     */
+    public ArrayList<String> controlExcommunication(int faithNeeded) {
+
+        ArrayList<String> playersExcommunicated = new ArrayList<>(players.size());
+        for(Player playerIter : players){
+            if(playerIter.getResource(ResourceTypeEnum.FAITH_POINT) < faithNeeded)
+                playersExcommunicated.add(playerIter.getNickname());
+        }
+        excommunicatePlayer(playersExcommunicated, faithNeeded-3);
+        return playersExcommunicated;
+    }
+
+    /**
+     * this method is used to excommunicate the players
+     * @param playersExcommunicated the nickname of the players excommunicated
+     */
+    public void excommunicatePlayer(ArrayList<String> playersExcommunicated, int numTile) {
+
+        ExcommunicationTile tile = getBoard().getExcommunicationTiles().get(numTile);
+        for(Player player : players){
+            if(playersExcommunicated.contains(player.getNickname())){
+                player.addExcommunicationTile(tile);
+            }
+        }
+    }
+
+    /**
+     * this method is used to excommunicate the player
+     * @param playerExcommunicated the nickname of the player excommunicated
+     */
+    public void excommunicatePlayer(String playerExcommunicated, int numTile) {
+
+        ExcommunicationTile tile = getBoard().getExcommunicationTiles().get(numTile);
+        for(Player player : players){
+            if(playerExcommunicated.equals(player.getNickname())){
+                player.addExcommunicationTile(tile);
+            }
+        }
     }
 }
 

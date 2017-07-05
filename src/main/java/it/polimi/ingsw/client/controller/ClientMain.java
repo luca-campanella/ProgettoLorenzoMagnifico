@@ -1076,6 +1076,15 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * this method is called by the server to deliver the players excommunicated
+     * @param playersExcommunicated the nicknames of the players excommunicated
+     */
+    @Override
+    public void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated) {
+
+    }
+
+    /**
      * Callback from model to controller
      * the model uses this method when the player performs an action but from the model we have to ask
      * how many servants he wants to add

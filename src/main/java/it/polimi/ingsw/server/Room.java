@@ -784,5 +784,21 @@ public class Room {
             }
         }
     }
+
+    /**
+     * this method is used to deliver the player excommunicated to the clients
+     * @param nicknamePlayerExcommunicated the nickname of the player excommunicated
+     */
+    public void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated) {
+
+        for(AbstractConnectionPlayer player : players){
+            try {
+                player.deliverExcommunication(nicknamePlayerExcommunicated);
+            }
+            catch (NetworkException e){
+                Debug.printError("cannot deliver the excommunication to " + player.getNickname(),e);
+            }
+        }
+    }
 }
 
