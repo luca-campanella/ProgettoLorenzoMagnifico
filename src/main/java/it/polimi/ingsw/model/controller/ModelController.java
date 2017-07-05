@@ -119,12 +119,24 @@ public class ModelController {
     public void addCoinsStartGame(ArrayList<? extends Player> players){
 
         Resource resource = new Resource(ResourceTypeEnum.COIN, 4);
+        //todo: eliminate. I'm using this to test leaders and labels
+        Resource resource1 = new Resource(ResourceTypeEnum.SERVANT, 15);
+        Resource resource2 = new Resource(ResourceTypeEnum.MILITARY_POINT, 30);
+        Resource resource3 = new Resource(ResourceTypeEnum.STONE, 15);
+        Resource resource4 = new Resource(ResourceTypeEnum.WOOD, 15);
+
         for (Player player : players){
             resource.setValue(resource.getValue()+1);
             player.addResource(resource);
-
-
         }
+        players.get(0).addResource(resource);
+        players.get(0).addResource(resource);
+        players.get(0).addResource(resource);
+        players.get(0).addResource(resource1);
+        players.get(0).addResource(resource2);
+        players.get(0).addResource(resource3);
+        players.get(0).addResource(resource4);
+
 
     }
 
@@ -361,6 +373,10 @@ public class ModelController {
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return false;
         HarvestAS harvestPlace = gameBoard.getHarvest();
+       //if the game is a two players gameme only one family member can be placed
+       if(!harvestPlace.checkIfFirst() && harvestPlace.isTwoPlayersOneSpace()
+               && !familyMember.getPlayer().getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
+           return false;
         //control on the action space, if the player already has a family member
         if(findFamilyMemberNotNeutral(familyMember.getPlayer(), harvestPlace.getFamilyMembers())
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
@@ -450,6 +466,10 @@ public class ModelController {
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return false;
         BuildAS buildPlace = gameBoard.getBuild();
+        //if the game is a two players gameme only one family member can be placed
+        if(!buildPlace.checkIfFirst() && buildPlace.isTwoPlayersOneSpace()
+                && !familyMember.getPlayer().getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
+            return false;
         //control on the action space, if the player already has a family member
         if(findFamilyMemberNotNeutral(familyMember.getPlayer(), buildPlace.getFamilyMembers())
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
@@ -643,9 +663,10 @@ public class ModelController {
             if(player.getNickname().equals(playerNickname)){
                 player.discardLeaderCard(nameLeader);
                 playerMove = player;
+                Debug.printVerbose("Sono nella discardLeader Model Controller nel for");
             }
         }
-
+        Debug.printVerbose("Sono nella discardLeader Model Controller");
         List<GainResourceEffect> choices = choicesController.callbackOnCouncilGift("discard leader", 1);
         for(GainResourceEffect effectIterator : choices)
             effectIterator.applyToPlayer(playerMove, choicesController, nameLeader);

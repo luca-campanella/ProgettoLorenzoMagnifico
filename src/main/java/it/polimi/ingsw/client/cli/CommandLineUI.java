@@ -432,5 +432,61 @@ public class CommandLineUI extends AbstractUIType {
     public void showEndOfPhaseOfPlayer(String nickname) {
         System.out.println("The player " + nickname + " had passed the turn.");
     }
+
+    /**
+     * This method is used by the controller when it receives a place on tower from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param towerIndex the index of the tower
+     * @param floorIndex the index of the floor AS
+     */
+    @Override
+    public void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex) {
+        CliPrinter.printFMMoveNotification(fm, "in a tower action space of coordinates [" + towerIndex + ";" +
+                floorIndex + "]");
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on harvest from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param servantsUsed the number of servants used for the action
+     */
+    @Override
+    public void notifyPlaceOnHarvest(FamilyMember fm, int servantsUsed) {
+        CliPrinter.printFMMoveNotification(fm, "in the harvest action space with " + servantsUsed + " servants");
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on build from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param servantsUsed the number of servants used for the action
+     */
+    @Override
+    public void notifyPlaceOnBuild(FamilyMember fm, int servantsUsed) {
+        CliPrinter.printFMMoveNotification(fm, "in the build action space with " + servantsUsed + " servants");
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on market from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param marketIndex the index of the market as
+     */
+    @Override
+    public void notifyPlaceOnMarket(FamilyMember fm, int marketIndex) {
+        CliPrinter.printFMMoveNotification(fm, "in a market action space of index " + marketIndex);
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on the council from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     */
+    @Override
+    public void notifyPlaceOnCouncil(FamilyMember fm) {
+        CliPrinter.printFMMoveNotification(fm, "in the council");
+    }
 }
 

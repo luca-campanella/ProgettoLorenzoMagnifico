@@ -95,6 +95,13 @@
                         <ImageView fx:id="excomm0" fitHeight="138.0" fitWidth="61.0" layoutX="115.0" layoutY="700.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="excomm1" fitHeight="121.0" fitWidth="61.0" layoutX="180.0" layoutY="715.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="excomm2" fitHeight="138.0" fitWidth="61.0" layoutX="246.0" layoutY="700.0" pickOnBounds="true" preserveRatio="true" />
+
+                         <Cylinder fx:id="faithCylinder120" height="12.0" layoutX="10.0" layoutY="900.0" radius="15.0" rotate="-116.6" styleClass="positionCylinder" visible="false">
+                             <rotationAxis>
+                                 <Point3D x="1.0" />
+                             </rotationAxis></Cylinder>
+
+
                         <Button fx:id="councilGiftButton" disable="true" layoutX="350.0" layoutY="650.0" mnemonicParsing="false" onAction="#councilGiftSelected" prefHeight="75.0" prefWidth="225.0" styleClass="actionSpaceButton" />
                      </children></AnchorPane>
               </items>

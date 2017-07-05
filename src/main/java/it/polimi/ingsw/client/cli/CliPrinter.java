@@ -606,4 +606,14 @@ public class CliPrinter {
                 + "Ability: " + leader.getAbility().getAbilityDescription() + "\n"));
     }
 
+    /**
+     * This method is called by {@link CommandLineUI} to notify the user of a move made with a family member
+     * @param familyMember the family member moved
+     * @param text the additional text to display
+     */
+    public static void printFMMoveNotification(FamilyMember familyMember, String text) {
+        System.out.println("["+familyMember.getPlayer().getNickname() + "] --> " + familyMember.getPlayer().getNickname() +
+        " has placed his " + familyMember.getColor() + " family member of value " + familyMember.getValue() +
+        " " + text);
+    }
 }

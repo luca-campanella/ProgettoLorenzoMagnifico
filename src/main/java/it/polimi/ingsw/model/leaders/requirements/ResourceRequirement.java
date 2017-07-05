@@ -30,9 +30,6 @@ public class ResourceRequirement extends AbstractRequirement {
      */
     @Override
     public boolean isMet(Player player) {
-        if(player.getResource(resReq.getType()) >= resReq.getValue())
-            return true;
-
-        return false;
+        return(player.getResource(resReq.getType()) >= resReq.getValue());
     }
 }

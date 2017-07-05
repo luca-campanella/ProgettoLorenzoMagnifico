@@ -216,17 +216,20 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askCouncilGift(ArrayList<GainResourceEffect> options) {
+        Debug.printVerbose("Im in askCouncilGiftGUI0");
         FutureTask<Integer> futureTask = new FutureTask(new AskChoiceOnEffectDialog(options, "council gift"));
         Platform.runLater(futureTask);
-
+        Debug.printVerbose("Im in askCouncilGiftGUI1");
         int choice = 0;
         try {
+            Debug.printVerbose("Im in askCouncilGiftGUIInside try");
             choice = futureTask.get();
             Debug.printVerbose("Got council choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             this.displayError("Error in opening dialogue, default value instead", e.getMessage());
         }
+        Debug.printVerbose("Im in askCouncilGiftGUIEnd");
         return choice;
     }
 
@@ -389,15 +392,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showEndOfPhaseOfPlayer(String nickname) {
-        //todo, when is this popped up? test this method!
 
-        Debug.printVerbose("showEndOfPhase");
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("End of phase");
-        alert.setHeaderText("You passed, wait for your opponents to make a move");
-       // alert.setContentText(errorDescription);
-        alert.initOwner(currentStage);
-        alert.show();
     }
 
     /**
@@ -453,6 +448,7 @@ public class GraphicalUI extends AbstractUIType {
     public void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
 
     }
+
 
     /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error
@@ -624,5 +620,66 @@ public class GraphicalUI extends AbstractUIType {
         alert.show();
     }
 
+
+    /**
+     * This method is used by the controller when it receives a place on tower from another player and wants
+     * to notify the user that such a move has happened
+     *
+     * @param fm         the family member used for the move
+     * @param towerIndex the index of the tower
+     * @param floorIndex the index of the floor AS
+     */
+    @Override
+    public void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex) {
+        Platform.runLater( () ->
+        ((MainBoardControl) (currentFXControl)).notifyPlaceOnTower(fm, towerIndex, floorIndex));
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on market from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param marketIndex the index of the market as
+     */
+    @Override
+    public void notifyPlaceOnMarket(FamilyMember fm, int marketIndex) {
+        Platform.runLater( () ->
+                ((MainBoardControl) (currentFXControl)).notifyPlaceOnMarket(fm, marketIndex));
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on harvest from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param servantsUsed the number of servants used for the action
+     */
+    @Override
+    public  void notifyPlaceOnHarvest(FamilyMember fm, int servantsUsed) {
+        Platform.runLater( () ->
+                ((MainBoardControl) (currentFXControl)).notifyPlaceOnHarvest(fm, servantsUsed));
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on build from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param servantsUsed the number of servants used for the action
+     */
+    @Override
+    public  void notifyPlaceOnBuild(FamilyMember fm, int servantsUsed) {
+        Platform.runLater( () ->
+                ((MainBoardControl) (currentFXControl)).notifyPlaceOnBuild(fm, servantsUsed));
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on the council from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     */
+    @Override
+    public void notifyPlaceOnCouncil(FamilyMember fm) {
+        Platform.runLater( () ->
+                ((MainBoardControl) (currentFXControl)).notifyPlaceOnCouncil(fm));
+    }
 }
 

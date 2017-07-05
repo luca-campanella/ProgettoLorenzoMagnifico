@@ -60,7 +60,12 @@ public class PlayerTabSubControl extends CustomFxControl {
     ImageView thisPlayerPersonalTile;
 
     @FXML
+    ImageView victoryPointImage;
+
+    @FXML
     HBox personalBoardPane;
+
+
 
     @FXML
     private Button blueCardsButton;
@@ -80,6 +85,8 @@ public class PlayerTabSubControl extends CustomFxControl {
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.setClassLoader(getClass().getClassLoader());
+
+
 
         try {
             Debug.printVerbose("before running load");
@@ -105,6 +112,7 @@ public class PlayerTabSubControl extends CustomFxControl {
         setController(controller);
         setRelatedPlayer(relatedPlayer);
         personalBoard = player.getPersonalBoard();
+        //setFixedImages();
         setPersonalTile();
         refresh();
         if(!isThisPlayer) {
@@ -145,13 +153,15 @@ public class PlayerTabSubControl extends CustomFxControl {
     }
     private void displayResources(){
         //todo: change style of the resources
-        Debug.printVerbose("Hello, i'm here");
+
         Debug.printVerbose("Hello, i'm here" + player.toString());
 
         ((Label)personalBoardPane.lookup("#coinLabel")).setText(String.valueOf(player.getResource(ResourceTypeEnum.COIN)));
         ((Label)personalBoardPane.lookup("#woodLabel")).setText(String.valueOf(player.getResource(ResourceTypeEnum.WOOD)));
         ((Label)personalBoardPane.lookup("#stoneLabel")).setText(String.valueOf(player.getResource(ResourceTypeEnum.STONE)));
         ((Label)personalBoardPane.lookup("#servantsLabel")).setText(String.valueOf(player.getResource(ResourceTypeEnum.SERVANT)));
+        ((Label)personalBoardPane.lookup("#militaryLabel")).setText(String.valueOf(player.getResource(ResourceTypeEnum.MILITARY_POINT)));
+        ((Label)personalBoardPane.lookup("#victoryLabel")).setText(String.valueOf(player.getResource(ResourceTypeEnum.VICTORY_POINT)));
 
     }
     /**
@@ -161,7 +171,15 @@ public class PlayerTabSubControl extends CustomFxControl {
     private void setRelatedPlayer(Player player) {
         this.player = player;
     }
+        //todo delete
+    /*
+    private void setFixedImages(){
+        Debug.printVerbose("setUpFixedImage called");
 
+        Image tileImg  = new Image(getClass().getResourceAsStream("/imgs/victory_point.png"));
+        victoryPointImage.setImage(tileImg);
+        victoryPointImage.setPreserveRatio(false);
+    }*/
     /**
      * Sets the personal tile image of the related player
      */
@@ -178,9 +196,7 @@ public class PlayerTabSubControl extends CustomFxControl {
         passTurnButton.setDisable(disabled);
     }
 
-    public void setLeadersActionsDisable(boolean disabled) {
-        //todo disable the possibility to play leaders, but not the button to show leaders
-    }
+
 
     @FXML
     public void showPurpleCards() {
@@ -196,34 +212,6 @@ public class PlayerTabSubControl extends CustomFxControl {
     public void passTurn()
     {
         Platform.runLater(()-> getController().callBackPassTheTurn());
-    }
-
-
-    /**
-     * This method responds to the pressing of the leader button by creating and showing the leader window
-     */
-    @FXML
-    private void showLeaderCards()
-    {
-        if(!isLeaderStageCreated) {
-            final String fxmlFileName;
-            if(isThisPlayer)
-                fxmlFileName = "LeaderOwnedScene.fxml";
-            else
-                fxmlFileName = "LeaderOtherPlayersScene.fxml";
-
-            Platform.runLater(() -> this.openLeadersWindow(fxmlFileName, "Leaders",
-                    () -> leadersControl.setLeaders(
-                            player.getLeaderCardsNotUsed(),
-                            player.getPlayedLeaders(),
-                            player.getPlayableLeaders(),
-                            player.getPlayedNotActivatedOncePerRoundLeaderCards())));
-            Debug.printVerbose("runLater loaded");
-            isLeaderStageCreated = true;
-        }
-        else {
-            leadersStage.show();
-        }
     }
 
     /**
@@ -260,7 +248,7 @@ public class PlayerTabSubControl extends CustomFxControl {
 
     /**
      * This method opens the leader window shows it. It also sets the controller for the callbacks inside the custom fx controller
-     * This method shoudl be passed as a parameter to the runLater fx method
+     * This method should be passed as a parameter to the runLater fx method
      * @param fxmlFileName the fxml to start from
      * @param title the title of the window
      */
@@ -286,4 +274,41 @@ public class PlayerTabSubControl extends CustomFxControl {
 
         leadersStage.show();
     }
+
+
+    public void setLeadersActionsDisable(boolean disabled) {
+        //todo disable the possibility to play leaders, but not the button to show leaders
+    }
+    /**
+     * This method responds to the pressing of the leader button by creating and showing the leader window
+     */
+    @FXML
+    private void showLeaderCards()
+    {
+        if(!isLeaderStageCreated) {
+            final String fxmlFileName;
+            if(isThisPlayer)
+                fxmlFileName = "LeaderOwnedScene.fxml";
+            else
+                fxmlFileName = "LeaderOtherPlayersScene.fxml";
+
+            Platform.runLater(() -> this.openLeadersWindow(fxmlFileName, "Leaders",
+                    () -> leadersControl.setLeaders(player,
+                            player.getLeaderCardsNotUsed(),
+                            player.getPlayedLeaders(),
+                            player.getPlayableLeaders(),
+                            player.getPlayedNotActivatedOncePerRoundLeaderCards())));
+            Debug.printVerbose("runLater loaded");
+            isLeaderStageCreated = true;
+        }
+        else {
+            leadersControl.refreshLeadersCollections(
+                    player.getLeaderCardsNotUsed(),
+                    player.getPlayedLeaders(),
+                    player.getPlayableLeaders(),
+                    player.getPlayedNotActivatedOncePerRoundLeaderCards());
+            leadersStage.show();
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.leaders;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -81,9 +82,10 @@ public class LeaderCard implements Serializable {
      */
     public boolean isPlayable(Player player) {
         for(AbstractRequirement reqIter : requirements)
-            if(!reqIter.isMet(player))
+            if(!reqIter.isMet(player)) {
+                Debug.printVerbose("Requirement not met" + requirements.toString());
                 return false;
-
+            }
         return true;
     }
 

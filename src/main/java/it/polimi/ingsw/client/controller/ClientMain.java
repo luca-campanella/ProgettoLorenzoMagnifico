@@ -244,6 +244,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
         }
+        //todo: check discard leader
     }
 
     /**
@@ -859,8 +860,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printVerbose("the player " + nickname + " has place the family member on tower.");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
-        modelController.placeOnTower(player.getFamilyMemberByColor(familyMemberColor), towerIndex, floorIndex);
-        //todo show something in the view
+        FamilyMember fm = player.getFamilyMemberByColor(familyMemberColor);
+        modelController.placeOnTower(fm, towerIndex, floorIndex);
+        //we notify the user the other player has done this move
+        userInterface.notifyPlaceOnTower(fm, towerIndex, floorIndex);
     }
 
     /**
@@ -877,8 +880,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Player player = modelController.getPlayerByNickname(nickname);
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
-        modelController.placeOnMarket(player.getFamilyMemberByColor(familyMemberColor), marketIndex);
-        //todo show something in the view
+        FamilyMember fm = player.getFamilyMemberByColor(familyMemberColor);
+        modelController.placeOnMarket(fm, marketIndex);
+        //we notify the user the other player has done this move
+        userInterface.notifyPlaceOnMarket(fm, marketIndex);
     }
 
     /**
@@ -896,8 +901,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printVerbose("the player " + nickname + " has harvested.");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
-        modelController.harvest(player.getFamilyMemberByColor(familyMemberColor), servantsUsed);
-        //todo show something in the view
+        FamilyMember fm = player.getFamilyMemberByColor(familyMemberColor);
+        modelController.harvest(fm, servantsUsed);
+        //we notify the user the other player has done this move
+        userInterface.notifyPlaceOnHarvest(fm, servantsUsed);
     }
 
     /**
@@ -915,8 +922,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printVerbose("the player " + nickname + " has build.");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
-        modelController.build(player.getFamilyMemberByColor(familyMemberColor), servantsUsed);
-        //todo show something in the view
+        FamilyMember fm = player.getFamilyMemberByColor(familyMemberColor);
+        modelController.build(fm, servantsUsed);
+        //we notify the user the other player has done this move
+        userInterface.notifyPlaceOnBuild(fm, servantsUsed);
     }
 
     /**
@@ -933,8 +942,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printVerbose("received place on council");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
-        modelController.placeOnCouncil(player.getFamilyMemberByColor(familyMemberColor));
-        Debug.printVerbose("the player " + nickname + " had placed a family member on he council.");
+        FamilyMember fm = player.getFamilyMemberByColor(familyMemberColor);
+        modelController.placeOnCouncil(fm);
+        //we notify the user the other player has done this move
+        userInterface.notifyPlaceOnCouncil(fm);
     }
 
     /**
