@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.gui;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
+import it.polimi.ingsw.client.gui.blockingdialogs.AskCouncilGiftDialog;
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -35,6 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 /**
  * This object represents the implementation of the user interface via graphical user interface
@@ -79,8 +82,9 @@ public class GraphicalUI extends AbstractUIType {
      * @param legalActionSpaces
      */
     public void askWhichActionSpace(List<AbstractActionSpace> legalActionSpaces){
-        Debug.printDebug("Sono in CLI.printAllowedActions()");
+        Debug.printDebug("Sono in GUI.askWhichActionSpace");
         System.out.println("Stampo tutte le azioni disponibili dell'utente");
+        //todo: eliminare questo metodo
     }
 
     @Override
@@ -150,22 +154,32 @@ public class GraphicalUI extends AbstractUIType {
 
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
-                    () -> setUpMainBoardControl(textToDisplay.toString())));
+                    () -> setUpMainBoardControl(textToDisplay.toString(), true)));
             currentSceneType = SceneEnum.MAIN_BOARD;
         } else {
             MainBoardControl control = ((MainBoardControl) (currentFXControl));
-            control.appendMessageOnStateTextArea(textToDisplay.toString());
-            control.setFamilyMemberDisable(playedFamilyMember);
+            Platform.runLater(() -> {
+                control.appendMessageOnStateTextArea(textToDisplay.toString());
+                control.disableAllActionsNotHisTurn(false);
+                control.setFamilyMemberDisable(playedFamilyMember);
+                control.refreshPersonalBoardOfPlayer(getController().callbackObtainPlayer().getNickname());
+            });
         }
     }
 
     /**
      * performs all the action on the {@link MainBoardControl} in order to display the initial board
      * @param message the initial message to show the user
+     * @param isHisTurn
      */
-    private void setUpMainBoardControl(String message) {
+    private void setUpMainBoardControl(String message, boolean isHisTurn) {
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
-
+        //todo eliminate: this tested if councilGiftOption was working..
+        /*ArrayList< GainResourceEffect> options = new ArrayList<>(1);
+        GainResourceEffect option = new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,2));
+        options.add(option);
+        options.add(option);
+        control.displayCouncilOptions(options);*/
         control.setBoard(getController().callbackObtainBoard());
         control.displayCards();
         control.setUpExcommTiles();
@@ -177,6 +191,10 @@ public class GraphicalUI extends AbstractUIType {
         control.displayFamilyMembers();
         control.setUpPlayersPersonalBoards();
         control.appendMessageOnStateTextArea(message);
+        if(!isHisTurn)
+            control.disableAllActionsNotHisTurn(true);
+
+        currentFXControl = control;
     }
 
 
@@ -188,7 +206,18 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askCouncilGift(ArrayList<GainResourceEffect> options) {
-        return 0;
+        FutureTask<Integer> futureTask = new FutureTask(new AskCouncilGiftDialog(options));
+        Platform.runLater(futureTask);
+
+        int choice = 0;
+        try {
+            choice = futureTask.get();
+            Debug.printVerbose("Got council choice from GUI: " + choice);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            this.displayError("Error in opening dialogue, default value instead", e.getMessage());
+        }
+        return choice;
     }
 
     /**
@@ -310,13 +339,16 @@ public class GraphicalUI extends AbstractUIType {
         String message = "Opponents are currently playing, please wait your turn";
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
-                    () -> setUpMainBoardControl(message)));
+                    () -> setUpMainBoardControl(message, false)));
             currentSceneType = SceneEnum.MAIN_BOARD;
             //here i let the user show all the family members that have been placed last round
             //((MainBoardControl) (currentFXControl)).updateFamilyMembers();
         } else {
-            ((MainBoardControl) currentFXControl).appendMessageOnStateTextArea(message);
-           // ((MainBoardControl) (currentFXControl)).updateFamilyMembers();
+            MainBoardControl control = ((MainBoardControl) (currentFXControl));
+            Platform.runLater(() -> {
+                control.appendMessageOnStateTextArea(message);
+                control.disableAllActionsNotHisTurn(true);
+            });
         }
     }
 

@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
+import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.OncePerRoundHarvestLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility.BonusNeutralFMLeaderAbility;
@@ -43,8 +44,12 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
         Debug.instance(Debug.LEVEL_VERBOSE);
 
         gui = new GraphicalUI(this);
-
-        testLeaders();
+        ArrayList< GainResourceEffect> options = new ArrayList<>(1);
+        GainResourceEffect option = new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,2));
+        options.add(option);
+        options.add(option);
+        gui.askCouncilGift(options);
+        //testLeaders();
         //testWaitingMenu();
         //testCards();
         //testMainBoard();
@@ -345,7 +350,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      * @return true if this turn the palyer already played a family member
      */
     @Override
-    public boolean callbackObtainIsPlayedFamilyMember() {
-        return false;
+    public FamilyMember callbackObtainSelectedFamilyMember() {
+        return null;
     }
 }
