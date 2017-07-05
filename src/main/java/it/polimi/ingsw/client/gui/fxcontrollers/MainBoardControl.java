@@ -750,4 +750,17 @@ public class MainBoardControl extends CustomFxControl {
 
         return new Coordinates(x, y);
     }
+
+    private void displayFaithPoints()
+    {
+
+    }
+    private void refreshAll(){
+        displayFaithPoints();
+        thisPlayerTab.refresh();
+        player1Tab.refresh();
+        player2Tab.refresh();
+        player3Tab.refresh();
+    }
+
 }

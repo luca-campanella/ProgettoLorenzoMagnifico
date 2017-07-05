@@ -388,15 +388,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showEndOfPhaseOfPlayer(String nickname) {
-        //todo, when is this popped up? test this method!
 
-        Debug.printVerbose("showEndOfPhase");
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("End of phase");
-        alert.setHeaderText("You passed, wait for your opponents to make a move");
-       // alert.setContentText(errorDescription);
-        alert.initOwner(currentStage);
-        alert.show();
     }
 
     /**
