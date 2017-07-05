@@ -11,7 +11,6 @@ import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,16 +24,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
 
 /**
  * This object is the fx controller of the main board scene
@@ -42,6 +38,7 @@ import java.util.concurrent.FutureTask;
  * set -- sets an attribute of the control that is needed to show something else or to perform queries
  * setUp -- does something that should be done only the first time the window is opened
  * display -- displays or refreshes something, may be called more than once during the game
+ * notify -- makes the changes on the ui needed in order to show the move made by another player
  */
 public class MainBoardControl extends CustomFxControl {
 
@@ -755,12 +752,107 @@ public class MainBoardControl extends CustomFxControl {
     {
 
     }
-    private void refreshAll(){
-        displayFaithPoints();
-        thisPlayerTab.refresh();
-        player1Tab.refresh();
-        player2Tab.refresh();
-        player3Tab.refresh();
+
+    /**
+     * This method is used by the controller when it receives a place on tower from another player and wants
+     * to notify the user that such a move has happened
+     *
+     * @param fm         the family member used for the move
+     * @param towerIndex the index of the tower
+     * @param floorIndex the index of the floor AS
+     */
+    public void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex) {
+        notifyMoveOnGameStateTextArea(fm, "in a tower action space of coordinates [" + towerIndex + ";" +
+                floorIndex + "], look at his tab for updates on resources and cards");
+
+
+        //remove the corresponding card
+        ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#card"+towerIndex+floorIndex)));
+        imgView.setImage(null);
+
+        //place the new family member
+        Button asTowerButton = ((Button) (towersCouncilFaith.lookup("#towerAS"+towerIndex+floorIndex)));
+        ToggleButton fmButton = createFamilyMemberButtonPlaceHolder(fm,
+                new Coordinates(asTowerButton.getLayoutX(), asTowerButton.getLayoutY()));
+        towersCouncilFaith.getChildren().add(fmButton);
+        refreshPersonalBoardOfPlayer(fm.getPlayer().getNickname());
     }
 
+    /**
+     * This method is used by the controller when it receives a place on market from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param marketIndex the index of the market as
+     */
+    public void notifyPlaceOnMarket(FamilyMember fm, int marketIndex) {
+        notifyMoveOnGameStateTextArea(fm, "in a market action space of index " + marketIndex);
+
+        //place the new family member
+        Button asButton = ((Button) (marketPane.lookup("#marketAS"+marketIndex)));
+        ToggleButton fmButton = createFamilyMemberButtonPlaceHolder(fm,
+                new Coordinates(asButton.getLayoutX(), asButton.getLayoutY()));
+        marketPane.getChildren().add(fmButton);
+        refreshPersonalBoardOfPlayer(fm.getPlayer().getNickname());
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on harvest from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param servantsUsed the number of servants used for the action
+     */
+    public  void notifyPlaceOnHarvest(FamilyMember fm, int servantsUsed) {
+        notifyMoveOnGameStateTextArea(fm, "in the harvest action space with " + servantsUsed + " servants");
+
+        Button activeButton;
+        Coordinates coord;
+        int occupyingFMs = board.getHarvest().getOccupyingFamilyMemberNumber();
+        //place the family member in the correct place
+        if(occupyingFMs <= 1) { //just the one he already placed, here the action is already in the model
+            activeButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
+            coord = new Coordinates(activeButton.getLayoutX(), activeButton.getLayoutY());
+        }
+        else {
+            activeButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
+            coord = calculateCoordinatesBigActionSpace(activeButton, occupyingFMs);
+        }
+        ToggleButton fmButton = createFamilyMemberButtonPlaceHolder(fm, coord);
+        buildHarvestPane.getChildren().add(fmButton);
+
+        refreshPersonalBoardOfPlayer(fm.getPlayer().getNickname());
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on build from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param servantsUsed the number of servants used for the action
+     */
+    public  void notifyPlaceOnBuild(FamilyMember fm, int servantsUsed) {
+        notifyMoveOnGameStateTextArea(fm, "in the build action space with " + servantsUsed + " servants");
+
+        Button activeButton;
+        Coordinates coord;
+        int occupyingFMs = board.getBuild().getOccupyingFamilyMemberNumber();
+        //place the family member in the correct place
+        if(occupyingFMs <= 1) { //just the one he already placed, here the action is already in the model
+            activeButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
+            coord = new Coordinates(activeButton.getLayoutX(), activeButton.getLayoutY());
+        }
+        else {
+            activeButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
+            coord = calculateCoordinatesBigActionSpace(activeButton, occupyingFMs);
+        }
+        ToggleButton fmButton = createFamilyMemberButtonPlaceHolder(fm, coord);
+        buildHarvestPane.getChildren().add(fmButton);
+
+        refreshPersonalBoardOfPlayer(fm.getPlayer().getNickname());
+    }
+
+
+    private void notifyMoveOnGameStateTextArea(FamilyMember familyMember, String text) {
+        appendMessageOnStateTextArea("["+familyMember.getPlayer().getNickname() + "] --> " + familyMember.getPlayer().getNickname() +
+                " has placed his " + familyMember.getColor() + " family member of value " + familyMember.getValue() +
+                " " + text);
+    }
 }

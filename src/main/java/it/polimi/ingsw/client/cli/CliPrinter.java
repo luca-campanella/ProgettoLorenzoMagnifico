@@ -613,7 +613,7 @@ public class CliPrinter {
      */
     public static void printFMMoveNotification(FamilyMember familyMember, String text) {
         System.out.println("["+familyMember.getPlayer().getNickname() + "] --> " + familyMember.getPlayer().getNickname() +
-        "has placed his " + familyMember.getColor() + " family member of value " + familyMember.getValue() +
+        " has placed his " + familyMember.getColor() + " family member of value " + familyMember.getValue() +
         " " + text);
     }
 }
