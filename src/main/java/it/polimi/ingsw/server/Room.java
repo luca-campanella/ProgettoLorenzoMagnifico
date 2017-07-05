@@ -702,7 +702,7 @@ public class Room {
                 player.deliverErrorMove();
             }
             catch (NetworkException c){
-                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+                Debug.printError("cannot deliver the error of the playable leader card " + player.getNickname());
             }
         }
 
@@ -735,8 +735,18 @@ public class Room {
      * @param player the player that had activated the leader
      */
     public void receiveActivatedLeader(String nameCard, HashMap<String, Integer> resourceGet, AbstractConnectionPlayer player) {
-        //TODO
-        floodActivatedLeaderCard(nameCard, resourceGet, player.getNickname());
+        try{
+            controllerGame.activateLeaderCard(nameCard, resourceGet, player);
+            floodActivatedLeaderCard(nameCard, resourceGet, player.getNickname());
+        }
+        catch (IllegalMoveException e){
+            try{
+                player.deliverErrorMove();
+            }
+            catch (NetworkException c){
+                Debug.printError("cannot deliver the error on the activation of the leader card " + player.getNickname());
+            }
+        }
     }
 
     /**

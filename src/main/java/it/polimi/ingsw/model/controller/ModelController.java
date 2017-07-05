@@ -636,7 +636,7 @@ public class ModelController {
         gameBoard.placeOnCouncil(familyMember, choicesController);
     }
 
-    public void discardLeaderCard(String playerNickname, String nameLeader, ChoicesHandlerInterface choicesHandlerInterface){
+    public void discardLeaderCard(String playerNickname, String nameLeader){
 
         Player playerMove = null;
         for(Player player : players){
@@ -646,18 +646,17 @@ public class ModelController {
             }
         }
 
-        List<GainResourceEffect> choices = choicesHandlerInterface.callbackOnCouncilGift("discard leader", 1);
+        List<GainResourceEffect> choices = choicesController.callbackOnCouncilGift("discard leader", 1);
         for(GainResourceEffect effectIterator : choices)
-            effectIterator.applyToPlayer(playerMove, choicesHandlerInterface, nameLeader);
+            effectIterator.applyToPlayer(playerMove, choicesController, nameLeader);
     }
 
-    public void activateLeaderCard(String nickname, String nameLeader, ChoicesHandlerInterface choicesController){
+    public void activateLeaderCard(String nickname, String nameLeader){
 
-        //TODO
         Player playerMove = null;
         for(Player player : players){
             if(player.getNickname().equals(nickname)){
-                //player.activateLeaderCardAbility(nameLeader);
+                player.activateLeaderCardAbility(player.getLeaderCardsNotUsed(nameLeader), choicesController);
                 playerMove = player;
             }
         }
@@ -668,9 +667,42 @@ public class ModelController {
 
     }
 
+    /**
+     * this method is called to add all the victory points to the players at the end of the game
+     */
     public void endGame(){
 
+        //add the victory points to all the players based on the number of green cards
+        players.forEach(Player::greenPoints);
+        //add the victory points to all the players based on the number of blue cards
+        players.forEach(Player::bluePoints);
+        //add the victory points to all the players based on the effects of the venture cards
         players.forEach(Player::purplePoints);
+        int firstNumMilPoints = 0;
+        int secondNumMilPoints = 0;
+
+        //this iteration is used to find the number of military points int the first place
+        for(Player playerIter : players){
+            if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) > firstNumMilPoints)
+                firstNumMilPoints = playerIter.getResource(ResourceTypeEnum.MILITARY_POINT);
+        }
+
+        //this iteration is used to find the number of military points int the second place
+        for(Player playerIter : players){
+            if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) < firstNumMilPoints &&
+                    playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) > secondNumMilPoints)
+                secondNumMilPoints = playerIter.getResource(ResourceTypeEnum.MILITARY_POINT);
+        }
+
+        //this iteration is used to add the resources based on the number of military point
+        for(Player playerIter : players){
+            if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) == firstNumMilPoints)
+                playerIter.addResource(new Resource(ResourceTypeEnum.MILITARY_POINT, 5));
+
+            else if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) == secondNumMilPoints)
+                playerIter.addResource(new Resource(ResourceTypeEnum.MILITARY_POINT, 2));
+        }
+
     }
 
     /**
@@ -749,7 +781,7 @@ public class ModelController {
      * @param nameLeader the card that should be set as played inside the player
      * @param player the player that had chosen to play the card
      */
-    public void playLeaderCard(String nameLeader, Player player, ChoicesHandlerInterface choicesHandlerInterface){
+    public void playLeaderCard(String nameLeader, Player player){
 
         LeaderCard leaderCard = player.getLeaderCardsNotUsed(nameLeader);
         //if the leader he's chosen has the ability to copy another leader ability we should ask which one he wants to copy
@@ -760,12 +792,12 @@ public class ModelController {
                 if(playerIter != player) //only leaders from other players can be copied
                     playedLeaders.addAll(playerIter.getPlayedLeaders());
             }
-            AbstractLeaderAbility choice = choicesHandlerInterface.callbackOnWhichLeaderAbilityToCopy(playedLeaders);
+            AbstractLeaderAbility choice = choicesController.callbackOnWhichLeaderAbilityToCopy(playedLeaders);
             leaderCard.setAbility(choice);
         }
 
         //we deldegate the rest of the action to the player itself
-        player.playLeader(leaderCard, choicesHandlerInterface);
+        player.playLeader(leaderCard, choicesController);
     }
 
     /**
