@@ -814,7 +814,7 @@ public class MainBoardControl extends CustomFxControl {
         }
         else {
             activeButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
-            coord = calculateCoordinatesBigActionSpace(activeButton, occupyingFMs);
+            coord = calculateCoordinatesBigActionSpace(activeButton, occupyingFMs-2);
         }
         ToggleButton fmButton = createFamilyMemberButtonPlaceHolder(fm, coord);
         buildHarvestPane.getChildren().add(fmButton);
@@ -841,10 +841,27 @@ public class MainBoardControl extends CustomFxControl {
         }
         else {
             activeButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
-            coord = calculateCoordinatesBigActionSpace(activeButton, occupyingFMs);
+            coord = calculateCoordinatesBigActionSpace(activeButton, occupyingFMs-2);
         }
         ToggleButton fmButton = createFamilyMemberButtonPlaceHolder(fm, coord);
         buildHarvestPane.getChildren().add(fmButton);
+
+        refreshPersonalBoardOfPlayer(fm.getPlayer().getNickname());
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on the council from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     */
+    public void notifyPlaceOnCouncil(FamilyMember fm) {
+        notifyMoveOnGameStateTextArea(fm, "in the council action space");
+
+        Button activeButton = (Button) (towersCouncilFaith.lookup("#councilGiftButton"));
+        Coordinates coord = calculateCoordinatesBigActionSpace(activeButton, //the model already updated hence -1
+                board.getCouncilAS().getOccupyingFamilyMemberNumber()-1);
+        ToggleButton fmButton = createFamilyMemberButtonPlaceHolder(fm, coord);
+        towersCouncilFaith.getChildren().add(fmButton);
 
         refreshPersonalBoardOfPlayer(fm.getPlayer().getNickname());
     }

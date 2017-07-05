@@ -243,4 +243,11 @@ abstract public class AbstractUIType {
      * @param servantsUsed the number of servants used for the action
      */
     public abstract void notifyPlaceOnBuild(FamilyMember fm, int servantsUsed);
+
+    /**
+     * This method is used by the controller when it receives a place on the council from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     */
+    public abstract void notifyPlaceOnCouncil(FamilyMember fm);
 }

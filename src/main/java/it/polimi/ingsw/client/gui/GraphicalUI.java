@@ -51,11 +51,6 @@ public class GraphicalUI extends AbstractUIType {
     private CustomFxControl currentFXControl;
     private volatile SceneEnum currentSceneType;
 
-    @Override
-    public void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex) {
-        return;
-    }
-
     /**
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
@@ -674,6 +669,17 @@ public class GraphicalUI extends AbstractUIType {
     public  void notifyPlaceOnBuild(FamilyMember fm, int servantsUsed) {
         Platform.runLater( () ->
                 ((MainBoardControl) (currentFXControl)).notifyPlaceOnBuild(fm, servantsUsed));
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on the council from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     */
+    @Override
+    public void notifyPlaceOnCouncil(FamilyMember fm) {
+        Platform.runLater( () ->
+                ((MainBoardControl) (currentFXControl)).notifyPlaceOnCouncil(fm));
     }
 }
 

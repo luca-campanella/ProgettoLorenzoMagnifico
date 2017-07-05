@@ -372,6 +372,10 @@ public class ModelController {
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return false;
         HarvestAS harvestPlace = gameBoard.getHarvest();
+       //if the game is a two players gameme only one family member can be placed
+       if(!harvestPlace.checkIfFirst() && harvestPlace.isTwoPlayersOneSpace()
+               && !familyMember.getPlayer().getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
+           return false;
         //control on the action space, if the player already has a family member
         if(findFamilyMemberNotNeutral(familyMember.getPlayer(), harvestPlace.getFamilyMembers())
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)
@@ -461,6 +465,10 @@ public class ModelController {
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return false;
         BuildAS buildPlace = gameBoard.getBuild();
+        //if the game is a two players gameme only one family member can be placed
+        if(!buildPlace.checkIfFirst() && buildPlace.isTwoPlayersOneSpace()
+                && !familyMember.getPlayer().getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
+            return false;
         //control on the action space, if the player already has a family member
         if(findFamilyMemberNotNeutral(familyMember.getPlayer(), buildPlace.getFamilyMembers())
                 && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL)

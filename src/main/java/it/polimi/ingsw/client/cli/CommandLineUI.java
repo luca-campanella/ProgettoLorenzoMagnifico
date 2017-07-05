@@ -475,8 +475,18 @@ public class CommandLineUI extends AbstractUIType {
      * @param marketIndex the index of the market as
      */
     @Override
-    public  void notifyPlaceOnMarket(FamilyMember fm, int marketIndex) {
+    public void notifyPlaceOnMarket(FamilyMember fm, int marketIndex) {
         CliPrinter.printFMMoveNotification(fm, "in a market action space of index " + marketIndex);
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on the council from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     */
+    @Override
+    public void notifyPlaceOnCouncil(FamilyMember fm) {
+        CliPrinter.printFMMoveNotification(fm, "in the council");
     }
 }
 

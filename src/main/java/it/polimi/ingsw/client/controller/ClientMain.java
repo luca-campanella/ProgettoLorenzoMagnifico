@@ -942,8 +942,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printVerbose("received place on council");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
-        modelController.placeOnCouncil(player.getFamilyMemberByColor(familyMemberColor));
-        Debug.printVerbose("the player " + nickname + " had placed a family member on he council.");
+        FamilyMember fm = player.getFamilyMemberByColor(familyMemberColor);
+        modelController.placeOnCouncil(fm);
+        //we notify the user the other player has done this move
+        userInterface.notifyPlaceOnCouncil(fm);
     }
 
     /**
