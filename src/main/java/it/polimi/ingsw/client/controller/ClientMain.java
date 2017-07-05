@@ -627,22 +627,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * this method is used to find the leader you can play in this turn
-     * @param notPlayedLeaderCards the leader cards onthe hand of the player
-     * @return the leader cards that the player can play on the board
-     */
-    @Deprecated //use player.getPlayableleaders() instead
-    private List<LeaderCard> findPlayableLeader(List<LeaderCard> notPlayedLeaderCards) {
-
-        List<LeaderCard> playableCards = new ArrayList<>(notPlayedLeaderCards.size());
-        for(LeaderCard leaderCard : notPlayedLeaderCards){
-            if(leaderCard.isPlayable(thisPlayer))
-                playableCards.add(leaderCard);
-        }
-        return playableCards;
-    }
-
-    /**
      * This method returns to the view a reference to the player the client represents
      * this method is usually called to show the personal board of the player
      *
@@ -989,6 +973,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void receiveEndPhase(String nickname) {
 
         userInterface.showEndOfPhaseOfPlayer(nickname);
+        //todo show something in the view - implement in the gui
 
     }
 
@@ -1015,6 +1000,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.discardLeaderCard(nickname, nameCard);
         Debug.printVerbose("The player "+ nickname + " has discarded " + nameCard);
+        //todo show something in the view
 
     }
 
@@ -1032,6 +1018,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
                 break;
             }
         }
+        //todo show something in the view
+
     }
 
     /**
@@ -1058,6 +1046,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         otherPlayerChoicesHandler.setChoicesMapString(choicesOnCurrentActionString);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.playLeaderCard(nameCard, modelController.getPlayerByNickname(nickname));
+        //todo show something in the view
+
     }
 
     /**
@@ -1083,7 +1073,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.activateLeaderCard(nickname, nameCard);
         Debug.printVerbose("The player "+ nickname + " has activated " + nameCard);
-
+        //todo show something in the view
     }
 
     /**
