@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.model.board.*;
-import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -278,6 +277,7 @@ public class MainBoardControl extends CustomFxControl {
         }
     }
 
+    /*
     public void updateFamilyMembers() {
         ArrayList<Player> allPlayers = new ArrayList<>(5);
         allPlayers.add(thisPlayer);
@@ -310,44 +310,8 @@ public class MainBoardControl extends CustomFxControl {
                 }
             }
         }
-    }
+    }*/
 
-    /**
-     * this method shows a dialog and returns the index of the choice made.
-     * @param effectOptions is a list of gain res effect choices
-     * @return the index of that list
-     */
-    public int displayCouncilOptions(List<GainResourceEffect> effectOptions)
-    {
-        //todo displayCouncil
-        Debug.printVerbose("Im inside displayCouncilOption");
-
-        List<String> options = new ArrayList<>();
-        for(GainResourceEffect iterator : effectOptions)
-            options.add(iterator.descriptionOfEffect());
-
-        Debug.printVerbose("Im inside displayCouncilOption1");
-
-        ChoiceDialog<String> dialog = new ChoiceDialog<>(options.get(0), options);
-        Debug.printVerbose("Im inside displayCouncilOption2");
-
-        dialog.setTitle("Information Harvest");
-        dialog.setHeaderText("Look, a Choiche Dialog");
-        dialog.setContentText("Choose your councilGift!");
-
-        Debug.printVerbose("Im inside displayCouncilOption3");
-
-        Optional<String> result = dialog.showAndWait();
-
-        for(int index = 0; index < options.size(); index++)
-            if(options.get(index).equals(result))
-                return index;
-        Debug.printVerbose("Im inside displayCouncilOption4");
-
-        return 1;
-
-
-    }
     public void displayExcommTiles() {
         List<ExcommunicationTile> tiles = board.getExcommunicationTiles();
 
@@ -380,8 +344,19 @@ public class MainBoardControl extends CustomFxControl {
         }
     }
 
-    public void disableAllActionsNotHisTurn() {
-        //todo all actions
+    /**
+     * This method disables or enables all actions for the user
+     * Should be called with true when it's not his turn
+     * with false otherwire
+     * @param disable true if actions should be disabled
+     */
+    public void disableAllActionsNotHisTurn(boolean disable) {
+        if(disable)
+            this.disableActionSpaces();
+        this.setFamilyMemberDisable(disable);
+        PlayerTabSubControl thisPlayerTab = playersTabMap.get(thisPlayer.getNickname());
+        thisPlayerTab.setLeadersActionsDisable(disable);
+        thisPlayerTab.setEndTurnButtonDisable(disable);
     }
 
     /**
