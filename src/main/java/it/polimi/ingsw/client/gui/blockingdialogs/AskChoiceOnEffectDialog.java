@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.gui.blockingdialogs;
 
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.utils.Debug;
 import javafx.scene.control.ChoiceDialog;
 
@@ -12,42 +13,34 @@ import java.util.concurrent.Callable;
 /**
  * this class represents the future task needed to implement the menu on asking which council gif the user wants
  */
-public class AskCouncilGiftDialog implements Callable<Integer> {
+public class AskChoiceOnEffectDialog implements Callable<Integer> {
 
-    List<GainResourceEffect> options;
-
-    public AskCouncilGiftDialog(List<GainResourceEffect> options) {
+    List<? extends ImmediateEffectInterface> options;
+    String description;
+    public AskChoiceOnEffectDialog(List<? extends ImmediateEffectInterface> options, String description) {
         this.options = options;
+        this.description = description;
     }
 
     @Override
     public Integer call() throws Exception {
-
-        Debug.printVerbose("Im inside displayCouncilOption");
-
         List<String> optionsString = new ArrayList<>();
-        for (GainResourceEffect iterator : options)
+        for (ImmediateEffectInterface iterator : options)
             optionsString.add(iterator.descriptionOfEffect());
 
-        Debug.printVerbose("Im inside displayCouncilOption1");
-
         ChoiceDialog<String> dialog = new ChoiceDialog<>(optionsString.get(0), optionsString);
-        Debug.printVerbose("Im inside displayCouncilOption2");
 
         dialog.setTitle("Information Harvest");
         dialog.setHeaderText("Look, a Choiche Dialog");
-        dialog.setContentText("Choose your councilGift!");
-
-        Debug.printVerbose("Im inside displayCouncilOption3");
+        dialog.setContentText("Choose your " + description + " effect");
 
         Optional<String> result = dialog.showAndWait();
 
-        Debug.printVerbose("Im inside displayCouncilOption4");
-
-        for (int index = 0; index < optionsString.size(); index++)
-            if (optionsString.get(index).equals(result))
-                return index;
-        //todo debug, always return 0
+        if(result.isPresent())
+            for (int index = 0; index < optionsString.size(); index++)
+                if (optionsString.get(index).equals(result.get()))
+                    return index;
+        //todo debug, if canceled returns 0
         return 0;
     }
 }

@@ -12,7 +12,7 @@ import it.polimi.ingsw.model.leaders.requirements.CardRequirement;
 import it.polimi.ingsw.model.leaders.requirements.ResourceRequirement;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
-import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
+import it.polimi.ingsw.server.RuntimeTypeAdapterFactory;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;

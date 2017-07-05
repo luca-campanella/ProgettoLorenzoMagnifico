@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
-import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
+import it.polimi.ingsw.server.RuntimeTypeAdapterFactory;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

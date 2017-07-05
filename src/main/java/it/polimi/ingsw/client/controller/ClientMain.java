@@ -965,10 +965,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         int choice = userInterface.askAlsoActivateLeaderCard();
 
         choicesOnCurrentAction.put("AlsoActivateLeader", choice);
-
-        if (choice == 0)
-            return true;
-        return false;
+        //it is true if choice is 0, false if it is = 1
+        return(choice == 0);
     }
 
     /**
