@@ -634,5 +634,41 @@ public class GraphicalUI extends AbstractUIType {
         Platform.runLater( () ->
         ((MainBoardControl) (currentFXControl)).notifyPlaceOnTower(fm, towerIndex, floorIndex));
     }
+
+    /**
+     * This method is used by the controller when it receives a place on market from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param marketIndex the index of the market as
+     */
+    @Override
+    public void notifyPlaceOnMarket(FamilyMember fm, int marketIndex) {
+        Platform.runLater( () ->
+                ((MainBoardControl) (currentFXControl)).notifyPlaceOnMarket(fm, marketIndex));
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on harvest from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param servantsUsed the number of servants used for the action
+     */
+    @Override
+    public  void notifyPlaceOnHarvest(FamilyMember fm, int servantsUsed) {
+        Platform.runLater( () ->
+                ((MainBoardControl) (currentFXControl)).notifyPlaceOnHarvest(fm, servantsUsed));
+    }
+
+    /**
+     * This method is used by the controller when it receives a place on build from another player and wants
+     * to notify the user that such a move has happened
+     * @param fm the family member used for the move
+     * @param servantsUsed the number of servants used for the action
+     */
+    @Override
+    public  void notifyPlaceOnBuild(FamilyMember fm, int servantsUsed) {
+        Platform.runLater( () ->
+                ((MainBoardControl) (currentFXControl)).notifyPlaceOnBuild(fm, servantsUsed));
+    }
 }
 
