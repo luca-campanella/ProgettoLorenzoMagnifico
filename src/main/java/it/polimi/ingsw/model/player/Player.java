@@ -296,6 +296,9 @@ public class Player implements Serializable{
         personalBoard.build(realDiceValueNoBlueBonus, this, choicesController);
     }
 
+    /**
+     * this method is called by the model controller to add all the victory points an the venture cards
+     */
     public void purplePoints(){
 
         personalBoard.purplePoints(this);
@@ -497,5 +500,21 @@ public class Player implements Serializable{
 
     public void setPlayerColor(PlayerColorEnum playerColor) {
         this.playerColor = playerColor;
+    }
+
+    /**
+     * this method is called by the model controller to add to the player the victory points based on the number of green cards
+     */
+    public void greenPoints() {
+
+        personalBoard.greenPoints(this);
+    }
+
+    /**
+     * this method is called by the model controller to add to the player the victory points based on the number of blue cards
+     */
+    public void bluePoints() {
+
+        personalBoard.bluePoints(this);
     }
 }

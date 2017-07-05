@@ -4,6 +4,8 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.*;
+import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
@@ -26,10 +28,14 @@ public class PersonalBoard implements Serializable{
     private int militaryPointsTerritoryRequirements[] = {0, 0, 3, 7, 12, 18};
 
     /**
-     * This array is used to calculate the corresponding vicotry points on territory cards at the end of the game
+     * This array is used to calculate the corresponding victory points on territory cards at the end of the game
      */
     private int victoryPointsTerritory[] = {0,0,1,4,10,20};
 
+    /**
+     * This array is used to calculate the corresponding victory points on character cards at the end of the game
+     */
+    private int victoryPointsCharacter[] = {1,3,6,10,15,21};
     /**
      * It represent the bonuses of the tiles near the personal board
      */
@@ -97,17 +103,15 @@ public class PersonalBoard implements Serializable{
         personalTile.activateEffectsOnBuild(player, choicesController);
     }
 
-    public void blueBonus(AbstractActionSpace space) {
-
-        //TODO bonus
-    }
-
+    /**
+     * this method is called to add all the purple points to the player
+     * @param player the player you had to add the purple point
+     */
     public void purplePoints(Player player) {
 
-        /*LinkedList<AbstractCard> purpleCard = ownedCards.get(CardColorEnum.PURPLE);
-        for (AbstractCard i : purpleCard) {
-            //i.purplePoints(player);
-        }*/
+        for (VentureCard purpleCard : ventureCards) {
+            player.addResource(purpleCard.getVictoryEndPoints());
+        }
     }
 
     public int getNumberOfColoredCard(CardColorEnum color) {
@@ -157,6 +161,7 @@ public class PersonalBoard implements Serializable{
      * @return true if he can take the card
      */
     public boolean canAddTerritoryCard(int currentMilitaryPoints, boolean noMilitaryPointsNeededForTerritoryCardsLeaderAbility) {
+
         if(territoryCards.size() < 6 &&
                 ((militaryPointsTerritoryRequirements[territoryCards.size()] <= currentMilitaryPoints) ||
                         (noMilitaryPointsNeededForTerritoryCardsLeaderAbility)))
@@ -166,5 +171,32 @@ public class PersonalBoard implements Serializable{
 
     public LinkedList<TerritoryCard> getTerritoryCards() {
         return territoryCards;
+    }
+
+    /**
+     * this method is called by the player of the personal board to add the victory points based on the number of green cards to a player
+     * @param player the player to add the victory points, in this method the player is the owner of the personal board
+     */
+    public void greenPoints(Player player) {
+
+        //if the player doesn't have territory cards the method return
+        if(territoryCards.size() == 0)
+            return;
+        player.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, victoryPointsTerritory[territoryCards.size()-1]));
+
+    }
+
+    /**
+     * this method is called by the player of the personal board to add the victory points based on the number of blue cards to a player
+     * @param player the player to add the victory points, in this method the player is the owner of the personal board
+     */
+    public void bluePoints(Player player) {
+
+        //if the player doesn't have character cards the method return
+        if(characterCardsCollector.getCharacterCards().size() == 0)
+            return;
+        player.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT,
+                victoryPointsCharacter[characterCardsCollector.getCharacterCards().size()]));
+
     }
 }

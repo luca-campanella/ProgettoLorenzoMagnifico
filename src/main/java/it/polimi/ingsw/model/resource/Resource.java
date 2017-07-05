@@ -26,6 +26,10 @@ public class Resource implements Serializable{
         return type.getAbbreviation() + " " + value + " ";
     }
 
+    /**
+     * this method is called to get the description of the resources
+     * @return a string with the description
+     */
     public String getResourceFullDescript() {
         if(value > 1 || value < 1)
              return value + " " + type.getFullName() + "s";

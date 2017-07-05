@@ -667,9 +667,42 @@ public class ModelController {
 
     }
 
+    /**
+     * this method is called to add all the victory points to the players at the end of the game
+     */
     public void endGame(){
 
+        //add the victory points to all the players based on the number of green cards
+        players.forEach(Player::greenPoints);
+        //add the victory points to all the players based on the number of blue cards
+        players.forEach(Player::bluePoints);
+        //add the victory points to all the players based on the effects of the venture cards
         players.forEach(Player::purplePoints);
+        int firstNumMilPoints = 0;
+        int secondNumMilPoints = 0;
+
+        //this iteration is used to find the number of military points int the first place
+        for(Player playerIter : players){
+            if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) > firstNumMilPoints)
+                firstNumMilPoints = playerIter.getResource(ResourceTypeEnum.MILITARY_POINT);
+        }
+
+        //this iteration is used to find the number of military points int the second place
+        for(Player playerIter : players){
+            if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) < firstNumMilPoints &&
+                    playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) > secondNumMilPoints)
+                secondNumMilPoints = playerIter.getResource(ResourceTypeEnum.MILITARY_POINT);
+        }
+
+        //this iteration is used to add the resources based on the number of military point
+        for(Player playerIter : players){
+            if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) == firstNumMilPoints)
+                playerIter.addResource(new Resource(ResourceTypeEnum.MILITARY_POINT, 5));
+
+            else if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) == secondNumMilPoints)
+                playerIter.addResource(new Resource(ResourceTypeEnum.MILITARY_POINT, 2));
+        }
+
     }
 
     /**

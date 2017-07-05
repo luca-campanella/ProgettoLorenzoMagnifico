@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
-import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +57,8 @@ public class VentureCard extends AbstractCard{
     }
 
 
-    public int getVictoryEndPoints() {
-        return victoryEndPoints;
+    public Resource getVictoryEndPoints() {
+        return new Resource(ResourceTypeEnum.VICTORY_POINT, victoryEndPoints);
     }
 
     public void setVictoryEndPoints(int victoryEndPoints) {
