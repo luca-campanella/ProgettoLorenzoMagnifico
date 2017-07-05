@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.network.rmi;
 
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.rmi.RMIClientInterface;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -218,6 +219,23 @@ import java.util.concurrent.Executors;
         }
         catch (RemoteException e){
             Debug.printError("rmi: cannot send move on tower to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is called by the room to deliver the results of the end of the game
+     * @param playerPositionEndGames the results of the game(the winner, the victory points, the positions)
+     * @throws NetworkException if something goes wrong with the network
+     */
+    @Override
+    public void deliverEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames) throws NetworkException {
+
+        try{
+            RMIClientInterfaceInst.receiveEndGame(playerPositionEndGames);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the results of the end of the game to " + getNickname(), e);
             throw new NetworkException(e);
         }
     }

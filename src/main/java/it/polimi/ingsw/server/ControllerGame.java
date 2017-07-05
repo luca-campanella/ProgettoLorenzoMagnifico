@@ -3,7 +3,6 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
 import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
-import it.polimi.ingsw.client.exceptions.MoveErrorEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -15,6 +14,7 @@ import it.polimi.ingsw.model.leaders.LeadersDeck;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
@@ -182,8 +182,11 @@ public class ControllerGame {
         numberOfTurn++;
 
        //control if the game gad ended
-        if(numberOfTurn >= numberOfPlayers*4 && numberOfRound == 3)
-            modelController.endGame();
+        if(numberOfTurn >= numberOfPlayers*4 && numberOfRound == 3){
+            ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(orderOfPlayers.size());
+            playerPositionEndGames = modelController.endGame();
+            room.deliverEndGame(playerPositionEndGames);
+        }
 
         //control if all the player had done all the move
         if(numberOfTurn >= numberOfPlayers*4){

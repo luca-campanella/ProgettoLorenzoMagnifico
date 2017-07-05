@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
@@ -669,7 +669,7 @@ public class ModelController {
     /**
      * this method is called to add all the victory points to the players at the end of the game
      */
-    public void endGame(){
+    public ArrayList<PlayerPositionEndGamePacket> endGame(){
 
         //add the victory points to all the players based on the number of green cards
         players.forEach(Player::greenPoints);
@@ -680,7 +680,9 @@ public class ModelController {
         addVictoryPointsOnMilitary();
         addVictoryPointsOnFaith();
         addVictoryPointsOnResources();
-        deliverTheResults();
+        ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(players.size());
+        playerPositionEndGames = endGameOrderPlayer();
+        return playerPositionEndGames;
 
     }
 
@@ -698,7 +700,31 @@ public class ModelController {
     /**
      * this method is used to calculate and deliver the result of the game
      */
-    private void deliverTheResults() {
+    private ArrayList<PlayerPositionEndGamePacket> endGameOrderPlayer() {
+
+        //this iteration is used to find the order of victory of the players
+        for(int i = 0 ; i < players.size() ; i++){
+            for(int e = 0 ; e < players.size()-i-1 ; e++){
+                if(players.get(e).getResource(ResourceTypeEnum.VICTORY_POINT) < players.get(e+1).getResource(ResourceTypeEnum.VICTORY_POINT))
+                    players.add(e+2,players.get(e));
+                    players.remove(e);
+            }
+        }
+        ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(players.size());
+        playerPositionEndGames.add(new PlayerPositionEndGamePacket(players.get(0).getNickname(), 1,
+                players.get(0).getResource(ResourceTypeEnum.VICTORY_POINT)));
+        for(int i = 2 ; i < players.size() ; i++){
+            if(playerPositionEndGames.get(i-2).getVictoryPoints() == players.get(i-1).getResource(ResourceTypeEnum.VICTORY_POINT)){
+                playerPositionEndGames.add(new PlayerPositionEndGamePacket(players.get(i-1).getNickname(), playerPositionEndGames.get(i-2).getPosition(),
+                        players.get(i-1).getResource(ResourceTypeEnum.VICTORY_POINT)));
+            }
+            else
+                playerPositionEndGames.add(new PlayerPositionEndGamePacket(players.get(i-1).getNickname(), i,
+                        players.get(i-1).getResource(ResourceTypeEnum.VICTORY_POINT)));
+        }
+
+        return playerPositionEndGames;
+
     }
 
     /**

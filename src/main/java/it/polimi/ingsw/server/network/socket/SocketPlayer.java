@@ -825,6 +825,27 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     }
 
     /**
+     * this method is called by the room to deliver the results of the end of the game
+     * @param playerPositionEndGames the results of the game(the winner, the victory points, the positions)
+     * @throws NetworkException if something goes wrong with the network
+     */
+    @Override
+    public void deliverEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames) throws NetworkException {
+
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.END_GAME);
+                outStream.writeObject(playerPositionEndGames);
+            }
+            outStream.flush();
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the results of the end of the game to " + this.getNickname());
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * this method is used to receive from the client the leader card activated
      */
     public void receiveActivatedLeader() {
