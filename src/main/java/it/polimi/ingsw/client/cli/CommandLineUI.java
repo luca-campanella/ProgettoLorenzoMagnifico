@@ -440,6 +440,7 @@ public class CommandLineUI extends AbstractUIType {
      * @param towerIndex the index of the tower
      * @param floorIndex the index of the floor AS
      */
+    @Override
     public void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex) {
         CliPrinter.printFMMoveNotification(fm, "in a tower action space of coordinates [" + towerIndex + ";" +
                 floorIndex + "]");

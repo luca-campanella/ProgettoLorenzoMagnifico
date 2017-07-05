@@ -449,6 +449,7 @@ public class GraphicalUI extends AbstractUIType {
 
     }
 
+
     /**
      * this method just alerts user that there was an error somewhere. It doesn't handle the error
      * @param title the title of the error
@@ -619,5 +620,19 @@ public class GraphicalUI extends AbstractUIType {
         alert.show();
     }
 
+
+    /**
+     * This method is used by the controller when it receives a place on tower from another player and wants
+     * to notify the user that such a move has happened
+     *
+     * @param fm         the family member used for the move
+     * @param towerIndex the index of the tower
+     * @param floorIndex the index of the floor AS
+     */
+    @Override
+    public void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex) {
+        Platform.runLater( () ->
+        ((MainBoardControl) (currentFXControl)).notifyPlaceOnTower(fm, towerIndex, floorIndex));
+    }
 }
 
