@@ -3,9 +3,7 @@ package it.polimi.ingsw.client.gui.fxcontrollers;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,10 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,13 +41,14 @@ public class LeaderOwnedControl extends CustomFxControl {
     @FXML
     private Button playLeaderButton;
     @FXML
-    private Button activateLeader;
+    private Button activateLeaderButton;
+
     private ToggleButton lastLeaderButtonClicked;
     private HashMap<String, LeaderCard> buttonsInHandLeadersMap = new HashMap<String, LeaderCard>(2);
     private HashMap<String, LeaderCard> buttonsPlayedLeadersMap = new HashMap<String, LeaderCard>(2);
     private int gridPaneRightRows;
     private int gridPaneRightCols;
-    private int iterator;
+    private int iteratorGridPaneRight;
 
     public void setLeaders(Player player, ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {
         pool = Executors.newCachedThreadPool();
@@ -64,7 +61,7 @@ public class LeaderOwnedControl extends CustomFxControl {
         int numberOfLeaderNotUsed = 0;
         int numberOfActivatedLeaders = 0;
         int numberOfNotActivateLeaders = 0;
-        this.iterator = 0;
+        this.iteratorGridPaneRight = 0;
         //this first block prints the left part of the Leaders screen, where leader can be played
         //or discarded
         for (int i = 0; i < 2; i++) {
@@ -97,6 +94,9 @@ public class LeaderOwnedControl extends CustomFxControl {
                                                    playLeaderButton.setDisable(false);
                                                    Debug.printVerbose("Hello i'm inside THE if");
                                                }
+                                               else{
+                                                   playLeaderButton.setDisable(true);
+                                               }
                                            }
                                        }
                     );
@@ -109,26 +109,61 @@ public class LeaderOwnedControl extends CustomFxControl {
         }
     }
 
-    public void refreshLeaders(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated)
+    public void refreshLeadersCollections(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated)
     {
         this.leaderNotUsed = leaderNotUsed;
         this.leaderActivated = leaderActivated;
         this.leadersOPRNotActivated = leadersOPRNotActivated;
         this.leadersPlayable = leadersPlayable;
+        //todo: remove this
+        for(LeaderCard iterator : leadersOPRNotActivated)
+            Debug.printVerbose(iterator.getName());
         refreshLeadersView();
     }
+
+    /**
+     * this method just refreshes all the leaders buttons
+     */
     private void refreshLeadersView()
     {
+        //todo check if leaderNotUsed and leadersPlayable doesn't overlap and make errors....
+        setGenericViewButtons(leaderNotUsed, leadersNotPlayedGridPane, false, false, true, true);
+        setGenericViewButtons(leadersPlayable, leadersNotPlayedGridPane, false, false, false, true);
+        setGenericViewButtons(leadersOPRNotActivated, leadersPlayedGridPane, false, true, true, false);
+        setGenericViewButtons(leaderActivated, leadersPlayedGridPane, true, true, true, true);
+        Debug.printVerbose("Refresh called");
         return;
     }
+
+    /**
+     * this method is used to refresh a leader colleciton
+     * @param leaderList is the list of leader to refresh
+     * @param paneToLook is the grid where to find the buttons
+     * @param card true if i want to set the card disable, false if i don't
+     * @param discard true if i want to set the
+     * @param play is true when playButton is disabled
+     * @param activate is false when  activateButton is enabled
+     */
+    private void setGenericViewButtons(List<LeaderCard> leaderList,GridPane paneToLook, boolean card, boolean discard, boolean play, boolean activate)
+    {
+        for(LeaderCard iterator : leaderList) {
+            Button temp = (Button)paneToLook.lookup("#" + iterator.getName());
+            temp.setDisable(card);
+            discardLeaderButton.setDisable(discard);
+            playLeaderButton.setDisable(play);
+            activateLeaderButton.setDisable(activate);
+        }
+
+    }
+
     private void updateGridBounds()
     {
-        iterator ++;
-        if(iterator == 1)
+        iteratorGridPaneRight++;
+        if(iteratorGridPaneRight == 1)
         {
             gridPaneRightRows = 1;
             gridPaneRightCols = 0;
-        }else if(iterator == 2) {
+        }else if(iteratorGridPaneRight == 2) {
             gridPaneRightCols = 1;
             gridPaneRightRows = 0;
         }
@@ -160,9 +195,9 @@ public class LeaderOwnedControl extends CustomFxControl {
                                public void handle(ActionEvent e) {
                                    lastLeaderButtonClicked = (ToggleButton) e.getSource();
                                    selectedLeader = buttonsInHandLeadersMap.get(lastLeaderButtonClicked.getId());
-
+                                    discardLeaderButton.setDisable(true);
                                    if (leadersOPRNotActivated.contains(leaderCard)) {
-                                       activateLeader.setDisable(false);
+                                       activateLeaderButton.setDisable(false);
                                    }
                                }
                            }
@@ -198,6 +233,7 @@ public class LeaderOwnedControl extends CustomFxControl {
         selectedLeader = buttonsInHandLeadersMap.get(lastLeaderButtonClicked.getId());
         buttonsInHandLeadersMap.remove(lastLeaderButtonClicked.getId());
         lastLeaderButtonClicked.setDisable(true);
+        leaderNotUsed.remove(selectedLeader);
 
         pool.submit(()-> getController().callbackDiscardLeader(selectedLeader));
 
@@ -212,8 +248,19 @@ public class LeaderOwnedControl extends CustomFxControl {
         lastLeaderButtonClicked.setVisible(false);
         addPlayedLeader(selectedLeader);
 
+        //leaderNotUsed.remove(selectedLeader);
+        //leadersOPRNotActivated.add(selectedLeader);
+
         pool.submit(()-> getController().callbackPlayLeader(selectedLeader));
         playLeaderButton.setDisable(true);
+    }
+    @FXML
+    public void activateLeaderClick(ActionEvent event)
+    {
+        lastLeaderButtonClicked.setDisable(true);
+        //i could updateLists here
+        pool.submit(()-> getController().callbackPlayLeader(selectedLeader));
+
     }
 
 }

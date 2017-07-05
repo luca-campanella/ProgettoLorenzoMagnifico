@@ -51,6 +51,11 @@ public class GraphicalUI extends AbstractUIType {
     private CustomFxControl currentFXControl;
     private volatile SceneEnum currentSceneType;
 
+    @Override
+    public void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex) {
+        return;
+    }
+
     /**
      * This is the constructor of the class
      * @param controller is used to make callbacks on the controller ({@link ClientMain}
