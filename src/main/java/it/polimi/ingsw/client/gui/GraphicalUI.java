@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.gui;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
+import it.polimi.ingsw.client.gui.blockingdialogs.AskCouncilGiftDialog;
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -24,7 +25,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 /**
  * This object represents the implementation of the user interface via graphical user interface
@@ -158,6 +160,7 @@ public class GraphicalUI extends AbstractUIType {
             MainBoardControl control = ((MainBoardControl) (currentFXControl));
             Platform.runLater(() -> {
                 control.appendMessageOnStateTextArea(textToDisplay.toString());
+                control.disableAllActionsNotHisTurn(false);
                 control.setFamilyMemberDisable(playedFamilyMember);
                 control.refreshPersonalBoardOfPlayer(getController().callbackObtainPlayer().getNickname());
             });
@@ -188,10 +191,8 @@ public class GraphicalUI extends AbstractUIType {
         control.displayFamilyMembers();
         control.setUpPlayersPersonalBoards();
         control.appendMessageOnStateTextArea(message);
-        if(!isHisTurn) {
-            control.setFamilyMemberDisable(true);
-            //todo disable
-        }
+        if(!isHisTurn)
+            control.disableAllActionsNotHisTurn(true);
 
         currentFXControl = control;
     }
@@ -200,41 +201,23 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui
      *
-     * @param effectOptions
+     * @param options
      * @return the index of the selected option, the choice the user made
      */
     @Override
-    public int askCouncilGift(ArrayList<GainResourceEffect> effectOptions) {
-        Debug.printVerbose("I'm in askCouncilGiftGUI");
+    public int askCouncilGift(ArrayList<GainResourceEffect> options) {
+        FutureTask<Integer> futureTask = new FutureTask(new AskCouncilGiftDialog(options));
+        Platform.runLater(futureTask);
 
-        //return ((MainBoardControl)(currentFXControl)).displayCouncilOptions(options);
-
-        Debug.printVerbose("Im inside displayCouncilOption");
-
-        List<String> optionsString = new ArrayList<>(5);
-        for(GainResourceEffect iterator : effectOptions)
-            optionsString.add(iterator.descriptionOfEffect());
-
-        Debug.printVerbose("Im inside displayCouncilOption1");
-
-        ChoiceDialog<String> dialog = new ChoiceDialog<>(optionsString.get(0), optionsString);
-
-        Debug.printVerbose("Im inside displayCouncilOption2");
-
-        dialog.setTitle("Information Harvest");
-        dialog.setHeaderText("Look, a Choiche Dialog");
-        dialog.setContentText("Choose your councilGift!");
-
-        Debug.printVerbose("Im inside displayCouncilOption3");
-
-        Optional<String> result = dialog.showAndWait();
-
-        for(int index = 0; index < optionsString.size(); index++)
-            if(optionsString.get(index).equals(result))
-                return index;
-        Debug.printVerbose("Im inside displayCouncilOption4");
-
-        return 1;
+        int choice = 0;
+        try {
+            choice = futureTask.get();
+            Debug.printVerbose("Got council choice from GUI: " + choice);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            this.displayError("Error in opening dialogue, default value instead", e.getMessage());
+        }
+        return choice;
     }
 
     /**
@@ -361,8 +344,11 @@ public class GraphicalUI extends AbstractUIType {
             //here i let the user show all the family members that have been placed last round
             //((MainBoardControl) (currentFXControl)).updateFamilyMembers();
         } else {
-            ((MainBoardControl) currentFXControl).appendMessageOnStateTextArea(message);
-           // ((MainBoardControl) (currentFXControl)).updateFamilyMembers();
+            MainBoardControl control = ((MainBoardControl) (currentFXControl));
+            Platform.runLater(() -> {
+                control.appendMessageOnStateTextArea(message);
+                control.disableAllActionsNotHisTurn(true);
+            });
         }
     }
 

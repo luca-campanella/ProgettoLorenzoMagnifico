@@ -3,14 +3,10 @@ package it.polimi.ingsw.client.gui.fxcontrollers;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
-import it.polimi.ingsw.model.cards.BuildingCard;
-import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.cards.TerritoryCard;
 import it.polimi.ingsw.model.player.PersonalBoard;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
-import it.polimi.ingsw.server.JSONLoader;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,7 +15,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -27,7 +26,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -174,6 +172,14 @@ public class PlayerTabSubControl extends CustomFxControl {
                 player.getPersonalBoard().getPersonalTile().getImgName()));
         thisPlayerPersonalTile.setImage(tileImg);
         thisPlayerPersonalTile.setPreserveRatio(true);
+    }
+
+    public void setEndTurnButtonDisable(boolean disabled) {
+        passTurnButton.setDisable(disabled);
+    }
+
+    public void setLeadersActionsDisable(boolean disabled) {
+        //todo disable the possibility to play leaders, but not the button to show leaders
     }
 
     @FXML
