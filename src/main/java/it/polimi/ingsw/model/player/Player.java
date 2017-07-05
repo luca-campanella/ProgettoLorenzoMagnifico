@@ -517,4 +517,20 @@ public class Player implements Serializable{
 
         personalBoard.bluePoints(this);
     }
+
+    /**
+     * this method is used to calculate the number of the resources of the player(wood, coins, stone, servants)
+     * this number is used to calculate the victory points at the end of the turn
+     * @return the number of resources
+     */
+    public int getNumResources() {
+
+        int numTotResources = 0;
+        numTotResources += resourcesMap.getResource(ResourceTypeEnum.WOOD);
+        numTotResources += resourcesMap.getResource(ResourceTypeEnum.STONE);
+        numTotResources += resourcesMap.getResource(ResourceTypeEnum.SERVANT);
+        numTotResources += resourcesMap.getResource(ResourceTypeEnum.COIN);
+        return numTotResources;
+
+    }
 }

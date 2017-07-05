@@ -762,4 +762,18 @@ public class SocketClient extends AbstractClientType {
             Debug.printError("the client cannot receives the leader card activated by another player",e);
         }
     }
+
+    /**
+     * this method is called by the server to deliver the results of the end of the game
+     */
+    public void receiveEndGame(){
+
+        try{
+            PlayerPositionEndGamePacket packet = (PlayerPositionEndGamePacket)inStream.readObject();
+            //TODO
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the results of the end of the game",e);
+        }
+    }
 }

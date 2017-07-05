@@ -37,9 +37,17 @@ public class VaticanReport implements Serializable{
     {
         return requiredFaithPoints[i];
     }
-    public int getRequiredVictoryPointByIndex(int i)
+
+    /**
+     * this method is called by the model controller to add the victory points to the player based on the number of faith point
+     * @param faithPointsPlayer the number of faith points of the leader
+     * @return the number of victory points to add to the player
+     */
+    public int getRequiredVictoryPointByIndex(int faithPointsPlayer)
     {
-        return correspondingVictoryPoints[i];
+        if(faithPointsPlayer >= WALK_OF_FAITH)
+            return correspondingVictoryPoints[WALK_OF_FAITH-1];
+        return correspondingVictoryPoints[faithPointsPlayer];
     }
 
     public int[] getCorrespondingVictoryPoints() {

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
@@ -669,7 +669,7 @@ public class ModelController {
     /**
      * this method is called to add all the victory points to the players at the end of the game
      */
-    public void endGame(){
+    public ArrayList<PlayerPositionEndGamePacket> endGame(){
 
         //add the victory points to all the players based on the number of green cards
         players.forEach(Player::greenPoints);
@@ -677,6 +677,61 @@ public class ModelController {
         players.forEach(Player::bluePoints);
         //add the victory points to all the players based on the effects of the venture cards
         players.forEach(Player::purplePoints);
+        addVictoryPointsOnMilitary();
+        addVictoryPointsOnFaith();
+        addVictoryPointsOnResources();
+        ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(players.size());
+        playerPositionEndGames = endGameOrderPlayer();
+        return playerPositionEndGames;
+
+    }
+
+    /**
+     * this method is used to add the victory points to the players based on the resources of the player
+     */
+    private void addVictoryPointsOnResources() {
+
+        for(Player playerIter : players){
+            int numOfResources = playerIter.getNumResources();
+            playerIter.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, numOfResources/4));
+        }
+    }
+
+    /**
+     * this method is used to calculate and deliver the result of the game
+     */
+    private ArrayList<PlayerPositionEndGamePacket> endGameOrderPlayer() {
+
+        //this iteration is used to find the order of victory of the players
+        for(int i = 0 ; i < players.size() ; i++){
+            for(int e = 0 ; e < players.size()-i-1 ; e++){
+                if(players.get(e).getResource(ResourceTypeEnum.VICTORY_POINT) < players.get(e+1).getResource(ResourceTypeEnum.VICTORY_POINT))
+                    players.add(e+2,players.get(e));
+                    players.remove(e);
+            }
+        }
+        ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(players.size());
+        playerPositionEndGames.add(new PlayerPositionEndGamePacket(players.get(0).getNickname(), 1,
+                players.get(0).getResource(ResourceTypeEnum.VICTORY_POINT)));
+        for(int i = 2 ; i < players.size() ; i++){
+            if(playerPositionEndGames.get(i-2).getVictoryPoints() == players.get(i-1).getResource(ResourceTypeEnum.VICTORY_POINT)){
+                playerPositionEndGames.add(new PlayerPositionEndGamePacket(players.get(i-1).getNickname(), playerPositionEndGames.get(i-2).getPosition(),
+                        players.get(i-1).getResource(ResourceTypeEnum.VICTORY_POINT)));
+            }
+            else
+                playerPositionEndGames.add(new PlayerPositionEndGamePacket(players.get(i-1).getNickname(), i,
+                        players.get(i-1).getResource(ResourceTypeEnum.VICTORY_POINT)));
+        }
+
+        return playerPositionEndGames;
+
+    }
+
+    /**
+     * this method is used to add the victory points based on the military points at the end of the turn
+     */
+    private void addVictoryPointsOnMilitary(){
+
         int firstNumMilPoints = 0;
         int secondNumMilPoints = 0;
 
@@ -700,6 +755,19 @@ public class ModelController {
 
             else if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) == secondNumMilPoints)
                 playerIter.addResource(new Resource(ResourceTypeEnum.MILITARY_POINT, 2));
+        }
+    }
+
+    /**
+     * this method is used to add the victory point based on the faith point at the end of the turn
+     */
+    private void addVictoryPointsOnFaith(){
+
+        for(Player playerIter : players){
+
+            int faithPointPlayer = playerIter.getResource(ResourceTypeEnum.FAITH_POINT);
+            playerIter.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, gameBoard.getVaticanFaithAgeIndex(faithPointPlayer)));
+
         }
 
     }

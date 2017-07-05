@@ -17,8 +17,6 @@ import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.effects.immediateEffects.*;
 import it.polimi.ingsw.model.effects.permanentEffects.*;
-import it.polimi.ingsw.testingGSON.boardLoader.BoardCreator;
-import it.polimi.ingsw.testingGSON.boardLoader.RuntimeTypeAdapterFactory;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -27,7 +25,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.lang.reflect.*;
 import java.util.Collections;
-import java.util.stream.Collectors;
+
 /**
  * This class is a singleton that handles all the classes loaded from file
  */

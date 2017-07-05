@@ -10,8 +10,8 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.model.player.PlayerColorEnum;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.server.network.socket.SocketPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -765,6 +765,22 @@ public class Room {
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the leader card activated by " + nickname + " to " + player.getNickname(),e);
                 }
+            }
+        }
+    }
+
+    /**
+     * this method is called by controller game to deliver the end of the game to the players and th result of the game
+     * @param playerPositionEndGames the results of the game(the winners, the victory points, the positions)
+     */
+    public void deliverEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames) {
+
+        for(AbstractConnectionPlayer player : players){
+            try {
+                player.deliverEndGame(playerPositionEndGames);
+            }
+            catch (NetworkException e){
+                Debug.printError("cannot deliver the end game results to " + player.getNickname(),e);
             }
         }
     }

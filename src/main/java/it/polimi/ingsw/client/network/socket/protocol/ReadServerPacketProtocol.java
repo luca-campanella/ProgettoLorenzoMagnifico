@@ -57,6 +57,7 @@ public class ReadServerPacketProtocol {
         instruction.put(PacketType.DISCONNECTION_PLAYER, ()-> client.receiveDisconnectionPlayer());
         instruction.put(PacketType.CHOSEN_LEADER, ()-> client.receiveChosenLeaderCard());
         instruction.put(PacketType.ACTIVATE_LEADER, ()-> client.receiveActivatedLeaderCard());
+        instruction.put(PacketType.END_GAME, ()-> client.receiveEndGame());
     }
 
     /**

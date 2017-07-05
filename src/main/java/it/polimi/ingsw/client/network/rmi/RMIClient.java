@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.network.rmi;
 import it.polimi.ingsw.client.controller.NetworkControllerClientInterface;
 import it.polimi.ingsw.client.exceptions.*;
 import it.polimi.ingsw.client.network.AbstractClientType;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -573,6 +574,16 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void receiveActivatedLeader(String nameCard, HashMap<String, Integer> resourceGet, String nickname) throws RemoteException {
+        //TODO
+    }
+
+    /**
+     * this method is called by the rmi network to receive results of the end game
+     * @param playerPositionEndGames the results of the game(the winner, the positions,...)
+     * @throws RemoteException if something goes wrong with the network
+     */
+    @Override
+    public void receiveEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames) throws RemoteException {
         //TODO
     }
 }

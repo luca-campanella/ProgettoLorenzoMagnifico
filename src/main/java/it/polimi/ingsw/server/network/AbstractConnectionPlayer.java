@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network;
 
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -175,4 +176,11 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @param nickname the nickname of the player that had activated the leader card
      */
     public abstract void deliverActivatedLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, String nickname) throws NetworkException;
+
+    /**
+     * this method is called by the room to deliver the results of the end of the game
+     * @param playerPositionEndGames the results of the game(the winner, the victory points, the positions)
+     * @throws NetworkException if something goes wrong with the network
+     */
+    public abstract void deliverEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames) throws NetworkException;
 }
