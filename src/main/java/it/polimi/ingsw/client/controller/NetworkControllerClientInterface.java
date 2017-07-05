@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.controller;
 
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -179,4 +180,18 @@ public interface NetworkControllerClientInterface {
      * @param nickname the nickname of the player
      */
     void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname);
+
+    /**
+     * this method is called by the network to receive the end game results
+     * @param playerPositionEndGamePacket this packet contains all the players with the final victory points and position
+     */
+    void receiveEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket);
+
+    /**
+     * this method is called by the network to receive the leader card activated by another player
+     * @param nickname the nickname of the player that had activated the leader card abilty
+     * @param nameCard the name of the leader card activated
+     * @param resourceGet the resources gotten from the leader ablity
+     */
+    void receiveActivateLeaderCard(String nickname, String nameCard, HashMap<String, Integer> resourceGet);
 }
