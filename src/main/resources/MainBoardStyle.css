@@ -106,3 +106,7 @@
     -fx-text-alignment: center;
     -fx-text-fill: white;
 }
+
+.split-pane-divider {
+    -fx-mouse-transparent: true;
+}
