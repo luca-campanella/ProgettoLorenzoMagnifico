@@ -211,13 +211,14 @@ public class GraphicalUI extends AbstractUIType {
 
         Debug.printVerbose("Im inside displayCouncilOption");
 
-        List<String> optionsString = new ArrayList<>();
-        for(GainResourceEffect iterator : options)
+        List<String> optionsString = new ArrayList<>(5);
+        for(GainResourceEffect iterator : effectOptions)
             optionsString.add(iterator.descriptionOfEffect());
 
         Debug.printVerbose("Im inside displayCouncilOption1");
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>(optionsString.get(0), optionsString);
+
         Debug.printVerbose("Im inside displayCouncilOption2");
 
         dialog.setTitle("Information Harvest");
