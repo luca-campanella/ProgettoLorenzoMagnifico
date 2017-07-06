@@ -670,7 +670,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * this methd is used to menage the choices done on the excommunication tile
+     * this method is used to menage the choices done on the excommunication tile
      * @param nickname the nickname of the player that had done the choice
      * @param response the response of the player
      * @param numTile the number of the tile that the player takes if he is excommunicated

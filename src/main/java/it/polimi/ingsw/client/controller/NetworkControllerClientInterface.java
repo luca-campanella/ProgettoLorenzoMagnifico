@@ -201,4 +201,12 @@ public interface NetworkControllerClientInterface {
      * @param numTile the number of excommunication tile to take
      */
     void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated, int numTile);
+
+    /**
+     * this method is called by the network to deliver the choice doe on the excommunication of the other players
+     * @param nickname the nickname of the player that had done the choice
+     * @param response the response of the player
+     * @param numTile the numbcer of tile to take if the player is excommunicated
+     */
+    void manageExcommunicationChoice(String nickname, String response, int numTile);
 }

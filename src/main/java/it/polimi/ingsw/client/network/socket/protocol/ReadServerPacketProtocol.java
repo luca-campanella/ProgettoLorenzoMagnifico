@@ -59,6 +59,7 @@ public class ReadServerPacketProtocol {
         instruction.put(PacketType.ACTIVATE_LEADER, ()-> client.receiveActivatedLeaderCard());
         instruction.put(PacketType.END_GAME, ()-> client.receiveEndGame());
         instruction.put(PacketType.EXCOMMUNICATION, ()-> client.receiveExcommunicatedPlayers());
+        instruction.put(PacketType.EXCOMMUNICATION_CHOICE, ()-> client.receiveExcommunicationChoice());
     }
 
     /**

@@ -42,6 +42,7 @@ public class ControllerGame {
     private ArrayList<AbstractConnectionPlayer> orderOfPlayers;
     private NetworkChoicesPacketHandler choicesController;
     private int numPersonalTiles;
+    private int playerExcommunicatedChoice;
 
     /**
      * This method creates a new board and modifies it considering the number of players
@@ -195,9 +196,11 @@ public class ControllerGame {
 
                 ArrayList<String> nicknamePlayerExcommunicated = new ArrayList<>(modelController.controlExcommunication((numberOfRound/2)+2));
                 room.deliverExcommunication(nicknamePlayerExcommunicated, (numberOfRound/2)-1);
-                if(nicknamePlayerExcommunicated.size() != orderOfPlayers.size())
+                if(nicknamePlayerExcommunicated.size() != orderOfPlayers.size()){
+                    playerExcommunicatedChoice = nicknamePlayerExcommunicated.size();
                     //if not all the players had been excommunicated the server has to wait for the choices of the other players
                     return;
+                }
             }
 
             //control if all the player had done all the move
@@ -556,6 +559,32 @@ public class ControllerGame {
         controlTurnPlayer(player.getNickname());
         choicesController.setChoicesMap(resourceGet);
         player.activateLeaderCardAbility(player.getLeaderCardsNotUsed(nameCard), choicesController);
+    }
+
+    public int getNumberOfRound() {
+        return numberOfRound;
+    }
+
+    /**
+     * this method is called by room to deliver the response of the players to the excommunication coice
+     * @param response the response, "yes" if the player wants to avoid he excommunication
+     *                               "no" otherwise
+     * @param nickname the nickname of the player that had done the choice
+     * @param numTile the number of tile to take if the excommunication happens
+     */
+    public void receiveExcommunicationChoice(String response, String nickname, int numTile) {
+
+        if(response.equals("yes")){
+            modelController.avoidExcommunicationPlayer(nickname);
+        }
+        else
+            modelController.excommunicatePlayer(nickname, numTile);
+        playerExcommunicatedChoice++;
+        if(playerExcommunicatedChoice == orderOfPlayers.size()){
+            prepareForNewRound();
+            deliverStartOfPhase();
+        }
+
     }
 }
 

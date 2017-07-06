@@ -44,6 +44,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         Debug.printVerbose("creation  player");
         outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         outStream.flush();
+        outStream.reset();
 
         InputStream instream1 = socket.getInputStream();
         Debug.printVerbose("Input stream from socket got");
@@ -116,11 +117,13 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             serverMainInst.makeJoinRoomLogin(this);
             outStream.writeObject(RegisterErrorEnum.NO_ERROR);
             outStream.flush();
+            outStream.reset();
         }
         catch (UsernameAlreadyInUseException e) {
             try {
                 outStream.writeObject(RegisterErrorEnum.ALREADY_EXISTING_USERNAME);
                 outStream.flush();
+                outStream.reset();
             } catch (IOException c) {
                 Debug.printError("network is not working", c);
             }
@@ -141,12 +144,14 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             serverMainInst.makeJoinRoomLogin(this);
             outStream.writeObject(LoginErrorEnum.NO_ERROR);
             outStream.flush();
+            outStream.reset();
         }
 
         catch (LoginException e) {
             try{
             outStream.writeObject(e.getErrorType());
             outStream.flush();
+            outStream.reset();
             }
             catch (IOException e1){
                 Debug.printError("network is not working",e1);
@@ -293,6 +298,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(chatPacket);
             }
             outStream.flush();
+            outStream.reset();
         }
         catch(IOException e){
 
@@ -312,6 +318,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new ReceivePlaceOnTowerPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),towerIndex,floorIndex, playerChoices));outStream.flush();
             }
             outStream.flush();
+            outStream.reset();
 
         }
         catch (IOException  e){
@@ -337,6 +344,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                     getNickname(),familyMember.getColor(), marketIndex, playerChoices));
             }
             outStream.flush();
+            outStream.reset();
 
         }
 
@@ -362,6 +370,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new ReceiveBuildOrHarvestPacket(familyMember.getPlayer()
                     .getNickname(),familyMember.getColor(),servant,playerChoices));}
             outStream.flush();
+            outStream.reset();
 
         }
 
@@ -386,6 +395,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                     .getPlayer().getNickname(),familyMember.getColor(),servant, playerChoices));
             }
             outStream.flush();
+            outStream.reset();
 
         }
         catch (IOException e){
@@ -419,6 +429,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new EndPhasePacket(player.getNickname()));
             }
             outStream.flush();
+            outStream.reset();
 
         }
         catch (IOException e){
@@ -444,6 +455,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new DicesPacket(dices));
             }
             outStream.flush();
+            outStream.reset();
 
         }
         catch (IOException e){
@@ -468,6 +480,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(gameBoard);
             }
             outStream.flush();
+            outStream.reset();
 
         }
 
@@ -491,6 +504,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(PacketType.START_TURN);
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("Cannot deliver the token to start the turn");
@@ -511,6 +525,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(orderPlayers);
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("Cannot deliver the order of the players");
@@ -532,6 +547,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new LeaderChoicePacket(cardToPlayer));
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e) {
             Debug.printError("Cannot deliver the choice of the leader cards to the players");
@@ -553,6 +569,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new CardToPlacePacket(cards));
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("Cannot deliver the card to place on the board to " + getNickname());
@@ -575,6 +592,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                     .getColor(),playerChoices,familyMember.getPlayer().getNickname()));
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("Socket: Cannot deliver the move on the council to " + getNickname());
@@ -594,6 +612,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(PacketType.CHOSE_TILES);
                 outStream.writeObject(personalTilesToDeliver);}
             outStream.flush();
+            outStream.reset();
             Debug.printVerbose("Delivered personal tile to " + getNickname());
         }
         catch (IOException e){
@@ -615,6 +634,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new ReceiveChosenPersonalTilePacket(nickname, personalTile));
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("cannot deliver the personal tile of " + nickname + " to " + getNickname());
@@ -648,6 +668,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(nickname);
             }
             outStream.flush();
+            outStream.reset();
         }
 
         catch (IOException e){
@@ -671,6 +692,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                     outStream.writeObject(PacketType.ERROR_MOVE);
                 }
                 outStream.flush();
+                outStream.reset();
             }
             catch (IOException c){
                 Debug.printError("Cannot deliver error to " + getNickname());
@@ -706,6 +728,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(PacketType.ERROR_MOVE);
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("Cannot receive the personal tile chosen by the client" + getNickname(),e);
@@ -729,6 +752,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new ReceiveDiscardOrActivatedLeaderCardPacket(nickname, nameCard, resourceGet));
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("cannot deliver the discarded leader to " + this.getNickname());
@@ -749,6 +773,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(nickname);
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("cannot deliver the discarded leader to " + this.getNickname());
@@ -772,6 +797,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new ReceivePlayLeaderCardPacket(nameCard, choicesOnCurrentActionString,nickname));
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("cannot deliver the discarded leader to " + this.getNickname());
@@ -794,6 +820,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new ReceiveChosenLeaderPacket(leaderCard, player.getNickname()));
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("cannot deliver the chosen leader to " + this.getNickname());
@@ -817,6 +844,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new ReceiveDiscardOrActivatedLeaderCardPacket( nickname, nameCard, resourceGet));
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("cannot deliver the activated leader to " + this.getNickname());
@@ -838,6 +866,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(playerPositionEndGames);
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("cannot deliver the results of the end of the game to " + this.getNickname());
@@ -860,9 +889,33 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(new ExcommunicationPacket(nicknamePlayerExcommunicated, numTile));
             }
             outStream.flush();
+            outStream.reset();
         }
         catch (IOException e){
             Debug.printError("cannot deliver the excommunicated to " + this.getNickname());
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
+     * this method is called by the room to deliver the choice of a excommunication choice
+     * @param response the response of the excommunication
+     * @param nickname the nickname of the player that had done the choice
+     * @param numTile the number of the tile to take if the player is excommunicated
+     */
+    @Override
+    public void deliverExcommunicationChoice(String response, String nickname, int numTile) throws NetworkException {
+
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.EXCOMMUNICATION_CHOICE);
+                outStream.writeObject(new ReceiveExcommunicationChoicePacket(nickname, response, numTile));
+            }
+            outStream.flush();
+            outStream.reset();
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver the excommunicated choice to " + this.getNickname());
             throw new NetworkException(e);
         }
     }
@@ -878,6 +931,20 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("cannot receive the leader card activated");
+        }
+    }
+
+    /**
+     * this method is called by the client to receive the choice on the excommunication of a player
+     */
+    public void receiveExcommunicationTile(){
+
+        try{
+            String response = (String)inStream.readObject();
+            getRoom().receiveExcommunicationChoice(response, this);
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("cannot receive the excommunication choice of the client");
         }
     }
 }

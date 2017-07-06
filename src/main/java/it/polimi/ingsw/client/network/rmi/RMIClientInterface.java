@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.network.rmi;
 
+import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
@@ -203,4 +204,13 @@ public interface RMIClientInterface extends Remote {
      * @param nicknamePlayerExcommunicated the nickname of the players excommunicated
      */
     void receiveExcommunicatedPlayers(ArrayList<String> nicknamePlayerExcommunicated, int numTile) throws RemoteException;
+
+     /**
+     * this method is called by the server to deliver the choice of a excommunication choice
+     * @param response the response of the excommunication
+     * @param nickname the nickname of the player that had done the choice
+     * @param numTile the number of the tile to take if the player is excommunicated
+     * @throws RemoteException if something goes wrong with the network
+     */
+    void receiveExcommunicationChoice(String nickname, String response, int numTile) throws RemoteException;
 }

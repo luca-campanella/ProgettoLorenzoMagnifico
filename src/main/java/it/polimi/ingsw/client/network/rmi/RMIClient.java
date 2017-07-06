@@ -611,4 +611,18 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receiveExcommunicatedPlayers(nicknamePlayerExcommunicated, numTile));
     }
+
+    /**
+     * this method is called by the server to deliver the choice of a excommunication choice
+     * @param nickname the nickname of the player that had done the choice
+     * @param response the response of the excommunication
+     * @param numTile the number of the tile to take if the player is excommunicated
+     * @throws RemoteException if something goes wrong with the network
+     */
+    @Override
+    public void receiveExcommunicationChoice(String nickname, String response, int numTile) throws RemoteException {
+
+        generatorOfThread = Executors.newCachedThreadPool();
+        generatorOfThread.submit(() -> getControllerMain().manageExcommunicationChoice(nickname, response, numTile));
+    }
 }

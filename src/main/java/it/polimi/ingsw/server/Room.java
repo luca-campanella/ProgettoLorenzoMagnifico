@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.model.player.PlayerColorEnum;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.server.network.socket.SocketPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -797,6 +798,38 @@ public class Room {
             }
             catch (NetworkException e){
                 Debug.printError("cannot deliver the excommunication to " + player.getNickname(),e);
+            }
+        }
+    }
+
+    /**
+     * this method is called by the network to deliver the choice on the excommunication
+     * @param response the choice of the player on the excommunication
+     * @param player the player tha had done the choice on the excommunication
+     */
+    public void receiveExcommunicationChoice(String response, AbstractConnectionPlayer player) {
+
+        int numTile = controllerGame.getNumberOfRound()/2 - 1;
+        controllerGame.receiveExcommunicationChoice(response, player.getNickname(), numTile);
+        floodExcommunicationChoice(response, player.getNickname(), numTile);
+    }
+
+    /**
+     * this method is used to deliver to the other players the excommunication choice
+     * @param response the response of the player on the excommunication choice
+     * @param nickname the nickname of the player that had done the choice
+     * @param numTile the num of tile to take if the excommunication choice is to take the excommunication
+     */
+    private void floodExcommunicationChoice(String response, String nickname, int numTile) {
+
+        for(AbstractConnectionPlayer playerIter : players){
+            if(!playerIter.getNickname().equals(nickname)){
+                try{
+                    playerIter.deliverExcommunicationChoice(response,nickname, numTile);
+                }
+                catch (NetworkException e){
+                    Debug.printError("cannot deliver the excommunication choice to " + nickname,e);
+                }
             }
         }
     }

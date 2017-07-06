@@ -259,6 +259,25 @@ import java.util.concurrent.Executors;
     }
 
     /**
+     * this method is called by the room to deliver the choice of a excommunication choice
+     * @param response the response of the excommunication
+     * @param nickname the nickname of the player that had done the choice
+     * @param numTile the number of the tile to take if the player is excommunicated
+     * @throws NetworkException if something goes wrong with the network
+     */
+    @Override
+    public void deliverExcommunicationChoice(String response, String nickname, int numTile) throws NetworkException {
+
+        try{
+            RMIClientInterfaceInst.receiveExcommunicationChoice(nickname, response, numTile);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the choice n the excommunication to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
      * @param familyMember the family member placed on the tower
      * @param towerIndex the number of the tower
