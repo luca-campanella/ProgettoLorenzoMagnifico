@@ -719,5 +719,22 @@ public class GraphicalUI extends AbstractUIType {
         Platform.runLater(() ->
                 ((MainBoardControl) (currentFXControl)).notifyActivateLeaderCard(nickname, nameCard));
     }
+
+    /**
+     * this method is called by the client to show the player excommunicated on the gui
+     * @param playersExcommunicated the nickname of the players excommunicated
+     */
+    @Override
+    public void displayExcommunicationPlayers(ArrayList<String> playersExcommunicated) {
+
+    }
+
+    /**
+     * this method is called by the client to ask the client if he wants to be excommunicated on the gui
+     */
+    @Override
+    public void askExcommunicationChoice() {
+
+    }
 }
 

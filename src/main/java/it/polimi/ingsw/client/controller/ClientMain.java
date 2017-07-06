@@ -1079,7 +1079,10 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated, int numTile) {
 
         modelController.excommunicatePlayer(playersExcommunicated, numTile);
-        //todo show excommunications in the view
+        userInterface.displayExcommunicationPlayers(playersExcommunicated);
+        if(!playersExcommunicated.contains(thisPlayer.getNickname())){
+            userInterface.askExcommunicationChoice();
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.cli;
 
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCard;
@@ -642,5 +643,31 @@ public class CliPrinter {
     public static void print(String string)
     {
         System.out.print(string);
+    }
+
+    /**
+     * this method is used to print the results of the end of the game
+     * @param playerPositionEndGamePacket the results of the players
+     */
+    public static void showEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
+
+        for(int i = 1 ; i < playerPositionEndGamePacket.size(); i++){
+            for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
+                if(playerIter.getPosition() == i)
+                    CliPrinter.println(playerIter.getPosition() + " position: " + playerIter.getNickname()
+                            + " " + playerIter.getVictoryPoints() + " Victory Points");
+            }
+        }
+    }
+
+    /**
+     * this method is called to print the player excommunicated
+     * @param playersExcommunicated the list of the nickname of the players excommunicated
+     */
+    public static void diplayExcommunication(ArrayList<String> playersExcommunicated) {
+
+        for(String nickname : playersExcommunicated){
+            System.out.println("The player " + nickname + " has benn excommunicated.");
+        }
     }
 }

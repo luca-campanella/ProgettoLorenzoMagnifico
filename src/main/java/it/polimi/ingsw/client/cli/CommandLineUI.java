@@ -416,13 +416,7 @@ public class CommandLineUI extends AbstractUIType {
     @Override
     public void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
 
-        for(int i = 1 ; i < playerPositionEndGamePacket.size(); i++){
-            for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
-                if(playerIter.getPosition() == i)
-                    CliPrinter.println(playerIter.getPosition() + " position: " + playerIter.getNickname()
-                            + " " + playerIter.getVictoryPoints() + " Victory Points");
-            }
-        }
+        CliPrinter.showEndGame(playerPositionEndGamePacket);
     }
 
     /**
@@ -521,6 +515,24 @@ public class CommandLineUI extends AbstractUIType {
     @Override
     public void notifyActivateLeaderCard(String nickname, String nameCard) {
         CliPrinter.printPlayerGeneralAction(nickname, "has activated the leader card " + nameCard);
+    }
+
+    /**
+     * this method is called by the client to show the player excommunicated on the cli
+     * @param playersExcommunicated the nickname of the players excommunicated
+     */
+    @Override
+    public void displayExcommunicationPlayers(ArrayList<String> playersExcommunicated) {
+
+        CliPrinter.diplayExcommunication(playersExcommunicated);
+    }
+
+    /**
+     * this method is called by the client to ask the client if he wants to be excommunicated on the cli
+     */
+    @Override
+    public void askExcommunicationChoice() {
+
     }
 }
 

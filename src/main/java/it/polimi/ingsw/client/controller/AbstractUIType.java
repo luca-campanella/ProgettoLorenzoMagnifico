@@ -274,4 +274,15 @@ abstract public class AbstractUIType {
      * @param nameCard the name of the leader card involved in the action
      */
     public abstract void notifyActivateLeaderCard(String nickname, String nameCard);
+
+    /**
+     * this method is called by the client to show the player excommunicated
+     * @param playersExcommunicated the nickname of the players excommunicated
+     */
+    public abstract void displayExcommunicationPlayers(ArrayList<String> playersExcommunicated);
+
+    /**
+     * this method is called by the client to ask the client if he wants to be excommunicated
+     */
+    public abstract void askExcommunicationChoice();
 }
