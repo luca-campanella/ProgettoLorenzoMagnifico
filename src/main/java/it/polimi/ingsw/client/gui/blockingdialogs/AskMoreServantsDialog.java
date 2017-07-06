@@ -29,7 +29,7 @@ public class AskMoreServantsDialog implements Callable<Integer> {
 
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(min, options);
 
-        dialog.setTitle("Harvest");
+        dialog.setTitle("Product!");
         dialog.setHeaderText("Do you want to use more servants?");
         dialog.setContentText("Choose your additional number of servants!");
 

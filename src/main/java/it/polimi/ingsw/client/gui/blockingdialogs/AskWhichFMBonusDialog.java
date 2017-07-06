@@ -43,8 +43,8 @@ public class AskWhichFMBonusDialog implements Callable<DiceAndFamilyMemberColorE
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>(optionsString.get(0), optionsString);
 
-        dialog.setTitle("Information Harvest");
-        dialog.setHeaderText("Look, a Choiche Dialog");
+        dialog.setTitle("Choice!");
+        dialog.setHeaderText("Make a choice!");
         dialog.setContentText("Choose your family member color to boost");
 
         Optional<String> result = dialog.showAndWait();

@@ -33,37 +33,37 @@ import java.util.List;
  */
 public class PlayerTabSubControl extends CustomFxControl {
 
-    Player player;
-    PersonalBoard personalBoard;
+    private Player player;
+    private PersonalBoard personalBoard;
     /**
      * true if the tab is linked with the player which controls the client
      */
-    boolean isThisPlayer = false;
+    private boolean isThisPlayer = false;
 
     /**
      * true if the stage for the leaders is already created, false otherwise
      */
-    boolean isLeaderStageCreated;
+    private boolean isLeaderStageCreated;
 
     /**
      * this stage represents the stage of the windows that displays leaders
      */
-    Stage leadersStage;
+    private Stage leadersStage;
 
     /**
      * this control is the fx control of the leaders window
      * //todo change controller name if it's the same for both scenes, or make different instances
      */
-    LeaderOwnedControl leadersControl;
+    private LeaderOwnedControl leadersControl;
 
     @FXML
-    ImageView thisPlayerPersonalTile;
+    private ImageView thisPlayerPersonalTile;
 
     @FXML
-    ImageView victoryPointImage;
+    private ImageView victoryPointImage;
 
     @FXML
-    HBox personalBoardPane;
+    private HBox personalBoardPane;
 
 
 

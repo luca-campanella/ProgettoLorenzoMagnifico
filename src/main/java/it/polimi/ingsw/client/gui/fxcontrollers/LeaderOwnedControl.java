@@ -133,7 +133,7 @@ public class LeaderOwnedControl extends CustomFxControl {
         setGenericViewButtons(leadersOPRNotActivated, leadersPlayedGridPane, false, true, true, false);
         setGenericViewButtons(leaderActivated, leadersPlayedGridPane, true, true, true, true);
         Debug.printVerbose("Refresh called");
-        return;
+
     }
 
     /**

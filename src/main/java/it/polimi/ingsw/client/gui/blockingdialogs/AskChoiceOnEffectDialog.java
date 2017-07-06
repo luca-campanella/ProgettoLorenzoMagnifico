@@ -30,8 +30,8 @@ public class AskChoiceOnEffectDialog implements Callable<Integer> {
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>(optionsString.get(0), optionsString);
 
-        dialog.setTitle("Information Harvest");
-        dialog.setHeaderText("Look, a Choiche Dialog");
+        dialog.setTitle("Information choice");
+        dialog.setHeaderText("Make a choice");
         dialog.setContentText("Choose your " + description + " effect");
 
         Optional<String> result = dialog.showAndWait();
