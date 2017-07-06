@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -20,23 +21,30 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <GridPane layoutX="25.0" layoutY="57.0" prefHeight="500.0" prefWidth="346.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="60.0" fx:id="leadersNotPlayedGridPane">
+                  <GridPane fx:id="leadersNotPlayedGridPane" layoutX="25.0" layoutY="57.0" prefHeight="500.0" prefWidth="346.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="60.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" fx:id="leadersNotPlayedGridPaneCell0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" fx:id="leadersNotPlayedGridPaneCell1"/>
+                      <ColumnConstraints fx:id="leadersNotPlayedGridPaneCell0" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints fx:id="leadersNotPlayedGridPaneCell1" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" fx:id="leadersNotPlayedGridPaneCell2"/>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" fx:id="leadersNotPlayedGridPaneCell3"/>
+                      <RowConstraints fx:id="leadersNotPlayedGridPaneCell2" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints fx:id="leadersNotPlayedGridPaneCell3" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
+                     <children>
+                         
+                        <ToggleButton fx:id="leaderNotPlayed00" mnemonicParsing="false" prefHeight="409.0" prefWidth="445.0" />
+                        <ToggleButton fx:id="leaderNotPlayed01" mnemonicParsing="false" prefHeight="409.0" prefWidth="445.0" GridPane.columnIndex="1" />
+                        <ToggleButton fx:id="leaderNotPlayed10" mnemonicParsing="false" prefHeight="409.0" prefWidth="445.0" GridPane.rowIndex="1" />
+                        <ToggleButton fx:id="leaderNotPlayed11" mnemonicParsing="false" prefHeight="409.0" prefWidth="445.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
                   </GridPane>
                   <Label layoutX="-31.0" layoutY="564.0" text="Click a Leader to play him" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="playLeaderButton" disable="true" onAction="#playLeaderClick" layoutX="293.0" layoutY="556.0" mnemonicParsing="false" text="Play Leader" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="2.0" />
-                  <Button fx:id="discardLeaderButton" disable="true" onAction="#discardLeaderClick" layoutX="175.0" layoutY="556.0" mnemonicParsing="false" text="Discard Leader" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="100.0" />
+                  <Button fx:id="playLeaderButton" disable="true" layoutX="293.0" layoutY="556.0" mnemonicParsing="false" onAction="#playLeaderClick" text="Play Leader" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="2.0" />
+                  <Button fx:id="discardLeaderButton" disable="true" layoutX="175.0" layoutY="556.0" mnemonicParsing="false" onAction="#discardLeaderClick" text="Discard Leader" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="100.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="456.0">
@@ -51,17 +59,23 @@
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <GridPane layoutX="25.0" layoutY="49.0" prefHeight="500.0" prefWidth="346.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="60.0" fx:id="leadersPlayedGridPane">
+                  <GridPane fx:id="leadersPlayedGridPane" layoutX="25.0" layoutY="49.0" prefHeight="500.0" prefWidth="346.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="60.0">
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" fx:id="leadersPlayedGridPaneCell0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" fx:id="leadersPlayedGridPaneCell1"/>
+                        <ColumnConstraints fx:id="leadersPlayedGridPaneCell0" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints fx:id="leadersPlayedGridPaneCell1" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" fx:id="leadersPlayedGridPaneCell2"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" fx:id="leadersPlayedGridPaneCell3"/>
+                        <RowConstraints fx:id="leadersPlayedGridPaneCell2" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints fx:id="leadersPlayedGridPaneCell3" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
+                     <children>
+                        <ToggleButton fx:id="leaderPlayed00" mnemonicParsing="false" prefHeight="409.0" prefWidth="445.0" />
+                        <ToggleButton fx:id="leaderPlayed01" mnemonicParsing="false" prefHeight="409.0" prefWidth="445.0" GridPane.columnIndex="1" />
+                        <ToggleButton fx:id="leaderPlayed10" mnemonicParsing="false" prefHeight="409.0" prefWidth="445.0" GridPane.rowIndex="1" />
+                        <ToggleButton fx:id="leaderPlayed11" mnemonicParsing="false" prefHeight="409.0" prefWidth="445.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
                   </GridPane>
-                  <Button fx:id="activateLeaderButton" disable="true" onAction="#activateLeaderClick" layoutX="307.0" layoutY="556.0" mnemonicParsing="false" text="Activate" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Button fx:id="activateLeaderButton" disable="true" layoutX="307.0" layoutY="556.0" mnemonicParsing="false" onAction="#activateLeaderClick" text="Activate" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children>
             </AnchorPane>
         </items>

@@ -9,7 +9,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -44,6 +46,7 @@ public class LeaderOwnedControl extends CustomFxControl {
     private Button playLeaderButton;
     @FXML
     private Button activateLeaderButton;
+    private ToggleGroup toggleGroupLeaders = new ToggleGroup();
 
     private ToggleButton lastLeaderButtonClicked;
     private HashMap<String, LeaderCard> buttonsInHandLeadersMap = new HashMap<>(2);
@@ -71,9 +74,9 @@ public class LeaderOwnedControl extends CustomFxControl {
         for (int i = 0; i < 2; i++) {
             for (int k = 0; k < 2; k++) {
                 if (leaderNotUsed.size() > numberOfLeaderNotUsed) {
-                    ToggleButton button = new ToggleButton();
-                    GridPane.setConstraints(button, k, i);
-                    leadersNotPlayedGridPane.getChildren().add(button);
+                    Debug.printVerbose("Hello, im setting The Leaders");
+                    ToggleButton button = (ToggleButton) leadersNotPlayedGridPane.lookup("#leaderNotPlayed" + i + k);
+                    button.setToggleGroup(toggleGroupLeaders);
                     /* setting images inside the button */
                     final Image leaderImage = new Image(getClass().getResourceAsStream(leadersPath + leaderNotUsed.get(numberOfLeaderNotUsed).getImgName()));
                     final ImageView toggleImage = new ImageView();
@@ -86,22 +89,23 @@ public class LeaderOwnedControl extends CustomFxControl {
                     toggleImage.setFitHeight(320);
                     toggleImage.setPreserveRatio(true);
                     button.setDisable(false);
-                    button.setId(leaderNotUsed.get(numberOfLeaderNotUsed).getName());
-                    Debug.printVerbose(button.getId().toString());
                     button.setOnAction(new EventHandler<ActionEvent>() {
                                            @Override
                                            public void handle(ActionEvent e) {
                                                lastLeaderButtonClicked = (ToggleButton) e.getSource();
-                                               Debug.printVerbose(lastLeaderButtonClicked.getId().toString());
+                                               Debug.printVerbose(lastLeaderButtonClicked.getId());
                                                selectedLeader = buttonsInHandLeadersMap.get(lastLeaderButtonClicked.getId());
                                                discardLeaderButton.setDisable(false);
-                                               Debug.printVerbose("Hello i'm outside THE if" + player.getNickname());
+                                               try{
                                                if (selectedLeader.isPlayable(player)) {
                                                    playLeaderButton.setDisable(false);
-                                                   Debug.printVerbose("Hello i'm inside THE if");
                                                }
                                                else{
                                                    playLeaderButton.setDisable(true);
+                                               }}
+                                               catch(Exception exception)
+                                               {
+                                                   Debug.printVerbose("Avoided crush on leaders");
                                                }
                                            }
                                        }
@@ -113,7 +117,51 @@ public class LeaderOwnedControl extends CustomFxControl {
                 }
             }
         }
+        for(int rows = 0; rows < 2; rows++)
+            for(int cols = 0; cols < 2; cols++)
+            {
+                if (leadersOPRNotActivated.size() > numberOfNotActivateLeaders) {
+                    Debug.printVerbose("Hello, im setting The Leaders played");
+                    ToggleButton button = (ToggleButton) leadersPlayedGridPane.lookup("#leaderNotPlayed" + rows + cols);
+                    button.setToggleGroup(toggleGroupLeaders);
+                    /* setting images inside the button */
+                    final Image leaderImage = new Image(getClass().getResourceAsStream(leadersPath + leaderNotUsed.get(numberOfLeaderNotUsed).getImgName()));
+                    final ImageView toggleImage = new ImageView();
+                    button.setGraphic(toggleImage);
+                    toggleImage.imageProperty().bind(Bindings
+                            .when(button.selectedProperty())
+                            .then(leaderImage)
+                            .otherwise(leaderImage) //this should be unselected
+                    );
+                    toggleImage.setFitHeight(320);
+                    toggleImage.setPreserveRatio(true);
+                    button.setDisable(false);
+                    button.setOnAction(new EventHandler<ActionEvent>() {
+                                           @Override
+                                           public void handle(ActionEvent e) {
+                                               lastLeaderButtonClicked = (ToggleButton) e.getSource();
+                                               Debug.printVerbose(lastLeaderButtonClicked.getId());
+                                               selectedLeader = buttonsInHandLeadersMap.get(lastLeaderButtonClicked.getId());
+                                               try{
+                                               discardLeaderButton.setDisable(true);
+                                               playLeaderButton.setDisable(true);
+                                               activateLeaderButton.setDisable(false);}
+                                               catch(Exception exception)
+                                               {
+                                                   Debug.printVerbose("Avoided crush on leaders");
+                                               }
+                                           }
+                                       }
+                    );
+
+                    buttonsPlayedLeadersMap.put(button.getId(), leaderNotUsed.get(numberOfNotActivateLeaders));
+                    Debug.printVerbose("leader " + leaderNotUsed.get(numberOfNotActivateLeaders).getName() + "added succesfully to the window");
+                    numberOfNotActivateLeaders++;
+                }
+            }
     }
+
+
 
     public void refreshLeadersCollections(Player player, List<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated)
     {
@@ -198,14 +246,16 @@ public class LeaderOwnedControl extends CustomFxControl {
             gridPaneRightRows = 1;
         }
     }
+
     private void addPlayedLeader(LeaderCard leaderCard){
-        ToggleButton button = new ToggleButton();
-        GridPane.setConstraints(button, gridPaneRightRows, gridPaneRightCols);
+        ToggleButton button = (ToggleButton)leadersPlayedGridPane.lookup("#leaderPlayed" + gridPaneRightRows + gridPaneRightCols);
         updateGridBounds();
-        leadersPlayedGridPane.getChildren().add(button);
-                    /* setting images inside the button */
+
+        /* setting images inside the button */
         final Image leaderImage = new Image(getClass().getResourceAsStream(leadersPath + leaderCard.getImgName()));
         final ImageView toggleImage = new ImageView();
+        button.setToggleGroup(toggleGroupLeaders);
+
         button.setGraphic(toggleImage);
         toggleImage.imageProperty().bind(Bindings
                 .when(button.selectedProperty())
@@ -215,7 +265,6 @@ public class LeaderOwnedControl extends CustomFxControl {
         toggleImage.setFitHeight(320);
         toggleImage.setPreserveRatio(true);
         button.setDisable(false);
-        button.setId(leaderCard.getName());
         button.setOnAction(new EventHandler<ActionEvent>() {
                                @Override
                                public void handle(ActionEvent e) {
