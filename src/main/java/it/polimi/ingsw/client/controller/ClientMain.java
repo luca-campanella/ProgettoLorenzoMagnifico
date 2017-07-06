@@ -573,6 +573,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
         modelController = new ModelController(players, board);
 
+        modelController.setFamilyMemberDices();
+
         //add the coins to the orderOfPlayers based on the order of turn
         modelController.addCoinsStartGame(players);
 
@@ -594,12 +596,13 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         dices.forEach(dice -> Debug.printVerbose("Dice " + dice.getValue() + " " + dice.getColor() ));
         modelController.setDice(dices);
 
-        modelController.setFamilyMemberDices();
+        modelController.reloadFamilyMember();
 
         ArrayList<FamilyMember> playableFMs = thisPlayer.getNotUsedFamilyMembers();
         for(FamilyMember fmIter : playableFMs) {
             Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
         }
+        userInterface.waitMenu();
     }
 
     /**

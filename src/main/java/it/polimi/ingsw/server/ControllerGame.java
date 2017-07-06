@@ -218,11 +218,15 @@ public class ControllerGame {
      */
     public void prepareForNewRound(){
 
+        Debug.printVerbose("prepare for new round");
         modelController.prepareForNewRound();
         deliverDices(modelController.getDices());
+        Debug.printVerbose("Dice delivered");
         numberOfRound++;
-        ArrayList<AbstractCard> cardsToPlace = deck.getRandomCards(numberOfRound);
+        ArrayList<AbstractCard> cardsToPlace = deck.getRandomCards((int)(numberOfRound+1)/2);
+        Debug.printVerbose("cards taken");
         room.deliverCardToPlace(cardsToPlace);
+        Debug.printVerbose("cards delivered");
         modelController.placeCardOnBoard(cardsToPlace);
         reDoOrderPlayer(modelController.getFamilyMemberCouncil());
         numberOfTurn = 0;
