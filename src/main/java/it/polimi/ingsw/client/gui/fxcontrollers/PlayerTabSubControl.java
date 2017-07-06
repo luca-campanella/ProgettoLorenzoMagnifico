@@ -137,7 +137,7 @@ public class PlayerTabSubControl extends CustomFxControl {
      */
     public void refreshLeaderCards() {
         //todo check if this method is right
-        leadersControl.refreshLeadersCollections(
+        leadersControl.refreshLeadersCollections(player,
                 player.getLeaderCardsNotUsed(),
                 player.getPlayedLeaders(),
                 player.getPlayableLeaders(),
@@ -314,7 +314,7 @@ public class PlayerTabSubControl extends CustomFxControl {
             isLeaderStageCreated = true;
         }
         else {
-            leadersControl.refreshLeadersCollections(
+            leadersControl.refreshLeadersCollections(player,
                     player.getLeaderCardsNotUsed(),
                     player.getPlayedLeaders(),
                     player.getPlayableLeaders(),

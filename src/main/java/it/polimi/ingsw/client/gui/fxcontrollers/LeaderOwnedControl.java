@@ -7,6 +7,7 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -26,6 +27,7 @@ import java.util.concurrent.Executors;
  * This class controls the AnchorPane that a user sees when clicks "ShowLeader"
  */
 public class LeaderOwnedControl extends CustomFxControl {
+    private Player thisPlayer;
     private List<LeaderCard> leaderNotUsed;
     private List<LeaderCard> leaderActivated;
     private List<LeaderCard> leadersPlayable;
@@ -53,6 +55,7 @@ public class LeaderOwnedControl extends CustomFxControl {
 
     public void setLeaders(Player player, List<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {
         pool = Executors.newCachedThreadPool();
+        this.thisPlayer = player;
         this.leaderNotUsed = leaderNotUsed;
         this.leaderActivated = leaderActivated;
         this.leadersOPRNotActivated = leadersOPRNotActivated;
@@ -84,10 +87,12 @@ public class LeaderOwnedControl extends CustomFxControl {
                     toggleImage.setPreserveRatio(true);
                     button.setDisable(false);
                     button.setId(leaderNotUsed.get(numberOfLeaderNotUsed).getName());
+                    Debug.printVerbose(button.getId().toString());
                     button.setOnAction(new EventHandler<ActionEvent>() {
                                            @Override
                                            public void handle(ActionEvent e) {
                                                lastLeaderButtonClicked = (ToggleButton) e.getSource();
+                                               Debug.printVerbose(lastLeaderButtonClicked.getId().toString());
                                                selectedLeader = buttonsInHandLeadersMap.get(lastLeaderButtonClicked.getId());
                                                discardLeaderButton.setDisable(false);
                                                Debug.printVerbose("Hello i'm outside THE if" + player.getNickname());
@@ -110,7 +115,7 @@ public class LeaderOwnedControl extends CustomFxControl {
         }
     }
 
-    public void refreshLeadersCollections(List<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated)
+    public void refreshLeadersCollections(Player player, List<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated)
     {
         this.leaderNotUsed = leaderNotUsed;
         this.leaderActivated = leaderActivated;
@@ -119,13 +124,19 @@ public class LeaderOwnedControl extends CustomFxControl {
         //todo: remove this
         for(LeaderCard iterator : leadersOPRNotActivated)
             Debug.printVerbose(iterator.getName());
-        refreshLeadersView();
+        /*
+        if(thisPlayer.equals(player))
+            ;
+            //refreshLeadersCurrentPlayerView();
+        else
+            refreshLeadersOtherPlayerView(player);*/
+        refreshLeadersOtherPlayerView(player);
     }
 
     /**
      * this method just refreshes all the leaders buttons
      */
-    private void refreshLeadersView()
+    private void refreshLeadersCurrentPlayerView()
     {
         //todo check if leaderNotUsed and leadersPlayable doesn't overlap and make errors....
         setGenericViewButtons(leaderNotUsed, leadersNotPlayedGridPane, false, false, true, true);
@@ -135,9 +146,18 @@ public class LeaderOwnedControl extends CustomFxControl {
         Debug.printVerbose("Refresh called");
 
     }
+    private void refreshLeadersOtherPlayerView(Player player){
+        for(LeaderCard iterator : leaderNotUsed)
+            Debug.printVerbose(iterator.getName() + " ");
+        for(LeaderCard iterator : leaderActivated)
+            Debug.printVerbose(iterator.getName() + " " + iterator.getName());
+
+        Debug.printVerbose("Ma ci entro qua?" + player.getNickname());
+
+    }
 
     /**
-     * this method is used to refresh a leader colleciton
+     * this method is used to refresh a leader collection
      * @param leaderList is the list of leader to refresh
      * @param paneToLook is the grid where to find the buttons
      * @param card true if i want to set the card disable, false if i don't
@@ -147,8 +167,13 @@ public class LeaderOwnedControl extends CustomFxControl {
      */
     private void setGenericViewButtons(List<LeaderCard> leaderList,GridPane paneToLook, boolean card, boolean discard, boolean play, boolean activate)
     {
+
         for(LeaderCard iterator : leaderList) {
-            Button temp = (Button)paneToLook.lookup("#" + iterator.getName());
+            String nameToLook = ("#" + iterator.getName());
+            ToggleButton temp = (ToggleButton)(paneToLook.lookup( nameToLook));
+            for(Node it : paneToLook.getChildren())
+                Debug.printVerbose(it.getId() + " ");
+            Debug.printVerbose(iterator.getName() + " " +  nameToLook + paneToLook.toString() + " " + paneToLook.getChildren().toString());
             temp.setDisable(card);
             discardLeaderButton.setDisable(discard);
             playLeaderButton.setDisable(play);
@@ -261,7 +286,7 @@ public class LeaderOwnedControl extends CustomFxControl {
         lastLeaderButtonClicked.setDisable(true);
         //i could updateLists here
         pool.submit(()-> getController().callbackPlayLeader(selectedLeader));
-
+        activateLeaderButton.setDisable(true);
     }
 
 }

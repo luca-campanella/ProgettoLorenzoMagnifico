@@ -204,6 +204,7 @@ public class GraphicalUI extends AbstractUIType {
         control.displayDices();
         control.displayFamilyMembers();
         control.setUpPlayersPersonalBoards();
+        control.setUpNumberOfPlayers(1+ getController().callbackObtainOtherPlayers().size());
         control.appendMessageOnStateTextArea(message);
         if(!isHisTurn)
             control.disableAllActionsNotHisTurn(true);
