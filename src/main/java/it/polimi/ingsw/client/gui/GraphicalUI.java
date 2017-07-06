@@ -554,7 +554,7 @@ public class GraphicalUI extends AbstractUIType {
      * @param fxmlFileName the fxml to start from
      * @param title the title of the window
      */
-    public void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
+    public synchronized void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
         Debug.printVerbose(getClass().getResource("/"+fxmlFileName).toString());
