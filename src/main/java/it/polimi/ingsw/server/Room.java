@@ -458,7 +458,6 @@ public class Room {
     private void suspendPlayer(AbstractConnectionPlayer playerToSuspend) {
         addToSuspendedPlayers(playerToSuspend);
 
-        //todo notify him and the others he's been suspended
         for(AbstractConnectionPlayer playerIter : players) {
             try {
                 playerIter.notifySuspendedPlayer(playerIter.getNickname());

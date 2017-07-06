@@ -693,10 +693,12 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receivedNotificationSuspendedPlayer(String nickname) {
+        Debug.printVerbose("*** the player " + nickname + " has been excommunicated");
         if(thisPlayer.getNickname().equals(nickname)){
             //todo suspend this player
+        } else {
+            //todo notify the player suspension to the view
         }
-        //todo notify the player suspension to the view
     }
 
     /**
