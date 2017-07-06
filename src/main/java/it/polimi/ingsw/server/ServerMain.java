@@ -47,6 +47,11 @@ public class ServerMain {
 	Room room;
 
 	/**
+	 * This is the configuations for timeout in room, it is loaded from json at serves startup
+	 */
+	RoomConfigurator roomConfigurator;
+
+	/**
 	 * Private constructor to initialize the class
 	 */
 	private ServerMain()
@@ -57,6 +62,7 @@ public class ServerMain {
 		startServer();
 		} catch(ServerException e) {
 			Debug.printError(e);
+			System.out.println("Error in starting the server, please restart. Error message: " + e.getMessage());
 		}
 	}
 
@@ -71,21 +77,20 @@ public class ServerMain {
 
 	/**
 	 * Starts the real servers
-	 * @throws ServerException: in case either of the servers or both don't start
+	 * @throws ServerException: in case either of the servers or both don't start or something else goes wrong
 	 */
 	private void startServer() throws ServerException
 	{
 		JSONLoader.instance();
-		RoomConfigurator roomConfigurator;
 		try {
 			roomConfigurator = JSONLoader.loadTimeoutInSec();
 			//creates the first Room so that it doesn't work much when the first player connects
-			room = new Room(4, roomConfigurator.getTimeoutSec());
+			room = new Room(4, roomConfigurator.getTimeoutSec(), roomConfigurator.getTimeToPass());
 		}
 		catch(IOException e)
 		{
-			Debug.instance(2);
 			Debug.printError("Json not loaded properly. Restart server");
+			throw new ServerException("Cannot load from json", e);
 		}
 
 		try {
@@ -98,7 +103,6 @@ public class ServerMain {
 		RMIServerInst = new RMIServer(this, RMI_PORT);
 
 		SocketServerInst = new SocketServer(this, SOCKET_PORT);
-
 	}
 
 	/**
@@ -128,32 +132,12 @@ public class ServerMain {
 	public void makeJoinRoomLogin(AbstractConnectionPlayer player) throws LoginException
 	{
 		if(room.isGameStarted()) {
-			try {
-				room = new Room(4, JSONLoader.loadTimeoutInSec().getTimeoutSec());
+				room = new Room(4, roomConfigurator.getTimeoutSec(), roomConfigurator.getTimeToPass());
 				Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
-			}
-			catch(IOException inputJsonError)
-			{
-				Debug.printError("Couln't load JSON properly");
-			}
 		}
 		else if(!room.canJoin(player))//it's worth checking if the layer can join only if we haven't just created a new room. If we just created the room there is no way the player is already inside
 				throw new LoginException(LoginErrorEnum.ALREADY_LOGGED_TO_ROOM);
 		room.addNewPlayer(player);
-
-		/*don't know if this is the best way to handle this, I don't like try catch inside try catch*/
-		/*try {
-			rooms.get(rooms.size() - 1).addNewPlayer(player);
-		} catch (FullRoomException | GameAlreadyStartedRoomException e) {
-			Debug.printDebug("Room number " + rooms.size() + " is full, create a new one for the player " + player.getNickname());
-			rooms.add(new Room(4, 3000)); //TODO implement creation of room (in another class)
-			try {
-				rooms.get(rooms.size() - 1).addNewPlayer(player);
-			} catch (FullRoomException | GameAlreadyStartedRoomException e1) {
-				Debug.displayError("Fatal error on the server, exiting", e1);
-				System.exit(-1);
-			}
-		}*/
 	}
 
 	/**
@@ -163,29 +147,10 @@ public class ServerMain {
 	public void makeJoinRoomRegister(AbstractConnectionPlayer player)
 	{
 		if(room.isGameStarted()) {
-			try {
-				room = new Room(4, JSONLoader.loadTimeoutInSec().getTimeoutSec());
-				Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
-			}
-			catch(IOException jsonError)
-			{
-				Debug.printError("Room didn't load properly");
-			}
+			room = new Room(4, roomConfigurator.getTimeoutSec(), roomConfigurator.getTimeToPass());
+			Debug.printDebug("Room is full, created a new one for the player " + player.getNickname());
 		}
-		room.addNewPlayer(player);
 
-		/*don't know if this is the best way to handle this, I don't like try catch inside try catch*/
-		/*try {
-			rooms.get(rooms.size() - 1).addNewPlayer(player);
-		} catch (FullRoomException | GameAlreadyStartedRoomException e) {
-			Debug.printDebug("Room number " + rooms.size() + " is full, create a new one for the player " + player.getNickname());
-			rooms.add(new Room(4, 3000)); //TODO implement creation of room (in another class)
-			try {
-				rooms.get(rooms.size() - 1).addNewPlayer(player);
-			} catch (FullRoomException | GameAlreadyStartedRoomException e1) {
-				Debug.displayError("Fatal error on the server, exiting", e1);
-				System.exit(-1);
-			}
-		}*/
+		room.addNewPlayer(player);
 	}
 }

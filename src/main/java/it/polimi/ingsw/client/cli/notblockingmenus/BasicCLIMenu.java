@@ -81,13 +81,14 @@ public abstract class BasicCLIMenu extends Thread {
                     callbackContainer.getFunction().callback();
                     Debug.printVerbose("after callback from showMenuAndAskNonBlocking");
                     Thread.currentThread().interrupt();
+                    Debug.printVerbose("after sleep showMenuAndAskNonBlocking");
                 }
                 else {
                     Thread.sleep(100);
                 }
             }
         } catch (Exception e) {
-                Debug.printVerbose("Interrupting thread caused by IOex", e);
+                Debug.printVerbose("THIS IS NOT AN ERROR Interrupting thread caused by IOex", e);
                 Thread.currentThread().interrupt();
         }
         Debug.printVerbose("showMenuAndAskNonBlocking ended");

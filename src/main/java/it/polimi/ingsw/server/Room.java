@@ -12,7 +12,6 @@ import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.model.player.PlayerColorEnum;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.server.network.socket.SocketPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -46,11 +45,11 @@ public class Room {
 
     /**
      * Constructor
-     *
-     * @param maxNOfPlayers max number of players for this room
+     *  @param maxNOfPlayers max number of players for this room
      * @param timeoutInSec  timeout that starts when the second player joins the room. When time is up game starts
+     * @param timeoutMoveInSec is the maximum time a user can spend playing his turn
      */
-    public Room(int maxNOfPlayers, int timeoutInSec) {
+    public Room(int maxNOfPlayers, int timeoutInSec, int timeoutMoveInSec) {
         this.timeoutInSec = timeoutInSec;
         this.maxNOfPlayers = maxNOfPlayers;
         currNOfPlayers = 0;
@@ -86,7 +85,7 @@ public class Room {
         if (currNOfPlayers == maxNOfPlayers) //ModelController should start
         {
             Debug.printVerbose("Room capacity reached, starting new game");
-            startGame();
+            new Thread( () -> startGame()).run(); // we don't want to start a game on the server thread
             Debug.printVerbose("Room capacity reached, returned from start function");
         } else if (currNOfPlayers == 2) {
             Debug.printVerbose("2 players reached ");
