@@ -687,6 +687,19 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * this method is called by the network to deliver the fact that a player has disconnected due to the timeout
+     *
+     * @param nickname the nickname of the player that disconnected
+     */
+    @Override
+    public void receivedNotificationSuspendedPlayer(String nickname) {
+        if(thisPlayer.getNickname().equals(nickname)){
+            //todo suspend this player
+        }
+        //todo notify the player suspension to the view
+    }
+
+    /**
      * This method returns to the view a reference to the board
      * this method is called to obtain the board of the game inside the view
      *

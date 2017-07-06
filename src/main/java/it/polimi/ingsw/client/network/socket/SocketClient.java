@@ -848,4 +848,19 @@ public class SocketClient extends AbstractClientType {
         }
 
     }
+
+    /**
+     * this method is called by the server to deliver to the client the suspension of a player caused by timout on move
+     */
+    public void receiveNotificationPlayerSuspended() {
+
+        try{
+            ReceivePlayerNicknamePacket packet = (ReceivePlayerNicknamePacket)inStream.readObject();
+            getControllerMain().receivedNotificationSuspendedPlayer(packet.getNickname());
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the excommunication choice of another player",e);
+        }
+
+    }
 }
