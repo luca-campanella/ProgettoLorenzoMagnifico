@@ -349,6 +349,16 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    /**
+     * this method is called by the client to deliver to the server the choices one on the excommunication
+     * @param response the choice of the client
+     * @throws NetworkException if omething goes wrong with the network
+     */
+    @Override
+    public void excommunicationChoice(String response) throws NetworkException {
+
+    }
+
 
     /**
      * this method is used to inform the room that the player had ended his phase

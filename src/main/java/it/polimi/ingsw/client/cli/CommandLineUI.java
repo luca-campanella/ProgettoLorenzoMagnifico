@@ -531,8 +531,14 @@ public class CommandLineUI extends AbstractUIType {
      * this method is called by the client to ask the client if he wants to be excommunicated on the cli
      */
     @Override
-    public void askExcommunicationChoice() {
+    public void askExcommunicationChoice(int numTile) {
 
+        if(waitMenu.getState() == Thread.State.RUNNABLE || waitMenu.getState() == Thread.State.TIMED_WAITING)
+            waitMenu.interrupt();
+
+        ExcommunicationMenu menu = new ExcommunicationMenu(getController(),numTile);
+
+        pool.submit(menu);
     }
 }
 

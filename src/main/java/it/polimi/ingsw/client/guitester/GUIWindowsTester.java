@@ -354,4 +354,9 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     public FamilyMember callbackObtainSelectedFamilyMember() {
         return null;
     }
+
+    @Override
+    public void callbackExcommunicationChoice(String response, int numTile) {
+
+    }
 }

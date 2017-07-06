@@ -533,4 +533,11 @@ public class Player implements Serializable{
         return numTotResources;
 
     }
+
+    /**
+     * this method is called y the delto reset the faith points ofa player
+     */
+    public void resetFaithPoints() {
+        resourcesMap.resetResource(ResourceTypeEnum.FAITH_POINT);
+    }
 }

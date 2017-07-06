@@ -283,6 +283,7 @@ abstract public class AbstractUIType {
 
     /**
      * this method is called by the client to ask the client if he wants to be excommunicated
+     * @param numTile the number of the tile to be taken if the player is excommunicated
      */
-    public abstract void askExcommunicationChoice();
+    public abstract void askExcommunicationChoice(int numTile);
 }

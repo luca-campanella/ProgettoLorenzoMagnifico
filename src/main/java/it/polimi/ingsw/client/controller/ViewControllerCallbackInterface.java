@@ -163,4 +163,12 @@ public interface ViewControllerCallbackInterface {
      * @return true if this turn the palyer already played a family member
      */
     public FamilyMember callbackObtainSelectedFamilyMember();
+
+    /**
+     * this method returns to the client the response of the excommunication choice
+     * @param numTile the num of tile that had to be taken
+     * @param response the excommunication response: "yes" if the player wants to avoid the excommunication
+     *                                               "no" if the player wants to be excommunicate without losing his faith points
+     */
+    void callbackExcommunicationChoice(String response, int numTile);
 }

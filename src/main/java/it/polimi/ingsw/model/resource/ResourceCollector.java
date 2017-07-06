@@ -178,4 +178,12 @@ public class ResourceCollector implements Serializable{
         for(ResourceTypeEnum typeIter : ResourceTypeEnum.values())
             resourcesMap.put(typeIter, resourcesMap.get(typeIter) + toBeAdded.getResource(typeIter));
     }
+
+    /**
+     * this method is used to turn down to zero a type ofresource
+     * @param typeEnum the type of resource to take down
+     */
+    public void resetResource(ResourceTypeEnum typeEnum) {
+        resourcesMap.put(typeEnum, 0);
+    }
 }
