@@ -473,6 +473,8 @@ public class MainBoardControl extends CustomFxControl {
 
         //we set all AS to disabled
         disableActionSpaces();
+
+        //we reactivate only the ones passed via parameters
         if(servantsNeededBuild.isPresent()){
             if(board.getBuild().checkIfFirst()){
                 Button activeBuildButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
@@ -502,7 +504,6 @@ public class MainBoardControl extends CustomFxControl {
             activeCouncilButton.setDisable(false);
         }
 
-        //we reactivate only the ones passed via parameters
 
         if(servantsNeededBuild.isPresent()) {
             BuildAS build = board.getBuild();

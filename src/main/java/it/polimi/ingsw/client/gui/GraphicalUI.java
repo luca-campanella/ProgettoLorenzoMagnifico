@@ -133,11 +133,14 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForTilesChoices() {
-        currentSceneType = SceneEnum.WAITING_SCENE;
-        Debug.printDebug("GUI: show waiting for tile choice");
+        //sometimes happens the other thread arrives first, no need to show anything then
+        if(currentSceneType != SceneEnum.MAIN_BOARD) {
+            currentSceneType = SceneEnum.WAITING_SCENE;
+            Debug.printDebug("GUI: show waiting for tile choice");
 
-        Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for tiles choices",
-                () -> this.prepareWaitingScene("Personal tile chose, waiting for other players to choose...")));
+            Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for tiles choices",
+                    () -> this.prepareWaitingScene("Personal tile chose, waiting for other players to choose...")));
+        }
     }
 
     /**
