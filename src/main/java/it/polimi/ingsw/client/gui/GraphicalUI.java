@@ -736,7 +736,7 @@ public class GraphicalUI extends AbstractUIType {
      * this method is called by the client to ask the client if he wants to be excommunicated on the gui
      */
     @Override
-    public void askExcommunicationChoice() {
+    public void askExcommunicationChoice(int numTile) {
 
     }
 }

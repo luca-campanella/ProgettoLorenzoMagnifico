@@ -990,6 +990,19 @@ public class ModelController {
             }
         }
     }
+
+    /**
+     * this method is called by the controlle to avoid the excommunication of a player
+     * @param nickname the nickname of the player that had avoid the excommunication
+     */
+    public void avoidExcommunicationPlayer(String nickname) {
+        for(Player player : players){
+            if(player.getNickname().equals(nickname)){
+                player.resetFaithPoints();
+                break;
+            }
+        }
+    }
 }
 
 

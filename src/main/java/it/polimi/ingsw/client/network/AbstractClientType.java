@@ -156,4 +156,10 @@ public abstract class AbstractClientType  {
      * @param choicesOnCurrentAction the choices done on the effect
      */
     public abstract void activateLeaderCard(String leaderName, HashMap<String, Integer> choicesOnCurrentAction) throws NetworkException;
+
+    /**
+     * this method is called by the client to deliver to the server the choices one on the excommunication
+     * @param response the choice of the client
+     */
+    public abstract void excommunicationChoice(String response) throws NetworkException;
 }

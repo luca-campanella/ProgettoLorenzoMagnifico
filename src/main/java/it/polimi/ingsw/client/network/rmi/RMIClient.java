@@ -283,6 +283,16 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     }
 
     /**
+     * this method is called by the client to deliver to the server the choices one on the excommunication
+     * @param response the choice of the client
+     * @throws NetworkException if something goes wrong with the network
+     */
+    @Override
+    public void excommunicationChoice(String response) throws NetworkException {
+
+    }
+
+    /**
      * Performs the rmi operations to get "open" a rmi connection with the server
      * @throws ClientConnectionException if it can't find either the sever either the server class or it can't pulbish itself on the registry
      */

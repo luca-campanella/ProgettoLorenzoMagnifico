@@ -651,6 +651,39 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * this method returns to the client the response of the excommunication choice
+     * @param response the excommunication response: "yes" if the player wants to avoid the excommunication
+     *                                               "no" if the player wants to be excommunicate without losing his faith points
+     */
+    @Override
+    public void callbackExcommunicationChoice(String response, int numTile) {
+
+        manageExcommunicationChoice(thisPlayer.getNickname(), response, numTile);
+        try{
+            clientNetwork.excommunicationChoice(response);
+            Debug.printVerbose("delivered excommunication choice to server");
+        }
+        catch (NetworkException e){
+            Debug.printError("cannot deliver the excommunication choice to the server");
+        }
+
+    }
+
+    /**
+     * this methd is used to menage the choices done on the excommunication tile
+     * @param nickname the nickname of the player that had done the choice
+     * @param response the response of the player
+     * @param numTile the number of the tile that the player takes if he is excommunicated
+     */
+    public void manageExcommunicationChoice(String nickname, String response, int numTile) {
+
+        if(response.equals("YES"))
+            modelController.avoidExcommunicationPlayer(nickname);
+        else
+            modelController.excommunicatePlayer(nickname, numTile);
+    }
+
+    /**
      * This method returns to the view a reference to the board
      * this method is called to obtain the board of the game inside the view
      *
@@ -1081,7 +1114,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.excommunicatePlayer(playersExcommunicated, numTile);
         userInterface.displayExcommunicationPlayers(playersExcommunicated);
         if(!playersExcommunicated.contains(thisPlayer.getNickname())){
-            userInterface.askExcommunicationChoice();
+            userInterface.askExcommunicationChoice(numTile);
         }
     }
 
