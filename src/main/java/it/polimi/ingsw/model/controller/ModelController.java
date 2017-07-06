@@ -723,7 +723,7 @@ public class ModelController {
      * this method is used to calculate and deliver the result of the game
      */
     private ArrayList<PlayerPositionEndGamePacket> endGameOrderPlayer() {
-
+        //todo check this block
         //this iteration is used to find the order of victory of the players
         for(int i = 0 ; i < players.size() ; i++){
             for(int e = 0 ; e < players.size()-i-1 ; e++){

@@ -111,8 +111,8 @@ public class BoardCreator {
         CouncilAS councilAS = new CouncilAS();
         councilAS.addEffect(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN, 10)));
         councilAS.addEffect(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN, 10)));
-
-        VaticanReport vaticanReport = new VaticanReport(new int[VaticanReport.NUMBER_OF_AGES], new int[VaticanReport.WALK_OF_FAITH]);
+        //todo not sure about commenting this line
+        //VaticanReport vaticanReport = new VaticanReport(new int[VaticanReport.NUMBER_OF_AGES], new int[VaticanReport.WALK_OF_FAITH]);
 
         //boardTest.createNewBoard(towerstest, marketASArray, buildAS, harvestAS, councilAS, vaticanReport);
 

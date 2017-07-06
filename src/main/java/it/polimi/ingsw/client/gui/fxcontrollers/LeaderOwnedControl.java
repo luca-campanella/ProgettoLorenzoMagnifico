@@ -26,11 +26,11 @@ import java.util.concurrent.Executors;
  * This class controls the AnchorPane that a user sees when clicks "ShowLeader"
  */
 public class LeaderOwnedControl extends CustomFxControl {
-    ArrayList<LeaderCard> leaderNotUsed;
-    List<LeaderCard> leaderActivated;
-    List<LeaderCard> leadersPlayable;
-    List<LeaderCard> leadersOPRNotActivated;
-    LeaderCard selectedLeader;
+    private List<LeaderCard> leaderNotUsed;
+    private List<LeaderCard> leaderActivated;
+    private List<LeaderCard> leadersPlayable;
+    private List<LeaderCard> leadersOPRNotActivated;
+    private LeaderCard selectedLeader;
     private ExecutorService pool;
     @FXML
     private GridPane leadersNotPlayedGridPane;
@@ -44,13 +44,14 @@ public class LeaderOwnedControl extends CustomFxControl {
     private Button activateLeaderButton;
 
     private ToggleButton lastLeaderButtonClicked;
-    private HashMap<String, LeaderCard> buttonsInHandLeadersMap = new HashMap<String, LeaderCard>(2);
-    private HashMap<String, LeaderCard> buttonsPlayedLeadersMap = new HashMap<String, LeaderCard>(2);
+    private HashMap<String, LeaderCard> buttonsInHandLeadersMap = new HashMap<>(2);
+    private HashMap<String, LeaderCard> buttonsPlayedLeadersMap = new HashMap<>(2);
     private int gridPaneRightRows;
     private int gridPaneRightCols;
     private int iteratorGridPaneRight;
+    private final String leadersPath = "/imgs/Leaders/";
 
-    public void setLeaders(Player player, ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {
+    public void setLeaders(Player player, List<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated) {
         pool = Executors.newCachedThreadPool();
         this.leaderNotUsed = leaderNotUsed;
         this.leaderActivated = leaderActivated;
@@ -71,7 +72,7 @@ public class LeaderOwnedControl extends CustomFxControl {
                     GridPane.setConstraints(button, k, i);
                     leadersNotPlayedGridPane.getChildren().add(button);
                     /* setting images inside the button */
-                    final Image leaderImage = new Image(getClass().getResourceAsStream("/imgs/Leaders/" + leaderNotUsed.get(numberOfLeaderNotUsed).getImgName()));
+                    final Image leaderImage = new Image(getClass().getResourceAsStream(leadersPath + leaderNotUsed.get(numberOfLeaderNotUsed).getImgName()));
                     final ImageView toggleImage = new ImageView();
                     button.setGraphic(toggleImage);
                     toggleImage.imageProperty().bind(Bindings
@@ -109,7 +110,7 @@ public class LeaderOwnedControl extends CustomFxControl {
         }
     }
 
-    public void refreshLeadersCollections(ArrayList<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated)
+    public void refreshLeadersCollections(List<LeaderCard> leaderNotUsed, List<LeaderCard> leaderActivated, List<LeaderCard> leadersPlayable, List<LeaderCard> leadersOPRNotActivated)
     {
         this.leaderNotUsed = leaderNotUsed;
         this.leaderActivated = leaderActivated;
@@ -178,7 +179,7 @@ public class LeaderOwnedControl extends CustomFxControl {
         updateGridBounds();
         leadersPlayedGridPane.getChildren().add(button);
                     /* setting images inside the button */
-        final Image leaderImage = new Image(getClass().getResourceAsStream("/imgs/Leaders/" + leaderCard.getImgName()));
+        final Image leaderImage = new Image(getClass().getResourceAsStream(leadersPath + leaderCard.getImgName()));
         final ImageView toggleImage = new ImageView();
         button.setGraphic(toggleImage);
         toggleImage.imageProperty().bind(Bindings

@@ -17,6 +17,7 @@ import it.polimi.ingsw.utils.Debug;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is used to read choices arrived via network and to read them both in the server and in the client when it's not his turn
@@ -26,23 +27,23 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
     /**
      * this hashmap is filled with all the choices the user made regarding the move
      */
-    HashMap<String, Integer> choicesMap;
+    private Map<String, Integer> choicesMap;
 
     /**
      * This map should only be set when a choice involving it is performed:
      * - leaders
      */
-    HashMap<String, String> choicesMapString;
+    private Map<String, String> choicesMapString;
 
-    ArrayList<GainResourceEffect> possibleCouncilGifts;
+    private List<GainResourceEffect> possibleCouncilGifts;
 
-    public NetworkChoicesPacketHandler(HashMap<String, Integer> choicesMap, HashMap<String, String> choicesMapString, ArrayList<GainResourceEffect> possibleCouncilGifts) {
+    public NetworkChoicesPacketHandler(Map<String, Integer> choicesMap, Map<String, String> choicesMapString, List<GainResourceEffect> possibleCouncilGifts) {
         this.choicesMap = choicesMap;
         this.possibleCouncilGifts = possibleCouncilGifts;
         this.choicesMapString = choicesMapString;
     }
 
-    public NetworkChoicesPacketHandler(ArrayList<GainResourceEffect> possibleCouncilGifts) {
+    public NetworkChoicesPacketHandler(List<GainResourceEffect> possibleCouncilGifts) {
         this.possibleCouncilGifts = possibleCouncilGifts;
         choicesMap = new HashMap<>();
         choicesMapString = new HashMap<>();
@@ -52,12 +53,12 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
      * Callback from model to controller
      * The model uses this method when encounters a council gift and should choose between the possible ones
      *
-     * @param choiceCode
+     * @param choiceCode is the code used for choices defined at choichesHandlerInterface
      * @param numberDiffGifts the number of different council gifts to ask for
      * @return The arraylist of effect chosen
      */
     @Override
-    public ArrayList<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
+    public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
         ArrayList<GainResourceEffect> choices = new ArrayList<>(numberDiffGifts);
         int choice;
         GainResourceEffect effect;
@@ -112,11 +113,11 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
         return costChoiceResource;
     }
 
-    public void setChoicesMap(HashMap<String, Integer> choicesMap) {
+    public void setChoicesMap(Map<String, Integer> choicesMap) {
         this.choicesMap = choicesMap;
     }
 
-    public void setChoicesMapString(HashMap<String, String> choicesMapString) {
+    public void setChoicesMapString(Map<String, String> choicesMapString) {
         this.choicesMapString = choicesMapString;
     }
 

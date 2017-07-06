@@ -63,7 +63,7 @@ public class TerritoryCard extends AbstractCard{
 
     /**
      * this method force to have no costs.
-     * @return
+     * @return the List of the resources costs
      */
     public ArrayList<Resource> getCost() {
         return new ArrayList<>(0) ;
@@ -76,14 +76,14 @@ public class TerritoryCard extends AbstractCard{
 
     /**
      * this method returns a string with all harvest effects
-     * @return
+     * @return the description of the second effect
      */
     public String secondEffect(){
-        String temp = new String();
-        temp = "H.Value " + harvestEffectValue + "/";
-        for(int i=0; i<effectsOnHarvest.size(); i++)
-            temp += effectsOnHarvest.get(i).descriptionShortOfEffect();
-        return temp;
+
+        StringBuilder temp = new StringBuilder("H.Value " + harvestEffectValue + "/");
+        for(ImmediateEffectInterface iterator : effectsOnHarvest)
+            temp.append(iterator.descriptionShortOfEffect());
+        return temp.toString();
     }
     public CardColorEnum getColor(){
         return cardColor;

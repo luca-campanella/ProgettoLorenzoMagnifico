@@ -18,11 +18,11 @@ public class GainFewerResourceEffect extends AbstractExcommunicationTileEffect{
     @Override
     public int gainFewResource(ResourceTypeEnum resourceType){
         if(resourceType == resourceExcommunication.getType())
-            //resource.setValue(resource.getValue()- resourceExcommunication.getValue());
-        return resourceExcommunication.getValue();
+            return resourceExcommunication.getValue();
         //in case resources type doesn't match, it returns 0
         return 0;
     }
+    //todo: remove this line resource.setValue(resource.getValue()- resourceExcommunication.getValue());
 
     public GainFewerResourceEffect(Resource resourceExcommunication) {
         this.resourceExcommunication = resourceExcommunication;

@@ -35,7 +35,7 @@ public class CommandLineUI extends AbstractUIType {
 
     private ExecutorService pool;
 
-    WaitBasicCliMenu waitMenu;
+    private WaitBasicCliMenu waitMenu;
 
     /**
      * This is the constructor of the class
@@ -94,8 +94,8 @@ public class CommandLineUI extends AbstractUIType {
     /**
      * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
      * this method should also receive the familyMembers list to match the input.
-     * @param familyColorID
-     * @return
+     * @param familyColorID is the color of a family member
+     * @return true if the colors exist false instead
      */
     private boolean existingColors(String familyColorID){
         return (familyColorID.equalsIgnoreCase("yellow")||familyColorID.equalsIgnoreCase("red")||familyColorID.equalsIgnoreCase("green")||familyColorID.equalsIgnoreCase("neutral"));
@@ -121,7 +121,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     public void displayError(String title, String errorDescription)
     {
-        System.out.println("**Error** " + title + " - " + errorDescription);
+        CliPrinter.println("**Error** " + title + " - " + errorDescription);
     }
 
     /**
@@ -144,19 +144,19 @@ public class CommandLineUI extends AbstractUIType {
     /**
      * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
      *
-     * @param senderNick
-     * @param msg
+     * @param senderNick is the nickname of the player senidng a message
+     * @param msg is the message
      */
     @Override
     public void displayChatMsg(String senderNick, String msg) {
         //TODO something more visually appealing
-        System.out.println("<" + senderNick + ">: " + msg);
+        CliPrinter.println("<" + senderNick + ">: " + msg);
     }
 
     //TODO this is a method just for testing chat
     @Override
     public void askChatMsg() {
-        System.out.println("Please insert chat msg: ");
+        CliPrinter.println("Please insert chat msg: ");
 
         try {
             getController().callbackSendChatMsg(StdinSingleton.nextLine());
@@ -236,11 +236,11 @@ public class CommandLineUI extends AbstractUIType {
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui
      *
-     * @param options
-     * @returns to controller the index of the selected option, the choice the user made
+     * @param options is a list with all options
+     * @return to controller the index of the selected option, the choice the user made
      */
     @Override
-    public int askCouncilGift(ArrayList<GainResourceEffect> options) {
+    public int askCouncilGift(List<GainResourceEffect> options) {
         CliOptionsHandler optionsHandler = new CliOptionsHandler(options.size());
         optionsHandler.addEffectsArrayList(options);
         return optionsHandler.askUserChoice();
@@ -248,11 +248,11 @@ public class CommandLineUI extends AbstractUIType {
 
     /**
      * This method is called when a choice on which effect to activate in a yellow card should be perfomed by the ui
-     * @param possibleEffectChoices
+     * @param possibleEffectChoices is a list with all options
      * @return the index of the chosen effect
      */
     @Override
-    public int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+    public int askYellowBuildingCardEffectChoice(List<ImmediateEffectInterface> possibleEffectChoices) {
         CliOptionsHandler optionsHandler = new CliOptionsHandler(possibleEffectChoices.size());
         optionsHandler.addEffectsArrayList(possibleEffectChoices);
         optionsHandler.addOption("Do not activate any effect and save resources for later");
@@ -276,13 +276,14 @@ public class CommandLineUI extends AbstractUIType {
         optionResDescr.append("pay the card with this resources: ");
 
         for(Resource resIter : costChoiceResource) {
-            optionResDescr.append(resIter.getResourceFullDescript() + " | ");
+            optionResDescr.append(resIter.getResourceFullDescript());
+            optionResDescr.append(" | ");
         }
 
         optionsHandler.addOption(optionResDescr.toString());
         optionsHandler.addOption("Pay " + costChoiceMilitary.getResourceCost().getResourceFullDescript() + "(you fulfill the requirement of " + costChoiceMilitary.getResourceRequirement().getResourceFullDescript());
-        int choice = optionsHandler.askUserChoice();
-        return choice;
+        return optionsHandler.askUserChoice();
+
     }
 
     /**
@@ -322,8 +323,8 @@ public class CommandLineUI extends AbstractUIType {
         for(LeaderCard leaderIter : possibleLeaders)
             optionsHandler.addOption(leaderIter.getName() + " - ability: " + leaderIter.getAbility().getAbilityDescription());
 
-        int choice = optionsHandler.askUserChoice();
-        return choice;
+        return optionsHandler.askUserChoice();
+
     }
 
     /**
@@ -350,12 +351,12 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public int askAddingServants(int minimum, int maximum) {
-        System.out.println("You can add servants to your current action, you can add from " + minimum
+        CliPrinter.println("You can add servants to your current action, you can add from " + minimum
                 + " to " + maximum + " servants. How many do you want to add?");
 
         int choice = StdinSingleton.readAndParseInt();
         while(choice < minimum || choice > maximum) {
-            System.out.println("Please add a correct number of servnts, between " + minimum
+            CliPrinter.println("Please add a correct number of servnts, between " + minimum
                     + " and " + maximum);
             choice = StdinSingleton.readAndParseInt();
         }
@@ -374,16 +375,16 @@ public class CommandLineUI extends AbstractUIType {
     @Override
     public DiceAndFamilyMemberColorEnum askWhichFamilyMemberBonus(List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException {
         if(availableFamilyMembers.isEmpty()) {
-            System.out.println("You don't have any family member left to play, it's useless to activate" +
+            CliPrinter.println("You don't have any family member left to play, it's useless to activate" +
                     "this once per round leader ability right now, please wait next round");
             throw new IllegalArgumentException("the list is empty");
         }
 
         if(availableFamilyMembers.size() == 1) {
-            System.out.println("You can only apply the leader to family member "
+            CliPrinter.println("You can only apply the leader to family member "
                     + availableFamilyMembers.get(0).getColor() +
                     " with value " + availableFamilyMembers.get(0).getValue());
-            System.out.println("I'm applying it to this family member");
+            CliPrinter.println("I'm applying it to this family member");
             return availableFamilyMembers.get(0).getColor();
         } else {
             CliOptionsHandler familyMemberChooser = new CliOptionsHandler(availableFamilyMembers.size());
@@ -418,7 +419,7 @@ public class CommandLineUI extends AbstractUIType {
         for(int i = 1 ; i < playerPositionEndGamePacket.size(); i++){
             for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
                 if(playerIter.getPosition() == i)
-                    System.out.println(playerIter.getPosition() + " position: " + playerIter.getNickname()
+                    CliPrinter.println(playerIter.getPosition() + " position: " + playerIter.getNickname()
                             + " " + playerIter.getVictoryPoints() + " Victory Points");
             }
         }

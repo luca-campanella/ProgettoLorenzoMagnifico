@@ -100,7 +100,7 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
 
     private void placeFMOnBuild() {
         int servantsAdded = 0;
-        if(servantsNeededHarvest.isPresent())
+        if(servantsNeededBuild.isPresent())
              servantsAdded = readServants(servantsNeededBuild.get());
         getController().callbackPlacedFMOnBuild(servantsAdded);
     }

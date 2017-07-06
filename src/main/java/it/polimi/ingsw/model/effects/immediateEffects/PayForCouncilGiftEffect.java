@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class PayForCouncilGiftEffect extends AbstractPerformActionEffect {
     //toPay value is > 0 by default.
-    ArrayList<Resource> toPay;
-    public PayForCouncilGiftEffect(ArrayList<Resource> temp){
+    private List<Resource> toPay;
+    public PayForCouncilGiftEffect(List<Resource> temp){
         toPay = temp;
     }
 
@@ -38,15 +38,17 @@ public class PayForCouncilGiftEffect extends AbstractPerformActionEffect {
 
     /**
      * prints short description of the effect
-     * @return
+     * @return a short description of the effect
      */
     public String descriptionShortOfEffect(){
-        int i;
-        String temp = new String();
-        temp = "Gift ";
-        for(int k = 0; k<toPay.size(); k++)
-            temp += "-"+this.toPay.get(k).getResourceShortDescript();
-        return temp;
+
+        StringBuilder temp = new StringBuilder("Gift");
+
+        for(Resource iterator : toPay) {
+            temp.append("-");
+            temp.append(iterator.getResourceShortDescript());
+        }
+        return temp.toString();
     }
 
 }

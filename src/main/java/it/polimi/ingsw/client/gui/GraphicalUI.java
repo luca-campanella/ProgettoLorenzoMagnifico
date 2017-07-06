@@ -212,11 +212,11 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui
      *
-     * @param options
+     * @param options is a list of all options
      * @return the index of the selected option, the choice the user made
      */
     @Override
-    public int askCouncilGift(ArrayList<GainResourceEffect> options) {
+    public int askCouncilGift(List<GainResourceEffect> options) {
         Debug.printVerbose("Im in askCouncilGiftGUI0");
         FutureTask<Integer> futureTask = new FutureTask(new AskChoiceOnEffectDialog(options, "council gift"));
         Platform.runLater(futureTask);
@@ -237,11 +237,11 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * This method is called when a choice on which effect to activate in a yellow card should be perfomed by the ui
      *
-     * @param possibleEffectChoices
+     * @param possibleEffectChoices is a list of all options available
      * @return the index of the chosen effect
      */
     @Override
-    public int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices) {
+    public int askYellowBuildingCardEffectChoice(List<ImmediateEffectInterface> possibleEffectChoices) {
         FutureTask<Integer> futureTask = new FutureTask(new AskChoiceOnEffectDialog(possibleEffectChoices, " building "));
         Platform.runLater(futureTask);
 

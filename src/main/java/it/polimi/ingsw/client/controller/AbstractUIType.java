@@ -79,15 +79,15 @@ abstract public class AbstractUIType {
     /**
      * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
      *
-     * @param senderNick
-     * @param msg
+     * @param senderNick Is the nick of the person who's sending the message
+     * @param msg is the message sent
      */
     public abstract void displayChatMsg(String senderNick, String msg);
 
     //TODO this is a method just for testing chat
     public abstract void askChatMsg();
 
-
+    //todo: probably eliminate this method
     public abstract int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer);
 
     /**
@@ -116,18 +116,18 @@ abstract public class AbstractUIType {
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui
      *
-     * @param options
+     * @param options is a list of options available
      * @return the index of the selected option, the choice the user made
      */
-    public abstract int askCouncilGift(ArrayList<GainResourceEffect> options);
+    public abstract int askCouncilGift(List<GainResourceEffect> options);
 
     /**
      * This method is called when a choice on which effect to activate in a yellow card should be perfomed by the ui
      *
-     * @param possibleEffectChoices
+     * @param possibleEffectChoices is a list of all options available
      * @return the index of the chosen effect
      */
-    public abstract int askYellowBuildingCardEffectChoice(ArrayList<ImmediateEffectInterface> possibleEffectChoices);
+    public abstract int askYellowBuildingCardEffectChoice(List<ImmediateEffectInterface> possibleEffectChoices);
 
     /**
      * This method is called when a choice on which cost to pay in a purple card should be perfomed by the ui

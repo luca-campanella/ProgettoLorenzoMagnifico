@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CliOptionsHandler {
 
-    private ArrayList<String> options;
+    private List<String> options;
 
     private String initialMessage = null;
 
@@ -27,15 +27,15 @@ public class CliOptionsHandler {
 
     /**
      * Constructor with all the options already in place
-     * @param options
+     * @param options are the options available
      */
-    public CliOptionsHandler(ArrayList<String> options) {
+    public CliOptionsHandler(List<String> options) {
         this.options = options;
     }
 
     /**
      * this constructor should be called when we already know how many options we'll add later on
-     * @param numberOfOptions
+     * @param numberOfOptions is the number of options available
      */
     public CliOptionsHandler(int numberOfOptions) {
         options = new ArrayList<>(numberOfOptions);
@@ -44,7 +44,7 @@ public class CliOptionsHandler {
     /**
      * this constructor should be called when we already know how many options we'll add later on
      * and we want to add an initial message, such as the question
-     * @param numberOfOptions
+     * @param numberOfOptions is the number of options available
      * @param initialMessage the initial message, such as the question
      */
     public CliOptionsHandler(String initialMessage, int numberOfOptions) {
@@ -95,15 +95,15 @@ public class CliOptionsHandler {
         if(options.size() == 1) //if the user has no choices we return immediately
             return 0;
         if(initialMessage != null)
-            System.out.println(initialMessage);
-        System.out.println("Select an option typing the corresponding number");
+            CliPrinter.println(initialMessage);
+        CliPrinter.println("Select an option typing the corresponding number");
         for(int i = 0; i< options.size(); i++)
-            System.out.println(i + "--- " + options.get(i));
+            CliPrinter.println(i + "--- " + options.get(i));
 
         numberPicked = StdinSingleton.readAndParseInt();
 
         while(numberPicked >= options.size() || numberPicked < 0) {
-            System.out.println("Please insert a valid number, between 0 and " + (options.size() - 1));
+            CliPrinter.println("Please insert a valid number, between 0 and " + (options.size() - 1));
             numberPicked = StdinSingleton.readAndParseInt();
         }
 
@@ -117,10 +117,10 @@ public class CliOptionsHandler {
         CliOptionsHandler cliOptionsHandler = new CliOptionsHandler(4);
 
         for(int i = 0; i < 4; i++)
-            cliOptionsHandler.addOption("Opzione numero " + i);
+            cliOptionsHandler.addOption("Option number " + i);
 
         int choice = cliOptionsHandler.askUserChoice();
 
-        System.out.println("The user chose option number: " + choice);
+        CliPrinter.println("The user chose option number: " + choice);
     }
 }

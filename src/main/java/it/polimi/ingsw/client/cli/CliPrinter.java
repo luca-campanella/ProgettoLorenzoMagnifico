@@ -625,4 +625,22 @@ public class CliPrinter {
     public static void printPlayerGeneralAction(String nickname, String text) {
         System.out.println("["+nickname + "] --> " + nickname + " " + text);
     }
+
+    /**
+     * this will be the standard output
+     * @param string is the input string to print
+     */
+    public static void println(String string)
+    {
+        System.out.println(string);
+    }
+
+    /**
+     * another method to print a string
+     * @param string is the string to print
+     */
+    public static void print(String string)
+    {
+        System.out.print(string);
+    }
 }

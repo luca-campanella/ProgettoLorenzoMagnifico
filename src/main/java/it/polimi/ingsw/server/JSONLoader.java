@@ -107,7 +107,7 @@ public class JSONLoader {
         //we insert excommunication tiles inside the board
         ArrayList<ExcommunicationTile> excomTiles = loadExcommunicationTiles();
 
-        ArrayList<ExcommunicationTile> randomTiles = new ArrayList<ExcommunicationTile>(3);
+        ArrayList<ExcommunicationTile> randomTiles;
         randomTiles = shuffle(excomTiles);
         board.setExcommunicationTiles(randomTiles);
 

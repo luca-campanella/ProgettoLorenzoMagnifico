@@ -37,7 +37,7 @@ public interface ChoicesHandlerInterface {
     /**
      * Callback from model to controller
      * The model uses this method when encounters a council gift and should choose between the possible ones
-     * @param choiceCode
+     * @param choiceCode is the code used to handle choices
      * @param numberDiffGifts the number of different council gifts to ask for
      * @return The arraylist of effect chosen
      */
@@ -47,15 +47,15 @@ public interface ChoicesHandlerInterface {
      * Callback from model to controller
      * The model uses this method when encounters a {@link it.polimi.ingsw.model.cards.BuildingCard} with more than one effects and wnats to make the user choose which one activate
      * @param cardNameChoiceCode in this case the choice code corresponds to the card name
-     * @param possibleEffectChoices
-     * @return
+     * @param possibleEffectChoices are all possible effects
+     * @return an effect chosen
      */
     public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, List<ImmediateEffectInterface> possibleEffectChoices);
 
     /**
      * Callback from model to controller
      * The model uses this method inside {@link it.polimi.ingsw.model.cards.VentureCard#getCostAskChoice(ChoicesHandlerInterface)} to understand what cos he should subtract
-     * @param choiceCode
+     * @param choiceCode is the code used to handle choices
      * @param costChoiceResource the list of resources the player will pay if he chooses this option
      * @param costChoiceMilitary the cost he will pay on something conditioned
      * @return The arraylist of resources the model has to take away from the player
