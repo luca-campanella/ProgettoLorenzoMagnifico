@@ -705,6 +705,36 @@ public class MainBoardControl extends CustomFxControl {
         //updateFamilyMembers();
     }
 
+    public void setUpNumberOfPlayers(int numberOfPlayers)
+    {
+        if (numberOfPlayers == 4){
+            return;
+        }
+        disableMarket();
+        if(numberOfPlayers == 3)
+            return;
+        disableBuildHarvest();
+
+    }
+    private void disableMarket() {
+        ImageView imgView = ((ImageView) (marketPane.lookup("#marketBlock2")));
+        Image blockImg  = new Image(getClass().getResourceAsStream("/imgs/marketBlock.jpg"));
+        imgView.setImage(blockImg);
+        imgView.setPreserveRatio(false);
+        ImageView secondImage = ((ImageView) (marketPane.lookup("#marketBlock3")));
+        secondImage.setImage(blockImg);
+        secondImage.setPreserveRatio(false);
+
+    }
+    private void disableBuildHarvest(){
+        ImageView imgView = ((ImageView) (buildHarvestPane.lookup("#buildBlockActionSpace")));
+        Image blockImg  = new Image(getClass().getResourceAsStream("/imgs/productionBlock.jpg"));
+        imgView.setImage(blockImg);
+        imgView.setPreserveRatio(false);
+        ImageView secondImage = ((ImageView) (buildHarvestPane.lookup("#harvestBlockActionSpace")));
+        secondImage.setImage(blockImg);
+        secondImage.setPreserveRatio(false);
+        }
     /**
      * Method called by fx when a tower as as is clicked
      * @param event the fx event

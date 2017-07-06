@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import it.polimi.ingsw.client.gui.fxcontrollers.PlayerTabSubControl?>
+
 <?import java.lang.String?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToggleButton?>
@@ -19,9 +19,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<SplitPane dividerPositions="0.5312989045383412" layoutX="0.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@MainBoardStyle.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.MainBoardControl">
+<?import javafx.scene.control.Tab?>
+<SplitPane dividerPositions="0.5312989045383412" layoutX="0.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@MainBoardStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.fxcontrollers.MainBoardControl">
         <items>
-                  <AnchorPane fx:id="towersCouncilFaith" minHeight="900.0" maxHeight="900.0" prefHeight="900.0" minWidth="680.0" maxWidth="680.0" prefWidth="680.0">
+                  <AnchorPane fx:id="towersCouncilFaith" maxHeight="900.0" maxWidth="680.0" minHeight="900.0" minWidth="680.0" prefHeight="900.0" prefWidth="680.0">
                      <children>
                         <ImageView fx:id="card03" fitHeight="146.0" fitWidth="88.0" layoutX="11.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="card02" fitHeight="146.0" fitWidth="88.0" layoutX="11.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
@@ -129,6 +130,8 @@
                                <Button fx:id="buildBigActionSpace" disable="true" layoutX="120.0" layoutY="23.0" mnemonicParsing="false" onAction="#buildSelected" prefHeight="55.0" prefWidth="160.0" styleClass="actionSpaceButton" />
                                <Button fx:id="harvestSmallActionSpace" disable="true" layoutX="14.5" layoutY="125.0" mnemonicParsing="false" onAction="#harvestSelected" prefHeight="50.0" prefWidth="61.0" styleClass="actionSpaceButton" />
                                <Button fx:id="harvestBigActionSpace" disable="true" layoutX="120.0" layoutY="125.0" mnemonicParsing="false" onAction="#harvestSelected" prefHeight="55.0" prefWidth="160.0" styleClass="actionSpaceButton" />
+                        <ImageView fx:id="buildBlockActionSpace" fitHeight="84.0" fitWidth="184.0" layoutX="120.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="harvestBlockActionSpace" fitHeight="84.0" fitWidth="184.0" layoutX="120.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" />
                                </children></AnchorPane>
                         <AnchorPane fx:id="marketPane" prefHeight="205.0" prefWidth="225.0">
                            <children>
@@ -151,6 +154,8 @@
                               <Button fx:id="marketAS1" disable="true" layoutX="100.0" layoutY="20.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
                               <Button fx:id="marketAS2" disable="true" layoutX="175.0" layoutY="33.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
                               <Button fx:id="marketAS3" disable="true" layoutX="225.0" layoutY="85.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
+                        <ImageView fx:id="marketBlock2" fitHeight="55.0" fitWidth="61.0" layoutX="175.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="marketBlock3" fitHeight="55.0" fitWidth="61.0" layoutX="225.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </AnchorPane>
                      </items>

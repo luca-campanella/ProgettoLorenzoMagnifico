@@ -204,6 +204,7 @@ public class GraphicalUI extends AbstractUIType {
         control.displayDices();
         control.displayFamilyMembers();
         control.setUpPlayersPersonalBoards();
+        control.setUpNumberOfPlayers(1+ getController().callbackObtainOtherPlayers().size());
         control.appendMessageOnStateTextArea(message);
         if(!isHisTurn)
             control.disableAllActionsNotHisTurn(true);
@@ -554,7 +555,7 @@ public class GraphicalUI extends AbstractUIType {
      * @param fxmlFileName the fxml to start from
      * @param title the title of the window
      */
-    public void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
+    public synchronized void openNewWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
         Debug.printVerbose(getClass().getResource("/"+fxmlFileName).toString());
