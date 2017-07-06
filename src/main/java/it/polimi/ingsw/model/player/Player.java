@@ -428,6 +428,7 @@ public class Player implements Serializable{
 
         //We assume that as long as the player decided to play this leader
         // he also wants to activate his permanent ability
+        leaderCardsNotUsed.remove(leaderToBePlayed);
         if(leaderToBePlayed.getAbility().getAbilityType() == LeaderAbilityTypeEnum.PERMANENT) {
             permanentLeaderCardCollector.addLeaderCard(leaderToBePlayed);
         }

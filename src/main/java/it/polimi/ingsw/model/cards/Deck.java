@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.CardColorEnum;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
@@ -64,21 +65,22 @@ Deck implements Serializable{
     private List<? extends AbstractCard> fillListOfRandomCards(ArrayList<? extends AbstractCard> developmentCard, int period)
     {
         ArrayList<AbstractCard> listOfCards = new ArrayList<>(4);
-        //k goes from 8 to 4 again and again, depending on round
-        final int numberOfCardsPicked = 4;
-        int k = ((developmentCard.size()+4)%8)+4;
-        int temp;
-        for (int i = 0; i < numberOfCardsPicked; i++) {
-            temp =  (int)(Math.random()*k);
-            //i take a random number - 0 to 7
-            //then in base of the period, i choose the right card
-            while (developmentCard.get(temp).getPeriod() != period)
-                temp = (int) (Math.random() * k);
-            listOfCards.add(developmentCard.get(temp));
-            //then i remove the card from all territory card, and decrease the card count
-            developmentCard.remove(temp);
-            k--;
+        final int cardsToTake = 4;
+        ArrayList<AbstractCard> cardsOnPeriod = new ArrayList<>(8);
+        //find the cards of the proper period
+        for(AbstractCard card : developmentCard){
+            if(card.getPeriod() == period)
+                cardsOnPeriod.add(card);
         }
+        Random random = new Random();
+        AbstractCard card;
+        for (int i = 0; i < cardsToTake ; i++){
+            card = cardsOnPeriod.get(random.nextInt(cardsOnPeriod.size()));
+            cardsOnPeriod.remove(card);
+            developmentCard.remove(card);
+            listOfCards.add(card);
+        }
+
         return listOfCards;
     }
     //This method needs to be changed.. It isn't really working probably

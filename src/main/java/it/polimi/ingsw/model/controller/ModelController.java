@@ -149,15 +149,18 @@ public class ModelController {
         dices.forEach(Dice::throwDice);
 
         //reload the family member
-        players.forEach(Player::prepareForNewRound);
+        reloadFamilyMember();
 
         gameBoard.clearBoard();
 
-        //TODO clean and load the cards on board
-
-        if(round%2==0){}
-            //TODO METHOD to call the excommunication
         round = round + 1;
+    }
+
+    /**
+     * this method is used to reload the family member used in the last round
+     */
+    public void reloadFamilyMember(){
+        players.forEach(Player::prepareForNewRound);
     }
 
     public ArrayList<FamilyMember> getFamilyMemberCouncil(){

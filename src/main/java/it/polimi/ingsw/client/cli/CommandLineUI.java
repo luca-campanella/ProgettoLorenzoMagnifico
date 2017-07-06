@@ -404,6 +404,8 @@ public class CommandLineUI extends AbstractUIType {
     @Override
     public void waitMenu() {
 
+        if(waitMenu.getState() == Thread.State.RUNNABLE || waitMenu.getState() == Thread.State.TIMED_WAITING)
+            waitMenu.interrupt();
         waitMenu = new WaitBasicCliMenu(getController());
         waitMenu.start();
         //pool.submit(waitMenu);
