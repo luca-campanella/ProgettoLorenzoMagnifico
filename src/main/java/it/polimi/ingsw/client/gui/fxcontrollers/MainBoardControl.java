@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -1009,6 +1010,29 @@ public class MainBoardControl extends CustomFxControl {
         appendMessageOnStateTextArea("["+familyMember.getPlayer().getNickname() + "] --> " + familyMember.getPlayer().getNickname() +
                 " has placed his " + familyMember.getColor() + " family member of value " + familyMember.getValue() +
                 " " + text);
+    }
+
+    /**
+     * this method is called by the client to ask the client if he wants to be excommunicated on the gui
+     */
+    public void askExcommunicationChoice(int numTile) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Excommunication?");
+            alert.setHeaderText("Do you want to be excommunicated?");
+            alert.setContentText("The time for the Vatican report has come, you have the faith points not to be " +
+                    "excommunicated, do you want to be excommunicated anyway?");
+
+            ButtonType excomYes = new ButtonType("Yes, excommunicate me");
+            ButtonType excomNo = new ButtonType("No, don't excommunicate me");
+            alert.getButtonTypes().setAll(excomNo, excomYes);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == excomYes)
+                pool.execute(() -> getController().callbackExcommunicationChoice("YES", numTile));
+            else
+                pool.execute(() -> getController().callbackExcommunicationChoice("NO", numTile));
+        });
     }
 
     /**

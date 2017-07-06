@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -10,16 +11,13 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.model.player.PlayerColorEnum;
-import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.server.network.socket.SocketPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This is the class that handles a room and offers a layer between the network part of the server and the actual game
@@ -31,14 +29,30 @@ public class Room {
      */
     private ArrayList<AbstractConnectionPlayer> players;
 
+    /**
+     * This is the lis of players for which timeout for move has ended, they can still connect and restart playing
+     * This list also contains the players for which an error on the network was encountered, thus they were suspended
+     */
+    private List<AbstractConnectionPlayer> suspendedPlayers;
+
     private ControllerGame controllerGame;
 
     private ArrayList<LeaderCard> cardToPlayer;
 
     /**
+     * This pool is used to schedule timeouts for players move
+     */
+    private ScheduledThreadPoolExecutor timersPool;
+
+    /**
      * timeout that starts when the second player joins the room. When time is up game starts. Set by the constructor
      */
     private int timeoutInSec;
+
+    /**
+     * the maximum time a user can spend playing his turn
+     */
+    private int timeoutMoveInSec;
 
     private int maxNOfPlayers;
     private int currNOfPlayers;
@@ -46,16 +60,18 @@ public class Room {
 
     /**
      * Constructor
-     *
-     * @param maxNOfPlayers max number of players for this room
+     *  @param maxNOfPlayers max number of players for this room
      * @param timeoutInSec  timeout that starts when the second player joins the room. When time is up game starts
+     * @param timeoutMoveInSec is the maximum time a user can spend playing his turn
      */
-    public Room(int maxNOfPlayers, int timeoutInSec) {
+    public Room(int maxNOfPlayers, int timeoutInSec, int timeoutMoveInSec) {
         this.timeoutInSec = timeoutInSec;
         this.maxNOfPlayers = maxNOfPlayers;
+        this.timeoutMoveInSec = timeoutMoveInSec;
         currNOfPlayers = 0;
         isGameStarted = false;
         players = new ArrayList<>(maxNOfPlayers);
+        timersPool = new ScheduledThreadPoolExecutor(1); //we need just one timeout
     }
 
 
@@ -86,7 +102,7 @@ public class Room {
         if (currNOfPlayers == maxNOfPlayers) //ModelController should start
         {
             Debug.printVerbose("Room capacity reached, starting new game");
-            startGame();
+            new Thread( () -> startGame()).run(); // we don't want to start a game on the server thread
             Debug.printVerbose("Room capacity reached, returned from start function");
         } else if (currNOfPlayers == 2) {
             Debug.printVerbose("2 players reached ");
@@ -107,6 +123,8 @@ public class Room {
      */
     private void startGame() {
         Debug.printVerbose("Game on room started");
+        //we initialize the array of possible suspended players here, so we know the maximum number
+        suspendedPlayers = new ArrayList<>(players.size());
         isGameStarted = true;
         try {
             Debug.printVerbose("just before constructor");
@@ -409,7 +427,22 @@ public class Room {
      */
     public void playersTurn(AbstractConnectionPlayer player) {
 
+        //if the player is suspended we don't ask him, but we just pass the turn for him
+        if(suspendedPlayers.contains(player)) {
+            try {
+                controllerGame.endPhase(player); //we automatically make him pass
+            } catch (IllegalMoveException e) {
+                Debug.printVerbose("This should never happen: the server cheated (?)");
+            }
+            finally {
+                return;
+            }
+        }
+
+        //otherwise we ask him for a move
         try {
+            //starts the timer for player suspension if he doesn't move in time
+            timersPool.schedule(() -> suspendPlayer(player), (long) (timeoutMoveInSec), TimeUnit.SECONDS);
             player.receiveStartOfTurn();
         } catch (NetworkException e) {
             Debug.printError("ERROR on the deliver of the token ", e);
@@ -417,6 +450,41 @@ public class Room {
 
     }
 
+    /**
+     * This method is called when the timeout for player's move is ended and we should notify the player and all the
+     * other players
+     * @param playerToSuspend the player that has to be suspended, not played in time
+     */
+    private void suspendPlayer(AbstractConnectionPlayer playerToSuspend) {
+        addToSuspendedPlayers(playerToSuspend);
+
+        for(AbstractConnectionPlayer playerIter : players) {
+            try {
+                playerIter.notifySuspendedPlayer(playerIter.getNickname());
+            } catch (NetworkException e) {
+                Debug.printError("ERROR in notifying the suspension of the player" +
+                        playerToSuspend.getNickname() + " to player " + playerIter.getNickname(), e);
+                addToSuspendedPlayers(playerIter); //we suspend the player that disconnected, so that the game can go on
+                //todo notify of the error the other players
+            }
+        }
+
+        //we make him pass
+        try {
+            controllerGame.endPhase(playerToSuspend); //we automatically make him pass
+        } catch (IllegalMoveException e) {
+            Debug.printVerbose("This should never happen: the server cheated (?)");
+        }
+    }
+
+    /**
+     * This method adds a plyer to the suspended players list only if he's not already inside
+     * @param player the player to add to the list
+     */
+    private void addToSuspendedPlayers(AbstractConnectionPlayer player) {
+        if(!suspendedPlayers.contains(player))
+            suspendedPlayers.add(player);
+    }
     /**
      * this method is called by the controller game to deliver all the players to the different players
      */

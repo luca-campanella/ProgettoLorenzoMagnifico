@@ -209,4 +209,11 @@ public interface NetworkControllerClientInterface {
      * @param numTile the numbcer of tile to take if the player is excommunicated
      */
     void manageExcommunicationChoice(String nickname, String response, int numTile);
+
+    /**
+     * this method is called by the network to deliver the fact that a player has disconnected due to the timeout
+     *
+     * @param nickname the nickname of the player that disconnected
+     */
+    void receivedNotificationSuspendedPlayer(String nickname);
 }

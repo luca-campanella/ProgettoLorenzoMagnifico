@@ -573,6 +573,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
         modelController = new ModelController(players, board);
 
+        modelController.setFamilyMemberDices();
+
         //add the coins to the orderOfPlayers based on the order of turn
         modelController.addCoinsStartGame(players);
 
@@ -594,12 +596,13 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         dices.forEach(dice -> Debug.printVerbose("Dice " + dice.getValue() + " " + dice.getColor() ));
         modelController.setDice(dices);
 
-        modelController.setFamilyMemberDices();
+        modelController.reloadFamilyMember();
 
         ArrayList<FamilyMember> playableFMs = thisPlayer.getNotUsedFamilyMembers();
         for(FamilyMember fmIter : playableFMs) {
             Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
         }
+        userInterface.waitMenu();
     }
 
     /**
@@ -681,6 +684,21 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             modelController.avoidExcommunicationPlayer(nickname);
         else
             modelController.excommunicatePlayer(nickname, numTile);
+    }
+
+    /**
+     * this method is called by the network to deliver the fact that a player has disconnected due to the timeout
+     *
+     * @param nickname the nickname of the player that disconnected
+     */
+    @Override
+    public void receivedNotificationSuspendedPlayer(String nickname) {
+        Debug.printVerbose("*** the player " + nickname + " has been excommunicated");
+        if(thisPlayer.getNickname().equals(nickname)){
+            //todo suspend this player
+        } else {
+            //todo notify the player suspension to the view
+        }
     }
 
     /**

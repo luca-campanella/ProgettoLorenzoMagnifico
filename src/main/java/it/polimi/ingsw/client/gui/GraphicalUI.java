@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.blockingdialogs.*;
-
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.AbstractActionSpace;
@@ -738,7 +737,8 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void askExcommunicationChoice(int numTile) {
-
+         Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).askExcommunicationChoice(numTile));
     }
 }
 

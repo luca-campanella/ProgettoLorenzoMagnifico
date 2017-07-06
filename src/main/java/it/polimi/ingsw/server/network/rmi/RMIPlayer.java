@@ -17,7 +17,6 @@ import it.polimi.ingsw.utils.Debug;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -41,6 +40,7 @@ import java.util.concurrent.Executors;
     {
         super(nickname);
         this.RMIClientInterfaceInst = RMIClientInterfaceInst;
+        generatorOfThread = Executors.newCachedThreadPool();
         deliverNickname();
     }
 
@@ -278,6 +278,22 @@ import java.util.concurrent.Executors;
     }
 
     /**
+     * this method is called by the room to deliver the fact that a player has disconnected due to the timeout
+     *
+     * @param nickname the nickname of the player that disconnected
+     */
+    @Override
+    public void notifySuspendedPlayer(String nickname) throws NetworkException {
+        try{
+            RMIClientInterfaceInst.receiveNotificationSuspendedPlayer(nickname);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the notification of suspended player to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
      * @param familyMember the family member placed on the tower
      * @param towerIndex the number of the tower
@@ -477,8 +493,6 @@ import java.util.concurrent.Executors;
      */
     @Override
     public void sendChatMsg(String msg) throws RemoteException {
-
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().floodChatMsg(this, msg));
     }
 
@@ -491,7 +505,6 @@ import java.util.concurrent.Executors;
     @Override
     public void playLeaderCard(String leaderName,HashMap<String, String> choicesOnCurrentActionString) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().playLeaderCard(leaderName, choicesOnCurrentActionString, this));
 
     }
@@ -507,7 +520,6 @@ import java.util.concurrent.Executors;
     @Override
     public void placeOnTower(DiceAndFamilyMemberColorEnum familyMemberColor, int numberTower, int floorTower, HashMap<String, Integer> playerChoices) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().placeOnTower(getFamilyMemberByColor(familyMemberColor), numberTower, floorTower, playerChoices));
     }
 
@@ -521,7 +533,6 @@ import java.util.concurrent.Executors;
     @Override
     public void placeOnMarket(DiceAndFamilyMemberColorEnum familyMemberColor, int marketIndex, HashMap<String, Integer> playerChoices) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().placeOnMarket(getFamilyMemberByColor(familyMemberColor),marketIndex,playerChoices));
     }
 
@@ -534,7 +545,6 @@ import java.util.concurrent.Executors;
     @Override
     public void placeOnCouncil(DiceAndFamilyMemberColorEnum familyMemberColor, HashMap<String, Integer> playerChoices) throws  RemoteException
     {
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().placeOnCouncil(getFamilyMemberByColor(familyMemberColor),playerChoices));
     }
 
@@ -548,7 +558,6 @@ import java.util.concurrent.Executors;
     @Override
     public void harvest(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException
     {
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().harvest(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices));
     }
 
@@ -562,7 +571,6 @@ import java.util.concurrent.Executors;
     @Override
     public void build(DiceAndFamilyMemberColorEnum familyMemberColor,int servantsUsed, HashMap<String, Integer> playerChoices) throws  RemoteException
     {
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().build(getFamilyMemberByColor(familyMemberColor),servantsUsed, playerChoices));
     }
 
@@ -574,7 +582,6 @@ import java.util.concurrent.Executors;
     @Override
     public void receivePersonalTile(PersonalTile tileChosen) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().chosePersonalTile(tileChosen, this));
 
     }
@@ -585,7 +592,6 @@ import java.util.concurrent.Executors;
     @Override
     public void receiveEndPhase() throws RemoteException{
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().endPhase(this));
     }
 
@@ -598,7 +604,6 @@ import java.util.concurrent.Executors;
     @Override
     public void receiveActivatedLeader(String leaderName, HashMap<String, Integer> choicesOnCurrentAction) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().receiveActivatedLeader(leaderName, choicesOnCurrentAction, this));
     }
 
@@ -610,7 +615,6 @@ import java.util.concurrent.Executors;
     @Override
     public void receivedLeaderChosen(LeaderCard leaderCard) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getRoom().receiveLeaderCards(leaderCard, this));
 
     }

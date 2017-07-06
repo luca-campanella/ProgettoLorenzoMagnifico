@@ -921,6 +921,25 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     }
 
     /**
+     * this method is called by the room to deliver the fact that a player has disconnected due to the timeout
+     * @param nickname the nickname of the player that disconnected
+     */
+    @Override
+    public void notifySuspendedPlayer(String nickname) throws NetworkException {
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.PLAYER_SUSPENDED);
+                outStream.writeObject(new ReceivePlayerNicknamePacket(nickname));
+                outStream.flush();
+            }
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver notification of suspension to " + this.getNickname());
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * this method is used to receive from the client the leader card activated
      */
     public void receiveActivatedLeader() {
