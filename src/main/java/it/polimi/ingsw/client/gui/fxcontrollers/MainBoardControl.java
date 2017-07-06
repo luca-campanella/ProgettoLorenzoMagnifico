@@ -1001,7 +1001,7 @@ public class MainBoardControl extends CustomFxControl {
                 + nameCard + ".");
 
         PlayerTabSubControl tabSubControl = playersTabMap.get(nickname);
-        tabSubControl.refreshLeaderCards();
+//        tabSubControl.refreshLeaderCards();
         tabSubControl.refreshResourcesAndCards();
     }
 
