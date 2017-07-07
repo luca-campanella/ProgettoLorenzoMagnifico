@@ -16,6 +16,7 @@ import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -57,6 +58,7 @@ public class Room {
     private int maxNOfPlayers;
     private int currNOfPlayers;
     private boolean isGameStarted;
+    private ScheduledFuture<?> currentTimerMoveTask;
 
     /**
      * Constructor
@@ -360,16 +362,17 @@ public class Room {
      */
     public synchronized void endPhase(AbstractConnectionPlayer player){
 
-        try{
-            floodEndPhase(player);
-            controllerGame.endPhase(player);
-        }
-        catch (IllegalMoveException e){
-            try{
-                player.deliverErrorMove();
-            }
-            catch (NetworkException c){
-                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+        //we disable the timeout for the player who passed and only if the timeout hasn't run already we end his phase
+        if(currentTimerMoveTask.cancel(false)) {
+            try {
+                floodEndPhase(player);
+                controllerGame.endPhase(player);
+            } catch (IllegalMoveException e) {
+                try {
+                    player.deliverErrorMove();
+                } catch (NetworkException c) {
+                    Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+                }
             }
         }
 
@@ -442,7 +445,7 @@ public class Room {
         //otherwise we ask him for a move
         try {
             //starts the timer for player suspension if he doesn't move in time
-            timersPool.schedule(() -> suspendPlayer(player), (long) (timeoutMoveInSec), TimeUnit.SECONDS);
+            currentTimerMoveTask = timersPool.schedule(() -> suspendPlayer(player), (long) (timeoutMoveInSec), TimeUnit.SECONDS);
             player.receiveStartOfTurn();
         } catch (NetworkException e) {
             Debug.printError("ERROR on the deliver of the token ", e);
