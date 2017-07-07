@@ -565,7 +565,7 @@ public class ControllerGame {
 
         controlTurnPlayer(player.getNickname());
         choicesController.setChoicesMap(resourceGet);
-        player.activateLeaderCardAbility(player.getLeaderCardsNotUsed(nameCard), choicesController);
+        player.activateLeaderCardAbility(player.getLeaderCardsPlayedButNotActivated(nameCard), choicesController);
     }
 
     public int getNumberOfRound() {

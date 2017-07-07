@@ -667,7 +667,7 @@ public class ModelController {
         Player playerMove = null;
         for(Player player : players){
             if(player.getNickname().equals(nickname)){
-                player.activateLeaderCardAbility(player.getLeaderCardsNotUsed(nameLeader), choicesController);
+                player.activateLeaderCardAbility(player.getLeaderCardsPlayedButNotActivated(nameLeader), choicesController);
                 playerMove = player;
             }
         }
