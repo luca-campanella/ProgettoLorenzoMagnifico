@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,41 +30,52 @@ public class AskWhichLeaderAbilityToCopyDialog implements Callable<Integer> {
     private final String leadersPath = "/imgs/Leaders/";
     private LeaderCard selectedLeader;
     private HashMap<String, LeaderCard> leadersButtonsMap = new HashMap<>();
+
     public AskWhichLeaderAbilityToCopyDialog(List<LeaderCard> possibleLeaders) {
         this.possibleLeaders = possibleLeaders;
     }
+
     private ButtonType buttonChoice;
+
     @Override
     public Integer call() throws Exception {
 
+
+
+        Debug.printError("AskWhichLeader");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Lorenzo's effect");
         alert.setHeaderText("Select a Leader to Copy");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.setAlwaysOnTop(true);
 
+        Debug.printError("AskWhichLeader");
         HBox cardsContainer = new HBox();
         cardsContainer.setSpacing(5);
         cardsContainer.setAlignment(Pos.CENTER);
 
-        for(LeaderCard iterator : possibleLeaders)
+        Debug.printError("AskWhichLeader");
+        for (LeaderCard iterator : possibleLeaders)
             createButtonLeader(iterator);
-
+        Debug.printError("AskWhichLeader");
         cardsContainer.getChildren().setAll(leadersButtons);
         buttonChoice = new ButtonType("SubmitChoice");
         alert.getButtonTypes().setAll(buttonChoice);
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.isPresent() && result.get() == buttonChoice)
-                if (selectedLeader != null)
-                    return (possibleLeaders.indexOf(selectedLeader));
-                else
-                {
-                    Debug.printError("User didn't select a Leader, he will receive a random LeaderEffect from the one possible");
-                }
+
+        if (result.isPresent() && result.get() == buttonChoice)
+            if (selectedLeader != null)
+                return (possibleLeaders.indexOf(selectedLeader));
+            else {
+                Debug.printError("User didn't select a Leader,ask he will receive a random LeaderEffect from the one possible");
+            }
+
         return 0;
     }
-    private void createButtonLeader(LeaderCard leaderCard)
-    {
 
-        Debug.printVerbose("Im setting The Leaders" + leaderCard.getName());
+    private void createButtonLeader(LeaderCard leaderCard) {
+
+        Debug.printVerbose("Im setting The Leaders ask" + leaderCard.getName());
         ToggleButton button = new ToggleButton();
         button.setToggleGroup(toggleGroup);
                     /* setting images inside the button */
