@@ -52,7 +52,6 @@ public class PlayerTabSubControl extends CustomFxControl {
 
     /**
      * this control is the fx control of the leaders window
-     * //todo change controller name if it's the same for both scenes, or make different instances
      */
     private LeaderOwnedControl leadersControl;
     private LeaderOtherControl leaderOtherControl;
