@@ -302,7 +302,7 @@ public class GraphicalUI extends AbstractUIType {
 
         FutureTask<Integer> futureTask = new FutureTask(new AskWhichLeaderAbilityToCopyDialog(possibleLeaders));
         Platform.runLater(futureTask);
-
+        Debug.printVerbose("Hello, someone activated Lorenzo Il Magnifico and im inside the callBack");
         int choice = 0;
 
         try {

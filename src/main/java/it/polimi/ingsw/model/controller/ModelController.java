@@ -124,6 +124,12 @@ public class ModelController {
             resource.setValue(resource.getValue()+1);
             player.addResource(resource);
             player.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, 49));
+            player.addResource(new Resource(ResourceTypeEnum.MILITARY_POINT, 49));
+            player.addResource(new Resource(ResourceTypeEnum.COIN, 49));
+            player.addResource(new Resource(ResourceTypeEnum.SERVANT, 49));
+            player.addResource(new Resource(ResourceTypeEnum.WOOD, 49));
+            player.addResource(new Resource(ResourceTypeEnum.STONE, 49));
+
         }
 
     }
