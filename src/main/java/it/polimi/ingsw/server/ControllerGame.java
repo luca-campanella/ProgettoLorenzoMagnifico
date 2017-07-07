@@ -397,7 +397,7 @@ public class ControllerGame {
 
     /**
      * call the method on the controller of the model to place on the market
-     * @param familyMember the familymember the player places
+     * @param familyMember the family member the player places
      * @param marketSpaceIndex the number of servant you add on the family member to increase the value
      */
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex, HashMap<String, Integer> playerChoices) throws IllegalMoveException{
