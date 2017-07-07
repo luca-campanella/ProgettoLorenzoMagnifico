@@ -378,7 +378,7 @@ public class GraphicalUI extends AbstractUIType {
             Debug.printVerbose("Got more servants choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-            this.displayError("Error in opening dialogue, default value instead, called from askAddingServants", e.getMessage());
+            this.displayError("Error in opening dialogue, default value instead, called from askAddingServants, perchè sei qui?", e.getMessage());
         }
         return choice;
 

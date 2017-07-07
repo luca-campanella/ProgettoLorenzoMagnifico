@@ -31,6 +31,7 @@ public class AskWhichLeaderAbilityToCopyDialog implements Callable<Integer> {
     private LeaderCard selectedLeader;
     private HashMap<String, LeaderCard> leadersButtonsMap = new HashMap<>();
     private Stage stage;
+
     public AskWhichLeaderAbilityToCopyDialog(List<LeaderCard> possibleLeaders, Stage stage) {
         this.possibleLeaders = possibleLeaders;
         this.stage = stage;
@@ -40,8 +41,6 @@ public class AskWhichLeaderAbilityToCopyDialog implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-
-
 
         Debug.printError("AskWhichLeader");
         Alert alert = new Alert(Alert.AlertType.WARNING);
