@@ -47,6 +47,7 @@ public class ReadClientPacketProtocol {
         instruction.put(PacketType.CHOSE_TILES, ()-> player.receivedPersonalTile());
         instruction.put(PacketType.ACTIVATE_LEADER, ()-> player.receiveActivatedLeader());
         instruction.put(PacketType.EXCOMMUNICATION_CHOICE, ()-> player.receiveExcommunicationTile());
+        instruction.put(PacketType.RECONNECT_PLAYER_SUSPENDED, () -> player.receiveReconnect());
     }
 
     /**

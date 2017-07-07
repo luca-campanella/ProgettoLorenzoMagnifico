@@ -682,7 +682,11 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void callbackConnectPlayerAgain() {
         isThisPlayerSuspended = false;
-        //todo send pkg to the server
+        try {
+            clientNetwork.reconnectPlayer();
+        } catch (NetworkException e) {
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+        }
         userInterface.waitMenu();
     }
 
@@ -722,6 +726,16 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         } else {
             userInterface.notifyAnotherPlayerSuspended(nickname);
         }
+    }
+
+    /**
+     * this method is called by the network to deliver the fact that a player has reconnected
+     *
+     * @param nickname the nickname of the player that reconnected
+     */
+    @Override
+    public void receivedNotificationReconnectedPlayer(String nickname) {
+        userInterface.notifyPlayerReconnected(nickname);
     }
 
     /**

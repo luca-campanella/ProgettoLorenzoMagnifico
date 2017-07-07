@@ -100,5 +100,19 @@ public interface RMIPlayerInterface extends Remote {
      * @throws RemoteException if something goes wrong with the network
      */
     void receivedLeaderChosen(LeaderCard leaderCard) throws RemoteException;
+
+    /**
+     * this method is called by the client to deliver to the server the choices one on the excommunication
+     * @param response the choice of the client
+     * @throws RemoteException if something goes wrong with the network
+     */
+    void receiveExcommunicationChoice(String response) throws RemoteException;
+
+    /**
+     * This method is called by the controller when the player suspended makes a new input and thus wants to be
+     * reconnected
+     * @throws RemoteException if something goes wrong with the network
+     */
+    void receiveReconnectPlayer() throws RemoteException;
 }
 

@@ -44,7 +44,8 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
 
         gui = new GraphicalUI(this);
 
-        gui.askExcommunicationChoice(0);
+        gui.notifyThisPlayerSuspended();
+        //gui.askExcommunicationChoice(0);
         /*ArrayList< GainResourceEffect> options = new ArrayList<>(1);
         GainResourceEffect option = new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,2));
         options.add(option);
@@ -382,6 +383,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callbackConnectPlayerAgain() {
+        Debug.printVerbose("he reconnected me");
 
     }
 }

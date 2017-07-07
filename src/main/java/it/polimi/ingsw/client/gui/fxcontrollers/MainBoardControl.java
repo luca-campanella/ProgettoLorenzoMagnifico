@@ -728,7 +728,7 @@ public class MainBoardControl extends CustomFxControl {
     }
     private void disableMarket() {
         ImageView imgView = ((ImageView) (marketPane.lookup("#marketBlock2")));
-        Image blockImg  = new Image(getClass().getResourceAsStream("/imgs/marketBlock.jpg"));
+        Image blockImg  = new Image(getClass().getResourceAsStream("/imgs/marketBlock.png"));
         imgView.setImage(blockImg);
         imgView.setPreserveRatio(false);
         ImageView secondImage = ((ImageView) (marketPane.lookup("#marketBlock3")));
@@ -738,7 +738,7 @@ public class MainBoardControl extends CustomFxControl {
     }
     private void disableBuildHarvest(){
         ImageView imgView = ((ImageView) (buildHarvestPane.lookup("#buildBlockActionSpace")));
-        Image blockImg  = new Image(getClass().getResourceAsStream("/imgs/productionBlock.jpg"));
+        Image blockImg  = new Image(getClass().getResourceAsStream("/imgs/productionBlock.png"));
         imgView.setImage(blockImg);
         imgView.setPreserveRatio(false);
         ImageView secondImage = ((ImageView) (buildHarvestPane.lookup("#harvestBlockActionSpace")));

@@ -299,4 +299,10 @@ abstract public class AbstractUIType {
      * @param nickname the nick of the player disconnected
      */
     public abstract void notifyAnotherPlayerDisconnected(String nickname);
+
+    /**
+     * This method is called by controller to signal that another player has reconnected after suspension
+     * @param nickname the nick of the player reconnected
+     */
+    public abstract void notifyPlayerReconnected(String nickname);
 }

@@ -148,6 +148,7 @@ public abstract class AbstractClientType  {
     /**
      * this method is called by the client to deliver to the server the tile chosen by the player
      * @param tileChosen
+     * @throws NetworkException if something goes wrong during the connection
      */
     public abstract void deliverTileChosen(PersonalTile tileChosen) throws NetworkException;
 
@@ -156,12 +157,21 @@ public abstract class AbstractClientType  {
      * has activated the effect of a leader card
      * @param leaderName the name of the leader card
      * @param choicesOnCurrentAction the choices done on the effect
+     * @throws NetworkException if something goes wrong during the connection
      */
     public abstract void activateLeaderCard(String leaderName, HashMap<String, Integer> choicesOnCurrentAction) throws NetworkException;
 
     /**
      * this method is called by the client to deliver to the server the choices one on the excommunication
      * @param response the choice of the client
+     * @throws NetworkException if something goes wrong during the connection
      */
     public abstract void excommunicationChoice(String response) throws NetworkException;
+
+    /**
+     * This method is called by the controller when the player suspended makes a new input and thus wants to be
+     * reconnected
+     * @throws NetworkException if something goes wrong during the connection
+     */
+    public abstract void reconnectPlayer() throws NetworkException;
 }

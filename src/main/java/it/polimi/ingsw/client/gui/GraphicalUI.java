@@ -20,13 +20,17 @@ import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -715,7 +719,10 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void notifyAnotherPlayerSuspended(String nickname) {
-        //todo
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(
+                        "[" + nickname + "] --> has been suspended from the game, the server will " +
+                                "automatically pass for him until he reconnects"));
     }
 
     /**
@@ -723,7 +730,35 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void notifyThisPlayerSuspended() {
-        //todo
+
+        Platform.runLater(() -> {
+            GridPane grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(10));
+
+            Text text = new Text("You have been suspended from the game, the server will " +
+                    "automatically pass for you until you reconnect. To do so, please click ok");
+            grid.add(text, 0, 0);
+
+            Button bnOK = new Button("OK");
+            grid.add(bnOK, 2, 2);
+
+            Scene dialog = new Scene(grid);
+
+            Stage stage = new Stage();
+            stage.setScene(dialog);
+
+            bnOK.setOnAction((e) -> {
+                stage.close();
+                new Thread(() -> getController().callbackConnectPlayerAgain()).run();
+            });
+
+            stage.show();
+
+            stage.toFront();
+        });
     }
 
     /**
@@ -732,7 +767,22 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void notifyAnotherPlayerDisconnected(String nickname) {
-        //todo
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(
+                        "[" + nickname + "] --> has been removed from the game due to a netowrk problem," +
+                                " the server will " +
+                                "automatically pass for him until the end of the game"));
+    }
+
+    /**
+     * This method is called by controller to signal that another player has reconnected after suspension
+     * @param nickname the nick of the player reconnected
+     */
+    @Override
+    public  void notifyPlayerReconnected(String nickname) {
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(
+                        "[" + nickname + "] --> was suspended, now he reconnected"));
     }
 }
 

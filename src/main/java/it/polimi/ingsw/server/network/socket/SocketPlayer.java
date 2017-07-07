@@ -945,6 +945,25 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     }
 
     /**
+     * this method is called when a player reconnects and we have to notify all the others
+     * @param nickname the player who reconencted
+     */
+    @Override
+    public void deliverNotificationAnotherPlayerReconnected(String nickname) throws NetworkException {
+        try{
+            synchronized (this){
+                outStream.writeObject(PacketType.PLAYER_RECONNECTED);
+                outStream.writeObject(new ReceivePlayerNicknamePacket(nickname));
+                outStream.flush();
+            }
+        }
+        catch (IOException e){
+            Debug.printError("cannot deliver notification of suspension to " + this.getNickname());
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * this method is used to receive from the client the leader card activated
      */
     public void receiveActivatedLeader() {
@@ -970,6 +989,14 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         catch (IOException | ClassNotFoundException e){
             Debug.printError("cannot receive the excommunication choice of the client");
         }
+    }
+
+    /**
+     * This method is called by the client to reconnect himself
+     */
+    public void receiveReconnect() {
+            getRoom().receiveReconnectPlayer(this);
+
     }
 }
 

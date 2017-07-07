@@ -546,6 +546,7 @@ public class CommandLineUI extends AbstractUIType {
      * This method is called by controller to signal that another player was suspende due to timeout
      * @param nickname the nick of the player suspended
      */
+    @Override
     public void notifyAnotherPlayerSuspended(String nickname) {
         System.out.println("["+nickname+"] --> " + nickname + " has been suspended, if he doesn't reconnect all " +
                 "his phases will be automatically passed");
@@ -555,14 +556,25 @@ public class CommandLineUI extends AbstractUIType {
      * This method is called by controller to signal that another player was disconnected due to network problems
      * @param nickname the nick of the player disconnected
      */
+    @Override
     public void notifyAnotherPlayerDisconnected(String nickname) {
         System.out.println("["+nickname+"] --> " + nickname + " disconnected due to network problems, all " +
                 "his phases will be automatically passed till the end of the game");
     }
 
     /**
+     * This method is called by controller to signal that another player has reconnected after suspension
+     * @param nickname the nick of the player reconnected
+     */
+    @Override
+    public  void notifyPlayerReconnected(String nickname) {
+        System.out.println("["+nickname+"] --> " + nickname + " was suspended, now he reconnected");
+    }
+
+    /**
      * This method is called by controller to signal that this player was suspended due to timeout
      */
+    @Override
     public void notifyThisPlayerSuspended() {
         System.out.println("****ATTENTION**** you didn't play for too long, you have been suspended, " +
                 "if you don't do anything the server will automatically pass for you," +
