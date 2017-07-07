@@ -32,9 +32,13 @@ public class Room {
 
     /**
      * This is the lis of players for which timeout for move has ended, they can still connect and restart playing
-     * This list also contains the players for which an error on the network was encountered, thus they were suspended
      */
     private List<AbstractConnectionPlayer> suspendedPlayers;
+
+    /**
+     * This is the list of players for which an error on the network was encountered, they cannot reconnect
+     */
+    private List<AbstractConnectionPlayer> disconnectedPlayers;
 
     private ControllerGame controllerGame;
 
@@ -127,6 +131,7 @@ public class Room {
         Debug.printVerbose("Game on room started");
         //we initialize the array of possible suspended players here, so we know the maximum number
         suspendedPlayers = new ArrayList<>(players.size());
+        disconnectedPlayers = new ArrayList<>(players.size());
         isGameStarted = true;
         try {
             Debug.printVerbose("just before constructor");
@@ -431,7 +436,7 @@ public class Room {
     public void playersTurn(AbstractConnectionPlayer player) {
 
         //if the player is suspended we don't ask him, but we just pass the turn for him
-        if(suspendedPlayers.contains(player)) {
+        if(suspendedPlayers.contains(player) || disconnectedPlayers.contains(player)) {
             try {
                 controllerGame.endPhase(player); //we automatically make him pass
             } catch (IllegalMoveException e) {
@@ -487,6 +492,15 @@ public class Room {
     private void addToSuspendedPlayers(AbstractConnectionPlayer player) {
         if(!suspendedPlayers.contains(player))
             suspendedPlayers.add(player);
+    }
+
+    /**
+     * This method adds a plyer to the suspended players list only if he's not already inside
+     * @param player the player to add to the list
+     */
+    private void addToDisconnectedPlayers(AbstractConnectionPlayer player) {
+        if(!disconnectedPlayers.contains(player))
+            disconnectedPlayers.add(player);
     }
     /**
      * this method is called by the controller game to deliver all the players to the different players
@@ -605,13 +619,15 @@ public class Room {
     private void floodPlaceOnCouncil(FamilyMember familyMember, HashMap<String, Integer> playerChoices) {
 
         for (AbstractConnectionPlayer player : players) {
-            if (!familyMember.getPlayer().getNickname().equals(player.getNickname())) {
+            if (!familyMember.getPlayer().getNickname().equals(player.getNickname())
+                    && !disconnectedPlayers.contains(player)) { //we don't want to sent it to a player disconnected
                 try {
                     player.receivePlaceOnCouncil(familyMember, playerChoices);
                 } catch (NetworkException e) {
                     Debug.printError("tried to deliver move on council to " + player.getNickname());
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
-
             }
         }
     }
@@ -871,12 +887,28 @@ public class Room {
         for(AbstractConnectionPlayer player : players){
             try {
                 player.deliverExcommunication(nicknamePlayerExcommunicated, numTile);
-                //if he's suspended we reply for him
-                if(suspendedPlayers.contains(player))
-                    receiveExcommunicationChoice("NO", player);
             }
             catch (NetworkException e){
                 Debug.printError("cannot deliver the excommunication to " + player.getNickname(),e);
+                addToDisconnectedPlayers(player);
+                floodPlayerDisconnected(player);
+            }
+            //if he's suspended we reply for him
+            if(suspendedPlayers.contains(player) || disconnectedPlayers.contains(player))
+                receiveExcommunicationChoice("NO", player);
+        }
+    }
+
+    private void floodPlayerDisconnected(AbstractConnectionPlayer player) {
+        for(AbstractConnectionPlayer playerIter : players) {
+            if(!disconnectedPlayers.contains(playerIter)) {
+                try {
+                    playerIter.deliverDisconnectionPlayer(player.getNickname());
+                } catch (NetworkException e) {
+                    Debug.printError("cannot deliver the excommunication to " + player.getNickname(), e);
+                    addToDisconnectedPlayers(playerIter);
+                    floodPlayerDisconnected(playerIter);
+                }
             }
         }
     }
