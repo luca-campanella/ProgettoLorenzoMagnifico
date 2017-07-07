@@ -680,10 +680,11 @@ public class CliPrinter {
     public static void printLeaderCards(ArrayList<LeaderCard> leaderCards) {
 
         for(LeaderCard leaderCard : leaderCards){
-            System.out.println(leaderCard.getName() + ":\nDescription:\n" + leaderCard.getDescription() + "\nRequirement:\n");
+            System.out.println(leaderCard.getName() + ":\nDescription:\n" + leaderCard.getDescription() + "\nRequirement:");
             for(AbstractRequirement requirement : leaderCard.getRequirements()){
                 System.out.println(requirement.getDescription());
             }
+            System.out.println("\n");
         }
     }
 }

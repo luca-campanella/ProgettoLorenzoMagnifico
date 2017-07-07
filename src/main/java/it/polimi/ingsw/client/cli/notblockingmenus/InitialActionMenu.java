@@ -28,7 +28,7 @@ public class InitialActionMenu extends WaitBasicCliMenu {
     }
 
     /**
-     * this method is used to deliver to the servver the end of the phase of this player
+     * this method is used to deliver to the server the end of the phase of this player
      */
     private void passTheTurn(){
 
