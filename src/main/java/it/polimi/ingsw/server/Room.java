@@ -759,12 +759,14 @@ public class Room {
      * @param nameCard the name of the leader card played
      * @param choicesOnCurrentActionString the choices did while playing the card
      * @param player the player that had played the card
+     * @param choicesOnCurrentAction
      */
-    public void playLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, AbstractConnectionPlayer player) {
+    public void playLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString,
+                               AbstractConnectionPlayer player, HashMap<String, Integer> choicesOnCurrentAction) {
 
         try{
-            controllerGame.playLeaderCard(nameCard, choicesOnCurrentActionString, player);
-            floodPlayLeaderCard(nameCard, choicesOnCurrentActionString, player.getNickname());
+            controllerGame.playLeaderCard(nameCard, choicesOnCurrentActionString, player, choicesOnCurrentAction);
+            floodPlayLeaderCard(nameCard, choicesOnCurrentActionString, player.getNickname(), choicesOnCurrentAction);
         }
         catch (IllegalMoveException e){
             try{
@@ -782,13 +784,16 @@ public class Room {
      * @param nameCard the name of the leader card played
      * @param choicesOnCurrentActionString the choices done on the leader card
      * @param nickname the nickname of the player that had played the leader card
+     * @param choicesOnCurrentAction
      */
-    private void floodPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) {
+    private void floodPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString,
+                                     String nickname, HashMap<String, Integer> choicesOnCurrentAction) {
 
         for(AbstractConnectionPlayer player : players){
             if(!player.getNickname().equals(nickname)){
                 try {
-                    player.deliverPlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname);
+                    player.deliverPlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname,
+                            choicesOnCurrentAction);
                 }
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the leader card played by " + nickname + " to " + player.getNickname(),e);

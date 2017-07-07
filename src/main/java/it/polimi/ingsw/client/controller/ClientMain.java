@@ -222,14 +222,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * this method it's a callback method that is called from the {@link AbstractUIType} when i want to play a Leader
-     */
-    public void callbackPlayLeader(){
-        initialActionsOnPlayerMove();
-        Debug.printDebug("I'm in ClientMain.callbackPlayLeader");
-    }
-
-    /**
      * this method it's a callback method called from AbstractUIType when i want to discard a Leader.
      */
     public void callbackDiscardLeader(LeaderCard leaderCard){
@@ -789,7 +781,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(this);
         modelController.playLeaderCard(leaderCard.getName(), thisPlayer);
         try{
-            clientNetwork.playLeaderCard(leaderCard.getName(),choicesOnCurrentActionString);
+            clientNetwork.playLeaderCard(leaderCard.getName(),choicesOnCurrentActionString, choicesOnCurrentAction); //todo send choicesOnCurrentAction
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
@@ -1094,11 +1086,13 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param nameCard the name of the leader card played
      * @param choicesOnCurrentActionString the choices done while playing the leader card
      * @param nickname the nickname of the player
+     * @param choicesOnCurrentAction
      */
     @Override
-    public void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) {
+    public void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname, HashMap<String, Integer> choicesOnCurrentAction) {
 
         otherPlayerChoicesHandler.setChoicesMapString(choicesOnCurrentActionString);
+        otherPlayerChoicesHandler.setChoicesMap(choicesOnCurrentAction);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         modelController.playLeaderCard(nameCard, modelController.getPlayerByNickname(nickname));
         userInterface.notifyPlayLeaderCard(nickname, nameCard);

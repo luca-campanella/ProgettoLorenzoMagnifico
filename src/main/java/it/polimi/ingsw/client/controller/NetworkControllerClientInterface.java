@@ -178,8 +178,9 @@ public interface NetworkControllerClientInterface {
      * @param nameCard the name of the leader card played
      * @param choicesOnCurrentActionString the choices done while playing the leader card
      * @param nickname the nickname of the player
+     * @param choicesOnCurrentAction
      */
-    void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname);
+    void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname, HashMap<String, Integer> choicesOnCurrentAction);
 
     /**
      * this method is called by the network to receive the end game results

@@ -106,9 +106,11 @@ public abstract class AbstractClientType  {
     /**
      * this method is used to deliver a leader card that the client wants to play
      * @param nameLeader the name of the chosen leader
+     * @param choicesOnCurrentActionString the map of choices for leaders
+     * @param choicesOnCurrentAction the map of the choices for activate or not
      * @throws NetworkException if something goes wrong during the connection
      */
-    public abstract void playLeaderCard(String nameLeader, HashMap<String, String> choicesOnCurrentActionString) throws NetworkException;
+    public abstract void playLeaderCard(String nameLeader, HashMap<String, String> choicesOnCurrentActionString, HashMap<String, Integer> choicesOnCurrentAction) throws NetworkException;
 
     /**
      * this method is used to deliver the move of a family member on a tower

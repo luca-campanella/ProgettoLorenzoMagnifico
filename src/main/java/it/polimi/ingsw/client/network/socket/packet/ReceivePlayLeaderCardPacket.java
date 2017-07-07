@@ -12,8 +12,9 @@ public class ReceivePlayLeaderCardPacket extends PlayLeaderCardPacket{
      */
     private String nickname;
 
-    public ReceivePlayLeaderCardPacket(String nameLeaderCard, HashMap<String, String> choicesOnCurrentActionString, String nickname){
-        super(nameLeaderCard,choicesOnCurrentActionString);
+    public ReceivePlayLeaderCardPacket(String nameLeaderCard, HashMap<String, String> choicesOnCurrentActionString,
+                                       String nickname, HashMap<String, Integer> choicesOnCurrentAction){
+        super(nameLeaderCard,choicesOnCurrentActionString, choicesOnCurrentAction);
         this.nickname = nickname;
     }
 

@@ -11,7 +11,6 @@ import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.server.network.rmi.RMIPlayerInterface;
 import it.polimi.ingsw.server.network.rmi.RMIServerInterface;
 import it.polimi.ingsw.utils.Debug;
@@ -151,12 +150,15 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     /**
      * this method is used to deliver a leader card that the client wants to play
      * @param nameLeader the name of the chosen leader
+     * @param choicesOnCurrentActionString the map of choices for leaders
+     * @param choicesOnCurrentAction the map of the choices for activate or not
      * @throws NetworkException if something goes wrong during the connection
      */
     @Override
-    public void playLeaderCard(String nameLeader, HashMap<String, String> choicesOnCurrentActionString) throws NetworkException {
+    public void playLeaderCard(String nameLeader, HashMap<String, String> choicesOnCurrentActionString,
+                               HashMap<String, Integer> choicesOnCurrentAction) throws NetworkException {
         try {
-            RMIPlayerInterfaceInst.playLeaderCard(nameLeader, choicesOnCurrentActionString);
+            RMIPlayerInterfaceInst.playLeaderCard(nameLeader, choicesOnCurrentActionString, choicesOnCurrentAction);
         } catch (RemoteException e) {
             Debug.printError("RMI: Cannot deliver the leader card chosen to the server", e);
             throw new NetworkException("RMI: Cannot deliver the leader card chosen to the server", e);
@@ -536,12 +538,16 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      * @param nameCard the name of the leader card
      * @param choicesOnCurrentActionString the choices done while playing the leader card
      * @param nickname the nickname of the player
+     * @param choicesOnCurrentAction
      * @throws RemoteException
      */
     @Override
-    public void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws RemoteException {
+    public void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString,
+                                      String nickname, HashMap<String, Integer> choicesOnCurrentAction)
+            throws RemoteException {
 
-        generatorOfThread.submit(() -> getControllerMain().receivePlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname));
+        generatorOfThread.submit(() -> getControllerMain().receivePlayLeaderCard(nameCard, choicesOnCurrentActionString,
+                nickname, choicesOnCurrentAction));
 
     }
 

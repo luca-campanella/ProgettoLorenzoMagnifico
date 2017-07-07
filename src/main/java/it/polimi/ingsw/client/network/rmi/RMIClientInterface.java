@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.network.rmi;
 
-import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
@@ -174,8 +173,9 @@ public interface RMIClientInterface extends Remote {
      * @param nameCard the name of the leader card
      * @param choicesOnCurrentActionString the choices done while playing the leader card
      * @param nickname the nickname of the player
+     * @param choicesOnCurrentAction
      */
-    void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws  RemoteException;
+    void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname, HashMap<String, Integer> choicesOnCurrentAction) throws  RemoteException;
 
     /**
      * this method is used to receive the leader card chosen by the other players

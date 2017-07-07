@@ -150,11 +150,13 @@ public class SocketClient extends AbstractClientType {
      * @throws NetworkException if something goes wrong during the connection
      */
     @Override
-    public void playLeaderCard(String nameLeader, HashMap<String, String> choicesOnCurrentActionString) throws NetworkException{
+    public void playLeaderCard(String nameLeader, HashMap<String, String> choicesOnCurrentActionString,
+                               HashMap<String, Integer> choicesOnCurrentAction) throws NetworkException{
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.PLAY_LEADER);
-                outStream.writeObject(new PlayLeaderCardPacket(nameLeader, choicesOnCurrentActionString));
+                outStream.writeObject(new PlayLeaderCardPacket(nameLeader, choicesOnCurrentActionString,
+                        choicesOnCurrentAction));
             }
             outStream.flush();
 
@@ -771,7 +773,8 @@ public class SocketClient extends AbstractClientType {
 
         try{
             ReceivePlayLeaderCardPacket packet = (ReceivePlayLeaderCardPacket)inStream.readObject();
-            getControllerMain().receivePlayLeaderCard(packet.getNameCard(), packet.getChoicesOnCurrentActionString(), packet.getNickname());
+            getControllerMain().receivePlayLeaderCard(packet.getNameCard(), packet.getChoicesOnCurrentActionString(),
+                    packet.getNickname(), packet.getChoicesOnCurrentAction());
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("the client cannot receives the leader card played by another player",e);
