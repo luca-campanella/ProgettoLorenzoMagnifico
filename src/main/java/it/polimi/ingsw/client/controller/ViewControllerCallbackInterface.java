@@ -106,8 +106,9 @@ public interface ViewControllerCallbackInterface {
 
     /**
      * this method is called to turn back at the start of the initial choices
+     * @param boardNeedsToBeRefreshed
      */
-    void clientChoices();
+    void clientChoices(boolean boardNeedsToBeRefreshed);
 
     /**
      * this method is called to play a leader card on the hand of the player
@@ -128,6 +129,19 @@ public interface ViewControllerCallbackInterface {
      * @return true if the player was suspended
      */
      boolean callbackObtainIsThisPlayerSuspended();
+
+    /**
+     * This method returns to the view a true if the board needs to be refreshed with new cards
+     *
+     * @return true if the board needs to be refreshed with new cards
+     */
+     boolean callbackObtainBoardNeedsToBeRefreshed();
+
+    /**
+     * This method lets the view set the attribute to false after it refreshed the board
+     * @param boardNeedsToBeRefreshed false if the board has been refreshed
+     */
+    void setBoardNeedsToBeRefreshed(boolean boardNeedsToBeRefreshed);
 
     /**
      * This method returns to the view a reference to the player the client represents

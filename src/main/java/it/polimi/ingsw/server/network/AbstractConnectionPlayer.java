@@ -191,6 +191,7 @@ public abstract class AbstractConnectionPlayer extends Player {
      * this method is called by the room to deliver the excommunication to the client
      * @param nicknamePlayerExcommunicated the nickname of the player excommunicated
      * @param numTile the number of excommunication tile to take
+     * @throws NetworkException if something goes wrong with the network
      */
     public abstract void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated, int numTile) throws NetworkException;
 
@@ -199,12 +200,21 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @param response the response of the excommunication
      * @param nickname the nickname of the player that had done the choice
      * @param numTile the number of the tile to take if the player is excommunicated
+     * @throws NetworkException if something goes wrong with the network
      */
     public abstract void deliverExcommunicationChoice(String response, String nickname, int numTile) throws NetworkException;
 
     /**
      * this method is called by the room to deliver the fact that a player has disconnected due to the timeout
      * @param nickname the nickname of the player that disconnected
+     * @throws NetworkException if something goes wrong with the network
      */
     public abstract void notifySuspendedPlayer(String nickname) throws NetworkException;
+
+    /**
+     * this method is called when a player reconnects and we have to notify all the others
+     * @param nickname the player who reconencted
+     * @throws NetworkException if something goes wrong with the network
+     */
+    public abstract void deliverNotificationAnotherPlayerReconnected(String nickname) throws NetworkException;
 }

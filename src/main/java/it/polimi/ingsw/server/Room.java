@@ -912,5 +912,19 @@ public class Room {
             }
         }
     }
+
+    public void receiveReconnectPlayer(AbstractConnectionPlayer player) {
+        suspendedPlayers.remove(player);
+
+        for(AbstractConnectionPlayer playerIter : players){
+            try {
+                if(playerIter != player)
+                    playerIter.deliverNotificationAnotherPlayerReconnected(player.getNickname());
+            }
+            catch (NetworkException e){
+                Debug.printError("cannot deliver the reconnection to " + player.getNickname(),e);
+            }
+        }
+    }
 }
 

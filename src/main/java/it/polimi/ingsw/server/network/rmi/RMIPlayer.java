@@ -298,6 +298,22 @@ import java.util.concurrent.Executors;
     }
 
     /**
+     * this method is called when a player reconnects and we have to notify all the others
+     * @param nickname the player who reconencted
+     * @throws NetworkException if something goes wrong with the network
+     */
+    @Override
+    public void deliverNotificationAnotherPlayerReconnected(String nickname) throws NetworkException {
+        try{
+            RMIClientInterfaceInst.receiveNotificationReconnectedPlayer(nickname);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot send the notification of reconnected player to " + getNickname(), e);
+            throw new NetworkException(e);
+        }
+    }
+
+    /**
      * This method is called by the room to send a move on tower arrived from another client. (Direction: server -> client)
      * @param familyMember the family member placed on the tower
      * @param towerIndex the number of the tower
@@ -626,6 +642,23 @@ import java.util.concurrent.Executors;
 
     }
 
+    /**
+     * this method is called by the client to deliver to the server the choices one on the excommunication
+     * @param response the choice of the client
+     * @throws RemoteException if something goes wrong with the network
+     */
+    public void receiveExcommunicationChoice(String response) throws RemoteException {
+        generatorOfThread.submit(() -> getRoom().receiveExcommunicationChoice(response, this));
+    }
+
+    /**
+     * This method is called by the controller when the player suspended makes a new input and thus wants to be
+     * reconnected
+     * @throws RemoteException if something goes wrong with the network
+     */
+    public void receiveReconnectPlayer() throws RemoteException {
+            generatorOfThread.submit(() -> getRoom().receiveReconnectPlayer(this));
+    }
 
     /**
      * this method is used to deliver to the client his nickname

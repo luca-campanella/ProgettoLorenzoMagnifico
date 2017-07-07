@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.gui;
 
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
@@ -20,13 +21,17 @@ import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -144,15 +149,34 @@ public class GraphicalUI extends AbstractUIType {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
                     () -> setUpMainBoardControl(textToDisplay.toString(), true)));
             currentSceneType = SceneEnum.MAIN_BOARD;
+            getController().setBoardNeedsToBeRefreshed(false);
         } else {
-            MainBoardControl control = ((MainBoardControl) (currentFXControl));
             Platform.runLater(() -> {
+            if(getController().callbackObtainBoardNeedsToBeRefreshed()) {
+                updateViewForNewRound();
+                getController().setBoardNeedsToBeRefreshed(false);
+            }
+
+                MainBoardControl control = ((MainBoardControl) (currentFXControl));
                 control.appendMessageOnStateTextArea(textToDisplay.toString());
                 control.disableAllActionsNotHisTurn(false);
                 control.setFamilyMemberDisable(playedFamilyMember);
                 control.refreshPersonalBoardOfPlayer(getController().callbackObtainPlayer().getNickname());
             });
         }
+    }
+
+    /**
+     * Update all the view for the new round
+     */
+    private void updateViewForNewRound() {
+        MainBoardControl control = ((MainBoardControl) (currentFXControl));
+            control.displayDices();
+            control.displayCards();
+            control.displayFamilyMembers();
+            control.prepareForNewRound();
+            control.displayOrderOfPlayers(getController().callbackObtainPlayersInOrder());
+            control.appendMessageOnStateTextArea("**NEW ROUND**");
     }
 
     /**
@@ -386,6 +410,9 @@ public class GraphicalUI extends AbstractUIType {
         return choice;
     }
 
+    /**
+     * Shows the main board, but it's not his turn
+     */
     @Override
     public void waitMenu() {
         Debug.printVerbose("waitMenu called with currentSceneType = " + currentSceneType);
@@ -394,11 +421,17 @@ public class GraphicalUI extends AbstractUIType {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
                     () -> setUpMainBoardControl(message, false)));
             currentSceneType = SceneEnum.MAIN_BOARD;
+            getController().setBoardNeedsToBeRefreshed(false);
             //here i let the user show all the family members that have been placed last round
             //((MainBoardControl) (currentFXControl)).updateFamilyMembers();
         } else {
-            MainBoardControl control = ((MainBoardControl) (currentFXControl));
             Platform.runLater(() -> {
+                MainBoardControl control = ((MainBoardControl) (currentFXControl));
+            if(getController().callbackObtainBoardNeedsToBeRefreshed()) {
+                updateViewForNewRound();
+                control.refreshPersonalBoardOfPlayer(getController().callbackObtainPlayer().getNickname());
+                getController().setBoardNeedsToBeRefreshed(false);
+            }
                 control.appendMessageOnStateTextArea(message);
                 control.disableAllActionsNotHisTurn(true);
             });
@@ -411,7 +444,33 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("End game");
+            alert.setHeaderText("The game has ended");
 
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for(int i = 1 ; i <= playerPositionEndGamePacket.size(); i++){
+                for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
+                    if(playerIter.getPosition() == i) {
+                        if(i == 1) {
+                            if(playerIter.getNickname().equals(getController().callbackObtainPlayer().getNickname()))
+                                stringBuilder.append("***YOU WON*** :D");
+                            else
+                                stringBuilder.append("*YOU LOST* :(");
+                            stringBuilder.append("Here are the final standings");
+                        }
+                        stringBuilder.append(playerIter.getPosition() + " position: " + playerIter.getNickname()
+                                + " " + playerIter.getVictoryPoints() + " Victory Points");
+                    }
+                }
+            }
+
+            alert.setContentText(stringBuilder.toString());
+            alert.initOwner(currentStage);
+            alert.show();
+        });
     }
 
 
@@ -422,13 +481,14 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void displayError(String title, String errorDescription) {
-
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(errorDescription);
-        alert.initOwner(currentStage);
-        alert.show();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(title);
+            alert.setContentText(errorDescription);
+            alert.initOwner(currentStage);
+            alert.show();
+        });
     }
 
     /**
@@ -439,14 +499,15 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void displayErrorAndExit(String title, String errorDescription) {
-
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(errorDescription);
-        alert.initOwner(currentStage);
-        alert.showAndWait();
-        System.exit(0);
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(title);
+            alert.setContentText(errorDescription);
+            alert.initOwner(currentStage);
+            alert.showAndWait();
+            System.exit(0);
+        });
     }
 
     /**
@@ -715,7 +776,10 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void notifyAnotherPlayerSuspended(String nickname) {
-        //todo
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(
+                        "[" + nickname + "] --> has been suspended from the game, the server will " +
+                                "automatically pass for him until he reconnects"));
     }
 
     /**
@@ -723,7 +787,35 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void notifyThisPlayerSuspended() {
-        //todo
+
+        Platform.runLater(() -> {
+            GridPane grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(10));
+
+            Text text = new Text("You have been suspended from the game, the server will " +
+                    "automatically pass for you until you reconnect. To do so, please click ok");
+            grid.add(text, 0, 0);
+
+            Button bnOK = new Button("OK");
+            grid.add(bnOK, 2, 2);
+
+            Scene dialog = new Scene(grid);
+
+            Stage stage = new Stage();
+            stage.setScene(dialog);
+
+            bnOK.setOnAction((e) -> {
+                stage.close();
+                new Thread(() -> getController().callbackConnectPlayerAgain()).run();
+            });
+
+            stage.show();
+
+            stage.toFront();
+        });
     }
 
     /**
@@ -732,7 +824,22 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void notifyAnotherPlayerDisconnected(String nickname) {
-        //todo
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(
+                        "[" + nickname + "] --> has been removed from the game due to a netowrk problem," +
+                                " the server will " +
+                                "automatically pass for him until the end of the game"));
+    }
+
+    /**
+     * This method is called by controller to signal that another player has reconnected after suspension
+     * @param nickname the nick of the player reconnected
+     */
+    @Override
+    public  void notifyPlayerReconnected(String nickname) {
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(
+                        "[" + nickname + "] --> was suspended, now he reconnected"));
     }
 }
 

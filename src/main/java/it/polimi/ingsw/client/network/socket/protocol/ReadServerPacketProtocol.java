@@ -1,11 +1,10 @@
 package it.polimi.ingsw.client.network.socket.protocol;
 
-import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.client.exceptions.NetworkException;
+import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.client.network.socket.packet.PacketType;
 import it.polimi.ingsw.server.network.socket.protocol.FunctionResponse;
 import it.polimi.ingsw.utils.Debug;
-import javafx.scene.layout.Pane;
 
 import java.util.HashMap;
 
@@ -62,6 +61,8 @@ public class ReadServerPacketProtocol {
         instruction.put(PacketType.EXCOMMUNICATION, ()-> client.receiveExcommunicatedPlayers());
         instruction.put(PacketType.EXCOMMUNICATION_CHOICE, ()-> client.receiveExcommunicationChoice());
         instruction.put(PacketType.PLAYER_SUSPENDED, () -> client.receiveNotificationPlayerSuspended());
+        instruction.put(PacketType.PLAYER_RECONNECTED, () -> client.receivePlayerReconnected());
+
     }
 
     /**

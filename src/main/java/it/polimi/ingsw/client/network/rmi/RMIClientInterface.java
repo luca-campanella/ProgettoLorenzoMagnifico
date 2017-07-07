@@ -218,6 +218,15 @@ public interface RMIClientInterface extends Remote {
      * this method is called by the room to deliver the fact that a player has disconnected due to the timeout
      *
      * @param nickname the nickname of the player that disconnected
+     * @throws RemoteException if something goes wrong with the network
      */
     void receiveNotificationSuspendedPlayer(String nickname) throws RemoteException;
+
+    /**
+     * this method is called by the room to deliver the fact that a player has reconnected
+     *
+     * @param nickname the nickname of the player that reconnected
+     * @throws RemoteException if something goes wrong with the network
+     */
+    void receiveNotificationReconnectedPlayer(String nickname) throws RemoteException;
 }

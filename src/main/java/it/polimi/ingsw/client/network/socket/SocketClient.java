@@ -406,6 +406,32 @@ public class SocketClient extends AbstractClientType {
         }
     }
 
+    /**
+     * This method is called by the controller when the player suspended makes a new input and thus wants to be
+     * reconnected
+     * @throws NetworkException if something goes wrong during the connection
+     */
+    @Override
+    public void reconnectPlayer() throws NetworkException {
+        try{
+
+            synchronized (this){
+                outStream.writeObject(PacketType.RECONNECT_PLAYER_SUSPENDED);
+            }
+            outStream.flush();
+
+            Debug.printVerbose("delivered the reconnection of player");
+
+        }
+
+        catch (IOException e){
+
+            Debug.printError("network is not available", e);
+            throw new NetworkException(e);
+
+        }
+    }
+
 
     /**
      * this method is used to inform the room that the player had ended his phase
@@ -883,5 +909,18 @@ public class SocketClient extends AbstractClientType {
             Debug.printError("the client cannot receives the excommunication choice of another player",e);
         }
 
+    }
+
+    /**
+     * this method is called by the server to norify to the client the reconnection of a suspended player
+     */
+    public void receivePlayerReconnected() {
+        try{
+            ReceivePlayerNicknamePacket packet = (ReceivePlayerNicknamePacket)inStream.readObject();
+            getControllerMain().receivedNotificationReconnectedPlayer(packet.getNickname());
+        }
+        catch (IOException | ClassNotFoundException e){
+            Debug.printError("the client cannot receives the excommunication choice of another player",e);
+        }
     }
 }

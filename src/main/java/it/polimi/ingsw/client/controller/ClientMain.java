@@ -96,6 +96,11 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     private FamilyMember familyMemberCurrentAction;
 
     /**
+     * This is set to true when 4 phases have finished and the view should update to adhere to the model
+     */
+    private boolean boardNeedsToBeRefreshed = false;
+
+    /**
     this is Class Constructor
      */
     public ClientMain()
@@ -236,7 +241,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.discardLeaderCard(thisPlayer.getNickname(),leaderCard.getName());
         try{
             clientNetwork.discardLeaderCard(leaderCard.getName(),choicesOnCurrentAction);
-            clientChoices();
+            clientChoices(false);
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
@@ -315,7 +320,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             clientNetwork.build(familyMemberCurrentAction, servantsUsed, choicesOnCurrentAction);
             Debug.printVerbose("delivered build to server");
             playedFamilyMember = true;
-            clientChoices();
+            clientChoices(false);
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the move build to the server");
@@ -337,7 +342,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             clientNetwork.harvest(familyMemberCurrentAction, servantsUsed, choicesOnCurrentAction);
             Debug.printVerbose("delivered harvest to server");
             playedFamilyMember = true;
-            clientChoices();
+            clientChoices(false);
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the move harvest to the server");
@@ -360,7 +365,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             clientNetwork.placeOnTower(familyMemberCurrentAction, towerIndex, floorIndex, choicesOnCurrentAction);
             Debug.printVerbose("delivered tower move to server");
             playedFamilyMember = true;
-            clientChoices();
+            clientChoices(false);
         }
         catch (IOException e){
             Debug.printError("cannot deliver the move on tower to the server");
@@ -380,7 +385,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             clientNetwork.placeOnMarket(familyMemberCurrentAction, marketASIndex, choicesOnCurrentAction);
             Debug.printVerbose("delivered market move to server");
             playedFamilyMember = true;
-            clientChoices();
+            clientChoices(false);
         }
         catch (IOException e){
             Debug.printError("cannot deliver the move on market to the server");
@@ -401,7 +406,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             clientNetwork.placeOnCouncil(familyMemberCurrentAction, choicesOnCurrentAction);
             Debug.printVerbose("delivered place on council to server");
             playedFamilyMember = true;
-            clientChoices();
+            clientChoices(false);
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the move on council to the server");
@@ -595,7 +600,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         for(FamilyMember fmIter : playableFMs) {
             Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
         }
-        userInterface.waitMenu();
+        //userInterface.waitMenu(false);
     }
 
     /**
@@ -605,13 +610,14 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void receivedStartTurnNotification() {
         Debug.printVerbose("receivedStartTurnNotification called");
         playedFamilyMember = false;
-        clientChoices();
+        clientChoices(false);
     }
 
     /**
      * this method is called to show to the client the different choices he can do
+     * @param boardNeedsToBeRefreshed
      */
-    public void clientChoices(){
+    public void clientChoices(boolean boardNeedsToBeRefreshed){
 
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
@@ -631,6 +637,26 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public boolean callbackObtainIsThisPlayerSuspended() {
         return isThisPlayerSuspended;
+    }
+
+    /**
+     * This method returns to the view a true if the board needs to be refreshed with new cards
+     *
+     * @return true if the board needs to be refreshed with new cards
+     */
+    @Override
+    public boolean callbackObtainBoardNeedsToBeRefreshed() {
+        return boardNeedsToBeRefreshed;
+    }
+
+    /**
+     * This method lets the view set the attribute to false after it refreshed the board
+     *
+     * @param boardNeedsToBeRefreshed false if the board has been refreshed
+     */
+    @Override
+    public void setBoardNeedsToBeRefreshed(boolean boardNeedsToBeRefreshed) {
+        this.boardNeedsToBeRefreshed = boardNeedsToBeRefreshed;
     }
 
     /**
@@ -682,7 +708,11 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void callbackConnectPlayerAgain() {
         isThisPlayerSuspended = false;
-        //todo send pkg to the server
+        try {
+            clientNetwork.reconnectPlayer();
+        } catch (NetworkException e) {
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+        }
         userInterface.waitMenu();
     }
 
@@ -722,6 +752,16 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         } else {
             userInterface.notifyAnotherPlayerSuspended(nickname);
         }
+    }
+
+    /**
+     * this method is called by the network to deliver the fact that a player has reconnected
+     *
+     * @param nickname the nickname of the player that reconnected
+     */
+    @Override
+    public void receivedNotificationReconnectedPlayer(String nickname) {
+        userInterface.notifyPlayerReconnected(nickname);
     }
 
     /**
@@ -780,7 +820,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to activate");
         }
-        clientChoices();
+        clientChoices(false);
     }
 
     /**
@@ -809,7 +849,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
         }
-        clientChoices();
+        clientChoices(false);
     }
 
     /**
@@ -834,6 +874,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         Debug.printDebug("Cards received, placing on board");
         cards.forEach((card) -> Debug.printVerbose(card.getName()));
         modelController.placeCardOnBoard(cards);
+        boardNeedsToBeRefreshed = true;
         if(!players.get(0).getNickname().equals(thisPlayer.getNickname()))
             userInterface.waitMenu();
     }
@@ -882,7 +923,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("Cannot deliver the end of the phase",e);
-            clientChoices();
+            clientChoices(false);
         }
     }
 

@@ -292,7 +292,29 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void excommunicationChoice(String response) throws NetworkException {
+        try{
+            RMIPlayerInterfaceInst.receiveExcommunicationChoice(response);
+        }
+        catch (RemoteException e){
+            Debug.printError("RMI: cannot deliver the excommunicationChoice", e);
+            throw new NetworkException("RMI: cannot deliver excommunicationChoice", e);
+        }
+    }
 
+    /**
+     * This method is called by the controller when the player suspended makes a new input and thus wants to be
+     * reconnected
+     * @throws NetworkException if something goes wrong with the network
+     */
+    @Override
+    public void reconnectPlayer() throws NetworkException {
+        try{
+            RMIPlayerInterfaceInst.receiveReconnectPlayer();
+        }
+        catch (RemoteException e){
+            Debug.printError("RMI: cannot deliver the reconnectPlayer", e);
+            throw new NetworkException("RMI: cannot deliver the reconnectPlayer", e);
+        }
     }
 
     /**
@@ -617,4 +639,16 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     public void receiveNotificationSuspendedPlayer(String nickname) throws RemoteException {
         generatorOfThread.submit(() -> getControllerMain().receivedNotificationSuspendedPlayer(nickname));
     }
+
+    /**
+     * this method is called by the room to deliver the fact that a player has reconnected
+     *
+     * @param nickname the nickname of the player that reconnected
+     * @throws RemoteException if something goes wrong with the network
+     */
+    @Override
+    public void receiveNotificationReconnectedPlayer(String nickname) throws RemoteException {
+        generatorOfThread.submit(() -> getControllerMain().receivedNotificationReconnectedPlayer(nickname));
+    }
+
 }
