@@ -300,17 +300,17 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public int askWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
 
-        FutureTask<Integer> futureTask = new FutureTask(new AskWhichLeaderAbilityToCopyDialog(possibleLeaders));
+        FutureTask<Integer> futureTask = new FutureTask(new AskWhichLeaderAbilityToCopyDialog(possibleLeaders, currentStage));
         Platform.runLater(futureTask);
-
+        Debug.printVerbose("Hello, someone activated Lorenzo Il Magnifico and im inside the callBack");
         int choice = 0;
 
         try {
             choice = futureTask.get();
             Debug.printVerbose("Copying a leader choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            this.displayError("Error in opening dialogue, default value instead, called from askAddingServants", e.getMessage());
+            String displayThis = "Error in opening dialogue, default value instead, called from askAddingServants";
+            this.displayError(displayThis, e.getMessage());
         }
 
         return choice;
