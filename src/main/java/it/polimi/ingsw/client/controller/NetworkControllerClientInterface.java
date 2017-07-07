@@ -224,4 +224,11 @@ public interface NetworkControllerClientInterface {
      * @param nickname the nickname of the player that reconnected
      */
     void receivedNotificationReconnectedPlayer(String nickname);
+
+    /**
+     * this method is called by the network to deliver the fact that a player has disconnected
+     *
+     * @param nickname the nickname of the player that disconnected
+     */
+    void receivedPlayerDisconnected(String nickname);
 }

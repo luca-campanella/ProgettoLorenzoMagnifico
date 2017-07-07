@@ -651,4 +651,14 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
         generatorOfThread.submit(() -> getControllerMain().receivedNotificationReconnectedPlayer(nickname));
     }
 
+    /**
+     * this method is called by the room to deliver the fact that a player has disconnected
+     *
+     * @param nickname the nickname of the player that disconnected
+     * @throws RemoteException if something goes wrong with the network
+     */
+   public void deliverDisconnectionPlayer(String nickname) throws RemoteException {
+       generatorOfThread.submit(() -> getControllerMain().receivedPlayerDisconnected(nickname));
+   }
+
 }

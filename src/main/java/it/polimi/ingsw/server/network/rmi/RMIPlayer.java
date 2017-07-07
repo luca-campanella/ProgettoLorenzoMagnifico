@@ -163,7 +163,14 @@ import java.util.concurrent.Executors;
      */
     @Override
     public void deliverDisconnectionPlayer(String nickname) throws NetworkException {
-
+        try{
+            RMIClientInterfaceInst.deliverDisconnectionPlayer(nickname);
+        }
+        catch (RemoteException e){
+            Debug.printError("rmi: cannot deliver the leader the disconnection of player inside player "
+                    + getNickname(), e);
+            throw new NetworkException(e);
+        }
     }
 
     /**
