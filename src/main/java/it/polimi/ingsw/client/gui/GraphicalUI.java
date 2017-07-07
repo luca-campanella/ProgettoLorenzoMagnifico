@@ -300,7 +300,7 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public int askWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
 
-        FutureTask<Integer> futureTask = new FutureTask(new AskWhichLeaderAbilityToCopyDialog(possibleLeaders));
+        FutureTask<Integer> futureTask = new FutureTask(new AskWhichLeaderAbilityToCopyDialog(possibleLeaders, currentStage));
         Platform.runLater(futureTask);
         Debug.printVerbose("Hello, someone activated Lorenzo Il Magnifico and im inside the callBack");
         int choice = 0;

@@ -30,9 +30,10 @@ public class AskWhichLeaderAbilityToCopyDialog implements Callable<Integer> {
     private final String leadersPath = "/imgs/Leaders/";
     private LeaderCard selectedLeader;
     private HashMap<String, LeaderCard> leadersButtonsMap = new HashMap<>();
-
-    public AskWhichLeaderAbilityToCopyDialog(List<LeaderCard> possibleLeaders) {
+    private Stage stage;
+    public AskWhichLeaderAbilityToCopyDialog(List<LeaderCard> possibleLeaders, Stage stage) {
         this.possibleLeaders = possibleLeaders;
+        this.stage = stage;
     }
 
     private ButtonType buttonChoice;
@@ -43,10 +44,10 @@ public class AskWhichLeaderAbilityToCopyDialog implements Callable<Integer> {
 
 
         Debug.printError("AskWhichLeader");
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Lorenzo's effect");
         alert.setHeaderText("Select a Leader to Copy");
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        alert.initOwner(stage);
         stage.setAlwaysOnTop(true);
 
         Debug.printError("AskWhichLeader");
@@ -69,7 +70,7 @@ public class AskWhichLeaderAbilityToCopyDialog implements Callable<Integer> {
             else {
                 Debug.printError("User didn't select a Leader,ask he will receive a random LeaderEffect from the one possible");
             }
-
+        Debug.printError("AskWhichLeader");
         return 0;
     }
 
