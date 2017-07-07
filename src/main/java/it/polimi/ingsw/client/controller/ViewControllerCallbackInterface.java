@@ -123,6 +123,13 @@ public interface ViewControllerCallbackInterface {
     Board callbackObtainBoard();
 
     /**
+     * This method returns to the view a true if the player was suspended
+     *
+     * @return true if the player was suspended
+     */
+     boolean callbackObtainIsThisPlayerSuspended();
+
+    /**
      * This method returns to the view a reference to the player the client represents
      * this method is usually called to show the personal board of the player
      * @return the player the clietn represents
@@ -177,4 +184,9 @@ public interface ViewControllerCallbackInterface {
      * this method is called by the menu to ask to the controller the leader cards on his hand
      */
     ArrayList<LeaderCard> callbackObtainLeaderCardsNotPlayed();
+
+    /**
+     * This method is called by the view in order to reconnect a player that was suspended
+     */
+    void callbackConnectPlayerAgain();
 }

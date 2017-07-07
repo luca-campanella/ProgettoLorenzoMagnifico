@@ -24,6 +24,9 @@ public abstract class BasicCLIMenu extends Thread {
         this.initialMenu = initialMenu;
         this.controller = controller;
         optionsMap = new HashMap<String, DescrCallbackContainer>();
+        //this option will only be visible if the player was disconnected
+        optionsMap.put("CONNECT", new DescrCallbackContainer(() -> this.connectPlayerAgain(),
+                "reconnect me"));
         Debug.printDebug("BasicCLIMenu constructor");
     }
 
@@ -97,7 +100,11 @@ public abstract class BasicCLIMenu extends Thread {
 
     private void printMenu() {
         System.out.println(initialMenu);
-        optionsMap.forEach((abbrev, descrCallback) -> System.out.println(abbrev + " - " + descrCallback.getDescription()));
+        optionsMap.forEach((abbrev, descrCallback) ->
+        {
+            if(!"CONNECT".equals(abbrev))
+                System.out.println(abbrev + " - " + descrCallback.getDescription());
+        });
     }
 
     private class DescrCallbackContainer {
@@ -120,5 +127,15 @@ public abstract class BasicCLIMenu extends Thread {
 
     protected ViewControllerCallbackInterface getController() {
         return controller;
+    }
+
+    private void connectPlayerAgain() {
+        if(!controller.callbackObtainIsThisPlayerSuspended()) {
+            System.out.println("You are not disconnected, please choose a valid option");
+            showMenuAndAsk();
+        } else {
+            System.out.println("You are being reconnected");
+            controller.callbackConnectPlayerAgain();
+        }
     }
 }

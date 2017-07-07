@@ -63,6 +63,11 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     private Player thisPlayer;
 
     /**
+     * true if the player is currently suspended from the game due to timeout
+     */
+    private boolean isThisPlayerSuspended = false;
+
+    /**
      * this hashmap is filled with all the choices the user made regarding the move he's currently performed
      * it is filled by all the callback methods
      * it should be re-instantiated every time a new action is performed
@@ -617,6 +622,17 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
     }
 
+
+    /**
+     * This method returns to the view a true if the player was suspended
+     *
+     * @return true if the player was suspended
+     */
+    @Override
+    public boolean callbackObtainIsThisPlayerSuspended() {
+        return isThisPlayerSuspended;
+    }
+
     /**
      * This method returns to the view a reference to the player the client represents
      * this method is usually called to show the personal board of the player
@@ -661,6 +677,16 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * This method is called by the view in order to reconnect a player that was suspended
+     */
+    @Override
+    public void callbackConnectPlayerAgain() {
+        isThisPlayerSuspended = false;
+        //todo send pkg to the server
+        userInterface.waitMenu();
+    }
+
+    /**
      * this method is called by the menu to ask the leader cards not played
      */
     @Override
@@ -689,11 +715,12 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receivedNotificationSuspendedPlayer(String nickname) {
-        Debug.printVerbose("*** the player " + nickname + " has been excommunicated");
+        Debug.printVerbose("*** the player " + nickname + " has been suspended");
         if(thisPlayer.getNickname().equals(nickname)){
-            //todo suspend this player
+            isThisPlayerSuspended = true;
+            userInterface.notifyThisPlayerSuspended();
         } else {
-            //todo notify the player suspension to the view
+            userInterface.notifyAnotherPlayerSuspended(nickname);
         }
     }
 
@@ -1128,7 +1155,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
         modelController.excommunicatePlayer(playersExcommunicated, numTile);
         userInterface.displayExcommunicationPlayers(playersExcommunicated);
-        if(!playersExcommunicated.contains(thisPlayer.getNickname())){
+        if(!playersExcommunicated.contains(thisPlayer.getNickname()) && !isThisPlayerSuspended){
             userInterface.askExcommunicationChoice(numTile);
         }
     }

@@ -707,5 +707,32 @@ public class GraphicalUI extends AbstractUIType {
          Platform.runLater(() ->
                 ((MainBoardControl) (currentFXControl)).askExcommunicationChoice(numTile));
     }
+
+
+    /**
+     * This method is called by controller to signal that another player was suspende due to timeout
+     * @param nickname the nick of the player suspended
+     */
+    @Override
+    public void notifyAnotherPlayerSuspended(String nickname) {
+        //todo
+    }
+
+    /**
+     * This method is called by controller to signal that this player was suspended due to timeout
+     */
+    @Override
+    public void notifyThisPlayerSuspended() {
+        //todo
+    }
+
+    /**
+     * This method is called by controller to signal that another player was disconnected due to network problems
+     * @param nickname the nick of the player disconnected
+     */
+    @Override
+    public void notifyAnotherPlayerDisconnected(String nickname) {
+        //todo
+    }
 }
 

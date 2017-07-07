@@ -11,11 +11,9 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -284,4 +282,21 @@ abstract public class AbstractUIType {
      * @param numTile the number of the tile to be taken if the player is excommunicated
      */
     public abstract void askExcommunicationChoice(int numTile);
+
+    /**
+     * This method is called by controller to signal that another player was suspende due to timeout
+     * @param nickname the nick of the player suspended
+     */
+    public abstract void notifyAnotherPlayerSuspended(String nickname);
+
+    /**
+     * This method is called by controller to signal that this player was suspended due to timeout
+     */
+    public abstract void notifyThisPlayerSuspended();
+
+    /**
+     * This method is called by controller to signal that another player was disconnected due to network problems
+     * @param nickname the nick of the player disconnected
+     */
+    public abstract void notifyAnotherPlayerDisconnected(String nickname);
 }

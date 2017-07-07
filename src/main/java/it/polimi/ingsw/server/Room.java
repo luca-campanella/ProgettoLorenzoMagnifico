@@ -463,7 +463,7 @@ public class Room {
 
         for(AbstractConnectionPlayer playerIter : players) {
             try {
-                playerIter.notifySuspendedPlayer(playerIter.getNickname());
+                playerIter.notifySuspendedPlayer(playerToSuspend.getNickname());
             } catch (NetworkException e) {
                 Debug.printError("ERROR in notifying the suspension of the player" +
                         playerToSuspend.getNickname() + " to player " + playerIter.getNickname(), e);
@@ -871,6 +871,9 @@ public class Room {
         for(AbstractConnectionPlayer player : players){
             try {
                 player.deliverExcommunication(nicknamePlayerExcommunicated, numTile);
+                //if he's suspended we reply for him
+                if(suspendedPlayers.contains(player))
+                    receiveExcommunicationChoice("NO", player);
             }
             catch (NetworkException e){
                 Debug.printError("cannot deliver the excommunication to " + player.getNickname(),e);

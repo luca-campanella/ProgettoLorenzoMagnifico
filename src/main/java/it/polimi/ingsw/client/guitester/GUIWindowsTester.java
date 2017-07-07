@@ -293,6 +293,16 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     }
 
     /**
+     * This method returns to the view a true if the player was suspended
+     *
+     * @return true if the player was suspended
+     */
+    @Override
+    public boolean callbackObtainIsThisPlayerSuspended() {
+        return false;
+    }
+
+    /**
      * This method returns to the view a reference to the player the client represents
      * this method is usually called to show the personal board of the player
      *
@@ -365,5 +375,13 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     @Override
     public ArrayList<LeaderCard> callbackObtainLeaderCardsNotPlayed() {
         return null;
+    }
+
+    /**
+     * This method is called by the view in order to reconnect a player that was suspended
+     */
+    @Override
+    public void callbackConnectPlayerAgain() {
+
     }
 }
