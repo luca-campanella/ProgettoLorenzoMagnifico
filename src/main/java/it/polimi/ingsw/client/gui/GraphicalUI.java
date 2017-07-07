@@ -125,7 +125,7 @@ public class GraphicalUI extends AbstractUIType {
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * {@link ViewControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
-     * //todo other methods triggered
+     *
      */
     @Override
     public void askInitialAction(boolean playedFamilyMember) {

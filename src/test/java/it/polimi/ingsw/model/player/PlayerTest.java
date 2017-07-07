@@ -436,7 +436,7 @@ public class PlayerTest {
         temp.add(numberGenerated);
         return numberGenerated;
     }
-    //todo: leaders.
+
     @Test
     public void addLeaderCard() throws Exception {
         Player playerNickname = new Player("Alpha");
