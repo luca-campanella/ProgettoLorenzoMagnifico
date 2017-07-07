@@ -70,6 +70,7 @@ public class SocketClient extends AbstractClientType {
             inStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
             outStream = new ObjectOutputStream(new BufferedOutputStream(socketClient.getOutputStream()));
             outStream.flush();
+            outStream.reset();
 
         } catch (IOException e) {
             Debug.printError("Cannot open socket streams", e);
@@ -97,8 +98,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.LOGIN);
                 outStream.writeObject(new LoginOrRegisterPacket(nickname, password));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
             loginResponse = (LoginErrorEnum) inStream.readObject();
         }
@@ -129,8 +131,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.REGISTER);
                 outStream.writeObject(new LoginOrRegisterPacket(nickname,password));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
             response =(RegisterErrorEnum)inStream.readObject();
         }
@@ -157,8 +160,9 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(PacketType.PLAY_LEADER);
                 outStream.writeObject(new PlayLeaderCardPacket(nameLeader, choicesOnCurrentActionString,
                         choicesOnCurrentAction));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch(IOException e){
@@ -182,8 +186,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.DISCARD_LEADER);
                 outStream.writeObject(new DiscardAndActivateLeaderCardPacket(nameLeader, resourceChoose));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e) {
@@ -208,8 +213,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.MOVE_IN_TOWER);
                 outStream.writeObject(new PlaceOnTowerPacket(familyMember.getColor(),numberTower,floorTower, playerChoices));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
 
         }
@@ -231,8 +237,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.MOVE_IN_MARKET);
                 outStream.writeObject(new PlaceOnMarketPacket(familyMember.getColor(), marketIndex, playerChoices));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
 
         }
@@ -256,8 +263,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.MOVE_IN_COUNCIL);
                 outStream.writeObject(new PlaceOnCouncilPacket(familyMember.getColor(), playerChoices));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
 
@@ -278,8 +286,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.HARVEST);
                 outStream.writeObject(new BuildOrHarvest(familyMember.getColor(),servantUsed,playerChoices));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
 
         }
@@ -307,8 +316,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.BUILD);
                 outStream.writeObject(new BuildOrHarvest(familyMember.getColor(),servantUsed,playerChoices));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
 
         }
@@ -332,8 +342,10 @@ public class SocketClient extends AbstractClientType {
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.CHOSE_TILES);
-                outStream.writeObject(tileChosen);}
-            outStream.flush();
+                outStream.writeObject(tileChosen);
+                outStream.flush();
+                outStream.reset();
+            }
 
         }
         catch (IOException e){
@@ -354,8 +366,10 @@ public class SocketClient extends AbstractClientType {
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.ACTIVATE_LEADER);
-                outStream.writeObject(new DiscardAndActivateLeaderCardPacket(leaderName, choicesOnCurrentAction));}
-            outStream.flush();
+                outStream.writeObject(new DiscardAndActivateLeaderCardPacket(leaderName, choicesOnCurrentAction));
+                outStream.flush();
+                outStream.reset();
+            }
 
         }
         catch (IOException e){
@@ -376,8 +390,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.EXCOMMUNICATION_CHOICE);
                 outStream.writeObject(response);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
             Debug.printVerbose("delivered the excommunication choice");
 
@@ -402,8 +417,9 @@ public class SocketClient extends AbstractClientType {
 
             synchronized (this){
                 outStream.writeObject(PacketType.END_PHASE);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
             Debug.printVerbose("delivered the end phase");
 
@@ -427,8 +443,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.CHAT);
                 outStream.writeObject(msg);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -655,8 +672,9 @@ public class SocketClient extends AbstractClientType {
             synchronized (this){
                 outStream.writeObject(PacketType.LEADER_CHOICES);
                 outStream.writeObject(new ChosenLeaderPacket(leaderCard));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
             Debug.printVerbose("Packet on leader choice sent " + leaderCard.getName());
         }

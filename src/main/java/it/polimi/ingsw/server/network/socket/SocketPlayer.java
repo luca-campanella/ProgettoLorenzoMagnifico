@@ -117,12 +117,14 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             serverMainInst.makeJoinRoomLogin(this);
             outStream.writeObject(RegisterErrorEnum.NO_ERROR);
             outStream.flush();
+            outStream.reset();
 
         }
         catch (UsernameAlreadyInUseException e) {
             try {
                 outStream.writeObject(RegisterErrorEnum.ALREADY_EXISTING_USERNAME);
                 outStream.flush();
+                outStream.reset();
 
             } catch (IOException c) {
                 Debug.printError("network is not working", c);
@@ -144,13 +146,15 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             serverMainInst.makeJoinRoomLogin(this);
             outStream.writeObject(LoginErrorEnum.NO_ERROR);
             outStream.flush();
+            outStream.reset();
 
         }
 
         catch (LoginException e) {
             try{
             outStream.writeObject(e.getErrorType());
-            outStream.flush();
+                outStream.flush();
+                outStream.reset();
 
             }
             catch (IOException e1){
@@ -297,8 +301,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.CHAT);
                 outStream.writeObject(chatPacket);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch(IOException e){
@@ -316,9 +321,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
             synchronized (this){
                 outStream.writeObject(PacketType.MOVE_IN_TOWER);
-                outStream.writeObject(new ReceivePlaceOnTowerPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),towerIndex,floorIndex, playerChoices));outStream.flush();
+                outStream.writeObject(new ReceivePlaceOnTowerPacket(familyMember.getPlayer().getNickname(),familyMember.getColor(),towerIndex,floorIndex, playerChoices));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
 
         }
@@ -343,8 +349,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(PacketType.MOVE_IN_MARKET);
                 outStream.writeObject(new ReceivePlaceOnMarketPacket(familyMember.getPlayer().
                     getNickname(),familyMember.getColor(), marketIndex, playerChoices));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
 
         }
@@ -369,8 +376,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.BUILD);
                 outStream.writeObject(new ReceiveBuildOrHarvestPacket(familyMember.getPlayer()
-                    .getNickname(),familyMember.getColor(),servant,playerChoices));}
-            outStream.flush();
+                    .getNickname(),familyMember.getColor(),servant,playerChoices));
+                outStream.flush();
+                outStream.reset();
+            }
 
 
         }
@@ -394,8 +403,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(PacketType.HARVEST);
                 outStream.writeObject(new ReceiveBuildOrHarvestPacket(familyMember
                     .getPlayer().getNickname(),familyMember.getColor(),servant, playerChoices));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
 
         }
@@ -428,8 +438,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.END_PHASE);
                 outStream.writeObject(new EndPhasePacket(player.getNickname()));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
 
         }
@@ -453,9 +464,11 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
             synchronized (this){
                 outStream.writeObject(PacketType.DICE);
-                outStream.writeObject(new DicesPacket(dices));
+                DicesPacket packet = new DicesPacket(dices);
+                outStream.writeObject(packet);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
 
         }
@@ -479,9 +492,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.GAME_BOARD);
                 outStream.writeObject(gameBoard);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
-
 
         }
 
@@ -503,8 +516,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.START_TURN);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -524,8 +538,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.ORDER_PLAYERS);
                 outStream.writeObject(orderPlayers);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -546,8 +561,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.LEADER_CHOICES);
                 outStream.writeObject(new LeaderChoicePacket(cardToPlayer));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e) {
@@ -568,8 +584,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.CARD_TO_PLACE);
                 outStream.writeObject(new CardToPlacePacket(cards));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -591,8 +608,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(PacketType.MOVE_IN_COUNCIL);
                 outStream.writeObject(new ReceivePlaceOnCouncilPacket(familyMember
                     .getColor(),playerChoices,familyMember.getPlayer().getNickname()));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -611,8 +629,10 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.CHOSE_TILES);
-                outStream.writeObject(personalTilesToDeliver);}
-            outStream.flush();
+                outStream.writeObject(personalTilesToDeliver);
+                outStream.flush();
+                outStream.reset();
+            }
 
             Debug.printVerbose("Delivered personal tile to " + getNickname());
         }
@@ -633,8 +653,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.FLOOD_PERSONAL_TILE);
                 outStream.writeObject(new ReceiveChosenPersonalTilePacket(nickname, personalTile));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -667,8 +688,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.NICKNAME);
                 outStream.writeObject(nickname);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
 
@@ -691,8 +713,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             try{
                 synchronized (this){
                     outStream.writeObject(PacketType.ERROR_MOVE);
+                    outStream.flush();
+                    outStream.reset();
                 }
-                outStream.flush();
 
             }
             catch (IOException c){
@@ -727,8 +750,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.ERROR_MOVE);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -751,8 +775,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.DISCARD_LEADER);
                 outStream.writeObject(new ReceiveDiscardOrActivatedLeaderCardPacket(nickname, nameCard, resourceGet));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -772,8 +797,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.DISCONNECTION_PLAYER);
                 outStream.writeObject(nickname);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -800,8 +826,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(PacketType.PLAY_LEADER);
                 outStream.writeObject(new ReceivePlayLeaderCardPacket(nameCard, choicesOnCurrentActionString,nickname,
                         choicesOnCurrentAction));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -823,8 +850,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.CHOSEN_LEADER);
                 outStream.writeObject(new ReceiveChosenLeaderPacket(leaderCard, player.getNickname()));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -847,8 +875,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.ACTIVATE_LEADER);
                 outStream.writeObject(new ReceiveDiscardOrActivatedLeaderCardPacket( nickname, nameCard, resourceGet));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -869,8 +898,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.END_GAME);
                 outStream.writeObject(playerPositionEndGames);
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -892,8 +922,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.EXCOMMUNICATION);
                 outStream.writeObject(new ExcommunicationPacket(nicknamePlayerExcommunicated, numTile));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -915,8 +946,9 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             synchronized (this){
                 outStream.writeObject(PacketType.EXCOMMUNICATION_CHOICE);
                 outStream.writeObject(new ReceiveExcommunicationChoicePacket(nickname, response, numTile));
+                outStream.flush();
+                outStream.reset();
             }
-            outStream.flush();
 
         }
         catch (IOException e){
@@ -936,6 +968,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
                 outStream.writeObject(PacketType.PLAYER_SUSPENDED);
                 outStream.writeObject(new ReceivePlayerNicknamePacket(nickname));
                 outStream.flush();
+                outStream.reset();
             }
         }
         catch (IOException e){
