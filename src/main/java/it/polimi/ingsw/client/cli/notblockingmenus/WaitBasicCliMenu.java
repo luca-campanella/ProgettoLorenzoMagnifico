@@ -24,10 +24,20 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
 
     private void loadOptions(){
 
-        addOption("BOARD", "Show me the board", this::printBoard);
+        addOption("BOARD", "Show the board", this::printBoard);
+        addOption("LC", "Show the leader cards on my hand", this::printLeaderCard);
         addOption("PB", "Show the personal board of the player", this::printPersonalBoard);
         addOption("PBO", "Show the personal board of the other players", this::printPersonalBoardOtherPlayers);
 
+    }
+
+    /**
+     * this method is used to print the leader cards on the hand of the player
+     */
+    private void printLeaderCard() {
+
+        CliPrinter.printLeaderCards(getController().callbackObtainLeaderCardsNotPlayed());
+        showMenuAndAskNonBlocking();
     }
 
     /**

@@ -70,7 +70,7 @@ public class SocketClient extends AbstractClientType {
             inStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
             outStream = new ObjectOutputStream(new BufferedOutputStream(socketClient.getOutputStream()));
             outStream.flush();
-            outStream.reset();
+
         } catch (IOException e) {
             Debug.printError("Cannot open socket streams", e);
             throw new ClientConnectionException("Cannot open socket streams", e);
@@ -99,7 +99,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(new LoginOrRegisterPacket(nickname, password));
             }
             outStream.flush();
-            outStream.reset();
+
             loginResponse = (LoginErrorEnum) inStream.readObject();
         }
         catch(IOException | ClassNotFoundException e){
@@ -131,7 +131,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(new LoginOrRegisterPacket(nickname,password));
             }
             outStream.flush();
-            outStream.reset();
+
             response =(RegisterErrorEnum)inStream.readObject();
         }
         catch(IOException | ClassNotFoundException e){
@@ -157,7 +157,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(new PlayLeaderCardPacket(nameLeader, choicesOnCurrentActionString));
             }
             outStream.flush();
-            outStream.reset();
+
         }
         catch(IOException e){
             Debug.printError("network is not available",e);
@@ -182,7 +182,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(new DiscardAndActivateLeaderCardPacket(nameLeader, resourceChoose));
             }
             outStream.flush();
-            outStream.reset();
+
         }
         catch (IOException e) {
             Debug.printError("Cannot write object to output socket stream", e);
@@ -208,7 +208,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(new PlaceOnTowerPacket(familyMember.getColor(),numberTower,floorTower, playerChoices));
             }
             outStream.flush();
-            outStream.reset();
+
 
         }
         catch (IOException e){
@@ -231,7 +231,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(new PlaceOnMarketPacket(familyMember.getColor(), marketIndex, playerChoices));
             }
             outStream.flush();
-            outStream.reset();
+
 
         }
         catch(IOException e){
@@ -256,7 +256,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(new PlaceOnCouncilPacket(familyMember.getColor(), playerChoices));
             }
             outStream.flush();
-            outStream.reset();
+
         }
 
         catch (IOException e){
@@ -278,7 +278,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(new BuildOrHarvest(familyMember.getColor(),servantUsed,playerChoices));
             }
             outStream.flush();
-            outStream.reset();
+
 
         }
 
@@ -307,7 +307,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(new BuildOrHarvest(familyMember.getColor(),servantUsed,playerChoices));
             }
             outStream.flush();
-            outStream.reset();
+
 
         }
 
@@ -332,7 +332,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(PacketType.CHOSE_TILES);
                 outStream.writeObject(tileChosen);}
             outStream.flush();
-            outStream.reset();
+
         }
         catch (IOException e){
             throw new NetworkException(e);
@@ -354,7 +354,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(PacketType.ACTIVATE_LEADER);
                 outStream.writeObject(new DiscardAndActivateLeaderCardPacket(leaderName, choicesOnCurrentAction));}
             outStream.flush();
-            outStream.reset();
+
         }
         catch (IOException e){
             throw new NetworkException(e);
@@ -376,7 +376,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(response);
             }
             outStream.flush();
-            outStream.reset();
+
             Debug.printVerbose("delivered the excommunication choice");
 
         }
@@ -402,7 +402,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(PacketType.END_PHASE);
             }
             outStream.flush();
-            outStream.reset();
+
             Debug.printVerbose("delivered the end phase");
 
         }
@@ -427,7 +427,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(msg);
             }
             outStream.flush();
-            outStream.reset();
+
         }
         catch (IOException e){
             Debug.printError("network is not available", e);
@@ -655,7 +655,7 @@ public class SocketClient extends AbstractClientType {
                 outStream.writeObject(new ChosenLeaderPacket(leaderCard));
             }
             outStream.flush();
-            outStream.reset();
+
             Debug.printVerbose("Packet on leader choice sent " + leaderCard.getName());
         }
         catch (IOException e){

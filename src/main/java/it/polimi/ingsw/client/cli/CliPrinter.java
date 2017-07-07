@@ -7,7 +7,9 @@ import it.polimi.ingsw.model.cards.VentureCard;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.model.effects.permanentEffects.AbstractPermanentEffect;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
+import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.LeadersDeck;
+import it.polimi.ingsw.model.leaders.requirements.AbstractRequirement;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
@@ -668,6 +670,20 @@ public class CliPrinter {
 
         for(String nickname : playersExcommunicated){
             System.out.println("The player " + nickname + " has benn excommunicated.");
+        }
+    }
+
+    /**
+     * this method is called by the menu to print the leader cards on the hand of the player
+     * @param leaderCards the leader cards on the hand of the player
+     */
+    public static void printLeaderCards(ArrayList<LeaderCard> leaderCards) {
+
+        for(LeaderCard leaderCard : leaderCards){
+            System.out.println(leaderCard.getName() + ":\nDescription:\n" + leaderCard.getDescription() + "\nRequirement:\n");
+            for(AbstractRequirement requirement : leaderCard.getRequirements()){
+                System.out.println(requirement.getDescription());
+            }
         }
     }
 }

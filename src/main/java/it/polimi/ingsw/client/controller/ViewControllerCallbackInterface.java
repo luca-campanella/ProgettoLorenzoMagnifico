@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -171,4 +172,9 @@ public interface ViewControllerCallbackInterface {
      *                                               "no" if the player wants to be excommunicate without losing his faith points
      */
     void callbackExcommunicationChoice(String response, int numTile);
+
+    /**
+     * this method is called by the menu to ask to the controller the leader cards on his hand
+     */
+    ArrayList<LeaderCard> callbackObtainLeaderCardsNotPlayed();
 }

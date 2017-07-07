@@ -673,6 +673,14 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * this method is called by the menu to ask the leader cards not played
+     */
+    @Override
+    public ArrayList<LeaderCard> callbackObtainLeaderCardsNotPlayed() {
+        return thisPlayer.getLeaderCardsNotUsed();
+    }
+
+    /**
      * this method is used to menage the choices done on the excommunication tile
      * @param nickname the nickname of the player that had done the choice
      * @param response the response of the player

@@ -359,4 +359,9 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     public void callbackExcommunicationChoice(String response, int numTile) {
 
     }
+
+    @Override
+    public ArrayList<LeaderCard> callbackObtainLeaderCardsNotPlayed() {
+        return null;
+    }
 }
