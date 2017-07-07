@@ -250,8 +250,17 @@ public class MainBoardControl extends CustomFxControl {
         for(int col = 0; col < towers.length; col++) {
             for(int raw = 0; raw < 4; raw++) {
                 ImageView imgView = ((ImageView) (towersCouncilFaith.lookup(placeHoldername +col+raw)));
-                Image cardImg  = new Image(getClass().getResourceAsStream("/imgs/Cards/" +
-                        towers[col].getFloorByIndex(raw).getCard().getImgName()));
+                Image cardImg = null;
+                try {
+                    cardImg = new Image(getClass().getResourceAsStream("/imgs/Cards/" +
+                            towers[col].getFloorByIndex(raw).getCard().getImgName()));
+                } catch (NullPointerException e) {
+                    Debug.printError("CARD Something went wrong loading the card, look afterwards", e);
+                    Debug.printError("towers[col]" + towers[col].toString());
+                    Debug.printError("towers[col].getFloorByIndex(raw)" + towers[col].getFloorByIndex(raw).toString());
+                    Debug.printError("towers[col].getFloorByIndex(raw).getCard()" + towers[col].getFloorByIndex(raw).getCard().toString());
+                    Debug.printError("towers[col].getFloorByIndex(raw).getCard().getImgName()" + towers[col].getFloorByIndex(raw).getCard().getImgName());
+                }
                 Debug.printVerbose(cardImg.toString());
                 Debug.printVerbose(imgView.toString());
                 imgView.setImage(cardImg);
