@@ -246,10 +246,10 @@ public class MainBoardControl extends CustomFxControl {
      */
     public void displayCards() {
         Tower[] towers = board.getTowers();
-
+        final String placeHoldername = "#card";
         for(int col = 0; col < towers.length; col++) {
             for(int raw = 0; raw < 4; raw++) {
-                ImageView imgView = ((ImageView) (towersCouncilFaith.lookup("#card"+col+raw)));
+                ImageView imgView = ((ImageView) (towersCouncilFaith.lookup(placeHoldername +col+raw)));
                 Image cardImg  = new Image(getClass().getResourceAsStream("/imgs/Cards/" +
                         towers[col].getFloorByIndex(raw).getCard().getImgName()));
                 Debug.printVerbose(cardImg.toString());
