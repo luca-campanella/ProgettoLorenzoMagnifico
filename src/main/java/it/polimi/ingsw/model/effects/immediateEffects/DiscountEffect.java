@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
-
 /**
  * This effect discount something for the player. Example 51
  */
@@ -19,7 +18,6 @@ public class DiscountEffect implements ImmediateEffectInterface{
     }
 
     /**
-     * todo: need to ask fede
      * @param player
      * @param choicesHandlerInterface
      */

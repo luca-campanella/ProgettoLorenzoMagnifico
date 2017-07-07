@@ -44,7 +44,7 @@ public interface RMIPlayerInterface extends Remote {
     /**
      * this method is used to deliver the move of a family member on a marketplace
      * @param familyMemberColor is the color of the chosen family member
-     * @param marketIndex is the index of the market space  (from left to right) //todo: Check this assert
+     * @param marketIndex is the index of the market space  (from left to right)
      * @param playerChoices is the map that cointains all the choices of the client when an effect asks
      * @throws RemoteException if something goes wrong during the connection
      */

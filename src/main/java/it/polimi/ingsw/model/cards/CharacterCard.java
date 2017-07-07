@@ -18,12 +18,7 @@ public class CharacterCard extends AbstractCard {
     private static CardColorEnum cardColor = CardColorEnum.BLUE;
     //and a permanent effect, that buffs players actions
     ArrayList<AbstractPermanentEffect> permanentEffect;
-
-    //TODO
-    public boolean checkEffect()
-    {
-        return true;
-    }
+    
 
     public ArrayList<Resource> getCost() {
         return cost;

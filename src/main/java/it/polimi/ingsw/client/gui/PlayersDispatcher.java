@@ -6,9 +6,6 @@ import java.util.List;
 
 /**
  * This class helps identifying if a leaderOwned scene has already been created.
- * //todo: this solution has a problem? Se io già carico una scena, poi sugli altri pc come funziona?
- * //todo: nel senso.. fino a quando io sono su una macchina posso avere anche 25 finestre aperte
- * //todo: (5 per ogni giocatore). Su più macchine saranno alla fine  max 5...
  *
  */
 public class PlayersDispatcher {

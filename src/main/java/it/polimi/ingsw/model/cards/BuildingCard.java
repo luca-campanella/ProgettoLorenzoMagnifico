@@ -80,32 +80,21 @@ public class BuildingCard extends AbstractCard{
         this.cost = cost;
     }
 
-    public int getBuildEffectValue() {
-        return buildEffectValue;
-    }
-    //todo: cancel
-    public void setBuildEffectValue(int buildEffectValue) {
-        this.buildEffectValue = buildEffectValue;
-    }
 
     public ArrayList<ImmediateEffectInterface> getEffectsOnBuilding() {
         return effectsOnBuilding;
     }
-    //todo: cancel
-    public void setEffectsOnBuilding(ArrayList<ImmediateEffectInterface> effectsOnBuilding) {
-        this.effectsOnBuilding = effectsOnBuilding;
-    }
+    
 
     /**
      * this method is called from the printer and helps it to print all effectsOnBuilding.
-     * todo: I dind't want to put this method in the CLI because all second effects are different. -- Arto
      * @return the string with all effects.
      */
     public String secondEffect(){
-        String temp = new String();
-        for(int i=0; i<effectsOnBuilding.size();i++)
-            temp += effectsOnBuilding.get(i).descriptionShortOfEffect();
-        return temp;
+        StringBuilder temp = new StringBuilder();
+        for(ImmediateEffectInterface iterator : effectsOnBuilding)
+            temp.append(iterator.descriptionShortOfEffect());
+        return temp.toString();
     }
     public CardColorEnum getColor(){
         return cardColor;

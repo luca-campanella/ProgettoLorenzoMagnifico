@@ -140,7 +140,7 @@ public class CommandLineUI extends AbstractUIType {
         }
         System.exit(0);
     }
-
+    //TODO: Decide if we want to eliminate chat or not. 2 methods here
     /**
      * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
      *
@@ -149,11 +149,10 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void displayChatMsg(String senderNick, String msg) {
-        //TODO something more visually appealing
+
         CliPrinter.println("<" + senderNick + ">: " + msg);
     }
 
-    //TODO this is a method just for testing chat
     @Override
     public void askChatMsg() {
         CliPrinter.println("Please insert chat msg: ");

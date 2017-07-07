@@ -181,7 +181,7 @@ public class BoardTest {
         assertEquals(false,board.getBuild().checkIfFirst());
         assertEquals(false,board.getBuild().isTwoPlayersOneSpace());
 
-        //todo: test 2PlayerOneSpace true
+
         //this is one because i didn't add a family member to the AS.
         assertEquals(1, board.getBuild().getValueNeeded(true));
 
@@ -222,7 +222,7 @@ public class BoardTest {
         assertEquals(card , board.getTower(0).getFloorByIndex(0).getCard());
     }
 
-    //todo: load market properly
+    
     @Test
     public void marketTest() throws Exception{
         int numberOfPlayers = 2;

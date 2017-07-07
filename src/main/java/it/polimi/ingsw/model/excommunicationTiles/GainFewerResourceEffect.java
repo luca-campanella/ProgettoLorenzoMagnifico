@@ -22,7 +22,7 @@ public class GainFewerResourceEffect extends AbstractExcommunicationTileEffect{
         //in case resources type doesn't match, it returns 0
         return 0;
     }
-    //todo: remove this line resource.setValue(resource.getValue()- resourceExcommunication.getValue());
+
 
     public GainFewerResourceEffect(Resource resourceExcommunication) {
         this.resourceExcommunication = resourceExcommunication;

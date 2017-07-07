@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
  * This dialog is opened up when a player wants to boost his action-power
  */
 public class AskMoreServantsDialog implements Callable<Integer> {
-    //todo: this class needs to be tested
+
     private int min;
     private int max;
     public AskMoreServantsDialog(int min, int max)

@@ -12,7 +12,6 @@ import java.util.List;
 
 /**
  * This class is the board where the game develops
- * todo: when we create the board, should we pass all the deck to it?
  * Isn't it wrong? Players could already know cards before those are fitted in the right spaces.
  * Of course deck is standard.. Potrebbe non essere un problema a dire il vero.
  * Di fatti, piu ci giochi piu impari quali carte ci sono, quindi basi anche un po la tua strategia su quello....
@@ -114,18 +113,14 @@ public class Board implements Serializable {
     public Tower[] getTowers() {
         return towers;
     }
-    //todo: we have to cancel this method
+
     public void setTowers(Tower[] towers) {
         this.towers = towers;
     }
 
-    public TowerFloorAS[] getTowerFloor(Tower tower) {
-        return tower.getFloors();
-    }
-
     public TowerFloorAS[] getFloorLevel(int i) {
         int k;
-        //final int NUMBER_OF_FLOORS = 4;
+
         TowerFloorAS[] iFloor = new TowerFloorAS[NUMBER_OF_FLOORS];
         for (k = 0; k < NUMBER_OF_TOWERS; k++)
             iFloor[k] = towers[k].getFloorByIndex(i);
@@ -139,10 +134,7 @@ public class Board implements Serializable {
     public ArrayList<MarketAS> getMarket() {
         return market;
     }
-    //todo: we should cancel this one too
-/*    public void setMarket(MarketAS[] market) {
-        this.market = market;
-    }*/
+
 
     public MarketAS getMarketSpaceByIndex(int index) {
         return market.get(index);
@@ -183,19 +175,10 @@ public class Board implements Serializable {
     public int[] getVaticanVictoryPoints() {
         return this.vaticanReport.getCorrespondingVictoryPoints();
     }
-    //todo we should cancel this one also
-    public void setVaticanReport(VaticanReport vaticanReport) {
-        this.vaticanReport = vaticanReport;
-    }
 
     public CouncilAS getCouncil() {
         return council;
     }
-
-    /*public String getCouncilShortEffect()
-    {
-        return this.getCouncil().getEffect().descriptionShortOfEffect();
-    }*/
 
     public int getNUMBER_OF_FLOORS() {
         return NUMBER_OF_FLOORS;

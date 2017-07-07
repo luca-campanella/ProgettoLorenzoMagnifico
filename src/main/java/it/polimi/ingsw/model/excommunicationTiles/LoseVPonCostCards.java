@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model.excommunicationTiles;
 
 import it.polimi.ingsw.model.board.CardColorEnum;
-import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
-import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;

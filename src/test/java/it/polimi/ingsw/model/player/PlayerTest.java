@@ -436,7 +436,7 @@ public class PlayerTest {
         temp.add(numberGenerated);
         return numberGenerated;
     }
-    //todo: leaders.
+
     @Test
     public void addLeaderCard() throws Exception {
         Player playerNickname = new Player("Alpha");
@@ -447,8 +447,8 @@ public class PlayerTest {
         assertEquals(4, playerNickname.getLeaderCardsNotUsed().size());
 
         playerNickname.playLeader(playerNickname.getLeaderCardsNotUsed().get(0),choicesHandlerInterface);
-        //todo this has to be 3 istead of 4
-        assertEquals(4, playerNickname.getLeaderCardsNotUsed().size());
+
+        assertEquals(3, playerNickname.getLeaderCardsNotUsed().size());
         assertEquals(0, playerNickname.getPlayableLeaders().size());
 
     }

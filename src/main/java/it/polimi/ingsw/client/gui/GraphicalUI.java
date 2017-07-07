@@ -78,28 +78,7 @@ public class GraphicalUI extends AbstractUIType {
         Platform.runLater(() -> control.displayActiveActionSpaces(servantsNeededHarvest, servantsNeededBuild, servantsNeededCouncil, activeMarketSpaces, activeTowerSpaces));
     }
 
-    /**
-     * this method prints all allowed actions for the user.
-     * @param legalActionSpaces
-     */
-    public void askWhichActionSpace(List<AbstractActionSpace> legalActionSpaces){
-        Debug.printDebug("Sono in GUI.askWhichActionSpace");
-        System.out.println("Stampo tutte le azioni disponibili dell'utente");
-        //todo: eliminare questo metodo
-    }
 
-    /**
-     *
-     * @param nameCard
-     * @param choices
-     * @param resourcePlayer
-     * @return
-     */
-    //todo: is this method used?
-    @Override
-    public int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer) {
-        return 0;
-    }
 
     /**
      * This method is called when the player has joined a room, but the game isn't started yet
@@ -146,7 +125,7 @@ public class GraphicalUI extends AbstractUIType {
      * Used when it's the turn of the user and he has to choose which action he wants to perform
      * This method will trigger either
      * {@link ViewControllerCallbackInterface#callbackFamilyMemberSelected(FamilyMember)} (it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum, int)} or
-     * //todo other methods triggered
+     *
      */
     @Override
     public void askInitialAction(boolean playedFamilyMember) {
@@ -182,16 +161,11 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * performs all the action on the {@link MainBoardControl} in order to display the initial board
      * @param message the initial message to show the user
-     * @param isHisTurn
+     * @param isHisTurn true if it's player's turn, false if it is not
      */
     private void setUpMainBoardControl(String message, boolean isHisTurn) {
         MainBoardControl control = ((MainBoardControl) (currentFXControl));
-        //todo eliminate: this tested if councilGiftOption was working..
-        /*ArrayList< GainResourceEffect> options = new ArrayList<>(1);
-        GainResourceEffect option = new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,2));
-        options.add(option);
-        options.add(option);
-        control.displayCouncilOptions(options);*/
+
         control.setBoard(getController().callbackObtainBoard());
         control.displayCards();
         control.setUpExcommTiles();
@@ -494,11 +468,7 @@ public class GraphicalUI extends AbstractUIType {
 
     }
 
-    //@Override todo: check this method, i think we can delete it
-    /*public int askChoice(String nameCard, ArrayList<String> choices) {
-        return 0;
-    }
-       */
+
     /**
      * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
      * this method should also receive the familyMembers list to match the input.

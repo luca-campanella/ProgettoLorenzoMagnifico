@@ -30,7 +30,7 @@ public class VentureCard extends AbstractCard{
      * this method is generated to "merge" the 2 costs and allows the printer to print them all together.
      * @return a list with all costs
      */
-    //TODO
+    
     @Override
     public ArrayList<Resource> getCost(){
         return costChoiceResource;

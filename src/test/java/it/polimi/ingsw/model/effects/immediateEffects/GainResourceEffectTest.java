@@ -75,7 +75,7 @@ public class GainResourceEffectTest {
         effectMilP.applyToPlayer(player, choicesHandlerInterface, "PIPPO");
         effectVicP.applyToPlayer(player, choicesHandlerInterface, "PIPPO");
 
-        //initial player resource: W 2 S 2 L 3 C 0 --todo: modify coins
+        //initial player resource: W 2 S 2 L 3 C 0
         assertEquals(1, player.getResource(ResourceTypeEnum.COIN));
         assertEquals(3, player.getResource(ResourceTypeEnum.WOOD));
         assertEquals(4, player.getResource(ResourceTypeEnum.SERVANT));

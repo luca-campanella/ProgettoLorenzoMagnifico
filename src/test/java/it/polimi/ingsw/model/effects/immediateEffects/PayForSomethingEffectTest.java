@@ -83,7 +83,7 @@ public class PayForSomethingEffectTest {
         assertEquals(0, player.getResource(ResourceTypeEnum.WOOD));
         assertEquals(2, player.getResource(ResourceTypeEnum.COIN));
 
-        //todo: handle negative resources.
+
         payForSomethingEffect.applyToPlayer(player, choicesHandlerInterface, "PAYFORSOMETHING");
 
         assertEquals(-1, player.getResource(ResourceTypeEnum.WOOD));

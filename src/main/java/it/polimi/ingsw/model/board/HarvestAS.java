@@ -25,11 +25,7 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
         this.valueMalus = valueMalus;
         this.twoPlayersOneSpace = false;
     }
-
-    /*public void performAction(FamilyMember familyMember)
-    {
-        //TODO
-    }*/
+    
 
     /**
      * this method checks if the player that put here a family member is the first
