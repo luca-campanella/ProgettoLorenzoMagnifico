@@ -192,9 +192,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             }
 
         }
-
-        //userInterface.askChatMsg(); //TODO this is a method just for testing chat
-        //userInterface.askInitialAction(); //TODO this is a method just for testing
+        //those 2 methods are for testing: they can be deleted:
+        //userInterface.askChatMsg();
+        //userInterface.askInitialAction();
     }
 
     /**
@@ -236,7 +236,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
         }
-        //todo: check discard leader
     }
 
     /**
@@ -559,7 +558,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param board the board from the server
      */
     @Override
-    public void receivedStartGameBoard(Board board){
+    public void receivedStartGameBoard(Board board) {
 
         Debug.printVerbose("receivedStartgameBoard called");
 
@@ -572,9 +571,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
         //now that we have the board we can give the object the possibile options for a council gift
         otherPlayerChoicesHandler = new NetworkChoicesPacketHandler(modelController.getBoard().getCouncilAS().getCouncilGiftChoices());
-
-        //todo this is just for testing
-        //CliPrinter.callbackObtainBoard(board);
     }
 
     /**
@@ -1065,8 +1061,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
                 break;
             }
         }
-        //todo show something in the view
-
+        userInterface.displayError(nicknamePlayerDisconnected + "Has disconnected", "DiconnectionOfAPlayer");
     }
 
     /**

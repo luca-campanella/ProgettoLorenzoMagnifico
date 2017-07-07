@@ -119,24 +119,11 @@ public class ModelController {
     public void addCoinsStartGame(ArrayList<? extends Player> players){
 
         Resource resource = new Resource(ResourceTypeEnum.COIN, 4);
-        //todo: eliminate. I'm using this to test leaders and labels
-        Resource resource1 = new Resource(ResourceTypeEnum.SERVANT, 15);
-        Resource resource2 = new Resource(ResourceTypeEnum.MILITARY_POINT, 30);
-        Resource resource3 = new Resource(ResourceTypeEnum.STONE, 15);
-        Resource resource4 = new Resource(ResourceTypeEnum.WOOD, 15);
 
         for (Player player : players){
             resource.setValue(resource.getValue()+1);
             player.addResource(resource);
         }
-        players.get(0).addResource(resource);
-        players.get(0).addResource(resource);
-        players.get(0).addResource(resource);
-        players.get(0).addResource(resource1);
-        players.get(0).addResource(resource2);
-        players.get(0).addResource(resource3);
-        players.get(0).addResource(resource4);
-
 
     }
 

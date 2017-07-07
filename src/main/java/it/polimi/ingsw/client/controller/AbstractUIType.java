@@ -87,8 +87,6 @@ abstract public class AbstractUIType {
     //TODO this is a method just for testing chat
     public abstract void askChatMsg();
 
-    //todo: probably eliminate this method
-    public abstract int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer);
 
     /**
      * This method is called when the player has joined a room, but the game isn't started yet

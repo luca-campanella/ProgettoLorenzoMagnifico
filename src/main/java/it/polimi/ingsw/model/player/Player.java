@@ -264,18 +264,6 @@ public class Player implements Serializable{
         personalBoard.addCard(card);
     }
 /*
-    public void activateLeaderCard(LeaderCard leaderCardsNotUsed){
-
-        this.leaderCardsNotUsed.remove(leaderCardsNotUsed);
-        playedLeaderCard.add(leaderCardsNotUsed);
-
-    }
-
-    public void discardLeaderCard(LeaderCard leaderCardsNotUsed){
-
-        this.leaderCardsNotUsed.remove(leaderCardsNotUsed);
-        //TODO get bonus
-    }*/
 
     /**
      * this method is called when a player harvests. It increments player's resources

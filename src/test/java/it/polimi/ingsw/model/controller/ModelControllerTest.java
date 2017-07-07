@@ -57,13 +57,6 @@ public class ModelControllerTest {
     }
 
     @Test
-    public void setChoicesController() throws Exception {
-        //ClientMain choichesHandler = new ClientMain();
-       // modelController.setChoicesController(choichesHandler);
-        //TODO how to test?
-    }
-
-    @Test
     public void addCoinsStartGame() throws Exception {
         modelController.addCoinsStartGame(players);
         assertEquals(5, players.get(0).getResource(ResourceTypeEnum.COIN));
@@ -72,7 +65,7 @@ public class ModelControllerTest {
 
     @Test
     public void prepareForNewRound() throws Exception {
-        //todo: test this method properly
+        //todo: method still needs to be implemented
     modelController.prepareForNewRound();
     }
 
@@ -85,12 +78,12 @@ public class ModelControllerTest {
 
     @Test
     public void prepareForNewPeriod() throws Exception {
-    //todo: test this method properly
+    //todo: test this method needs to be implemented
     }
 
     @Test
     public void spaceTowerAvailable() throws Exception {
-        //todo: ask Fede why this method doesn't work
+
         Debug.setLevel(0);
         Dice dice = new Dice(DiceAndFamilyMemberColorEnum.ORANGE);
         FamilyMember familyMember = new FamilyMember(dice, players.get(0));

@@ -80,21 +80,11 @@ public class BuildingCard extends AbstractCard{
         this.cost = cost;
     }
 
-    public int getBuildEffectValue() {
-        return buildEffectValue;
-    }
-    //todo: cancel
-    public void setBuildEffectValue(int buildEffectValue) {
-        this.buildEffectValue = buildEffectValue;
-    }
 
     public ArrayList<ImmediateEffectInterface> getEffectsOnBuilding() {
         return effectsOnBuilding;
     }
-    //todo: cancel
-    public void setEffectsOnBuilding(ArrayList<ImmediateEffectInterface> effectsOnBuilding) {
-        this.effectsOnBuilding = effectsOnBuilding;
-    }
+    
 
     /**
      * this method is called from the printer and helps it to print all effectsOnBuilding.

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.excommunicationTiles;
 
 import it.polimi.ingsw.model.cards.Deck;
-import it.polimi.ingsw.model.effects.immediateEffects.PayResourceEffect;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.server.JSONLoader;
 import org.junit.Before;

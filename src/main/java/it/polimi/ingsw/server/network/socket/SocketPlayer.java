@@ -237,7 +237,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             Debug.printError("network is not working", e);
         }
         catch(ClassNotFoundException e) {
-            //TODO handle exception
+            Debug.printError("Something went wrong trying to receved playLeaderCard", e);
             e.printStackTrace();
         }
     }
@@ -254,7 +254,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             Debug.printError("network is not working", e);
         }
         catch(ClassNotFoundException e) {
-            //TODO handle exception
+            Debug.printError("Something went wrong trying to receive discardLeaderCard", e);
             e.printStackTrace();
         }
     }
