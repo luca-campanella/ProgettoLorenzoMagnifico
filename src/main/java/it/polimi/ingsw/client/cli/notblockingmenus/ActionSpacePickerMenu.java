@@ -36,7 +36,7 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
         this.activeTowerSpaces = activeTowerSpaces;
         this.availableServants = availableServants;
 
-        addOption("BACK", "Turn back to the initial menu", controller::clientChoices);
+        addOption("BACK", "Turn back to the initial menu", () -> controller.clientChoices(false));
         if(servantsNeededHarvest.isPresent())
             addOption("HARV", "Place on the harvest action space (at least" + servantsNeededHarvest.get()
                     + " additional servants needed)", this::placeFMOnHarvest);

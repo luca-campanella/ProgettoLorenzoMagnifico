@@ -270,9 +270,10 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
 
     /**
      * this method is called to turn back at the start of the initial choices
+     * @param boardNeedsToBeRefreshed
      */
     @Override
-    public void clientChoices() {
+    public void clientChoices(boolean boardNeedsToBeRefreshed) {
 
     }
 
@@ -301,6 +302,26 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     @Override
     public boolean callbackObtainIsThisPlayerSuspended() {
         return false;
+    }
+
+    /**
+     * This method returns to the view a true if the board needs to be refreshed with new cards
+     *
+     * @return true if the board needs to be refreshed with new cards
+     */
+    @Override
+    public boolean callbackObtainBoardNeedsToBeRefreshed() {
+        return false;
+    }
+
+    /**
+     * This method lets the view set the attribute to false after it refreshed the board
+     *
+     * @param boardNeedsToBeRefreshed false if the board has been refreshed
+     */
+    @Override
+    public void setBoardNeedsToBeRefreshed(boolean boardNeedsToBeRefreshed) {
+
     }
 
     /**

@@ -148,15 +148,34 @@ public class GraphicalUI extends AbstractUIType {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
                     () -> setUpMainBoardControl(textToDisplay.toString(), true)));
             currentSceneType = SceneEnum.MAIN_BOARD;
+            getController().setBoardNeedsToBeRefreshed(false);
         } else {
-            MainBoardControl control = ((MainBoardControl) (currentFXControl));
             Platform.runLater(() -> {
+            if(getController().callbackObtainBoardNeedsToBeRefreshed()) {
+                updateViewForNewRound();
+                getController().setBoardNeedsToBeRefreshed(false);
+            }
+
+                MainBoardControl control = ((MainBoardControl) (currentFXControl));
                 control.appendMessageOnStateTextArea(textToDisplay.toString());
                 control.disableAllActionsNotHisTurn(false);
                 control.setFamilyMemberDisable(playedFamilyMember);
                 control.refreshPersonalBoardOfPlayer(getController().callbackObtainPlayer().getNickname());
             });
         }
+    }
+
+    /**
+     * Update all the view for the new round
+     */
+    private void updateViewForNewRound() {
+        MainBoardControl control = ((MainBoardControl) (currentFXControl));
+            control.displayDices();
+            control.displayCards();
+            control.displayFamilyMembers();
+            control.prepareForNewRound();
+            control.displayOrderOfPlayers(getController().callbackObtainPlayersInOrder());
+            control.appendMessageOnStateTextArea("**NEW ROUND**");
     }
 
     /**
@@ -390,6 +409,9 @@ public class GraphicalUI extends AbstractUIType {
         return choice;
     }
 
+    /**
+     * Shows the main board, but it's not his turn
+     */
     @Override
     public void waitMenu() {
         Debug.printVerbose("waitMenu called with currentSceneType = " + currentSceneType);
@@ -398,11 +420,17 @@ public class GraphicalUI extends AbstractUIType {
             Platform.runLater(() -> openNewWindow("MainBoardScene.fxml", "Main game",
                     () -> setUpMainBoardControl(message, false)));
             currentSceneType = SceneEnum.MAIN_BOARD;
+            getController().setBoardNeedsToBeRefreshed(false);
             //here i let the user show all the family members that have been placed last round
             //((MainBoardControl) (currentFXControl)).updateFamilyMembers();
         } else {
-            MainBoardControl control = ((MainBoardControl) (currentFXControl));
             Platform.runLater(() -> {
+                MainBoardControl control = ((MainBoardControl) (currentFXControl));
+            if(getController().callbackObtainBoardNeedsToBeRefreshed()) {
+                updateViewForNewRound();
+                control.refreshPersonalBoardOfPlayer(getController().callbackObtainPlayer().getNickname());
+                getController().setBoardNeedsToBeRefreshed(false);
+            }
                 control.appendMessageOnStateTextArea(message);
                 control.disableAllActionsNotHisTurn(true);
             });
