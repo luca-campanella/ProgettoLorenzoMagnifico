@@ -48,6 +48,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     public RMIClient(NetworkControllerClientInterface controllerMain, String serverAddress, int port) {
         super(controllerMain, serverAddress, port);
+        generatorOfThread = Executors.newCachedThreadPool();
     }
 
     /**
@@ -319,8 +320,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void receiveChatMsg(String senderNick, String msg) throws RemoteException {
-
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receiveChatMsg(senderNick, msg));
     }
 
@@ -336,7 +335,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receivePlaceOnTower(String playerNickname, DiceAndFamilyMemberColorEnum familyMemberColor, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedPlaceOnTower(playerNickname,
                 familyMemberColor, towerIndex, floorIndex, playerChoices));
     }
@@ -355,7 +353,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
                                      int marketIndex,
                                      HashMap<String, Integer> playerChoices) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedPlaceOnMarket(playerNickname,
                 familyMemberColor, marketIndex, playerChoices));
 
@@ -375,7 +372,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
                                int servantsUsed,
                                HashMap<String, Integer> playerChoices) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedHarvest(playerNickname,
                 familyMemberColor, servantsUsed, playerChoices));
     }
@@ -394,7 +390,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
                                int servantsUsed,
                                HashMap<String, Integer> playerChoices) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedBuild(playerNickname,
                 familyMemberColor, servantsUsed, playerChoices));
     }
@@ -411,7 +406,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
                              DiceAndFamilyMemberColorEnum familyMemberColor,
                              HashMap<String, Integer> playerChoices) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedPlaceOnCouncil(playerNickname,
                 familyMemberColor, playerChoices));
     }
@@ -424,7 +418,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receiveEndPhase(String nickname) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receiveEndPhase(nickname));
     }
 
@@ -436,7 +429,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receiveDice(ArrayList<Dice> dices) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedDices(dices));
     }
 
@@ -448,21 +440,18 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receiveBoard(Board gameBoard) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedStartGameBoard(gameBoard));
     }
 
     @Override
     public void receiveStartOfTurn() throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedStartTurnNotification());
     }
 
     @Override
     public void receiveOrderPlayer(ArrayList<String> orderPlayers) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedOrderPlayers(orderPlayers));
 
     }
@@ -480,7 +469,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receiveLeaderCardChoice(ArrayList<LeaderCard> cardToPlayer) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedLeaderCards(cardToPlayer));
 
     }
@@ -493,7 +481,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receiveCardToPlace(ArrayList<AbstractCard> cardsToPlace) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receiveCardsToPlace(cardsToPlace));
     }
 
@@ -506,7 +493,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receivePersonalTiles(PersonalTile standardPersonalTile, PersonalTile specialPersonalTile) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedPersonalTiles(standardPersonalTile,specialPersonalTile));
     }
 
@@ -519,7 +505,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void floodPersonalTileChosen(String nickname, PersonalTile personalTile) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receiveFloodPersonalTile(nickname, personalTile));
 
     }
@@ -543,7 +528,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receiveDiscardedLeaderCard(String nameCard, String nickname, HashMap<String, Integer> resourceGet) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivedDiscardLeaderCard(nickname, nameCard, resourceGet));
     }
 
@@ -557,7 +541,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receivePlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname));
 
     }
@@ -571,7 +554,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receiveChosenLeaderCard(LeaderCard leaderCard, String nickname) throws RemoteException {
 
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receiveChosenLeader(nickname, leaderCard));
     }
 
@@ -584,7 +566,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void receiveActivatedLeader(String nameCard, HashMap<String, Integer> resourceGet, String nickname) throws RemoteException {
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receiveActivateLeaderCard(nickname, nameCard, resourceGet));
     }
 
@@ -595,7 +576,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void receiveEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames) throws RemoteException {
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receiveEndGame(playerPositionEndGames));
     }
 
@@ -607,8 +587,6 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void receiveExcommunicatedPlayers(ArrayList<String> nicknamePlayerExcommunicated, int numTile) throws RemoteException {
-
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().receiveExcommunicatedPlayers(nicknamePlayerExcommunicated, numTile));
     }
 
@@ -621,8 +599,16 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
      */
     @Override
     public void receiveExcommunicationChoice(String nickname, String response, int numTile) throws RemoteException {
-
-        generatorOfThread = Executors.newCachedThreadPool();
         generatorOfThread.submit(() -> getControllerMain().manageExcommunicationChoice(nickname, response, numTile));
+    }
+
+    /**
+     * this method is called by the room to deliver the fact that a player has disconnected due to the timeout
+     *
+     * @param nickname the nickname of the player that disconnected
+     */
+    @Override
+    public void receiveNotificationSuspendedPlayer(String nickname) throws RemoteException {
+        generatorOfThread.submit(() -> getControllerMain().receivedNotificationSuspendedPlayer(nickname));
     }
 }

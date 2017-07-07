@@ -55,6 +55,7 @@ public class PlayerTabSubControl extends CustomFxControl {
      * //todo change controller name if it's the same for both scenes, or make different instances
      */
     private LeaderOwnedControl leadersControl;
+    private LeaderOtherControl leaderOtherControl;
 
     @FXML
     private ImageView thisPlayerPersonalTile;
@@ -274,10 +275,15 @@ public class PlayerTabSubControl extends CustomFxControl {
             Debug.printError("Error in loading fxml", e);
         }
         leadersStage = new Stage();
-        leadersControl = (LeaderOwnedControl) (fxmlLoader.getController());
-
-        leadersControl.setController(getController());
-
+        try {
+            leadersControl = fxmlLoader.getController();
+            leadersControl.setController(getController());
+        }
+        catch(ClassCastException e)
+        {
+            leaderOtherControl = fxmlLoader.getController();
+            leaderOtherControl.setController(getController());
+        }
         leadersStage.setTitle(title);
         leadersStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
 
@@ -299,19 +305,28 @@ public class PlayerTabSubControl extends CustomFxControl {
     {
         if(!isLeaderStageCreated) {
             final String fxmlFileName;
-            if(isThisPlayer)
+            if(isThisPlayer) {
                 fxmlFileName = "LeaderOwnedScene.fxml";
-            else
+                Platform.runLater(() -> this.openLeadersWindow(fxmlFileName, "Leaders",
+                        () -> leadersControl.setLeaders(player,
+                                player.getLeaderCardsNotUsed(),
+                                player.getPlayedLeaders(),
+                                player.getPlayableLeaders(),
+                                player.getPlayedNotActivatedOncePerRoundLeaderCards())));
+                Debug.printVerbose("runLater loaded");
+            }
+            else {
                 fxmlFileName = "LeaderOtherPlayersScene.fxml";
+                Platform.runLater(() -> this.openLeadersWindow(fxmlFileName, "Leaders",
+                        () -> leaderOtherControl.setLeaders(player,
+                                player.getLeaderCardsNotUsed(),
+                                player.getPlayedLeaders(),
+                                player.getPlayableLeaders(),
+                                player.getPlayedNotActivatedOncePerRoundLeaderCards())));
+                Debug.printVerbose("runLater loaded");
+            }
 
-            Platform.runLater(() -> this.openLeadersWindow(fxmlFileName, "Leaders",
-                    () -> leadersControl.setLeaders(player,
-                            player.getLeaderCardsNotUsed(),
-                            player.getPlayedLeaders(),
-                            player.getPlayableLeaders(),
-                            player.getPlayedNotActivatedOncePerRoundLeaderCards())));
-            Debug.printVerbose("runLater loaded");
-            isLeaderStageCreated = true;
+            isLeaderStageCreated = false;
         }
         else {
             leadersControl.refreshLeadersCollections(player,

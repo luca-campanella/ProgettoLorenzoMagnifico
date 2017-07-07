@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
-import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.leadersabilities.ImmediateLeaderAbility.OncePerRoundHarvestLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.PermanentLeaderAbility.BonusNeutralFMLeaderAbility;
@@ -44,6 +43,8 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
         Debug.instance(Debug.LEVEL_VERBOSE);
 
         gui = new GraphicalUI(this);
+
+        gui.askExcommunicationChoice(0);
         /*ArrayList< GainResourceEffect> options = new ArrayList<>(1);
         GainResourceEffect option = new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,2));
         options.add(option);
@@ -357,6 +358,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
 
     @Override
     public void callbackExcommunicationChoice(String response, int numTile) {
+        Debug.printVerbose("i chose: " + response);
 
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.network;
 
+import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
@@ -7,10 +8,8 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.server.Room;
-import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.model.player.Player;
-import sun.nio.ch.Net;
+import it.polimi.ingsw.server.Room;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -199,4 +198,10 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @param numTile the number of the tile to take if the player is excommunicated
      */
     public abstract void deliverExcommunicationChoice(String response, String nickname, int numTile) throws NetworkException;
+
+    /**
+     * this method is called by the room to deliver the fact that a player has disconnected due to the timeout
+     * @param nickname the nickname of the player that disconnected
+     */
+    public abstract void notifySuspendedPlayer(String nickname) throws NetworkException;
 }
