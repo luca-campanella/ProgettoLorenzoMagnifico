@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
 import it.polimi.ingsw.model.leaders.LeaderCard;
+import it.polimi.ingsw.model.leaders.leadersabilities.CopyAnotherLeaderAbility;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.utils.Debug;
 import javafx.beans.binding.Bindings;
@@ -140,6 +141,9 @@ public class LeaderOwnedControl extends CustomFxControl {
                                                    activateLeaderButton.setDisable(true);
                                                    if(leadersOPRNotActivated.contains(selectedLeader) && !(leaderActivated.contains(selectedLeader)))
                                                        activateLeaderButton.setDisable(false);
+                                               }
+                                               if((selectedLeader.getAbility() instanceof CopyAnotherLeaderAbility) && (gridPane.equals(leadersPlayedGridPane))){
+                                                   activateLeaderButton.setDisable(false);
                                                }
                                            }
                                        }
@@ -289,6 +293,10 @@ public class LeaderOwnedControl extends CustomFxControl {
         addPlayedLeader(selectedLeader);
         pool.submit(()-> getController().callbackPlayLeader(selectedLeader));
         playLeaderButton.setDisable(true);
+        //todo eliminate this
+        if((selectedLeader.getAbility() instanceof CopyAnotherLeaderAbility)){
+            activateLeaderButton.setDisable(false);
+        }
     }
     @FXML
     public void activateLeaderClick(ActionEvent event)

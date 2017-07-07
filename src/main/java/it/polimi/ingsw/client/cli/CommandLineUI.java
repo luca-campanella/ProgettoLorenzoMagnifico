@@ -195,7 +195,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForGameStart() {
-        System.out.println("Room joined, please wait for game to start...");
+        CliPrinter.println("Room joined, please wait for game to start...");
     }
 
     /**
@@ -203,7 +203,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForLeaderChoices() {
-        System.out.println("Leader chose, please wait for other player(s) to choose...");
+        CliPrinter.println("Leader chose, please wait for other player(s) to choose...");
     }
 
     /**
@@ -212,7 +212,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void showWaitingForTilesChoices() {
-        System.out.println("Personal tile chose, please wait for other player(s) to choose...");
+        CliPrinter.println("Personal tile chose, please wait for other player(s) to choose...");
     }
 
     /**
