@@ -109,6 +109,8 @@ public class Player implements Serializable{
         resourcesMap.addResource(new Resource(ResourceTypeEnum.WOOD, 2));
         resourcesMap.addResource(new Resource(ResourceTypeEnum.STONE, 2));
         resourcesMap.addResource(new Resource(ResourceTypeEnum.SERVANT, 3));
+        //TODO delete added faith points
+        resourcesMap.addResource(new Resource(ResourceTypeEnum.FAITH_POINT, 3));
 
     }
 

@@ -201,6 +201,7 @@ public class ControllerGame {
                     //if not all the players had been excommunicated the server has to wait for the choices of the other players
                     return;
                 }
+                prepareForNewRound();
             }
 
             //control if all the player had done all the move
@@ -581,7 +582,7 @@ public class ControllerGame {
      */
     public void receiveExcommunicationChoice(String response, String nickname, int numTile) {
 
-        if(response.equals("yes")){
+        if(response.equals("YES")){
             modelController.avoidExcommunicationPlayer(nickname);
         }
         else

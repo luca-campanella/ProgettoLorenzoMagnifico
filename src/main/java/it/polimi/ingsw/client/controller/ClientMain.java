@@ -1194,6 +1194,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated, int numTile) {
 
+        Debug.printVerbose("received excommunication.");
         modelController.excommunicatePlayer(playersExcommunicated, numTile);
         userInterface.displayExcommunicationPlayers(playersExcommunicated);
         if(!playersExcommunicated.contains(thisPlayer.getNickname()) && !isThisPlayerSuspended){
