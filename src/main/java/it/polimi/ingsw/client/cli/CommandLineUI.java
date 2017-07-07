@@ -417,7 +417,7 @@ public class CommandLineUI extends AbstractUIType {
     @Override
     public void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
 
-        CliPrinter.showEndGame(playerPositionEndGamePacket);
+        CliPrinter.showEndGame(playerPositionEndGamePacket, getController().callbackObtainPlayer().getNickname());
     }
 
     /**

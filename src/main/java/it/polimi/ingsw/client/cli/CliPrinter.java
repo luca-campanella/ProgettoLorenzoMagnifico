@@ -650,14 +650,24 @@ public class CliPrinter {
     /**
      * this method is used to print the results of the end of the game
      * @param playerPositionEndGamePacket the results of the players
+     * @param thisPlayerNickname the name of this player to display if he won or lost
      */
-    public static void showEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
+    public static void showEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket, String thisPlayerNickname) {
 
-        for(int i = 1 ; i < playerPositionEndGamePacket.size(); i++){
+        CliPrinter.println("The game has ended");
+        for(int i = 1 ; i <= playerPositionEndGamePacket.size(); i++){
             for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
-                if(playerIter.getPosition() == i)
+                if(playerIter.getPosition() == i) {
+                    if(i == 1) {
+                    if(playerIter.getNickname().equals(thisPlayerNickname))
+                        CliPrinter.println("***YOU WON*** :D");
+                    else
+                        CliPrinter.println("*YOU LOST* :(");
+                    CliPrinter.println("Here are the final standings");
+                    }
                     CliPrinter.println(playerIter.getPosition() + " position: " + playerIter.getNickname()
                             + " " + playerIter.getVictoryPoints() + " Victory Points");
+                }
             }
         }
     }

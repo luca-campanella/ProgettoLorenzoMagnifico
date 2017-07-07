@@ -296,7 +296,6 @@ public class MainBoardControl extends CustomFxControl {
                 fm.setStyle("-fx-border-color: " + thisPlayer.getPlayerColor().getStringValue() + ";");
                 fm.setToggleGroup(familyMembersToggleGroup);
                 fm.setVisible(true);
-                familyMembersToggleGroup.getSelectedToggle().selectedProperty().setValue(false);
         }
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.gui;
 
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
@@ -443,7 +444,33 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("End game");
+            alert.setHeaderText("The game has ended");
 
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for(int i = 1 ; i <= playerPositionEndGamePacket.size(); i++){
+                for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
+                    if(playerIter.getPosition() == i) {
+                        if(i == 1) {
+                            if(playerIter.getNickname().equals(getController().callbackObtainPlayer().getNickname()))
+                                stringBuilder.append("***YOU WON*** :D");
+                            else
+                                stringBuilder.append("*YOU LOST* :(");
+                            stringBuilder.append("Here are the final standings");
+                        }
+                        stringBuilder.append(playerIter.getPosition() + " position: " + playerIter.getNickname()
+                                + " " + playerIter.getVictoryPoints() + " Victory Points");
+                    }
+                }
+            }
+
+            alert.setContentText(stringBuilder.toString());
+            alert.initOwner(currentStage);
+            alert.show();
+        });
     }
 
 
@@ -454,13 +481,14 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void displayError(String title, String errorDescription) {
-
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(errorDescription);
-        alert.initOwner(currentStage);
-        alert.show();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(title);
+            alert.setContentText(errorDescription);
+            alert.initOwner(currentStage);
+            alert.show();
+        });
     }
 
     /**
@@ -471,14 +499,15 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void displayErrorAndExit(String title, String errorDescription) {
-
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(errorDescription);
-        alert.initOwner(currentStage);
-        alert.showAndWait();
-        System.exit(0);
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(title);
+            alert.setContentText(errorDescription);
+            alert.initOwner(currentStage);
+            alert.showAndWait();
+            System.exit(0);
+        });
     }
 
     /**
