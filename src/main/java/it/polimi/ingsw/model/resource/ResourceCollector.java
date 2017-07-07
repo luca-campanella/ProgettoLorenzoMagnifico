@@ -44,13 +44,13 @@ public class ResourceCollector implements Serializable{
      * you load all the resources needed, initializing the hashmap
      */
     private void loadResource(){
-        resourcesMap.put(ResourceTypeEnum.COIN, 20);
-        resourcesMap.put(ResourceTypeEnum.WOOD, 20);
-        resourcesMap.put(ResourceTypeEnum.STONE, 20);
-        resourcesMap.put(ResourceTypeEnum.SERVANT, 20);
-        resourcesMap.put(ResourceTypeEnum.FAITH_POINT, 20);
-        resourcesMap.put(ResourceTypeEnum.MILITARY_POINT, 20);
-        resourcesMap.put(ResourceTypeEnum.VICTORY_POINT, 20);
+        resourcesMap.put(ResourceTypeEnum.COIN, 0);
+        resourcesMap.put(ResourceTypeEnum.WOOD, 0);
+        resourcesMap.put(ResourceTypeEnum.STONE, 0);
+        resourcesMap.put(ResourceTypeEnum.SERVANT, 0);
+        resourcesMap.put(ResourceTypeEnum.FAITH_POINT, 0);
+        resourcesMap.put(ResourceTypeEnum.MILITARY_POINT, 0);
+        resourcesMap.put(ResourceTypeEnum.VICTORY_POINT, 0);
     }
 
     /**
