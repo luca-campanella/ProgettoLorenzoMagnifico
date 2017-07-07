@@ -424,13 +424,16 @@ public class ControllerGame {
 
     /**
      * call the method on the controller of the model to activate a leader card
-     * @param player the player who has the card
      * @param nameLeader the name of the leader card
+     * @param choicesOnCurrentActionString
+     * @param player the player who has the card
+     * @param choicesOnCurrentAction
      */
-    public void playLeaderCard(String nameLeader,HashMap<String, String> choicesOnCurrentAction, Player player) throws IllegalMoveException{
+    public void playLeaderCard(String nameLeader, HashMap<String, String> choicesOnCurrentActionString, Player player, HashMap<String, Integer> choicesOnCurrentAction) throws IllegalMoveException{
 
         controlTurnPlayer(player.getNickname());
-        choicesController.setChoicesMapString(choicesOnCurrentAction);
+        choicesController.setChoicesMapString(choicesOnCurrentActionString);
+        choicesController.setChoicesMap(choicesOnCurrentAction);
         modelController.setChoicesController(choicesController);
         modelController.playLeaderCard(nameLeader, player);
 

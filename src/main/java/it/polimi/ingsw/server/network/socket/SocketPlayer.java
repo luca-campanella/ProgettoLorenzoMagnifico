@@ -230,7 +230,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
     public void receivedPlayLeaderCard(){
         try{
             PlayLeaderCardPacket packet=(PlayLeaderCardPacket)inStream.readObject();
-            getRoom().playLeaderCard(packet.getNameCard(),packet.getChoicesOnCurrentActionString(),this);
+            getRoom().playLeaderCard(packet.getNameCard(),packet.getChoicesOnCurrentActionString(),this,
+                    packet.getChoicesOnCurrentAction());
         }
         catch(IOException e){
             Debug.printError("network is not working", e);
@@ -786,15 +787,19 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
      * @param nameCard the name of the leader card
      * @param choicesOnCurrentActionString the choices done while playing the card
      * @param nickname the nickname of the player that had played the card
+     * @param choicesOnCurrentAction
      * @throws NetworkException
      */
     @Override
-    public void deliverPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws NetworkException {
+    public void deliverPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString,
+                                      String nickname, HashMap<String, Integer> choicesOnCurrentAction)
+            throws NetworkException {
 
         try{
             synchronized (this){
                 outStream.writeObject(PacketType.PLAY_LEADER);
-                outStream.writeObject(new ReceivePlayLeaderCardPacket(nameCard, choicesOnCurrentActionString,nickname));
+                outStream.writeObject(new ReceivePlayLeaderCardPacket(nameCard, choicesOnCurrentActionString,nickname,
+                        choicesOnCurrentAction));
             }
             outStream.flush();
 

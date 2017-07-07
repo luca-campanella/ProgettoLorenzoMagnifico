@@ -171,13 +171,17 @@ import java.util.concurrent.Executors;
      * @param nameCard the name of the leader card
      * @param choicesOnCurrentActionString the choices done while playing the card
      * @param nickname the nickname of the player that had played the card
+     * @param choicesOnCurrentAction
      * @throws NetworkException if something went wrong on the network
      */
     @Override
-    public void deliverPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws NetworkException {
+    public void deliverPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString,
+                                      String nickname, HashMap<String, Integer> choicesOnCurrentAction)
+            throws NetworkException {
 
         try{
-            RMIClientInterfaceInst.receivePlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname);
+            RMIClientInterfaceInst.receivePlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname,
+                    choicesOnCurrentAction);
         }
         catch (RemoteException e){
             Debug.printError("rmi: cannot deliver the leader card played to " + getNickname(), e);
@@ -500,12 +504,15 @@ import java.util.concurrent.Executors;
      * Method used to signal that that player has played a leader card
      *
      * @param leaderName the name of the leader card played
+     * @param choicesOnCurrentAction
      * @throws RemoteException if something goes wrong with RMI communication
      */
     @Override
-    public void playLeaderCard(String leaderName,HashMap<String, String> choicesOnCurrentActionString) throws RemoteException {
+    public void playLeaderCard(String leaderName, HashMap<String, String> choicesOnCurrentActionString,
+                               HashMap<String, Integer> choicesOnCurrentAction) throws RemoteException {
 
-        generatorOfThread.submit(() -> getRoom().playLeaderCard(leaderName, choicesOnCurrentActionString, this));
+        generatorOfThread.submit(() -> getRoom().playLeaderCard(leaderName, choicesOnCurrentActionString, this,
+                choicesOnCurrentAction));
 
     }
 

@@ -159,8 +159,11 @@ public abstract class AbstractConnectionPlayer extends Player {
      * @param nameCard the name of the leader card
      * @param choicesOnCurrentActionString the choices done while playing the card
      * @param nickname the nickname of the player that had played the card
+     * @param choicesOnCurrentAction
      */
-    public abstract void deliverPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname) throws NetworkException;
+    public abstract void deliverPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString,
+                                               String nickname, HashMap<String, Integer> choicesOnCurrentAction)
+            throws NetworkException;
 
     /**
      * this method is used to deliver to the player client the chosen leader card to other player

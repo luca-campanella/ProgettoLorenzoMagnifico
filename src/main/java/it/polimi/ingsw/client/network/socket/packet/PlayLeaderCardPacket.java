@@ -17,13 +17,18 @@ public class PlayLeaderCardPacket implements Serializable {
      */
     private HashMap<String, String> choicesOnCurrentActionString;
 
+    HashMap<String, Integer> choicesOnCurrentAction;
+
     /**
      * constructor
      * @param nameLeaderCard
+     * @param choicesOnCurrentAction
      */
-    public PlayLeaderCardPacket(String nameLeaderCard, HashMap<String, String> choicesOnCurrentActionString){
+    public PlayLeaderCardPacket(String nameLeaderCard, HashMap<String, String> choicesOnCurrentActionString,
+                                HashMap<String, Integer> choicesOnCurrentAction){
         this.nameLeaderCard=nameLeaderCard;
         this.choicesOnCurrentActionString = choicesOnCurrentActionString;
+        this.choicesOnCurrentAction = choicesOnCurrentAction;
     }
     public String getNameCard(){
         return nameLeaderCard;
@@ -31,5 +36,9 @@ public class PlayLeaderCardPacket implements Serializable {
 
     public HashMap<String, String> getChoicesOnCurrentActionString() {
         return choicesOnCurrentActionString;
+    }
+
+    public HashMap<String, Integer> getChoicesOnCurrentAction() {
+        return choicesOnCurrentAction;
     }
 }
