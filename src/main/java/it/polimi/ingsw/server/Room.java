@@ -548,7 +548,7 @@ public class Room {
      * this method is used to receive the leader card chose by the player
      * @param leaderCard the leader card chosen
      */
-    public void receiveLeaderCards(LeaderCard leaderCard, AbstractConnectionPlayer player) {
+    public synchronized void receiveLeaderCards(LeaderCard leaderCard, AbstractConnectionPlayer player) {
         Debug.printVerbose("[Room] receiveLeaderCards called");
         controllerGame.choiceLeaderCard(leaderCard, player);
         for (LeaderCard card : cardToPlayer) {
