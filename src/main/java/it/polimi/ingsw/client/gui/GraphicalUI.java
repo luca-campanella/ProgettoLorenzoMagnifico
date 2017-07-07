@@ -312,8 +312,8 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Copying a leader choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            this.displayError("Error in opening dialogue, default value instead, called from askAddingServants", e.getMessage());
+            String displayThis = "Error in opening dialogue, default value instead, called from askAddingServants";
+            this.displayError(displayThis, e.getMessage());
         }
 
         return choice;

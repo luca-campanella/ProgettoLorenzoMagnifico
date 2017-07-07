@@ -123,6 +123,7 @@ public class ModelController {
         for (Player player : players){
             resource.setValue(resource.getValue()+1);
             player.addResource(resource);
+            player.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, 49));
         }
 
     }
