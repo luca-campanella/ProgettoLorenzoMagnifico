@@ -156,7 +156,7 @@ public class Room {
      * @param player the sender
      * @param msg
      */
-    public void floodChatMsg(AbstractConnectionPlayer player, String msg) {
+    public synchronized void floodChatMsg(AbstractConnectionPlayer player, String msg) {
         for (AbstractConnectionPlayer i : players) {
             if (player != i) {//the message should not be sent to the sender
                 try {
@@ -658,7 +658,7 @@ public class Room {
      * it deliver the choice to the controller of the game
      * @param personalTile the personal tile chose by the client
      */
-    public void chosePersonalTile(PersonalTile personalTile, AbstractConnectionPlayer player) {
+    public synchronized void chosePersonalTile(PersonalTile personalTile, AbstractConnectionPlayer player) {
 
         controllerGame.choosePersonalTile(personalTile, player);
         floodChosenPersonalTile(personalTile, player);
@@ -883,7 +883,7 @@ public class Room {
      * @param response the choice of the player on the excommunication
      * @param player the player tha had done the choice on the excommunication
      */
-    public void receiveExcommunicationChoice(String response, AbstractConnectionPlayer player) {
+    public synchronized void receiveExcommunicationChoice(String response, AbstractConnectionPlayer player) {
 
         int numTile = controllerGame.getNumberOfRound()/2 - 1;
         controllerGame.receiveExcommunicationChoice(response, player.getNickname(), numTile);
