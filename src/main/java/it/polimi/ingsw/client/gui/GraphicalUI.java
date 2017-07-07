@@ -6,7 +6,6 @@ import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.blockingdialogs.*;
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
-import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
@@ -17,7 +16,6 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Platform;
@@ -34,7 +32,6 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -110,7 +107,7 @@ public class GraphicalUI extends AbstractUIType {
      * has to wait for enemies to choose their
      */
     @Override
-    public void showWaitingForTilesChoices() {
+    public synchronized void showWaitingForTilesChoices() {
         //sometimes happens the other thread arrives first, no need to show anything then
         if(currentSceneType != SceneEnum.MAIN_BOARD) {
             currentSceneType = SceneEnum.WAITING_SCENE;
@@ -128,7 +125,7 @@ public class GraphicalUI extends AbstractUIType {
      * //todo other methods triggered
      */
     @Override
-    public void askInitialAction(boolean playedFamilyMember) {
+    public synchronized void askInitialAction(boolean playedFamilyMember) {
         Debug.printVerbose("askInitialAction called with currentSceneType = " + currentSceneType);
         StringBuilder textToDisplay = new StringBuilder("It's your turn, ");
 
