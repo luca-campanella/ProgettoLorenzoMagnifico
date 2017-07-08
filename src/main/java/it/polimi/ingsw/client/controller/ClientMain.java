@@ -140,7 +140,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
                 clientNetwork.connect();
             } catch (ClientConnectionException e) {
                 e.printStackTrace();
-                //TODO: handling no Connection
+                userInterface.displayErrorAndExit("Network problem", e.getMessage());
             }
         }
         else {//Here enters if network type is a socket
@@ -149,7 +149,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
                 clientNetwork.connect();
             } catch (ClientConnectionException e) {
                 e.printStackTrace();
-                //TODO: handling no Connection
+                userInterface.displayErrorAndExit("Network problem", e.getMessage());
             }
         }
         userInterface.askLoginOrCreate();
@@ -168,14 +168,12 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
             this.nickname = userID;
             userInterface.showWaitingForGameStart();
-            Debug.printVerbose("Login succesfully");
+            Debug.printVerbose("Login successfully");
 
         } catch (NetworkException e) {
-            //TODO handle network problems
             e.printStackTrace();
         }
         catch (LoginException e) {
-            //TODO handle login problems (call the UI again)
             Debug.printDebug("Login exception occurred", e);
             switch(e.getErrorType()) {
                 case ALREADY_LOGGED_TO_ROOM :
@@ -218,7 +216,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             this.nickname = userID;
             userInterface.showWaitingForGameStart();
         } catch (NetworkException e) {
-            //TODO handle network problems
             e.printStackTrace();
         }
         catch(UsernameAlreadyInUseException e)
@@ -243,6 +240,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
     }
 
@@ -322,6 +320,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the move build to the server");
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
     }
 
@@ -344,6 +343,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the move harvest to the server");
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
     }
 
@@ -367,6 +367,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (IOException e){
             Debug.printError("cannot deliver the move on tower to the server");
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
     }
 
@@ -387,6 +388,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (IOException e){
             Debug.printError("cannot deliver the move on market to the server");
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
 
     }
@@ -408,6 +410,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the move on council to the server");
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
     }
 
@@ -725,6 +728,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the excommunication choice to the server");
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
 
     }
@@ -738,6 +742,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         try {
             clientNetwork.reconnectPlayer();
         } catch (NetworkException e) {
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
             userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
         userInterface.waitMenu();
@@ -856,6 +861,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to activate");
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
         clientChoices(false);
     }
@@ -885,6 +891,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
         clientChoices(false);
     }
@@ -929,7 +936,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         try {
             clientNetwork.deliverLeaderChose(leaderCardChoice);
         } catch (NetworkException e) {
-            //todo handle better
+
             Debug.printError("Cannot send leader choice", e);
             userInterface.displayErrorAndExit("Connection problem", "Cannot contact the server, exiting the program");
         }
@@ -960,6 +967,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         catch (NetworkException e){
             Debug.printError("Cannot deliver the end of the phase",e);
             clientChoices(false);
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
     }
 
@@ -976,6 +984,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("Cannot deliver the personal tile chosen",e);
+            userInterface.displayErrorAndExit("Network problem", e.getMessage());
         }
     }
 
