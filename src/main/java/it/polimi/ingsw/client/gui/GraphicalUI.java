@@ -296,7 +296,8 @@ public class GraphicalUI extends AbstractUIType {
            e.printStackTrace();
            this.displayError("Error in opening dialogue, default value instead - 0", e.getMessage());
        }
-        return choice;
+        ((MainBoardControl)(currentFXControl)).removeCardFromView(towerWrapper.get(choice).getTowerFloor(), towerWrapper.get(choice).getTowerIndex());
+       return choice;
     }
 
     /**
