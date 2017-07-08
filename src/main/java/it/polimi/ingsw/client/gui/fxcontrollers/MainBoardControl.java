@@ -743,8 +743,8 @@ public class MainBoardControl extends CustomFxControl {
 
     /**
      * this method is used to remove a card from the view
-     * @param row
-     * @param col
+     * @param row rows
+     * @param col cols
      */
     public void removeCardFromView(int row, int col)
     {
