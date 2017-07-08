@@ -220,6 +220,7 @@ public class ControllerGame {
     public void prepareForNewRound(){
 
         Debug.printVerbose("prepare for new round");
+        reDoOrderPlayer(modelController.getFamilyMemberCouncil());
         modelController.prepareForNewRound();
         deliverDices(modelController.getDices());
         Debug.printVerbose("Dice delivered");
@@ -229,7 +230,6 @@ public class ControllerGame {
         room.deliverCardToPlace(cardsToPlace);
         Debug.printVerbose("cards delivered");
         modelController.placeCardOnBoard(cardsToPlace);
-        reDoOrderPlayer(modelController.getFamilyMemberCouncil());
         numberOfTurn = 0;
 
     }
