@@ -129,8 +129,8 @@
                                <Button fx:id="buildBigActionSpace" disable="true" layoutX="120.0" layoutY="23.0" mnemonicParsing="false" onAction="#buildSelected" prefHeight="55.0" prefWidth="160.0" styleClass="actionSpaceButton" />
                                <Button fx:id="harvestSmallActionSpace" disable="true" layoutX="14.5" layoutY="125.0" mnemonicParsing="false" onAction="#harvestSelected" prefHeight="50.0" prefWidth="61.0" styleClass="actionSpaceButton" />
                                <Button fx:id="harvestBigActionSpace" disable="true" layoutX="120.0" layoutY="125.0" mnemonicParsing="false" onAction="#harvestSelected" prefHeight="55.0" prefWidth="160.0" styleClass="actionSpaceButton" />
-                        <ImageView fx:id="buildBlockActionSpace" fitHeight="84.0" fitWidth="184.0" layoutX="120.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="harvestBlockActionSpace" fitHeight="84.0" fitWidth="184.0" layoutX="120.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="buildBlockActionSpace" fitHeight="100.0" fitWidth="200.0" layoutX="100.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="harvestBlockActionSpace" fitHeight="100.0" fitWidth="200.0" layoutX="100.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" />
                                </children></AnchorPane>
                         <AnchorPane fx:id="marketPane" prefHeight="205.0" prefWidth="225.0">
                            <children>
@@ -153,8 +153,8 @@
                               <Button fx:id="marketAS1" disable="true" layoutX="100.0" layoutY="20.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
                               <Button fx:id="marketAS2" disable="true" layoutX="175.0" layoutY="33.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
                               <Button fx:id="marketAS3" disable="true" layoutX="225.0" layoutY="85.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
-                        <ImageView fx:id="marketBlock2" fitHeight="55.0" fitWidth="61.0" layoutX="175.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="marketBlock3" fitHeight="55.0" fitWidth="61.0" layoutX="225.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="marketBlock2" fitHeight="65.0" fitWidth="65.0" layoutX="185.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="marketBlock3" fitHeight="65.0" fitWidth="65.0" layoutX="240.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </AnchorPane>
                      </items>

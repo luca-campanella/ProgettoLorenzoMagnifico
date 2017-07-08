@@ -29,6 +29,8 @@ public class BoardCreator {
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
         runtimeTypeAdapterFactory.registerSubtype(GainResourceEffect.class, "GainResourceEffect");
+        runtimeTypeAdapterFactory.registerSubtype(GainResourceEffect.class, "GainDoubleResourceEffect");
+
         runtimeTypeAdapterFactory.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
 
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
@@ -111,7 +113,7 @@ public class BoardCreator {
         CouncilAS councilAS = new CouncilAS();
         councilAS.addEffect(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN, 10)));
         councilAS.addEffect(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN, 10)));
-        //todo not sure about commenting this line
+
         //VaticanReport vaticanReport = new VaticanReport(new int[VaticanReport.NUMBER_OF_AGES], new int[VaticanReport.WALK_OF_FAITH]);
 
         //boardTest.createNewBoard(towerstest, marketASArray, buildAS, harvestAS, councilAS, vaticanReport);

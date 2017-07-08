@@ -8,17 +8,17 @@ import it.polimi.ingsw.model.resource.Resource;
  * This methods gives or let players pay resources.
  */
 public class GainResourceEffect implements ImmediateEffectInterface {
-    Resource resource;
+    protected Resource resource;
     public GainResourceEffect(Resource resource){
         this.resource = resource;
     }
-
+    public GainResourceEffect(){}
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
         giveResourcesToPlayer(player, resource);
     }
 
-    private void giveResourcesToPlayer(Player player, Resource resource){
+    protected void giveResourcesToPlayer(Player player, Resource resource){
         player.addResource(resource);
     }
 
@@ -30,7 +30,6 @@ public class GainResourceEffect implements ImmediateEffectInterface {
     }
 
     public Resource getResource(){
-
         return resource;
     }
 }

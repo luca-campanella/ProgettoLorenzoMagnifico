@@ -424,9 +424,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @return The arraylist of effect chosen
      */
     @Override
-    public ArrayList<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
-        ArrayList<GainResourceEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
-        ArrayList<GainResourceEffect> choices = new ArrayList<>(numberDiffGifts);
+    public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
+        List<GainResourceEffect> options = modelController.getBoard().getCouncilAS().getCouncilGiftChoices();
+        List<GainResourceEffect> choices = new ArrayList<>(numberDiffGifts);
         int choice;
 
         for(int i = 0; i < numberDiffGifts; i++) {

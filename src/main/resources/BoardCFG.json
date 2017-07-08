@@ -303,12 +303,12 @@
           "value": 1
         }
       },{
-        "effectName": "GainResourceEffect",
-        "resource": {
+        "effectName": "GainDoubleResourceEffect",
+        "resource":{
           "type": "WOOD",
           "value": 1
         },
-        "resource":{
+        "secondResource":{
           "type": "STONE",
           "value": 1
         }

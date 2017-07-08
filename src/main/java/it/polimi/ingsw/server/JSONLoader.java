@@ -3,7 +3,9 @@ package it.polimi.ingsw.server;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.CouncilAS;
 import it.polimi.ingsw.model.excommunicationTiles.*;
 import it.polimi.ingsw.model.leaders.LeadersDeck;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
@@ -17,6 +19,8 @@ import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.effects.immediateEffects.*;
 import it.polimi.ingsw.model.effects.permanentEffects.*;
+import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -93,14 +97,49 @@ public class JSONLoader {
     {
         Board board;
         GsonBuilder gsonBuilder = new GsonBuilder();
+        //todo: pick one. Version OK but not perfect
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
         runtimeTypeAdapterFactory.registerSubtype(GainResourceEffect.class, "GainResourceEffect");
+        runtimeTypeAdapterFactory.registerSubtype(GainDoubleResourceEffect.class, "GainDoubleResourceEffect");
         runtimeTypeAdapterFactory.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
-
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
+        //todo version 2 trying to make it work
+        /*
+        RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
+        runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
+      //  runtimeTypeAdapterFactory.registerSubtype(GainResourceEffect.class, "GainResourceEffect");
+        runtimeTypeAdapterFactory.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
+        runtimeTypeAdapterFactory.registerSubtype(GainResourceEffect.class, "GainResourceEffect");
+        runtimeTypeAdapterFactory.registerSubtype(GainDoubleResourceEffect.class, "GainDoubleResourceEffect");
+
+        //RuntimeTypeAdapterFactory<GainResourceEffect> runtimeTypeAdapterCouncilFactory = RuntimeTypeAdapterFactory.of(GainResourceEffect.class, "effectNameDouble");
+        //runtimeTypeAdapterCouncilFactory.registerSubtype(GainDoubleResourceEffect.class, "GainDoubleResourceEffect");
+        //Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterCouncilFactory).registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
+        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
+        */
+        //todo review this
+        /*
+        CouncilAS councilAS = new CouncilAS();
+        ArrayList<GainResourceEffect> gainResourceEffects = new ArrayList<>();
+        gainResourceEffects.add(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,3)));
+        gainResourceEffects.add(new GainDoubleResourceEffect(new Resource(ResourceTypeEnum.COIN,22),new Resource(ResourceTypeEnum.COIN,2)));
+        councilAS.setCouncilGiftChoices(gainResourceEffects);
+        CliPrinter.println(gson.toJson(councilAS));
+        CouncilAS temp;
+        temp = gson.fromJson(gson.toJson(councilAS), CouncilAS.class);
+
+
+        for(GainResourceEffect iterator : temp.getCouncilGiftChoices())
+            Debug.printVerbose(iterator.descriptionShortOfEffect());
+
+        for(GainResourceEffect iterator : gainResourceEffects)
+            Debug.printVerbose(iterator.descriptionShortOfEffect());
+
+        Debug.printVerbose("Hello from the other sideee");
+        */
         Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8");
         board = gson.fromJson(reader, Board.class);
 
@@ -110,6 +149,9 @@ public class JSONLoader {
         ArrayList<ExcommunicationTile> randomTiles;
         randomTiles = shuffle(excomTiles);
         board.setExcommunicationTiles(randomTiles);
+
+        for(GainResourceEffect iterator : board.getCouncil().getCouncilGiftChoices())
+            Debug.printVerbose(iterator.descriptionShortOfEffect());
 
         return board;
     }
