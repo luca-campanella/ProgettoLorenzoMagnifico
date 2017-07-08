@@ -12,7 +12,7 @@ public class GainResourceEffect implements ImmediateEffectInterface {
     public GainResourceEffect(Resource resource){
         this.resource = resource;
     }
-    public GainResourceEffect(){}
+    //public GainResourceEffect(){}
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
         giveResourcesToPlayer(player, resource);

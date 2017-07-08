@@ -29,6 +29,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.lang.reflect.*;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * This class is a singleton that handles all the classes loaded from file
@@ -121,11 +122,12 @@ public class JSONLoader {
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
         */
         //todo review this
-        /*
+
         CouncilAS councilAS = new CouncilAS();
         ArrayList<GainResourceEffect> gainResourceEffects = new ArrayList<>();
         gainResourceEffects.add(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,3)));
         gainResourceEffects.add(new GainDoubleResourceEffect(new Resource(ResourceTypeEnum.COIN,22),new Resource(ResourceTypeEnum.COIN,2)));
+
         councilAS.setCouncilGiftChoices(gainResourceEffects);
         CliPrinter.println(gson.toJson(councilAS));
         CouncilAS temp;
@@ -135,11 +137,11 @@ public class JSONLoader {
         for(GainResourceEffect iterator : temp.getCouncilGiftChoices())
             Debug.printVerbose(iterator.descriptionShortOfEffect());
 
-        for(GainResourceEffect iterator : gainResourceEffects)
+        for(ImmediateEffectInterface iterator : gainResourceEffects)
             Debug.printVerbose(iterator.descriptionShortOfEffect());
 
         Debug.printVerbose("Hello from the other sideee");
-        */
+
         Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8");
         board = gson.fromJson(reader, Board.class);
 
