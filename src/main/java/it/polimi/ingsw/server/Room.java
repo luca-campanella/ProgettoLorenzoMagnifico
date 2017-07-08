@@ -665,6 +665,8 @@ public class Room {
             }
             catch (NetworkException e){
                 Debug.printError("Cannot deliver the personale tiles to player : " + player,e);
+                addToDisconnectedPlayers(player);
+                floodPlayerDisconnected(player);
             }
         }
     }
@@ -690,6 +692,8 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError(e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
             }
         }
@@ -708,6 +712,8 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the error move to " + playerName);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
             }
         }
@@ -730,6 +736,8 @@ public class Room {
             }
             catch (NetworkException c){
                 Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+                addToDisconnectedPlayers(player);
+                floodPlayerDisconnected(player);
             }
         }
     }
@@ -750,6 +758,8 @@ public class Room {
 
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the leader discarded to " + player.getNickname());
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
             }
         }
@@ -769,6 +779,8 @@ public class Room {
             }
             catch (NetworkException e){
                 Debug.printError("cannot deliver the disconnection to the player " + playerIter.getNickname());
+                addToDisconnectedPlayers(player);
+                floodPlayerDisconnected(player);
             }
         }
     }
@@ -793,6 +805,8 @@ public class Room {
             }
             catch (NetworkException c){
                 Debug.printError("cannot deliver the error of the playable leader card " + player.getNickname());
+                addToDisconnectedPlayers(player);
+                floodPlayerDisconnected(player);
             }
         }
 
@@ -816,6 +830,8 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the leader card played by " + nickname + " to " + player.getNickname(),e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
             }
         }
@@ -838,6 +854,8 @@ public class Room {
             }
             catch (NetworkException c){
                 Debug.printError("cannot deliver the error on the activation of the leader card " + player.getNickname());
+                addToDisconnectedPlayers(player);
+                floodPlayerDisconnected(player);
             }
         }
     }
@@ -857,6 +875,8 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the leader card activated by " + nickname + " to " + player.getNickname(),e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
             }
         }
@@ -874,6 +894,8 @@ public class Room {
             }
             catch (NetworkException e){
                 Debug.printError("cannot deliver the end game results to " + player.getNickname(),e);
+                addToDisconnectedPlayers(player);
+                floodPlayerDisconnected(player);
             }
         }
     }
@@ -940,6 +962,8 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the excommunication choice to " + nickname,e);
+                    addToDisconnectedPlayers(playerIter);
+                    floodPlayerDisconnected(playerIter);
                 }
             }
         }
@@ -955,8 +979,20 @@ public class Room {
             }
             catch (NetworkException e){
                 Debug.printError("cannot deliver the reconnection to " + player.getNickname(),e);
+                addToDisconnectedPlayers(player);
+                floodPlayerDisconnected(player);
             }
         }
+    }
+
+    /**
+     * This method is used by the player connections to signal that they failed to receive something
+     * an error on the netowork occurred
+     * @param player the player which encountered the error
+     */
+    public void signalConnectionError(AbstractConnectionPlayer player) {
+        addToDisconnectedPlayers(player);
+        floodPlayerDisconnected(player);
     }
 }
 
