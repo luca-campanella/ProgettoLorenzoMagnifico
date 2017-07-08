@@ -984,5 +984,15 @@ public class Room {
             }
         }
     }
+
+    /**
+     * This method is used by the player connections to signal that they failed to receive something
+     * an error on the netowork occurred
+     * @param player the player which encountered the error
+     */
+    public void signalConnectionError(AbstractConnectionPlayer player) {
+        addToDisconnectedPlayers(player);
+        floodPlayerDisconnected(player);
+    }
 }
 
