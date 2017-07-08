@@ -231,6 +231,37 @@ public class CommandLineUI extends AbstractUIType {
         pool.submit(menu);
     }
 
+    /**
+     * Asks what card to take when he has a free action due to a card that has such effect
+     * @param towerWrapper the list of available spaces
+     * @return the index of the choice
+     */
+    @Override
+    public int askWhereToPlaceNoDiceFamilyMember(List<TowerWrapper> towerWrapper){
+        //this method is used when a card like Abess is played;
+
+        if(towerWrapper.size() == 1) {
+            CliPrinter.println("You can only take the card of the space :\ntower number " +
+                    towerWrapper.get(0).getTowerIndex() +
+                    "\nFloor : " + towerWrapper.get(0).getTowerFloor() +
+                    "\nwith " + towerWrapper.get(0).getServantNeeded()
+                    + "servants needed");
+
+            CliPrinter.println("I'm placing it over there");
+            return 0;
+
+        } else { //we have to ask the user for a choice
+            CliOptionsHandler towerSpaceChooser = new CliOptionsHandler(towerWrapper.size());
+
+            for (TowerWrapper towerIter : towerWrapper) {
+                towerSpaceChooser.addOption("take the card on tower action space n "
+                        + towerIter.getTowerIndex() + ", floor "
+                        + towerIter.getTowerFloor() +
+                        " with " + towerIter.getServantNeeded() + "servants needed");
+            }
+            return towerSpaceChooser.askUserChoice();
+        }
+    }
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui

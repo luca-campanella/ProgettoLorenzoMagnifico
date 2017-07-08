@@ -5,7 +5,9 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.CharacterCardCollector;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
@@ -39,8 +41,16 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
 
         playFMandSubServantsToPlayer(familyMember);
 
-        CharacterCardCollector blueCards = player.getPersonalBoard().getCharacterCardsCollector();
+        applyCardEffect(player, choiceController);
+    }
 
+    /**
+     * Applies the effects of the card to the player
+     * @param player the player to apply to
+     * @param choiceController the interface for callback on choices
+     */
+    private void applyCardEffect(Player player, ChoicesHandlerInterface choiceController) {
+        CharacterCardCollector blueCards = player.getPersonalBoard().getCharacterCardsCollector();
         //We check if the player has some blue card that disables immediate effects, otherwise we activate them
         if(!blueCards.isImmediateEffectDisabled(getDiceRequirement())){
             Debug.printVerbose("Immediate effects are not disabled for this tower level, activating them");
@@ -56,6 +66,27 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
         player.subResources(resToSubtractToPlayer);
         player.addCard(card);
         card.applyImmediateEffectsToPlayer(player, choiceController);
+
+    }
+
+    /**
+     * This method performs the real action on the model when the player uses the effect of a card that
+     * lets you place on a tower for free
+     * @param player the family member to perform the action with
+     */
+    //@Override
+    public void performActionNoFamilyMember(Player player, int diceValue, ChoicesHandlerInterface choiceController) {
+        //subtract corresponding family members needed
+        int servantsNeeded = getDiceRequirement() - diceValue;
+
+        //check the excommunication tile malus
+        servantsNeeded *= player.getExcommunicationTilesCollector().payMoreServant();
+
+        if(servantsNeeded<0)
+            servantsNeeded=0;
+        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servantsNeeded));
+
+        applyCardEffect(player, choiceController);
     }
 
     /**

@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.blockingdialogs.*;
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
+import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
@@ -27,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -36,9 +38,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -276,6 +276,40 @@ public class GraphicalUI extends AbstractUIType {
             this.displayError("Error in opening dialogue, default value instead", e.getMessage());
         }
         return choice;
+    }
+
+    /**
+     * Asks what card to take when he has a free action due to a card that has such effect
+     * @param towerWrapper the list of available spaces
+     * @return the index of the choice
+     */
+    @Override
+    public int askWhereToPlaceNoDiceFamilyMember(List<TowerWrapper> towerWrapper){
+        Set<String> choices = new HashSet<>();
+        ArrayList<String> choicesToShow = new ArrayList<>();
+        // i get the colors of all towers
+        for(TowerWrapper iterator : towerWrapper)
+            choices.add(CardColorEnum.values()[(iterator.getTowerIndex())].getCardColor());
+        HBox choichesContainer = new HBox();
+        choichesContainer.setSpacing(5);
+        choichesContainer.setAlignment(Pos.CENTER);
+
+        choicesToShow.addAll(choices);
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(choicesToShow.get(0), choicesToShow);
+
+        choicesToShow.clear();
+        dialog.setTitle("Placing a Dice");
+        dialog.setHeaderText("Choose where to place  a family member");
+
+
+
+
+// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your choice: " + result.get());
+        }
+        return 0;
     }
 
     /**

@@ -15,7 +15,8 @@ public class TakeCardNoFamilyMemberEffect extends AbstractPerformActionEffect {
     //private ArrayList<...>
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
-       // todo: choicesHandlerInterface.callbackOnTakeCard(diceValueOnTower, towerColorsAllowed, SCONTO? )
+       //choicesHandlerInterface.callbackOnTakeCard(cardName, diceValueOnTower, towerColorsAllowed);
+        //already done beacause of the instance of in model
     }
 
     @Override
