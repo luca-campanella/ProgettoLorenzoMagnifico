@@ -98,7 +98,6 @@ public class JSONLoader {
     {
         Board board;
         GsonBuilder gsonBuilder = new GsonBuilder();
-        //todo: pick one. Version OK but not perfect
 
         RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
         runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
@@ -106,41 +105,7 @@ public class JSONLoader {
         runtimeTypeAdapterFactory.registerSubtype(GainDoubleResourceEffect.class, "GainDoubleResourceEffect");
         runtimeTypeAdapterFactory.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
         Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
-
-        //todo version 2 trying to make it work
-        /*
-        RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
-        runtimeTypeAdapterFactory.registerSubtype(NoEffect.class, "NoEffect");
-      //  runtimeTypeAdapterFactory.registerSubtype(GainResourceEffect.class, "GainResourceEffect");
-        runtimeTypeAdapterFactory.registerSubtype(GiveCouncilGiftEffect.class, "GiveCouncilGiftEffect");
-        runtimeTypeAdapterFactory.registerSubtype(GainResourceEffect.class, "GainResourceEffect");
-        runtimeTypeAdapterFactory.registerSubtype(GainDoubleResourceEffect.class, "GainDoubleResourceEffect");
-
-        //RuntimeTypeAdapterFactory<GainResourceEffect> runtimeTypeAdapterCouncilFactory = RuntimeTypeAdapterFactory.of(GainResourceEffect.class, "effectNameDouble");
-        //runtimeTypeAdapterCouncilFactory.registerSubtype(GainDoubleResourceEffect.class, "GainDoubleResourceEffect");
-        //Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterCouncilFactory).registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
-        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
-        */
-        //todo review this
-
-        CouncilAS councilAS = new CouncilAS();
-        ArrayList<GainResourceEffect> gainResourceEffects = new ArrayList<>();
-        gainResourceEffects.add(new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,3)));
-        gainResourceEffects.add(new GainDoubleResourceEffect(new Resource(ResourceTypeEnum.COIN,22),new Resource(ResourceTypeEnum.COIN,2)));
-
-        councilAS.setCouncilGiftChoices(gainResourceEffects);
-        CliPrinter.println(gson.toJson(councilAS));
-        CouncilAS temp;
-        temp = gson.fromJson(gson.toJson(councilAS), CouncilAS.class);
-
-
-        for(GainResourceEffect iterator : temp.getCouncilGiftChoices())
-            Debug.printVerbose(iterator.descriptionShortOfEffect());
-
-        for(ImmediateEffectInterface iterator : gainResourceEffects)
-            Debug.printVerbose(iterator.descriptionShortOfEffect());
-
-        Debug.printVerbose("Hello from the other sideee");
+        GainDoubleResourceEffect effect = new GainDoubleResourceEffect(new Resource(ResourceTypeEnum.STONE,1),new Resource(ResourceTypeEnum.WOOD,1));
 
         Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8");
         board = gson.fromJson(reader, Board.class);
@@ -152,8 +117,13 @@ public class JSONLoader {
         randomTiles = shuffle(excomTiles);
         board.setExcommunicationTiles(randomTiles);
 
+        List<GainResourceEffect> temp = board.getCouncil().getCouncilGiftChoices();
+        temp.add(effect);
+        board.getCouncil().setCouncilGiftChoices(temp);
+
         for(GainResourceEffect iterator : board.getCouncil().getCouncilGiftChoices())
             Debug.printVerbose(iterator.descriptionShortOfEffect());
+
 
         return board;
     }

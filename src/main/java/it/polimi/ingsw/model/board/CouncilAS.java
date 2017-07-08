@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class CouncilAS extends AbstractActionSpace implements Serializable{
 
-    ArrayList<GainResourceEffect> councilGiftChoices;
+    private List<GainResourceEffect> councilGiftChoices;
 
     public CouncilAS(){
         super();
@@ -32,7 +32,7 @@ public class CouncilAS extends AbstractActionSpace implements Serializable{
             temp.append(super.getEffects().get(i).descriptionShortOfEffect());
     return temp.toString();
     }
-    public void setCouncilGiftChoices(ArrayList<GainResourceEffect> councilGiftChoices){
+    public void setCouncilGiftChoices(List<GainResourceEffect> councilGiftChoices){
         this.councilGiftChoices = councilGiftChoices;
     }
     public List<GainResourceEffect> getCouncilGiftChoices() {

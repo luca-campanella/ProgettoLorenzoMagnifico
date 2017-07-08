@@ -302,17 +302,8 @@
           "type": "FAITH_POINT",
           "value": 1
         }
-      },{
-        "effectName": "GainDoubleResourceEffect",
-        "resource":{
-          "type": "WOOD",
-          "value": 1
-        },
-        "secondResource":{
-          "type": "STONE",
-          "value": 1
-        }
       }
+
     ]
   },
   "vaticanReport": {

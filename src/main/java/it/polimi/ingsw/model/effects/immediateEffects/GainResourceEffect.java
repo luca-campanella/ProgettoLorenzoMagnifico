@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.effects.immediateEffects;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 
 /**
  * This methods gives or let players pay resources.
@@ -16,6 +17,7 @@ public class GainResourceEffect implements ImmediateEffectInterface {
     @Override
     public void applyToPlayer(Player player, ChoicesHandlerInterface choicesHandlerInterface,String cardName) {
         giveResourcesToPlayer(player, resource);
+
     }
 
     protected void giveResourcesToPlayer(Player player, Resource resource){
