@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
+import it.polimi.ingsw.model.board.Tower;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.leaders.LeaderCard;
@@ -22,6 +23,7 @@ import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.server.JSONLoader;
 import it.polimi.ingsw.utils.Debug;
 import javafx.application.Application;
@@ -41,10 +43,17 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
     @Override
     public void start(Stage primaryStage) throws Exception {
         Debug.instance(Debug.LEVEL_VERBOSE);
+        Board board = JSONLoader.boardCreator();
+        Deck deck = JSONLoader.createNewDeck();
+        board.setDeck(deck);
 
         gui = new GraphicalUI(this);
 
-        gui.notifyThisPlayerSuspended();
+        //gui.notifyThisPlayerSuspended();
+        TowerWrapper towerWrapper = new TowerWrapper(2,0,0);
+        List<TowerWrapper> towerWrappers = new ArrayList<>(1);
+        towerWrappers.add(towerWrapper);
+        gui.askWhereToPlaceNoDiceFamilyMember(towerWrappers);
         //gui.askExcommunicationChoice(0);
         /*ArrayList< GainResourceEffect> options = new ArrayList<>(1);
         GainResourceEffect option = new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,2));

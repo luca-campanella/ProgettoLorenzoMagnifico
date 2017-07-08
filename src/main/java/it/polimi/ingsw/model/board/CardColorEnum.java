@@ -4,16 +4,19 @@ package it.polimi.ingsw.model.board;
  * Enumeration of card colors
  */
 public enum CardColorEnum {
-    GREEN("Green", "Territory"),
-    BLUE("Blue", "Character"),
-    YELLOW("Yellow", "Building"),
-    PURPLE("Purple", "Venture");
+    GREEN("Green", "Territory", 0),
+    BLUE("Blue", "Character", 1),
+    YELLOW("Yellow", "Building", 2),
+    PURPLE("Purple", "Venture", 3);
 
-    private String cardColor, cardType;
+    private String cardColor;
+    private String cardType;
+    private int indexOfTower;
 
-    private CardColorEnum(String cardColor, String cardType) {
+    private CardColorEnum(String cardColor, String cardType, int indexOfTower) {
         this.cardColor = cardColor;
         this.cardType = cardType;
+        this.indexOfTower = indexOfTower;
     }
 
     public String getCardColor() {

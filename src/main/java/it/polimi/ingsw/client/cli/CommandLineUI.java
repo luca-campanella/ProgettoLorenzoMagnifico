@@ -231,6 +231,12 @@ public class CommandLineUI extends AbstractUIType {
         pool.submit(menu);
     }
 
+    @Override
+    public int askWhereToPlaceNoDiceFamilyMember(List<TowerWrapper> towerWrapper){
+        //this method is used when a card like Abess is played;
+        //todo: we need to implement this method
+        return 0;
+    }
 
     /**
      * This method is called when a choice on a council gift should be perfomed by the ui

@@ -117,6 +117,8 @@ abstract public class AbstractUIType {
      */
     public abstract int askCouncilGift(List<GainResourceEffect> options);
 
+
+    public abstract int askWhereToPlaceNoDiceFamilyMember(List<TowerWrapper> towerWrapper);
     /**
      * This method is called when a choice on which effect to activate in a yellow card should be perfomed by the ui
      *

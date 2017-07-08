@@ -731,20 +731,20 @@ public class MainBoardControl extends CustomFxControl {
         ImageView imgView = ((ImageView) (marketPane.lookup("#marketBlock2")));
         Image blockImg  = new Image(getClass().getResourceAsStream("/imgs/marketBlock.png"));
         imgView.setImage(blockImg);
-        imgView.setPreserveRatio(false);
+        imgView.setPreserveRatio(true);
         ImageView secondImage = ((ImageView) (marketPane.lookup("#marketBlock3")));
         secondImage.setImage(blockImg);
-        secondImage.setPreserveRatio(false);
+        secondImage.setPreserveRatio(true);
 
     }
     private void disableBuildHarvest(){
         ImageView imgView = ((ImageView) (buildHarvestPane.lookup("#buildBlockActionSpace")));
         Image blockImg  = new Image(getClass().getResourceAsStream("/imgs/productionBlock.png"));
         imgView.setImage(blockImg);
-        imgView.setPreserveRatio(false);
+        imgView.setPreserveRatio(true);
         ImageView secondImage = ((ImageView) (buildHarvestPane.lookup("#harvestBlockActionSpace")));
         secondImage.setImage(blockImg);
-        secondImage.setPreserveRatio(false);
+        secondImage.setPreserveRatio(true);
         }
     /**
      * Method called by fx when a tower as as is clicked
