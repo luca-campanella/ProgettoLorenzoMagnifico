@@ -86,7 +86,6 @@ import java.util.concurrent.Executors;
     @Override
     public void deliverPersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws NetworkException {
 
-        Debug.printVerbose("Delivered personal tile to " + getNickname());
         PersonalTile standardPersonalTile = null;
         PersonalTile specialPersonalTile = null;
         for(PersonalTile personalTile : personalTilesToDeliver){
@@ -98,6 +97,7 @@ import java.util.concurrent.Executors;
 
         try{
             RMIClientInterfaceInst.receivePersonalTiles(standardPersonalTile, specialPersonalTile);
+            Debug.printVerbose("Delivered personal tile to " + getNickname());
         }
         catch (RemoteException e){
             Debug.printError("rmi: cannot deliver the personal tiles to " + getNickname(), e);

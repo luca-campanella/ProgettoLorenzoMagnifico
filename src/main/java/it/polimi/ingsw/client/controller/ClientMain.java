@@ -568,7 +568,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param board the board from the server
      */
     @Override
-    public void receivedStartGameBoard(Board board) {
+    public synchronized void receivedStartGameBoard(Board board) {
 
         Debug.printVerbose("received Start gameBoard called");
 
