@@ -39,7 +39,7 @@ import java.util.List;
  * TODO: implement launcher
  */
 public class ClientMain implements NetworkControllerClientInterface, ViewControllerCallbackInterface, ChoicesHandlerInterface {
-    private LauncherClientFake temp;
+    private LauncherClient temp;
     private AbstractUIType userInterface;
     private AbstractClientType clientNetwork;
     private ModelController modelController;
@@ -109,7 +109,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void startUp() {
         Debug.instance(Debug.LEVEL_VERBOSE);
         StdinSingleton.instance();
-        temp = new LauncherClientFake(this);
+        temp = new LauncherClient(this);
         userInterface = temp.welcome();
         userInterface.askNetworkType();
     }

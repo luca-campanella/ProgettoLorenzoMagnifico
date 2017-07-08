@@ -31,7 +31,7 @@ import java.util.List;
  * choiceCode == card name -> the value of the hashmap is 0 if he chooses to pay with resources, 1 with military points
  *
  * <b>Leaders</b>
- * choiceCode == card name //todo
+ * choiceCode == card name
  */
 public interface ChoicesHandlerInterface {
 
