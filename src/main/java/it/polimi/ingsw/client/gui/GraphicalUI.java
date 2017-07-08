@@ -289,26 +289,26 @@ public class GraphicalUI extends AbstractUIType {
         ArrayList<String> choicesToShow = new ArrayList<>();
         // i get the colors of all towers
         for(TowerWrapper iterator : towerWrapper)
-            choices.add(CardColorEnum.values()[(iterator.getTowerIndex())].getCardColor());
-        HBox choichesContainer = new HBox();
-        choichesContainer.setSpacing(5);
-        choichesContainer.setAlignment(Pos.CENTER);
+            choices.add(CardColorEnum.values()[(iterator.getTowerIndex())].getCardColor().concat(Integer.toString(iterator.getTowerFloor())));
+
 
         choicesToShow.addAll(choices);
         ChoiceDialog<String> dialog = new ChoiceDialog<>(choicesToShow.get(0), choicesToShow);
 
-        choicesToShow.clear();
+
         dialog.setTitle("Placing a Dice");
         dialog.setHeaderText("Choose where to place  a family member");
 
-
-
-
-// Traditional way to get the response value.
+        // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             System.out.println("Your choice: " + result.get());
+            for(int i = 0; i< choicesToShow.size(); i++)
+                if (choicesToShow.get(i).equals(result.get())){
+                    Debug.printVerbose(Integer.toString(i));
+                    return i;}
         }
+        Debug.printVerbose("Something went wrong");
         return 0;
     }
 

@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 import org.junit.Test;
 
 import java.util.List;
@@ -54,6 +55,10 @@ public class NoEffectTest {
 
         @Override
         public DiceAndFamilyMemberColorEnum callbackOnFamilyMemberBonus(String choiceCode, List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException {
+            return null;
+        }
+        @Override
+        public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces){
             return null;
         }
     };
