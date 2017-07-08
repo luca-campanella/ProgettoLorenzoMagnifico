@@ -19,10 +19,7 @@ import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.cards.VentureCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.controller.ModelController;
-import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
-import it.polimi.ingsw.model.effects.immediateEffects.NoEffect;
-import it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect;
+import it.polimi.ingsw.model.effects.immediateEffects.*;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.leaders.leadersabilities.EmptyLeaderAbility;
@@ -31,7 +28,6 @@ import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
-import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -664,13 +660,13 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
 
     /**
-     * This method returns to the view a true if the player was suspended
-     *
-     * @return true if the player was suspended
+     * This method returns to the view a reference to the player the client represents
+     * this method is usually called to show the personal board of the player
+     * @return the player the clietn represents
      */
     @Override
-    public boolean callbackObtainIsThisPlayerSuspended() {
-        return isThisPlayerSuspended;
+    public Player callbackObtainPlayer() {
+        return thisPlayer;
     }
 
     /**
@@ -694,17 +690,24 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * This method returns to the view a reference to the player the client represents
-     * this method is usually called to show the personal board of the player
+     * This method returns to the view a reference to the map of choices other players
      *
-     * @return the player the clietn represents
+     * @return the choices handler for other players
      */
     @Override
-    public Player callbackObtainPlayer() {
+    public ChoicesHandlerInterface callbackObtainOtherPlayerChoicesHandler() {
 
-        return thisPlayer;
-        //userInterface.printPersonalBoard(thisPlayer);
+        return otherPlayerChoicesHandler;
+    }
 
+    /**
+     * This method returns to the view a true if the player was suspended
+     *
+     * @return true if the player was suspended
+     */
+    @Override
+    public boolean callbackObtainIsThisPlayerSuspended() {
+        return isThisPlayerSuspended;
     }
 
     /**
@@ -997,12 +1000,32 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param playerChoices     the hashmao with his choices correlated with this action
      */
     @Override
-    public void receivedPlaceOnTower(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) {
+    public void receivedPlaceOnTower(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor,
+                                     int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) {
         Player player = modelController.getPlayerByNickname(nickname);
         Debug.printVerbose("the player " + nickname + " has place the family member on tower.");
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         FamilyMember fm = player.getFamilyMemberByColor(familyMemberColor);
+
+        if(otherPlayerChoicesHandler.hasChoiceOnTakeCard()) {
+            AbstractCard card = modelController.getBoard().getTower(towerIndex).getFloorByIndex(floorIndex).getCard();
+            for(ImmediateEffectInterface effectIter : card.getImmediateEffect()) {
+                if (effectIter instanceof TakeCardNoFamilyMemberEffect) {
+                    Dice falseDice = new Dice(DiceAndFamilyMemberColorEnum.NEUTRAL);
+                    falseDice.setValue(((TakeCardNoFamilyMemberEffect) effectIter).getDiceValue());
+
+                    List<TowerWrapper> availableTowerFloors =
+                            modelController.spaceTowerAvailable(new FamilyMember(falseDice, player), true);
+                    TowerWrapper choice = otherPlayerChoicesHandler.callbackOnTakeCard(
+                            card.getName(),
+                            availableTowerFloors);
+                    userInterface.removeCard(choice);
+                }
+            }
+
+        }
+
         modelController.placeOnTower(fm, towerIndex, floorIndex);
         //we notify the user the other player has done this move
         userInterface.notifyPlaceOnTower(fm, towerIndex, floorIndex);

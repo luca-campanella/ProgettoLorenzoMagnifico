@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.controller;
 
+import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.board.Board;
@@ -142,6 +143,13 @@ public interface ViewControllerCallbackInterface {
      * @param boardNeedsToBeRefreshed false if the board has been refreshed
      */
     void setBoardNeedsToBeRefreshed(boolean boardNeedsToBeRefreshed);
+
+    /**
+     * This method returns to the view a reference to the map of choices other players
+     *
+     * @return the choices handler for other players
+     */
+    public ChoicesHandlerInterface callbackObtainOtherPlayerChoicesHandler();
 
     /**
      * This method returns to the view a reference to the player the client represents

@@ -312,4 +312,10 @@ abstract public class AbstractUIType {
      * @param nickname the nick of the player reconnected
      */
     public abstract void notifyPlayerReconnected(String nickname);
+
+    /**
+     * Tells the view to remove a card
+     * @param towerWrapper contains the coordinates of the card
+     */
+    public abstract void removeCard(TowerWrapper towerWrapper);
 }

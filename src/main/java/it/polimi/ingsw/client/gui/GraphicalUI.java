@@ -306,7 +306,8 @@ public class GraphicalUI extends AbstractUIType {
             for(int i = 0; i< choicesToShow.size(); i++)
                 if (choicesToShow.get(i).equals(result.get())){
                     Debug.printVerbose(Integer.toString(i));
-                    return i;}
+                    return i;
+            }
         }
         Debug.printVerbose("Something went wrong");
         return 0;
@@ -680,7 +681,6 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * This method is used by the controller when it receives a place on tower from another player and wants
      * to notify the user that such a move has happened
-     *
      * @param fm         the family member used for the move
      * @param towerIndex the index of the tower
      * @param floorIndex the index of the floor AS
@@ -689,6 +689,15 @@ public class GraphicalUI extends AbstractUIType {
     public void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex) {
         Platform.runLater( () ->
         ((MainBoardControl) (currentFXControl)).notifyPlaceOnTower(fm, towerIndex, floorIndex));
+    }
+
+    /**
+     * Tells the view to remove a card
+     * @param towerWrapper contains the coordinates of the card
+     */
+    @Override
+    public void removeCard(TowerWrapper towerWrapper) {
+       //todo
     }
 
     /**
