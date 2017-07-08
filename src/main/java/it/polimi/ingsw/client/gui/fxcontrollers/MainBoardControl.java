@@ -742,6 +742,19 @@ public class MainBoardControl extends CustomFxControl {
     }
 
     /**
+     * this method is used to remove a card from the view
+     * @param row rows
+     * @param col cols
+     */
+    public void removeCardFromView(int row, int col)
+    {
+        StringBuilder cardStringBuilder = new StringBuilder("#card");
+        cardStringBuilder.append(row);
+        cardStringBuilder.append(col);
+        ImageView temp = (ImageView) towersCouncilFaith.lookup(cardStringBuilder.toString());
+        temp.setImage(null);
+    }
+    /**
      * Method called by fx when the council is clicked
      * @param event the fx event
      */

@@ -279,7 +279,7 @@ public class CliPrinter {
         int i = 0;
         ArrayList<Resource> costs;
         StringBuilder tempCostsScene = new StringBuilder("|Cost: ");
-        if(floor.getFamilyMembers().size()==0){
+        if(floor.getFamilyMembers().isEmpty()){
         if(floor.getCard() instanceof VentureCard) {
             try {
                 tempCostsScene.append(((VentureCard) floor.getCard()).getCostChoiceMilitary().getDescription());
@@ -287,7 +287,7 @@ public class CliPrinter {
                 ;
             }
         }}
-        if(floor.getFamilyMembers().size()==0){
+        if(floor.getFamilyMembers().isEmpty()){
         try {
             costs = floor.getCard().getCost();
             //first i print the costs
@@ -696,5 +696,16 @@ public class CliPrinter {
             }
             System.out.println("\n");
         }
+    }
+
+    /**
+     * this method is called by the client to print the order of players in the turn
+     * @param orderOfPlayers the list of players in order of phase
+     */
+    public static void printOrderOfPlayers(List<Player> orderOfPlayers) {
+
+        System.out.println("The order of players:");
+        for (int i = 1 ; i < orderOfPlayers.size()+1 ; i++)
+            System.out.println(i + ") " + orderOfPlayers.get(i-1).getNickname());
     }
 }
