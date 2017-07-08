@@ -86,6 +86,7 @@ import java.util.concurrent.Executors;
     @Override
     public void deliverPersonalTiles(ArrayList<PersonalTile> personalTilesToDeliver) throws NetworkException {
 
+        Debug.printVerbose("Delivered personal tile to " + getNickname());
         PersonalTile standardPersonalTile = null;
         PersonalTile specialPersonalTile = null;
         for(PersonalTile personalTile : personalTilesToDeliver){
@@ -612,6 +613,7 @@ import java.util.concurrent.Executors;
     @Override
     public void receivePersonalTile(PersonalTile tileChosen) throws RemoteException {
 
+        Debug.printVerbose("received personal tile");
         generatorOfThread.submit(() -> getRoom().chosePersonalTile(tileChosen, this));
 
     }

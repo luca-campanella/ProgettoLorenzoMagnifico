@@ -908,7 +908,7 @@ public class ModelController {
         Debug.printVerbose("Carte Posizionate : " +cardPlaced);
     }
 
-    public void setPersonalTile(PersonalTile personalTile, String nicknamePlayer) {
+    public synchronized void setPersonalTile(PersonalTile personalTile, String nicknamePlayer) {
 
         for(Player player : players){
             if(player.getNickname().equals(nicknamePlayer))

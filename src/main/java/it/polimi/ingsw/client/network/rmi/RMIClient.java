@@ -517,6 +517,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void receivePersonalTiles(PersonalTile standardPersonalTile, PersonalTile specialPersonalTile) throws RemoteException {
 
+        Debug.printVerbose("received personal tile");
         generatorOfThread.submit(() -> getControllerMain().receivedPersonalTiles(standardPersonalTile,specialPersonalTile));
     }
 
