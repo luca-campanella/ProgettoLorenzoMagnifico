@@ -254,25 +254,29 @@ public class ControllerGame {
      */
     private void reDoOrderPlayer(ArrayList<FamilyMember> familyMembers){
 
-        ArrayList<AbstractConnectionPlayer> newPlayersOrder = new ArrayList<>(orderOfPlayers.size());
+        ArrayList<AbstractConnectionPlayer> newPlayersOrder = takeListPlayerFromCouncil(familyMembers);
 
-        for(FamilyMember i : familyMembers){
-
-            for(AbstractConnectionPlayer player : orderOfPlayers){
-
-                if(i.getPlayer().getNickname().equals(player.getNickname())){
-
-                    newPlayersOrder.add(player);
-                    orderOfPlayers.remove(i.getPlayer());
-
-                }
-            }
+        for(AbstractConnectionPlayer player : orderOfPlayers){
+            if(!newPlayersOrder.contains(player))
+                newPlayersOrder.add(player);
         }
+        orderOfPlayers = new ArrayList<>(newPlayersOrder);
 
-        newPlayersOrder.addAll(orderOfPlayers);
-        orderOfPlayers.clear();
-        orderOfPlayers = newPlayersOrder;
+    }
 
+    /**
+     * thismethod is used to take the list of player that had placed a family member on the council
+     * this is needed because a layer can placed more tha a family member on the council
+     * @param familyMembersOnCouncil the family members on the council
+     * @return return the list of players in order
+     */
+    private ArrayList<AbstractConnectionPlayer> takeListPlayerFromCouncil(ArrayList<FamilyMember> familyMembersOnCouncil){
+        ArrayList playersOrder = new ArrayList(orderOfPlayers.size());
+        for(FamilyMember familyMember : familyMembersOnCouncil){
+            if(!playersOrder.contains(familyMember.getPlayer()))
+                playersOrder.add(familyMember.getPlayer());
+        }
+        return playersOrder;
     }
 
     public Board getBoardGame() {
