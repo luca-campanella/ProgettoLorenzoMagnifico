@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.gui;
 
-import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
@@ -174,6 +173,7 @@ public class GraphicalUI extends AbstractUIType {
             control.displayDices();
             control.displayCards();
             control.displayFamilyMembers();
+            control.refreshFaithTrack();
             control.prepareForNewRound();
             control.displayOrderOfPlayers(getController().callbackObtainPlayersInOrder());
             control.appendMessageOnStateTextArea("**NEW ROUND**");

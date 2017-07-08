@@ -306,13 +306,32 @@ public class MainBoardControl extends CustomFxControl {
     public void refreshPersonalBoardOfPlayer(String playerNickname) {
         PlayerTabSubControl playerTab = playersTabMap.get(playerNickname);
         playerTab.refreshResourcesAndCards();
-        refreshFaithTrackOfPlayer(playerNickname);
+        //refreshFaithTrackOfPlayer(playerNickname);
+        FaithTrackPlaceHolderCollector collector = faithTrackCylinderMap.get(playerNickname);
+        //we refresh faith track only if the points have changed
+        int currFaithPoint = collector.getPlayer().getResource(ResourceTypeEnum.FAITH_POINT);
+        if(currFaithPoint != collector.getCurrentFaithPoints())
+            refreshFaithTrackValue(currFaithPoint);
+    }
+
+    /**
+     * Refreshed the faith track of all players
+     */
+    public void refreshFaithTrack() {
+        getController().callbackObtainPlayersInOrder().forEach((player) -> {
+            FaithTrackPlaceHolderCollector collector = faithTrackCylinderMap.get(player.getNickname());
+            //we refresh faith track only if the points have changed
+            int currFaithPoint = player.getResource(ResourceTypeEnum.FAITH_POINT);
+            if(currFaithPoint != collector.getCurrentFaithPoints())
+                refreshFaithTrackValue(currFaithPoint);
+        });
     }
 
     /**
      * Refreshes the cylinders of the faith track
      * @param playerNickname the player to refresh the cylinder of
      */
+    @Deprecated
     private void refreshFaithTrackOfPlayer(String playerNickname) {
         FaithTrackPlaceHolderCollector collector = faithTrackCylinderMap.get(playerNickname);
         Player player = collector.getPlayer();
@@ -349,6 +368,17 @@ public class MainBoardControl extends CustomFxControl {
         for(Player playerIter : allPlayers) {
             if(playerIter.getResource(ResourceTypeEnum.FAITH_POINT) == faithPoints) { //we have to update this player
                 FaithTrackPlaceHolderCollector collector = faithTrackCylinderMap.get(playerIter.getNickname());
+
+                Cylinder cylinder = collector.getCylinder();
+
+                //we calculate the coordinates
+                double y = faithTrackYCoord - ((cylinder.getHeight()+cylinder.getRadius())/2)
+                        - (cylinder.getHeight()*numberOfUpdatedPlayers) + 8;
+                double x = faithTrackXCoords[faithPoints] - (cylinder.getRadius()/2) + 5;
+
+                cylinder.setLayoutX(x);
+                cylinder.setLayoutY(y);
+                numberOfUpdatedPlayers++;
             }
         }
     }
@@ -1076,9 +1106,9 @@ public class MainBoardControl extends CustomFxControl {
      * This is a private class that lets us keep track of all the informations needed to update the faith track
      */
     private class FaithTrackPlaceHolderCollector {
-        Player player;
-        Cylinder cylinder;
-        int currentFaithPoints;
+        private Player player;
+        private Cylinder cylinder;
+        private int currentFaithPoints;
 
         public FaithTrackPlaceHolderCollector(Player player, Cylinder cylinder) {
             this.player = player;
