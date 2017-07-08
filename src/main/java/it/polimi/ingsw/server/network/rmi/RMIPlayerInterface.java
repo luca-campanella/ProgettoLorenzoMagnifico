@@ -114,5 +114,12 @@ public interface RMIPlayerInterface extends Remote {
      * @throws RemoteException if something goes wrong with the network
      */
     void receiveReconnectPlayer() throws RemoteException;
+
+    /**
+     * this method is called by the client to deliver the discarded leader card to the other client
+     * @param nameLeader the name of the leader card discarded
+     * @param resourceChoose the type of resources gotten by the discarded leader card
+     */
+    void receiveDiscardedLeaderCard(String nameLeader, HashMap<String, Integer> resourceChoose) throws RemoteException;
 }
 

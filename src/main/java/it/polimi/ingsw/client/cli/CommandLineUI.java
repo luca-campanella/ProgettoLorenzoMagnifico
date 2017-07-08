@@ -140,7 +140,7 @@ public class CommandLineUI extends AbstractUIType {
         }
         System.exit(0);
     }
-    //TODO: Decide if we want to eliminate chat or not. 2 methods here
+
     /**
      * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
      *

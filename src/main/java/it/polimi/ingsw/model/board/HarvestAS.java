@@ -64,7 +64,6 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
         if(checkIfFirst())
             return getDiceRequirement();
         if(canPlaceOccupiedSpace)
-            //return getDiceRequirement();
             return valueMalus+getDiceRequirement();
         //todo check this solution here - if you modify this you need also to modify the test
         return 10;

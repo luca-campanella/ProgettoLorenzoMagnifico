@@ -670,6 +670,17 @@ import java.util.concurrent.Executors;
     }
 
     /**
+     * this method is called by the client to deliver the discarded leader card to the other client
+     * @param nameLeader the name of the leader card discarded
+     * @param resourceChoose the type of resources gotten by the discarded leader card
+     * @throws RemoteException
+     */
+    @Override
+    public void receiveDiscardedLeaderCard(String nameLeader, HashMap<String, Integer> resourceChoose) throws RemoteException {
+        generatorOfThread.submit(() -> getRoom().receiveDiscardLeaderCard(nameLeader, resourceChoose, this));
+    }
+
+    /**
      * this method is used to deliver to the client his nickname
      */
     private void deliverNickname(){

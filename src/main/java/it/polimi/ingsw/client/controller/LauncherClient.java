@@ -6,10 +6,9 @@ import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.gui.GraphicalUI;
 
 /**
- * todo: implement a proper launcher
  * This class is the temporary launcher of Lorenzo's il magnifico
  */
-public class LauncherClientFake {
+public class LauncherClient {
     private ClientMain clientMain;
     /**
      * This method welcomes the user and asks him if he wants CLI or gui.
@@ -21,7 +20,7 @@ public class LauncherClientFake {
         return this.inputCliOrGui();
 
     }
-    public LauncherClientFake(ClientMain client)
+    public LauncherClient(ClientMain client)
     {
         this.clientMain = client;
     }

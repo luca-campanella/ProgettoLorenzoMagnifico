@@ -13,7 +13,7 @@ public class LeaderPickerMenu extends BasicCLIMenu {
     public LeaderPickerMenu(ViewControllerCallbackInterface controller, List<LeaderCard> options) {
         super("Please select one of the leaders below by typing his name", controller);
         for(LeaderCard leaderIter : options) {
-            addOption(leaderIter.getName().substring(0,4).toUpperCase(), "Take the leader " + leaderIter.getName()
+            addOption(leaderIter.getName().toUpperCase(), "Take the leader " + leaderIter.getName()
                     + " who has ability: " + leaderIter.getAbility().getAbilityDescription(),
                     () -> controller.callbackOnLeaderCardChosen(leaderIter));
         }

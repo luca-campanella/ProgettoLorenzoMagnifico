@@ -21,10 +21,6 @@ public class VentureCard extends AbstractCard{
 
     private int victoryEndPoints;
 
-    //TODO: method finalVictoryPoints
-    /*private Resource getFinalVictoryPoints{
-
-    }*/
     //this method i think could be useful to other classes diffrent from CLIPrinter
     /**
      * this method is generated to "merge" the 2 costs and allows the printer to print them all together.

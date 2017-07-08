@@ -82,7 +82,9 @@ abstract public class AbstractUIType {
      */
     public abstract void displayChatMsg(String senderNick, String msg);
 
-    //TODO this is a method just for testing chat
+    /**
+     * this method is used to implements the chat message, it is not utilized, but can be implemented
+     */
     public abstract void askChatMsg();
 
 

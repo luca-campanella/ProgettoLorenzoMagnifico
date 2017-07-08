@@ -95,12 +95,19 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
 
     /**
      * this method is used to discard a leader card
-     *  @param nameLeader     is the name of the card
+     * @param nameLeader     is the name of the card
      * @param resourceChoose is the resource chose to obtain when the leader is sacrificed
      */
     @Override
-    public void discardLeaderCard(String nameLeader, HashMap<String, Integer> resourceChoose) {
-        //TODO implement abstract method
+    public void discardLeaderCard(String nameLeader, HashMap<String, Integer> resourceChoose) throws NetworkException {
+
+        try{
+            RMIPlayerInterfaceInst.receiveDiscardedLeaderCard(nameLeader, resourceChoose);
+        }
+        catch (RemoteException e){
+            Debug.printError("Cannot deliver the leader card discarded");
+            throw new NetworkException(e);
+        }
     }
 
     /**
@@ -186,7 +193,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     /**
      * this method is used to deliver the move of a family member on a marketplace
      * @param familyMember is the family member chosen
-     * @param marketIndex is the index of the merket (from left to right) todo: check this assertion --Arto
+     * @param marketIndex is the index of the market (from left to right)
      * @param playerChoices this is a map that contains all the choices of the client when an effect asks
      * @throws NetworkException if something goes wrong during the connection
      */
