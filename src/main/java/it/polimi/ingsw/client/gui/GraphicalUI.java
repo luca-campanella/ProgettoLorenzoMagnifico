@@ -6,7 +6,6 @@ import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.blockingdialogs.*;
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
-import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
@@ -27,7 +26,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -37,7 +35,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -685,7 +685,9 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void removeCard(TowerWrapper towerWrapper) {
-       //todo
+        Platform.runLater( () -> ((MainBoardControl)(currentFXControl))
+                .removeCardFromView(towerWrapper.getTowerFloor(),
+                        towerWrapper.getTowerIndex()));
     }
 
     /**

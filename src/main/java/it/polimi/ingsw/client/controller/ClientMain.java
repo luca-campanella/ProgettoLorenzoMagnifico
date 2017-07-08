@@ -689,16 +689,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         this.boardNeedsToBeRefreshed = boardNeedsToBeRefreshed;
     }
 
-    /**
-     * This method returns to the view a reference to the map of choices other players
-     *
-     * @return the choices handler for other players
-     */
-    @Override
-    public ChoicesHandlerInterface callbackObtainOtherPlayerChoicesHandler() {
-
-        return otherPlayerChoicesHandler;
-    }
 
     /**
      * This method returns to the view a true if the player was suspended
@@ -1008,6 +998,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(otherPlayerChoicesHandler);
         FamilyMember fm = player.getFamilyMemberByColor(familyMemberColor);
 
+        //caused by effects that let the player take a multiple card
         if(otherPlayerChoicesHandler.hasChoiceOnTakeCard()) {
             AbstractCard card = modelController.getBoard().getTower(towerIndex).getFloorByIndex(floorIndex).getCard();
             for(ImmediateEffectInterface effectIter : card.getImmediateEffect()) {
