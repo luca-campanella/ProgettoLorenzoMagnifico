@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.server.JSONLoader;
 import org.junit.Test;
 
@@ -27,6 +28,11 @@ public class GainOrPayResourceConditionedEffectTest {
     CharacterCard blueCard = new CharacterCard();
     Player player = new Player();
     ChoicesHandlerInterface choicesHandlerInterface = new ChoicesHandlerInterface() {
+        @Override
+        public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces)
+        {
+            return null;
+        }
         @Override
         public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
             return null;

@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.server.JSONLoader;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,11 @@ public class BoardTest {
     static final int NUMBEROFEXCOMMUNICATIONTILES = 16;
     static final int NUMBEROFTESTS = 100;
     private ChoicesHandlerInterface choicesHandlerInterface = new ChoicesHandlerInterface() {
+        @Override
+        public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces)
+        {
+            return null;
+        }
         @Override
         public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
             ArrayList<GainResourceEffect> gainResourceEffects = new ArrayList<>(1);

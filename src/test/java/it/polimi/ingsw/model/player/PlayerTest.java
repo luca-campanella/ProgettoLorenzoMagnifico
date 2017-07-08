@@ -15,6 +15,7 @@ import it.polimi.ingsw.model.leaders.LeadersDeck;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.server.JSONLoader;
 import it.polimi.ingsw.utils.Debug;
 import org.junit.Before;
@@ -42,6 +43,11 @@ public class PlayerTest {
     private Resource resourceMilitary = new Resource(ResourceTypeEnum.MILITARY_POINT, 20);
     private Resource resourceVP = new Resource(ResourceTypeEnum.VICTORY_POINT, 20);
     private ChoicesHandlerInterface choicesHandlerInterface = new ChoicesHandlerInterface() {
+        @Override
+        public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces)
+        {
+            return null;
+        }
         @Override
         public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
             ArrayList<GainResourceEffect> gainResourceEffects = new ArrayList<>(1);
