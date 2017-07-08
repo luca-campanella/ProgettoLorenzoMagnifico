@@ -171,9 +171,10 @@ public class ModelController {
 
     /**
      * this method is used to deliver all the tower spaces available to the player
+     * @param isActionWithNoFamilyMember true if the action doesn't have a family member associated
      * @return the coordinates of the tower spaces available for this family member and the servant needed
      */
-    public ArrayList<TowerWrapper> spaceTowerAvailable(FamilyMember familyMember){
+    public ArrayList<TowerWrapper> spaceTowerAvailable(FamilyMember familyMember, boolean isActionWithNoFamilyMember){
         Debug.printDebug("spaceTowerCalled");
 
         ArrayList<TowerWrapper> towerWrappers = new ArrayList<>(16);
@@ -188,7 +189,7 @@ public class ModelController {
             for (int towerFloor = 0; towerFloor < 4; towerFloor++) {
 
                 TowerFloorAS towerFloorAs = tower.getFloors()[towerFloor];
-                if(isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), towerFloorAs, familyMembers)){
+                if(isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), towerFloorAs, familyMembers, false)){
                     int servantNeeded = towerFloorAs.getDiceRequirement() - familyMember.getValue() -
                             familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAs.getCard().getColor())
                             //malus coming from excommunication tiles
@@ -243,9 +244,12 @@ public class ModelController {
     /**
      * this method is used to control if the family member can be placed on the floor of a defined tower
      * @param familyMember the family member tht the player wants to place
+     * @param isActionWithNoFamilyMember true if the action doesn't have a family member associated
      * @return true if the move is available, false otherwise
      */
-    private boolean isPlaceOnTowerFloorLegal(FamilyMember familyMember, int servant, TowerFloorAS towerFloorAS,ArrayList<FamilyMember> familyMembersOnTheTower){
+    private boolean isPlaceOnTowerFloorLegal(FamilyMember familyMember, int servant, TowerFloorAS towerFloorAS,
+                                             ArrayList<FamilyMember> familyMembersOnTheTower,
+                                             boolean isActionWithNoFamilyMember){
 
         Player player = familyMember.getPlayer();
 
@@ -257,15 +261,15 @@ public class ModelController {
             return false;
 
         //control on the input, if the player has that resources and if the place is not available
-        if(!player.getNotUsedFamilyMembers().contains(familyMember)
-                || player.getResource(ResourceTypeEnum.SERVANT)<servant){
+        if(!isActionWithNoFamilyMember && (!player.getNotUsedFamilyMembers().contains(familyMember)
+                || player.getResource(ResourceTypeEnum.SERVANT)<servant)) {
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             Debug.printVerbose("the player doesn t have the family member");
             return false;
         }
         //control on the action space, if the player already has a family member
         if(findFamilyMemberNotNeutral(player, familyMembersOnTheTower)
-                && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL){
+                && familyMember.getColor()!=DiceAndFamilyMemberColorEnum.NEUTRAL ){
             Debug.printVerbose("there are already another one");
             //this means that the player has already placed a family member on that action space
             return false;}
@@ -337,7 +341,7 @@ public class ModelController {
                 falseDice.setValue(((TakeCardNoFamilyMemberEffect) effectIter).getDiceValue());
 
                 List<TowerWrapper> availableTowerFloors =
-                        spaceTowerAvailable(new FamilyMember(falseDice, familyMember.getPlayer()));
+                        spaceTowerAvailable(new FamilyMember(falseDice, familyMember.getPlayer()), true);
                 TowerWrapper choice = choicesController.callbackOnTakeCard(
                         gameBoard.getTower(towerIndex).getFloorByIndex(floorIndex).getCard().getName(),
                         availableTowerFloors);

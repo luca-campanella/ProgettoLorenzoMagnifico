@@ -264,7 +264,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
                 modelController.spaceBuildAvailable(familyMemberCurrentAction),
                 modelController.spaceCouncilAvailable(familyMemberCurrentAction),
                 modelController.spaceMarketAvailable(familyMemberCurrentAction),
-                modelController.spaceTowerAvailable(familyMemberCurrentAction),
+                modelController.spaceTowerAvailable(familyMemberCurrentAction, false),
                 familyMemberCurrentAction.getPlayer().getResource(ResourceTypeEnum.SERVANT));
         Debug.printDebug("Chiamata ritorna a callbackFM");
 
@@ -1271,8 +1271,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         choicesOnCurrentAction.put(choiceCode+":towerAS", choice);
         return availableSpaces.get(choice);
     }
-
-
 }
 
 

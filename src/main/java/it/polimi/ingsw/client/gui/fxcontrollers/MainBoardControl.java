@@ -340,6 +340,20 @@ public class MainBoardControl extends CustomFxControl {
     }
 
     /**
+     * refreshes en entire position, regardless of which players are on
+     * @param faithPoints
+     */
+    private void refreshFaithTrackValue(int faithPoints) {
+        List<Player> allPlayers = getController().callbackObtainPlayersInOrder();
+        int numberOfUpdatedPlayers = 0;
+        for(Player playerIter : allPlayers) {
+            if(playerIter.getResource(ResourceTypeEnum.FAITH_POINT) == faithPoints) { //we have to update this player
+                FaithTrackPlaceHolderCollector collector = faithTrackCylinderMap.get(playerIter.getNickname());
+            }
+        }
+    }
+
+    /**
      * This method is called to perform all the actions needed to prepare the gui for a new round
      */
     public void prepareForNewRound() {

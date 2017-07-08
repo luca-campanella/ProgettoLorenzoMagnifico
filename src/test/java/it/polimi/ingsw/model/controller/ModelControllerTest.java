@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.controller;
 
-import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.Deck;
@@ -100,17 +98,17 @@ public class ModelControllerTest {
         players.get(0).subResource(new Resource(ResourceTypeEnum.SERVANT, 3));
 
         //familyMember.setValueFamilyMember(7);
-        assertEquals(16, modelController.spaceTowerAvailable(players.get(0).getNotUsedFamilyMembers().get(0)).size());
+        assertEquals(16, modelController.spaceTowerAvailable(players.get(0).getNotUsedFamilyMembers().get(0), false).size());
         players.get(0).getNotUsedFamilyMembers().get(0).setValueFamilyMember(5);
-        assertEquals(12, modelController.spaceTowerAvailable(players.get(0).getNotUsedFamilyMembers().get(0)).size());
+        assertEquals(12, modelController.spaceTowerAvailable(players.get(0).getNotUsedFamilyMembers().get(0), false).size());
         players.get(0).getNotUsedFamilyMembers().get(0).setValueFamilyMember(3);
-        assertEquals(8, modelController.spaceTowerAvailable(players.get(0).getNotUsedFamilyMembers().get(0)).size());
+        assertEquals(8, modelController.spaceTowerAvailable(players.get(0).getNotUsedFamilyMembers().get(0), false).size());
         players.get(0).getNotUsedFamilyMembers().get(0).setValueFamilyMember(1);
-        assertEquals(4, modelController.spaceTowerAvailable(players.get(0).getNotUsedFamilyMembers().get(0)).size());
+        assertEquals(4, modelController.spaceTowerAvailable(players.get(0).getNotUsedFamilyMembers().get(0), false).size());
         //care: probably modifying something this result can change from 4 to 2... Cause i just have 2 players but i loaded 4 players board.
         assertEquals(4, modelController.spaceMarketAvailable(players.get(0).getNotUsedFamilyMembers().get(0)).size());
         players.get(0).getNotUsedFamilyMembers().get(0).setValueFamilyMember(0);
-        assertEquals(0, modelController.spaceTowerAvailable(players.get(0).getNotUsedFamilyMembers().get(0)).size());
+        assertEquals(0, modelController.spaceTowerAvailable(players.get(0).getNotUsedFamilyMembers().get(0), false).size());
 
     }
 
