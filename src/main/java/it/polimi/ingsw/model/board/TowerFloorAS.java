@@ -66,7 +66,6 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
         player.subResources(resToSubtractToPlayer);
         player.addCard(card);
         card.applyImmediateEffectsToPlayer(player, choiceController);
-
     }
 
     /**

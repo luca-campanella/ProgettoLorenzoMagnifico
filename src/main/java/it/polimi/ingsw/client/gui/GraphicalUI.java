@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.gui;
 
-import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
@@ -174,6 +173,7 @@ public class GraphicalUI extends AbstractUIType {
             control.displayDices();
             control.displayCards();
             control.displayFamilyMembers();
+            control.refreshFaithTrack();
             control.prepareForNewRound();
             control.displayOrderOfPlayers(getController().callbackObtainPlayersInOrder());
             control.appendMessageOnStateTextArea("**NEW ROUND**");
@@ -285,31 +285,19 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askWhereToPlaceNoDiceFamilyMember(List<TowerWrapper> towerWrapper){
-        Set<String> choices = new HashSet<>();
-        ArrayList<String> choicesToShow = new ArrayList<>();
-        // i get the colors of all towers
-        for(TowerWrapper iterator : towerWrapper)
-            choices.add(CardColorEnum.values()[(iterator.getTowerIndex())].getCardColor().concat(Integer.toString(iterator.getTowerFloor())));
+        FutureTask<Integer> futureTask = new FutureTask(new AskWhereToPlaceNoDiceFamilyMember(towerWrapper));
+        Platform.runLater(futureTask);
 
-
-        choicesToShow.addAll(choices);
-        ChoiceDialog<String> dialog = new ChoiceDialog<>(choicesToShow.get(0), choicesToShow);
-
-
-        dialog.setTitle("Placing a Dice");
-        dialog.setHeaderText("Choose where to place  a family member");
-
-        // Traditional way to get the response value.
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-            System.out.println("Your choice: " + result.get());
-            for(int i = 0; i< choicesToShow.size(); i++)
-                if (choicesToShow.get(i).equals(result.get())){
-                    Debug.printVerbose(Integer.toString(i));
-                    return i;}
-        }
-        Debug.printVerbose("Something went wrong");
-        return 0;
+       int choice = 0;
+       try{
+           choice = futureTask.get();
+           Debug.printVerbose("Got whereToPlaceDiceNoFamilyMember " + choice);
+       } catch (InterruptedException | ExecutionException e) {
+           e.printStackTrace();
+           this.displayError("Error in opening dialogue, default value instead - 0", e.getMessage());
+       }
+        ((MainBoardControl)(currentFXControl)).removeCardFromView(towerWrapper.get(choice).getTowerFloor(), towerWrapper.get(choice).getTowerIndex());
+       return choice;
     }
 
     /**
