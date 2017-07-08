@@ -650,10 +650,7 @@ public class ModelController {
             //this means that the player doesn't has the resources that claimed to have, this is cheating
             return false;
         CouncilAS councilPlace = gameBoard.getCouncil();
-        //control on the action space, if the player already has a family member
-        if(findFamilyMember(familyMember.getPlayer(), councilPlace.getFamilyMembers()))
-            //this means that the player has already placed a family member on that action space
-            return false;
+
         //control if the family member has a right value to build
         if((servant/familyMember.getPlayer().getExcommunicationTilesCollector().payMoreServant())
                 //we divide by the exchange rate given by the malus of excommunication tiles

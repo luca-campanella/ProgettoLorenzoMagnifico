@@ -596,6 +596,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setDice(dices);
 
         modelController.reloadFamilyMember();
+        modelController.getBoard().clearBoard();
 
         ArrayList<FamilyMember> playableFMs = thisPlayer.getNotUsedFamilyMembers();
         for(FamilyMember fmIter : playableFMs) {
