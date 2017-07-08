@@ -99,7 +99,7 @@
 .labelResources{
     -fx-font-size: 25px;
     -fx-font-family: sans-serif;
-    -fx-background-color: red;/*aliceblue;*/
+    -fx-background-color: #6d1414;/*aliceblue;*/
     -fx-background-radius: 40px;
     -fx-background-position: center;
     -fx-padding: 10px 10px 10px 10px;
