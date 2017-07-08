@@ -265,7 +265,7 @@ public class ControllerGame {
     }
 
     /**
-     * thismethod is used to take the list of player that had placed a family member on the council
+     * this method is used to take the list of player that had placed a family member on the council
      * this is needed because a layer can placed more tha a family member on the council
      * @param familyMembersOnCouncil the family members on the council
      * @return return the list of players in order

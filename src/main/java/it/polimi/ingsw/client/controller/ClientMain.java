@@ -31,6 +31,7 @@ import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     private NetworkChoicesPacketHandler otherPlayerChoicesHandler;
 
     /**
-     * The list of players in the room
+     * The list of players in the room, in order of turn
      */
     private ArrayList<Player> players;
 
@@ -594,7 +595,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
         dices.forEach(dice -> Debug.printVerbose("Dice " + dice.getValue() + " " + dice.getColor() ));
         modelController.setDice(dices);
-
+        reDoOrderPlayer(modelController.getFamilyMemberCouncil());
         modelController.reloadFamilyMember();
         modelController.getBoard().clearBoard();
 
@@ -603,6 +604,37 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
         }
         //userInterface.waitMenu(false);
+    }
+
+    /**
+     * manage the order of the orderOfPlayers based on the council
+     * @param familyMembers the family members placed on the council
+     */
+    private void reDoOrderPlayer(ArrayList<FamilyMember> familyMembers){
+
+        ArrayList<Player> newPlayersOrder = takeListPlayerFromCouncil(familyMembers);
+
+        for(Player player : players){
+            if(!newPlayersOrder.contains(player))
+                newPlayersOrder.add(player);
+        }
+        players = new ArrayList<>(newPlayersOrder);
+
+    }
+
+    /**
+     * this method is used to take the list of player that had placed a family member on the council
+     * this is needed because a layer can placed more tha a family member on the council
+     * @param familyMembersOnCouncil the family members on the council
+     * @return return the list of players in order
+     */
+    private ArrayList<Player> takeListPlayerFromCouncil(ArrayList<FamilyMember> familyMembersOnCouncil){
+        ArrayList playersOrder = new ArrayList(players.size());
+        for(FamilyMember familyMember : familyMembersOnCouncil){
+            if(!playersOrder.contains(familyMember.getPlayer()))
+                playersOrder.add(familyMember.getPlayer());
+        }
+        return playersOrder;
     }
 
     /**
