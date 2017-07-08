@@ -1035,7 +1035,7 @@
         }
       ,
         {
-          "immediateEffect": "DiscountEffect",
+          "immediateEffect": "GainResourceEffect",
           "resources": [
             {
               "type": "COIN",
