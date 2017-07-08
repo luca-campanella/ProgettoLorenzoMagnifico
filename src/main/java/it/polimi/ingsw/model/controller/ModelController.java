@@ -256,7 +256,7 @@ public class ModelController {
         //if it's a territory card we have to check if the requirement on military points is met
         if(towerFloorAS.getCard().getColor() == CardColorEnum.GREEN
                 && !player.getPersonalBoard().
-                canAddTerritoryCard(player.getResource(ResourceTypeEnum.COIN),
+                canAddTerritoryCard(player.getResource(ResourceTypeEnum.MILITARY_POINT),
                         player.getPermanentLeaderCardCollector().noMilitaryPointsNeededForTerritoryCards()))
             return false;
 
