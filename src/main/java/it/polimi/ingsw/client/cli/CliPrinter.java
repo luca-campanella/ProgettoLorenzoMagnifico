@@ -174,8 +174,13 @@ public class CliPrinter {
             costs = floor.getCard().getImmediateEffect();
             //first i print the costs
             for (int i = 0; i < costs.size(); i++) {
+                try {
                 immediateEffects.append(costs.get(i).descriptionShortOfEffect());
                 immediateEffects.append(" ");
+
+                } catch(NullPointerException e) {
+                    //no cost
+                }
             }
         }
         else

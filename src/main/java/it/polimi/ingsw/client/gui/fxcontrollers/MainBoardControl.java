@@ -11,7 +11,6 @@ import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -1083,7 +1082,6 @@ public class MainBoardControl extends CustomFxControl {
      * this method is called by the client to ask the client if he wants to be excommunicated on the gui
      */
     public void askExcommunicationChoice(int numTile) {
-        Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Excommunication?");
             alert.setHeaderText("Do you want to be excommunicated?");
@@ -1099,7 +1097,6 @@ public class MainBoardControl extends CustomFxControl {
                 pool.execute(() -> getController().callbackExcommunicationChoice("YES", numTile));
             else
                 pool.execute(() -> getController().callbackExcommunicationChoice("NO", numTile));
-        });
     }
 
     /**
