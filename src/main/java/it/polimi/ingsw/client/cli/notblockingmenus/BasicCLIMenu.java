@@ -99,12 +99,16 @@ public abstract class BasicCLIMenu extends Thread {
 
 
     private void printMenu() {
-        System.out.println(initialMenu);
-        optionsMap.forEach((abbrev, descrCallback) ->
-        {
-            if(!"CONNECT".equals(abbrev))
-                System.out.println(abbrev + " - " + descrCallback.getDescription());
-        });
+        if(!controller.callbackObtainIsThisPlayerSuspended()) {
+            System.out.println(initialMenu);
+            optionsMap.forEach((abbrev, descrCallback) ->
+            {
+                if (!"CONNECT".equals(abbrev))
+                    System.out.println(abbrev + " - " + descrCallback.getDescription());
+            });
+        } else {
+            System.out.println("You are disconnected, write CONNECT to reconnect");
+        }
     }
 
     private class DescrCallbackContainer {
