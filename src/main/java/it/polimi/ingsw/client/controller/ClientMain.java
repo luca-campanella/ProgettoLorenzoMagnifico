@@ -906,8 +906,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         } catch (NetworkException e) {
             //todo handle better
             Debug.printError("Cannot send leader choice", e);
-            userInterface.displayError("Connection problem", "Cannot contact the server, exiting the program");
-            System.exit(0);
+            userInterface.displayErrorAndExit("Connection problem", "Cannot contact the server, exiting the program");
         }
     }
 
