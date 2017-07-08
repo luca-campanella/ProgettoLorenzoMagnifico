@@ -162,7 +162,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             }
         }
         catch(IOException | ClassNotFoundException e){
-            Debug.printError("network is not working",e);}
+            Debug.printError("network is not working",e);
+        }
     }
 
     /**
@@ -179,6 +180,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
+            getRoom().signalConnectionError(this);
         }
 
     }
@@ -196,6 +198,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
+            getRoom().signalConnectionError(this);
         }
 
     }
@@ -210,6 +213,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
+            getRoom().signalConnectionError(this);
         }
 
     }
@@ -224,6 +228,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch(IOException | ClassNotFoundException e){
             Debug.printError("network is not working", e);
+            getRoom().signalConnectionError(this);
         }
 
     }
@@ -239,10 +244,12 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch(IOException e){
             Debug.printError("network is not working", e);
+            getRoom().signalConnectionError(this);
         }
         catch(ClassNotFoundException e) {
             Debug.printError("Something went wrong trying to receved playLeaderCard", e);
             e.printStackTrace();
+            getRoom().signalConnectionError(this);
         }
     }
 
@@ -256,10 +263,12 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch(IOException e){
             Debug.printError("network is not working", e);
+            getRoom().signalConnectionError(this);
         }
         catch(ClassNotFoundException e) {
             Debug.printError("Something went wrong trying to receive discardLeaderCard", e);
             e.printStackTrace();
+            getRoom().signalConnectionError(this);
         }
     }
 
@@ -276,11 +285,13 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
        }
        catch(IOException | ClassNotFoundException e){
            Debug.printError("network is not working",e);
+           getRoom().signalConnectionError(this);
        }
     }
 
     private void closeEverything()
     {
+        getRoom().signalConnectionError(this);
         try {
             inStream.close();
             outStream.close();
@@ -309,6 +320,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         catch(IOException e){
 
             Debug.printError("ERROR: the player " + senderNickname + " had tried to write a message in the chat", e);
+            getRoom().signalConnectionError(this);
         }
     }
 
@@ -676,6 +688,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("ERROR: cannot receive the leader cards from " + getNickname());
+            getRoom().signalConnectionError(this);
         }
     }
 
@@ -696,6 +709,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
         catch (IOException e){
             Debug.printError("Cannot deliver the nickname of the player");
+            getRoom().signalConnectionError(this);
         }
     }
 
@@ -721,7 +735,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             catch (IOException c){
                 Debug.printError("Cannot deliver error to " + getNickname());
             }
-
+            getRoom().signalConnectionError(this);
         }
     }
 
@@ -735,8 +749,8 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
             getRoom().chosePersonalTile(personalTile,this);
         }
         catch (IOException | ClassNotFoundException e){
-
             Debug.printError("Cannot receive the personal tile chosen by the client" + getNickname(),e);
+            getRoom().signalConnectionError(this);
         }
     }
 
@@ -1007,6 +1021,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("cannot receive the leader card activated");
+            getRoom().signalConnectionError(this);
         }
     }
 
@@ -1021,6 +1036,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("cannot receive the excommunication choice of the client");
+            getRoom().signalConnectionError(this);
         }
     }
 
@@ -1028,8 +1044,7 @@ public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
      * This method is called by the client to reconnect himself
      */
     public void receiveReconnect() {
-            getRoom().receiveReconnectPlayer(this);
-
+        getRoom().receiveReconnectPlayer(this);
     }
 }
 
