@@ -544,7 +544,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param orderPlayers the nicknames of the players, in order
      */
     @Override
-    public void receivedOrderPlayers(ArrayList<String> orderPlayers) {
+    public synchronized void receivedOrderPlayers(ArrayList<String> orderPlayers) {
         players = new ArrayList<Player>(orderPlayers.size());
         Debug.printVerbose("receivedOrderPlayers called, nickname = " + nickname);
 
@@ -570,7 +570,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receivedStartGameBoard(Board board) {
 
-        Debug.printVerbose("receivedStartgameBoard called");
+        Debug.printVerbose("received Start gameBoard called");
 
         modelController = new ModelController(players, board);
 
@@ -588,7 +588,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * and the dices already thrown
      * @param dices the board from the server
      */
-    public void receivedDices(ArrayList<Dice> dices) {
+    public synchronized void receivedDices(ArrayList<Dice> dices) {
         Debug.printVerbose("receivedDices called");
 
         dices.forEach(dice -> Debug.printVerbose("Dice " + dice.getValue() + " " + dice.getColor() ));
@@ -916,7 +916,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param specialTile option2
      */
     @Override
-    public void receivedPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
+    public synchronized void receivedPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
         //userInterface.askPersonalTiles(standardTile, specialTile);
         callbackOnTileChosen(standardTile);
     }
