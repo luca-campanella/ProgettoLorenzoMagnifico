@@ -278,6 +278,11 @@ public class GraphicalUI extends AbstractUIType {
         return choice;
     }
 
+    /**
+     * Asks what card to take when he has a free action due to a card that has such effect
+     * @param towerWrapper the list of available spaces
+     * @return the index of the choice
+     */
     @Override
     public int askWhereToPlaceNoDiceFamilyMember(List<TowerWrapper> towerWrapper){
         Set<String> choices = new HashSet<>();
