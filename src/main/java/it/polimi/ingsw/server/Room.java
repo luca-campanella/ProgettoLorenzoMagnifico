@@ -151,7 +151,7 @@ public class Room {
      */
     public void updateOrderPlayer(ArrayList<AbstractConnectionPlayer> orderPlayers) {
 
-        this.players = orderPlayers;
+        this.players = new ArrayList<>(orderPlayers);
 
     }
 

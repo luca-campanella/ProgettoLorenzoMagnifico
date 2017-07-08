@@ -802,7 +802,7 @@ public class SocketClient extends AbstractClientType {
 
         try{
             String nicknamePlayerDisconnected = (String)inStream.readObject();
-            getControllerMain().receiveDisconnection(nicknamePlayerDisconnected);
+            getControllerMain().receivedPlayerDisconnected(nicknamePlayerDisconnected);
         }
         catch (IOException | ClassNotFoundException e){
             Debug.printError("the client cannot receives the disconnection of a player",e);

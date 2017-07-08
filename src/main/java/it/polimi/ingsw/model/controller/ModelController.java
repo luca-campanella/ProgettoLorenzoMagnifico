@@ -126,7 +126,7 @@ public class ModelController {
             //todo: remove
            /* player.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, 49));
             player.addResource(new Resource(ResourceTypeEnum.MILITARY_POINT, 49));
-            player.addResource(new Resource(ResourceTypeEnum.COIN, 49));
+            //player.addResource(new Resource(ResourceTypeEnum.COIN, 49));
             player.addResource(new Resource(ResourceTypeEnum.SERVANT, 49));
             player.addResource(new Resource(ResourceTypeEnum.WOOD, 49));
             player.addResource(new Resource(ResourceTypeEnum.STONE, 49));*/
@@ -502,7 +502,6 @@ public class ModelController {
         player.playFamilyMember(familyMember);
         player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
         //just adds the family member to the BuildAS
-        gameBoard.build(familyMember);
         Debug.printVerbose("before calling player.build");
 
         int realDiceValueNoBlueBonusYesLeadersYesExcomm = familyMember.getValue() + servants;
@@ -510,6 +509,7 @@ public class ModelController {
         if(!gameBoard.getBuild().checkIfFirst() && !player.getPermanentLeaderCardCollector().canPlaceFamilyMemberInOccupiedActionSpace())
             realDiceValueNoBlueBonusYesLeadersYesExcomm -=  gameBoard.getBuild().getValueMalus();
 
+        gameBoard.build(familyMember);
         realDiceValueNoBlueBonusYesLeadersYesExcomm -= player.getExcommunicationTilesCollector().buildDiceMalusEffect();
 
 
@@ -532,7 +532,6 @@ public class ModelController {
         player.playFamilyMember(familyMember);
         player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
         //just adds the family member to the harvestAS
-        gameBoard.harvest(familyMember);
 
         int realDiceValueNoBlueBonusYesLeadersYesExcomm = familyMember.getValue() + servants;
         //we check if he's not the first inside the action space
@@ -541,6 +540,7 @@ public class ModelController {
         //excommunication tiles malus
         realDiceValueNoBlueBonusYesLeadersYesExcomm -= player.getExcommunicationTilesCollector().harvestDiceMalusEffect();
 
+        gameBoard.harvest(familyMember);
         player.harvest(realDiceValueNoBlueBonusYesLeadersYesExcomm, choicesController);
     }
 

@@ -765,6 +765,16 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
+     * this method is called by the network to deliver the fact that a player has disconnected
+     *
+     * @param nickname the nickname of the player that disconnected
+     */
+    @Override
+   public void receivedPlayerDisconnected(String nickname) {
+        userInterface.notifyAnotherPlayerDisconnected(nickname);
+    }
+
+    /**
      * This method returns to the view a reference to the board
      * this method is called to obtain the board of the game inside the view
      *
@@ -1120,6 +1130,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param nicknamePlayerDisconnected the nickname of the player that had left the game
      */
     @Override
+    @Deprecated
     public void receiveDisconnection(String nicknamePlayerDisconnected) {
 
         for(Player player : players){
@@ -1194,6 +1205,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated, int numTile) {
 
+        Debug.printVerbose("received excommunication.");
         modelController.excommunicatePlayer(playersExcommunicated, numTile);
         userInterface.displayExcommunicationPlayers(playersExcommunicated);
         if(!playersExcommunicated.contains(thisPlayer.getNickname()) && !isThisPlayerSuspended){

@@ -2,12 +2,13 @@ package it.polimi.ingsw.client.network.socket.packet;
 
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * this packet is used to deliver the players excommunicated
  */
-public class ExcommunicationPacket {
+public class ExcommunicationPacket implements Serializable{
 
     /**
      * the players excommunicated
