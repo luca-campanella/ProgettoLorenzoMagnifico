@@ -189,7 +189,7 @@ public class ModelController {
             for (int towerFloor = 0; towerFloor < 4; towerFloor++) {
 
                 TowerFloorAS towerFloorAs = tower.getFloors()[towerFloor];
-                if(isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), towerFloorAs, familyMembers, false)){
+                if(isPlaceOnTowerFloorLegal(familyMember, familyMember.getPlayer().getResource(ResourceTypeEnum.SERVANT), towerFloorAs, familyMembers, isActionWithNoFamilyMember)){
                     int servantNeeded = towerFloorAs.getDiceRequirement() - familyMember.getValue() -
                             familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getBonusOnDice(towerFloorAs.getCard().getColor())
                             //malus coming from excommunication tiles
