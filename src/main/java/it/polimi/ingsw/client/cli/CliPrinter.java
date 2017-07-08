@@ -697,4 +697,15 @@ public class CliPrinter {
             System.out.println("\n");
         }
     }
+
+    /**
+     * this method is called by the client to print the order of players in the turn
+     * @param orderOfPlayers the list of players in order of phase
+     */
+    public static void printOrderOfPlayers(List<Player> orderOfPlayers) {
+
+        System.out.println("The order of players:");
+        for (int i = 1 ; i < orderOfPlayers.size()+1 ; i++)
+            System.out.println(i + ") " + orderOfPlayers.get(i-1).getNickname());
+    }
 }

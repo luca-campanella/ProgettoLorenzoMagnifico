@@ -28,7 +28,16 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
         addOption("LC", "Show the leader cards on my hand", this::printLeaderCard);
         addOption("PB", "Show the personal board of the player", this::printPersonalBoard);
         addOption("PBO", "Show the personal board of the other players", this::printPersonalBoardOtherPlayers);
+        addOption("OP", "Show the order of players", this::printOrderOfPlayers);
 
+    }
+
+    /**
+     * this method is used to show the order of players on the cli
+     */
+    private void printOrderOfPlayers() {
+        CliPrinter.printOrderOfPlayers(getController().callbackObtainPlayersInOrder());
+        showMenuAndAsk();
     }
 
     /**
