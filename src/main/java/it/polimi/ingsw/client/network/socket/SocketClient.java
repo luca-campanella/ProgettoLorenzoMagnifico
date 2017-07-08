@@ -340,6 +340,7 @@ public class SocketClient extends AbstractClientType {
     @Override
     public void deliverTileChosen(PersonalTile tileChosen) throws NetworkException {
         try{
+            Debug.printVerbose("Delivered personal tile");
             synchronized (this){
                 outStream.writeObject(PacketType.CHOSE_TILES);
                 outStream.writeObject(tileChosen);

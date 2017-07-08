@@ -259,6 +259,7 @@ public class RMIClient extends AbstractClientType implements RMIClientInterface 
     @Override
     public void deliverTileChosen(PersonalTile tileChosen) throws NetworkException {
         try{
+            Debug.printVerbose("Delivered personal tile");
             RMIPlayerInterfaceInst.receivePersonalTile(tileChosen);
         }
         catch (RemoteException e){
