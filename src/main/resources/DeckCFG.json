@@ -1585,7 +1585,7 @@
         }
       ],
       "buildEffectValue": 4,
-      "name": "Carpenter's Shop",
+      "name": "Carpenter s Shop",
       "period": 1,
       "immediateEffect": [
         {
@@ -1596,7 +1596,7 @@
           }
         }
       ],
-      "imgName":"29-Carpenter'sShop.png"
+      "imgName":"29-Carpenter-sShop.png"
     },{
       "cost": [
         {
@@ -1654,7 +1654,7 @@
           }
         }
       ],
-      "imgName":"30-Stonemason'sShop.png"
+      "imgName":"30-Stonemason-sShop.png"
     },
     {
       "cost": [
@@ -1875,7 +1875,7 @@
           }
         }
       ],
-      "imgName":"35-Painters'Guild.png"
+      "imgName":"35-Painters-Guild.png"
     },{
       "cost": [
         {
@@ -1927,7 +1927,7 @@
           }
         }
       ],
-      "imgName":"36-Scuptors'Guild.png"
+      "imgName":"36-Sculptors-Guild.png"
     },{
       "cost": [
         {
@@ -1977,7 +1977,7 @@
         }
       ]
     ,
-      "imgName":"37-Stonemasons'Guild.png"
+      "imgName":"37-Stonemasons-Guild.png"
     },{
       "cost": [
         {
