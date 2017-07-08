@@ -30,6 +30,7 @@ import it.polimi.ingsw.model.player.*;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
@@ -1256,6 +1257,19 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
         choicesOnCurrentAction.put(choiceCode, choice.getIntegerValue());
         return choice;
+    }
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when the player activate a card which has the ability to take another card
+     * @param choiceCode the code of the choice, to be put inside hashmap
+     * @return a tower wrapper containing the choice
+     */
+    public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces) {
+        int choice = userInterface.askWhereToPlaceNoDiceFamilyMember(availableSpaces);
+
+        choicesOnCurrentAction.put(choiceCode+":towerAS", choice);
+        return availableSpaces.get(choice);
     }
 
 

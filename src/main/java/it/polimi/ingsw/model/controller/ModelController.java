@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeCardNoFamilyMemberEffect;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
@@ -327,6 +328,28 @@ public class ModelController {
      * @param floorIndex the floor to place the family member to
      */
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
+        //only for this effect we have to check here, the card cannot know which towers are available
+        List<ImmediateEffectInterface> cardEffects =
+                gameBoard.getTower(towerIndex).getFloorByIndex(floorIndex).getCard().getImmediateEffect();
+        for(ImmediateEffectInterface effectIter : cardEffects) {
+            if (effectIter instanceof TakeCardNoFamilyMemberEffect) {
+                Dice falseDice = new Dice(DiceAndFamilyMemberColorEnum.NEUTRAL);
+                falseDice.setValue(((TakeCardNoFamilyMemberEffect) effectIter).getDiceValue());
+
+                List<TowerWrapper> availableTowerFloors =
+                        spaceTowerAvailable(new FamilyMember(falseDice, familyMember.getPlayer()));
+                TowerWrapper choice = choicesController.callbackOnTakeCard(
+                        gameBoard.getTower(towerIndex).getFloorByIndex(floorIndex).getCard().getName(),
+                        availableTowerFloors);
+
+                gameBoard.placeOnTowerNoFamilyMember(familyMember.getPlayer(),
+                        ((TakeCardNoFamilyMemberEffect) effectIter).getDiceValue(),
+                        choice.getTowerIndex(),
+                        choice.getTowerFloor(),
+                        choicesController);
+
+            }
+        }
          gameBoard.placeOnTower(familyMember, towerIndex, floorIndex, choicesController);
     }
 

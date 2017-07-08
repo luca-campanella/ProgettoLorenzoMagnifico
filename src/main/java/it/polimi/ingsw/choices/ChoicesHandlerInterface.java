@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.leaders.leadersabilities.AbstractLeaderAbility;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 
 import java.util.List;
 
@@ -99,4 +100,12 @@ public interface ChoicesHandlerInterface {
      * @return the color of the family member he chose
      */
     public DiceAndFamilyMemberColorEnum callbackOnFamilyMemberBonus(String choiceCode, List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException;
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when the player activate a card which has the ability to take another card
+     * @param choiceCode the code of the choice, to be put inside hashmap
+     * @return a tower wrapper containing the choice
+     */
+    public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces);
 }
