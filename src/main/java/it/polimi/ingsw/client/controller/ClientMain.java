@@ -1267,7 +1267,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces) {
         int choice = userInterface.askWhereToPlaceNoDiceFamilyMember(availableSpaces);
-
+        Debug.printVerbose("Im inside the callbackOnTakeCard");
         choicesOnCurrentAction.put(choiceCode+":towerAS", choice);
         return availableSpaces.get(choice);
     }

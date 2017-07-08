@@ -51,8 +51,16 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
 
         //gui.notifyThisPlayerSuspended();
         TowerWrapper towerWrapper = new TowerWrapper(2,0,0);
+        TowerWrapper towerWrapper1 = new TowerWrapper(1,0,0);
+        TowerWrapper towerWrapper2= new TowerWrapper(0,0,0);
+        TowerWrapper towerWrapper3 = new TowerWrapper(1,0,0);
+
         List<TowerWrapper> towerWrappers = new ArrayList<>(1);
         towerWrappers.add(towerWrapper);
+        towerWrappers.add(towerWrapper1);
+        towerWrappers.add(towerWrapper2);
+        towerWrappers.add(towerWrapper3);
+
         gui.askWhereToPlaceNoDiceFamilyMember(towerWrappers);
         //gui.askExcommunicationChoice(0);
         /*ArrayList< GainResourceEffect> options = new ArrayList<>(1);
