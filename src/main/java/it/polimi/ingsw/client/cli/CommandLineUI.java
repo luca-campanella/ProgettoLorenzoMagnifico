@@ -603,6 +603,16 @@ public class CommandLineUI extends AbstractUIType {
     }
 
     /**
+     * Tells the view to remove a card
+     *
+     * @param towerWrapper contains the coordinates of the card
+     */
+    @Override
+    public void removeCard(TowerWrapper towerWrapper) {
+        //here is handled differently from the gui
+    }
+
+    /**
      * This method is called by controller to signal that this player was suspended due to timeout
      */
     @Override

@@ -15,10 +15,7 @@ import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class is used to read choices arrived via network and to read them both in the server and in the client when it's not his turn
@@ -210,5 +207,20 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
     public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces) {
         int choice = choicesMap.get(choiceCode+":towerAS");
         return availableSpaces.get(choice);
+    }
+
+    /**
+     * Checks if the hashmap contains a chioice on take a card
+     * @return true if it contains
+     */
+    public boolean hasChoiceOnTakeCard() {
+        Iterator it = choicesMap.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            if(((String) (pair.getKey())).contains(":towerAS"))
+                return true;
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        return false;
     }
 }

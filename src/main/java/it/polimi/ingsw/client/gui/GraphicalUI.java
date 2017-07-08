@@ -6,7 +6,6 @@ import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.blockingdialogs.*;
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
-import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
@@ -27,7 +26,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -37,7 +35,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -287,6 +287,7 @@ public class GraphicalUI extends AbstractUIType {
     public int askWhereToPlaceNoDiceFamilyMember(List<TowerWrapper> towerWrapper){
         FutureTask<Integer> futureTask = new FutureTask(new AskWhereToPlaceNoDiceFamilyMember(towerWrapper));
         Platform.runLater(futureTask);
+
 
        int choice = 0;
        try{
@@ -668,7 +669,6 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * This method is used by the controller when it receives a place on tower from another player and wants
      * to notify the user that such a move has happened
-     *
      * @param fm         the family member used for the move
      * @param towerIndex the index of the tower
      * @param floorIndex the index of the floor AS
@@ -677,6 +677,17 @@ public class GraphicalUI extends AbstractUIType {
     public void notifyPlaceOnTower(FamilyMember fm, int towerIndex, int floorIndex) {
         Platform.runLater( () ->
         ((MainBoardControl) (currentFXControl)).notifyPlaceOnTower(fm, towerIndex, floorIndex));
+    }
+
+    /**
+     * Tells the view to remove a card
+     * @param towerWrapper contains the coordinates of the card
+     */
+    @Override
+    public void removeCard(TowerWrapper towerWrapper) {
+        Platform.runLater( () -> ((MainBoardControl)(currentFXControl))
+                .removeCardFromView(towerWrapper.getTowerFloor(),
+                        towerWrapper.getTowerIndex()));
     }
 
     /**

@@ -143,6 +143,7 @@ public interface ViewControllerCallbackInterface {
      */
     void setBoardNeedsToBeRefreshed(boolean boardNeedsToBeRefreshed);
 
+
     /**
      * This method returns to the view a reference to the player the client represents
      * this method is usually called to show the personal board of the player
