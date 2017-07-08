@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.leaders.leadersabilities.EmptyLeaderAbility;
 import it.polimi.ingsw.model.player.DiceAndFamilyMemberColorEnum;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.resource.Resource;
+import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
@@ -198,5 +199,16 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
             throw new IllegalArgumentException("The family member list is empty");
 
         return DiceAndFamilyMemberColorEnum.valueOf(choice);
+    }
+
+    /**
+     * Callback from model to controller
+     * the model uses this method when the player activate a card which has the ability to take another card
+     * @param choiceCode the code of the choice, to be put inside hashmap
+     * @return a tower wrapper containing the choice
+     */
+    public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces) {
+        int choice = choicesMap.get(choiceCode+":towerAS");
+        return availableSpaces.get(choice);
     }
 }

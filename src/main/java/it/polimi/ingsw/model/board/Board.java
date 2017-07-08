@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.FamilyMember;
+import it.polimi.ingsw.model.player.Player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -250,6 +251,20 @@ public class Board implements Serializable {
      */
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, ChoicesHandlerInterface choicesController) {
         towers[towerIndex].placeFamilyMember(familyMember, floorIndex, choicesController);
+    }
+
+    /**
+     * This method performs the real action on the model when the player places a FM on a tower
+     * Due to the effect of a card and as such has no family member to place
+     * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.MarketAS}
+     * @param player the player who performs the action
+     * @param towerIndex the tower
+     * @param floorIndex the floor
+     * @param choicesController needed because there can be some decisions tied to the action
+     */
+    public void placeOnTowerNoFamilyMember(Player player, int diceValue, int towerIndex, int floorIndex,
+                                           ChoicesHandlerInterface choicesController) {
+        towers[towerIndex].performActionNoFamilyMember(player, diceValue, floorIndex, choicesController);
     }
 
     /**
