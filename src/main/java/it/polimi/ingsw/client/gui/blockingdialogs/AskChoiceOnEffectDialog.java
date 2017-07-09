@@ -16,8 +16,8 @@ import java.util.concurrent.Callable;
  */
 public class AskChoiceOnEffectDialog implements Callable<Integer> {
 
-    List<? extends ImmediateEffectInterface> options;
-    String description;
+    private List<? extends ImmediateEffectInterface> options;
+    private String description;
     public AskChoiceOnEffectDialog(List<? extends ImmediateEffectInterface> options, String description) {
         this.options = options;
         this.description = description;
@@ -28,7 +28,8 @@ public class AskChoiceOnEffectDialog implements Callable<Integer> {
         List<String> optionsString = new ArrayList<>();
         for (ImmediateEffectInterface iterator : options)
             optionsString.add(iterator.descriptionOfEffect());
-
+        if(optionsString.isEmpty())
+            return -1;
         ChoiceDialog<String> dialog = new ChoiceDialog<>(optionsString.get(0), optionsString);
 
         dialog.setTitle("Information choice");
@@ -41,7 +42,7 @@ public class AskChoiceOnEffectDialog implements Callable<Integer> {
             for (int index = 0; index < optionsString.size(); index++)
                 if (optionsString.get(index).equals(result.get()))
                     return index;
-        //todo debug, if canceled returns 0
+        //if anything happens it returns the first choice
         return 0;
     }
 }
