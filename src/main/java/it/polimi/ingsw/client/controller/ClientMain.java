@@ -480,8 +480,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             effectChosen = new NoEffect();
         }
         else if(possibleEffectChoices.size() == 1) {
-            effectChosen = realPossibleEffectChoices.get(1);
+            effectChosen = realPossibleEffectChoices.get(0);
             choice = possibleEffectChoices.indexOf(effectChosen);
+            Debug.printVerbose("Index of choice inside 1: " + choice);
         }
         else { //there are possible choices: let's ask the UI what to chose
             int tmpChoice = userInterface.askYellowBuildingCardEffectChoice(realPossibleEffectChoices);
@@ -998,7 +999,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param familyMemberColor the color of the family member he performed the action with
      * @param towerIndex        the index of the tower he placed the family member in
      * @param floorIndex        the index of the floor he placed the family member in
-     * @param playerChoices     the hashmao with his choices correlated with this action
+     * @param playerChoices     the hashmap with his choices correlated with this action
      */
     @Override
     public void receivedPlaceOnTower(String nickname, DiceAndFamilyMemberColorEnum familyMemberColor,
@@ -1171,7 +1172,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * this method is called by the connectioon to deliver the discard leader card of a player
+     * this method is called by the connection to deliver the discard leader card of a player
      * @param nickname the nickname of the player that discarded the leader card
      * @param nameCard the name of the leader card discarded
      * @param resourceGet the resource obtained
@@ -1200,11 +1201,11 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * this method is called by RMI client to receive the leaderc card played bu another player
+     * this method is called by RMI client to receive the leaders card played bu another player
      * @param nameCard the name of the leader card played
      * @param choicesOnCurrentActionString the choices done while playing the leader card
      * @param nickname the nickname of the player
-     * @param choicesOnCurrentAction
+     * @param choicesOnCurrentAction are the choices on current action
      */
     @Override
     public void receivePlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString, String nickname, HashMap<String, Integer> choicesOnCurrentAction) {
