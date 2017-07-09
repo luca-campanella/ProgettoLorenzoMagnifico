@@ -13,6 +13,7 @@ import it.polimi.ingsw.client.network.rmi.RMIClient;
 import it.polimi.ingsw.client.network.socket.SocketClient;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.BuildingCard;
@@ -113,7 +114,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         startUp();
     }
 
-    public void startUp() {
+    private void startUp() {
         Debug.instance(Debug.LEVEL_VERBOSE);
         StdinSingleton.instance();
         LOGGER.setLevel(Level.ALL);
@@ -199,8 +200,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
     /**
      * Called by the UI when the user wants to create a new account to connect to the server
-     * @param userID
-     * @param userPW
+     * @param userID user id
+     * @param userPW user password
      */
     @Override
     public void callbackCreateAccount(String userID, String userPW){
@@ -274,8 +275,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
     /**
      * This method is called by {@link AbstractClientType} to display an incoming chat message (Direction: AbstractClientType -> ClientMain; general direction: Server -> Client)
-     * @param senderNick
-     * @param msg
+     * @param senderNick is the person who's sending the message
+     * @param msg is the message received
      */
     @Override
     public void receiveChatMsg(String senderNick, String msg) {
@@ -422,7 +423,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * The method also performs checks that all the chosen council gifts are different one another
      * This implementation calls the view and asks what the user wants to choose
      * The UI should perform a <b>blocking</b> question to the user and return directly to this method
-     * @param choiceCode
+     * @param choiceCode it's the usual choice code
      * @param numberDiffGifts the number of different council gifts to ask for
      * @return The arraylist of effect chosen
      */
@@ -509,7 +510,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * Callback from model to controller
      * The model uses this method inside {@link VentureCard#getCostAskChoice(ChoicesHandlerInterface)} to understand what cos he should subtract
      *
-     * @param choiceCode
+     * @param choiceCode it's a choice code
      * @param costChoiceResource the list of resources the player will pay if he chooses this option
      * @param costChoiceMilitary the cost he will pay on something conditioned
      * @return The list of resources the model has to take away from the player
@@ -549,7 +550,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public synchronized void receivedOrderPlayers(ArrayList<String> orderPlayers) {
-        players = new ArrayList<Player>(orderPlayers.size());
+        players = new ArrayList<>(orderPlayers.size());
         Debug.printVerbose("receivedOrderPlayers called, nickname = " + nickname);
 
         Player playerTmp;
@@ -920,7 +921,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void receiveCardsToPlace(ArrayList<AbstractCard> cards) {
         Debug.printDebug("Cards received, placing on board");
-        cards.forEach((card) -> Debug.printVerbose(card.getName()));
+        cards.forEach(card -> Debug.printVerbose(card.getName()));
         modelController.placeCardOnBoard(cards);
         boardNeedsToBeRefreshed = true;
         if(!players.get(0).getNickname().equals(thisPlayer.getNickname()))
@@ -1021,6 +1022,13 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
                     List<TowerWrapper> availableTowerFloors =
                             modelController.spaceTowerAvailable(new FamilyMember(falseDice, player), true);
+                    List<TowerWrapper> realSpaceTowerAvailable = new ArrayList<>();
+                    for(CardColorEnum colorIterator : ((TakeCardNoFamilyMemberEffect) effectIter).getTowerColorsAllowed())
+                    {
+                        for(TowerWrapper towerIterator : availableTowerFloors)
+                            if(towerIterator.getTowerIndex() == colorIterator.getIndexOfTower())
+                                realSpaceTowerAvailable.add(towerIterator);
+                    }
                     TowerWrapper choice = otherPlayerChoicesHandler.callbackOnTakeCard(
                             card.getName(),
                             availableTowerFloors);

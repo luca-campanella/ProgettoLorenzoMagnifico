@@ -334,9 +334,16 @@ public class ModelController {
 
                 List<TowerWrapper> availableTowerFloors =
                         spaceTowerAvailable(new FamilyMember(falseDice, familyMember.getPlayer()), true);
+                List<TowerWrapper> realSpaceTowerAvailable = new ArrayList<>();
+                for(CardColorEnum colorIterator : ((TakeCardNoFamilyMemberEffect) effectIter).getTowerColorsAllowed())
+                {
+                    for(TowerWrapper towerIterator : availableTowerFloors)
+                        if(towerIterator.getTowerIndex() == colorIterator.getIndexOfTower())
+                            realSpaceTowerAvailable.add(towerIterator);
+                }
                 TowerWrapper choice = choicesController.callbackOnTakeCard(
                         gameBoard.getTower(towerIndex).getFloorByIndex(floorIndex).getCard().getName(),
-                        availableTowerFloors);
+                        realSpaceTowerAvailable);
 
                 gameBoard.placeOnTowerNoFamilyMember(familyMember.getPlayer(),
                         ((TakeCardNoFamilyMemberEffect) effectIter).getDiceValue(),
