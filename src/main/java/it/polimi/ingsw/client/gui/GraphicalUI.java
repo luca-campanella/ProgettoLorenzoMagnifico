@@ -242,7 +242,7 @@ public class GraphicalUI extends AbstractUIType {
     public int askYellowBuildingCardEffectChoice(List<ImmediateEffectInterface> possibleEffectChoices) {
         FutureTask<Integer> futureTask = new FutureTask(new AskChoiceOnEffectDialog(possibleEffectChoices, " building "));
         Platform.runLater(futureTask);
-
+        Debug.printVerbose("Building... askYellowBuildingCardEffectChoice");
         int choice = 0;
         try {
             choice = futureTask.get();
@@ -297,7 +297,7 @@ public class GraphicalUI extends AbstractUIType {
            e.printStackTrace();
            this.displayError("Error in opening dialogue, default value instead - 0", e.getMessage());
        }
-        ((MainBoardControl)(currentFXControl)).removeCardFromView(towerWrapper.get(choice).getTowerFloor(), towerWrapper.get(choice).getTowerIndex());
+        ((MainBoardControl)(currentFXControl)).removeCardFromView(towerWrapper.get(choice).getTowerIndex(), towerWrapper.get(choice).getTowerFloor());
        return choice;
     }
 
@@ -372,7 +372,7 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public int askAlsoActivateLeaderCard() {
-        //todo here there's a integer... shouldn't it return false or true? maybe hashmap has problems...
+
         FutureTask<Integer> futureTask = new FutureTask(new AskAlsoActivateLeaderCardDialog());
         Platform.runLater(futureTask);
 

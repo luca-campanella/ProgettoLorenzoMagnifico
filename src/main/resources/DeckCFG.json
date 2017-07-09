@@ -1327,7 +1327,7 @@
           "diceValue": 4
         }
       ],
-      "imgName":"71-Bishop.png"
+      "imgName":"70-Bishop.png"
     },{
       "cost": [
         {
@@ -1654,7 +1654,7 @@
           }
         }
       ],
-      "imgName":"30-Stonemason-sShop.png"
+      "imgName":"30-StoneMason-sShop.png"
     },
     {
       "cost": [

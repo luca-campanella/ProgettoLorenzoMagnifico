@@ -750,6 +750,7 @@ public class MainBoardControl extends CustomFxControl {
         StringBuilder cardStringBuilder = new StringBuilder("#card");
         cardStringBuilder.append(row);
         cardStringBuilder.append(col);
+        Debug.printVerbose(cardStringBuilder.toString());
         ImageView temp = (ImageView) towersCouncilFaith.lookup(cardStringBuilder.toString());
         temp.setImage(null);
     }
