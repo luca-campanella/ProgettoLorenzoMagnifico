@@ -7,7 +7,6 @@ import it.polimi.ingsw.client.network.NetworkTypeEnum;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
-import it.polimi.ingsw.model.board.Tower;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.leaders.LeaderCard;
@@ -42,10 +41,6 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Debug.instance(Debug.LEVEL_VERBOSE);
-        Board board = JSONLoader.boardCreator();
-        Deck deck = JSONLoader.createNewDeck();
-        board.setDeck(deck);
 
         gui = new GraphicalUI(this);
 

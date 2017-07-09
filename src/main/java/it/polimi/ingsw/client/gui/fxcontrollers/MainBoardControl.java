@@ -192,7 +192,7 @@ public class MainBoardControl extends CustomFxControl {
         }
         tabs.remove(otherPlayers.size()+1, tabs.size());
 
-        if(otherPlayers.size() >= 1) {
+        if(!otherPlayers.isEmpty()) {
             player1Tab.setUpTab(getController(), otherPlayers.get(0), false);
             playersTabMap.put(otherPlayers.get(0).getNickname(), player1Tab);
             if(otherPlayers.size() >= 2) {
@@ -313,7 +313,7 @@ public class MainBoardControl extends CustomFxControl {
      */
     public void refreshFaithTrack() {
         getController().callbackObtainPlayersInOrder()
-                .forEach((player) -> refreshFaithTrackOfPlayer(player.getNickname()));
+                .forEach(player -> refreshFaithTrackOfPlayer(player.getNickname()));
     }
 
     /**
@@ -335,7 +335,7 @@ public class MainBoardControl extends CustomFxControl {
 
     /**
      * refreshes en entire position, regardless of which players are on
-     * @param faithPoints
+     * @param faithPoints are the faith point of the tral
      */
     private void refreshFaithTrackValue(int faithPoints) {
         List<Player> allPlayers = getController().callbackObtainPlayersInOrder();
@@ -371,7 +371,7 @@ public class MainBoardControl extends CustomFxControl {
             marketPane.getChildren().remove(fmButtonIter);
         }
     }
-
+        //todo: eliminate?
     /*
     public void updateFamilyMembers() {
         ArrayList<Player> allPlayers = new ArrayList<>(5);
@@ -449,9 +449,9 @@ public class MainBoardControl extends CustomFxControl {
         if(disable)
             this.disableActionSpaces();
         this.setFamilyMemberDisable(disable);
-        PlayerTabSubControl thisPlayerTab = playersTabMap.get(thisPlayer.getNickname());
-        thisPlayerTab.setLeadersActionsDisable(disable);
-        thisPlayerTab.setEndTurnButtonDisable(disable);
+        PlayerTabSubControl playerTab = playersTabMap.get(thisPlayer.getNickname());
+        playerTab.setLeadersActionsDisable(disable);
+        playerTab.setEndTurnButtonDisable(disable);
     }
 
     /**
@@ -576,13 +576,6 @@ public class MainBoardControl extends CustomFxControl {
             activeTowersASButton.setDisable(false);
         }
 
-       /* Button button = new Button("click me");
-        button.setLayoutX(400+new Random().nextInt(20));
-        button.setLayoutY(400);
-        button.toFront();
-        todo remove
-
-        towersCouncilFaith.getChildren().add(button);*/
 
 
         //we reactivate only the AS passed via parameters -> problem here. Wrapper is not used correctly

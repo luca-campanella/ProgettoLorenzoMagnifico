@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.gui.blockingdialogs;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import it.polimi.ingsw.utils.Debug;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class AskChoiceOnEffectDialog implements Callable<Integer> {
         dialog.setTitle("Information choice");
         dialog.setHeaderText("Make a choice");
         dialog.setContentText("Choose your " + description + " effect");
-
+        dialog.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
         Optional<String> result = dialog.showAndWait();
 
         if(result.isPresent())

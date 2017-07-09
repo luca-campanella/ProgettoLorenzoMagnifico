@@ -291,7 +291,7 @@ public class GraphicalUI extends AbstractUIType {
     public int askWhereToPlaceNoDiceFamilyMember(List<TowerWrapper> towerWrapper){
         FutureTask<Integer> futureTask = new FutureTask(new AskWhereToPlaceNoDiceFamilyMember(towerWrapper));
         Platform.runLater(futureTask);
-
+        Debug.printVerbose("Inside ask...");
 
        int choice = 0;
        try{

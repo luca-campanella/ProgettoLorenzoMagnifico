@@ -641,7 +641,8 @@ public class Room {
         int takeStandard = 0;
         int takeSpecial = 0;
         PersonalTile specialTile = null;
-        for (AbstractConnectionPlayer player : players) {
+        for (AbstractConnectionPlayer player : players){
+            if (!disconnectedPlayers.contains(player))
             for (PersonalTile personalTile : personalTiles) {
 
                 if (personalTile.getPersonalTileEnum() == PersonalTileEnum.STANDARD && takeStandard == 0){
@@ -686,7 +687,7 @@ public class Room {
     private void floodChosenPersonalTile(PersonalTile personalTile, AbstractConnectionPlayer player){
 
         for(AbstractConnectionPlayer player1 : players){
-            if(!player.getNickname().equals(player1.getNickname())){
+            if((!player.getNickname().equals(player1.getNickname()))&& (!disconnectedPlayers.contains(player))){
                 try{
                     player1.otherPlayerPersonalTile(player.getNickname(), personalTile);
                 }
@@ -701,12 +702,12 @@ public class Room {
 
     /**
      * this method is called by the controller game to deliver to the client of an error on a move
-     * @param playerName
+     * @param playerName is the nickname of the player
      */
     public void deliverError(String playerName) {
 
         for(AbstractConnectionPlayer player : players){
-            if(player.getNickname().equals(playerName)){
+            if((player.getNickname().equals(playerName))&& !disconnectedPlayers.contains(player)){
                 try{
                     player.deliverErrorMove();
                 }
@@ -751,7 +752,7 @@ public class Room {
     private void floodDiscardLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, String nickname) {
 
         for(AbstractConnectionPlayer player : players){
-            if(!player.getNickname().equals(nickname)){
+            if((!player.getNickname().equals(nickname))&& !disconnectedPlayers.contains(player)){
                 try{
                     player.deliverDiscardLeaderCard(nameCard, nickname, resourceGet);
                 }
@@ -790,7 +791,7 @@ public class Room {
      * @param nameCard the name of the leader card played
      * @param choicesOnCurrentActionString the choices did while playing the card
      * @param player the player that had played the card
-     * @param choicesOnCurrentAction
+     * @param choicesOnCurrentAction are the choices on current action
      */
     public void playLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString,
                                AbstractConnectionPlayer player, HashMap<String, Integer> choicesOnCurrentAction) {
@@ -817,13 +818,13 @@ public class Room {
      * @param nameCard the name of the leader card played
      * @param choicesOnCurrentActionString the choices done on the leader card
      * @param nickname the nickname of the player that had played the leader card
-     * @param choicesOnCurrentAction
+     * @param choicesOnCurrentAction are the choices on current action
      */
     private void floodPlayLeaderCard(String nameCard, HashMap<String, String> choicesOnCurrentActionString,
                                      String nickname, HashMap<String, Integer> choicesOnCurrentAction) {
 
         for(AbstractConnectionPlayer player : players){
-            if(!player.getNickname().equals(nickname)){
+            if(!player.getNickname().equals(nickname)&& !disconnectedPlayers.contains(player) ){
                 try {
                     player.deliverPlayLeaderCard(nameCard, choicesOnCurrentActionString, nickname,
                             choicesOnCurrentAction);
@@ -869,7 +870,7 @@ public class Room {
     private void floodActivatedLeaderCard(String nameCard, HashMap<String, Integer> resourceGet, String nickname) {
 
         for(AbstractConnectionPlayer player : players){
-            if(!player.getNickname().equals(nickname)){
+            if(!player.getNickname().equals(nickname) && !disconnectedPlayers.contains(player)){
                 try {
                     player.deliverActivatedLeaderCard(nameCard, resourceGet, nickname);
                 }
@@ -907,6 +908,7 @@ public class Room {
     public void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated, int numTile) {
 
         for(AbstractConnectionPlayer player : players){
+            if(!disconnectedPlayers.contains(player))
             try {
                 player.deliverExcommunication(nicknamePlayerExcommunicated, numTile);
             }
@@ -923,7 +925,7 @@ public class Room {
 
     private void floodPlayerDisconnected(AbstractConnectionPlayer player) {
         for(AbstractConnectionPlayer playerIter : players) {
-            if(!disconnectedPlayers.contains(playerIter)) {
+            if(!disconnectedPlayers.contains(playerIter) && !disconnectedPlayers.contains(playerIter)) {
                 try {
                     playerIter.deliverDisconnectionPlayer(player.getNickname());
                 } catch (NetworkException e) {
@@ -956,7 +958,7 @@ public class Room {
     private void floodExcommunicationChoice(String response, String nickname, int numTile) {
 
         for(AbstractConnectionPlayer playerIter : players){
-            if(!playerIter.getNickname().equals(nickname)){
+            if(!playerIter.getNickname().equals(nickname) && !disconnectedPlayers.contains(playerIter)){
                 try{
                     playerIter.deliverExcommunicationChoice(response,nickname, numTile);
                 }
