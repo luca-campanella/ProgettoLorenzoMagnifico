@@ -251,7 +251,6 @@ public class GraphicalUI extends AbstractUIType {
             this.displayError(ERROR_IN_OPENING_DIALOG_MESSAGE, e.getMessage());
         }
         return choice;
-
     }
 
     /**
