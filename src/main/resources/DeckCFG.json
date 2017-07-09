@@ -1558,7 +1558,7 @@
           "toPay": [
             {
               "type": "WOOD",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -1573,7 +1573,7 @@
           "toPay": [
             {
               "type": "WOOD",
-              "value": -2
+              "value": 2
             }
           ],
           "toGain": [
@@ -1616,7 +1616,7 @@
           "toPay": [
             {
               "type": "STONE",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -1631,7 +1631,7 @@
           "toPay": [
             {
               "type": "STONE",
-              "value": -2
+              "value": 2
             }
           ],
           "toGain": [
@@ -1670,7 +1670,7 @@
           "toPay": [
             {
               "type": "COIN",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -1708,7 +1708,7 @@
           "toPay": [
             {
               "type": "COIN",
-              "value": -1
+              "value": 1
             }
           ]
         }
@@ -1744,7 +1744,7 @@
           "toPay": [
             {
               "type": "COIN",
-              "value": -3
+              "value": 3
             }
           ],
           "toGain": [
@@ -1785,7 +1785,7 @@
           "toPay": [
             {
               "type": "COIN",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -1800,7 +1800,7 @@
           "toPay": [
             {
               "type": "COIN",
-              "value": -2
+              "value": 2
             }
           ],
           "toGain": [
@@ -1837,7 +1837,7 @@
           "toPay": [
             {
               "type": "WOOD",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -1852,7 +1852,7 @@
           "toPay": [
             {
               "type": "WOOD",
-              "value": -3
+              "value": 3
             }
           ],
           "toGain": [
@@ -1889,7 +1889,7 @@
           "toPay": [
             {
               "type": "STONE",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -1904,7 +1904,7 @@
           "toPay": [
             {
               "type": "STONE",
-              "value": -3
+              "value": 3
             }
           ],
           "toGain": [
@@ -1945,15 +1945,15 @@
           "toPay": [
             {
               "type": "WOOD",
-              "value": -1
+              "value": 1
             },
             {
               "type": "STONE",
-              "value": -1
+              "value": 1
             },
             {
               "type": "SERVANT",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -1993,7 +1993,7 @@
           "toPay": [
             {
               "type": "FAITH_POINT",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -2046,7 +2046,7 @@
           "toPay": [
             {
               "type": "SERVANT",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -2179,7 +2179,7 @@
           "toPay": [
             {
               "type": "COIN",
-              "value": -4
+              "value": 4
             }
           ],
           "toGain": [
@@ -2315,7 +2315,7 @@
           "toPay": [
             {
               "type": "COIN",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -2363,7 +2363,7 @@
           "toPay": [
             {
               "type": "WOOD",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
@@ -2417,7 +2417,7 @@
           "toPay": [
             {
               "type": "SERVANT",
-              "value": -1
+              "value": 1
             }
           ],
           "toGain": [
