@@ -23,6 +23,8 @@ public enum CardColorEnum {
         return cardColor;
     }
 
+    public int getIndexOfTower(){return indexOfTower;}
+
     public String getCardType() {
         return cardType;
     }

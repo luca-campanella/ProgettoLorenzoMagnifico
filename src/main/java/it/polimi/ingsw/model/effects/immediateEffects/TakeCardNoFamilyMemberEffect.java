@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * This method allows player to place a dice on a tower and take a card.
  */
 public class TakeCardNoFamilyMemberEffect extends AbstractPerformActionEffect {
-    private int diceValueOnTower;
+
     private ArrayList<CardColorEnum> towerColorsAllowed;
     //private ArrayList<...>
     @Override
@@ -40,4 +40,10 @@ public class TakeCardNoFamilyMemberEffect extends AbstractPerformActionEffect {
     public void setDiceValue(int diceValue) {
         this.diceValue = diceValue;
     }
+
+    public ArrayList<CardColorEnum> getTowerColorsAllowed() {
+        return towerColorsAllowed;
+    }
+
+    
 }
