@@ -64,7 +64,7 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
         for(int i = 0; i < numberDiffGifts; i++) {
             choice = choicesMap.get(choiceCode + i);
             effect = possibleCouncilGifts.get(choice);
-            Debug.printVerbose("Callback on yellowBuldingCardCalled (gift n " + i + ", choice = " + choice + " corrisponding con to effect: " + effect.descriptionOfEffect());
+            Debug.printVerbose("Callback on callbackOnCouncilGift (gift n " + i + ", choice = " + choice + " corrisponding con to effect: " + effect.descriptionOfEffect());
             choices.add(effect);
         }
         return choices;

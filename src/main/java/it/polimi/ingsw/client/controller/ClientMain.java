@@ -729,6 +729,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the excommunication choice to the server");
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
             userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
 
@@ -743,7 +744,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         try {
             clientNetwork.reconnectPlayer();
         } catch (NetworkException e) {
-            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
             userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
         userInterface.waitMenu();
@@ -766,7 +767,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void manageExcommunicationChoice(String nickname, String response, int numTile) {
 
-        if(response.equals("YES"))
+        if("YES".equals(response))
             modelController.avoidExcommunicationPlayer(nickname);
         else
             modelController.excommunicatePlayer(nickname, numTile);

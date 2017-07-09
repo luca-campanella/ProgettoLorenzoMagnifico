@@ -3,6 +3,8 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.CharacterCardCollector;
+import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
+import it.polimi.ingsw.model.effects.immediateEffects.TakeCardNoFamilyMemberEffect;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
@@ -79,14 +81,22 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
             Debug.printVerbose("Immediate effects are not disabled for this tower level, activating them");
             getEffects().forEach(effect -> effect.applyToPlayer(player, choiceController, "TowerFloorAS"));
         }
+        boolean hasToSubtractRes = true;
+        for(ImmediateEffectInterface effectIter : card.getImmediateEffect()) {
+            if (effectIter instanceof TakeCardNoFamilyMemberEffect) {
+                hasToSubtractRes = false;
+                break;
+            }
+        }
+                if(hasToSubtractRes) {
+                    //this is general for venture
+                    ResourceCollector resToSubtractToPlayer = new ResourceCollector(card.getCostAskChoice(choiceController));
+                    //we check if there is a discount on the tower coming from blue cards
+                    resToSubtractToPlayer.subResourcesSafely(blueCards.getDiscountOnTower(card.getColor()));
+                    resToSubtractToPlayer.subResourcesSafely(player.getPermanentLeaderCardCollector().getDiscountOnCardCost(card.getColor()));
 
-        //this is general for venture
-        ResourceCollector resToSubtractToPlayer = new ResourceCollector(card.getCostAskChoice(choiceController));
-        //we check if there is a discount on the tower coming from blue cards
-        resToSubtractToPlayer.subResourcesSafely(blueCards.getDiscountOnTower(card.getColor()));
-        resToSubtractToPlayer.subResourcesSafely(player.getPermanentLeaderCardCollector().getDiscountOnCardCost(card.getColor()));
-
-        player.subResources(resToSubtractToPlayer);
+                    player.subResources(resToSubtractToPlayer);
+                }
         player.addCard(card);
         card.applyImmediateEffectsToPlayer(player, choiceController);
     }
