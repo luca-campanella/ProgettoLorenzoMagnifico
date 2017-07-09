@@ -53,7 +53,7 @@ public class PayForSomethingEffect implements ImmediateEffectInterface {
 
     /**
      * prints short description of the effect
-     * @return
+     * @return the descrpition of the effect
      */
     public String descriptionShortOfEffect(){
 
