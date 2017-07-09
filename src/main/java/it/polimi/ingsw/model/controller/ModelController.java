@@ -324,11 +324,20 @@ public class ModelController {
      * @param floorIndex the floor to place the family member to
      */
     public void placeOnTower(FamilyMember familyMember, int towerIndex, int floorIndex){
+        AbstractCard card = gameBoard.getTower(towerIndex).getFloorByIndex(floorIndex).getCard();
         //only for this effect we have to check here, the card cannot know which towers are available
-        List<ImmediateEffectInterface> cardEffects =
-                gameBoard.getTower(towerIndex).getFloorByIndex(floorIndex).getCard().getImmediateEffect();
+        List<ImmediateEffectInterface> cardEffects = card.getImmediateEffect();
         for(ImmediateEffectInterface effectIter : cardEffects) {
             if (effectIter instanceof TakeCardNoFamilyMemberEffect) {
+                //we subtract resources here, before activating effect
+                //this is general for venture
+                ResourceCollector resToSubtractToPlayer = new ResourceCollector(card.getCostAskChoice(choicesController));
+                //we check if there is a discount on the tower coming from blue cards
+                resToSubtractToPlayer.subResourcesSafely(familyMember.getPlayer().getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(card.getColor()));
+                resToSubtractToPlayer.subResourcesSafely(familyMember.getPlayer().getPermanentLeaderCardCollector().getDiscountOnCardCost(card.getColor()));
+
+                familyMember.getPlayer().subResources(resToSubtractToPlayer);
+
                 Dice falseDice = new Dice(DiceAndFamilyMemberColorEnum.NEUTRAL);
                 falseDice.setValue(((TakeCardNoFamilyMemberEffect) effectIter).getDiceValue());
 
