@@ -1050,6 +1050,17 @@ public class MainBoardControl extends CustomFxControl {
     }
 
     /**
+     * this method is called by the client to show the player excommunicated on the gui
+     * @param playersExcommunicated the nickname of the players excommunicated
+     */
+    public void displayExcommunicationPlayers(List<String> playersExcommunicated) {
+        for(String nickIter : playersExcommunicated) {
+            appendMessageOnStateTextArea("["+nickIter + "] --> " + nickIter +
+                    " has been excommunicated");
+        }
+    }
+
+    /**
      * this method is called by the client to ask the client if he wants to be excommunicated on the gui
      */
     public void askExcommunicationChoice(int numTile) {

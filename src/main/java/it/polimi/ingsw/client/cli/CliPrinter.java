@@ -15,7 +15,6 @@ import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
-import it.polimi.ingsw.utils.Debug;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -647,7 +646,7 @@ public class CliPrinter {
      * @param playerPositionEndGamePacket the results of the players
      * @param thisPlayerNickname the name of this player to display if he won or lost
      */
-    public static void showEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket, String thisPlayerNickname) {
+    public static void showEndGame(List<PlayerPositionEndGamePacket> playerPositionEndGamePacket, String thisPlayerNickname) {
 
         CliPrinter.println("The game has ended");
         int i = 0;

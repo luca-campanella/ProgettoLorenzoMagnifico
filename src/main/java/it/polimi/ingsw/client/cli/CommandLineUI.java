@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.cli.notblockingmenus.*;
 import it.polimi.ingsw.client.controller.AbstractUIType;
 import it.polimi.ingsw.client.controller.ClientMain;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
-import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
@@ -151,17 +150,6 @@ public class CommandLineUI extends AbstractUIType {
     public void displayChatMsg(String senderNick, String msg) {
 
         CliPrinter.println("<" + senderNick + ">: " + msg);
-    }
-
-    @Override
-    public void askChatMsg() {
-        CliPrinter.println("Please insert chat msg: ");
-
-        try {
-            getController().callbackSendChatMsg(StdinSingleton.nextLine());
-        } catch (NetworkException e) {
-            Debug.printError("Cannot send chat message", e);
-        }
     }
 
     /**
@@ -446,7 +434,7 @@ public class CommandLineUI extends AbstractUIType {
      * @param playerPositionEndGamePacket the packet with all the information of the end of the game
      */
     @Override
-    public void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
+    public void showEndOfGame(List<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
 
         CliPrinter.showEndGame(playerPositionEndGamePacket, getController().callbackObtainPlayer().getNickname());
     }
@@ -554,7 +542,7 @@ public class CommandLineUI extends AbstractUIType {
      * @param playersExcommunicated the nickname of the players excommunicated
      */
     @Override
-    public void displayExcommunicationPlayers(ArrayList<String> playersExcommunicated) {
+    public void displayExcommunicationPlayers(List<String> playersExcommunicated) {
 
         CliPrinter.diplayExcommunication(playersExcommunicated);
     }

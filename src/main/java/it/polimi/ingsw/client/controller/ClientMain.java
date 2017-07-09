@@ -1266,7 +1266,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param playersExcommunicated the nicknames of the players excommunicated
      */
     @Override
-    public void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated, int numTile) {
+    public void receiveExcommunicatedPlayers(List<String> playersExcommunicated, int numTile) {
 
         Debug.printVerbose("received excommunication.");
         modelController.excommunicatePlayer(playersExcommunicated, numTile);

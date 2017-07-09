@@ -91,7 +91,6 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
             e.printStackTrace();
         }
         cards = cardsDeck.getRandomCards(1).subList(0,4);
-        gui.showCards(cards);
     }
 
     private static ArrayList<AbstractRequirement> createOneReqArray(AbstractRequirement req) {
