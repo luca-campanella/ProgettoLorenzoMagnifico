@@ -799,7 +799,7 @@ public class GraphicalUI extends AbstractUIType {
      * @param playersExcommunicated the nickname of the players excommunicated
      */
     @Override
-    public void displayExcommunicationPlayers(ArrayList<String> playersExcommunicated) {
+    public void displayExcommunicationPlayers(List<String> playersExcommunicated) {
 
     }
 

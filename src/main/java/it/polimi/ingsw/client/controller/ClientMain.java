@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -1252,7 +1253,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param resourceGet the resources gotten from the leader ability
      */
     @Override
-    public void receiveActivateLeaderCard(String nickname, String nameCard, HashMap<String, Integer> resourceGet) {
+    public void receiveActivateLeaderCard(String nickname, String nameCard, Map<String, Integer> resourceGet) {
 
         otherPlayerChoicesHandler.setChoicesMap(resourceGet);
         modelController.setChoicesController(otherPlayerChoicesHandler);
@@ -1266,7 +1267,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param playersExcommunicated the nicknames of the players excommunicated
      */
     @Override
-    public void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated, int numTile) {
+    public void receiveExcommunicatedPlayers(List<String> playersExcommunicated, int numTile) {
 
         Debug.printVerbose("received excommunication.");
         modelController.excommunicatePlayer(playersExcommunicated, numTile);

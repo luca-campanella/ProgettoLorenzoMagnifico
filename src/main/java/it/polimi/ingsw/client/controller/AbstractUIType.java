@@ -284,7 +284,7 @@ abstract public class AbstractUIType {
      * this method is called by the client to show the player excommunicated
      * @param playersExcommunicated the nickname of the players excommunicated
      */
-    public abstract void displayExcommunicationPlayers(ArrayList<String> playersExcommunicated);
+    public abstract void displayExcommunicationPlayers(List<String> playersExcommunicated);
 
     /**
      * this method is called by the client to ask the client if he wants to be excommunicated

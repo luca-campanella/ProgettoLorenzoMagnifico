@@ -50,8 +50,7 @@ public class BoardCreator {
         // The JSON data
        try (Reader reader = new InputStreamReader(BoardCreator.class.getResourceAsStream("/BoardCFG.json"), "UTF-8")) {
             Board board = gson.fromJson(reader, Board.class);
-            CliPrinter printer = new CliPrinter();
-            printer.printBoard(board);
+            CliPrinter.printBoard(board);
 
         }
     }

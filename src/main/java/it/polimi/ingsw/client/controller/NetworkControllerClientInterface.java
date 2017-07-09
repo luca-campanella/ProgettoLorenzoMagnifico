@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.player.PersonalTile;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *   This interface is implemented by {@link ClientMain} to let {@link it.polimi.ingsw.client.network.AbstractClientType} make calls on controller
@@ -194,14 +195,14 @@ public interface NetworkControllerClientInterface {
      * @param nameCard the name of the leader card activated
      * @param resourceGet the resources gotten from the leader ability
      */
-    void receiveActivateLeaderCard(String nickname, String nameCard, HashMap<String, Integer> resourceGet);
+    void receiveActivateLeaderCard(String nickname, String nameCard, Map<String, Integer> resourceGet);
 
     /**
      * this method is called by the server to deliver the players excommunicated
      * @param playersExcommunicated the nicknames of the players excommunicated
      * @param numTile the number of excommunication tile to take
      */
-    void receiveExcommunicatedPlayers(ArrayList<String> playersExcommunicated, int numTile);
+    void receiveExcommunicatedPlayers(List<String> playersExcommunicated, int numTile);
 
     /**
      * this method is called by the network to deliver the choice doe on the excommunication of the other players

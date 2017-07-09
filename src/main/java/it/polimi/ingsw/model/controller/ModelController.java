@@ -981,7 +981,7 @@ public class ModelController {
      * this method is used to excommunicate the players
      * @param playersExcommunicated the nickname of the players excommunicated
      */
-    public void excommunicatePlayer(ArrayList<String> playersExcommunicated, int numTile) {
+    public void excommunicatePlayer(List<String> playersExcommunicated, int numTile) {
 
         ExcommunicationTile tile = getBoard().getExcommunicationTiles().get(numTile);
         for(Player player : players){
