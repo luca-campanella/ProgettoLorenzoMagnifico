@@ -177,7 +177,7 @@ public class CliPrinter {
                 immediateEffects.append(" ");
 
                 } catch(NullPointerException e) {
-                    //no cost
+                    immediateEffects.append(" ");
                 }
             }
         }
