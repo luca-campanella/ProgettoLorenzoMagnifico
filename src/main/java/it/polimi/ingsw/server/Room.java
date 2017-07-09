@@ -7,10 +7,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.leaders.LeaderCard;
-import it.polimi.ingsw.model.player.FamilyMember;
-import it.polimi.ingsw.model.player.PersonalTile;
-import it.polimi.ingsw.model.player.PersonalTileEnum;
-import it.polimi.ingsw.model.player.PlayerColorEnum;
+import it.polimi.ingsw.model.player.*;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
@@ -19,6 +16,8 @@ import java.util.*;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This is the class that handles a room and offers a layer between the network part of the server and the actual game
@@ -64,6 +63,11 @@ public class Room {
     private boolean isGameStarted;
     private ScheduledFuture<?> currentTimerMoveTask;
 
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+    private final String ILLEGAL_MOVE_MESSAGE = "someone performed an illegal move";
+
+
     /**
      * Constructor
      *  @param maxNOfPlayers max number of players for this room
@@ -108,7 +112,7 @@ public class Room {
         if (currNOfPlayers == maxNOfPlayers) //ModelController should start
         {
             Debug.printVerbose("Room capacity reached, starting new game");
-            new Thread( () -> startGame()).run(); // we don't want to start a game on the server thread
+            new Thread( () -> startGame()).start(); // we don't want to start a game on the server thread
             Debug.printVerbose("Room capacity reached, returned from start function");
         } else if (currNOfPlayers == 2) {
             Debug.printVerbose("2 players reached ");
@@ -186,14 +190,9 @@ public class Room {
             floodPlaceOnCouncil(familyMember, playerChoices);
         }
         catch (IllegalMoveException e){
-
             AbstractConnectionPlayer player = getAbstractPlayer(familyMember.getPlayer().getNickname());
-            try{
-                player.deliverErrorMove();
-            }
-            catch (NetworkException c){
-                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
-            }
+            LOGGER.log(Level.SEVERE, ILLEGAL_MOVE_MESSAGE, e);
+            handleErrorMove(player);
         }
 
 
@@ -211,12 +210,8 @@ public class Room {
         catch (IllegalMoveException e){
 
             AbstractConnectionPlayer player = getAbstractPlayer(familyMember.getPlayer().getNickname());
-            try{
-                player.deliverErrorMove();
-            }
-            catch (NetworkException c){
-                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
-            }
+            LOGGER.log(Level.SEVERE, ILLEGAL_MOVE_MESSAGE, e);
+            handleErrorMove(player);
         }
     }
 
@@ -232,12 +227,8 @@ public class Room {
         catch (IllegalMoveException e){
 
             AbstractConnectionPlayer player = getAbstractPlayer(familyMember.getPlayer().getNickname());
-            try{
-                player.deliverErrorMove();
-            }
-            catch (NetworkException c){
-                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
-            }
+            LOGGER.log(Level.SEVERE, ILLEGAL_MOVE_MESSAGE, e);
+            handleErrorMove(player);
         }
 
     }
@@ -252,14 +243,25 @@ public class Room {
             floodBuild(familyMember, servant, playerChoices);
         }
         catch (IllegalMoveException e){
-
+            LOGGER.log(Level.INFO, ILLEGAL_MOVE_MESSAGE, e);
             AbstractConnectionPlayer player = getAbstractPlayer(familyMember.getPlayer().getNickname());
-            try{
-                player.deliverErrorMove();
-            }
-            catch (NetworkException c){
-                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
-            }
+            handleErrorMove(player);
+        }
+    }
+
+    /**
+     * This method handles when a client performed an illegal move, this should never happen, he's cheating
+     * @param player the player who cheated
+     */
+    private void handleErrorMove(AbstractConnectionPlayer player) {
+        try{
+            player.deliverErrorMove();
+        }
+        catch (NetworkException e){
+            Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
+            LOGGER.log(Level.SEVERE, "failed to deliver the error on the move", e);
+            addToDisconnectedPlayers(player);
+            floodPlayerDisconnected(player);
         }
     }
 
@@ -275,12 +277,8 @@ public class Room {
         catch (IllegalMoveException e){
 
             AbstractConnectionPlayer player = getAbstractPlayer(familyMember.getPlayer().getNickname());
-            try{
-                player.deliverErrorMove();
-            }
-            catch (NetworkException c){
-                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
-            }
+            LOGGER.log(Level.SEVERE, ILLEGAL_MOVE_MESSAGE, e);
+            handleErrorMove(player);
         }
     }
 
@@ -373,11 +371,8 @@ public class Room {
                 floodEndPhase(player);
                 controllerGame.endPhase(player);
             } catch (IllegalMoveException e) {
-                try {
-                    player.deliverErrorMove();
-                } catch (NetworkException c) {
-                    Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
-                }
+                LOGGER.log(Level.SEVERE, ILLEGAL_MOVE_MESSAGE, e);
+                handleErrorMove(player);
             }
         }
 
@@ -421,14 +416,20 @@ public class Room {
      */
     public void receiveStartGameBoard(Board gameBoard) {
 
-        try {
-            for (AbstractConnectionPlayer player : players)
-                player.receiveStartGameBoard(gameBoard);
-        } catch (NetworkException e) {
-            Debug.printError("ERROR on the deliver of the board ", e);
+        for (AbstractConnectionPlayer player : players) {
+            if (!disconnectedPlayers.contains(player)) {
+                try {
+                    player.receiveStartGameBoard(gameBoard);
+                } catch (NetworkException e) {
+                    Debug.printError("ERROR on the deliver of the board ", e);
+                    LOGGER.log(Level.SEVERE, "cannot deliver board", e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
+                }
+            }
         }
-
     }
+
 
     /**
      * inform the player that is his turn to play
@@ -441,19 +442,21 @@ public class Room {
                 controllerGame.endPhase(player); //we automatically make him pass
             } catch (IllegalMoveException e) {
                 Debug.printVerbose("This should never happen: the server cheated (?)");
+                LOGGER.log(Level.INFO, "the server cheated", e);
+                handleErrorMove(player);
             }
-            finally {
-                return;
+        } else {
+            //otherwise we ask him for a move
+            try {
+                //starts the timer for player suspension if he doesn't move in time
+                currentTimerMoveTask = timersPool.schedule(() -> suspendPlayer(player), (long) (timeoutMoveInSec), TimeUnit.SECONDS);
+                player.receiveStartOfTurn();
+            } catch (NetworkException e) {
+                Debug.printError("ERROR on the deliver of the token ", e);
+                LOGGER.log(Level.SEVERE, "cannot deliver start of turn", e);
+                addToDisconnectedPlayers(player);
+                floodPlayerDisconnected(player);
             }
-        }
-
-        //otherwise we ask him for a move
-        try {
-            //starts the timer for player suspension if he doesn't move in time
-            currentTimerMoveTask = timersPool.schedule(() -> suspendPlayer(player), (long) (timeoutMoveInSec), TimeUnit.SECONDS);
-            player.receiveStartOfTurn();
-        } catch (NetworkException e) {
-            Debug.printError("ERROR on the deliver of the token ", e);
         }
 
     }
@@ -472,8 +475,9 @@ public class Room {
             } catch (NetworkException e) {
                 Debug.printError("ERROR in notifying the suspension of the player" +
                         playerToSuspend.getNickname() + " to player " + playerIter.getNickname(), e);
-                addToSuspendedPlayers(playerIter); //we suspend the player that disconnected, so that the game can go on
-                //todo notify of the error the other players
+                LOGGER.log(Level.SEVERE, "player disconnected", e);
+                addToDisconnectedPlayers(playerIter); //we suspend the player that disconnected, so that the game can go on
+                floodPlayerDisconnected(playerIter);
             }
         }
 
@@ -482,6 +486,7 @@ public class Room {
             controllerGame.endPhase(playerToSuspend); //we automatically make him pass
         } catch (IllegalMoveException e) {
             Debug.printVerbose("This should never happen: the server cheated (?)");
+            LOGGER.log(Level.INFO, "the server cheated ?", e);
         }
     }
 
@@ -529,7 +534,7 @@ public class Room {
 
     private void deliverLeaderCardsToPlayers() {
 
-        if (cardToPlayer.size() == 0) {
+        if (cardToPlayer.isEmpty()) {
             controllerGame.choseAllTheLeadersCards();
             return;
         }
@@ -553,6 +558,7 @@ public class Room {
                 cardToDeliver.clear();
             } catch (NetworkException e) {
                 Debug.printError("ERROR: cannot deliver the leader cards to " + player);
+                LOGGER.log(Level.SEVERE, "cannot deliver the leader cards", e);
             }
 
         }
@@ -587,12 +593,15 @@ public class Room {
     private void floodReceiveLeaderCard(LeaderCard leaderCard, AbstractConnectionPlayer player) {
 
         for(AbstractConnectionPlayer playerIter : players){
-            if(!player.getNickname().equals(playerIter.getNickname())){
+            if(!player.getNickname().equals(playerIter.getNickname()) && !disconnectedPlayers.contains(playerIter)){
                 try{
                     playerIter.deliverLeaderChose(leaderCard, player);
                 }
                 catch (NetworkException e){
                     Debug.printError("tried to deliver the chosen leader cards to " + player.getNickname());
+                    LOGGER.log(Level.SEVERE, "failed to deliver the chosen leader", e);
+                    addToDisconnectedPlayers(playerIter);
+                    floodPlayerDisconnected(playerIter);
                 }
             }
         }
@@ -603,10 +612,15 @@ public class Room {
      */
     public synchronized void deliverCardToPlace(ArrayList<AbstractCard> cards) {
         for (AbstractConnectionPlayer player : players) {
-            try {
-                player.deliverCardToPlace(cards);
-            } catch (IOException e) {
-                Debug.printError("tried to deliver the cards to " + player.getNickname());
+            if(!disconnectedPlayers.contains(player)) {
+                try {
+                    player.deliverCardToPlace(cards);
+                } catch (IOException e) {
+                    Debug.printError("tried to deliver the cards to " + player.getNickname());
+                    LOGGER.log(Level.SEVERE, "failed to deliver the chosen leader", e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
+                }
             }
 
         }
@@ -625,6 +639,7 @@ public class Room {
                     player.receivePlaceOnCouncil(familyMember, playerChoices);
                 } catch (NetworkException e) {
                     Debug.printError("tried to deliver move on council to " + player.getNickname());
+                    LOGGER.log(Level.SEVERE, "failed to deliver move on council", e);
                     addToDisconnectedPlayers(player);
                     floodPlayerDisconnected(player);
                 }
@@ -642,32 +657,34 @@ public class Room {
         int takeSpecial = 0;
         PersonalTile specialTile = null;
         for (AbstractConnectionPlayer player : players){
-            if (!disconnectedPlayers.contains(player))
-            for (PersonalTile personalTile : personalTiles) {
+            if (!disconnectedPlayers.contains(player)) {
+                for (PersonalTile personalTile : personalTiles) {
 
-                if (personalTile.getPersonalTileEnum() == PersonalTileEnum.STANDARD && takeStandard == 0){
-                    personalTilesToDeliver.add(personalTile);
-                    takeStandard = 1;
+                    if (personalTile.getPersonalTileEnum() == PersonalTileEnum.STANDARD && takeStandard == 0) {
+                        personalTilesToDeliver.add(personalTile);
+                        takeStandard = 1;
+                    } else if (personalTile.getPersonalTileEnum() == PersonalTileEnum.SPECIAL && takeSpecial == 0) {
+                        personalTilesToDeliver.add(personalTile);
+                        specialTile = personalTile;
+                        takeSpecial = 1;
+                    }
                 }
-                else if (personalTile.getPersonalTileEnum() == PersonalTileEnum.SPECIAL && takeSpecial == 0) {
-                    personalTilesToDeliver.add(personalTile);
-                    specialTile = personalTile;
-                    takeSpecial = 1;
+                personalTiles.remove(specialTile);
+                try {
+
+                    player.deliverPersonalTiles(personalTilesToDeliver);
+                    takeSpecial = 0;
+                    takeStandard = 0;
+                    personalTilesToDeliver.clear();
+
+                } catch (NetworkException e) {
+                    Debug.printError("Cannot deliver the personal tiles to player : " + player, e);
+                    LOGGER.log(Level.SEVERE, "failed to deliver the personal tiles", e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
-            }
-            personalTiles.remove(specialTile);
-            try{
-
-                player.deliverPersonalTiles(personalTilesToDeliver);
-                takeSpecial = 0;
-                takeStandard = 0;
-                personalTilesToDeliver.clear();
-
-            }
-            catch (NetworkException e){
-                Debug.printError("Cannot deliver the personale tiles to player : " + player,e);
-                addToDisconnectedPlayers(player);
-                floodPlayerDisconnected(player);
+            } else {
+                chosePersonalTile(personalTiles.get(0), player);
             }
         }
     }
@@ -693,6 +710,7 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError(e);
+                    LOGGER.log(Level.SEVERE, "failed to deliver the the chone personal tile", e);
                     addToDisconnectedPlayers(player);
                     floodPlayerDisconnected(player);
                 }
@@ -713,6 +731,7 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the error move to " + playerName);
+                    LOGGER.log(Level.SEVERE, "failed to deliver the error", e);
                     addToDisconnectedPlayers(player);
                     floodPlayerDisconnected(player);
                 }
@@ -732,14 +751,8 @@ public class Room {
             floodDiscardLeaderCard(nameCard, resourceGet, player.getNickname());
         }
         catch (IllegalMoveException e){
-            try{
-                player.deliverErrorMove();
-            }
-            catch (NetworkException c){
-                Debug.printError("cannot deliver the error on the move to the player " + player.getNickname());
-                addToDisconnectedPlayers(player);
-                floodPlayerDisconnected(player);
-            }
+            LOGGER.log(Level.SEVERE, ILLEGAL_MOVE_MESSAGE, e);
+            handleErrorMove(player);
         }
     }
 
@@ -759,6 +772,7 @@ public class Room {
 
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the leader discarded to " + player.getNickname());
+                    LOGGER.log(Level.SEVERE, "failed to deliver the the discard of leader card", e);
                     addToDisconnectedPlayers(player);
                     floodPlayerDisconnected(player);
                 }
@@ -780,6 +794,7 @@ public class Room {
             }
             catch (NetworkException e){
                 Debug.printError("cannot deliver the disconnection to the player " + playerIter.getNickname());
+                LOGGER.log(Level.SEVERE, "failed to deliver the disconnection to the player", e);
                 addToDisconnectedPlayers(player);
                 floodPlayerDisconnected(player);
             }
@@ -801,14 +816,8 @@ public class Room {
             floodPlayLeaderCard(nameCard, choicesOnCurrentActionString, player.getNickname(), choicesOnCurrentAction);
         }
         catch (IllegalMoveException e){
-            try{
-                player.deliverErrorMove();
-            }
-            catch (NetworkException c){
-                Debug.printError("cannot deliver the error of the playable leader card " + player.getNickname());
-                addToDisconnectedPlayers(player);
-                floodPlayerDisconnected(player);
-            }
+            LOGGER.log(Level.SEVERE, ILLEGAL_MOVE_MESSAGE, e);
+            handleErrorMove(player);
         }
 
     }
@@ -831,6 +840,7 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the leader card played by " + nickname + " to " + player.getNickname(),e);
+                    LOGGER.log(Level.SEVERE, "failed to deliver the leader card played", e);
                     addToDisconnectedPlayers(player);
                     floodPlayerDisconnected(player);
                 }
@@ -850,14 +860,8 @@ public class Room {
             floodActivatedLeaderCard(nameCard, resourceGet, player.getNickname());
         }
         catch (IllegalMoveException e){
-            try{
-                player.deliverErrorMove();
-            }
-            catch (NetworkException c){
-                Debug.printError("cannot deliver the error on the activation of the leader card " + player.getNickname());
-                addToDisconnectedPlayers(player);
-                floodPlayerDisconnected(player);
-            }
+            LOGGER.log(Level.SEVERE, ILLEGAL_MOVE_MESSAGE, e);
+            handleErrorMove(player);
         }
     }
 
@@ -908,14 +912,14 @@ public class Room {
     public void deliverExcommunication(ArrayList<String> nicknamePlayerExcommunicated, int numTile) {
 
         for(AbstractConnectionPlayer player : players){
-            if(!disconnectedPlayers.contains(player))
-            try {
-                player.deliverExcommunication(nicknamePlayerExcommunicated, numTile);
-            }
-            catch (NetworkException e){
-                Debug.printError("cannot deliver the excommunication to " + player.getNickname(),e);
-                addToDisconnectedPlayers(player);
-                floodPlayerDisconnected(player);
+            if(!disconnectedPlayers.contains(player)) {
+                try {
+                    player.deliverExcommunication(nicknamePlayerExcommunicated, numTile);
+                } catch (NetworkException e) {
+                    Debug.printError("cannot deliver the excommunication to " + player.getNickname(), e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
+                }
             }
             //if he's suspended we reply for him
             if(suspendedPlayers.contains(player) || disconnectedPlayers.contains(player))

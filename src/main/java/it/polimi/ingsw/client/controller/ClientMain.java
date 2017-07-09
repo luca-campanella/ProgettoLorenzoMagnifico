@@ -29,7 +29,6 @@ import it.polimi.ingsw.model.resource.ResourceCollector;
 import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
-import it.polimi.ingsw.utils.MessageLogger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * TODO: implement launcher
+ * This is the controller class for the client side
  */
 public class ClientMain implements NetworkControllerClientInterface, ViewControllerCallbackInterface, ChoicesHandlerInterface {
     private LauncherClient temp;
@@ -114,11 +113,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void startUp() {
         Debug.instance(Debug.LEVEL_VERBOSE);
         StdinSingleton.instance();
-        try {
-            MessageLogger.setup(false, Level.ALL);
-        } catch (IOException e) {
-            Debug.printError("Cannot start logger", e);
-        }
+        LOGGER.setLevel(Level.ALL);
         LOGGER.info("this is a info test for the logger");
         temp = new LauncherClient(this);
         userInterface = temp.welcome();
@@ -150,7 +145,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             try {
                 clientNetwork.connect();
             } catch (ClientConnectionException e) {
-                LOGGER.severe("Network problem " + e.getMessage());
+                LOGGER.log(Level.SEVERE, "Network error", e);
                 userInterface.displayErrorAndExit("Network problem", e.getMessage());
             }
         }
