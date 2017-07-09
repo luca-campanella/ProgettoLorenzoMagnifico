@@ -1003,6 +1003,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
                                      int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) {
         Player player = modelController.getPlayerByNickname(nickname);
         Debug.printVerbose("the player " + nickname + " has place the family member on tower.");
+        Debug.printVerbose("choices map size: " + playerChoices.size());
         otherPlayerChoicesHandler.setChoicesMap(playerChoices);
         modelController.setChoicesController(otherPlayerChoicesHandler);
         FamilyMember fm = player.getFamilyMemberByColor(familyMemberColor);
