@@ -156,12 +156,12 @@ public class ResourceCollector implements Serializable{
 
     /**
      * This method checks if an arraylist of resources can be contained inside the saved resources,
-     * for example it can check if the plahyer as sufficient resources to play for a certain effect,
+     * for example it can check if the player has sufficient resources to play for a certain effect,
      * mostly used for {@link it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect} checks inside {@link it.polimi.ingsw.client.controller.ClientMain}
      * @param resToCheck the arraylist of the resources the method checks if are contained or not
      * @return if the resources are contained or not
      */
-    public boolean checkIfContainable(ArrayList<Resource> resToCheck) {
+    public boolean checkIfContainable(List<Resource> resToCheck) {
         for(Resource resIter : resToCheck) {
             if(resourcesMap.get(resIter.getType()) < resIter.getValue())
                 return false;

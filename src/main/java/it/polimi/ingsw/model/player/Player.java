@@ -281,6 +281,7 @@ public class Player implements Serializable{
      * @param choicesController the controller to make callback on choices
      */
     public void build(int realDiceValueNoBlueBonus, ChoicesHandlerInterface choicesController){
+        Debug.printVerbose("player.Build start");
         personalBoard.build(realDiceValueNoBlueBonus, this, choicesController);
     }
 

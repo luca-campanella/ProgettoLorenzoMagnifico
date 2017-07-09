@@ -521,7 +521,7 @@ public class ModelController {
         player.playFamilyMember(familyMember);
         player.subResource(new Resource(ResourceTypeEnum.SERVANT, servants));
         //just adds the family member to the BuildAS
-        Debug.printVerbose("before calling player.build");
+        Debug.printVerbose("before calling player.build, inside build ModelController");
 
         int realDiceValueNoBlueBonusYesLeadersYesExcomm = familyMember.getValue() + servants;
         //we check if he's not the first inside the action space
@@ -602,7 +602,7 @@ public class ModelController {
     /**
      * This method performs the real action on the model when the player places a FM on a market space
      * This method goes down on the model to perform the action calling {@link it.polimi.ingsw.model.board.Board}, {@link it.polimi.ingsw.model.board.MarketAS}
-     * @param familyMember
+     * @param familyMember is the family member
      * @param marketSpaceIndex the selected market AS
      */
     public void placeOnMarket(FamilyMember familyMember, int marketSpaceIndex){

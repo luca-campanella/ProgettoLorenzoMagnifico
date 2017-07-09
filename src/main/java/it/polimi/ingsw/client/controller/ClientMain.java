@@ -285,8 +285,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
     /**
      * this is the call back method to send a message to all other players in the room (Direction: {@link AbstractUIType} -> {@link ClientMain}; general direction: Client -> server)
-     * @param msg
-     * @throws NetworkException
+     * @param msg is a chat msg
+     * @throws NetworkException in case network doen't work
      */
     @Override
     public void callbackSendChatMsg(String msg) throws NetworkException {
@@ -450,25 +450,25 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * If in these checks it understands no effect can be chosen then it returns a {@link NoEffect} class and puts the choice in the hashmap to -1
      * This implementation calls the view and asks what the user wants to choose
      * The UI should perform a <b>blocking</b> question to the user and return directly to this method
-     * @param cardNameChoiceCode
-     * @param possibleEffectChoices
-     * @return
+     * @param cardNameChoiceCode is the standard choiceCode
+     * @param possibleEffectChoices are all effects inside the cards
+     * @return the choice of the user
      */
     @Override
     public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, List<ImmediateEffectInterface> possibleEffectChoices) {
-
+        Debug.printVerbose("Inside ClientMain.callBackOnYellowBuildingCard");
         //We will make a copy of the arraylist beacuse we have to remove some objects that cannot be chosen from the user
         ArrayList<ImmediateEffectInterface> realPossibleEffectChoices = new ArrayList<>(possibleEffectChoices.size());
-        ImmediateEffectInterface effectIter;
+
         //we check if the user has left sufficient resources to perform this effect
-        for(int i = 0; i < possibleEffectChoices.size(); i++) {
-            effectIter = possibleEffectChoices.get(i);
-            if(effectIter instanceof PayForSomethingEffect
-                    && !resourcesCheckMap.checkIfContainable(((PayForSomethingEffect) effectIter).getToPay())) {
+        for(ImmediateEffectInterface effectIterator : possibleEffectChoices) {
+            if((effectIterator instanceof PayForSomethingEffect) &&(!resourcesCheckMap.checkIfContainable(((PayForSomethingEffect) effectIterator).getToPay())))
                     continue; //we should not add the option because the player doesn't have enough resources
-            }
-            realPossibleEffectChoices.add(effectIter);
+            realPossibleEffectChoices.add(effectIterator);
         }
+
+        for(ImmediateEffectInterface iterator : realPossibleEffectChoices)
+            Debug.printVerbose("Real effects: " + iterator.descriptionOfEffect());
 
         int choice;
         ImmediateEffectInterface effectChosen;
