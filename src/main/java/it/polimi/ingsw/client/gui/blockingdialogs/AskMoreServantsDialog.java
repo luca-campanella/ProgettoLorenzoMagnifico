@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client.gui.blockingdialogs;
 
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class AskMoreServantsDialog implements Callable<Integer> {
         dialog.setTitle("Product!");
         dialog.setHeaderText("Do you want to use more servants?");
         dialog.setContentText("Choose your additional number of servants!");
+        dialog.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
 
         Optional<Integer> result = dialog.showAndWait();
 

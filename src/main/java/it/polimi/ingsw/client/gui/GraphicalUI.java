@@ -40,6 +40,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This object represents the implementation of the user interface via graphical user interface
@@ -50,6 +52,8 @@ public class GraphicalUI extends AbstractUIType {
     private Stage currentStage;
     private CustomFxControl currentFXControl;
     private volatile SceneEnum currentSceneType;
+
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * This is the constructor of the class
@@ -225,8 +229,8 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Got council choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            this.displayError("Error in opening dialogue, default value instead", e.getMessage());
+            LOGGER.log(Level.SEVERE, "Error in opening dialogue", e);
+            this.displayError("Error in opening dialogue, default value", e.getMessage());
         }
         Debug.printVerbose("Im in askCouncilGiftGUIEnd");
         return choice;
@@ -248,7 +252,7 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Got building choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error in opening dialogue", e);
             this.displayError("Error in opening dialogue, default value instead", e.getMessage());
         }
         return choice;
@@ -272,7 +276,7 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Got purpleCost choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error in opening dialogue askPurpleVentureCardCostChoice", e);
             this.displayError("Error in opening dialogue, default value instead", e.getMessage());
         }
         return choice;
@@ -287,14 +291,14 @@ public class GraphicalUI extends AbstractUIType {
     public int askWhereToPlaceNoDiceFamilyMember(List<TowerWrapper> towerWrapper){
         FutureTask<Integer> futureTask = new FutureTask(new AskWhereToPlaceNoDiceFamilyMember(towerWrapper));
         Platform.runLater(futureTask);
-
+        Debug.printVerbose("Inside ask...");
 
        int choice = 0;
        try{
            choice = futureTask.get();
            Debug.printVerbose("Got whereToPlaceDiceNoFamilyMember " + choice);
        } catch (InterruptedException | ExecutionException e) {
-           e.printStackTrace();
+           LOGGER.log(Level.SEVERE, "Error in opening dialogue askWhereToPlaceNoDiceFamilyMember", e);
            this.displayError("Error in opening dialogue, default value instead - 0", e.getMessage());
        }
        Debug.printVerbose("number of " + choice);
@@ -359,6 +363,8 @@ public class GraphicalUI extends AbstractUIType {
         } catch (InterruptedException | ExecutionException e) {
             String displayThis = "Error in opening dialogue, default value instead, called from askAddingServants";
             this.displayError(displayThis, e.getMessage());
+            LOGGER.log(Level.SEVERE, "Error in opening dialogue askWhichLeaderAbilityToCopy", e);
+
         }
 
         return choice;
@@ -383,7 +389,7 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Activating or not effect choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error in opening dialogue askAlsoActivateLeaderCard", e);
             this.displayError("Error in opening dialogue, default value instead, called from askAddingServants", e.getMessage());
         }
 
@@ -401,7 +407,7 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Got more servants choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error in opening dialogue askAddingServants", e);
             this.displayError("Error in opening dialogue, default value instead, called from askAddingServants, perchè sei qui?", e.getMessage());
         }
         return choice;
@@ -427,7 +433,8 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Got DiceAndFamilyMember choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error in opening dialogue askWhichFamilyMemberBonus", e);
+
             this.displayError("Error in opening dialogue, default value instead", e.getMessage());
         }
         //todo: proably we need to handle the null case
@@ -537,8 +544,8 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
      *
-     * @param senderNick
-     * @param msg
+     * @param senderNick is the nick of the person who sent the msg
+     * @param msg is the txt of the mesessage
      */
     @Override
     public void displayChatMsg(String senderNick, String msg) {
@@ -554,8 +561,8 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
      * this method should also receive the familyMembers list to match the input.
-     * @param familyColorID
-     * @return
+     * @param familyColorID is the family color id
+     * @return true if the color exists
      */
     private boolean existingColors(String familyColorID){
         return (familyColorID.equalsIgnoreCase("yellow")||familyColorID.equalsIgnoreCase("red")||familyColorID.equalsIgnoreCase("green")||familyColorID.equalsIgnoreCase("neutral"));
@@ -567,7 +574,7 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public void askNetworkType()
     {
-        Debug.printDebug("Sono nella gui. Voglio chedere quale network usare.");
+
         currentSceneType = SceneEnum.CONNECTION_CHOICE;
 
         Platform.runLater(() ->openNewWindow("ConnectionChooserV2.fxml", "Connection Type Choice", null));
@@ -615,6 +622,8 @@ public class GraphicalUI extends AbstractUIType {
             root = (Parent) fxmlLoader.load();
         } catch (IOException e) {
             Debug.printError("Error in loading fxml", e);
+            LOGGER.log(Level.SEVERE, "Error in opening dialogue openNewWindow", e);
+
             displayErrorAndExit("Fatal error", "Error message: " + e.getMessage());
         }
 
@@ -841,7 +850,7 @@ public class GraphicalUI extends AbstractUIType {
             Stage stage = new Stage();
             stage.setScene(dialog);
 
-            bnOK.setOnAction((e) -> {
+            bnOK.setOnAction(e -> {
                 stage.close();
                 new Thread(() -> getController().callbackConnectPlayerAgain()).run();
             });

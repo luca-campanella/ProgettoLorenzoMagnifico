@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.cli.notblockingmenus;
 
 import it.polimi.ingsw.client.cli.CliOptionsHandler;
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.leaders.LeaderCard;
 import it.polimi.ingsw.model.player.FamilyMember;
@@ -18,11 +19,11 @@ public class InitialActionMenu extends WaitBasicCliMenu {
         super("it's your turn, please select the action you want to perform by typing the corresponding abbreviation", controller);
         if(!playedFamilyMember)
             addOption("FM", "Place a Family Member on an action space", this::placeFamilyMember);
-        if(getController().callbackObtainPlayer().getLeaderCardsNotUsed().size() !=0)
+        if(!getController().callbackObtainPlayer().getLeaderCardsNotUsed().isEmpty())
             addOption("DL", "Discard a Leader", this::discardLeader);
-        if(getController().callbackObtainPlayer().getPlayableLeaders().size() !=0)
+        if(!getController().callbackObtainPlayer().getPlayableLeaders().isEmpty())
             addOption("PL", "Play a Leader card", this::playLeader);
-        if(getController().callbackObtainPlayer().getPlayedNotActivatedOncePerRoundLeaderCards().size() != 0)
+        if(!getController().callbackObtainPlayer().getPlayedNotActivatedOncePerRoundLeaderCards().isEmpty())
             addOption("AL", "Activate a Leader ability", this::activateLeaderAbility);
         addOption("END","Pass the turn", this::passTheTurn);
     }
@@ -40,8 +41,8 @@ public class InitialActionMenu extends WaitBasicCliMenu {
         int indexRes = 0;
         ArrayList<FamilyMember> playableFMs = getController().callbackObtainPlayer().getNotUsedFamilyMembers();
         if(playableFMs.size() == 1) {
-            System.out.println("You can only place family member " + playableFMs.get(0).getColor() + " with value " + playableFMs.get(0).getValue());
-            System.out.println("I'm placing this family member");
+            CliPrinter.println("You can only place family member " + playableFMs.get(0).getColor() + " with value " + playableFMs.get(0).getValue());
+            CliPrinter.println("I'm placing this family member");
         } else {
             Debug.printVerbose("placeFamilyMember called");
             CliOptionsHandler familyMemberChooser = new CliOptionsHandler(playableFMs.size());
@@ -62,8 +63,8 @@ public class InitialActionMenu extends WaitBasicCliMenu {
         int indexRes = 0;
         List<LeaderCard> leaderCardsNotPlayed = getController().callbackObtainPlayer().getLeaderCardsNotUsed();
         if(leaderCardsNotPlayed.size() == 1) {
-            System.out.println("You can only discard Leader Card " + leaderCardsNotPlayed.get(0).getName());
-            System.out.println("I'm discarding this leader card");
+            CliPrinter.println("You can only discard Leader Card " + leaderCardsNotPlayed.get(0).getName());
+            CliPrinter.println("I'm discarding this leader card");
         }
         else {
             Debug.printVerbose("Discard leader card called");
@@ -85,8 +86,8 @@ public class InitialActionMenu extends WaitBasicCliMenu {
         int indexRes = 0;
         List<LeaderCard> playableLeaderCards = getController().callbackObtainPlayer().getPlayableLeaders();
         if(playableLeaderCards.size() == 1) {
-            System.out.println("You can only play Leader Card " + playableLeaderCards.get(0).getName());
-            System.out.println("I'm playing this leader card");
+            CliPrinter.println("You can only play Leader Card " + playableLeaderCards.get(0).getName());
+            CliPrinter.println("I'm playing this leader card");
         }
         else {
             Debug.printVerbose("Play leader card called");
@@ -108,8 +109,8 @@ public class InitialActionMenu extends WaitBasicCliMenu {
         int indexRes = 0;
         List<LeaderCard> activailableLeaderCards = getController().callbackObtainPlayer().getPlayedNotActivatedOncePerRoundLeaderCards();
         if(activailableLeaderCards.size() == 1) {
-            System.out.println("You can only activate Leader Card " + activailableLeaderCards.get(0).getName());
-            System.out.println("I'm activating this leader card");
+            CliPrinter.println("You can only activate Leader Card " + activailableLeaderCards.get(0).getName());
+            CliPrinter.println("I'm activating this leader card");
         }
         else {
             Debug.printVerbose("Activate leader card called");

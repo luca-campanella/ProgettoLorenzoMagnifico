@@ -15,7 +15,7 @@ public class CliOptionsHandler {
 
     private String initialMessage = null;
 
-    /**
+    /*
      * this is the constructor of the class used to ask choices between effects.
      * @param effectOptions so when a list of effects comes, it translates that in strings
      */

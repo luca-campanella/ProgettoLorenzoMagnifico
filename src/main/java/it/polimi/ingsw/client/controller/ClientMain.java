@@ -34,9 +34,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * TODO: implement launcher
+ * This is the controller class for the client side
  */
 public class ClientMain implements NetworkControllerClientInterface, ViewControllerCallbackInterface, ChoicesHandlerInterface {
     private LauncherClient temp;
@@ -44,6 +46,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     private AbstractClientType clientNetwork;
     private ModelController modelController;
     private boolean playedFamilyMember = false;
+
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * this object is used to handle the choices made by another player that need to reply to the callback from model
@@ -109,6 +113,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void startUp() {
         Debug.instance(Debug.LEVEL_VERBOSE);
         StdinSingleton.instance();
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.info("this is a info test for the logger");
         temp = new LauncherClient(this);
         userInterface = temp.welcome();
         userInterface.askNetworkType();
@@ -139,7 +145,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             try {
                 clientNetwork.connect();
             } catch (ClientConnectionException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, "Network error", e);
                 userInterface.displayErrorAndExit("Network problem", e.getMessage());
             }
         }

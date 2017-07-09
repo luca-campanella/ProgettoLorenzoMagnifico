@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.cli.notblockingmenus;
 
 import it.polimi.ingsw.client.cli.CliOptionsHandler;
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.model.resource.MarketWrapper;
@@ -59,8 +60,8 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
         Debug.printVerbose("placeFMOnMarket");
         int indexRes;
         if(activeMarketSpaces.size() == 1) {
-            System.out.println("You can only place on space n " + activeMarketSpaces.get(0).getMarketIndex() + "with " + activeMarketSpaces.get(0).getServantNeeded() + "servants needed");
-            System.out.println("I'm placing it over there");
+            CliPrinter.println("You can only place on space n " + activeMarketSpaces.get(0).getMarketIndex() + "with " + activeMarketSpaces.get(0).getServantNeeded() + "servants needed");
+            CliPrinter.println("I'm placing it over there");
             indexRes = activeMarketSpaces.get(0).getMarketIndex();
         } else { //we have to ask the user for a choice
             CliOptionsHandler marketSpaceChooser = new CliOptionsHandler(activeMarketSpaces.size());
@@ -80,8 +81,8 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
         int towerIndex;
         int floorIndex;
         if(activeTowerSpaces.size() == 1) {
-            System.out.println("You can only place on space of :\ntower number " + activeTowerSpaces.get(0).getTowerIndex() + "\nFloor : " + activeTowerSpaces.get(0).getTowerFloor() + "\nwith " + activeTowerSpaces.get(0).getServantNeeded() + "servants needed");
-            System.out.println("I'm placing it over there");
+            CliPrinter.println("You can only place on space of :\ntower number " + activeTowerSpaces.get(0).getTowerIndex() + "\nFloor : " + activeTowerSpaces.get(0).getTowerFloor() + "\nwith " + activeTowerSpaces.get(0).getServantNeeded() + "servants needed");
+            CliPrinter.println("I'm placing it over there");
             towerIndex = activeTowerSpaces.get(0).getTowerIndex();
             floorIndex = activeTowerSpaces.get(0).getTowerFloor();
 
@@ -116,12 +117,12 @@ public class ActionSpacePickerMenu extends BasicCLIMenu {
         int addableServants = availableServants - baseValue;
         if(addableServants == 0) //if he can't add any servant we return immediately
             return 0;
-        System.out.println("Choose how many servants you want to add to the base action:\n" +
+        CliPrinter.println("Choose how many servants you want to add to the base action:\n" +
                             "Base number of servants needed: " + baseValue + "\n" +
                             "You can add up to " + addableServants + " servants");
         int choice = StdinSingleton.readAndParseInt();
         while(choice < 0 || choice > addableServants) {
-            System.out.println("Please insert a number between 0 and " + addableServants);
+            CliPrinter.println("Please insert a number between 0 and " + addableServants);
             choice = StdinSingleton.readAndParseInt();
         }
 

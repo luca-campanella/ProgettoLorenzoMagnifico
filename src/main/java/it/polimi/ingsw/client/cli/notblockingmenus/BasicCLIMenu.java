@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.cli.notblockingmenus;
 
 import it.polimi.ingsw.client.cli.CallbackFunction;
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.utils.Debug;
@@ -23,7 +24,7 @@ public abstract class BasicCLIMenu extends Thread {
     public BasicCLIMenu(String initialMenu, ViewControllerCallbackInterface controller) {
         this.initialMenu = initialMenu;
         this.controller = controller;
-        optionsMap = new HashMap<String, DescrCallbackContainer>();
+        optionsMap = new HashMap<>();
         //this option will only be visible if the player was disconnected
         optionsMap.put("CONNECT", new DescrCallbackContainer(() -> this.connectPlayerAgain(),
                 "reconnect me"));
@@ -48,14 +49,14 @@ public abstract class BasicCLIMenu extends Thread {
      * Shows the menu and waits for the input.
      * If this method is running the thread cannot be interrupted
      */
-    protected void showMenuAndAsk() {
+     public void showMenuAndAsk() {
         printMenu();
 
         String choice = StdinSingleton.nextLine();
         DescrCallbackContainer callbackContainer = optionsMap.get(choice.toUpperCase());
 
         while(callbackContainer == null) {
-            System.out.println(choice + " is not a recognised option, please choose a correct one");
+            CliPrinter.println(choice + " is not a recognised option, please choose a correct one");
             choice = StdinSingleton.nextLine();
             callbackContainer = optionsMap.get(choice.toUpperCase());
         }
@@ -77,7 +78,7 @@ public abstract class BasicCLIMenu extends Thread {
                     DescrCallbackContainer callbackContainer = optionsMap.get(choice.toUpperCase());
 
                     if (callbackContainer == null) {
-                        System.out.println(choice + " is not a recognised option, please choose a correct one");
+                        CliPrinter.println(choice + " is not a recognised option, please choose a correct one");
                         continue;
                     }
                     Debug.printVerbose("before callback from showMenuAndAskNonBlocking");
@@ -100,14 +101,14 @@ public abstract class BasicCLIMenu extends Thread {
 
     private void printMenu() {
         if(!controller.callbackObtainIsThisPlayerSuspended()) {
-            System.out.println(initialMenu);
+            CliPrinter.println(initialMenu);
             optionsMap.forEach((abbrev, descrCallback) ->
             {
                 if (!"CONNECT".equals(abbrev))
-                    System.out.println(abbrev + " - " + descrCallback.getDescription());
+                    CliPrinter.println(abbrev + " - " + descrCallback.getDescription());
             });
         } else {
-            System.out.println("You are disconnected, write CONNECT to reconnect");
+            CliPrinter.println("You are disconnected, write CONNECT to reconnect");
         }
     }
 
@@ -135,10 +136,10 @@ public abstract class BasicCLIMenu extends Thread {
 
     private void connectPlayerAgain() {
         if(!controller.callbackObtainIsThisPlayerSuspended()) {
-            System.out.println("You are not disconnected, please choose a valid option");
+            CliPrinter.println("You are not disconnected, please choose a valid option");
             showMenuAndAsk();
         } else {
-            System.out.println("You are being reconnected");
+            CliPrinter.println("You are being reconnected");
             controller.callbackConnectPlayerAgain();
         }
     }
