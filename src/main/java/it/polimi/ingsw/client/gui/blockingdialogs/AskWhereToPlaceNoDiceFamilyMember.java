@@ -23,14 +23,14 @@ public class AskWhereToPlaceNoDiceFamilyMember implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
         Debug.printVerbose("Inside askWhereToPlaceNoFamilyMember");
-        Set<String> choices = new HashSet<>();
+
         ArrayList<String> choicesToShow = new ArrayList<>();
         // i get the colors of all towers
         for(TowerWrapper iterator : towerWrapper)
-            choices.add(CardColorEnum.values()[(iterator.getTowerIndex())].getCardColor().concat(Integer.toString(iterator.getTowerFloor())));
+            choicesToShow.add(CardColorEnum.values()[(iterator.getTowerIndex())].getCardColor().concat(Integer.toString(iterator.getTowerFloor())));
 
 
-        choicesToShow.addAll(choices);
+        //choicesToShow.addAll(choices);
         ChoiceDialog<String> dialog = new ChoiceDialog<>(choicesToShow.get(0), choicesToShow);
 
         dialog.setTitle("Placing a Dice");

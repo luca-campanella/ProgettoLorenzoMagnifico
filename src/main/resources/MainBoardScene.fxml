@@ -134,17 +134,17 @@
                                </children></AnchorPane>
                         <AnchorPane fx:id="marketPane" prefHeight="205.0" prefWidth="225.0">
                            <children>
-                              <Text fx:id="dice1" fill="WHITE" layoutX="51.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                              <Text fx:id="dice1" fill="WHITE" layoutX="33.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="dice0" layoutX="139.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                              <Text fx:id="dice0" layoutX="117.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="dice2" layoutX="236.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                              <Text fx:id="dice2" layoutX="200.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>

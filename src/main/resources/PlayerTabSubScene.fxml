@@ -23,7 +23,7 @@
                         <Label fx:id="stoneLabel" layoutX="217.0" layoutY="304.0" styleClass="labelResources" text="STONE" />
                         <Label fx:id="servantsLabel" layoutX="304.0" layoutY="304.0" styleClass="labelResources" text="SERV" />
                         <Label fx:id="militaryLabel" layoutX="401.0" layoutY="304.0" styleClass="labelResources" text="MILPO" />
-                        <Label fx:id="victoryLabel" layoutX="489.0" layoutY="304.0" prefHeight="12.0" prefWidth="12.0" styleClass="labelResources" text="VICPO" />
+                        <Label fx:id="victoryLabel" layoutX="480.0" layoutY="304.0" styleClass="labelResources" text="VICPO" />
 
                         <ImageView fx:id="buildingCard0" fitHeight="134.0" fitWidth="81.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="buildingCard1" fitHeight="134.0" fitWidth="81.0" layoutX="95.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />

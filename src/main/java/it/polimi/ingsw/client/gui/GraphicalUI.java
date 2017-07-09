@@ -297,6 +297,7 @@ public class GraphicalUI extends AbstractUIType {
            e.printStackTrace();
            this.displayError("Error in opening dialogue, default value instead - 0", e.getMessage());
        }
+       Debug.printVerbose("number of " + choice);
         ((MainBoardControl)(currentFXControl)).removeCardFromView(towerWrapper.get(choice).getTowerIndex(), towerWrapper.get(choice).getTowerFloor());
        return choice;
     }
@@ -473,7 +474,7 @@ public class GraphicalUI extends AbstractUIType {
             alert.setHeaderText("The game has ended");
 
             StringBuilder stringBuilder = new StringBuilder();
-
+            Debug.printVerbose("Show end game");
             for(int i = 1 ; i <= playerPositionEndGamePacket.size(); i++){
                 for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
                     if(playerIter.getPosition() == i) {
