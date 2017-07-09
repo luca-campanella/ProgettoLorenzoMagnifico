@@ -40,6 +40,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This object represents the implementation of the user interface via graphical user interface
@@ -50,6 +52,8 @@ public class GraphicalUI extends AbstractUIType {
     private Stage currentStage;
     private CustomFxControl currentFXControl;
     private volatile SceneEnum currentSceneType;
+
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * This is the constructor of the class
@@ -225,7 +229,7 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Got council choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error in opening dialogue", e);
             this.displayError("Error in opening dialogue, default value instead", e.getMessage());
         }
         Debug.printVerbose("Im in askCouncilGiftGUIEnd");
