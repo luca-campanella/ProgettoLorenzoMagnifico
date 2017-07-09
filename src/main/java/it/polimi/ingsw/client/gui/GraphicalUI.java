@@ -6,7 +6,6 @@ import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.blockingdialogs.*;
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
-import it.polimi.ingsw.model.cards.AbstractCard;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
 import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
@@ -26,16 +25,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -53,7 +47,11 @@ public class GraphicalUI extends AbstractUIType {
     private CustomFxControl currentFXControl;
     private volatile SceneEnum currentSceneType;
 
-    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+    private static final String WAITING_SCENE_FXML = "WaitingScene.fxml";
+
+    private static final String ERROR_IN_OPENING_DIALOG_MESSAGE = "Error in opening dialogue, default value instead";
 
     /**
      * This is the constructor of the class
@@ -79,7 +77,7 @@ public class GraphicalUI extends AbstractUIType {
     @Override
     public void askWhichActionSpace(Optional<Integer> servantsNeededHarvest, Optional<Integer> servantsNeededBuild, Optional<Integer> servantsNeededCouncil, List<MarketWrapper> activeMarketSpaces, List<TowerWrapper> activeTowerSpaces, int availableServants) {
         Debug.printVerbose("askWhichActionSpace called");
-        MainBoardControl control = ((MainBoardControl) (currentFXControl));
+        MainBoardControl control = (MainBoardControl) (currentFXControl);
         Platform.runLater(() -> control.displayActiveActionSpaces(servantsNeededHarvest, servantsNeededBuild, servantsNeededCouncil, activeMarketSpaces, activeTowerSpaces));
     }
 
@@ -93,7 +91,7 @@ public class GraphicalUI extends AbstractUIType {
         currentSceneType = SceneEnum.WAITING_SCENE;
         Debug.printDebug("GUI: whow waiting for game start");
 
-        Platform.runLater(() -> this.openNewWindow("WaitingScene.fxml", "Waiting for game to start",
+        Platform.runLater(() -> this.openNewWindow(WAITING_SCENE_FXML, "Waiting for game to start",
                 () -> this.prepareWaitingScene("Room joined succesfully, waiting for other players to join or for timeout...")));
 
     }
@@ -106,7 +104,7 @@ public class GraphicalUI extends AbstractUIType {
         currentSceneType = SceneEnum.WAITING_SCENE;
         Debug.printDebug("GUI: whow waiting for another leader choice");
 
-        Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for leader choices",
+        Platform.runLater(() -> openNewWindow(WAITING_SCENE_FXML, "Waiting for leader choices",
                 () -> this.prepareWaitingScene("Leader chose, waiting for other players to choose...")));
     }
 
@@ -121,7 +119,7 @@ public class GraphicalUI extends AbstractUIType {
             currentSceneType = SceneEnum.WAITING_SCENE;
             Debug.printDebug("GUI: show waiting for tile choice");
 
-            Platform.runLater(() -> openNewWindow("WaitingScene.fxml", "Waiting for tiles choices",
+            Platform.runLater(() -> openNewWindow(WAITING_SCENE_FXML, "Waiting for tiles choices",
                     () -> this.prepareWaitingScene("Personal tile chose, waiting for other players to choose...")));
         }
     }
@@ -142,9 +140,6 @@ public class GraphicalUI extends AbstractUIType {
         }
         else {
             textToDisplay.append("you already played your family member, please ");
-            //here i let the user show all the family members that have been placed last round
-           /* MainBoardControl control = ((MainBoardControl) (currentFXControl));
-            control.updateFamilyMembers();*/
         }
         textToDisplay.append("make a leader action or pass the turn");
 
@@ -160,7 +155,7 @@ public class GraphicalUI extends AbstractUIType {
                 getController().setBoardNeedsToBeRefreshed(false);
             }
 
-                MainBoardControl control = ((MainBoardControl) (currentFXControl));
+                MainBoardControl control = (MainBoardControl) (currentFXControl);
                 control.appendMessageOnStateTextArea(textToDisplay.toString());
                 control.disableAllActionsNotHisTurn(false);
                 control.setFamilyMemberDisable(playedFamilyMember);
@@ -173,7 +168,7 @@ public class GraphicalUI extends AbstractUIType {
      * Update all the view for the new round
      */
     private void updateViewForNewRound() {
-        MainBoardControl control = ((MainBoardControl) (currentFXControl));
+        MainBoardControl control = (MainBoardControl) (currentFXControl);
             control.displayDices();
             control.displayCards();
             control.displayFamilyMembers();
@@ -189,7 +184,7 @@ public class GraphicalUI extends AbstractUIType {
      * @param isHisTurn true if it's player's turn, false if it is not
      */
     private void setUpMainBoardControl(String message, boolean isHisTurn) {
-        MainBoardControl control = ((MainBoardControl) (currentFXControl));
+        MainBoardControl control = (MainBoardControl) (currentFXControl);
 
         control.setBoard(getController().callbackObtainBoard());
         control.displayCards();
@@ -252,8 +247,8 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Got building choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            LOGGER.log(Level.SEVERE, "Error in opening dialogue", e);
-            this.displayError("Error in opening dialogue, default value instead", e.getMessage());
+            LOGGER.log(Level.SEVERE, ERROR_IN_OPENING_DIALOG_MESSAGE, e);
+            this.displayError(ERROR_IN_OPENING_DIALOG_MESSAGE, e.getMessage());
         }
         return choice;
 
@@ -276,8 +271,8 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Got purpleCost choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            LOGGER.log(Level.SEVERE, "Error in opening dialogue askPurpleVentureCardCostChoice", e);
-            this.displayError("Error in opening dialogue, default value instead", e.getMessage());
+            LOGGER.log(Level.SEVERE, ERROR_IN_OPENING_DIALOG_MESSAGE + " askPurpleVentureCardCostChoice", e);
+            this.displayError(ERROR_IN_OPENING_DIALOG_MESSAGE, e.getMessage());
         }
         return choice;
     }
@@ -298,8 +293,8 @@ public class GraphicalUI extends AbstractUIType {
            choice = futureTask.get();
            Debug.printVerbose("Got whereToPlaceDiceNoFamilyMember " + choice);
        } catch (InterruptedException | ExecutionException e) {
-           LOGGER.log(Level.SEVERE, "Error in opening dialogue askWhereToPlaceNoDiceFamilyMember", e);
-           this.displayError("Error in opening dialogue, default value instead - 0", e.getMessage());
+           LOGGER.log(Level.SEVERE, ERROR_IN_OPENING_DIALOG_MESSAGE + " askWhereToPlaceNoDiceFamilyMember", e);
+           this.displayError(ERROR_IN_OPENING_DIALOG_MESSAGE, e.getMessage());
        }
        Debug.printVerbose("number of " + choice);
         ((MainBoardControl)(currentFXControl)).removeCardFromView(towerWrapper.get(choice).getTowerIndex(), towerWrapper.get(choice).getTowerFloor());
@@ -425,6 +420,9 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public DiceAndFamilyMemberColorEnum askWhichFamilyMemberBonus(List<FamilyMember> availableFamilyMembers) throws IllegalArgumentException {
+        if(availableFamilyMembers.isEmpty()) {
+            throw new IllegalArgumentException("the list is empty");
+        }
         FutureTask<DiceAndFamilyMemberColorEnum> futureTask = new FutureTask(new AskWhichFMBonusDialog(availableFamilyMembers));
         Platform.runLater(futureTask);
 
@@ -433,11 +431,10 @@ public class GraphicalUI extends AbstractUIType {
             choice = futureTask.get();
             Debug.printVerbose("Got DiceAndFamilyMember choice from GUI: " + choice);
         } catch (InterruptedException | ExecutionException e) {
-            LOGGER.log(Level.SEVERE, "Error in opening dialogue askWhichFamilyMemberBonus", e);
+            LOGGER.log(Level.SEVERE, ERROR_IN_OPENING_DIALOG_MESSAGE + " askWhichFamilyMemberBonus", e);
 
-            this.displayError("Error in opening dialogue, default value instead", e.getMessage());
+            this.displayError(ERROR_IN_OPENING_DIALOG_MESSAGE, e.getMessage());
         }
-        //todo: proably we need to handle the null case
         return choice;
     }
 
@@ -453,11 +450,9 @@ public class GraphicalUI extends AbstractUIType {
                     () -> setUpMainBoardControl(message, false)));
             currentSceneType = SceneEnum.MAIN_BOARD;
             getController().setBoardNeedsToBeRefreshed(false);
-            //here i let the user show all the family members that have been placed last round
-            //((MainBoardControl) (currentFXControl)).updateFamilyMembers();
         } else {
             Platform.runLater(() -> {
-                MainBoardControl control = ((MainBoardControl) (currentFXControl));
+                MainBoardControl control = (MainBoardControl) (currentFXControl);
             if(getController().callbackObtainBoardNeedsToBeRefreshed()) {
                 updateViewForNewRound();
                 control.refreshPersonalBoardOfPlayer(getController().callbackObtainPlayer().getNickname());
@@ -474,34 +469,36 @@ public class GraphicalUI extends AbstractUIType {
      * @param playerPositionEndGamePacket the packet with all the information of the end of the game
      */
     @Override
-    public void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("End game");
-            alert.setHeaderText("The game has ended");
+    public void showEndOfGame(List<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
+        Platform.runLater(() -> showEndOfGameDialog(playerPositionEndGamePacket));
+    }
 
-            StringBuilder stringBuilder = new StringBuilder();
-            Debug.printVerbose("Show end game");
-            for(int i = 1 ; i <= playerPositionEndGamePacket.size(); i++){
-                for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
-                    if(playerIter.getPosition() == i) {
-                        if(i == 1) {
-                            if(playerIter.getNickname().equals(getController().callbackObtainPlayer().getNickname()))
-                                stringBuilder.append("***YOU WON*** :D");
-                            else
-                                stringBuilder.append("*YOU LOST* :(");
-                            stringBuilder.append("Here are the final standings");
-                        }
-                        stringBuilder.append(playerIter.getPosition() + " position: " + playerIter.getNickname()
-                                + " " + playerIter.getVictoryPoints() + " Victory Points");
-                    }
+    private void showEndOfGameDialog(List<PlayerPositionEndGamePacket> playerPositionEndGamePacket) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("End game");
+        alert.setHeaderText("The game has ended");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        Debug.printVerbose("Show end game");
+
+            if(playerPositionEndGamePacket.get(0).getNickname().equals(getController().callbackObtainPlayer().getNickname()))
+                stringBuilder.append("***YOU WON*** :D");
+            else
+                stringBuilder.append("*YOU LOST* :(");
+        stringBuilder.append("Here are the final standings");
+
+        for(int i = 1 ; i <= playerPositionEndGamePacket.size(); i++){
+            for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
+                if(playerIter.getPosition() == i) {
+                    stringBuilder.append(playerIter.getPosition() + " position: " + playerIter.getNickname()
+                            + " " + playerIter.getVictoryPoints() + " Victory Points");
                 }
             }
+        }
 
-            alert.setContentText(stringBuilder.toString());
-            alert.initOwner(currentStage);
-            alert.show();
-        });
+        alert.setContentText(stringBuilder.toString());
+        alert.initOwner(currentStage);
+        alert.show();
     }
 
 
@@ -549,24 +546,11 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void displayChatMsg(String senderNick, String msg) {
-
+        /*
+        for future implementation
+         */
     }
 
-    @Override
-    public void askChatMsg() {
-
-    }
-
-
-    /**
-     * this method helps selectFamilyMember()'s method return if the color user wrote is right or not
-     * this method should also receive the familyMembers list to match the input.
-     * @param familyColorID is the family color id
-     * @return true if the color exists
-     */
-    private boolean existingColors(String familyColorID){
-        return (familyColorID.equalsIgnoreCase("yellow")||familyColorID.equalsIgnoreCase("red")||familyColorID.equalsIgnoreCase("green")||familyColorID.equalsIgnoreCase("neutral"));
-    }
 
     /**
      * Asks the user which connection mode he wants to use
@@ -583,6 +567,7 @@ public class GraphicalUI extends AbstractUIType {
     /**
      * This method asks to the user if he wants to connect with an existing account or to create one.
      */
+    @Override
     public void askLoginOrCreate()
     {
         Debug.printDebug("Sono nella gui. ask login or create.");
@@ -591,20 +576,6 @@ public class GraphicalUI extends AbstractUIType {
                     () -> ((LoginRegisterControl) (currentFXControl)).setStage(currentStage)));
             currentSceneType = SceneEnum.LOGIN_REGISTER;
         }
-    }
-
-    //permette all'utente di create un nuovo account
-    public void createNewAccount(){
-        System.out.println("Creating new Account...");
-    }
-    //permette all'utente di Loggare
-    public void askLogin(){
-        System.out.println("Logging In...");
-    }
-    //aggiorna l'UI
-    public void updateView()
-    {
-        System.out.println("Sono in gui");
     }
 
     /**
@@ -627,7 +598,7 @@ public class GraphicalUI extends AbstractUIType {
             displayErrorAndExit("Fatal error", "Error message: " + e.getMessage());
         }
 
-        currentFXControl = ((CustomFxControl) fxmlLoader.getController());
+        currentFXControl = (CustomFxControl) fxmlLoader.getController();
 
         currentFXControl.setController(getController());
         if(runBeforeShow != null) //there is something to run
@@ -642,37 +613,7 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     private void prepareWaitingScene(String message) {
-        //openNewWindow("WaitingScene.fxml", title, null);
         ((WaitingSceneControl) (currentFXControl)).setMessage(message);
-    }
-
-    /**
-     * Shows a window with the list of cards passed as an argument
-     * @param cards the cards to show to the user
-     */
-    @Deprecated
-    public void showCards(List<AbstractCard> cards) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Blue cards");
-        alert.setHeaderText(null);
-        //alert.setContentText(errorDescription);
-
-        HBox cardsContainer = new HBox();
-        cardsContainer.setSpacing(5);
-        cardsContainer.setAlignment(Pos.CENTER);
-
-        for(AbstractCard cardIter : cards) {
-            final Image cardImage  = new Image(getClass().getResourceAsStream("/imgs/Cards/" + cardIter.getImgName()));
-            final ImageView imgView = new ImageView();
-            imgView.setImage(cardImage);
-            imgView.setPreserveRatio(true);
-
-            cardsContainer.getChildren().add(imgView);
-        }
-        alert.initStyle(StageStyle.UTILITY);
-        alert.setGraphic(cardsContainer);
-        //alert.initOwner(currentStage);
-        alert.show();
     }
 
 
@@ -800,7 +741,8 @@ public class GraphicalUI extends AbstractUIType {
      */
     @Override
     public void displayExcommunicationPlayers(List<String> playersExcommunicated) {
-
+        Platform.runLater(() ->
+                ((MainBoardControl) (currentFXControl)).displayExcommunicationPlayers(playersExcommunicated));
     }
 
     /**
@@ -852,11 +794,10 @@ public class GraphicalUI extends AbstractUIType {
 
             bnOK.setOnAction(e -> {
                 stage.close();
-                new Thread(() -> getController().callbackConnectPlayerAgain()).run();
+                new Thread(() -> getController().callbackConnectPlayerAgain()).start();
             });
 
             stage.show();
-
             stage.toFront();
         });
     }
@@ -879,7 +820,7 @@ public class GraphicalUI extends AbstractUIType {
      * @param nickname the nick of the player reconnected
      */
     @Override
-    public  void notifyPlayerReconnected(String nickname) {
+    public void notifyPlayerReconnected(String nickname) {
         Platform.runLater(() ->
                 ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(
                         "[" + nickname + "] --> was suspended, now he reconnected"));

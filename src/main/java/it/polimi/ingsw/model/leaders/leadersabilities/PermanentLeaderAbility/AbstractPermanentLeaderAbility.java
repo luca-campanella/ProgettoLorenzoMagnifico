@@ -99,43 +99,4 @@ public abstract class AbstractPermanentLeaderAbility extends AbstractLeaderAbili
         return null;
     }
 
-    /*
-     * This method will be overridden only by abilities that can be activated once per round
-     * in the class {@link AbstractOncePerRoundLeaderAbility}
-     *
-     * This method should be used to understand if a leader was already used in that round and his ability cannot be used again
-     * @return false
-     */
-    /*public boolean wasUsedThisRound() {
-        return false;
-    }*/
-
-    /*
-     * This method will be overridden only by abilities that can be activated once per round
-     * in the class {@link AbstractOncePerRoundLeaderAbility}
-     *
-     * This method should be used to set the used parameter once the leader was used this round
-     * and should be called at the end of each round to set false
-     * @param used
-     */
-    /*public void setUsedThisRound(boolean used) {
-        ;//do nothing the method will bew overridden
-    }*/
-
-    /*
-     * This method will be overridden only by abilities that can be activated once per round
-     * in the class {@link AbstractOncePerRoundLeaderAbility}
-     *
-     * This method should be used to get the ability only if was not already used that round,
-     * othewrise getting an empty Ability {@link EmptyLeaderAbility}
-     *
-     * --Example of code usage--
-     * <code>
-     *     leaderCard.getAbility().getIfNotUsedThisRound().get
-     * </code>
-     * @return an EmptyLeaderAbility
-     */
-    /*public AbstractPermanentLeaderAbility getIfNotUsedThisRound() {
-        return new EmptyLeaderAbility();
-    }*/
 }

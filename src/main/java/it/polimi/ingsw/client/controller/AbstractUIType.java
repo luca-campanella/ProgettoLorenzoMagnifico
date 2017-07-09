@@ -13,7 +13,6 @@ import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,11 +80,6 @@ abstract public class AbstractUIType {
      * @param msg is the message sent
      */
     public abstract void displayChatMsg(String senderNick, String msg);
-
-    /**
-     * this method is used to implements the chat message, it is not utilized, but can be implemented
-     */
-    public abstract void askChatMsg();
 
 
     /**
@@ -214,7 +208,7 @@ abstract public class AbstractUIType {
      * this method is called when the game is ended
      * @param playerPositionEndGamePacket the packet with all the information of the end of the game
      */
-    public abstract void showEndOfGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket);
+    public abstract void showEndOfGame(List<PlayerPositionEndGamePacket> playerPositionEndGamePacket);
 
     /**
      * This method is used by the controller when it receives a place on tower from another player and wants

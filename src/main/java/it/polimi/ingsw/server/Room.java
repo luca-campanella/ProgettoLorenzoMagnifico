@@ -145,6 +145,7 @@ public class Room {
             Debug.printDebug("New game started, waiting for first player to move");
         } catch (Exception e) {
             Debug.printError("Connection Error", e);
+            LOGGER.log(Level.SEVERE, "problem of connection at the starting of the game", e);
         }
     }
 
@@ -175,6 +176,7 @@ public class Room {
 
                 } catch (NetworkException e) { //not a big problem if a chat message is not sent
                     Debug.printError("Unable to sent chat message to " + i.getNickname(), e);
+                    LOGGER.log(Level.SEVERE, "Unable to sent chat message", e);
                 }
             }
         }
@@ -301,11 +303,15 @@ public class Room {
     private void floodPlaceOnTower(FamilyMember familyMember, int towerIndex, int floorIndex, HashMap<String, Integer> playerChoices) {
 
         for (AbstractConnectionPlayer player : players) {
-            if (!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
+            if (!player.getNickname().equals(familyMember.getPlayer().getNickname())
+                    && !disconnectedPlayers.contains(player)) {
                 try {
                     player.receivePlaceOnTower(familyMember, towerIndex, floorIndex, playerChoices);
                 } catch (NetworkException e) {
                     Debug.printError("Unable to sent move on tower to " + player.getNickname(), e);
+                    LOGGER.log(Level.SEVERE, "failed to send move on tower to", e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
             }
         }
@@ -317,11 +323,15 @@ public class Room {
     private void floodBuild(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) {
 
         for (AbstractConnectionPlayer player : players) {
-            if (!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
+            if (!player.getNickname().equals(familyMember.getPlayer().getNickname())
+                    && !disconnectedPlayers.contains(player)){
                 try {
                     player.receiveBuild(familyMember, servant, playerChoices);
                 } catch (NetworkException e) {
                     Debug.printError("Unable to sent move on build to " + player.getNickname(), e);
+                    LOGGER.log(Level.SEVERE, "failed to send move on build to", e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
             }
         }
@@ -333,11 +343,15 @@ public class Room {
     private void floodHarvest(FamilyMember familyMember, int servant, HashMap<String, Integer> playerChoices) {
 
         for (AbstractConnectionPlayer player : players) {
-            if (!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
+            if (!player.getNickname().equals(familyMember.getPlayer().getNickname())
+                    && !disconnectedPlayers.contains(player)){
                 try {
                     player.receiveHarvest(familyMember, servant, playerChoices);
                 } catch (NetworkException e) {
                     Debug.printError("Unable to sent move on harvest to " + player.getNickname(), e);
+                    LOGGER.log(Level.SEVERE, "failed to send move on harvest to", e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
             }
         }
@@ -349,11 +363,15 @@ public class Room {
     private void floodPlaceOnMarket(FamilyMember familyMember, int marketIndex, HashMap<String, Integer> playerChoices) {
 
         for (AbstractConnectionPlayer player : players) {
-            if (!player.getNickname().equals(familyMember.getPlayer().getNickname())) {
+            if (!player.getNickname().equals(familyMember.getPlayer().getNickname())
+                    && !disconnectedPlayers.contains(player)){
                 try {
                     player.receivePlaceOnMarket(familyMember, marketIndex, playerChoices);
                 } catch (NetworkException e) {
                     Debug.printError("Unable to sent move on market to " + player.getNickname(), e);
+                    LOGGER.log(Level.SEVERE, "failed to send move on market to", e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
             }
         }
@@ -384,11 +402,14 @@ public class Room {
     private void floodEndPhase(AbstractConnectionPlayer playerEndPhase) {
 
         for (AbstractConnectionPlayer player : players) {
-            if (player != playerEndPhase) {
+            if (player != playerEndPhase && !disconnectedPlayers.contains(player)) {
                 try {
                     player.receiveEndPhase(playerEndPhase);
                 } catch (NetworkException e) {
                     Debug.printError("Unable to sent end phase message to " + player.getNickname(), e);
+                    LOGGER.log(Level.SEVERE, "failed to sent end phase message", e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
                 }
             }
         }
@@ -400,13 +421,15 @@ public class Room {
     public void deliverDices(ArrayList<Dice> dices) {
 
         for (AbstractConnectionPlayer player : players) {
-
-            try {
-                player.receiveDices(dices);
-            } catch (NetworkException e) {
-
-                Debug.printError("Unable to sent new dices to " + player.getNickname(), e);
-
+            if(!disconnectedPlayers.contains(player)) {
+                try {
+                    player.receiveDices(dices);
+                } catch (NetworkException e) {
+                    Debug.printError("Unable to sent new dices to " + player.getNickname(), e);
+                    LOGGER.log(Level.SEVERE, "failed to sent new dices", e);
+                    addToDisconnectedPlayers(player);
+                    floodPlayerDisconnected(player);
+                }
             }
         }
     }
@@ -512,12 +535,18 @@ public class Room {
      */
     public void deliverOrderPlayers(ArrayList<String> orderPlayers) {
 
-        try {
-            for (AbstractConnectionPlayer player : this.players)
-                player.deliverOrderPlayers(orderPlayers);
-        } catch (NetworkException e) {
-            Debug.printError("ERROR on the deliver of the players ", e);
-        }
+            for (AbstractConnectionPlayer player : this.players) {
+                if (!disconnectedPlayers.contains(player)) {
+                    try {
+                        player.deliverOrderPlayers(orderPlayers);
+                    } catch (NetworkException e) {
+                        Debug.printError("ERROR on the deliver of the players ", e);
+                        LOGGER.log(Level.SEVERE, "failed to deliver of the players", e);
+                        addToDisconnectedPlayers(player);
+                        floodPlayerDisconnected(player);
+                    }
+                }
+            }
     }
 
     /**
@@ -559,6 +588,8 @@ public class Room {
             } catch (NetworkException e) {
                 Debug.printError("ERROR: cannot deliver the leader cards to " + player);
                 LOGGER.log(Level.SEVERE, "cannot deliver the leader cards", e);
+                addToDisconnectedPlayers(player);
+                floodPlayerDisconnected(player);
             }
 
         }
@@ -880,6 +911,7 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the leader card activated by " + nickname + " to " + player.getNickname(),e);
+                    LOGGER.log(Level.SEVERE, "failed to deliver the leader card activated", e);
                     addToDisconnectedPlayers(player);
                     floodPlayerDisconnected(player);
                 }
@@ -899,6 +931,7 @@ public class Room {
             }
             catch (NetworkException e){
                 Debug.printError("cannot deliver the end game results to " + player.getNickname(),e);
+                LOGGER.log(Level.SEVERE, "failed to deliver the end game results", e);
                 addToDisconnectedPlayers(player);
                 floodPlayerDisconnected(player);
             }
@@ -917,6 +950,7 @@ public class Room {
                     player.deliverExcommunication(nicknamePlayerExcommunicated, numTile);
                 } catch (NetworkException e) {
                     Debug.printError("cannot deliver the excommunication to " + player.getNickname(), e);
+                    LOGGER.log(Level.SEVERE, "failed to deliver the excommunication to", e);
                     addToDisconnectedPlayers(player);
                     floodPlayerDisconnected(player);
                 }
@@ -933,7 +967,8 @@ public class Room {
                 try {
                     playerIter.deliverDisconnectionPlayer(player.getNickname());
                 } catch (NetworkException e) {
-                    Debug.printError("cannot deliver the excommunication to " + player.getNickname(), e);
+                    Debug.printError("cannot deliver the disconenction to " + player.getNickname(), e);
+                    LOGGER.log(Level.SEVERE, "failed to deliver the disconenction", e);
                     addToDisconnectedPlayers(playerIter);
                     floodPlayerDisconnected(playerIter);
                 }
@@ -968,6 +1003,7 @@ public class Room {
                 }
                 catch (NetworkException e){
                     Debug.printError("cannot deliver the excommunication choice to " + nickname,e);
+                    LOGGER.log(Level.SEVERE, "failed to deliver the excommunication choice to", e);
                     addToDisconnectedPlayers(playerIter);
                     floodPlayerDisconnected(playerIter);
                 }
@@ -985,6 +1021,8 @@ public class Room {
             }
             catch (NetworkException e){
                 Debug.printError("cannot deliver the reconnection to " + player.getNickname(),e);
+                LOGGER.log(Level.SEVERE, "cannot deliver the reconnection", e);
+                handleErrorMove(player);
                 addToDisconnectedPlayers(player);
                 floodPlayerDisconnected(player);
             }
