@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
@@ -114,7 +115,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
     }
 
-    private void startUp() {
+    public void startUp() {
         Debug.instance(Debug.LEVEL_VERBOSE);
         StdinSingleton.instance();
         LOGGER.setLevel(Level.ALL);
@@ -807,8 +808,17 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param nickname the nickname of the player that disconnected
      */
     @Override
-   public void receivedPlayerDisconnected(String nickname) {
+    public void receivedPlayerDisconnected(String nickname) {
         userInterface.notifyAnotherPlayerDisconnected(nickname);
+    }
+
+    /**
+     * this method is called to inform the client that the server is no longer connected
+     */
+    @Override
+    public void receivedDisconnectionServer() {
+
+        userInterface.displayErrorAndExit("SERVER DISCONNECTED","The server is no longer connected ");
     }
 
     /**
@@ -908,10 +918,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void receivedLeaderCards(List<LeaderCard> leaderCards) {
-        Debug.printDebug("Automatically chose leader " + leaderCards.get(0).getName());
-        callbackOnLeaderCardChosen(leaderCards.get(0)); //todo remove these two statements
-        //todo commented to skip leader chosing phase, not to lose time
-        //userInterface.askLeaderCards(leaderCards);
+        userInterface.askLeaderCards(leaderCards);
     }
 
     /**
@@ -954,8 +961,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public synchronized void receivedPersonalTiles(PersonalTile standardTile, PersonalTile specialTile) {
-        //userInterface.askPersonalTiles(standardTile, specialTile);
-        callbackOnTileChosen(standardTile);
+        userInterface.askPersonalTiles(standardTile, specialTile);
     }
 
     /**

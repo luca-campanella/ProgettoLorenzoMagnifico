@@ -226,4 +226,9 @@ public interface NetworkControllerClientInterface {
      * @param nickname the nickname of the player that disconnected
      */
     void receivedPlayerDisconnected(String nickname);
+
+    /**
+     * this method is called to inform the client that the server is no longer connected
+     */
+    void receivedDisconnectionServer();
 }

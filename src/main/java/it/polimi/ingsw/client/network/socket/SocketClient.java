@@ -924,4 +924,13 @@ public class SocketClient extends AbstractClientType {
             Debug.printError("the client cannot receives the excommunication choice of another player",e);
         }
     }
+
+    /**
+     * this method is called when the server is disconnected
+     */
+    public void receiveDisconnectionServer(){
+
+        getControllerMain().receivedDisconnectionServer();
+
+    }
 }
