@@ -305,56 +305,32 @@ public class MainBoardControl extends CustomFxControl {
     public void refreshPersonalBoardOfPlayer(String playerNickname) {
         PlayerTabSubControl playerTab = playersTabMap.get(playerNickname);
         playerTab.refreshResourcesAndCards();
-        //refreshFaithTrackOfPlayer(playerNickname);
-        FaithTrackPlaceHolderCollector collector = faithTrackCylinderMap.get(playerNickname);
-        //we refresh faith track only if the points have changed
-        int currFaithPoint = collector.getPlayer().getResource(ResourceTypeEnum.FAITH_POINT);
-        if(currFaithPoint != collector.getCurrentFaithPoints())
-            refreshFaithTrackValue(currFaithPoint);
+        refreshFaithTrackOfPlayer(playerNickname);
     }
 
     /**
      * Refreshed the faith track of all players
      */
     public void refreshFaithTrack() {
-        getController().callbackObtainPlayersInOrder().forEach((player) -> {
-            FaithTrackPlaceHolderCollector collector = faithTrackCylinderMap.get(player.getNickname());
-            //we refresh faith track only if the points have changed
-            int currFaithPoint = player.getResource(ResourceTypeEnum.FAITH_POINT);
-            if(currFaithPoint != collector.getCurrentFaithPoints())
-                refreshFaithTrackValue(currFaithPoint);
-        });
+        getController().callbackObtainPlayersInOrder()
+                .forEach((player) -> refreshFaithTrackOfPlayer(player.getNickname()));
     }
 
     /**
      * Refreshes the cylinders of the faith track
      * @param playerNickname the player to refresh the cylinder of
      */
-    @Deprecated
     private void refreshFaithTrackOfPlayer(String playerNickname) {
         FaithTrackPlaceHolderCollector collector = faithTrackCylinderMap.get(playerNickname);
-        Player player = collector.getPlayer();
-        final int updatedFaithPoints = player.getResource(ResourceTypeEnum.FAITH_POINT);
-
-        if(updatedFaithPoints == collector.getCurrentFaithPoints())
-            return; //nothing to update
-
-        Cylinder cylinder = collector.getCylinder();
-        List<Player> allPlayers = getController().callbackObtainPlayersInOrder();
-        int numberOfPlayersSameFaithPoints = 0;
-
-        //we calculate how many players are already on the space we have to place our cylinder on
-        for(Player playerIter : allPlayers) {
-            if(playerIter != player && playerIter.getResource(ResourceTypeEnum.FAITH_POINT) == updatedFaithPoints)
-                numberOfPlayersSameFaithPoints += 1;
+        //we refresh faith track only if the points have changed
+        int currFaithPoint = collector.getPlayer().getResource(ResourceTypeEnum.FAITH_POINT);
+        if(currFaithPoint != collector.getCurrentFaithPoints()) {
+            //refreshes the new position, with other players also
+            refreshFaithTrackValue(currFaithPoint);
+            //refreshes the old position, with other players also
+            refreshFaithTrackValue(collector.getCurrentFaithPoints());
         }
-
-        //we calculate the coordinates
-        double y = faithTrackYCoord - ((cylinder.getHeight()+cylinder.getRadius())/2) - (cylinder.getHeight()*numberOfPlayersSameFaithPoints) + 8;
-        double x = faithTrackXCoords[updatedFaithPoints] - (cylinder.getRadius()/2) + 5;
-
-        cylinder.setLayoutX(x);
-        cylinder.setLayoutY(y);
+        collector.setCurrentFaithPoints(currFaithPoint);
     }
 
     /**

@@ -57,6 +57,7 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
      */
     @Override
     public List<GainResourceEffect> callbackOnCouncilGift(String choiceCode, int numberDiffGifts) {
+        Debug.printVerbose(this.toString());
         ArrayList<GainResourceEffect> choices = new ArrayList<>(numberDiffGifts);
         int choice;
         GainResourceEffect effect;
@@ -219,7 +220,6 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
             Map.Entry pair = (Map.Entry)it.next();
             if(((String) (pair.getKey())).contains(":towerAS"))
                 return true;
-            it.remove(); // avoids a ConcurrentModificationException
         }
         return false;
     }
