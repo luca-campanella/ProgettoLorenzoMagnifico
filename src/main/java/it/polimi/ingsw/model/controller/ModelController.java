@@ -716,8 +716,7 @@ public class ModelController {
         addVictoryPointsOnMilitary();
         addVictoryPointsOnFaith();
         addVictoryPointsOnResources();
-        ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(players.size());
-        playerPositionEndGames = endGameOrderPlayer();
+        ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(endGameOrderPlayer());
         return playerPositionEndGames;
 
     }
@@ -740,16 +739,17 @@ public class ModelController {
         //todo check this block
         //this iteration is used to find the order of victory of the players
         for(int i = 0 ; i < players.size() ; i++){
-            for(int e = 0 ; e < players.size()-i-1 ; e++){
-                if(players.get(e).getResource(ResourceTypeEnum.VICTORY_POINT) < players.get(e+1).getResource(ResourceTypeEnum.VICTORY_POINT))
-                    players.add(e+2,players.get(e));
+            for(int e = 0 ; e < players.size()-i-1 ; e++) {
+                if (players.get(e).getResource(ResourceTypeEnum.VICTORY_POINT) < players.get(e + 1).getResource(ResourceTypeEnum.VICTORY_POINT)){
+                    players.add(e + 2, players.get(e));
                     players.remove(e);
+                }
             }
         }
         ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(players.size());
         playerPositionEndGames.add(new PlayerPositionEndGamePacket(players.get(0).getNickname(), 1,
                 players.get(0).getResource(ResourceTypeEnum.VICTORY_POINT)));
-        for(int i = 2 ; i < players.size() ; i++){
+        for(int i = 2 ; i < players.size()+1 ; i++){
             if(playerPositionEndGames.get(i-2).getVictoryPoints() == players.get(i-1).getResource(ResourceTypeEnum.VICTORY_POINT)){
                 playerPositionEndGames.add(new PlayerPositionEndGamePacket(players.get(i-1).getNickname(), playerPositionEndGames.get(i-2).getPosition(),
                         players.get(i-1).getResource(ResourceTypeEnum.VICTORY_POINT)));
@@ -787,10 +787,10 @@ public class ModelController {
         //this iteration is used to add the resources based on the number of military point
         for(Player playerIter : players){
             if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) == firstNumMilPoints)
-                playerIter.addResource(new Resource(ResourceTypeEnum.MILITARY_POINT, 5));
+                playerIter.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, 5));
 
             else if(playerIter.getResource(ResourceTypeEnum.MILITARY_POINT) == secondNumMilPoints)
-                playerIter.addResource(new Resource(ResourceTypeEnum.MILITARY_POINT, 2));
+                playerIter.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, 2));
         }
     }
 
@@ -802,7 +802,7 @@ public class ModelController {
         for(Player playerIter : players){
 
             int faithPointPlayer = playerIter.getResource(ResourceTypeEnum.FAITH_POINT);
-            playerIter.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, gameBoard.getVaticanFaithAgeIndex(faithPointPlayer)));
+            playerIter.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, gameBoard.getVictoryPointsByIndex(faithPointPlayer)));
 
         }
 

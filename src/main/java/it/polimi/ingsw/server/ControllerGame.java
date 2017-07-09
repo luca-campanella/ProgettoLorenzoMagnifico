@@ -182,24 +182,23 @@ public class ControllerGame {
 
         numberOfTurn++;
 
-       //control if the game had ended
-        if(numberOfTurn >= numberOfPlayers*4 && numberOfRound == 6){
-            ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(orderOfPlayers.size());
-            playerPositionEndGames = modelController.endGame();
-            room.deliverEndGame(playerPositionEndGames);
-        }
-
-        else{
-
             //control if the excommunication tiles has to be added
             if(numberOfTurn >= numberOfPlayers*4 && numberOfRound%2 == 0){
 
-                ArrayList<String> nicknamePlayerExcommunicated = new ArrayList<>(modelController.controlExcommunication((numberOfRound/2)+2));
+                //control if the game had ended
+                if(numberOfTurn >= numberOfPlayers*4 && numberOfRound == 6){
+                    ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(modelController.endGame());
+                    room.deliverEndGame(playerPositionEndGames);
+                }
+
+                else{
+                    ArrayList<String> nicknamePlayerExcommunicated = new ArrayList<>(modelController.controlExcommunication((numberOfRound/2)+2));
                 room.deliverExcommunication(nicknamePlayerExcommunicated, (numberOfRound/2)-1);
                 if(nicknamePlayerExcommunicated.size() != orderOfPlayers.size()){
                     playerExcommunicatedChoice = nicknamePlayerExcommunicated.size();
                     //if not all the players had been excommunicated the server has to wait for the choices of the other players
                     return;
+                }
                 }
                 prepareForNewRound();
             }
@@ -208,7 +207,6 @@ public class ControllerGame {
             else if(numberOfTurn >= numberOfPlayers*4) {
                 prepareForNewRound();
             }
-        }
 
         deliverStartOfPhase();
 
