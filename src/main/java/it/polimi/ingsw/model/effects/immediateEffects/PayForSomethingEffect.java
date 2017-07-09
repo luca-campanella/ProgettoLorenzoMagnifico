@@ -5,16 +5,17 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Pay some resources to get some resources. An example is yellow card 30
  */
 public class PayForSomethingEffect implements ImmediateEffectInterface {
     // toPay value is > 0 by default
-    ArrayList<Resource> toPay;
+    private List<Resource> toPay;
     //toPay value is > 0 by default
-    ArrayList<Resource> toGain;
-    public PayForSomethingEffect( ArrayList<Resource> toPay, ArrayList<Resource> toGain){
+    private List<Resource> toGain;
+    public PayForSomethingEffect(List<Resource> toPay, List<Resource> toGain){
         this.toPay = toPay;
         this.toGain = toGain;
     }
@@ -45,20 +46,24 @@ public class PayForSomethingEffect implements ImmediateEffectInterface {
      * @return
      */
     public String descriptionShortOfEffect(){
-        int i;
-        String temp = new String();
-        for(i=0; i<toGain.size(); i++)
-            temp = "+"+this.toGain.get(i).getResourceShortDescript();
-        for(int k = 0; k<toPay.size(); k++)
-            temp += "-"+this.toPay.get(k).getResourceShortDescript();
-        return temp;
+
+        StringBuilder temp = new StringBuilder();
+        for(Resource iterator : toGain) {
+            temp.append("+");
+            temp.append(iterator.getResourceShortDescript());
+        }
+        for(Resource iterator : toPay) {
+            temp.append("-");
+            temp.append(iterator.getResourceShortDescript());
+        }
+        return temp.toString();
     }
 
-    public ArrayList<Resource> getToPay() {
+    public List<Resource> getToPay() {
         return toPay;
     }
 
-    public ArrayList<Resource> getToGain() {
+    public List<Resource> getToGain() {
         return toGain;
     }
 

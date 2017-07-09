@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.cards.Deck;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -203,6 +204,7 @@ public class Board implements Serializable {
      * @param familyMember the family member to perform the action with
      */
     public void build(FamilyMember familyMember) {
+        Debug.printVerbose("Build insideBoard");
         build.addFamilyMember(familyMember);
     }
 
