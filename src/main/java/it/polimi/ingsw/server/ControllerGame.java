@@ -148,19 +148,19 @@ public class ControllerGame {
         Debug.instance(3);
         ControllerGame controllerGame =  new ControllerGame(2);
 
-        CliPrinter cli = new CliPrinter();
+
         //cli.printDeck(controllerGame.getDeck());
-        cli.printBoard(controllerGame.getBoardGame());
+        CliPrinter.printBoard(controllerGame.getBoardGame());
         controllerGame.testSecondRound(1);
-        cli.printBoard(controllerGame.getBoardGame());
+        CliPrinter.printBoard(controllerGame.getBoardGame());
         controllerGame.testSecondRound(2);
-        cli.printBoard(controllerGame.getBoardGame());
+        CliPrinter.printBoard(controllerGame.getBoardGame());
         controllerGame.testSecondRound(2);
-        cli.printBoard(controllerGame.getBoardGame());
+        CliPrinter.printBoard(controllerGame.getBoardGame());
         controllerGame.testSecondRound(3);
-        cli.printBoard(controllerGame.getBoardGame());
+        CliPrinter.printBoard(controllerGame.getBoardGame());
         controllerGame.testSecondRound(3);
-        cli.printBoard(controllerGame.getBoardGame());
+        CliPrinter.printBoard(controllerGame.getBoardGame());
     }
 
     public void testSecondRound(int period){

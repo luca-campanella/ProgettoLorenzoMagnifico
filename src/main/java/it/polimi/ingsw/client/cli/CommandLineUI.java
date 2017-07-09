@@ -567,7 +567,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void notifyAnotherPlayerSuspended(String nickname) {
-        System.out.println("["+nickname+"] --> " + nickname + " has been suspended, if he doesn't reconnect all " +
+        CliPrinter.println("["+nickname+"] --> " + nickname + " has been suspended, if he doesn't reconnect all " +
                 "his phases will be automatically passed");
     }
 
@@ -577,7 +577,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void notifyAnotherPlayerDisconnected(String nickname) {
-        System.out.println("["+nickname+"] --> " + nickname + " disconnected due to network problems, all " +
+        CliPrinter.println("["+nickname+"] --> " + nickname + " disconnected due to network problems, all " +
                 "his phases will be automatically passed till the end of the game");
     }
 
@@ -587,7 +587,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public  void notifyPlayerReconnected(String nickname) {
-        System.out.println("["+nickname+"] --> " + nickname + " was suspended, now he reconnected");
+        CliPrinter.println("["+nickname+"] --> " + nickname + " was suspended, now he reconnected");
     }
 
     /**
@@ -605,7 +605,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public void notifyThisPlayerSuspended() {
-        System.out.println("****ATTENTION**** you didn't play for too long, you have been suspended, " +
+        CliPrinter.println("****ATTENTION**** you didn't play for too long, you have been suspended, " +
                 "if you don't do anything the server will automatically pass for you," +
                 "to reconnect please write CONNECT");
     }

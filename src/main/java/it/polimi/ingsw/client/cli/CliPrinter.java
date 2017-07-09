@@ -33,6 +33,7 @@ public class CliPrinter {
     private static final int LINELENGTH = 200;
     private static final int MAX_LENGHT_SHORT_EFFECTS = 12;
 
+    private CliPrinter(){}
     /**
      * this method prints the board
      *

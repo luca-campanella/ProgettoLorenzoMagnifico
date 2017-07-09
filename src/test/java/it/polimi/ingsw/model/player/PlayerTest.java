@@ -309,7 +309,7 @@ public class PlayerTest {
         ArrayList<Integer> differentNumbersArray = new ArrayList<>(6);
 
         int numberOfCardsAllowed = 6;
-        CliPrinter cliPrinter = new CliPrinter();
+
         //testing random harvest
         for(int numberOfTimesCycled = 0; numberOfTimesCycled < NUMBEROFTESTS; numberOfTimesCycled++){
             playerNickname = new Player("Bravo");
@@ -365,7 +365,6 @@ public class PlayerTest {
         initialResources.add(resourceVP);
 
         int numberOfCardsAllowed = 6;
-        //CliPrinter cliPrinter = new CliPrinter();
         //testing random building
         for (int numberOfTimesCycled = 0; numberOfTimesCycled < NUMBEROFTESTS; numberOfTimesCycled++) {
             playerNickname = new Player("Bravo");
@@ -393,7 +392,6 @@ public class PlayerTest {
             }*/
             differentNumbersArray.clear();
             playerNickname.build(6, choicesHandlerInterface);
-            //cliPrinter.printPersonalBoard(playerNickname);
 
             CliPrinter.printPersonalBoard(playerNickname);
             playerTest.setPersonalTile(personalTile);
