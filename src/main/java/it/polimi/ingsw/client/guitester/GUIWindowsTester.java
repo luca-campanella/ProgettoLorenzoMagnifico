@@ -44,7 +44,6 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
 
         gui = new GraphicalUI(this);
 
-        //gui.notifyThisPlayerSuspended();
         TowerWrapper towerWrapper = new TowerWrapper(2,0,0);
         TowerWrapper towerWrapper1 = new TowerWrapper(1,0,0);
         TowerWrapper towerWrapper2= new TowerWrapper(0,0,0);
@@ -57,17 +56,10 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
         towerWrappers.add(towerWrapper3);
 
         gui.askWhereToPlaceNoDiceFamilyMember(towerWrappers);
-        //gui.askExcommunicationChoice(0);
-        /*ArrayList< GainResourceEffect> options = new ArrayList<>(1);
-        GainResourceEffect option = new GainResourceEffect(new Resource(ResourceTypeEnum.COIN,2));
-        options.add(option);
-        options.add(option);
-        gui.askCouncilGift(options);*/
-        //gui.askAddingServants(0, 5);
-        //testLeaders();
-        //testWaitingMenu();
-        //testCards();
-        //testMainBoard();
+        testLeaders();
+        testWaitingMenu();
+        testCards();
+        testMainBoard();
     }
 
     public static void main(String args[]) {
@@ -188,7 +180,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callbackPlacedFMOnBuild(int servantsUsed) {
-
+        //just testing
     }
 
     /**
@@ -198,7 +190,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callbackPlacedFMOnHarvest(int servantsUsed) {
-
+        //just testing
     }
 
     /**
@@ -209,7 +201,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callbackPlacedFMOnTower(int towerIndex, int floorIndex) {
-
+        //just testing
     }
 
     /**
@@ -219,7 +211,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callbackPlacedFMOnMarket(int marketASIndex) {
-
+        //just testing
     }
 
     /**
@@ -227,7 +219,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callbackPlacedFMOnCouncil() {
-
+        //just testing
     }
 
     /**
@@ -238,6 +230,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callbackSendChatMsg(String msg) throws NetworkException {
+        //just testing
 
     }
 
@@ -256,6 +249,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callBackPassTheTurn() {
+        //just testing
 
     }
 
@@ -266,6 +260,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callbackOnTileChosen(PersonalTile tileChosen) {
+        //just testing
 
     }
 
@@ -276,6 +271,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callbackDiscardLeader(LeaderCard leaderIter) {
+        //just testing
 
     }
 
@@ -285,12 +281,14 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void clientChoices(boolean boardNeedsToBeRefreshed) {
+        //just testing
 
     }
 
 
     @Override
     public void callbackPlayLeader(LeaderCard leaderCard) {
+        //just testing
 
     }
 
@@ -332,6 +330,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void setBoardNeedsToBeRefreshed(boolean boardNeedsToBeRefreshed) {
+        //just testing
 
     }
 
@@ -386,6 +385,7 @@ public class GUIWindowsTester extends Application implements ViewControllerCallb
      */
     @Override
     public void callbackActivateLeader(LeaderCard leaderCard) {
+        //just testing
 
     }
 

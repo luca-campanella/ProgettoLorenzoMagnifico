@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * This action space is the one placed on the tower, with a corresponding card to it
@@ -39,9 +40,31 @@ public class TowerFloorAS extends AbstractActionSpace implements Serializable {
         getFamilyMembers().add(familyMember);
         Player player = familyMember.getPlayer();
 
-        playFMandSubServantsToPlayer(familyMember);
+        player.playFamilyMember(familyMember);
+
+        subServantsToPlayer(familyMember);
 
         applyCardEffect(player, choiceController);
+    }
+
+    private void subServantsToPlayer(FamilyMember familyMember) {
+        Player player = familyMember.getPlayer();
+
+        //subtract corresponding family members needed
+        int servantsNeeded = getDiceRequirement() - familyMember.getValue();
+
+        //check the excommunication tile malus
+        servantsNeeded *= player.getExcommunicationTilesCollector().payMoreServant();
+
+        List<Resource> discountOnTowers = player.getPersonalBoard().getCharacterCardsCollector().getDiscountOnTower(card.getColor());
+        for(Resource resIter : discountOnTowers) {
+            if(resIter.getType() == ResourceTypeEnum.SERVANT)
+                servantsNeeded -= resIter.getValue();
+        }
+
+        if(servantsNeeded<0)
+            servantsNeeded=0;
+        player.subResource(new Resource(ResourceTypeEnum.SERVANT, servantsNeeded));
     }
 
     /**

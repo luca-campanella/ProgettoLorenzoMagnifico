@@ -184,7 +184,7 @@ public class GraphicalUI extends AbstractUIType {
      * @param isHisTurn true if it's player's turn, false if it is not
      */
     private void setUpMainBoardControl(String message, boolean isHisTurn) {
-        MainBoardControl control = ((MainBoardControl) (currentFXControl));
+        MainBoardControl control = (MainBoardControl) (currentFXControl);
 
         control.setBoard(getController().callbackObtainBoard());
         control.displayCards();
@@ -435,7 +435,6 @@ public class GraphicalUI extends AbstractUIType {
 
             this.displayError(ERROR_IN_OPENING_DIALOG_MESSAGE, e.getMessage());
         }
-        //todo: proably we need to handle the null case
         return choice;
     }
 
@@ -453,7 +452,7 @@ public class GraphicalUI extends AbstractUIType {
             getController().setBoardNeedsToBeRefreshed(false);
         } else {
             Platform.runLater(() -> {
-                MainBoardControl control = ((MainBoardControl) (currentFXControl));
+                MainBoardControl control = (MainBoardControl) (currentFXControl);
             if(getController().callbackObtainBoardNeedsToBeRefreshed()) {
                 updateViewForNewRound();
                 control.refreshPersonalBoardOfPlayer(getController().callbackObtainPlayer().getNickname());
@@ -481,16 +480,16 @@ public class GraphicalUI extends AbstractUIType {
 
         StringBuilder stringBuilder = new StringBuilder();
         Debug.printVerbose("Show end game");
+
+            if(playerPositionEndGamePacket.get(0).getNickname().equals(getController().callbackObtainPlayer().getNickname()))
+                stringBuilder.append("***YOU WON*** :D");
+            else
+                stringBuilder.append("*YOU LOST* :(");
+        stringBuilder.append("Here are the final standings");
+
         for(int i = 1 ; i <= playerPositionEndGamePacket.size(); i++){
             for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
                 if(playerIter.getPosition() == i) {
-                    if(i == 1) {
-                        if(playerIter.getNickname().equals(getController().callbackObtainPlayer().getNickname()))
-                            stringBuilder.append("***YOU WON*** :D");
-                        else
-                            stringBuilder.append("*YOU LOST* :(");
-                        stringBuilder.append("Here are the final standings");
-                    }
                     stringBuilder.append(playerIter.getPosition() + " position: " + playerIter.getNickname()
                             + " " + playerIter.getVictoryPoints() + " Victory Points");
                 }
@@ -599,7 +598,7 @@ public class GraphicalUI extends AbstractUIType {
             displayErrorAndExit("Fatal error", "Error message: " + e.getMessage());
         }
 
-        currentFXControl = ((CustomFxControl) fxmlLoader.getController());
+        currentFXControl = (CustomFxControl) fxmlLoader.getController();
 
         currentFXControl.setController(getController());
         if(runBeforeShow != null) //there is something to run
@@ -614,7 +613,6 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     private void prepareWaitingScene(String message) {
-        //openNewWindow(WAITING_SCENE_FXML, title, null);
         ((WaitingSceneControl) (currentFXControl)).setMessage(message);
     }
 
@@ -796,11 +794,10 @@ public class GraphicalUI extends AbstractUIType {
 
             bnOK.setOnAction(e -> {
                 stage.close();
-                new Thread(() -> getController().callbackConnectPlayerAgain()).run();
+                new Thread(() -> getController().callbackConnectPlayerAgain()).start();
             });
 
             stage.show();
-
             stage.toFront();
         });
     }
@@ -823,7 +820,7 @@ public class GraphicalUI extends AbstractUIType {
      * @param nickname the nick of the player reconnected
      */
     @Override
-    public  void notifyPlayerReconnected(String nickname) {
+    public void notifyPlayerReconnected(String nickname) {
         Platform.runLater(() ->
                 ((MainBoardControl) (currentFXControl)).appendMessageOnStateTextArea(
                         "[" + nickname + "] --> was suspended, now he reconnected"));
