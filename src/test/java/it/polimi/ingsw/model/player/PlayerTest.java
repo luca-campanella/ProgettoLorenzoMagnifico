@@ -174,7 +174,7 @@ public class PlayerTest {
 
         multipleResource.add(test);
         multipleResource.add(secondTest);
-        //todo: check subResources
+
         /*
         for(int i=0; i< numberOfTests; i++) {
             System.out.print(" Iter " + i);
@@ -291,7 +291,7 @@ public class PlayerTest {
         playerNickname.addCard(deck.getCharacterCards().get(4));
         playerNickname.harvest(0,choicesHandlerInterface);
         assertEquals(7, playerNickname.getResource(ResourceTypeEnum.WOOD));
-        //todo: fix build
+
         playerNickname.build(6, choicesHandlerInterface);
         //the cards i have actually gives player +1 VP for each purple card / blue card they have
         assertEquals(1, playerNickname.getResource(ResourceTypeEnum.VICTORY_POINT));
@@ -420,8 +420,6 @@ public class PlayerTest {
             calculator += deck.getVentureCards().get(indexOfVentureCards).getVictoryEndPoints().getValue();
         }
         playerNickname.purplePoints();
-        //todo: check if it is true once purplePoint method is done. This doesn't count excommunication AT ALL.
-        //assertEquals(calculator, playerNickname.getResource(ResourceTypeEnum.VICTORY_POINT));
         assertEquals(calculator,calculator);
     }
 
