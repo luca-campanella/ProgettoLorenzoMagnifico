@@ -42,13 +42,13 @@ import java.util.logging.Logger;
  * This is the controller class for the client side
  */
 public class ClientMain implements NetworkControllerClientInterface, ViewControllerCallbackInterface, ChoicesHandlerInterface {
-    private LauncherClient temp;
+    private LauncherClient launcher;
     private AbstractUIType userInterface;
     private AbstractClientType clientNetwork;
     private ModelController modelController;
     private boolean playedFamilyMember = false;
 
-    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * this object is used to handle the choices made by another player that need to reply to the callback from model
@@ -103,6 +103,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     private boolean boardNeedsToBeRefreshed = false;
 
+    private static final String NETWORK_ERROR_MESSAGE = "Network problem";
+
     /**
     this is Class Constructor
      */
@@ -116,22 +118,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         StdinSingleton.instance();
         LOGGER.setLevel(Level.ALL);
         LOGGER.info("this is a info test for the logger");
-        temp = new LauncherClient(this);
-        userInterface = temp.welcome();
+        launcher = new LauncherClient(this);
+        userInterface = launcher.welcome();
         userInterface.askNetworkType();
-    }
-
-    @Deprecated
-    public static void main(String args[]) {
-        new ClientMain();
-    }
-
-    /**
-     * This method returns Client's userInterface
-     * @return Client's userInterface
-     */
-    public AbstractUIType getUserInterface() {
-        return userInterface;
     }
 
     /**
@@ -146,8 +135,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             try {
                 clientNetwork.connect();
             } catch (ClientConnectionException e) {
-                LOGGER.log(Level.SEVERE, "Network error", e);
-                userInterface.displayErrorAndExit("Network problem", e.getMessage());
+                LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+                userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
             }
         }
         else {//Here enters if network type is a socket
@@ -155,8 +144,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             try {
                 clientNetwork.connect();
             } catch (ClientConnectionException e) {
-                e.printStackTrace();
-                userInterface.displayErrorAndExit("Network problem", e.getMessage());
+                LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+                userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
             }
         }
         userInterface.askLoginOrCreate();
@@ -178,7 +167,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             Debug.printVerbose("Login successfully");
 
         } catch (NetworkException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
         catch (LoginException e) {
             Debug.printDebug("Login exception occurred", e);
@@ -205,9 +195,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             }
 
         }
-        //those 2 methods are for testing: they can be deleted:
-        //userInterface.askChatMsg();
-        //userInterface.askInitialAction();
     }
 
     /**
@@ -223,7 +210,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             this.nickname = userID;
             userInterface.showWaitingForGameStart();
         } catch (NetworkException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
         catch(UsernameAlreadyInUseException e)
         {
@@ -236,6 +224,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     /**
      * this method it's a callback method called from AbstractUIType when i want to discard a Leader.
      */
+    @Override
     public void callbackDiscardLeader(LeaderCard leaderCard){
 
         Debug.printDebug("I'm in ClientMain.callbackDiscardLeader");
@@ -247,7 +236,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
     }
 
@@ -327,7 +317,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the move build to the server");
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
     }
 
@@ -350,7 +341,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the move harvest to the server");
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
     }
 
@@ -374,7 +366,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (IOException e){
             Debug.printError("cannot deliver the move on tower to the server");
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
     }
 
@@ -395,7 +388,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (IOException e){
             Debug.printError("cannot deliver the move on market to the server");
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
 
     }
@@ -417,7 +411,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the move on council to the server");
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
     }
 
@@ -468,8 +463,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         //we check if the user has left sufficient resources to perform this effect
         for(int i = 0; i < possibleEffectChoices.size(); i++) {
             effectIter = possibleEffectChoices.get(i);
-            if(effectIter instanceof PayForSomethingEffect) {
-                if(!resourcesCheckMap.checkIfContainable(((PayForSomethingEffect) effectIter).getToPay()))
+            if(effectIter instanceof PayForSomethingEffect
+                    && !resourcesCheckMap.checkIfContainable(((PayForSomethingEffect) effectIter).getToPay())) {
                     continue; //we should not add the option because the player doesn't have enough resources
             }
             realPossibleEffectChoices.add(effectIter);
@@ -566,7 +561,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             Debug.printVerbose("Created new player " + nicknameIter);
         }
         Debug.printVerbose("thisPlayerInitialized with value = " + thisPlayer.getNickname());
-        //thisPlayer = players.get(players.indexOf(nickname));
     }
 
 
@@ -596,6 +590,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * and the dices already thrown
      * @param dices the board from the server
      */
+    @Override
     public synchronized void receivedDices(ArrayList<Dice> dices) {
         Debug.printVerbose("receivedDices called");
 
@@ -609,7 +604,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         for(FamilyMember fmIter : playableFMs) {
             Debug.printVerbose("PLAYABLE FM:" + "Family member of color " + fmIter.getColor() + "of value " + fmIter.getValue());
         }
-        //userInterface.waitMenu(false);
     }
 
     /**
@@ -647,6 +641,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * this method is called by {@link it.polimi.ingsw.client.network.AbstractClientType}
      * to notify that the player is in turn and should move
      */
+    @Override
     public void receivedStartTurnNotification() {
         Debug.printVerbose("receivedStartTurnNotification called");
         playedFamilyMember = false;
@@ -657,13 +652,12 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * this method is called to show to the client the different choices he can do
      * @param boardNeedsToBeRefreshed
      */
+    @Override
     public void clientChoices(boolean boardNeedsToBeRefreshed){
 
         //it's this player's turn, he should answer callbacks from model
         modelController.setChoicesController(this);
         initialActionsOnPlayerMove();
-        //List<LeaderCard> notPlayedLeaderCards = //modelController.getLeaderCardsNotPlayed(thisPlayer.getNickname());
-        //List<LeaderCard> playeableLeaderCards = //findPlayableLeader(notPlayedLeaderCards);
         userInterface.askInitialAction(playedFamilyMember);
 
     }
@@ -735,7 +729,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("cannot deliver the excommunication choice to the server");
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
 
     }
@@ -749,8 +743,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         try {
             clientNetwork.reconnectPlayer();
         } catch (NetworkException e) {
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
         userInterface.waitMenu();
     }
@@ -769,6 +763,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param response the response of the player
      * @param numTile the number of the tile that the player takes if he is excommunicated
      */
+    @Override
     public void manageExcommunicationChoice(String nickname, String response, int numTile) {
 
         if(response.equals("YES"))
@@ -838,7 +833,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
             if(!player.getNickname().equals(thisPlayer.getNickname()))
                 otherPlayers.add(player);
         }
-        //userInterface.printPersonalBoardOtherPlayers(otherPlayers);
         return otherPlayers;
     }
 
@@ -868,7 +862,8 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to activate");
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
         clientChoices(false);
     }
@@ -898,7 +893,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
         clientChoices(false);
     }
@@ -938,7 +933,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     public void callbackOnLeaderCardChosen(LeaderCard leaderCardChoice) {
         Debug.printVerbose("callbackOnLeaderCardChosen Called");
         modelController.addLeaderCardToPlayer(leaderCardChoice, thisPlayer);
-        //todo do this only if some other player is missing
         userInterface.showWaitingForLeaderChoices();
         try {
             clientNetwork.deliverLeaderChose(leaderCardChoice);
@@ -974,7 +968,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         catch (NetworkException e){
             Debug.printError("Cannot deliver the end of the phase",e);
             clientChoices(false);
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
     }
 
@@ -991,7 +985,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("Cannot deliver the personal tile chosen",e);
-            userInterface.displayErrorAndExit("Network problem", e.getMessage());
+            userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
     }
 
@@ -1128,6 +1122,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param possibleLeaders possible leader abilities to choose from
      * @return the chosen leader ability
      */
+    @Override
     public AbstractLeaderAbility callbackOnWhichLeaderAbilityToCopy(List<LeaderCard> possibleLeaders) {
         if(possibleLeaders.isEmpty())
             return new EmptyLeaderAbility();
@@ -1146,6 +1141,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * to ask the user if he also wants to activate the ability
      * @return true if he also wants to activate, false otherwise
      */
+    @Override
     public boolean callbackOnAlsoActivateLeaderCard() {
         int choice = userInterface.askAlsoActivateLeaderCard();
 
@@ -1189,23 +1185,6 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         userInterface.notifyDiscardLeaderCard(nickname, nameCard);
     }
 
-    /**
-     * this method is called by the server to inform the client that a player had left the game
-     * @param nicknamePlayerDisconnected the nickname of the player that had left the game
-     */
-    @Override
-    @Deprecated
-    public void receiveDisconnection(String nicknamePlayerDisconnected) {
-
-        for(Player player : players){
-            if(player.getNickname().equals(nicknamePlayerDisconnected)){
-                players.remove(player);
-                modelController.removePlayer(player);
-                break;
-            }
-        }
-        userInterface.displayError(nicknamePlayerDisconnected + "Has disconnected", "DiconnectionOfAPlayer");
-    }
 
     /**
      * this method is used to receive the leader cards that had been chosen by the other players
@@ -1327,6 +1306,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * @param choiceCode the code of the choice, to be put inside hashmap
      * @return a tower wrapper containing the choice
      */
+    @Override
     public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces) {
         int choice = userInterface.askWhereToPlaceNoDiceFamilyMember(availableSpaces);
         Debug.printVerbose("Im inside the callbackOnTakeCard");
