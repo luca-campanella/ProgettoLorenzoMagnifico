@@ -169,7 +169,7 @@ public  class DBManager {
 
         } finally {
             try {
-                pstmt.close();
+                    pstmt.close();
             } catch (SQLException e) {
                 Debug.printError("Cannot close statement", e);
             }

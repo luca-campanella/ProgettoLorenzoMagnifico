@@ -107,14 +107,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     private static final String NETWORK_ERROR_MESSAGE = "Network problem";
 
     /**
-    this is Class Constructor
+     * Starts the client
      */
-    public ClientMain()
-    {
-        startUp();
-    }
-
-    private void startUp() {
+    public void startUp() {
         Debug.instance(Debug.LEVEL_VERBOSE);
         StdinSingleton.instance();
         LOGGER.setLevel(Level.ALL);

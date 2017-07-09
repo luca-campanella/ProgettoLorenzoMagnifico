@@ -37,7 +37,7 @@ public class ModelController {
     /**
      * the players that play in this game
      */
-    private ArrayList<Player> players;
+    private transient ArrayList<Player> players;
     /**
      * the dices available to that game
      */

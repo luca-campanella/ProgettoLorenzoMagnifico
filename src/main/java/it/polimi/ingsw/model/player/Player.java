@@ -37,7 +37,7 @@ public class Player implements Serializable{
 
     private ArrayList<FamilyMember> usedFamilyMembers;
 
-    private ExcommunicationTilesCollector excommunicationTilesCollector;
+    private transient ExcommunicationTilesCollector excommunicationTilesCollector;
 
     /**
      * The color this player will be displayed with
@@ -69,7 +69,7 @@ public class Player implements Serializable{
      * This is the collector of leader cards who have a permanent ability and are played by the user
      * This collector is used during checks inside the model for bonuses and discounts
      */
-    private PermanentLeaderCardCollector permanentLeaderCardCollector;
+    private transient PermanentLeaderCardCollector permanentLeaderCardCollector;
 
     //private ArrayList<ExcommuncationCard> excommuncationCard;
 

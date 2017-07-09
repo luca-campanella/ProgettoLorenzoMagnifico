@@ -266,7 +266,7 @@ public class PlayerTabSubControl extends CustomFxControl {
      */
     private void openLeadersWindow(String fxmlFileName, String title, Runnable runBeforeShow) {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/"+fxmlFileName));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/" + fxmlFileName));
         Parent root = null;
         try {
             root = fxmlLoader.load();
@@ -277,17 +277,17 @@ public class PlayerTabSubControl extends CustomFxControl {
         try {
             leadersControl = fxmlLoader.getController();
             leadersControl.setController(getController());
-        }
-        catch(ClassCastException e)
-        {
+        } catch (ClassCastException e) {
             leaderOtherControl = fxmlLoader.getController();
             leaderOtherControl.setController(getController());
         }
         leadersStage.setTitle(title);
         leadersStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
 
-        if(runBeforeShow != null) //there is something to run
-            runBeforeShow.run();
+        if (runBeforeShow != null){ //there is something to run
+            Thread myThread = new Thread(runBeforeShow);
+            myThread.start();
+    }
 
         leadersStage.show();
     }

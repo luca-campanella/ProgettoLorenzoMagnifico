@@ -20,18 +20,18 @@ import java.util.HashMap;
 
 public class SocketPlayer extends AbstractConnectionPlayer implements Runnable {
 
-    private Socket socket;
+    private transient Socket socket;
 
-    private ObjectInputStream inStream;
+    private transient ObjectInputStream inStream;
 
-    private ObjectOutputStream outStream;
+    private transient ObjectOutputStream outStream;
 
-    private ServerMain serverMainInst;
+    private transient ServerMain serverMainInst;
 
     /**
      * the protocol used to read the packet of the client
      */
-    private ReadClientPacketProtocol readPacket;
+    private transient ReadClientPacketProtocol readPacket;
 
     /**
      * constructor to open the streams

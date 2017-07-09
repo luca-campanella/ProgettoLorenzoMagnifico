@@ -47,7 +47,7 @@ public class ServerMain {
 	Room room;
 
 	/**
-	 * This is the configuations for timeout in room, it is loaded from json at serves startup
+	 * This is the configurations for timeout in room, it is loaded from json at serves startup
 	 */
 	RoomConfigurator roomConfigurator;
 
@@ -56,18 +56,22 @@ public class ServerMain {
 	 */
 	private ServerMain()
 	{
+	}
+
+	private void startup(){
+
 		Debug.instance(Debug.LEVEL_VERBOSE);
 
 		try {
-		startServer();
+			startServer();
 		} catch(ServerException e) {
 			Debug.printError(e);
 			System.out.println("Error in starting the server, please restart. Error message: " + e.getMessage());
 		}
 	}
-
 	public static void main(String[] args) {
-		new ServerMain();
+		ServerMain serverMain = new ServerMain();
+		serverMain.startup();
 	}
 
 
