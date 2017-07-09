@@ -38,7 +38,17 @@ public class PayForSomethingEffect implements ImmediateEffectInterface {
      */
     public String descriptionOfEffect()
     {
-        return "Pay "+ toPay.toString() + " to gain some advantage " + toGain.toString();
+        StringBuilder toPayString = new StringBuilder();
+        StringBuilder toGainString = new StringBuilder();
+
+        for(Resource iterator : toPay) {
+            toPayString.append(iterator.getResourceShortDescript());
+        }
+        for(Resource iterator : toGain) {
+            toGainString.append(iterator.getResourceShortDescript());
+        }
+
+        return "Pay "+ toPayString.toString() + " to gain some advantage " + toGainString.toString();
     }
 
     /**
