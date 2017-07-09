@@ -5,13 +5,14 @@ package it.polimi.ingsw.client;
         import javafx.stage.Stage;
 
 /**
- * Created by campus on 22/06/2017.
+ * this class
  */
 public class ClientMainClass extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new ClientMain();
+        ClientMain clientMain = new ClientMain();
+        clientMain.startUp();
     }
 
     public static void main(String args[]) {

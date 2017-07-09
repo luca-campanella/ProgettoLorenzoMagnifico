@@ -110,7 +110,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     public ClientMain()
     {
-        startUp();
+
     }
 
     public void startUp() {

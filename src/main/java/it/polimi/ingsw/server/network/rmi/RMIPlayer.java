@@ -25,12 +25,12 @@ import java.util.concurrent.Executors;
  */
  class RMIPlayer extends AbstractConnectionPlayer implements RMIPlayerInterface {
 
-    private RMIClientInterface RMIClientInterfaceInst;
+    private transient RMIClientInterface RMIClientInterfaceInst;
 
     /**
      * this is the thread pool to generate thread on the method called by the client
      */
-    private ExecutorService generatorOfThread;
+    private transient ExecutorService generatorOfThread;
     /**
      * Constructor, calls the super constructor and saves the interface to communicate with the client
      * @param nickname

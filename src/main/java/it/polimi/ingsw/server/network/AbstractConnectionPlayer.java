@@ -22,7 +22,7 @@ public abstract class AbstractConnectionPlayer extends Player {
     /**
      * this instance is used to call methods of the room the player is in. There is redundancy
      */
-    private Room room;
+    private transient Room room;
 
     public AbstractConnectionPlayer() {
         super();
