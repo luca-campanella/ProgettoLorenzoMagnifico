@@ -4,7 +4,6 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.resource.Resource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
