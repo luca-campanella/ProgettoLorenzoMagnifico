@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.network.socket;
 
+import it.polimi.ingsw.client.exceptions.NetworkException;
 import it.polimi.ingsw.client.network.socket.packet.PacketType;
 import it.polimi.ingsw.client.network.socket.protocol.ReadServerPacketProtocol;
 import it.polimi.ingsw.utils.Debug;
@@ -35,6 +36,8 @@ public class ReceiveInformation extends Thread {
             }
             catch(IOException | ClassNotFoundException e){
                 Debug.printError("server had failed to deliver new information",e);
+
+                readPacket.doMethod(PacketType.SERVER_DISCONNECTED);
                 break;
             }
         }
