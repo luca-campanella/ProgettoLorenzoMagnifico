@@ -177,6 +177,10 @@ public class Board implements Serializable {
         return this.vaticanReport.getCorrespondingVictoryPoints();
     }
 
+    public int getVaticanVictoryPoints(int faithPointsPlayer) {
+        return this.vaticanReport.getCorrespondingVictoryPoints()[faithPointsPlayer];
+    }
+
     public CouncilAS getCouncil() {
         return council;
     }

@@ -660,20 +660,19 @@ public class CliPrinter {
     public static void showEndGame(ArrayList<PlayerPositionEndGamePacket> playerPositionEndGamePacket, String thisPlayerNickname) {
 
         CliPrinter.println("The game has ended");
-        for(int i = 1 ; i <= playerPositionEndGamePacket.size(); i++){
-            for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
-                if(playerIter.getPosition() == i) {
-                    if(i == 1) {
-                    if(playerIter.getNickname().equals(thisPlayerNickname))
-                        CliPrinter.println("***YOU WON*** :D");
-                    else
-                        CliPrinter.println("*YOU LOST* :(");
-                    CliPrinter.println("Here are the final standings");
-                    }
-                    CliPrinter.println(playerIter.getPosition() + " position: " + playerIter.getNickname()
-                            + " " + playerIter.getVictoryPoints() + " Victory Points");
-                }
+        int i = 0;
+        for( ; i < playerPositionEndGamePacket.size() ; i++){
+            if(playerPositionEndGamePacket.get(i).getNickname().equals(thisPlayerNickname) && playerPositionEndGamePacket.get(i).getPosition() == 1){
+                CliPrinter.println("***YOU WON*** :D");
+                break;
             }
+        }
+        if(i == playerPositionEndGamePacket.size())
+            CliPrinter.println("*YOU LOST* :(");
+        CliPrinter.println("Here are the final standings");
+        for(PlayerPositionEndGamePacket playerIter : playerPositionEndGamePacket){
+            CliPrinter.println(playerIter.getPosition() + " position: " + playerIter.getNickname()
+                    + " " + playerIter.getVictoryPoints() + " Victory Points");
         }
     }
 
