@@ -929,7 +929,7 @@ public class Room {
 
     private void floodPlayerDisconnected(AbstractConnectionPlayer player) {
         for(AbstractConnectionPlayer playerIter : players) {
-            if(!disconnectedPlayers.contains(playerIter) && !disconnectedPlayers.contains(playerIter)) {
+            if(!disconnectedPlayers.contains(playerIter)) {
                 try {
                     playerIter.deliverDisconnectionPlayer(player.getNickname());
                 } catch (NetworkException e) {

@@ -253,14 +253,15 @@ public class MainBoardControl extends CustomFxControl {
                 try {
                     cardImg = new Image(getClass().getResourceAsStream("/imgs/Cards/" +
                             towers[col].getFloorByIndex(raw).getCard().getImgName()));
+                    Debug.printVerbose(cardImg.toString());
                 } catch (NullPointerException e) {
                     Debug.printError("CARD Something went wrong loading the card, look afterwards", e);
                     Debug.printError("towers[col]" + towers[col].toString());
                     Debug.printError("towers[col].getFloorByIndex(raw)" + towers[col].getFloorByIndex(raw).toString());
                     Debug.printError("towers[col].getFloorByIndex(raw).getCard()" + towers[col].getFloorByIndex(raw).getCard().toString());
                     Debug.printError("towers[col].getFloorByIndex(raw).getCard().getImgName()" + towers[col].getFloorByIndex(raw).getCard().getImgName());
+
                 }
-                Debug.printVerbose(cardImg.toString());
                 Debug.printVerbose(imgView.toString());
                 imgView.setImage(cardImg);
                 imgView.setPreserveRatio(true);
@@ -1063,6 +1064,7 @@ public class MainBoardControl extends CustomFxControl {
             alert.getButtonTypes().setAll(excomNo, excomYes);
 
             Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent())
             if (result.get() == excomYes)
                 pool.execute(() -> getController().callbackExcommunicationChoice("YES", numTile));
             else

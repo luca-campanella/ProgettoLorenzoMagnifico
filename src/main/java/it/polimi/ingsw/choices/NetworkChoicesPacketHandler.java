@@ -160,9 +160,7 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
 
         int choice = choicesMap.get("AlsoActivateLeader");
 
-        if(choice == 0)
-            return true;
-        return false;
+        return (choice == 0);
     }
 
     /**
