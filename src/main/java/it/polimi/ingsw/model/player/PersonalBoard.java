@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
-import it.polimi.ingsw.model.board.AbstractActionSpace;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.resource.Resource;
@@ -146,11 +145,6 @@ public class PersonalBoard implements Serializable{
 
     public CharacterCardCollector getCharacterCardsCollector() {
         return characterCardsCollector;
-    }
-
-    @Deprecated
-    public LinkedList<CharacterCard> getCharacterCards() {
-        return characterCardsCollector.getCharacterCards();
     }
 
     /**
