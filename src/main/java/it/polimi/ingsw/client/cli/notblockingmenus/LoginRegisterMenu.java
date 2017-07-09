@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.cli.notblockingmenus;
 
 import it.polimi.ingsw.client.UsernamePasswordValidator;
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.controller.datastructure.UsrPwdContainer;
@@ -32,25 +33,26 @@ public class LoginRegisterMenu extends BasicCLIMenu {
 
     /**
      * this method allows CLI to ask proper Database's info to user.
-     * @return
+     * @return a user password container which allows CLI to ask a proper DB info
      */
     private UsrPwdContainer readUsrPwd()
     {
-        String nickname, password;
+        String nickname;
+        String password;
 
-        System.out.println("Insert username:");
+        CliPrinter.println("Insert username:");
         nickname = StdinSingleton.nextLine();
 
         while(!UsernamePasswordValidator.validateUsername(nickname)) {
-            System.out.println("Please insert a valid nickname:");
+            CliPrinter.println("Please insert a valid nickname:");
             nickname = StdinSingleton.nextLine();
         }
 
-        System.out.println("Insert password:");
+        CliPrinter.println("Insert password:");
         password = StdinSingleton.nextLine();
 
         while(!UsernamePasswordValidator.validatePassword(password)) {
-            System.out.println("Please insert a valid password:");
+            CliPrinter.println("Please insert a valid password:");
             password = StdinSingleton.nextLine();
         }
 

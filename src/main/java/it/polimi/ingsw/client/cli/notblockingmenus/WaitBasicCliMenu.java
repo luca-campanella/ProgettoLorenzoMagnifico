@@ -63,7 +63,7 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
     /**
      * this method is called to show the board of the game
      */
-    public void printBoard(){
+    private void printBoard(){
 
         CliPrinter.printBoard(getController().callbackObtainBoard());
         showMenuAndAskNonBlocking();
@@ -73,7 +73,7 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
     /**
      * this method is called to show the personal board of the player
      */
-    public void printPersonalBoard(){
+    private void printPersonalBoard(){
 
         CliPrinter.printPersonalBoard(getController().callbackObtainPlayer());
         showMenuAndAskNonBlocking();
@@ -83,7 +83,7 @@ public class WaitBasicCliMenu extends BasicCLIMenu {
     /**
      * this method is called to show the personal board of the other players
      */
-    public void printPersonalBoardOtherPlayers(){
+    private void printPersonalBoardOtherPlayers(){
 
         getController().callbackObtainOtherPlayers().forEach(CliPrinter::printPersonalBoard);
         showMenuAndAskNonBlocking();
