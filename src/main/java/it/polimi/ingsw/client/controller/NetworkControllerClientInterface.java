@@ -162,12 +162,6 @@ public interface NetworkControllerClientInterface {
     public void receivedDiscardLeaderCard(String nickname, String nameCard, HashMap<String, Integer> resourceGet);
 
     /**
-     * this method is called by the server to inform the client that a player had left the game
-     * @param nicknamePlayerDisconnected the nickname of the player that had left the game
-     */
-    public void receiveDisconnection(String nicknamePlayerDisconnected);
-
-    /**
      * this method is used to receive the leader cards that had been chosen by the other players
      * @param nickname the nickname of the player that had chosen the card
      * @param leaderCard the chosen leader card
