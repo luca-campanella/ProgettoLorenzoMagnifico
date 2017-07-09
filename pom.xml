@@ -105,12 +105,6 @@
                                         <include>**</include>
                                     </includes>
                                 </filter>
-                                <filter>
-                                    <artifact>junit:junit</artifact> <!-- exclude junit -->
-                                    <excludes>
-                                        <exclude>**</exclude>
-                                    </excludes>
-                                </filter>
                             </filters>
                         </configuration>
                     </execution>
