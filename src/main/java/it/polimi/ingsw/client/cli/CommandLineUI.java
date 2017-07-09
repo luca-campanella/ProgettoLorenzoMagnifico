@@ -14,12 +14,9 @@ import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.resource.MarketWrapper;
 import it.polimi.ingsw.model.resource.Resource;
-import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import it.polimi.ingsw.model.resource.TowerWrapper;
 import it.polimi.ingsw.utils.Debug;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
@@ -150,32 +147,6 @@ public class CommandLineUI extends AbstractUIType {
     public void displayChatMsg(String senderNick, String msg) {
 
         CliPrinter.println("<" + senderNick + ">: " + msg);
-    }
-
-    /**
-     * when the model need to call back the client to choose what effect applying
-     * @param nameCard the name of the card that has different choices on the effects
-     * @param choices the choices available
-     * @return the number of the choice the player want
-     */
-    @Deprecated
-    public int askChoice(String nameCard, ArrayList<String> choices, HashMap<ResourceTypeEnum, Integer> resourcePlayer){
-
-        Debug.printDebug("you can choose different effect on the card " + nameCard);
-        int cont = 0;
-        for (String choice : choices){
-            Debug.printDebug(cont + ") "+ choice);
-            cont++;
-        }
-        Debug.printDebug(cont + ") NONE");
-        Debug.printDebug("chose the effect to activate:");
-        int numChoice;
-        do{
-            numChoice = StdinSingleton.getScanner().nextInt();
-        } while (numChoice < 0 || numChoice>choices.size() );
-
-        return numChoice;
-        
     }
 
     /**

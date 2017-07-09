@@ -933,26 +933,6 @@ public class ModelController {
 
     }
 
-    @Deprecated
-    public ArrayList<LeaderCard> getLeaderCardsNotPlayed(String nickname){
-        ArrayList<LeaderCard> leaderCards = new ArrayList<>(4);
-        for(Player player : players){
-            if(player.getNickname().equals(nickname))
-                leaderCards = player.getLeaderCardsNotUsed();
-        }
-        return leaderCards;
-    }
-
-    @Deprecated
-    public List<LeaderCard> getLeaderCardsPlayed(String nickname){
-        List<LeaderCard> leaderCards = new ArrayList<>(4);
-        for(Player player : players){
-            if(player.getNickname().equals(nickname))
-                leaderCards = player.getPlayedLeaders();
-        }
-        return leaderCards;
-    }
-
     /**
      * this method is used to remove a player from the board , this happens when a player had left the game
      * @param player the player to remove

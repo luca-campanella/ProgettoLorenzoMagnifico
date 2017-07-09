@@ -6,7 +6,7 @@ import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.gui.GraphicalUI;
 
 /**
- * This class is the temporary launcher of Lorenzo's il magnifico
+ * This class is the launcher of Lorenzo's il magnifico, asks gui or cli
  */
 public class LauncherClient {
     private ClientMain clientMain;
@@ -16,7 +16,7 @@ public class LauncherClient {
      */
     public AbstractUIType welcome()
     {
-        CliPrinter.println("Hello! WELCOME to Lorenzo il Magnifico's temporary launcher");
+        CliPrinter.println("Hello! WELCOME to Lorenzo il Magnifico's launcher");
         return this.inputCliOrGui();
 
     }
