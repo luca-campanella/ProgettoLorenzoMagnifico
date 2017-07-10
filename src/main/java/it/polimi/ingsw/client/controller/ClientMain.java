@@ -110,10 +110,9 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      * Starts the client
      */
     public void startUp() {
-        Debug.instance(Debug.LEVEL_VERBOSE);
+        Debug.instance(Debug.LEVEL_NOTHING);
         StdinSingleton.instance();
-        LOGGER.setLevel(Level.ALL);
-        LOGGER.info("this is a info test for the logger");
+        LOGGER.setLevel(Level.OFF);
         launcher = new LauncherClient(this);
         userInterface = launcher.welcome();
         userInterface.askNetworkType();
