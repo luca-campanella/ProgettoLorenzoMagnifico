@@ -286,8 +286,7 @@ public class PlayerTabSubControl extends CustomFxControl {
         leadersStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED));
 
         if (runBeforeShow != null){ //there is something to run
-            Thread myThread = new Thread(runBeforeShow);
-            myThread.start();
+            runBeforeShow.run();
     }
 
         leadersStage.show();
