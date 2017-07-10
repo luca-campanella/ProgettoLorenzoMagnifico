@@ -326,10 +326,20 @@ public class Player implements Serializable{
      */
     public void prepareForNewRound() {
         reloadFamilyMember();
-
+        reloadLeaderCard();
         //make once per round leaders able to be activated again
         playedOncePerRoundLeaderCards.addAll(playedAndActivatedOncePerRoundLeaderCards);
         playedOncePerRoundLeaderCards.clear();
+    }
+
+    /**
+     * this method is called by the client to reuse the leader with the effect, once per round ability
+     */
+    private void reloadLeaderCard() {
+
+        playedOncePerRoundLeaderCards.addAll(playedAndActivatedOncePerRoundLeaderCards);
+        playedAndActivatedOncePerRoundLeaderCards.clear();
+
     }
 
 
