@@ -67,6 +67,11 @@ public class Room {
 
     private final String ILLEGAL_MOVE_MESSAGE = "someone performed an illegal move";
 
+    /**
+     * Timer for the beginning of the game
+     */
+    private  Timer beginningTimer;
+
 
     /**
      * Constructor
@@ -112,12 +117,13 @@ public class Room {
         if (currNOfPlayers == maxNOfPlayers) //ModelController should start
         {
             Debug.printVerbose("Room capacity reached, starting new game");
+            beginningTimer.cancel();
             new Thread( () -> startGame()).start(); // we don't want to start a game on the server thread
             Debug.printVerbose("Room capacity reached, returned from start function");
         } else if (currNOfPlayers == 2) {
             Debug.printVerbose("2 players reached ");
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
+            beginningTimer = new Timer();
+            beginningTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     Debug.printVerbose("Timeout reached, starting new game");
