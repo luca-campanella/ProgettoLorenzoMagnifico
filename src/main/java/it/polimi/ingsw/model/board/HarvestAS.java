@@ -14,8 +14,6 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
     private int valueMalus;
     //it's the list of family members on this place
 
-   // private ArrayList<FamilyMember> familyMembers;
-   //private boolean first = true;
     public HarvestAS() {
         super();
     }
@@ -65,8 +63,8 @@ public class HarvestAS extends AbstractActionSpace implements Serializable{
             return getDiceRequirement();
         if(canPlaceOccupiedSpace)
             return valueMalus+getDiceRequirement();
-        //todo check this solution here - if you modify this you need also to modify the test
-        return 10;
+
+        return valueMalus+getDiceRequirement();
     }
 
     /**

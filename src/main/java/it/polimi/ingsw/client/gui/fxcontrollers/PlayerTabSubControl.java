@@ -27,6 +27,8 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class represents the controller with all the graphical informations related to a tab of a certain player
@@ -79,6 +81,7 @@ public class PlayerTabSubControl extends CustomFxControl {
     @FXML
     private ToolBar buttonsToolBar;
 
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public PlayerTabSubControl() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/PlayerTabSubScene.fxml"));
@@ -278,7 +281,7 @@ public class PlayerTabSubControl extends CustomFxControl {
             leadersControl = fxmlLoader.getController();
             leadersControl.setController(getController());
         } catch (ClassCastException e) {
-
+            LOGGER.log(Level.SEVERE, "Error opening leaders window", e);
             leaderOtherControl = fxmlLoader.getController();
             leaderOtherControl.setController(getController());
         }

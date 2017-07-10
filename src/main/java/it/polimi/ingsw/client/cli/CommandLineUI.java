@@ -197,7 +197,7 @@ public class CommandLineUI extends AbstractUIType {
      */
     @Override
     public int askWhereToPlaceNoDiceFamilyMember(List<TowerWrapper> towerWrapper){
-        //this method is used when a card like Abess is played;
+        //this method is used when a card like Abess is played
 
         if(towerWrapper.size() == 1) {
             CliPrinter.println("You can only take the card of the space :\ntower number " +

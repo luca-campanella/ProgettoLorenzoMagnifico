@@ -30,71 +30,9 @@ public class Board implements Serializable {
     private HarvestAS harvest = new HarvestAS();
     private CouncilAS council;
     private VaticanReport vaticanReport = new VaticanReport();
-    //private ArrayList<ExcommunicationTile> excommunicationDeck;
+
     private List<ExcommunicationTile> excommunicationTiles = new ArrayList<>(3);
-    // this is the constructor
-    /*public void createNewBoard(Tower[] towers, ArrayList<MarketAS> market, BuildAS build, HarvestAS harvest, CouncilAS councilAS, VaticanReport vaticanReport) {
-        this.towers = towers;
-        this.market = market;
-        this.build = build;
-        this.harvest = harvest;
-        this.vaticanReport = vaticanReport;
-        this.council = councilAS;
-        /*
-        JSONLoader.instance();
-        try {
-            excommunicationDeck = JSONLoader.loadExcommunicationTiles();
-            this.getExcommunicationTilesForGame(excommunicationDeck);
-        }catch(IOException e)
-        {
-            Debug.instance(2);
-            Debug.displayError("Json couldn't load excommunication cards");
-        }
 
-    }/*
-    /*public void loadExcommunicationCards()
-    {
-        JSONLoader.instance();
-        try {
-            excommunicationDeck = JSONLoader.loadExcommunicationTiles();
-            this.getExcommunicationTilesForGame(excommunicationDeck);
-        }catch(IOException e)
-        {
-            Debug.instance(2);
-            Debug.displayError("Json couldn't load excommunication cards");
-        }
-    }*/
-    /*
-     * this method loads 3 excommunication cards on board
-     * @param excommunicationDeck is a list of excommunication cards loaded from JSON
-     */
-    /*private void getExcommunicationTilesForGame(ArrayList<ExcommunicationTile> excommunicationDeck)
-    {
-        Random random = new Random();
-        int valueIndex;
-        final int numberOfPeriods = 3;
-        //this cicle looks for 3 excommunication tiles
-        for(int i=numberOfPeriods; i>0; i--){
-            //i look for a random number between 0 and 8
-            valueIndex = random.nextInt(excommunicationDeck.size()/i);
-            //then i pick the corrispective card and i check if it is the same period.
-            if(excommunicationDeck.get(valueIndex).getPeriod() == (numberOfPeriods-i+1)) {
-                //if it is i add that to ecommunicationTiles
-                excommunicationTiles.add(excommunicationDeck.get(valueIndex));
-                //and i remove all the others
-                for(int k= 0; k < excommunicationDeck.size()/i; k++)
-                    if(excommunicationDeck.get(k).getPeriod() == (numberOfPeriods-i+1))
-                        excommunicationDeck.remove(k);
-                //then i look for another card
-            }
-            //If i don't find it, i make another cicle
-            else
-            {
-                i++;
-            }
-        }
-
-    }*/
 
     public void setExcommunicationTiles(List<ExcommunicationTile> excommunicationTiles) {
         this.excommunicationTiles = excommunicationTiles;

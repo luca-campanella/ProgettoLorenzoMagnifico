@@ -157,6 +157,9 @@ public class ExcommunicationTilesCollector {
     //todo insert in ending phase
     public boolean noVPColoredCard(CardColorEnum color)
     {
+        for(ExcommunicationTile tileIter : tiles)
+        if(tileIter.getEffect().noVPColoredCard(color))
+            return true;
         return false;
     }
 
@@ -169,7 +172,10 @@ public class ExcommunicationTilesCollector {
     //todo insert in ending phase
     public int noVPonResource(ArrayList<Resource> resource)
     {
-        return 0;
+        int malus = 0;
+        for(ExcommunicationTile tileIter : tiles)
+            malus += tileIter.getEffect().loseVPonResource(resource);
+        return malus;
     }
 
     /**
@@ -178,7 +184,11 @@ public class ExcommunicationTilesCollector {
      * @return
      */
     //todo insert in ending phase
-    public int loseVPonCosts(ArrayList<BuildingCard> cards){ return 0;}
+    public int loseVPonCosts(ArrayList<BuildingCard> cards){
+        int malus = 0;
+        for(ExcommunicationTile tileIter : tiles)
+            malus += tileIter.getEffect().loseVPonCosts(cards);
+        return malus;}
 
     public void addExcommunicationTile(ExcommunicationTile tile) {
         tiles.add(tile);

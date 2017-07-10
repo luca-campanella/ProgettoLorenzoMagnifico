@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
-import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.exceptions.IllegalMoveException;
+import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
@@ -14,7 +14,6 @@ import it.polimi.ingsw.model.leaders.LeadersDeck;
 import it.polimi.ingsw.model.player.FamilyMember;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
 import it.polimi.ingsw.utils.Debug;
 
@@ -132,35 +131,6 @@ public class ControllerGame {
         this.numberOfPlayers = numberOfPlayers;
         numberOfTurn = 0;
         numberOfRound = 1;
-    }
-
-    public static void main(String[] args) throws Exception {
-        /*GsonBuilder gsonBuilder = new GsonBuilder();
-        RuntimeTypeAdapterFactory<ImmediateEffectInterface> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(ImmediateEffectInterface.class, "effectName");
-        Gson gson = gsonBuilder.setPrettyPrinting().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
-        Resource resource = new Resource(ResourceTypeEnum.COIN, 2);
-        BuildingCard asd = new BuildingCard();
-        //VentureCardMilitaryCost ventureCardMilitaryCost = new VentureCardMilitaryCost(resource, resource);
-        ArrayList<Resource> resources = new ArrayList<>();
-        resources.add(resource);
-        asd.setCost(resources);
-        System.out.println(gson.toJson(asd));*/
-        Debug.instance(3);
-        ControllerGame controllerGame =  new ControllerGame(2);
-
-
-        //cli.printDeck(controllerGame.getDeck());
-        CliPrinter.printBoard(controllerGame.getBoardGame());
-        controllerGame.testSecondRound(1);
-        CliPrinter.printBoard(controllerGame.getBoardGame());
-        controllerGame.testSecondRound(2);
-        CliPrinter.printBoard(controllerGame.getBoardGame());
-        controllerGame.testSecondRound(2);
-        CliPrinter.printBoard(controllerGame.getBoardGame());
-        controllerGame.testSecondRound(3);
-        CliPrinter.printBoard(controllerGame.getBoardGame());
-        controllerGame.testSecondRound(3);
-        CliPrinter.printBoard(controllerGame.getBoardGame());
     }
 
     public void testSecondRound(int period){

@@ -510,10 +510,10 @@ public class MainBoardControl extends CustomFxControl {
 
         //we reactivate only the ones passed via parameters
         if(servantsNeededBuild.isPresent()){
+            minServantsBuild = servantsNeededBuild.get();
             if(board.getBuild().checkIfFirst()){
                 Button activeBuildButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
                 activeBuildButton.setDisable(false);
-                minServantsBuild = servantsNeededBuild.get();
             }
             else if(!board.getBuild().isTwoPlayersOneSpace()){
                 Button activeBuildButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
@@ -522,6 +522,7 @@ public class MainBoardControl extends CustomFxControl {
         }
 
         if(servantsNeededHarvest.isPresent()){
+            minServantsHarvest = servantsNeededHarvest.get();
             if(board.getHarvest().checkIfFirst()){
                 Button activeHarvestButton = (Button) (buildHarvestPane.lookup("#harvestSmallActionSpace"));
                 activeHarvestButton.setDisable(false);
@@ -529,7 +530,6 @@ public class MainBoardControl extends CustomFxControl {
             else if(!board.getBuild().isTwoPlayersOneSpace()){
                 Button activeHarvestButton = (Button) (buildHarvestPane.lookup("#harvestBigActionSpace"));
                 activeHarvestButton.setDisable(false);
-                minServantsBuild = servantsNeededHarvest.get();
             }
         }
 
