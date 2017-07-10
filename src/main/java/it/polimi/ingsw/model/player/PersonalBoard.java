@@ -108,6 +108,8 @@ public class PersonalBoard implements Serializable{
      */
     public void purplePoints(Player player) {
 
+        if(player.getExcommunicationTilesCollector().noVPColoredCard(CardColorEnum.PURPLE))
+            return;
         for (VentureCard purpleCard : ventureCards) {
             player.addResource(purpleCard.getVictoryEndPoints());
         }
@@ -174,7 +176,7 @@ public class PersonalBoard implements Serializable{
     public void greenPoints(Player player) {
 
         //if the player doesn't have territory cards the method return
-        if(territoryCards.size() == 0)
+        if(territoryCards.size() == 0 || player.getExcommunicationTilesCollector().noVPColoredCard(CardColorEnum.GREEN))
             return;
         player.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT, victoryPointsTerritory[territoryCards.size()-1]));
 
@@ -187,7 +189,7 @@ public class PersonalBoard implements Serializable{
     public void bluePoints(Player player) {
 
         //if the player doesn't have character cards the method return
-        if(characterCardsCollector.getCharacterCards().size() == 0)
+        if(characterCardsCollector.getCharacterCards().size() == 0 || player.getExcommunicationTilesCollector().noVPColoredCard(CardColorEnum.BLUE))
             return;
         player.addResource(new Resource(ResourceTypeEnum.VICTORY_POINT,
                 victoryPointsCharacter[characterCardsCollector.getCharacterCards().size()]));

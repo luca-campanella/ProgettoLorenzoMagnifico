@@ -4,7 +4,7 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
-import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
+import it.polimi.ingsw.model.cards.BuildingCard;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTilesCollector;
 import it.polimi.ingsw.model.leaders.LeaderCard;
@@ -544,5 +544,33 @@ public class Player implements Serializable{
      */
     public void resetFaithPoints() {
         resourcesMap.resetResource(ResourceTypeEnum.FAITH_POINT);
+    }
+
+    /**
+     * this method is called by the model to get the victory points to take away by the client
+     */
+    public void MalusVictoryPoints() {
+
+        MalusVictoryPointsOnResources();
+        MalusVictoryPointsOnBuildingCard();
+
+    }
+
+    /**
+     * this method is called to remove victory points based on the resources the player has
+     */
+    private void MalusVictoryPointsOnResources(){
+        ArrayList<Resource> resources = new ArrayList<>(resourcesMap.getAllResources());
+        Resource victoryPointsToRemove = new Resource(ResourceTypeEnum.VICTORY_POINT, excommunicationTilesCollector.noVPonResource(resources));
+        resourcesMap.subResource(victoryPointsToRemove);
+    }
+
+    /**
+     * this method is called to remove victory points based on the yellow cards the player has
+     */
+    public void MalusVictoryPointsOnBuildingCard() {
+        ArrayList<BuildingCard> buildingCards = new ArrayList<>(personalBoard.getYellowBuildingCards());
+        Resource victoryPointsToRemove = new Resource(ResourceTypeEnum.VICTORY_POINT, excommunicationTilesCollector.loseVPonCosts(buildingCards));
+        resourcesMap.subResource(victoryPointsToRemove);
     }
 }
