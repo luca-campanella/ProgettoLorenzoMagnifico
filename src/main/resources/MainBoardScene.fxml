@@ -123,34 +123,34 @@
               <items>
                   <SplitPane dividerPositions="0.5">
                      <items>
-                        <AnchorPane fx:id="buildHarvestPane" prefHeight="205.0" prefWidth="225.0">
+                        <AnchorPane fx:id="buildHarvestPane" prefHeight="140.0" prefWidth="140.0">
                            <children>
-                               <Button fx:id="buildSmallActionSpace" disable="true" layoutX="14.5" layoutY="23.0" mnemonicParsing="false" onAction="#buildSelected" prefHeight="50.0" prefWidth="61.0" styleClass="actionSpaceButton" />
-                               <Button fx:id="buildBigActionSpace" disable="true" layoutX="120.0" layoutY="23.0" mnemonicParsing="false" onAction="#buildSelected" prefHeight="55.0" prefWidth="160.0" styleClass="actionSpaceButton" />
-                               <Button fx:id="harvestSmallActionSpace" disable="true" layoutX="14.5" layoutY="140.0" mnemonicParsing="false" onAction="#harvestSelected" prefHeight="50.0" prefWidth="61.0" styleClass="actionSpaceButton" />
-                               <Button fx:id="harvestBigActionSpace" disable="true" layoutX="120.0" layoutY="125.0" mnemonicParsing="false" onAction="#harvestSelected" prefHeight="55.0" prefWidth="160.0" styleClass="actionSpaceButton" />
+                               <Button fx:id="buildSmallActionSpace" disable="true" layoutX="14.5" layoutY="20.0" mnemonicParsing="false" onAction="#buildSelected" prefHeight="50.0" prefWidth="61.0" styleClass="actionSpaceButton" />
+                               <Button fx:id="buildBigActionSpace" disable="true" layoutX="120.0" layoutY="20.0" mnemonicParsing="false" onAction="#buildSelected" prefHeight="55.0" prefWidth="165.0" styleClass="actionSpaceButton" />
+                               <Button fx:id="harvestSmallActionSpace" disable="true" layoutX="14.5" layoutY="130.0" mnemonicParsing="false" onAction="#harvestSelected" prefHeight="50.0" prefWidth="61.0" styleClass="actionSpaceButton" />
+                               <Button fx:id="harvestBigActionSpace" disable="true" layoutX="120.0" layoutY="120.0" mnemonicParsing="false" onAction="#harvestSelected" prefHeight="55.0" prefWidth="160.0" styleClass="actionSpaceButton" />
                         <ImageView fx:id="buildBlockActionSpace" fitHeight="100.0" fitWidth="210.0" layoutX="100.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="harvestBlockActionSpace" fitHeight="100.0" fitWidth="210.0" layoutX="100.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" />
                                </children></AnchorPane>
                         <AnchorPane fx:id="marketPane" prefHeight="205.0" prefWidth="225.0">
                            <children>
-                              <Text fx:id="dice1" fill="WHITE" layoutX="33.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                              <Text fx:id="dice1" fill="WHITE" layoutX="28.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="dice0" layoutX="117.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                              <Text fx:id="dice0" layoutX="112.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="dice2" layoutX="200.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
+                              <Text fx:id="dice2" layoutX="200.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Text>
-                              <Button fx:id="marketAS0" disable="true" layoutX="35.0" layoutY="18.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
-                              <Button fx:id="marketAS1" disable="true" layoutX="117.0" layoutY="20.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
+                              <Button fx:id="marketAS0" disable="true" layoutX="30.0" layoutY="18.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
+                              <Button fx:id="marketAS1" disable="true" layoutX="105.0" layoutY="20.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
                               <Button fx:id="marketAS2" disable="true" layoutX="175.0" layoutY="33.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
                               <Button fx:id="marketAS3" disable="true" layoutX="225.0" layoutY="85.0" mnemonicParsing="false" onAction="#marketSelected" styleClass="actionSpaceButton" />
                         <ImageView fx:id="marketBlock2" fitHeight="65.0" fitWidth="65.0" layoutX="185.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
@@ -204,27 +204,27 @@
                      </children>
                   </HBox>
                   <TabPane fx:id="playersTabPersonalBoard" prefHeight="431.0" prefWidth="573.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
+                      <tabs>
                       <Tab closable="false" text="You (nickname)">
-                           <content>
-                               <PlayerTabSubControl fx:id="thisPlayerTab" />
-                           </content>
-                      </Tab>
-                        <Tab closable="false" text="Player1">
                             <content>
-                                <PlayerTabSubControl fx:id="player1Tab" />
+                                <PlayerTabSubControl fx:id="thisPlayerTab" />
                             </content>
-                        </Tab>
-                        <Tab closable="false" text="Player2">
-                            <content>
-                                <PlayerTabSubControl fx:id="player2Tab" />
-                            </content>
-                        </Tab>
-                        <Tab closable="false" text="Player3">
-                            <content>
-                                <PlayerTabSubControl fx:id="player3Tab" />
-                            </content>
-                        </Tab>
+                       </Tab>
+                         <Tab closable="false" text="Player1">
+                             <content>
+                                 <PlayerTabSubControl fx:id="player1Tab" />
+                             </content>
+                         </Tab>
+                         <Tab closable="false" text="Player2">
+                             <content>
+                                 <PlayerTabSubControl fx:id="player2Tab" />
+                             </content>
+                         </Tab>
+                         <Tab closable="false" text="Player3">
+                             <content>
+                                 <PlayerTabSubControl fx:id="player3Tab" />
+                             </content>
+                         </Tab>
                     </tabs>
                   </TabPane>
                   <TextArea fx:id="currentGameStateTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" text="The game has started" wrapText="true">
