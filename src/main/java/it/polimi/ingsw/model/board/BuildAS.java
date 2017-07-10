@@ -25,18 +25,6 @@ public class BuildAS extends AbstractActionSpace implements Serializable {
         this.twoPlayersOneSpace = false;
     }
 
-    /*
-     * This methods updates all the resources player has giving his yellow cards
-     */
-    /*@Override
-    public void performAction(FamilyMember familyMember) {
-        boolean trueIfMalus;
-        trueIfMalus = checkIfFirst();
-        if(trueIfMalus)
-            //chiama l'effetto con il valore -3
-        ;
-        //altrimenti chiama la funzione con il valore +0
-    }*/
 
     /**
      * this method checks if the player that put here a family member is the first
