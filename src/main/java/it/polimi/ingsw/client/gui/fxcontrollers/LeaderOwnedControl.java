@@ -10,7 +10,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -89,8 +88,6 @@ public class LeaderOwnedControl extends CustomFxControl {
         //disablePlayedLeaderCards(leadersPlayedGridPane, leaderActivated);
 
     }
-    //todo: remove this
-    //this is for Debug
 
     private void printList(ArrayList<LeaderCard> leaderCards)
     {

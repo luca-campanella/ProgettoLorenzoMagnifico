@@ -116,27 +116,6 @@ public class ControllerGame {
             initiateLeaderChoice();
     }
 
-    /**
-     * costructor for controllerGame. This is just a temp constructor to test the class
-     * @param numberOfPlayers is the number of players currently playing this game.
-     * @throws IOException in case JSON loading fails
-     */
-    public ControllerGame(int numberOfPlayers) throws IOException {
-        JSONLoader.instance();
-        personalTiles = JSONLoader.loadPersonalTiles();
-        boardGame = JSONLoader.boardCreator();
-        deck = JSONLoader.createNewDeck();
-        leadersDeck = JSONLoader.loadLeaders();
-        boardModifier(numberOfPlayers);
-        this.numberOfPlayers = numberOfPlayers;
-        numberOfTurn = 0;
-        numberOfRound = 1;
-    }
-
-    public void testSecondRound(int period){
-        boardGame = deck.fillBoard(boardGame,period);
-    }
-
     private  Deck getDeck()
     {
         return deck;

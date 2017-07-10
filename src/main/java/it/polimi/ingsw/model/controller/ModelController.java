@@ -157,10 +157,6 @@ public class ModelController {
 
     }
 
-    public void prepareForNewPeriod(){
-        period = period + 1;
-    }
-
     /**
      * this method is used to deliver all the tower spaces available to the player
      * @param isActionWithNoFamilyMember true if the action doesn't have a family member associated
