@@ -601,7 +601,7 @@ public class MainBoardControl extends CustomFxControl {
             //we have to subtract one because one has already been placed to the small action space
             int occupyingFMs = board.getHarvest().getOccupyingFamilyMemberNumber()-1;
             Coordinates coord = calculateCoordinatesBigActionSpace(actionSpace, occupyingFMs);
-            placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
+            placeFamilyMemberForThisPlayer(buildHarvestPane, coord);
         }
 
         pool.submit(()->getController().callbackPlacedFMOnHarvest(temp));
@@ -643,7 +643,7 @@ public class MainBoardControl extends CustomFxControl {
             //we have to subtract one because one has already been placed to the small action space
             int occupyingFMs = board.getBuild().getOccupyingFamilyMemberNumber()-1;
             Coordinates coord = calculateCoordinatesBigActionSpace(actionSpace, occupyingFMs);
-            placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
+            placeFamilyMemberForThisPlayer(buildHarvestPane, coord);
         }
 
         pool.submit(()->getController().callbackPlacedFMOnBuild(temp));
