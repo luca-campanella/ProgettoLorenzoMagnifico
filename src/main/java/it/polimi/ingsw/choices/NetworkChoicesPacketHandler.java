@@ -203,6 +203,7 @@ public class NetworkChoicesPacketHandler implements ChoicesHandlerInterface {
      * @param choiceCode the code of the choice, to be put inside hashmap
      * @return a tower wrapper containing the choice
      */
+    @Override
     public TowerWrapper callbackOnTakeCard(String choiceCode, List<TowerWrapper> availableSpaces) {
         int choice = choicesMap.get(choiceCode+":towerAS");
         return availableSpaces.get(choice);

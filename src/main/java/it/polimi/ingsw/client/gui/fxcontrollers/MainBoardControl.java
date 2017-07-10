@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This object is the fx controller of the main board scene
@@ -41,6 +43,8 @@ import java.util.concurrent.Executors;
  * notify -- makes the changes on the ui needed in order to show the move made by another player
  */
 public class MainBoardControl extends CustomFxControl {
+
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private ToggleButton currentFamilyMemberSelected;
     @FXML
@@ -260,7 +264,7 @@ public class MainBoardControl extends CustomFxControl {
                     Debug.printError("towers[col].getFloorByIndex(raw)" + towers[col].getFloorByIndex(raw).toString());
                     Debug.printError("towers[col].getFloorByIndex(raw).getCard()" + towers[col].getFloorByIndex(raw).getCard().toString());
                     Debug.printError("towers[col].getFloorByIndex(raw).getCard().getImgName()" + towers[col].getFloorByIndex(raw).getCard().getImgName());
-
+                    LOGGER.log(Level.SEVERE, "Null pointer on card", e);
                 }
                 Debug.printVerbose(imgView.toString());
                 imgView.setImage(cardImg);
@@ -451,7 +455,6 @@ public class MainBoardControl extends CustomFxControl {
             this.disableActionSpaces();
         this.setFamilyMemberDisable(disable);
         PlayerTabSubControl playerTab = playersTabMap.get(thisPlayer.getNickname());
-        playerTab.setLeadersActionsDisable(disable);
         playerTab.setEndTurnButtonDisable(disable);
     }
 
@@ -623,7 +626,7 @@ public class MainBoardControl extends CustomFxControl {
             userAnswer = askMoreServantsDialog.call();
             Debug.printVerbose("Numbero scelto dall'utente" + userAnswer);
         }catch (Exception e) {
-        e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error opening dialog", e);
         Debug.printVerbose("Error opening dialogue, selecting the minServe number");
         }
 
@@ -664,7 +667,7 @@ public class MainBoardControl extends CustomFxControl {
             userAnswer = askMoreServantsDialog.call();
             Debug.printVerbose("Number chosen" + userAnswer);
         }catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error opening dialog", e);
             Debug.printVerbose("Error opening dialogue, selecting the minServe number");
         }
 

@@ -601,8 +601,7 @@ public class GraphicalUI extends AbstractUIType {
 
         currentFXControl.setController(getController());
         if(runBeforeShow != null) { //there is something to run
-            Thread myThread = new Thread(runBeforeShow);
-            myThread.start();
+            runBeforeShow.run();
         }
         currentStage.setTitle(title);
         //currentStage.setScene(new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED)); antialiasing was bugged
