@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.choices.NetworkChoicesPacketHandler;
-import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.cli.StdinSingleton;
 import it.polimi.ingsw.client.exceptions.ClientConnectionException;
 import it.polimi.ingsw.client.exceptions.LoginException;
@@ -901,6 +900,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");
+            LOGGER.log(Level.SEVERE, NETWORK_ERROR_MESSAGE, e);
             userInterface.displayErrorAndExit(NETWORK_ERROR_MESSAGE, e.getMessage());
         }
         clientChoices(false);

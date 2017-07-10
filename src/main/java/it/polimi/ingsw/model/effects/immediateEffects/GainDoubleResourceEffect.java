@@ -18,6 +18,7 @@ public class GainDoubleResourceEffect extends GainResourceEffect implements Imme
         giveResourcesToPlayer(player, resource);
         giveResourcesToPlayer(player, secondResource);
     }
+    @Override
     public String descriptionShortOfEffect(){
         return (resource.getResourceShortDescript() + " " +  secondResource.getResourceShortDescript());
     }

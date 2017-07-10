@@ -443,17 +443,6 @@ public class ModelController {
     }
 
     /**
-     * this method is used to coltrol if the player has another family member on the space
-     */
-    private boolean findFamilyMember(Player player, ArrayList<FamilyMember> familyMembers){
-        for(FamilyMember i : familyMembers){
-            if(i.getPlayer() == player)
-                return true;
-        }
-        return false;
-    }
-
-    /**
      * this method is used to control if the family member can move on the build and, if possible, the servant needed
      * @return the servant needed or empty if the move is not valid
      */
