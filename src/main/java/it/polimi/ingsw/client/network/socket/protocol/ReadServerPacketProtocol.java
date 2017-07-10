@@ -62,6 +62,7 @@ public class ReadServerPacketProtocol {
         instruction.put(PacketType.EXCOMMUNICATION_CHOICE, ()-> client.receiveExcommunicationChoice());
         instruction.put(PacketType.PLAYER_SUSPENDED, () -> client.receiveNotificationPlayerSuspended());
         instruction.put(PacketType.PLAYER_RECONNECTED, () -> client.receivePlayerReconnected());
+        instruction.put(PacketType.SERVER_DISCONNECTED, () -> client.receiveDisconnectionServer());
 
     }
 
@@ -69,7 +70,7 @@ public class ReadServerPacketProtocol {
      * this method is used to find the response based on the Packet type
      * @param packetType is like a header of the true packet, is used to understand how deserialize the follow packet
      */
-    public void doMethod(PacketType packetType) throws NetworkException{
+    public void doMethod(PacketType packetType){
         Debug.printVerbose("Inside do method called:, packetType = " + packetType);
         response=instruction.get(packetType);
         response.chooseMethod();
