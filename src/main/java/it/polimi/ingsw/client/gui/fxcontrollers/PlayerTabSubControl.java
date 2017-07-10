@@ -278,6 +278,7 @@ public class PlayerTabSubControl extends CustomFxControl {
             leadersControl = fxmlLoader.getController();
             leadersControl.setController(getController());
         } catch (ClassCastException e) {
+
             leaderOtherControl = fxmlLoader.getController();
             leaderOtherControl.setController(getController());
         }
@@ -292,10 +293,6 @@ public class PlayerTabSubControl extends CustomFxControl {
         leadersStage.show();
     }
 
-
-    public void setLeadersActionsDisable(boolean disabled) {
-        //todo disable the possibility to play leaders, but not the button to show leaders
-    }
     /**
      * This method responds to the pressing of the leader button by creating and showing the leader window
      */

@@ -100,7 +100,7 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <filters>
                                 <filter>
-                                    <artifact>*:*</artifact> <!-- include all libraries -->
+                                    <artifact>*:*</artifact>
                                     <includes>
                                         <include>**</include>
                                     </includes>

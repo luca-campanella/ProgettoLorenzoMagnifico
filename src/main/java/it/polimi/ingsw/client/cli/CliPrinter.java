@@ -19,6 +19,8 @@ import it.polimi.ingsw.model.resource.ResourceTypeEnum;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -32,6 +34,9 @@ public class CliPrinter {
     private static final int INSIDE_TOWER_LENGHT = 35;
     private static final int LINELENGTH = 200;
     private static final int MAX_LENGHT_SHORT_EFFECTS = 12;
+
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
 
     private CliPrinter(){}
     /**
@@ -177,6 +182,7 @@ public class CliPrinter {
                 immediateEffects.append(" ");
 
                 } catch(NullPointerException e) {
+                    LOGGER.log(Level.INFO, "Null pointer on card, it's ok", e);
                     immediateEffects.append(" ");
                 }
             }
