@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *   This interface is implemented by {@link ClientMain} to let {@link it.polimi.ingsw.client.network.AbstractClientType} make calls on controller
+ *   This interface is implemented by {@link ClientMainController} to let {@link it.polimi.ingsw.client.network.AbstractClientType} make calls on controller
  */
 public interface NetworkControllerClientInterface {
 
     /**
-     * This method is called by {@link it.polimi.ingsw.client.network.AbstractClientType} to display an incoming chat message (Direction: AbstractClientType -> ClientMain; general direction: Server -> Client)
+     * This method is called by {@link it.polimi.ingsw.client.network.AbstractClientType} to display an incoming chat message (Direction: AbstractClientType -> ClientMainController; general direction: Server -> Client)
      *
      * @param senderNick
      * @param msg

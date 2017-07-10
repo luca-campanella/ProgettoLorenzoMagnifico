@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.gui;
 
 import it.polimi.ingsw.client.controller.AbstractUIType;
-import it.polimi.ingsw.client.controller.ClientMain;
+import it.polimi.ingsw.client.controller.ClientMainController;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.gui.blockingdialogs.*;
 import it.polimi.ingsw.client.gui.fxcontrollers.*;
@@ -55,7 +55,7 @@ public class GraphicalUI extends AbstractUIType {
 
     /**
      * This is the constructor of the class
-     * @param controller is used to make callbacks on the controller ({@link ClientMain}
+     * @param controller is used to make callbacks on the controller ({@link ClientMainController}
      */
     public GraphicalUI(ViewControllerCallbackInterface controller)
     {
@@ -65,7 +65,7 @@ public class GraphicalUI extends AbstractUIType {
 
     /**
      * This method asks the user to pick one of the action spaces to put his family member in
-     * Direction: {@link ClientMain} -> {@link AbstractUIType}
+     * Direction: {@link ClientMainController} -> {@link AbstractUIType}
      *
      * @param servantsNeededHarvest The servants needed by the user to harvest, Optional.empty() if the action is not valid
      * @param servantsNeededBuild   The servants needed by the user to build, Optional.empty() if the action is not valid
@@ -538,7 +538,7 @@ public class GraphicalUI extends AbstractUIType {
     }
 
     /**
-     * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
+     * This method is called by {@link ClientMainController} to display an incoming chat message (Direction: {@link ClientMainController} -> {@link AbstractUIType}; general direction: Server -> Client)
      *
      * @param senderNick is the nick of the person who sent the msg
      * @param msg is the txt of the mesessage

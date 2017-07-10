@@ -42,7 +42,7 @@ abstract public class AbstractUIType {
 
     /**
      * This method asks the user to pick one of the action spaces to put his family member in
-     * Direction: {@link ClientMain} -> {@link AbstractUIType}
+     * Direction: {@link ClientMainController} -> {@link AbstractUIType}
      *
      * @param servantsNeededHarvest The servants needed by the user to harvest, Optional.empty() if the action is not valid
      * @param servantsNeededBuild   The servants needed by the user to build, Optional.empty() if the action is not valid
@@ -74,7 +74,7 @@ abstract public class AbstractUIType {
     public abstract void displayErrorAndExit(String title, String errorDescription);
 
     /**
-     * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
+     * This method is called by {@link ClientMainController} to display an incoming chat message (Direction: {@link ClientMainController} -> {@link AbstractUIType}; general direction: Server -> Client)
      *
      * @param senderNick Is the nick of the person who's sending the message
      * @param msg is the message sent

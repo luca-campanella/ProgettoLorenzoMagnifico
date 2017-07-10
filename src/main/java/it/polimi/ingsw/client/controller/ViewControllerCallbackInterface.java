@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * This interface is used for callbacks from view to controller
- * Direction: {@link AbstractUIType} to {@link ClientMain}
+ * Direction: {@link AbstractUIType} to {@link ClientMainController}
  */
 public interface ViewControllerCallbackInterface {
 
@@ -75,7 +75,7 @@ public interface ViewControllerCallbackInterface {
     public void callbackPlacedFMOnCouncil();
 
     /**
-     * this is the call back method to send a message to all other players in the room (Direction: {@link AbstractUIType} -> {@link ClientMain}; general direction: Client -> server)
+     * this is the call back method to send a message to all other players in the room (Direction: {@link AbstractUIType} -> {@link ClientMainController}; general direction: Client -> server)
      * @param msg
      * @throws NetworkException
      */

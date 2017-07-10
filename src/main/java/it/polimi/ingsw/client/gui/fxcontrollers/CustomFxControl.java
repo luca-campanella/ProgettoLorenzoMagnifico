@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
+import it.polimi.ingsw.client.controller.ClientMainController;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.utils.Debug;
 import javafx.scene.layout.Pane;
@@ -8,7 +9,7 @@ import javafx.scene.layout.Pane;
 /**
  * This custom fx control is the base for all controls class
  * It offers a method to set the {@link ViewControllerCallbackInterface} in order to let single controls make
- * callbacks on the controller ({@link it.polimi.ingsw.client.controller.ClientMain}
+ * callbacks on the controller ({@link ClientMainController}
  */
 public class CustomFxControl extends Pane {
 

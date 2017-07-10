@@ -827,7 +827,7 @@ public class ModelController {
 
     /*
      * This method return all the possible choices when a player decides to build
-     * This method will be called by {@link it.polimi.ingsw.client.controller.ClientMain}, all on the client
+     * This method will be called by {@link it.polimi.ingsw.client.controller.ClientMainController}, all on the client
      * @param familyMember the family member chosen to perform the cation, important to know the value of the action
      * @param servants number of servants added, still importants, some cards have higher values than others
      * @return an list of choices

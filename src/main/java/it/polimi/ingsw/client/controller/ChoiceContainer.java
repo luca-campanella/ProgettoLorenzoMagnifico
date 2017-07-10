@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.effects.immediateEffects.ImmediateEffectInterface;
 import java.util.ArrayList;
 
 /**
- * This object just contains the code of the choice and the options, it is used to communicate between {@link ClientMain} and the model via {@link it.polimi.ingsw.model.controller.ModelController}
+ * This object just contains the code of the choice and the options, it is used to communicate between {@link ClientMainController} and the model via {@link it.polimi.ingsw.model.controller.ModelController}
  * The choice is still to make
  */
 public class ChoiceContainer {

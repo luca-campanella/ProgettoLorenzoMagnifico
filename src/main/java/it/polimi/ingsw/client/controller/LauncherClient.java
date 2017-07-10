@@ -9,7 +9,7 @@ import it.polimi.ingsw.client.gui.GraphicalUI;
  * This class is the launcher of Lorenzo's il magnifico, asks gui or cli
  */
 public class LauncherClient {
-    private ClientMain clientMain;
+    private ClientMainController clientMain;
     /**
      * This method welcomes the user and asks him if he wants CLI or gui.
      * @return the correct object chosen by the player
@@ -20,7 +20,7 @@ public class LauncherClient {
         return this.inputCliOrGui();
 
     }
-    public LauncherClient(ClientMain client)
+    public LauncherClient(ClientMainController client)
     {
         this.clientMain = client;
     }

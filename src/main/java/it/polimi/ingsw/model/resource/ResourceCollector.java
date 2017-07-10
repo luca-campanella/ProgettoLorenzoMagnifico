@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.resource;
 
+import it.polimi.ingsw.client.controller.ClientMainController;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -157,7 +159,7 @@ public class ResourceCollector implements Serializable{
     /**
      * This method checks if an arraylist of resources can be contained inside the saved resources,
      * for example it can check if the player has sufficient resources to play for a certain effect,
-     * mostly used for {@link it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect} checks inside {@link it.polimi.ingsw.client.controller.ClientMain}
+     * mostly used for {@link it.polimi.ingsw.model.effects.immediateEffects.PayForSomethingEffect} checks inside {@link ClientMainController}
      * @param resToCheck the arraylist of the resources the method checks if are contained or not
      * @return if the resources are contained or not
      */

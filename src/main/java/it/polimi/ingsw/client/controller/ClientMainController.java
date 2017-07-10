@@ -42,7 +42,7 @@ import java.util.logging.Logger;
 /**
  * This is the controller class for the client side
  */
-public class ClientMain implements NetworkControllerClientInterface, ViewControllerCallbackInterface, ChoicesHandlerInterface {
+public class ClientMainController implements NetworkControllerClientInterface, ViewControllerCallbackInterface, ChoicesHandlerInterface {
     private LauncherClient launcher;
     private AbstractUIType userInterface;
     private AbstractClientType clientNetwork;
@@ -124,7 +124,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackNetworkType(NetworkTypeEnum networkChoice){
-        Debug.printDebug("I'm in ClientMain.callbackNetworkType, choice = " + networkChoice);
+        Debug.printDebug("I'm in ClientMainController.callbackNetworkType, choice = " + networkChoice);
         if(networkChoice == NetworkTypeEnum.RMI) {
             clientNetwork = new RMIClient(this, "127.0.0.1", 3034);
             try {
@@ -153,7 +153,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackLogin(String userID, String userPW){
-        Debug.printDebug("Sono nel ClientMain.callbackLogin.");
+        Debug.printDebug("Sono nel ClientMainController.callbackLogin.");
         try {
             clientNetwork.loginPlayer(userID, userPW);
 
@@ -199,7 +199,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public void callbackCreateAccount(String userID, String userPW){
-        Debug.printDebug("I'm in ClientMain.callbackCreateAccount");
+        Debug.printDebug("I'm in ClientMainController.callbackCreateAccount");
         try {
             clientNetwork.registerPlayer(userID, userPW);
             this.nickname = userID;
@@ -222,7 +222,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void callbackDiscardLeader(LeaderCard leaderCard){
 
-        Debug.printDebug("I'm in ClientMain.callbackDiscardLeader");
+        Debug.printDebug("I'm in ClientMainController.callbackDiscardLeader");
         modelController.setChoicesController(this);
         modelController.discardLeaderCard(thisPlayer.getNickname(),leaderCard.getName());
         try{
@@ -243,7 +243,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void callbackFamilyMemberSelected(FamilyMember selectdFM)
     {
-        Debug.printDebug("Sono nel ClientMain.callbackFamilyMember: color = " + selectdFM.getColor() + " value: " + selectdFM.getValue());
+        Debug.printDebug("Sono nel ClientMainController.callbackFamilyMember: color = " + selectdFM.getColor() + " value: " + selectdFM.getValue());
 
         familyMemberCurrentAction = selectdFM;
 
@@ -268,7 +268,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     }
 
     /**
-     * This method is called by {@link AbstractClientType} to display an incoming chat message (Direction: AbstractClientType -> ClientMain; general direction: Server -> Client)
+     * This method is called by {@link AbstractClientType} to display an incoming chat message (Direction: AbstractClientType -> ClientMainController; general direction: Server -> Client)
      * @param senderNick is the person who's sending the message
      * @param msg is the message received
      */
@@ -279,7 +279,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
 
 
     /**
-     * this is the call back method to send a message to all other players in the room (Direction: {@link AbstractUIType} -> {@link ClientMain}; general direction: Client -> server)
+     * this is the call back method to send a message to all other players in the room (Direction: {@link AbstractUIType} -> {@link ClientMainController}; general direction: Client -> server)
      * @param msg is a chat msg
      * @throws NetworkException in case network doen't work
      */
@@ -451,7 +451,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
      */
     @Override
     public ImmediateEffectInterface callbackOnYellowBuildingCardEffectChoice(String cardNameChoiceCode, List<ImmediateEffectInterface> possibleEffectChoices) {
-        Debug.printVerbose("Inside ClientMain.callBackOnYellowBuildingCard");
+        Debug.printVerbose("Inside ClientMainController.callBackOnYellowBuildingCard");
         //We will make a copy of the arraylist beacuse we have to remove some objects that cannot be chosen from the user
         ArrayList<ImmediateEffectInterface> realPossibleEffectChoices = new ArrayList<>(possibleEffectChoices.size());
 
@@ -860,7 +860,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void callbackActivateLeader(LeaderCard leaderCard) {
 
-        Debug.printDebug("I'm in ClientMain.callbackActivateLeader");
+        Debug.printDebug("I'm in ClientMainController.callbackActivateLeader");
         modelController.setChoicesController(this);
         modelController.activateLeaderCard( thisPlayer.getNickname(), leaderCard.getName());
         try{
@@ -891,7 +891,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
     @Override
     public void callbackPlayLeader(LeaderCard leaderCard) {
 
-        Debug.printDebug("I'm in ClientMain.callbackPlayLeader");
+        Debug.printDebug("I'm in ClientMainController.callbackPlayLeader");
         modelController.setChoicesController(this);
         modelController.playLeaderCard(leaderCard.getName(), thisPlayer);
         try{

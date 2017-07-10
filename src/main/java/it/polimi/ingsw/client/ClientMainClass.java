@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client;
 
-        import it.polimi.ingsw.client.controller.ClientMain;
+        import it.polimi.ingsw.client.controller.ClientMainController;
         import javafx.application.Application;
         import javafx.stage.Stage;
 
@@ -11,7 +11,7 @@ public class ClientMainClass extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ClientMain clientMain = new ClientMain();
+        ClientMainController clientMain = new ClientMainController();
         clientMain.startUp();
     }
 

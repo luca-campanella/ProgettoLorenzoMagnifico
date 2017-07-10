@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.cli;
 
 import it.polimi.ingsw.client.cli.notblockingmenus.*;
 import it.polimi.ingsw.client.controller.AbstractUIType;
-import it.polimi.ingsw.client.controller.ClientMain;
+import it.polimi.ingsw.client.controller.ClientMainController;
 import it.polimi.ingsw.client.controller.ViewControllerCallbackInterface;
 import it.polimi.ingsw.client.network.socket.packet.PlayerPositionEndGamePacket;
 import it.polimi.ingsw.model.cards.VentureCardMilitaryCost;
@@ -35,7 +35,7 @@ public class CommandLineUI extends AbstractUIType {
 
     /**
      * This is the constructor of the class
-     * @param controller is used to make callbacks on the controller ({@link ClientMain}
+     * @param controller is used to make callbacks on the controller ({@link ClientMainController}
      */
     public CommandLineUI(ViewControllerCallbackInterface controller)
     {
@@ -58,7 +58,7 @@ public class CommandLineUI extends AbstractUIType {
 
     /**
      * This method asks the user to pick one of the action spaces to put his family member in
-     * Direction: {@link ClientMain} -> {@link AbstractUIType}
+     * Direction: {@link ClientMainController} -> {@link AbstractUIType}
      * @param servantsNeededHarvest The servants needed by the user to harvest, Optional.empty() if the action is not valid
      * @param servantsNeededBuild The servants needed by the user to build, Optional.empty() if the action is not valid
      * @param servantsNeededCouncil The servants needed by the user to place on cuincil, Optional.empty() if the action is not valid
@@ -137,7 +137,7 @@ public class CommandLineUI extends AbstractUIType {
     }
 
     /**
-     * This method is called by {@link ClientMain} to display an incoming chat message (Direction: {@link ClientMain} -> {@link AbstractUIType}; general direction: Server -> Client)
+     * This method is called by {@link ClientMainController} to display an incoming chat message (Direction: {@link ClientMainController} -> {@link AbstractUIType}; general direction: Server -> Client)
      *
      * @param senderNick is the nickname of the player senidng a message
      * @param msg is the message
