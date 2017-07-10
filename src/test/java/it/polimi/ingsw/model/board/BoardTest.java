@@ -105,7 +105,7 @@ public class BoardTest {
     }
 
     @Test
-    //todo: redo this test
+
     public void getFloorLevel() throws Exception {
         Random randomNumberOfTowersGenerator = new Random();
         Board boardTest = new Board();

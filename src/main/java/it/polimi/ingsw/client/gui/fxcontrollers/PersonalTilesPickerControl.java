@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
+import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.model.player.PersonalTile;
 import it.polimi.ingsw.model.player.PersonalTileEnum;
 import it.polimi.ingsw.utils.Debug;
@@ -21,14 +22,15 @@ import javafx.scene.layout.HBox;
 public class PersonalTilesPickerControl extends CustomFxControl {
 
     @FXML
-    HBox tilesContainer;
+    private HBox tilesContainer;
 
     @FXML
-    Button chooseButton;
+    private Button chooseButton;
 
-    ToggleGroup toggleGroup = new ToggleGroup();
-    PersonalTile selectedTile;
-    PersonalTile standardTile, specialTile;
+    private ToggleGroup toggleGroup = new ToggleGroup();
+    private PersonalTile selectedTile;
+    private PersonalTile standardTile;
+    private PersonalTile specialTile;
 
     /**
      * Add tiles to the window, this method should be called before showing the window
@@ -57,7 +59,7 @@ public class PersonalTilesPickerControl extends CustomFxControl {
         toggleImage.imageProperty().bind(Bindings
                 .when(toggle.selectedProperty())
                 .then(leaderImage)
-                .otherwise(leaderImage) //this shoulb be unselected
+                .otherwise(leaderImage) //this should be unselected
         );
         toggleImage.setFitHeight(220);
         toggleImage.setPreserveRatio(true);
@@ -68,7 +70,7 @@ public class PersonalTilesPickerControl extends CustomFxControl {
                 Object source = e.getSource();
                 if (source instanceof ToggleButton) { //should always be true
                     ToggleButton clickedBtn = (ToggleButton) source; // that's the button that was clicked
-                    System.out.println(clickedBtn.getId()); // prints the id of the button
+                    CliPrinter.println(clickedBtn.getId()); // prints the id of the button
                     if(PersonalTileEnum.STANDARD.name().equals(clickedBtn.getId()))
                         selectedTile = standardTile;
                     else
@@ -79,7 +81,7 @@ public class PersonalTilesPickerControl extends CustomFxControl {
 
         tilesContainer.getChildren().add(toggle);
         toggle.setId(tile.getPersonalTileEnum().name());
-        Debug.printVerbose("tile " + tile.getPersonalTileEnum().name() + "added scuccesfully to the window");
+        Debug.printVerbose("tile " + tile.getPersonalTileEnum().name() + "added succesfully to the window");
     }
 
     /**

@@ -61,11 +61,7 @@ public class ModelControllerTest {
         assertEquals(6, players.get(1).getResource(ResourceTypeEnum.COIN));
     }
 
-    @Test
-    public void prepareForNewRound() throws Exception {
-        //todo: method still needs to be implemented
-    modelController.prepareForNewRound();
-    }
+
 
     @Test
     public void getFamilyMemberCouncil() throws Exception {
@@ -74,10 +70,6 @@ public class ModelControllerTest {
         assertEquals(modelController.getFamilyMemberCouncil().get(0), familyMember);
     }
 
-    @Test
-    public void prepareForNewPeriod() throws Exception {
-    //todo: test this method needs to be implemented
-    }
 
     @Test
     public void spaceTowerAvailable() throws Exception {

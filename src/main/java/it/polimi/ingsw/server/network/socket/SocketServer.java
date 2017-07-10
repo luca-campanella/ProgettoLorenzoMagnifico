@@ -23,8 +23,8 @@ public class SocketServer extends AbstractServerType {
 
     /**
      *
-     * @param serverMainInst
-     * @param port
+     * @param serverMainInst it's the main instruction server
+     * @param port is the number of the port
      */
     public SocketServer(ServerMain serverMainInst, int port) throws ServerException {
 
