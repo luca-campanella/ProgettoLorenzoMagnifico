@@ -142,6 +142,11 @@ public class ControllerGame {
                     //if not all the players had been excommunicated the server has to wait for the choices of the other players
                     return;
                 }
+                //control if the game had ended
+                if(numberOfTurn >= numberOfPlayers*4 && numberOfRound == 6){
+                    ArrayList<PlayerPositionEndGamePacket> playerPositionEndGames = new ArrayList<>(modelController.endGame());
+                    room.deliverEndGame(playerPositionEndGames);
+                }
                 prepareForNewRound();
             }
 
