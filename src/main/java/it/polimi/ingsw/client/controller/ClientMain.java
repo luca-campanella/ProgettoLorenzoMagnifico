@@ -895,7 +895,7 @@ public class ClientMain implements NetworkControllerClientInterface, ViewControl
         modelController.setChoicesController(this);
         modelController.playLeaderCard(leaderCard.getName(), thisPlayer);
         try{
-            clientNetwork.playLeaderCard(leaderCard.getName(),choicesOnCurrentActionString, choicesOnCurrentAction); //todo send choicesOnCurrentAction
+            clientNetwork.playLeaderCard(leaderCard.getName(),choicesOnCurrentActionString, choicesOnCurrentAction);
         }
         catch (NetworkException e){
             Debug.printError("the client cannot deliver the leader card to discard");

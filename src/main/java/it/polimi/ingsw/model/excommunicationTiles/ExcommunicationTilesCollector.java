@@ -139,7 +139,6 @@ public class ExcommunicationTilesCollector {
      * <i>Each round, you skip your  rst turn. (When you have to place your first Family Member, you have to pass.) You start taking actions from the second turn (in the appropriate turn order.) When all players have taken all their turns, you may still place your last Family Member.</i>
      * @return true if he has to skip
      */
-    //todo inject in model
     public boolean skipFirstTurn(){
         for(ExcommunicationTile tileIter : tiles)
             if(tileIter.getEffect().skipFirstTurn())
@@ -154,7 +153,6 @@ public class ExcommunicationTilesCollector {
      * @param color ed card
      * @return s true if you don't get VP. False if you get VP
      */
-    //todo insert in ending phase
     public boolean noVPColoredCard(CardColorEnum color)
     {
         for(ExcommunicationTile tileIter : tiles)
@@ -169,7 +167,6 @@ public class ExcommunicationTilesCollector {
      * @param resource are the resource of the player
      * @return the number of victory points lost
      */
-    //todo insert in ending phase
     public int noVPonResource(ArrayList<Resource> resource)
     {
         int malus = 0;
@@ -183,7 +180,6 @@ public class ExcommunicationTilesCollector {
      * @param cards is the list of yellow cards that a player owns
      * @return
      */
-    //todo insert in ending phase
     public int loseVPonCosts(ArrayList<BuildingCard> cards){
         int malus = 0;
         for(ExcommunicationTile tileIter : tiles)

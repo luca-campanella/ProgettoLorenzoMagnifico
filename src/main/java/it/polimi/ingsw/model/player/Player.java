@@ -210,17 +210,10 @@ public class Player implements Serializable{
         excommunicationTilesCollector.addExcommunicationTile(tile);
     }
 
-    //TODO: we need to put Cards Containers in Player and then implement this method.
     public int getNumberOfColoredCard(CardColorEnum color)
     {
         return personalBoard.getNumberOfColoredCard(color);
     }
-
-    /*public void excommunication(ExcommunicationCard card){
-
-        excommunicationCard.add(card);
-    }*/
-
 
     public String getNickname()
     {

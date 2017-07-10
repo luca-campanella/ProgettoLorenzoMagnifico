@@ -23,7 +23,7 @@ import java.util.concurrent.Callable;
  * This class is used to handle Lorenzo Il magnifico effect.
  */
 public class AskWhichLeaderAbilityToCopyDialog implements Callable<Integer> {
-    //todo: make this dialog
+
     private ToggleGroup toggleGroup = new ToggleGroup();
     private List<ToggleButton> leadersButtons;
     private List<LeaderCard> possibleLeaders;

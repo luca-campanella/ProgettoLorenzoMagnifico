@@ -56,13 +56,6 @@ public class BuildingCard extends AbstractCard{
 
         Debug.printVerbose("In yellow build card " + getName() + "got this choice " + choice.descriptionOfEffect());
 
-        //if the choice contains a council gift we should also ask the user what gift he desires
-        //This can now be done in the card and not here because the card can call the callback, since the name of the card is passed as a parameter
-        /*if(choice instanceof PayForCouncilGiftEffect) {
-            ArrayList<GainResourceEffect> councilGiftChoice = choicesController.callbackOnCouncilGift(getName() + ":councilGift", 1);
-            councilGiftChoice.get(0).applyToPlayer(player, choicesController, getName());
-        }*/
-
         choice.applyToPlayer(player, choicesController, getName());
     }
 
@@ -74,12 +67,6 @@ public class BuildingCard extends AbstractCard{
     public List<Resource> getCostAskChoice(ChoicesHandlerInterface choicesController) {
         return cost;
     }
-
-    //todo: cancel
-    public void setCost(ArrayList<Resource> cost) {
-        this.cost = cost;
-    }
-
 
     public ArrayList<ImmediateEffectInterface> getEffectsOnBuilding() {
         return effectsOnBuilding;

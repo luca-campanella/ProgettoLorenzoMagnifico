@@ -10,7 +10,6 @@ public class UsernamePasswordValidator {
     /**
      * Used to validate username with regex
      */
-    //todo change min lenght to 3
     private static final String USERNAME_PATTERN = "^[a-z0-9_-]{1,15}$";
     private static final String PASSWORD_PATTERN = "(?=\\S+$).{1,20}"; //cannot contain spaces
 

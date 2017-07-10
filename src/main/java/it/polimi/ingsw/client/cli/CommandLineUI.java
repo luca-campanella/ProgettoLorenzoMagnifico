@@ -105,8 +105,7 @@ public class CommandLineUI extends AbstractUIType {
         Debug.printDebug("I am in CLI.askLoginOrCreate");
         LoginRegisterMenu menu = new LoginRegisterMenu(getController());
 
-        //pool.submit(menu);
-        menu.login();//TODO change method login to private
+        pool.submit(menu);
     }
 
 

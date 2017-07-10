@@ -42,8 +42,6 @@ public class AskMoreServantsDialog implements Callable<Integer> {
             for (int index = 0; index < options.size(); index++)
                 if (options.get(index).equals(result.get()))
                     return index;
-
-        //todo handle cancel action
         return min;
     }
 
