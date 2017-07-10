@@ -582,8 +582,6 @@ public class MainBoardControl extends CustomFxControl {
 
         Button actionSpace = ((Button) (event.getSource()));
         Debug.printVerbose("Hello1");
-        //FutureTask<Integer> futureTask = new FutureTask(new AskMoreServantsDialog(minServantsHarvest, thisPlayer.getResource(ResourceTypeEnum.SERVANT)));
-        //Platform.runLater(futureTask);
         AskMoreServantsDialog askMoreServantsDialog = new AskMoreServantsDialog(minServantsHarvest, thisPlayer.getResource(ResourceTypeEnum.SERVANT));
         int userAnswer = minServantsHarvest;
         try {
@@ -595,9 +593,6 @@ public class MainBoardControl extends CustomFxControl {
         }
 
         final int temp = userAnswer;
-
-        pool.submit(()->getController().callbackPlacedFMOnHarvest(temp));
-
         //place the family member in the correct place
         if(actionSpace.getId().equals("harvestSmallActionSpace"))
             placeFamilyMemberForThisPlayer(buildHarvestPane,
@@ -606,11 +601,12 @@ public class MainBoardControl extends CustomFxControl {
             //we have to subtract one because one has already been placed to the small action space
             int occupyingFMs = board.getHarvest().getOccupyingFamilyMemberNumber()-1;
             Coordinates coord = calculateCoordinatesBigActionSpace(actionSpace, occupyingFMs);
-            placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
+            placeFamilyMemberForThisPlayer(buildHarvestPane, coord);
         }
 
+        pool.submit(()->getController().callbackPlacedFMOnHarvest(temp));
+
         Debug.printVerbose("Added FM to build");
-        //updateFamilyMembers();
 
     }
 
@@ -639,8 +635,6 @@ public class MainBoardControl extends CustomFxControl {
 
         Debug.printVerbose("Added FM to build");
 
-        pool.submit(()->getController().callbackPlacedFMOnBuild(temp));
-
         //place the family member in the correct place
         if(actionSpace.getId().equals("buildSmallActionSpace"))
             placeFamilyMemberForThisPlayer(buildHarvestPane,
@@ -649,17 +643,15 @@ public class MainBoardControl extends CustomFxControl {
             //we have to subtract one because one has already been placed to the small action space
             int occupyingFMs = board.getBuild().getOccupyingFamilyMemberNumber()-1;
             Coordinates coord = calculateCoordinatesBigActionSpace(actionSpace, occupyingFMs);
-            placeFamilyMemberForThisPlayer(towersCouncilFaith, coord);
+            placeFamilyMemberForThisPlayer(buildHarvestPane, coord);
         }
 
-
-        //updateFamilyMembers();
-
+        pool.submit(()->getController().callbackPlacedFMOnBuild(temp));
     }
 
     /**
      * Method called by fx when a market as is clicked
-     * @param event the fx event
+     * @param event the fx ev;ent
      */
     @FXML
     private void marketSelected(ActionEvent event)
@@ -673,8 +665,7 @@ public class MainBoardControl extends CustomFxControl {
         placeFamilyMemberForThisPlayer(marketPane, new Coordinates(actionSpace.getLayoutX(), actionSpace.getLayoutY()));
 
         pool.submit(()->getController().callbackPlacedFMOnMarket(marketIndex));
-        //CliPrinter.printBoard(board);
-        //updateFamilyMembers();
+
     }
 
     /**

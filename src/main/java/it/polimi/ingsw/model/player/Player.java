@@ -215,6 +215,7 @@ public class Player implements Serializable{
         return personalBoard.getNumberOfColoredCard(color);
     }
 
+
     public String getNickname()
     {
         return nickname;

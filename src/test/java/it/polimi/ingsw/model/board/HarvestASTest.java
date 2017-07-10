@@ -22,7 +22,7 @@ public class HarvestASTest {
         assertEquals(1,harvest.getOccupyingFamilyMemberNumber());
         harvest.addFamilyMember(new FamilyMember(new Dice(DiceAndFamilyMemberColorEnum.ORANGE), new Player()));
         assertEquals(2,harvest.getOccupyingFamilyMemberNumber());
-        assertEquals(10, harvest.getValueNeeded(false));
+        assertEquals(3, harvest.getValueNeeded(false));
 
 
     }
