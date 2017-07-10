@@ -712,6 +712,8 @@ public class ModelController {
      */
     public ArrayList<PlayerPositionEndGamePacket> endGame(){
 
+        //remove the victory points based on the number of resources the player has
+        players.forEach(Player::MalusVictoryPoints);
         //add the victory points to all the players based on the number of green cards
         players.forEach(Player::greenPoints);
         //add the victory points to all the players based on the number of blue cards
