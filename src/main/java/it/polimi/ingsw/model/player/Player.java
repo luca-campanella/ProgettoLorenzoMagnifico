@@ -4,7 +4,6 @@ import it.polimi.ingsw.choices.ChoicesHandlerInterface;
 import it.polimi.ingsw.model.board.CardColorEnum;
 import it.polimi.ingsw.model.board.Dice;
 import it.polimi.ingsw.model.cards.AbstractCard;
-import it.polimi.ingsw.model.effects.immediateEffects.GainResourceEffect;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTilesCollector;
 import it.polimi.ingsw.model.leaders.LeaderCard;
@@ -210,16 +209,10 @@ public class Player implements Serializable{
         excommunicationTilesCollector.addExcommunicationTile(tile);
     }
 
-    //TODO: we need to put Cards Containers in Player and then implement this method.
     public int getNumberOfColoredCard(CardColorEnum color)
     {
         return personalBoard.getNumberOfColoredCard(color);
     }
-
-    /*public void excommunication(ExcommunicationCard card){
-
-        excommunicationCard.add(card);
-    }*/
 
 
     public String getNickname()

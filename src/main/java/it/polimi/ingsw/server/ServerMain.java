@@ -1,16 +1,18 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
-import it.polimi.ingsw.server.network.rmi.RMIServer;
-import it.polimi.ingsw.server.network.socket.SocketServer;
 import it.polimi.ingsw.client.exceptions.LoginErrorEnum;
 import it.polimi.ingsw.client.exceptions.LoginException;
 import it.polimi.ingsw.client.exceptions.ServerException;
 import it.polimi.ingsw.client.exceptions.UsernameAlreadyInUseException;
+import it.polimi.ingsw.server.network.AbstractConnectionPlayer;
+import it.polimi.ingsw.server.network.rmi.RMIServer;
+import it.polimi.ingsw.server.network.socket.SocketServer;
 import it.polimi.ingsw.utils.Debug;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * server is the main class of the server side of the application. On startup the server creates two objects: RMIServer and SocketServer passing them the reference to himself in order to let them call himself.
@@ -51,6 +53,9 @@ public class ServerMain {
 	 */
 	RoomConfigurator roomConfigurator;
 
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+
 	/**
 	 * Private constructor to initialize the class
 	 */
@@ -60,7 +65,8 @@ public class ServerMain {
 
 	private void startup(){
 
-		Debug.instance(Debug.LEVEL_VERBOSE);
+		Debug.instance(Debug.LEVEL_ERRORS);
+		LOGGER.setLevel(Level.SEVERE);
 
 		try {
 			startServer();
@@ -107,6 +113,8 @@ public class ServerMain {
 		RMIServerInst = new RMIServer(this, RMI_PORT);
 
 		SocketServerInst = new SocketServer(this, SOCKET_PORT);
+
+		System.out.println("Server started succesfully");
 	}
 
 	/**

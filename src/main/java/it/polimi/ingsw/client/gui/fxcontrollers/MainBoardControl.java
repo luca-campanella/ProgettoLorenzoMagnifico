@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.gui.fxcontrollers;
 
-import it.polimi.ingsw.client.cli.CliPrinter;
 import it.polimi.ingsw.client.gui.blockingdialogs.AskMoreServantsDialog;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.excommunicationTiles.ExcommunicationTile;
@@ -271,8 +270,6 @@ public class MainBoardControl extends CustomFxControl {
                 imgView.setPreserveRatio(true);
             }
         }
-        //todo remove, this is just for debug
-        CliPrinter.printBoard(board);
     }
 
     /**
@@ -285,8 +282,6 @@ public class MainBoardControl extends CustomFxControl {
                 diceText.setText(String.valueOf(diceIter.getValue()));
             }
         }
-        //todo remove, this is just for debug
-        CliPrinter.printPersonalBoard(thisPlayer);
     }
 
     /**
@@ -376,41 +371,7 @@ public class MainBoardControl extends CustomFxControl {
             marketPane.getChildren().remove(fmButtonIter);
         }
     }
-        //todo: eliminate?
-    /*
-    public void updateFamilyMembers() {
-        ArrayList<Player> allPlayers = new ArrayList<>(5);
-        allPlayers.add(thisPlayer);
-        allPlayers.addAll(otherPlayers);
-        for(Player player : allPlayers)
-        {
-            //this method shows other players family member inside towers
-            for(int towerIndex = 0; towerIndex < board.getTowers().length; towerIndex++) {
-                Tower tower = board.getTowers()[towerIndex];
-                for (int floorIndex = 0; floorIndex < tower.getFloors().length; floorIndex++) {
-                    TowerFloorAS floor = tower.getFloors()[floorIndex];
 
-                    for (FamilyMember familyMember : floor.getFamilyMembers()) {
-
-                        Button fm = ((Button) (towersCouncilFaith.lookup("#towerAS" + towerIndex + floorIndex)));
-                        fm.setText(String.valueOf(familyMember.getValue()));
-                        fm.setStyle("-fx-border-color: " + player.getPlayerColor().getStringValue() + ";");
-                        fm.getStyleClass().add("familyMemberButton");
-                    }
-                }
-            }
-            //this method shows other family members inside market
-            for(int marketIndex = 0; marketIndex < board.getMarket().size(); marketIndex++)
-            {
-                for (FamilyMember familyMember : board.getMarket().get(marketIndex).getFamilyMembers()) {
-                    Button fm = ((Button) (marketPane.lookup("#marketAS" + marketIndex)));
-                    fm.setText(String.valueOf(familyMember.getValue()));
-                    fm.setStyle("-fx-border-color: " + player.getPlayerColor().getStringValue() + ";");
-                    fm.getStyleClass().add("familyMemberButton");
-                }
-            }
-        }
-    }*/
 
     public void displayExcommTiles() {
         List<ExcommunicationTile> tiles = board.getExcommunicationTiles();
@@ -504,6 +465,8 @@ public class MainBoardControl extends CustomFxControl {
 
         towersCouncilFaith.setMouseTransparent(false);
         Debug.printVerbose("displayActiveActionSpaces called");
+        buildHarvestPane.setMouseTransparent(false);
+        buildHarvestPane.toFront();
 
         //we set all AS to disabled
         disableActionSpaces();
@@ -514,10 +477,12 @@ public class MainBoardControl extends CustomFxControl {
             if(board.getBuild().checkIfFirst()){
                 Button activeBuildButton = (Button) (buildHarvestPane.lookup("#buildSmallActionSpace"));
                 activeBuildButton.setDisable(false);
+                activeBuildButton.toFront();
             }
             else if(!board.getBuild().isTwoPlayersOneSpace()){
                 Button activeBuildButton = (Button) (buildHarvestPane.lookup("#buildBigActionSpace"));
                 activeBuildButton.setDisable(false);
+                activeBuildButton.toFront();
             }
         }
 
@@ -611,7 +576,6 @@ public class MainBoardControl extends CustomFxControl {
      * Method called by fx when a harvest as is clicked
      * @param event the fx event
      */
-    //todo check this method
     @FXML
     private void harvestSelected(ActionEvent event)
     {
@@ -749,14 +713,32 @@ public class MainBoardControl extends CustomFxControl {
     public void setUpNumberOfPlayers(int numberOfPlayers)
     {
         if (numberOfPlayers == 4){
+            initialEnableMarket();
+            initialEnableBuildHarvest();
             return;
         }
         disableMarket();
-        if(numberOfPlayers == 3)
+        if(numberOfPlayers == 3) {
+            initialEnableBuildHarvest();
             return;
+        }
         disableBuildHarvest();
-
     }
+
+    private void initialEnableMarket() {
+        ImageView imgView = ((ImageView) (marketPane.lookup("#marketBlock2")));
+        marketPane.getChildren().remove(imgView);
+        imgView = ((ImageView) (marketPane.lookup("#marketBlock3")));
+        marketPane.getChildren().remove(imgView);
+    }
+
+    private void initialEnableBuildHarvest() {
+            ImageView imgView = ((ImageView) (buildHarvestPane.lookup("#buildBlockActionSpace")));
+            buildHarvestPane.getChildren().remove(imgView);
+            imgView = ((ImageView) (buildHarvestPane.lookup("#harvestBlockActionSpace")));
+            buildHarvestPane.getChildren().remove(imgView);
+    }
+
     private void disableMarket() {
         ImageView imgView = ((ImageView) (marketPane.lookup("#marketBlock2")));
         Image blockImg  = new Image(getClass().getResourceAsStream("/imgs/marketBlock.png"));
